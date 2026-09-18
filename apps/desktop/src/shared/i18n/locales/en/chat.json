@@ -203,7 +203,7 @@
 		"close": "Close"
 	},
 	"appshot": {
-		"errorSelfCapture": "Appshot skipped: the frontmost window is Vetta itself",
+		"errorSelfCapture": "Appshot skipped: the frontmost window is Metoai itself",
 		"errorNoPermission": "Appshot capture failed: Screen Recording and Accessibility permissions are missing. Grant them in Settings › Permissions",
 		"errorHelperFailed": "Appshot capture failed, please try again"
 	},
@@ -214,7 +214,7 @@
 	"mcpElicitation": {
 		"title": "MCP information request",
 		"source": "From {{server}}",
-		"urlNotice": "Vetta opens this address in your system browser only after you confirm.",
+		"urlNotice": "Metoai opens this address in your system browser only after you confirm.",
 		"decline": "Decline",
 		"openAndContinue": "Open and continue",
 		"submit": "Submit",
@@ -265,10 +265,10 @@
 		"write": "Write"
 	},
 	"chatExport": {
-		"defaultSessionName": "Vetta Session"
+		"defaultSessionName": "Metoai Session"
 	},
 	"chatView": {
-		"defaultSessionTitle": "Vetta Session",
+		"defaultSessionTitle": "Metoai Session",
 		"exportButton": {
 			"title": "Export full session as HTML"
 		},
@@ -372,7 +372,7 @@
 	"guideBadgeSwiper": {
 		"dismissTooltip": "Don't show again",
 		"petFeatureText": "New desktop pet feature — click to enable in settings",
-		"quickPanelText": "Vetta now has a Quick Panel — click to set it up"
+		"quickPanelText": "Metoai now has a Quick Panel — click to set it up"
 	},
 	"imagePreview": {
 		"altText": "Loaded image",
@@ -424,13 +424,13 @@
 		},
 		"placeholder": {
 			"defaults": [
-				"Ask Vetta, use / for skills, @ to reference files",
+				"Ask Metoai, use / for skills, @ to reference files",
 				"Describe the task, press ⏎ to send",
 				"Paste a screenshot or @ a file to get started"
 			],
 			"noSession": "Select or create a session to start",
 			"suggestion": "↵ {{suggestion}}",
-			"thinking": "Vetta is thinking…"
+			"thinking": "Metoai is thinking…"
 		},
 		"mention": {
 			"trigger": "Mention members",
@@ -525,7 +525,7 @@
 			}
 		},
 		"assistantMessage": {
-			"predicting": "Vetta is predicting…",
+			"predicting": "Metoai is predicting…",
 			"processing": "Processing…",
 			"waiting": "Waiting for model response"
 		},
@@ -602,9 +602,9 @@
 		"retryIndicator": "Reconnecting ({{attempt}}/{{maxAttempts}})",
 		"retryReason": "Last request failed: {{reason}}",
 		"streamingPhrases": [
-			"Vetta is replying…",
+			"Metoai is replying…",
 			"Please hold on…",
-			"Vetta is working hard…"
+			"Metoai is working hard…"
 		],
 		"copyButton": {
 			"copied": "Copied",
@@ -780,7 +780,7 @@
 		"nextButton": "Next",
 		"questionTabLabel": "Question {{number}}",
 		"submitButton": "Submit",
-		"title": "Vetta needs your choice"
+		"title": "Metoai needs your choice"
 	},
 	"sandboxGrantsBadge": {
 		"revoke": "Revoke",
@@ -807,7 +807,7 @@
 			"loadPrefix": "Failed to load: "
 		},
 		"export": {
-			"defaultTitle": "Vetta Session"
+			"defaultTitle": "Metoai Session"
 		},
 		"exportButton": {
 			"title": "Export full session as HTML"
@@ -924,7 +924,7 @@
 	},
 	"mcpApp": {
 		"externalAccess": "This MCP App declares access to {{count}} external domain(s)",
-		"permissionsDenied": "This MCP App requested device permissions; Vetta has not granted them",
+		"permissionsDenied": "This MCP App requested device permissions; Metoai has not granted them",
 		"title": "MCP App"
 	},
 	"usageBar": {

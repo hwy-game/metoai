@@ -5,7 +5,7 @@
 	"typeNoun": {
 		"scene": "scenes"
 	},
-	"subtitle": "Install and enable the capabilities you need to give Vetta more expertise",
+	"subtitle": "Install and enable the capabilities you need to give Metoai more expertise",
 	"search": {
 		"placeholder": "Search {{noun}}..."
 	},
@@ -72,15 +72,15 @@
 	"builtin": {
 		"create-skill": {
 			"name": "Create Skill",
-			"description": "Create or update an Agent Skill that follows the Vetta spec: place the files, register it in skills-manifest.json, or update the plugin config."
+			"description": "Create or update an Agent Skill that follows the Metoai spec: place the files, register it in skills-manifest.json, or update the plugin config."
 		},
 		"publish-ability": {
 			"name": "Publish Ability",
-			"description": "Submit a skill, scene, MCP server, plugin, or ability bundle to the Vetta marketplace, covering required fields, localization, and the review flow."
+			"description": "Submit a skill, scene, MCP server, plugin, or ability bundle to the Metoai marketplace, covering required fields, localization, and the review flow."
 		},
 		"vetta-blog": {
-			"name": "Vetta Blog",
-			"description": "Research, test, write, and review evidence-backed Vetta product and technical blogs."
+			"name": "Metoai Blog",
+			"description": "Research, test, write, and review evidence-backed Metoai product and technical blogs."
 		}
 	}
 }

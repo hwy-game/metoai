@@ -272,7 +272,7 @@ if (preparedSpeechModel) {
 const appPkg = {
 	name: "vetta",
 	version: appVersion,
-	description: "Vetta Desktop App",
+	description: "Metoai Desktop App",
 	author: LINUX_PACKAGE_METADATA.author,
 	homepage: LINUX_PACKAGE_METADATA.homepage,
 	license: LINUX_PACKAGE_METADATA.license,
@@ -708,7 +708,7 @@ const extraResources = resolveExtraResources();
 // Write electron-builder config
 const builderConfig = {
 	appId: "com.vetta.desktop",
-	productName: "Vetta",
+	productName: "Metoai",
 	executableName: "Vetta",
 	afterPack: join(projectRoot, "scripts", "windows-version-layout.mjs"),
 	electronVersion,
@@ -718,7 +718,7 @@ const builderConfig = {
 	...(releaseInfo ? { releaseInfo } : {}),
 	files: ["**/*", ...extraResources.map(({ from }) => `!${from}/**/*`)],
 	protocols: {
-		name: "Vetta",
+		name: "Metoai",
 		schemes: ["vetta"],
 	},
 	mac: {
@@ -758,7 +758,7 @@ const builderConfig = {
 				NSAllowsLocalNetworking: true,
 			},
 			NSLocalNetworkUsageDescription:
-				"Vetta 需要访问本地网络以连接你在局域网内运行的 AI 模型服务（如 Ollama、LM Studio、vLLM 等）。",
+				"Metoai 需要访问本地网络以连接你在局域网内运行的 AI 模型服务（如 Ollama、LM Studio、vLLM 等）。",
 			NSBonjourServices: ["_http._tcp", "_https._tcp"],
 		},
 	},
@@ -794,7 +794,7 @@ const builderConfig = {
 	linux: {
 		target: LINUX_RELEASE_TARGETS,
 		category: "Utility",
-		description: "Vetta AI agent desktop application",
+		description: "Metoai AI agent desktop application",
 		icon: "build/icon.png",
 		maintainer: LINUX_PACKAGE_METADATA.maintainer,
 		synopsis: "AI agent desktop application",

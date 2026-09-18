@@ -2,19 +2,19 @@
 	"tray": {
 		"showWindow": "显示窗口",
 		"hideWindow": "隐藏窗口",
-		"quitVetta": "退出 Vetta",
+		"quitVetta": "退出 Metoai",
 		"quit": "退出",
 		"hideToTray": "隐藏到托盘"
 	},
 	"menu": {
 		"app": {
-			"title": "Vetta",
-			"about": "关于 Vetta",
+			"title": "Metoai",
+			"about": "关于 Metoai",
 			"services": "服务",
-			"hide": "隐藏 Vetta",
+			"hide": "隐藏 Metoai",
 			"hideOthers": "隐藏其他",
 			"unhide": "全部显示",
-			"quit": "退出 Vetta"
+			"quit": "退出 Metoai"
 		},
 		"edit": {
 			"title": "编辑",
@@ -57,8 +57,8 @@
 	"mcpOAuth": {
 		"authorizationSuccessful": "授权成功",
 		"authorizationFailed": "授权失败",
-		"returnToVetta": "你可以关闭此窗口并返回 Vetta。",
-		"closeAndRetry": "你可以关闭此窗口并返回 Vetta 重试。",
+		"returnToVetta": "你可以关闭此窗口并返回 Metoai。",
+		"closeAndRetry": "你可以关闭此窗口并返回 Metoai 重试。",
 		"missingAuthorizationCode": "缺少授权码",
 		"callbackAlreadySettled": "OAuth 回调已经结束",
 		"callbackTimedOut": "等待浏览器 OAuth 授权超时",
@@ -68,7 +68,7 @@
 		"enterDeviceCode": "请在 GitHub 页面输入此代码，然后点击授权。",
 		"copyCode": "复制代码",
 		"openGitHub": "打开 GitHub 进行授权",
-		"closeAfterAuthorization": "在 Vetta 中完成授权后即可关闭此窗口。",
+		"closeAfterAuthorization": "在 Metoai 中完成授权后即可关闭此窗口。",
 		"deviceFlowDisabled": "设备码请求失败（422）。请在 OAuth 或 GitHub App 设置中启用 Device Flow：{{details}}"
 	},
 	"updater": {

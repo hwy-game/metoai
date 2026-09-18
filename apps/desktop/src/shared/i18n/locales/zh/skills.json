@@ -5,7 +5,7 @@
 	"typeNoun": {
 		"scene": "场景"
 	},
-	"subtitle": "安装并启用你需要的能力，让 Vetta 拥有更多专业技能",
+	"subtitle": "安装并启用你需要的能力，让 Metoai 拥有更多专业技能",
 	"search": {
 		"placeholder": "搜索{{noun}}..."
 	},
@@ -72,15 +72,15 @@
 	"builtin": {
 		"create-skill": {
 			"name": "创建技能",
-			"description": "创建或更新符合 Vetta 规范的 Agent Skill，并正确放置文件、注册 skills-manifest.json 或更新插件配置。"
+			"description": "创建或更新符合 Metoai 规范的 Agent Skill，并正确放置文件、注册 skills-manifest.json 或更新插件配置。"
 		},
 		"publish-ability": {
 			"name": "发布能力",
-			"description": "把 skill、scene、MCP、插件或能力套装提交到 Vetta 能力市场，讲清必填字段、多语言与审核流程。"
+			"description": "把 skill、scene、MCP、插件或能力套装提交到 Metoai 能力市场，讲清必填字段、多语言与审核流程。"
 		},
 		"vetta-blog": {
-			"name": "Vetta 博客",
-			"description": "研究、实测、撰写和审查有证据的 Vetta 产品与技术博客。"
+			"name": "Metoai 博客",
+			"description": "研究、实测、撰写和审查有证据的 Metoai 产品与技术博客。"
 		}
 	}
 }
