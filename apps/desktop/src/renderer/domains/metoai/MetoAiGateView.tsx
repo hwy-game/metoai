@@ -100,6 +100,7 @@ function KeyForm({ state, onOpenSite }: { state: MetoAiKeyFormState; onOpenSite:
 					<Input
 						id="metoai-key"
 						type="password"
+						autoComplete="new-password"
 						value={state.value}
 						disabled={state.saving}
 						placeholder={t("gate.keyPlaceholder")}

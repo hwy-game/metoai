@@ -89,6 +89,7 @@ export function MetoAiGate(): JSX.Element | null {
 			await window.vetta.models.set(nextConfig);
 			await modelCatalog.revalidate({ force: true, sources: ["local"] });
 			showToast({ variant: "success", message: t("gate.success") });
+			setKey("");
 			// 落盘后 config 刷新为 apiKey="***"，configured 变 true，本组件自动卸载。
 		} catch {
 			setKeyError(t("gate.errorUnknown"));

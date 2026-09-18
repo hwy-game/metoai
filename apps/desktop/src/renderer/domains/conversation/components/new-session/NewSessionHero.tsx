@@ -139,7 +139,7 @@ export function DefaultNewSessionHero({
 					</div>
 					{/* key 随身份变化：标题与描述整块重播 CSS 入场动画，回到问候语时同理。 */}
 					<div key={identity?.key ?? "greeting"} className="flex min-w-0 flex-col">
-						<h1 className="ns-hero-identity-title min-w-0 truncate bg-gradient-to-br from-foreground via-foreground to-foreground/70 bg-clip-text text-[24px] font-semibold tracking-[-0.02em] text-transparent">
+						<h1 className="ns-hero-identity-title min-w-0 truncate text-[24px] font-semibold tracking-[-0.02em] text-foreground">
 							{identity?.title ?? greetingTitle}
 						</h1>
 						{/* 描述限宽到七成、超出换行：右侧装饰件是绝对定位的，单行长文案会直接压到它身上。 */}
