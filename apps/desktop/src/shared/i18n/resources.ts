@@ -10,6 +10,7 @@ import enChat from "./locales/en/chat.json";
 import enCommon from "./locales/en/common.json";
 import enMain from "./locales/en/main.json";
 import enMessage from "./locales/en/message.json";
+import enMetoai from "./locales/en/metoai.json";
 import enPet from "./locales/en/pet.json";
 import enProject from "./locales/en/project.json";
 import enSettings from "./locales/en/settings.json";
@@ -22,6 +23,7 @@ import zhChat from "./locales/zh/chat.json";
 import zhCommon from "./locales/zh/common.json";
 import zhMain from "./locales/zh/main.json";
 import zhMessage from "./locales/zh/message.json";
+import zhMetoai from "./locales/zh/metoai.json";
 import zhPet from "./locales/zh/pet.json";
 import zhProject from "./locales/zh/project.json";
 import zhSettings from "./locales/zh/settings.json";
@@ -41,6 +43,7 @@ export const resources = {
 		"batch-tasks": zhBatchTasks,
 		automation: zhAutomation,
 		"agent-teams": zhAgentTeams,
+		metoai: zhMetoai,
 	},
 	en: {
 		common: enCommon,
@@ -55,6 +58,7 @@ export const resources = {
 		"batch-tasks": enBatchTasks,
 		automation: enAutomation,
 		"agent-teams": enAgentTeams,
+		metoai: enMetoai,
 	},
 } as const;
 

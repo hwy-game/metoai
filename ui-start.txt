@@ -1,0 +1,6 @@
+$ bun run --cwd apps/desktop verify:ui:start
+$ bun scripts/ui-verification.mjs start
+### Result
+- 0: (current) [Vetta Desktop](http://127.0.0.1:6661/)
+- 1: [DevTools](devtools://devtools/bundled/devtools_app.html?remoteBase=https://chrome-devtools-frontend.appspot.com/serve_file/@a9af0cdf188c3b45b26589397907b0f0cbf5ab72/&can_dock=&toolbarColor=rgba(223,223,223,1)&textColor=rgba(0,0,0,1)&experiments=true)
+{"ok":true,"status":"ready","profile":"fresh","workspaceId":"88c96072","sessionName":"vetta-fresh-88c96072","vettaHome":"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\vetta-ui-verification\\88c96072\\fresh\\runs\\4a79c308-ec87-4045-bd34-040a5ac8eb23\\home","artifactDir":"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\vetta-ui-verification\\88c96072\\artifacts\\fresh","logPath":"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\vetta-ui-verification\\88c96072\\fresh\\host.log","seed":null,"ui":{"reachable":true,"targetFound":true,"targetCount":1,"devtoolsTargetCount":0,"endpoint":"http://127.0.0.1:6662","mainWindow":{"id":"62911FF761E24F2EEA90DBF5AF3E3FA0","title":"","url":"http://127.0.0.1:6661/"}}}

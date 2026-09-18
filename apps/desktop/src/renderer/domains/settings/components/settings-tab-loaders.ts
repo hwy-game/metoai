@@ -35,6 +35,7 @@ export const SETTINGS_TAB_LOADERS: Record<SettingsContentTab, () => Promise<TabM
 		import("./KnowledgeBaseSettings").then((module) => ({ default: module.KnowledgeBaseSettings })),
 	),
 	models: memoizeLoader(() => import("./ModelsSettings").then((module) => ({ default: module.ModelsSettings }))),
+	metoai: memoizeLoader(() => import("./MetoAiSettings").then((module) => ({ default: module.MetoAiSettings }))),
 	permissions: memoizeLoader(() =>
 		import("./PermissionsSettings").then((module) => ({ default: module.PermissionsSettings })),
 	),

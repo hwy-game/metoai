@@ -17,6 +17,7 @@ import { registerFileTransferIpc } from "./file-transfer.js";
 import { registerFsIpc } from "./fs.js";
 import { registerImIpc } from "./im.js";
 import { registerMediaIpc } from "./media.js";
+import { registerMetoAiIpc } from "./metoai.js";
 import { registerOnboardingIpc } from "./onboarding.js";
 import { registerPermissionsIpc } from "./permissions.js";
 import { registerPetIpc } from "./pet.js";
@@ -44,6 +45,7 @@ interface IpcTeardown {
 	teardownAppMonitor: () => void;
 	teardownSession: () => void;
 	teardownSettings: () => void;
+	teardownMetoAi: () => void;
 	teardownUpdater: () => void;
 	teardownSkills: () => void;
 	teardownSpeechInput: () => void;
@@ -90,6 +92,7 @@ export function registerAllIpc(
 		teardownAppMonitor: registerAppMonitorIpc(),
 		teardownSession: registerSessionIpc(webContents),
 		teardownSettings: registerSettingsIpc(),
+		teardownMetoAi: registerMetoAiIpc(),
 		teardownUpdater: registerUpdaterIpc(),
 		teardownSkills: registerSkillsIpc(),
 		teardownSpeechInput: registerSpeechInputIpc(webContents),
@@ -129,6 +132,7 @@ export function teardownAllIpc(teardown: IpcTeardown): void {
 	teardown.teardownAppMonitor();
 	teardown.teardownSession();
 	teardown.teardownSettings();
+	teardown.teardownMetoAi();
 	teardown.teardownUpdater();
 	teardown.teardownSkills();
 	teardown.teardownSpeechInput();

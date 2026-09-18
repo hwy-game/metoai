@@ -3,6 +3,7 @@ import deepseekIcon from "@lobehub/icons-static-svg/icons/deepseek-color.svg?url
 import geminiIcon from "@lobehub/icons-static-svg/icons/gemini-color.svg?url";
 import grokIcon from "@lobehub/icons-static-svg/icons/grok.svg?url";
 import kimiIcon from "@lobehub/icons-static-svg/icons/kimi-color.svg?url";
+import metaaiIcon from "@lobehub/icons-static-svg/icons/metaai-color.svg?url";
 import minimaxIcon from "@lobehub/icons-static-svg/icons/minimax-color.svg?url";
 import nvidiaIcon from "@lobehub/icons-static-svg/icons/nvidia-color.svg?url";
 import ollamaIcon from "@lobehub/icons-static-svg/icons/ollama.svg?url";
@@ -34,6 +35,7 @@ const PROVIDER_ICON_ASSETS = {
 	xiaomi: { src: xiaomiMimoIcon, appearance: "monochrome" },
 	zai: { src: zaiIcon, appearance: "monochrome" },
 	zhipu: { src: zhipuIcon, appearance: "color" },
+	metaai: { src: metaaiIcon, appearance: "color" },
 	opencode: { src: opencodeIcon, appearance: "monochrome" },
 } as const satisfies Record<string, ProviderIconAsset>;
 

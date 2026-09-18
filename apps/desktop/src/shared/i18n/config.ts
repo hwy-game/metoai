@@ -39,6 +39,7 @@ export const NAMESPACES = [
 	"batch-tasks",
 	"automation",
 	"agent-teams",
+	"metoai",
 ] as const;
 export type Namespace = (typeof NAMESPACES)[number];
 
