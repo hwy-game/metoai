@@ -72,6 +72,13 @@ Root: HKCU; Subkey: "Software\Classes\vetta"; ValueType: string; ValueName: ""; 
 Root: HKCU; Subkey: "Software\Classes\vetta"; ValueType: string; ValueName: "URL Protocol"; ValueData: ""; Check: IsNotBackgroundUpdate
 Root: HKCU; Subkey: "Software\Classes\vetta\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\Vetta.exe,0"; Check: IsNotBackgroundUpdate
 Root: HKCU; Subkey: "Software\Classes\vetta\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\Vetta.exe"" ""%1"""; Check: IsNotBackgroundUpdate
+; MetaToken 授权回调（metoai://metotoken/callback）。运行时 main 也会用
+; setAsDefaultProtocolClient 自注册，但那要等应用启动过一次；安装期写入让
+; 「装完直接点深链」也能工作。vetta 仍被云服务登录与远程配对使用，保留。
+Root: HKCU; Subkey: "Software\Classes\metoai"; ValueType: string; ValueName: ""; ValueData: "URL:Metoai Protocol"; Flags: uninsdeletekey; Check: IsNotBackgroundUpdate
+Root: HKCU; Subkey: "Software\Classes\metoai"; ValueType: string; ValueName: "URL Protocol"; ValueData: ""; Check: IsNotBackgroundUpdate
+Root: HKCU; Subkey: "Software\Classes\metoai\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\Vetta.exe,0"; Check: IsNotBackgroundUpdate
+Root: HKCU; Subkey: "Software\Classes\metoai\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\Vetta.exe"" ""%1"""; Check: IsNotBackgroundUpdate
 
 [Run]
 Filename: "{app}\Vetta.exe"; Description: "{cm:LaunchProgram,Vetta}"; Flags: nowait postinstall skipifsilent; Check: IsNotBackgroundUpdate
