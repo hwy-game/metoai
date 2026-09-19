@@ -11,9 +11,15 @@
 
 import { ipcMain } from "electron";
 import { setCloudBridge } from "../cloud-bridge.js";
+import { registerLoopbackHandler, toDeepLinkUrl } from "../loopback-callback.js";
 import { getMainWindow } from "../window-manager.js";
-import { consumeOAuthCallback, reopenOAuthLogin, startOAuthLogin } from "./auth/oauth-login.js";
-import { setLoopbackCallbackHandler } from "./auth/oauth-loopback.js";
+import {
+	consumeOAuthCallback,
+	OAUTH_CALLBACK_URL,
+	OAUTH_LOOPBACK_PATH,
+	reopenOAuthLogin,
+	startOAuthLogin,
+} from "./auth/oauth-login.js";
 import { fetchRemoteProviders, registerCloudAuthIpc, tryRefreshAccessToken } from "./auth-session.js";
 import { requestVettaGateway } from "./gateway.js";
 
@@ -35,8 +41,11 @@ export interface StartCloudMainOptions {
 }
 
 export function startCloudMain(options: StartCloudMainOptions): CloudMainHandle {
-	// 开发模式没有可用的自定义 scheme，回调从本机 loopback HTTP 服务进来。
-	setLoopbackCallbackHandler(options.receiveProtocolUrl);
+	// 开发模式没有可用的自定义 scheme，回调从本机 loopback HTTP 服务进来：
+	// 归一化成 `vetta://oauth/callback?…` 后走与打包版相同的深链入口。
+	registerLoopbackHandler(OAUTH_LOOPBACK_PATH, (search) =>
+		options.receiveProtocolUrl(toDeepLinkUrl(OAUTH_CALLBACK_URL, search)),
+	);
 
 	// 授权登录由主进程发起：state 的生成与校验都在这里，渲染层碰不到，
 	// 未通过校验的 token 也就永远进不了渲染层。

@@ -1,8 +1,8 @@
 /**
  * MetaToken 个人中心（展示层）。
  *
- * 登录后按「账号与余额 / API Key / 充值」三段渲染，数据全部来自 view model；
- * 未登录时改为登录表单——设置页是引导屏之外的常驻入口，用户跳过引导后仍能在这里登录。
+ * 登录后按「账号与余额 / API Key / 订阅 / 官网入口」四段渲染，数据全部来自 view model；
+ * 未登录时改为授权登录卡片——设置页是引导屏之外的常驻入口，用户跳过引导后仍能在这里登录。
  */
 
 import { SettingRow, SettingSection } from "@vetta-org/theme-ui/settings";
@@ -11,7 +11,8 @@ import { useTranslation } from "react-i18next";
 import { MetoAiSignInForm } from "@domains/metoai/components/MetoAiSignInForm";
 import { MetoAiAccountSection } from "./metoai/MetoAiAccountSection";
 import { MetoAiKeysSection } from "./metoai/MetoAiKeysSection";
-import { MetoAiTopUpSection } from "./metoai/MetoAiTopUpSection";
+import { MetoAiSubscriptionSection } from "./metoai/MetoAiSubscriptionSection";
+import { MetoAiWebActionsSection } from "./metoai/MetoAiWebActionsSection";
 import type { MetoAiSettingsModel } from "./useMetoAiSettingsModel";
 
 export interface MetoAiSettingsViewProps {
@@ -61,21 +62,21 @@ export function MetoAiSettingsView({ model }: MetoAiSettingsViewProps): JSX.Elem
 						section={model.sections.keys}
 					/>
 
-					<MetoAiTopUpSection
-						amountOptions={model.topUp.amountOptions}
-						error={model.topUp.error}
-						loading={model.topUp.loading}
-						methods={model.topUp.methods}
-						onPay={model.topUp.onPay}
-						onQuote={model.topUp.onQuote}
-						onRedeem={model.topUp.onRedeem}
-						paying={model.topUp.paying}
-						quote={model.topUp.quote}
-						quoting={model.topUp.quoting}
-						records={model.topUp.records}
-						redemptionEnabled={model.topUp.redemptionEnabled}
-						section={model.sections.topUp}
-						symbol={model.topUp.symbol}
+					<MetoAiSubscriptionSection
+						error={model.subscription.error}
+						loading={model.subscription.loading}
+						onManage={model.subscription.onManage}
+						rows={model.subscription.rows}
+						section={model.sections.subscription}
+					/>
+
+					<MetoAiWebActionsSection
+						onProfile={model.webActions.onProfile}
+						onRedeem={model.webActions.onRedeem}
+						onSubscription={model.webActions.onSubscription}
+						onTopUp={model.webActions.onTopUp}
+						onUsage={model.webActions.onUsage}
+						section={model.sections.webActions}
 					/>
 				</>
 			) : model.account.error ? (

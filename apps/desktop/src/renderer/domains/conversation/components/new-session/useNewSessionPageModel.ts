@@ -1,4 +1,4 @@
-import { useProjectActions } from "@domains/project/hooks/useProjects";
+﻿import { useProjectActions } from "@domains/project/hooks/useProjects";
 import { i18n } from "@shared/i18n";
 import {
 	abortMessageFnRef,
@@ -300,16 +300,23 @@ export function useNewSessionPageModel(): NewSessionPageModel {
 		};
 	}, [contextLabel, setHeaderTitle, setHeaderTitleBadge, setHeaderTitleHidden, surfaceActive, t]);
 
+	// 只在当前 surface 前台时跑 hero 入场：隐藏预挂时 Activity 会拆 effect、清掉定时器，
+	// 若提前把 cwd 记进 ref，切回前台会因「cwd 没变」跳过动画而永远停在 mounted=false。
 	const playedHeroCwdRef = useRef<string | undefined>(undefined);
+	const heroMountedRef = useRef(false);
 	useEffect(() => {
-		const first = playedHeroCwdRef.current === undefined;
+		if (!surfaceActive) return;
 		const cwdChanged = playedHeroCwdRef.current !== decodedCwd;
+		if (!cwdChanged && heroMountedRef.current) return;
 		playedHeroCwdRef.current = decodedCwd;
-		if (!first && !cwdChanged) return;
+		heroMountedRef.current = false;
 		setMounted(false);
 		setAvatarAutoplay(false);
 		const mountTimer = window.setTimeout(() => {
-			startTransition(() => setMounted(true));
+			startTransition(() => {
+				setMounted(true);
+				heroMountedRef.current = true;
+			});
 		}, 30);
 		const autoplayTimer = window.setTimeout(() => {
 			startTransition(() => setAvatarAutoplay(true));
@@ -318,7 +325,7 @@ export function useNewSessionPageModel(): NewSessionPageModel {
 			window.clearTimeout(mountTimer);
 			window.clearTimeout(autoplayTimer);
 		};
-	}, [decodedCwd]);
+	}, [decodedCwd, surfaceActive]);
 
 	useEffect(() => {
 		void window.vetta.window.isAlwaysOnTop().then(setPinned);

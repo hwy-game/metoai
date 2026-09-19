@@ -17,12 +17,16 @@ import { randomUUID } from "node:crypto";
 import { app } from "electron";
 import { DEFAULT_SITE_URL } from "../../constants.js";
 import { getAppLogger } from "../../logger.js";
+import { ensureLoopbackCallbackUrl } from "../../loopback-callback.js";
 import { openExternalUrl } from "../../open-external.js";
-import { ensureLoopbackCallbackUrl } from "./oauth-loopback.js";
 
 const log = getAppLogger("auth");
 
-const CALLBACK_URL = "vetta://oauth/callback";
+/** 打包版回调地址（自定义 scheme）。 */
+export const OAUTH_CALLBACK_URL = "vetta://oauth/callback";
+
+/** 开发版回环回调路径；`cloud/index.ts` 按同一路径注册处理器。 */
+export const OAUTH_LOOPBACK_PATH = "/oauth/callback";
 
 /** 本次授权的一次性 state；null 表示当前没有进行中的授权。 */
 let pendingState: string | null = null;
@@ -33,12 +37,13 @@ export interface OAuthCallbackTokens {
 }
 
 /**
+/**
  * 开发模式用 loopback HTTP 回调，打包后用自定义 scheme。
- * 原因见 oauth-loopback.ts 顶部注释。
+ * 原因见 loopback-callback.ts 顶部注释。
  */
 async function resolveCallbackUrl(): Promise<string> {
-	if (app.isPackaged) return CALLBACK_URL;
-	return await ensureLoopbackCallbackUrl();
+	if (app.isPackaged) return OAUTH_CALLBACK_URL;
+	return await ensureLoopbackCallbackUrl(OAUTH_LOOPBACK_PATH);
 }
 
 async function buildAuthorizeUrl(state: string): Promise<string> {

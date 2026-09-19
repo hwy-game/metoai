@@ -54,7 +54,10 @@ import { reloadKnowledgePoller, shutdownKnowledgePoller } from "./knowledge/poll
 import { getLocalRpcServerEndpointFilePath } from "./local-rpc/endpoint-file.js";
 import { type DesktopLocalRpcServerHandle, startDesktopLocalRpcServer } from "./local-rpc/server.js";
 import { getAppLogger } from "./logger.js";
+import { registerLoopbackHandler, toDeepLinkUrl } from "./loopback-callback.js";
 import { MEDIA_PROTOCOL_PRIVILEGE, registerMediaProtocolHandler } from "./media-protocol.js";
+import { METOAI_CALLBACK_URL, METOAI_LOOPBACK_PATH } from "./metoai/authorize.js";
+import { handleProtocolUrl as handleMetoAiProtocolUrl } from "./metoai/index.js";
 import { openExternalUrl } from "./open-external.js";
 import { startPetIdleGuard } from "./pet/pet-idle-guard.js";
 import { initializePetWindow } from "./pet-window.js";
@@ -105,6 +108,11 @@ import {
 fixPath();
 
 const PROTOCOL = "vetta";
+// MetaToken 授权回调用自己的 scheme（`metoai://metotoken/callback`）；云服务登录
+// （`vetta://oauth/callback`）与远程配对（`vetta://pair`）仍在用 `vetta`——云端
+// 回调白名单在服务端，客户端不能单方面改。安装包同时注册两个 scheme。
+const METOAI_PROTOCOL = "metoai";
+const CALLBACK_PROTOCOLS = [PROTOCOL, METOAI_PROTOCOL];
 // registerSchemesAsPrivileged 整个进程只能调用一次且须在 ready 前：
 // 所有自定义 scheme（插件、主题、应用资源、媒体流）的特权声明在此合并注册。
 protocol.registerSchemesAsPrivileged([
@@ -297,10 +305,12 @@ function attachMainWindowLifecycle(mainWindow: BrowserWindow): void {
 // Windows dev mode: must pass electron.exe path and app entry as args,
 // otherwise the URL gets interpreted as a module path.
 if (!isCliMode) {
-	if (!app.isPackaged && process.platform === "win32") {
-		app.setAsDefaultProtocolClient(PROTOCOL, process.execPath, [devMainEntryPath]);
-	} else {
-		app.setAsDefaultProtocolClient(PROTOCOL);
+	for (const scheme of CALLBACK_PROTOCOLS) {
+		if (!app.isPackaged && process.platform === "win32") {
+			app.setAsDefaultProtocolClient(scheme, process.execPath, [devMainEntryPath]);
+		} else {
+			app.setAsDefaultProtocolClient(scheme);
+		}
 	}
 }
 
@@ -310,9 +320,10 @@ let cloudMain: CloudMainHandle | null = null;
 function handleProtocolUrl(rawUrl: string): void {
 	try {
 		const parsed = new URL(rawUrl);
-		// OAuth 回调（vetta://oauth/callback）由 cloud 模块处理；
-		// lite 构建没有 cloud 模块，深链直接忽略。
+		// OAuth 回调（vetta://oauth/callback）由 cloud 模块处理；lite 构建没有 cloud 模块。
+		// MetaToken 授权回调（metoai://metotoken/callback）与构建开关无关，必须始终转交。
 		cloudMain?.handleProtocolUrl(parsed);
+		handleMetoAiProtocolUrl(parsed);
 	} catch {
 		// Ignore malformed URLs
 	}
@@ -341,7 +352,7 @@ if (!gotSingleLock) {
 	app.exit(0);
 } else {
 	app.on("second-instance", (_event, argv) => {
-		const protocolUrl = argv.find((arg) => arg.startsWith(`${PROTOCOL}://`));
+		const protocolUrl = argv.find((arg) => CALLBACK_PROTOCOLS.some((scheme) => arg.startsWith(`${scheme}://`)));
 		if (protocolUrl) {
 			handleProtocolUrl(protocolUrl);
 		}
@@ -630,6 +641,13 @@ if (!gotSingleLock) {
 			const { startCloudMain } = await import("./cloud/index.js");
 			cloudMain = startCloudMain({ receiveProtocolUrl });
 		}
+
+		// MetaToken 授权在开发模式没有可用的自定义 scheme，回调从本机 loopback 进来：
+		// 归一化成 `metoai://metotoken/callback?…` 后走与打包版相同的深链入口。
+		// 不放在 cloud 模块里——lite 构建同样需要这条回调。
+		registerLoopbackHandler(METOAI_LOOPBACK_PATH, (search) =>
+			receiveProtocolUrl(toDeepLinkUrl(METOAI_CALLBACK_URL, search)),
+		);
 
 		if (process.platform === "darwin") {
 			app.dock.setIcon(nativeImage.createFromPath(join(buildDir, "icon-dock.png")));

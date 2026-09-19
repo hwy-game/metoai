@@ -1,25 +1,24 @@
 /**
- * MetaToken 控制台账户操作：余额、令牌（Key）、充值。
+ * MetaToken 控制台账户操作：余额、令牌（Key）、订阅状态。
  *
- * 全部走 `authedData` / `authedRaw`（见 `session.ts`），因此调用方不需要关心
- * 访问令牌刷新。这里只做「契约形状 ↔ 领域语义」的转换，不做持久化。
+ * 全部走 `authedData`（见 `session.ts`），因此调用方不需要关心访问令牌刷新。
+ * 这里只做「契约形状 ↔ 领域语义」的转换，不做持久化。充值与订阅购买一律不在
+ * 客户端发生：那是站点网页的事，客户端只读状态并给出官网入口。
  */
 
 import type {
 	MetoAiCurrencyConfig,
-	MetoAiPaymentLaunch,
 	MetoAiSiteConfig,
+	MetoAiSubscription,
 	MetoAiTokenDraft,
 	MetoAiTokenPage,
 	MetoAiTokenPageQuery,
-	MetoAiTopUpInfo,
-	MetoAiTopUpRecordPage,
 	MetoAiUser,
 } from "../../shared/metoai-types.js";
 import { getAppLogger } from "../logger.js";
 import { decodeData, describeError, metoaiRequest } from "./api.js";
 import { displayAmountToQuota, resolveCurrencyConfig } from "./quota.js";
-import { authedData, authedRaw, cacheUser } from "./session.js";
+import { authedData, cacheUser } from "./session.js";
 
 const log = getAppLogger("metoai");
 
@@ -83,6 +82,67 @@ export async function fetchSelf(): Promise<MetoAiUser> {
 	const user = await authedData<MetoAiUser>("/user/self");
 	cacheUser(user);
 	return user;
+}
+
+// -------------------------------------------------------------------- 订阅状态
+
+/** `GET /api/subscription/plans` 的元素：套餐只用来把 `plan_id` 翻成标题。 */
+interface SubscriptionPlanEntry {
+	plan?: { id?: unknown; title?: unknown };
+}
+
+/** `GET /api/subscription/self` 的 data（只取当前生效的订阅）。 */
+interface SubscriptionSelfPayload {
+	subscriptions?: Array<{ subscription?: unknown }>;
+}
+
+/**
+ * 当前生效的订阅。`/api/subscription/self` 只给 `plan_id`，标题要另外拉一次
+ * `/api/subscription/plans` 关联；plans 不可用时标题留空，由界面回退中性文案，
+ * 而不是让整段订阅状态跟着失败。
+ */
+export async function fetchSubscription(): Promise<MetoAiSubscription[]> {
+	const [self, plans] = await Promise.all([
+		authedData<SubscriptionSelfPayload>("/subscription/self"),
+		authedData<SubscriptionPlanEntry[]>("/subscription/plans").catch((error: unknown) => {
+			log.debug(`subscription plans unavailable: ${describeError(error)}`);
+			return [] as SubscriptionPlanEntry[];
+		}),
+	]);
+
+	const titles = new Map<number, string>();
+	for (const entry of Array.isArray(plans) ? plans : []) {
+		const id = readNumber(entry?.plan?.id, 0);
+		const title = typeof entry?.plan?.title === "string" ? entry.plan.title.trim() : "";
+		if (id > 0 && title) titles.set(id, title);
+	}
+
+	const items = Array.isArray(self?.subscriptions) ? self.subscriptions : [];
+	const subscriptions: MetoAiSubscription[] = [];
+	for (const entry of items) {
+		const subscription = toSubscription(entry?.subscription, titles);
+		if (subscription) subscriptions.push(subscription);
+	}
+	return subscriptions;
+}
+
+function toSubscription(raw: unknown, titles: Map<number, string>): MetoAiSubscription | null {
+	if (!isRecord(raw)) return null;
+	const id = readNumber(raw.id, 0);
+	if (id <= 0) return null;
+	const planId = readNumber(raw.plan_id, 0);
+	return {
+		id,
+		planId,
+		planTitle: titles.get(planId) ?? null,
+		status: typeof raw.status === "string" ? raw.status : "",
+		amountTotal: readNumber(raw.amount_total, 0),
+		amountUsed: readNumber(raw.amount_used, 0),
+		startTime: readNumber(raw.start_time, 0),
+		endTime: readNumber(raw.end_time, 0),
+		nextResetTime: readNumber(raw.next_reset_time, 0) || null,
+		autoRenew: raw.auto_renew === true,
+	};
 }
 
 // -------------------------------------------------------------------- 令牌管理
@@ -158,103 +218,4 @@ export async function setTokenStatus(id: number, status: number): Promise<void> 
 		query: { status_only: 1 },
 		body: { id, status },
 	});
-}
-
-// ---------------------------------------------------------------------- 充值
-
-/** `GET /api/user/topup/info`：可用支付方式、最小充值额与预设金额。 */
-
-export function getTopUpInfo(): Promise<MetoAiTopUpInfo> {
-	return authedData<MetoAiTopUpInfo>("/user/topup/info");
-}
-
-/** `GET /api/user/topup/self`：本账号的充值记录。 */
-export function listTopUpRecords(page = 1, pageSize = 20): Promise<MetoAiTopUpRecordPage> {
-	return authedData<MetoAiTopUpRecordPage>("/user/topup/self", {
-		query: { p: page, page_size: pageSize },
-	});
-}
-
-/** `POST /api/user/topup`：兑换码充值。`data` 是本次入账的额度单位。 */
-export async function redeemCode(code: string): Promise<number> {
-	const data = await authedData<unknown>("/user/topup", { method: "POST", body: { key: code.trim() } });
-	return readNumber(data);
-}
-
-/**
- * 独立网关各自的接口路径。不在这张表里的方法都按 epay 系处理——站点把支付宝/
- * 微信这类自配方式统一放在 `/user/pay`，靠 `payment_method` 区分。
- */
-const DEDICATED_GATEWAYS: Record<string, { amount: string; pay: string }> = {
-	stripe: { amount: "/user/stripe/amount", pay: "/user/stripe/pay" },
-	// Creem 的预结算复用 Stripe 的口径，站点前端也是这么发的。
-	creem: { amount: "/user/stripe/amount", pay: "/user/creem/pay" },
-	waffo: { amount: "/user/waffo/amount", pay: "/user/waffo/pay" },
-	waffo_pancake: { amount: "/user/waffo-pancake/amount", pay: "/user/waffo-pancake/pay" },
-};
-
-const EPAY_ROUTES = { amount: "/user/amount", pay: "/user/pay" } as const;
-
-function routesFor(method: string): { amount: string; pay: string } {
-	return DEDICATED_GATEWAYS[method] ?? EPAY_ROUTES;
-}
-
-/**
- * 预结算：返回**实付**金额（站点已按 priceRatio / 分组倍率 / 折扣算过）。
- * 该接口不套标准信封，故用 raw。
- */
-export async function quoteAmount(amount: number, method: string): Promise<number> {
-	const payload = await authedRaw<{ data?: unknown }>(routesFor(method).amount, {
-		method: "POST",
-		body: { amount: Math.floor(amount) },
-	});
-	return readNumber(payload?.data);
-}
-
-/**
- * 站点各网关返回的收银台字段名不一致，统一收敛成 `MetoAiPaymentLaunch`。
- *
- * epay 系给的是「网关地址 + 待提交参数」（必须带参 POST），其余网关给的是
- * 可直接打开的收银台链接。
- */
-function toLaunch(payload: unknown, isEpay: boolean): MetoAiPaymentLaunch {
-	if (!isRecord(payload)) return { kind: "unsupported", message: "unexpected-response" };
-	const data = isRecord(payload.data) ? payload.data : {};
-
-	if (isEpay) {
-		const url = typeof payload.url === "string" ? payload.url : "";
-		if (!url) return { kind: "unsupported", message: "missing-pay-url" };
-		return { kind: "form", url, params: data };
-	}
-
-	const link =
-		(typeof data.pay_link === "string" && data.pay_link) ||
-		(typeof data.checkout_url === "string" && data.checkout_url) ||
-		(typeof data.payment_url === "string" && data.payment_url) ||
-		"";
-	if (!link) return { kind: "unsupported", message: "missing-pay-link" };
-	return { kind: "redirect", url: link };
-}
-
-/**
- * 发起在线支付。
- *
- * epay 系需要把具体支付方式放进 `payment_method`，并返回 `form` 由内置收银台
- * 窗口提交；独立网关把方式写进路径，返回 `redirect` 直接打开收银台。
- */
-export async function requestPayment(amount: number, method: string): Promise<MetoAiPaymentLaunch> {
-	const isEpay = !(method in DEDICATED_GATEWAYS);
-	const body: Record<string, unknown> = { amount: Math.floor(amount) };
-	if (isEpay) body.payment_method = method;
-
-	const payload = await authedRaw<unknown>(routesFor(method).pay, { method: "POST", body, timeoutMs: 30_000 });
-	if (isRecord(payload) && payload.message === "error") {
-		return { kind: "unsupported", message: typeof payload.data === "string" ? payload.data : "pay-failed" };
-	}
-	return toLaunch(payload, isEpay);
-}
-
-/** 记录一笔充值失败/取消时的可读原因，避免错误信息只留在渲染层。 */
-export function logPaymentIssue(method: string, error: unknown): void {
-	log.warn(`payment ${method} failed: ${describeError(error)}`);
 }

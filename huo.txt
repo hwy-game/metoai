@@ -1,0 +1,6 @@
+cd D:\huo\project\917_2\open-vetta
+bun run verify:ui:start            # 起隔离验证实例（首次会构建 workspace 依赖，较慢）
+bun run verify:ui:status           # 看是否在跑、端口、日志路径、pid
+bun run verify:ui:pw -- snapshot   # 抓当前页面结构
+bun run verify:ui:stop             # 关掉
+bun run verify:ui:start:fresh      # 想重看首次引导屏就 stop 后再起一个全新的

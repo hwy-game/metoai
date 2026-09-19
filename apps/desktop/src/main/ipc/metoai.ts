@@ -4,6 +4,9 @@
  * 只做「校验入参 → 调 `main/metoai` → 归一化结果」；业务规则、协议形状与错误
  * 分类都在 `main/metoai/` 里。错误作为值返回（`MetoAiIpcResult`），因为 `Error`
  * 实例过不了结构化克隆，异常穿过进程边界后 `code`/`status` 会丢。
+ *
+ * 授权是「主进程发起、回调后由事件通知」的两段式：`AUTHORIZE` / `AUTHORIZE_REOPEN`
+ * 只负责打开浏览器，结果走 `session-changed`（成功）或 `authorize-rejected`（失败）。
  */
 
 import { ipcMain } from "electron";
@@ -15,43 +18,35 @@ import type {
 } from "../../shared/metoai-types.js";
 import { MetoAiHttpError } from "../metoai/api.js";
 import {
+	authorize,
 	createKey,
 	deleteKey,
 	ensureModels,
 	getOverview,
-	login,
-	loginTwoFactor,
 	logout,
-	pay,
-	quote,
 	key as readKey,
-	redeem,
 	refresh,
+	reopenAuthorize,
 	session,
 	setKeyStatus,
 	siteConfig,
+	subscription,
 	tokens,
-	topUpInfo,
-	topUpRecords,
 } from "../metoai/index.js";
 
 const CHANNELS = {
 	SESSION: "vetta:metoai:session",
-	LOGIN: "vetta:metoai:login",
-	LOGIN_2FA: "vetta:metoai:login-2fa",
+	AUTHORIZE: "vetta:metoai:authorize",
+	AUTHORIZE_REOPEN: "vetta:metoai:authorize:reopen",
 	LOGOUT: "vetta:metoai:logout",
 	REFRESH: "vetta:metoai:refresh",
 	OVERVIEW: "vetta:metoai:overview",
+	SUBSCRIPTION: "vetta:metoai:subscription",
 	TOKENS_LIST: "vetta:metoai:tokens:list",
 	TOKENS_CREATE: "vetta:metoai:tokens:create",
 	TOKENS_DELETE: "vetta:metoai:tokens:delete",
 	TOKENS_SET_STATUS: "vetta:metoai:tokens:set-status",
 	TOKENS_KEY: "vetta:metoai:tokens:key",
-	TOPUP_INFO: "vetta:metoai:topup:info",
-	TOPUP_RECORDS: "vetta:metoai:topup:records",
-	TOPUP_QUOTE: "vetta:metoai:topup:quote",
-	TOPUP_REDEEM: "vetta:metoai:topup:redeem",
-	TOPUP_PAY: "vetta:metoai:topup:pay",
 	MODELS_ENSURE: "vetta:metoai:models:ensure",
 	SITE_CONFIG: "vetta:metoai:site-config",
 } as const;
@@ -65,17 +60,6 @@ function assertNonEmptyString(value: unknown, field: string): asserts value is s
 
 function assertFiniteNumber(value: unknown, field: string): asserts value is number {
 	if (typeof value !== "number" || !Number.isFinite(value)) throw new Error(`Invalid ${field}`);
-}
-
-/**
- * 支付方式是站点配置的自由字符串（epay 系是 alipay/wechat 这类具体方式），
- * 无法穷举。只拦掉空值与带空白的怪值：它会被回传成 JSON 字段，不是路径片段，
- * 不存在注入面，具体合法性由站点判定。
- */
-function assertPaymentMethod(value: unknown): asserts value is string {
-	if (typeof value !== "string" || !value.trim() || /\s/.test(value)) {
-		throw new Error(`Invalid payment method: ${String(value)}`);
-	}
 }
 
 function assertTokenStatus(value: unknown): asserts value is number {
@@ -123,24 +107,12 @@ export function registerMetoAiIpc(): () => void {
 	handle(CHANNELS.SESSION, () => session());
 	handle(CHANNELS.SITE_CONFIG, () => siteConfig());
 	handle(CHANNELS.OVERVIEW, () => getOverview());
+	handle(CHANNELS.SUBSCRIPTION, () => subscription());
 	handle(CHANNELS.REFRESH, () => refresh());
 	handle(CHANNELS.LOGOUT, () => logout());
 
-	handle(CHANNELS.LOGIN, (username, password, turnstileToken) => {
-		assertNonEmptyString(username, "username");
-		assertNonEmptyString(password, "password");
-		return login({
-			username,
-			password,
-			...(typeof turnstileToken === "string" && turnstileToken ? { turnstileToken } : {}),
-		});
-	});
-
-	handle(CHANNELS.LOGIN_2FA, (flowToken, code) => {
-		assertNonEmptyString(flowToken, "flowToken");
-		assertNonEmptyString(code, "code");
-		return loginTwoFactor({ flowToken, code });
-	});
+	handle(CHANNELS.AUTHORIZE, () => authorize());
+	handle(CHANNELS.AUTHORIZE_REOPEN, () => reopenAuthorize());
 
 	handle(CHANNELS.TOKENS_LIST, (query) => tokens((query ?? {}) as MetoAiTokenPageQuery));
 
@@ -163,31 +135,6 @@ export function registerMetoAiIpc(): () => void {
 	handle(CHANNELS.TOKENS_KEY, (id) => {
 		assertFiniteNumber(id, "token id");
 		return readKey(id);
-	});
-
-	handle(CHANNELS.TOPUP_INFO, () => topUpInfo());
-	handle(CHANNELS.TOPUP_RECORDS, (page, pageSize) =>
-		topUpRecords(
-			typeof page === "number" && Number.isFinite(page) ? page : undefined,
-			typeof pageSize === "number" && Number.isFinite(pageSize) ? pageSize : undefined,
-		),
-	);
-
-	handle(CHANNELS.TOPUP_QUOTE, (amount, method) => {
-		assertFiniteNumber(amount, "amount");
-		assertPaymentMethod(method);
-		return quote(amount, method);
-	});
-
-	handle(CHANNELS.TOPUP_REDEEM, (code) => {
-		assertNonEmptyString(code, "redemption code");
-		return redeem(code);
-	});
-
-	handle(CHANNELS.TOPUP_PAY, (amount, method) => {
-		assertFiniteNumber(amount, "amount");
-		assertPaymentMethod(method);
-		return pay(amount, method);
 	});
 
 	handle(CHANNELS.MODELS_ENSURE, () => ensureModels());

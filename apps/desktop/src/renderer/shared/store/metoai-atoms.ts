@@ -10,9 +10,8 @@ import type {
 	MetoAiAccountOverview,
 	MetoAiErrorPayload,
 	MetoAiSessionSnapshot,
+	MetoAiSubscription,
 	MetoAiToken,
-	MetoAiTopUpInfo,
-	MetoAiTopUpRecord,
 } from "@/shared/metoai-types";
 
 /** 会话快照。App 根部订阅主进程推送后写这里，设置页与引导屏都读它。 */
@@ -22,8 +21,9 @@ export const metoaiSessionAtom = atom<MetoAiSessionSnapshot>({ status: "anonymou
 export const metoaiOverviewAtom = atom<MetoAiAccountOverview | null>(null);
 
 export const metoaiTokensAtom = atom<MetoAiToken[]>([]);
-export const metoaiTopUpInfoAtom = atom<MetoAiTopUpInfo | null>(null);
-export const metoaiTopUpRecordsAtom = atom<MetoAiTopUpRecord[]>([]);
+
+/** 当前生效的订阅；未登录或未加载时为空数组。 */
+export const metoaiSubscriptionAtom = atom<MetoAiSubscription[]>([]);
 
 /** 最近一次操作的失败原因；界面据此给出行内提示。 */
 export const metoaiErrorAtom = atom<MetoAiErrorPayload | null>(null);
@@ -32,7 +32,6 @@ export const metoaiErrorAtom = atom<MetoAiErrorPayload | null>(null);
 export const clearMetoAiStateAtom = atom(null, (_get, set) => {
 	set(metoaiOverviewAtom, null);
 	set(metoaiTokensAtom, []);
-	set(metoaiTopUpInfoAtom, null);
-	set(metoaiTopUpRecordsAtom, []);
+	set(metoaiSubscriptionAtom, []);
 	set(metoaiErrorAtom, null);
 });

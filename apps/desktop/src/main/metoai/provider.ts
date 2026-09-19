@@ -20,7 +20,7 @@ import { hasSession } from "./session.js";
 const log = getAppLogger("metoai");
 
 /** 自动签发令牌用的固定名，便于用户在站点上认出来。 */
-const AUTO_TOKEN_NAME = "Vetta Desktop";
+const AUTO_TOKEN_NAME = "Metoai Desktop";
 
 function failureFromPresetError(error: { code: string; detail?: string } | undefined): MetoAiModelAccessResult {
 	if (!error) return { ok: false, created: false, reason: "unknown" };

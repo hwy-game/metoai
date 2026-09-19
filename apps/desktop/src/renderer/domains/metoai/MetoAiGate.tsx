@@ -12,7 +12,6 @@
 import type { ModelsConfigData } from "@preload/api.js";
 import { localModelsConfigAtom, modelCatalog } from "@shared/store/model-catalog";
 import { showToast } from "@shared/store/toast-atoms";
-import { resolvedThemeAtom } from "@shared/store/atoms";
 import { METOAI_BASE_URL, METOAI_DISPLAY_NAME, METOAI_ICON, METOAI_PRESET_ID, METOAI_SITE_URL } from "@/shared/metoai";
 import { useAtomValue } from "jotai";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -25,8 +24,7 @@ import { MetoAiGateView, type MetoAiKeyFormState } from "./MetoAiGateView";
 export function MetoAiGate(): JSX.Element | null {
 	const { t } = useTranslation("metoai");
 	const config = useAtomValue(localModelsConfigAtom);
-	const theme = useAtomValue(resolvedThemeAtom);
-	const session = useMetoAiSessionModel(theme);
+	const session = useMetoAiSessionModel();
 
 	const [skipped, setSkipped] = useState(() => isMetoAiGateSkipped());
 	const [mode, setMode] = useState<"account" | "key">("account");
@@ -119,15 +117,11 @@ export function MetoAiGate(): JSX.Element | null {
 			onSkip={skip}
 			onToggleMode={() => setMode((current) => (current === "account" ? "key" : "account"))}
 			signIn={{
-				busy: session.busy,
+				phase: session.phase,
 				error: session.error,
-				twoFactor: session.twoFactor,
-				turnstile: session.turnstile,
-				turnstileRequired: session.turnstileRequired,
-				registerEnabled: session.siteConfig?.register_enabled === true,
-				onLogin: session.actions.login,
-				onSubmitTwoFactor: session.actions.submitTwoFactor,
-				onCancelTwoFactor: session.actions.cancelTwoFactor,
+				onAuthorize: () => void session.actions.startAuthorize(),
+				onReopen: () => void session.actions.reopenAuthorize(),
+				onCancel: session.actions.cancelAuthorize,
 			}}
 		/>
 	);

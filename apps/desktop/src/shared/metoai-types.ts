@@ -1,9 +1,11 @@
 /**
  * MetaToken 控制台接口（`<site>/api/*`）的线上契约。
  *
- * 字段一律保持服务端原始 snake_case 形状：这套接口与项目下的 metotoken 站点
+ * 线上契约字段一律保持服务端原始 snake_case 形状：这套接口与项目下的 metotoken 站点
  * 是同一份后端，保持同名同形才能在两侧对照排查；主进程只负责拆信封
- * （`{success, message, data}`），不做字段改名。
+ * （`{success, message, data}`），不做字段改名。少数**派生**形状（跨接口关联或客户端
+ * 自己的概念，如 `MetoAiSubscription` / `MetoAiAuthorizeResult`）例外：它们用客户端命名，
+ * 并在各自注释里写明来源。
  *
  * 注意：这里的接口是**控制台**契约，与 `/v1` 的 OpenAI 兼容中转契约无关。
  */
@@ -41,11 +43,6 @@ export interface MetoAiSiteConfig {
 	custom_currency_symbol?: string;
 	custom_currency_exchange_rate?: number;
 	display_in_currency?: boolean;
-	register_enabled?: boolean;
-	password_login_enabled?: boolean;
-	password_login_encryption_enabled?: boolean;
-	turnstile_check?: boolean;
-	turnstile_site_key?: string;
 	self_use_mode_enabled?: boolean;
 	docs_link?: string;
 	setup?: boolean;
@@ -56,11 +53,58 @@ export type MetoAiSessionSnapshot =
 	| { status: "anonymous" }
 	| { status: "authenticated"; user: MetoAiUser; accessExpiresAt: string };
 
-/** 登录结果。2FA 用户会先拿到 `two-factor-required`，再补一次验证码。 */
-export type MetoAiLoginResult =
-	| { status: "ok"; user: MetoAiUser }
-	| { status: "two-factor-required"; flowToken: string; expiresAt: string }
-	| { status: "failed"; message: string };
+/** 发起桌面授权的应答：授权页已在系统浏览器打开。 */
+export interface MetoAiAuthorizeResult {
+	status: "started";
+}
+
+/**
+ * 授权回调被拒绝的原因码；文案由渲染层查 i18n。
+ *
+ * `state-mismatch` / `state-expired` / `missing-code` / `access-denied` 来自回调本身；
+ * `exchange-failed` 表示回调合法但换码失败（code 过期、verifier 不匹配、浏览器会话已失效等）。
+ */
+export type MetoAiAuthorizeRejectionReason =
+	| "state-mismatch"
+	| "state-expired"
+	| "missing-code"
+	| "access-denied"
+	| "exchange-failed";
+
+export interface MetoAiAuthorizeRejection {
+	reason: MetoAiAuthorizeRejectionReason;
+	/**
+	 * 站点错误码（如 `DESKTOP_AUTH_INVALID_GRANT` / `AUTH_SESSION_REVOKED`）；只有
+	 * `exchange-failed` 才有。**不传站点文案**：站点失败响应里的 `message` 只是英文
+	 * HTTP 状态短语（"Bad Request"、"Conflict"），给用户看没有意义，文案一律由渲染层
+	 * 按错误码查 i18n。
+	 */
+	code?: string;
+}
+
+/**
+ * 一条用户订阅。
+ *
+ * 这是**派生形状**（不是服务端原始契约）：由 `GET /api/subscription/self` 与
+ * `GET /api/subscription/plans` 关联而来，因此字段用客户端命名。
+ */
+export interface MetoAiSubscription {
+	id: number;
+	planId: number;
+	/** 套餐标题；plans 里查不到该 plan_id 时为 null，界面回退中性文案。 */
+	planTitle: string | null;
+	/** 服务端状态：active / expired / cancelled。 */
+	status: string;
+	/** 额度单位，展示时过币种规则。 */
+	amountTotal: number;
+	amountUsed: number;
+	/** 秒级时间戳。 */
+	startTime: number;
+	endTime: number;
+	/** 下次额度重置时间；null 表示不重置。 */
+	nextResetTime: number | null;
+	autoRenew: boolean;
+}
 
 /** 令牌状态：1 启用 / 2 禁用 / 3 已过期 / 4 已耗尽。 */
 export type MetoAiTokenStatus = 1 | 2 | 3 | 4;
@@ -104,87 +148,10 @@ export interface MetoAiTokenDraft {
 	group?: string;
 }
 
-export interface MetoAiPaymentMethod {
-	name: string;
-	type: string;
-	color?: string;
-	min_topup?: number | string;
-}
-
-/** `GET /api/user/topup/info` 的 data。 */
-export interface MetoAiTopUpInfo {
-	enable_online_topup: boolean;
-	enable_stripe_topup: boolean;
-	enable_creem_topup?: boolean;
-	enable_waffo_topup?: boolean;
-	enable_waffo_pancake_topup?: boolean;
-	enable_redemption?: boolean;
-	pay_methods: MetoAiPaymentMethod[];
-	min_topup: number;
-	stripe_min_topup: number;
-	waffo_min_topup?: number;
-	waffo_pancake_min_topup?: number;
-	amount_options: number[];
-	discount: Record<string, number>;
-	topup_link?: string;
-}
-
-export interface MetoAiTopUpRecord {
-	id: number;
-	user_id: number;
-	amount: number;
-	money: number;
-	trade_no: string;
-	payment_method: string;
-	create_time: number;
-	complete_time?: number;
-	status: "success" | "pending" | "expired";
-}
-
-export interface MetoAiTopUpRecordPage {
-	items: MetoAiTopUpRecord[];
-	total: number;
-}
-
-/**
- * 在线支付发起结果。
- *
- * - `form`：网关要求带参 POST（epay 系），由主进程用内置支付窗口提交。
- * - `redirect`：直接可打开的收银台链接（Stripe / Creem / Waffo）。
- */
-export type MetoAiPaymentLaunch =
-	| { kind: "form"; url: string; params: Record<string, unknown> }
-	| { kind: "redirect"; url: string }
-	| { kind: "unsupported"; message: string };
-
 export interface MetoAiTokenPageQuery {
 	page?: number;
 	pageSize?: number;
 	keyword?: string;
-}
-
-// ─── IPC 边界 ───
-
-/**
- * 站点支付方式标识：`pay_methods[].type`，如 `alipay` / `wechat` / `stripe`。
- *
- * 由站点配置决定、无法穷举（与 IPC 层的校验口径一致），主进程按它分派到 epay
- * 或独立网关接口。**不要**自造 `epay` 这类聚合值：站点只认具体的 `type`。
- */
-export type MetoAiPaymentGateway = string;
-
-/**
- * 站点的一个支付渠道。
- *
- * `method` 是服务端认得的方法标识，直接回传给 `POST /api/user/pay`：epay 系是
- * `alipay` / `wechat` 这类具体方式，其余网关就是 `stripe` / `creem` / `waffo` /
- * `waffo_pancake`。两者走不同接口，由主进程按 `method` 分派，渲染层不需要知道。
- */
-export interface MetoAiPaymentChannel {
-	method: string;
-	/** 站点配置的展示名。 */
-	name: string;
-	minTopUp: number;
 }
 
 /** 个人中心一次拉齐的三份数据：账号、站点配置、由站点配置推出的币种规则。 */

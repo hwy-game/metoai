@@ -5,7 +5,7 @@
   },
   "gate": {
     "title": "Sign in to MetaToken",
-    "subtitle": "Sign in to use every model on the built-in relay, and manage your balance, keys and top-ups inside the app.",
+    "subtitle": "Sign in to use every model on the built-in relay. Balance, subscription and keys are shown here; top-ups, plans and redemption codes are handled on the website.",
     "keyLabel": "API Key",
     "keyPlaceholder": "sk-... paste your API Key",
     "getKey": "Get a key from the website",
@@ -19,31 +19,29 @@
     "errorEmptyModels": "No usable models for this key. Please check and try again.",
     "errorUnknown": "Failed to save. Please try again later.",
     "manualKey": "Use an API Key instead",
-    "loginInstead": "Sign in with an account instead"
+    "loginInstead": "Sign in with browser authorization instead"
   },
-  "login": {
-    "username": "Username",
-    "usernamePlaceholder": "Username or email",
-    "password": "Password",
-    "passwordPlaceholder": "Password",
-    "submit": "Sign in",
-    "submitting": "Signing in…",
-    "twoFactorTitle": "Two-factor verification",
-    "twoFactorHint": "Enter the 6-digit code from your authenticator app.",
-    "twoFactorCode": "Code",
-    "twoFactorSubmit": "Verify",
-    "twoFactorCancel": "Back",
-    "turnstileHint": "Please complete the human verification below.",
-    "turnstileFailed": "Human verification failed to load. Check your connection and try again.",
-    "registerHint": "No account yet? Register on the MetaToken website.",
-    "openSite": "Open website",
-    "errorFailed": "Sign-in failed. Check your username and password.",
-    "errorNetwork": "Network request failed. Check your connection and try again.",
-    "errorTwoFactor": "The code is incorrect or expired. Please try again."
+  "authorize": {
+    "hint": "The button below opens the MetaToken authorization page in your system browser, where you sign in and approve access. The client never collects or stores your password.",
+    "submit": "Authorize in browser",
+    "waitingTitle": "Waiting for browser authorization",
+    "waitingHint": "Finish signing in and approve access in the browser; this window signs in automatically once you do.",
+    "reopen": "Open the authorization page again",
+    "cancel": "Cancel",
+    "openSite": "Open the MetaToken website",
+    "secureNote": "Authorizing only adds one session you can revoke on the website at any time.",
+    "errorOpen": "Couldn't open your browser. Please try again, or use an API Key instead.",
+    "errorStateMismatch": "This authorization callback could not be verified (it may come from an expired link or an old tab). Please authorize again.",
+    "errorStateExpired": "Authorization timed out. Please authorize again.",
+    "errorMissingCode": "The authorization callback is missing required parameters. Please authorize again.",
+    "errorAccessDenied": "Authorization was cancelled. No account was signed in.",
+    "errorExchange": "Couldn't exchange the authorization for credentials. Please authorize again.",
+    "errorSession": "Your sign-in session is no longer valid. Please authorize again.",
+    "errorSessionLimit": "You have reached the maximum number of sign-in sessions. Revoke one on the MetaToken website and try again."
   },
   "signIn": {
     "title": "Sign in to MetaToken",
-    "subtitle": "Sign in to see your balance, manage API keys and top up here."
+    "subtitle": "After authorizing in your browser, your balance, subscription and API keys show up here."
   },
   "account": {
     "title": "Account",
@@ -103,37 +101,36 @@
     "errorDelete": "Failed to delete the key. Please try again later.",
     "errorToggle": "Failed to update the key status. Please try again later."
   },
-  "topUp": {
-    "title": "Top up",
-    "description": "Pick an amount and payment method; checkout opens inside the app.",
-    "amount": "Amount",
-    "amountPlaceholder": "Enter an amount",
-    "method": "Payment method",
-    "noMethods": "Online payment is not enabled on this site.",
-    "minTopUp": "Minimum {{amount}}",
-    "payable": "You pay {{amount}}",
-    "quoting": "Calculating…",
-    "pay": "Pay",
-    "paying": "Processing…",
-    "payNote": "Your balance updates automatically once payment completes. If it does not, check the top-up records shortly after.",
-    "redemption": "Redemption code",
-    "redemptionPlaceholder": "Enter a code",
-    "redeem": "Redeem",
-    "redeeming": "Redeeming…",
-    "redeemSuccess": "Redeemed. Your balance has been updated.",
-    "records": "Top-up history",
-    "recordsEmpty": "No top-ups yet.",
-    "recordAmount": "Amount",
-    "recordMoney": "Paid",
-    "recordStatus": "Status",
-    "recordTime": "Time",
+  "subscription": {
+    "description": "Your current plan and quota usage. Buying, renewing and cancelling happen on the MetaToken website.",
+    "manage": "Manage on the website",
+    "empty": "No active subscription.",
+    "unknownPlan": "Subscription plan",
+    "usage": "Quota",
+    "expiresAt": "Expires",
+    "nextResetAt": "Next reset",
+    "autoRenewOn": "Auto-renew on",
+    "autoRenewOff": "Auto-renew off",
+    "errorLoad": "Failed to load subscription information. Please try again later.",
     "status": {
-      "success": "Completed",
-      "pending": "Pending",
-      "expired": "Expired"
-    },
-    "errorLoad": "Failed to load top-up information. Please try again later.",
-    "errorLaunch": "Failed to start the payment. Please try again later.",
-    "errorRedeem": "Redemption failed. Check the code and try again."
+      "active": "Active",
+      "expired": "Expired",
+      "cancelled": "Cancelled",
+      "unknown": "Unknown"
+    }
+  },
+  "webActions": {
+    "description": "Top-ups, plans, redemption codes and account details are handled on the MetaToken website; the browser is already signed in after authorization.",
+    "open": "Open website",
+    "topUp": "Top up",
+    "topUpHint": "Add funds to your balance on the website.",
+    "subscription": "Subscription plans",
+    "subscriptionHint": "View plans and buy or renew a subscription on the website.",
+    "redeem": "Redemption code",
+    "redeemHint": "Redeem a code on the website.",
+    "profile": "Account details",
+    "profileHint": "Change your account information and security settings on the website.",
+    "usage": "Usage details",
+    "usageHint": "Review request logs and quota consumption on the website."
   }
 }

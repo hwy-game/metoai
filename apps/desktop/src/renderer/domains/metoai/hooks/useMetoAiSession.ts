@@ -1,9 +1,12 @@
 /**
- * MetaToken 会话：登录态、登录/登出动作、登录表单需要的公开站点配置。
+ * MetaToken 会话：登录态、授权登录动作与登出。
  *
  * 会话快照由主进程推送（`onSessionChanged`）——访问令牌的刷新与吊销都发生在那边，
  * 渲染层不该自己推断登录是否还有效。这里只负责订阅并把结果写进 atom，让设置页与
  * 首次引导屏共用同一份状态。
+ *
+ * 登录只有一条路：主进程在系统浏览器打开 MetaToken 授权页，用户同意后回调本进程。
+ * 因此这里没有用户名/密码，也没有「提交中」的中间态——只有「等待浏览器回调」。
  */
 
 import { isSessionTerminal, MetoAiCallError, unwrapMetoAi } from "@shared/lib/metoai";
@@ -11,30 +14,61 @@ import { clearMetoAiStateAtom, metoaiSessionAtom } from "@shared/store/atoms";
 import { useAtom, useSetAtom } from "jotai";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import type { MetoAiSiteConfig, MetoAiUser } from "@/shared/metoai-types";
-import { type TurnstileState, useTurnstile } from "./useTurnstile";
+import type { MetoAiAuthorizeRejection, MetoAiUser } from "@/shared/metoai-types";
 
-export interface MetoAiTwoFactorChallenge {
-	flowToken: string;
-	expiresAt: string;
-}
+/** `idle` 可发起授权；`waiting` 表示授权页已在浏览器打开，等回调。 */
+export type MetoAiAuthorizePhase = "idle" | "waiting";
+
+/** 授权被拒绝的原因码 → i18n key。文案在 catalog 里，主进程只回传原因。 */
+const AUTHORIZE_ERROR_KEYS = {
+	"state-mismatch": "authorize.errorStateMismatch",
+	"state-expired": "authorize.errorStateExpired",
+	"missing-code": "authorize.errorMissingCode",
+	"access-denied": "authorize.errorAccessDenied",
+	"exchange-failed": "authorize.errorExchange",
+} as const;
+
+/**
+ * 授权失败可用的 i18n key；`t` 只接受 catalog 里存在的键。
+ *
+ * 后两个键只服务于换码失败的站点错误码（会话失效 / 登录会话超限），不对应任何回调
+ * 拒绝原因，因此不在 `AUTHORIZE_ERROR_KEYS` 里。
+ */
+type AuthorizeErrorKey =
+	| (typeof AUTHORIZE_ERROR_KEYS)[keyof typeof AUTHORIZE_ERROR_KEYS]
+	| "authorize.errorSession"
+	| "authorize.errorSessionLimit";
+
+/**
+ * 换码失败时的站点错误码 → i18n key。
+ *
+ * 站点的 `message` 只是英文 HTTP 状态短语（"Bad Request" / "Conflict"），不能展示给
+ * 用户；未列出的码回落到 `authorize.errorExchange`。
+ */
+const EXCHANGE_ERROR_KEYS: Record<string, AuthorizeErrorKey> = {
+	DESKTOP_AUTH_INVALID_GRANT: "authorize.errorExchange",
+	DESKTOP_AUTH_REQUEST_INVALID: "authorize.errorExchange",
+	AUTH_SESSION_REQUIRED: "authorize.errorSession",
+	AUTH_UNAUTHORIZED: "authorize.errorSession",
+	AUTH_SESSION_REVOKED: "authorize.errorSession",
+	AUTH_TOKEN_EXPIRED: "authorize.errorSession",
+	AUTH_SESSION_LIMIT: "authorize.errorSessionLimit",
+	AUTH_SESSION_ISSUANCE_LIMIT: "authorize.errorSessionLimit",
+};
 
 export interface MetoAiSessionModel {
 	authenticated: boolean;
 	user: MetoAiUser | null;
-	/** 公开站点配置；未就绪时为 null，界面应显示加载态而不是错误。 */
-	siteConfig: MetoAiSiteConfig | null;
+	/** 有动作在飞行中（打开浏览器 / 登出）：界面据此禁用按钮。 */
 	busy: boolean;
 	/** 已翻译的失败提示；null 表示无错误。 */
 	error: string | null;
-	twoFactor: MetoAiTwoFactorChallenge | null;
-	turnstile: TurnstileState;
-	/** 是否需要在提交前拿到 Turnstile token。 */
-	turnstileRequired: boolean;
+	phase: MetoAiAuthorizePhase;
 	actions: {
-		login: (username: string, password: string) => Promise<boolean>;
-		submitTwoFactor: (code: string) => Promise<boolean>;
-		cancelTwoFactor: () => void;
+		startAuthorize: () => Promise<void>;
+		reopenAuthorize: () => Promise<void>;
+		/** 用户放弃等待：回到可重试状态，不产生任何会话。 */
+		cancelAuthorize: () => void;
 		logout: () => Promise<void>;
 	};
 }
@@ -45,17 +79,13 @@ function messageOf(error: unknown, fallback: string): string {
 	return fallback;
 }
 
-export function useMetoAiSessionModel(theme: "light" | "dark" = "dark"): MetoAiSessionModel {
+export function useMetoAiSessionModel(): MetoAiSessionModel {
 	const { t } = useTranslation("metoai");
 	const [session, setSession] = useAtom(metoaiSessionAtom);
 	const clearState = useSetAtom(clearMetoAiStateAtom);
-	const [siteConfig, setSiteConfig] = useState<MetoAiSiteConfig | null>(null);
 	const [busy, setBusy] = useState(false);
 	const [error, setError] = useState<string | null>(null);
-	const [twoFactor, setTwoFactor] = useState<MetoAiTwoFactorChallenge | null>(null);
-
-	const turnstileRequired = siteConfig?.turnstile_check === true;
-	const turnstile = useTurnstile(turnstileRequired, siteConfig?.turnstile_site_key, theme);
+	const [phase, setPhase] = useState<MetoAiAuthorizePhase>("idle");
 
 	// 启动时对齐一次：主进程可能已经持有上次运行留下的会话。
 	useEffect(() => {
@@ -71,83 +101,64 @@ export function useMetoAiSessionModel(theme: "light" | "dark" = "dark"): MetoAiS
 		};
 	}, [setSession]);
 
-	useEffect(() => window.vetta.metoai.onSessionChanged(setSession), [setSession]);
+	// 回调换码成功由主进程广播：等待状态在这里结束，而不是靠渲染层轮询。
+	useEffect(
+		() =>
+			window.vetta.metoai.onSessionChanged((snapshot) => {
+				setSession(snapshot);
+				if (snapshot.status === "authenticated") {
+					setPhase("idle");
+					setError(null);
+				}
+			}),
+		[setSession],
+	);
+
+	useEffect(
+		() =>
+			window.vetta.metoai.onAuthorizeRejected((rejection: MetoAiAuthorizeRejection) => {
+				setPhase("idle");
+				// 换码失败时按站点错误码选文案（主进程只回传码，不回传英文 HTTP 短语）；
+				// 其余情况按回调自身的拒绝原因。
+				const codeKey =
+					rejection.reason === "exchange-failed" && rejection.code
+						? EXCHANGE_ERROR_KEYS[rejection.code]
+						: undefined;
+				setError(t(codeKey ?? AUTHORIZE_ERROR_KEYS[rejection.reason]));
+			}),
+		[t],
+	);
 
 	useEffect(() => {
 		if (session.status === "anonymous") clearState();
 	}, [session.status, clearState]);
 
-	// 站点配置在登录前就要读（注册开关、Turnstile、站点名），失败不阻塞表单。
-	useEffect(() => {
-		let cancelled = false;
-		void window.vetta.metoai
-			.siteConfig()
-			.then((result) => {
-				if (!cancelled && result.ok) setSiteConfig(result.value);
-			})
-			.catch(() => undefined);
-		return () => {
-			cancelled = true;
-		};
-	}, []);
-
-	const login = useCallback(
-		async (username: string, password: string): Promise<boolean> => {
-			if (busy) return false;
+	const openAuthorizePage = useCallback(
+		async (run: () => Promise<unknown>): Promise<void> => {
+			if (busy) return;
 			setBusy(true);
 			setError(null);
 			try {
-				const result = unwrapMetoAi(
-					await window.vetta.metoai.login({
-						username,
-						password,
-						...(turnstile.token ? { turnstileToken: turnstile.token } : {}),
-					}),
-				);
-				if (result.status === "failed") {
-					setError(messageOf(new Error(result.message), t("login.errorFailed")));
-					return false;
-				}
-				if (result.status === "two-factor-required") {
-					setTwoFactor({ flowToken: result.flowToken, expiresAt: result.expiresAt });
-					return false;
-				}
-				setSession({ status: "authenticated", user: result.user, accessExpiresAt: "" });
-				return true;
+				await run();
+				setPhase("waiting");
 			} catch (caught) {
-				setError(messageOf(caught, t("login.errorNetwork")));
-				return false;
+				setPhase("idle");
+				setError(messageOf(caught, t("authorize.errorOpen")));
 			} finally {
 				setBusy(false);
 			}
 		},
-		[busy, setSession, t, turnstile.token],
+		[busy, t],
 	);
 
-	const submitTwoFactor = useCallback(
-		async (code: string): Promise<boolean> => {
-			if (!twoFactor || busy) return false;
-			setBusy(true);
-			setError(null);
-			try {
-				const result = unwrapMetoAi(
-					await window.vetta.metoai.loginTwoFactor({ flowToken: twoFactor.flowToken, code }),
-				);
-				if (result.status !== "ok") {
-					setError(t("login.errorTwoFactor"));
-					return false;
-				}
-				setTwoFactor(null);
-				setSession({ status: "authenticated", user: result.user, accessExpiresAt: "" });
-				return true;
-			} catch (caught) {
-				setError(messageOf(caught, t("login.errorTwoFactor")));
-				return false;
-			} finally {
-				setBusy(false);
-			}
-		},
-		[busy, setSession, t, twoFactor],
+	const startAuthorize = useCallback(
+		() => openAuthorizePage(async () => unwrapMetoAi(await window.vetta.metoai.authorize())),
+		[openAuthorizePage],
+	);
+
+	const reopenAuthorize = useCallback(
+		() => openAuthorizePage(async () => unwrapMetoAi(await window.vetta.metoai.reopenAuthorize())),
+		[openAuthorizePage],
 	);
 
 	const logout = useCallback(async (): Promise<void> => {
@@ -160,7 +171,7 @@ export function useMetoAiSessionModel(theme: "light" | "dark" = "dark"): MetoAiS
 				if (!isSessionTerminal(failure)) setError(messageOf(failure, t("account.errorLogout")));
 			}
 		} finally {
-			setTwoFactor(null);
+			setPhase("idle");
 			setBusy(false);
 		}
 	}, [t]);
@@ -169,22 +180,19 @@ export function useMetoAiSessionModel(theme: "light" | "dark" = "dark"): MetoAiS
 		() => ({
 			authenticated: session.status === "authenticated",
 			user: session.status === "authenticated" ? session.user : null,
-			siteConfig,
 			busy,
 			error,
-			twoFactor,
-			turnstile,
-			turnstileRequired,
+			phase,
 			actions: {
-				login,
-				submitTwoFactor,
-				cancelTwoFactor: () => {
-					setTwoFactor(null);
+				startAuthorize,
+				reopenAuthorize,
+				cancelAuthorize: () => {
+					setPhase("idle");
 					setError(null);
 				},
 				logout,
 			},
 		}),
-		[session, siteConfig, busy, error, twoFactor, turnstile, turnstileRequired, login, submitTwoFactor, logout],
+		[session, busy, error, phase, startAuthorize, reopenAuthorize, logout],
 	);
 }

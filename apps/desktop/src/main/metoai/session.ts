@@ -1,16 +1,15 @@
-import { webcrypto } from "node:crypto";
-import type { MetoAiLoginResult, MetoAiSessionSnapshot, MetoAiUser } from "../../shared/metoai-types.js";
+import type { MetoAiSessionSnapshot, MetoAiUser } from "../../shared/metoai-types.js";
 import { readAgentSettingsDocument, updateAgentSettingsDocument } from "../agent-settings/settings-document-store.js";
 import { getAppLogger } from "../logger.js";
 import {
 	decodeData,
-	decodeRaw,
 	describeError,
 	METOAI_ORIGIN,
 	MetoAiHttpError,
 	type MetoAiRequestInit,
 	metoaiRequest,
 	readSetCookie,
+	toUnixSeconds,
 } from "./api.js";
 
 const log = getAppLogger("metoai");
@@ -20,7 +19,7 @@ const REFRESH_COOKIE_NAME = "new_api_refresh";
 const SETTINGS_KEY = "metoaiSession";
 /** 访问令牌剩余寿命低于此值就提前刷新（服务端 TTL 只有 15 分钟）。 */
 const REFRESH_AHEAD_MS = 60_000;
-const LOGIN_TIMEOUT_MS = 20_000;
+const REQUEST_TIMEOUT_MS = 20_000;
 
 interface MetoAiStoredSession {
 	accessToken: string;
@@ -118,9 +117,38 @@ function isExpiringSoon(session: MetoAiStoredSession): boolean {
 	return session.accessExpiresAt * 1000 - Date.now() < REFRESH_AHEAD_MS;
 }
 
-// ---------------------------------------------------------------- 登录
+// ------------------------------------------------------------ 写入授权结果
 
-interface LoginEnvelope {
+/** 一次桌面授权换来的会话素材。 */
+export interface MetoAiAuthBundle {
+	accessToken: string;
+	refreshToken: string;
+	/** unix 秒。 */
+	accessExpiresAt: number;
+	user: MetoAiUser | null;
+}
+
+/**
+ * 用授权换来的会话覆盖本地会话。
+ *
+ * 桌面端没有 cookie jar，刷新令牌只在换码响应里回传一次，因此必须在这里落盘；
+ * 之后的续期与登出仍走 `refreshAccessToken` / `logout`（与原密码登录完全一致）。
+ */
+export function acceptAuthBundle(bundle: MetoAiAuthBundle): MetoAiUser {
+	const user = bundle.user ?? emptyUser();
+	writeSession({
+		accessToken: bundle.accessToken,
+		refreshToken: bundle.refreshToken,
+		accessExpiresAt: bundle.accessExpiresAt,
+		user,
+	});
+	log.info("session established via desktop authorization");
+	return user;
+}
+
+// ---------------------------------------------------------------- 刷新
+
+interface MetoAiEnvelope {
 	success?: boolean;
 	message?: string;
 	/** 站点错误码，如 `AUTH_SESSION_REVOKED`；刷新令牌被吊销时据此判定终态。 */
@@ -128,148 +156,16 @@ interface LoginEnvelope {
 	data?: Record<string, unknown>;
 }
 
-export async function loginWithPassword(input: {
-	username: string;
-	password: string;
-	turnstileToken?: string;
-}): Promise<MetoAiLoginResult> {
-	const body: Record<string, unknown> = {
-		username: input.username,
-		password: input.password,
-	};
-	const encryptionKey = await fetchPasswordEncryptionKey();
-	if (encryptionKey) {
-		try {
-			body.password_encrypted = await encryptPassword(input.password, encryptionKey.publicKey);
-			body.encryption_key_id = encryptionKey.kid;
-			body.password = "";
-		} catch (error) {
-			log.warn(`password encryption failed: ${describeError(error)}`);
-		}
-	}
-
-	const response = await metoaiRequest("/user/login", {
-		method: "POST",
-		query: input.turnstileToken ? { turnstile: input.turnstileToken } : undefined,
-		body,
-		timeoutMs: LOGIN_TIMEOUT_MS,
-	});
-	return applyLoginResponse(response, "password");
-}
-
-export async function loginWithTwoFactor(input: { flowToken: string; code: string }): Promise<MetoAiLoginResult> {
-	const response = await metoaiRequest("/user/login/2fa", {
-		method: "POST",
-		body: { flow_token: input.flowToken, code: input.code },
-		timeoutMs: LOGIN_TIMEOUT_MS,
-	});
-	return applyLoginResponse(response, "2fa");
-}
-
-async function applyLoginResponse(response: Response, method: string): Promise<MetoAiLoginResult> {
-	const envelope = await readEnvelope(response);
-	if (!response.ok || envelope.success === false) {
-		return { status: "failed", message: failureMessage(envelope, response.status) };
-	}
-	const data = envelope.data ?? {};
-
-	if (data.require_2fa === true) {
-		const flowToken = typeof data.flow_token === "string" ? data.flow_token : "";
-		if (!flowToken) return { status: "failed", message: "2fa-flow-missing" };
-		return {
-			status: "two-factor-required",
-			flowToken,
-			expiresAt: toIsoString(data.expires_at),
-		};
-	}
-
-	const accessToken = typeof data.access_token === "string" ? data.access_token : "";
-	if (!accessToken) return { status: "failed", message: "access-token-missing" };
-
-	const refreshToken = readSetCookie(response, REFRESH_COOKIE_NAME) ?? "";
-	const accessExpiresAt = toUnixSeconds(data.access_expires_at);
-	const user = isRecord(data.user) ? (data.user as unknown as MetoAiUser) : null;
-
-	writeSession({ accessToken, refreshToken, accessExpiresAt, user });
-	log.info(`logged in via ${method}`);
-	return { status: "ok", user: user ?? emptyUser() };
-}
-
-async function readEnvelope(response: Response): Promise<LoginEnvelope> {
+async function readEnvelope(response: Response): Promise<MetoAiEnvelope> {
 	const text = await response.text();
 	if (!text) return {};
 	try {
 		const parsed: unknown = JSON.parse(text);
-		return isRecord(parsed) ? (parsed as LoginEnvelope) : {};
+		return isRecord(parsed) ? (parsed as MetoAiEnvelope) : {};
 	} catch {
 		return {};
 	}
 }
-
-function failureMessage(envelope: LoginEnvelope, status: number): string {
-	if (typeof envelope.message === "string" && envelope.message) {
-		return envelope.message;
-	}
-	return status >= 400 ? `HTTP ${status}` : "login-failed";
-}
-
-function toIsoString(value: unknown): string {
-	return new Date(toUnixSeconds(value) * 1000).toISOString();
-}
-
-function toUnixSeconds(value: unknown): number {
-	if (typeof value === "number" && Number.isFinite(value)) return value;
-	if (typeof value === "string") {
-		const parsed = Number.parseInt(value, 10);
-		if (Number.isFinite(parsed)) return parsed;
-	}
-	return Math.floor(Date.now() / 1000);
-}
-
-// ------------------------------------------------------- 密码加密（可选）
-
-interface PasswordEncryptionKey {
-	kid: string;
-	publicKey: string;
-}
-
-/** 站点未启用密码加密时返回 null，此时按明文口令提交。 */
-async function fetchPasswordEncryptionKey(): Promise<PasswordEncryptionKey | null> {
-	try {
-		const response = await metoaiRequest("/user/login/encryption-key", {
-			timeoutMs: 8_000,
-		});
-		const envelope = await readEnvelope(response);
-		if (envelope.success === false) return null;
-		const data = envelope.data ?? {};
-		if (data.enabled !== true) return null;
-		const kid = typeof data.kid === "string" ? data.kid : "";
-		const publicKey = typeof data.public_key === "string" ? data.public_key : "";
-		return kid && publicKey ? { kid, publicKey } : null;
-	} catch (error) {
-		log.debug(`password encryption key unavailable: ${describeError(error)}`);
-		return null;
-	}
-}
-
-async function encryptPassword(password: string, publicKeyPem: string): Promise<string> {
-	const key = await webcrypto.subtle.importKey(
-		"spki",
-		pemToDer(publicKeyPem),
-		{ name: "RSA-OAEP", hash: "SHA-256" },
-		false,
-		["encrypt"],
-	);
-	const ciphertext = await webcrypto.subtle.encrypt({ name: "RSA-OAEP" }, key, new TextEncoder().encode(password));
-	return Buffer.from(new Uint8Array(ciphertext)).toString("base64");
-}
-
-function pemToDer(pem: string): Uint8Array {
-	const body = pem.replace(/-----[^-]+-----/g, "").replace(/\s+/g, "");
-	return new Uint8Array(Buffer.from(body, "base64"));
-}
-
-// ---------------------------------------------------------------- 刷新
 
 /**
  * 刷新访问令牌。服务端 `AccessTokenTTL` 只有 15 分钟，持久会话必须依赖它。
@@ -294,7 +190,7 @@ async function runRefresh(): Promise<RefreshOutcome> {
 		response = await metoaiRequest("/user/auth/refresh", {
 			method: "POST",
 			headers: refreshHeaders(session.refreshToken),
-			timeoutMs: LOGIN_TIMEOUT_MS,
+			timeoutMs: REQUEST_TIMEOUT_MS,
 		});
 	} catch (error) {
 		log.warn(`token refresh transport failed: ${describeError(error)}`);
@@ -405,9 +301,4 @@ function sendAuthed(path: string, init: MetoAiRequestInit, accessToken: string):
 /** 带鉴权请求控制台接口并拆信封。 */
 export async function authedData<T>(path: string, init: MetoAiRequestInit = {}): Promise<T> {
 	return decodeData<T>(path, await authedFetch(path, init));
-}
-
-/** 带鉴权请求不套标准信封的接口。 */
-export async function authedRaw<T>(path: string, init: MetoAiRequestInit = {}): Promise<T> {
-	return decodeRaw<T>(path, await authedFetch(path, init));
 }

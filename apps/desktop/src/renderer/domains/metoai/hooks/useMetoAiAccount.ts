@@ -1,24 +1,18 @@
 /**
- * MetaToken 个人中心的数据与动作：余额、Key、充值。
+ * MetaToken 个人中心的数据与动作：余额、Key、订阅状态。
  *
- * 三段职责分开成三个 hook（账号概览 / Key 管理 / 充值），由连接层组装——它们各自
- * 有独立的加载与错误状态，混在一个 model 里会让「充值失败」把「Key 列表」也置灰。
+ * 三段职责分开成三个 hook（账号概览 / Key 管理 / 订阅），由连接层组装——它们各自
+ * 有独立的加载与错误状态，混在一个 model 里会让「订阅拉取失败」把「Key 列表」也置灰。
+ *
+ * 充值与订阅购买都不在这里：那是站点网页的事，客户端只读状态并给出官网入口。
  */
 
 import { displayAmountToQuota, formatQuota, isSessionTerminal, unwrapMetoAi } from "@shared/lib/metoai";
-import { metoaiOverviewAtom, metoaiTokensAtom, metoaiTopUpInfoAtom, metoaiTopUpRecordsAtom } from "@shared/store/atoms";
+import { metoaiOverviewAtom, metoaiSubscriptionAtom, metoaiTokensAtom } from "@shared/store/atoms";
 import { useAtom } from "jotai";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import type {
-	MetoAiCurrencyConfig,
-	MetoAiPaymentChannel,
-	MetoAiPaymentGateway,
-	MetoAiToken,
-	MetoAiTopUpInfo,
-	MetoAiTopUpRecord,
-	MetoAiUser,
-} from "@/shared/metoai-types";
+import type { MetoAiCurrencyConfig, MetoAiSubscription, MetoAiToken, MetoAiUser } from "@/shared/metoai-types";
 
 /** 站点令牌状态码 → i18n key。数字来自服务端契约，不在这里翻译。 */
 const TOKEN_STATUS_LABEL_KEYS = {
@@ -261,189 +255,96 @@ export function useMetoAiKeysModel(authenticated: boolean, currency: MetoAiCurre
 	);
 }
 
-export interface MetoAiTopUpModel {
+/** 服务端订阅状态 → i18n key。未知状态一律中性展示，不猜语义。 */
+const SUBSCRIPTION_STATUS_KEYS = {
+	active: "subscription.status.active",
+	expired: "subscription.status.expired",
+	cancelled: "subscription.status.cancelled",
+} as const;
+
+export type MetoAiSubscriptionStatusKey =
+	| (typeof SUBSCRIPTION_STATUS_KEYS)[keyof typeof SUBSCRIPTION_STATUS_KEYS]
+	| "subscription.status.unknown";
+
+export function subscriptionStatusLabelKey(status: string): MetoAiSubscriptionStatusKey {
+	return SUBSCRIPTION_STATUS_KEYS[status as keyof typeof SUBSCRIPTION_STATUS_KEYS] ?? "subscription.status.unknown";
+}
+
+/** 一行订阅的展示数据；额度与时间都已按站点规则格式化。 */
+export interface MetoAiSubscriptionRow {
+	id: number;
+	/** 套餐标题；站点没给出对应套餐时为 null，界面回退中性文案。 */
+	planTitle: string | null;
+	statusLabelKey: MetoAiSubscriptionStatusKey;
+	/** 已用 / 总量，各自过币种规则。 */
+	used: string;
+	total: string;
+	/** 已格式化的到期时间。 */
+	expiresAt: string;
+	/** 已格式化的下次额度重置时间；null 表示不重置。 */
+	nextResetAt: string | null;
+	autoRenew: boolean;
+}
+
+export interface MetoAiSubscriptionModel {
 	loading: boolean;
 	error: string | null;
-	/** 站点启用的支付渠道；为空表示站点没开在线支付。 */
-	methods: MetoAiPaymentChannel[];
-	amountOptions: number[];
-	minTopUp: number;
-	redemptionEnabled: boolean;
-	records: MetoAiTopUpRecord[];
-	/** 最近一次预结算的实付金额（展示金额）；null 表示未计算。 */
-	quote: number | null;
-	quoting: boolean;
-	paying: boolean;
-	actions: {
-		reload: () => Promise<void>;
-		quote: (amount: number, gateway: MetoAiPaymentGateway) => Promise<void>;
-		pay: (amount: number, gateway: MetoAiPaymentGateway) => Promise<boolean>;
-		redeem: (code: string) => Promise<boolean>;
-	};
+	/** 当前生效的订阅；空数组表示没有订阅。 */
+	rows: MetoAiSubscriptionRow[];
+	actions: { reload: () => Promise<void> };
 }
 
-/** 支付方式条目里的最低下单额可能是数字或数字字符串。 */
-function readAmount(value: unknown, fallback = 0): number {
-	if (typeof value === "number" && Number.isFinite(value)) return value;
-	if (typeof value === "string") {
-		const parsed = Number.parseFloat(value);
-		if (Number.isFinite(parsed)) return parsed;
-	}
-	return fallback;
-}
-
-/**
- * 把 `/api/user/topup/info` 折算成可选渠道列表。
- *
- * `pay_methods` 是站点自配的具体方式（`type` 为 `alipay` / `wechat` / `stripe` 等），
- * 每一项都要单独可选：`type` 会原样回传成 `payment_method`，聚合成一个 `epay` 值
- * 站点并不认识。`waffo` 走独立的计量式收银台、由开关单独下发，因此从列表里剔除，
- * 避免同一个渠道出现两次。
- */
-function resolvePaymentOptions(info: MetoAiTopUpInfo | null): MetoAiPaymentChannel[] {
-	if (!info) return [];
-	const channels: MetoAiPaymentChannel[] = [];
-	const seen = new Set<string>();
-
-	for (const method of info.enable_online_topup ? (info.pay_methods ?? []) : []) {
-		const type = method.type?.trim();
-		const name = method.name?.trim();
-		if (!type || !name || type === "waffo" || seen.has(type)) continue;
-		seen.add(type);
-		const minTopUp = readAmount(method.min_topup);
-		channels.push({
-			method: type,
-			name,
-			// 站点可能只在顶层给 Stripe 的最低下单额，条目里为 0 时回退过去。
-			minTopUp: type === "stripe" && minTopUp <= 0 ? info.stripe_min_topup : minTopUp,
-		});
-	}
-
-	// 独立网关不一定出现在 `pay_methods` 里，按各自的开关补齐。
-	const dedicated: MetoAiPaymentChannel[] = [
-		...(info.enable_stripe_topup ? [{ method: "stripe", name: "Stripe", minTopUp: info.stripe_min_topup }] : []),
-		...(info.enable_creem_topup ? [{ method: "creem", name: "Creem", minTopUp: info.stripe_min_topup }] : []),
-		...(info.enable_waffo_pancake_topup
-			? [
-					{
-						method: "waffo_pancake",
-						name: "Waffo Pancake",
-						minTopUp: info.waffo_pancake_min_topup ?? 0,
-					},
-				]
-			: []),
-		...(info.enable_waffo_topup ? [{ method: "waffo", name: "Waffo", minTopUp: info.waffo_min_topup ?? 0 }] : []),
-	];
-	for (const channel of dedicated) {
-		if (seen.has(channel.method)) continue;
-		seen.add(channel.method);
-		channels.push(channel);
-	}
-
-	return channels;
-}
-
-export function useMetoAiTopUpModel(authenticated: boolean): MetoAiTopUpModel {
+/** 订阅只有读取一条路：购买、续费、取消都在官网。 */
+export function useMetoAiSubscriptionModel(
+	authenticated: boolean,
+	currency: MetoAiCurrencyConfig,
+): MetoAiSubscriptionModel {
 	const { t } = useTranslation("metoai");
-	const [info, setInfo] = useAtom(metoaiTopUpInfoAtom);
-	const [records, setRecords] = useAtom(metoaiTopUpRecordsAtom);
+	const [subscriptions, setSubscriptions] = useAtom(metoaiSubscriptionAtom);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
-	const [quote, setQuote] = useState<number | null>(null);
-	const [quoting, setQuoting] = useState(false);
-	const [paying, setPaying] = useState(false);
 
 	const reload = useCallback(async (): Promise<void> => {
 		setLoading(true);
 		setError(null);
 		try {
-			const [nextInfo, nextRecords] = await Promise.all([
-				window.vetta.metoai.topUpInfo().then(unwrapMetoAi),
-				window.vetta.metoai.topUpRecords(1, 20).then(unwrapMetoAi),
-			]);
-			setInfo(nextInfo);
-			setRecords(nextRecords.items ?? []);
+			setSubscriptions(unwrapMetoAi(await window.vetta.metoai.subscription()));
 		} catch (caught) {
-			setError(caught instanceof Error && caught.message !== "network" ? caught.message : t("topUp.errorLoad"));
+			setError(
+				caught instanceof Error && caught.message !== "network" ? caught.message : t("subscription.errorLoad"),
+			);
 		} finally {
 			setLoading(false);
 		}
-	}, [setInfo, setRecords, t]);
+	}, [setSubscriptions, t]);
 
 	useEffect(() => {
 		if (!authenticated) {
-			setInfo(null);
-			setRecords([]);
+			setSubscriptions([]);
 			return;
 		}
 		void reload();
-	}, [authenticated, reload, setInfo, setRecords]);
+	}, [authenticated, reload, setSubscriptions]);
 
-	const calculateQuote = useCallback(async (amount: number, gateway: MetoAiPaymentGateway): Promise<void> => {
-		setQuoting(true);
-		try {
-			setQuote(unwrapMetoAi(await window.vetta.metoai.quote(amount, gateway)));
-		} catch {
-			setQuote(null);
-		} finally {
-			setQuoting(false);
-		}
-	}, []);
-
-	const pay = useCallback(
-		async (amount: number, gateway: MetoAiPaymentGateway): Promise<boolean> => {
-			setPaying(true);
-			setError(null);
-			try {
-				const launch = unwrapMetoAi(await window.vetta.metoai.pay(amount, gateway));
-				if (launch.kind === "unsupported") {
-					setError(t("topUp.errorLaunch"));
-					return false;
-				}
-				// 收银台关闭不代表支付成功：到账以服务端回调为准，这里只把记录刷新一遍。
-				await reload();
-				return true;
-			} catch (caught) {
-				setError(caught instanceof Error && caught.message !== "network" ? caught.message : t("topUp.errorLaunch"));
-				return false;
-			} finally {
-				setPaying(false);
-			}
-		},
-		[reload, t],
+	const rows = useMemo<MetoAiSubscriptionRow[]>(
+		() =>
+			subscriptions.map((subscription: MetoAiSubscription) => ({
+				id: subscription.id,
+				planTitle: subscription.planTitle,
+				statusLabelKey: subscriptionStatusLabelKey(subscription.status),
+				used: formatQuota(subscription.amountUsed, currency),
+				total: formatQuota(subscription.amountTotal, currency),
+				expiresAt: new Date(subscription.endTime * 1000).toLocaleDateString(),
+				nextResetAt:
+					subscription.nextResetTime === null
+						? null
+						: new Date(subscription.nextResetTime * 1000).toLocaleDateString(),
+				autoRenew: subscription.autoRenew,
+			})),
+		[subscriptions, currency],
 	);
 
-	const redeem = useCallback(
-		async (code: string): Promise<boolean> => {
-			setError(null);
-			try {
-				unwrapMetoAi(await window.vetta.metoai.redeem(code));
-				await reload();
-				return true;
-			} catch (caught) {
-				setError(caught instanceof Error && caught.message !== "network" ? caught.message : t("topUp.errorRedeem"));
-				return false;
-			}
-		},
-		[reload, t],
-	);
-
-	return useMemo(
-		() => ({
-			loading,
-			error,
-			methods: resolvePaymentOptions(info),
-			amountOptions: info?.amount_options ?? [],
-			minTopUp: info?.min_topup ?? 0,
-			redemptionEnabled: info?.enable_redemption === true,
-			records,
-			quote,
-			quoting,
-			paying,
-			actions: { reload, quote: calculateQuote, pay, redeem },
-		}),
-		[loading, error, info, records, quote, quoting, paying, reload, calculateQuote, pay, redeem],
-	);
+	return useMemo(() => ({ loading, error, rows, actions: { reload } }), [loading, error, rows, reload]);
 }
 
 export { isSessionTerminal };

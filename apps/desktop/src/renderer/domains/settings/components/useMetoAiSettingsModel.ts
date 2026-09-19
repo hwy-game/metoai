@@ -1,17 +1,24 @@
 /**
- * MetaToken 个人中心（连接层）：余额、Key、充值三段数据，加上登录 / 登出与「接入模型」。
+ * MetaToken 个人中心（连接层）：余额、Key、订阅三段数据，加上授权登录 / 登出与「接入模型」。
  *
  * 三段数据各有独立的加载与错误状态，由 `domains/metoai/hooks/useMetoAiAccount` 里的三个
  * model 分别提供；这里只做组装、登录态判定，以及跨段的动作（删除前确认、复制 Key、
- * 把账号下的 Key 写进模型配置）。未登录时视图改用登录表单，所以登录动作也一并下发。
+ * 把账号下的 Key 写进模型配置、打开官网办理充值/订阅）。
+ * 未登录时视图改用授权登录卡片，所以登录动作也一并下发。
+ *
+ * 客户端不再收款：充值、订阅、兑换码、账户资料、用量明细都只是打开官网对应页面。
  */
 
 import type { MetoAiSignInFormProps } from "@domains/metoai/components/MetoAiSignInForm";
-import type { MetoAiKeyRow } from "@domains/metoai/hooks/useMetoAiAccount";
-import { useMetoAiAccountModel, useMetoAiKeysModel, useMetoAiTopUpModel } from "@domains/metoai/hooks/useMetoAiAccount";
+import type { MetoAiKeyRow, MetoAiSubscriptionRow } from "@domains/metoai/hooks/useMetoAiAccount";
+import {
+	useMetoAiAccountModel,
+	useMetoAiKeysModel,
+	useMetoAiSubscriptionModel,
+} from "@domains/metoai/hooks/useMetoAiAccount";
 import { useMetoAiSessionModel } from "@domains/metoai/hooks/useMetoAiSession";
 import { unwrapMetoAi } from "@shared/lib/metoai";
-import { confirmDialogAtom, resolvedThemeAtom } from "@shared/store/atoms";
+import { confirmDialogAtom } from "@shared/store/atoms";
 import { localModelsConfigAtom, modelCatalog } from "@shared/store/model-catalog";
 import { showToast } from "@shared/store/toast-atoms";
 import type { SettingSectionMeta } from "@vetta-org/theme-ui/settings";
@@ -19,7 +26,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { METOAI_PRESET_ID, METOAI_SITE_URL } from "@/shared/metoai";
-import type { MetoAiPaymentChannel, MetoAiTopUpRecord, MetoAiUser } from "@/shared/metoai-types";
+import type { MetoAiUser } from "@/shared/metoai-types";
 import { SETTINGS_SECTION } from "../registry";
 import type { MetoAiModelAccessState } from "./metoai/MetoAiAccountSection";
 import type { MetoAiKeyDraft } from "./metoai/MetoAiKeysSection";
@@ -30,9 +37,10 @@ export interface MetoAiSettingsModel {
 	sections: {
 		account: SettingSectionMeta;
 		keys: SettingSectionMeta;
-		topUp: SettingSectionMeta;
+		subscription: SettingSectionMeta;
+		webActions: SettingSectionMeta;
 	};
-	/** 未登录时展示的登录表单（view model 与动作）。 */
+	/** 未登录时展示的授权登录卡片（view model 与动作）。 */
 	signIn: Omit<MetoAiSignInFormProps, "onOpenSite">;
 	onOpenSite: () => void;
 	account: {
@@ -59,34 +67,31 @@ export interface MetoAiSettingsModel {
 		onReveal: (id: number) => Promise<string | null>;
 		onCopy: (text: string) => void;
 	};
-	topUp: {
-		methods: MetoAiPaymentChannel[];
-		amountOptions: number[];
+	subscription: {
+		rows: MetoAiSubscriptionRow[];
 		loading: boolean;
 		error: string | null;
-		quoting: boolean;
-		paying: boolean;
-		quote: number | null;
-		redemptionEnabled: boolean;
-		records: MetoAiTopUpRecord[];
-		/** 展示币种符号；TOKENS 口径下为空串。 */
-		symbol: string;
-		onQuote: (amount: number, method: string) => void;
-		onPay: (amount: number, method: string) => void;
-		onRedeem: (code: string) => Promise<boolean>;
+		/** 去官网管理订阅（购买、续费、取消都在那边）。 */
+		onManage: () => void;
+	};
+	webActions: {
+		onTopUp: () => void;
+		onSubscription: () => void;
+		onRedeem: () => void;
+		onProfile: () => void;
+		onUsage: () => void;
 	};
 }
 
 export function useMetoAiSettingsModel(): MetoAiSettingsModel {
 	const { t } = useTranslation("metoai");
 	const { t: tSettings } = useTranslation("settings");
-	const theme = useAtomValue(resolvedThemeAtom);
-	const session = useMetoAiSessionModel(theme);
+	const session = useMetoAiSessionModel();
 	const authenticated = session.authenticated;
 
 	const account = useMetoAiAccountModel(authenticated);
 	const keys = useMetoAiKeysModel(authenticated, account.currency);
-	const topUp = useMetoAiTopUpModel(authenticated);
+	const subscription = useMetoAiSubscriptionModel(authenticated, account.currency);
 
 	const setConfirm = useSetAtom(confirmDialogAtom);
 	const config = useAtomValue(localModelsConfigAtom);
@@ -143,31 +148,22 @@ export function useMetoAiSettingsModel(): MetoAiSettingsModel {
 		[t],
 	);
 
-	const openSite = useCallback((): void => {
-		void window.vetta.shell.openExternal(METOAI_SITE_URL);
+	/** 站点网页里的页面路径；客户端只负责打开，不在应用内复刻这些流程。 */
+	const openSitePage = useCallback((path: string): void => {
+		void window.vetta.shell.openExternal(`${METOAI_SITE_URL}${path}`);
 	}, []);
+
+	const openSite = useCallback((): void => openSitePage(""), [openSitePage]);
 
 	const signIn = useMemo<Omit<MetoAiSignInFormProps, "onOpenSite">>(
 		() => ({
-			busy: session.busy,
+			phase: session.phase,
 			error: session.error,
-			twoFactor: session.twoFactor,
-			turnstile: session.turnstile,
-			turnstileRequired: session.turnstileRequired,
-			registerEnabled: session.siteConfig?.register_enabled === true,
-			onLogin: session.actions.login,
-			onSubmitTwoFactor: session.actions.submitTwoFactor,
-			onCancelTwoFactor: session.actions.cancelTwoFactor,
+			onAuthorize: () => void session.actions.startAuthorize(),
+			onReopen: () => void session.actions.reopenAuthorize(),
+			onCancel: session.actions.cancelAuthorize,
 		}),
-		[
-			session.actions,
-			session.busy,
-			session.error,
-			session.siteConfig,
-			session.turnstile,
-			session.turnstileRequired,
-			session.twoFactor,
-		],
+		[session.actions, session.error, session.phase],
 	);
 
 	// 分区标题在这里翻好再交给展示层：设置域的分区元数据只有 titleKey，
@@ -176,7 +172,8 @@ export function useMetoAiSettingsModel(): MetoAiSettingsModel {
 		() => ({
 			account: { ...SETTINGS_SECTION["metoai-account"], title: tSettings("section_metoai-account") },
 			keys: { ...SETTINGS_SECTION["metoai-keys"], title: tSettings("section_metoai-keys") },
-			topUp: { ...SETTINGS_SECTION["metoai-topup"], title: tSettings("section_metoai-topup") },
+			subscription: { ...SETTINGS_SECTION["metoai-subscription"], title: tSettings("section_metoai-subscription") },
+			webActions: { ...SETTINGS_SECTION["metoai-web-actions"], title: tSettings("section_metoai-web-actions") },
 		}),
 		[tSettings],
 	);
@@ -216,26 +213,23 @@ export function useMetoAiSettingsModel(): MetoAiSettingsModel {
 				onReveal: keys.actions.reveal,
 				onCopy: (text: string) => void copyKey(text),
 			},
-			topUp: {
-				methods: topUp.methods,
-				amountOptions: topUp.amountOptions,
-				loading: topUp.loading,
-				error: topUp.error,
-				quoting: topUp.quoting,
-				paying: topUp.paying,
-				quote: topUp.quote,
-				redemptionEnabled: topUp.redemptionEnabled,
-				records: topUp.records,
-				symbol: account.currency.symbol,
-				onQuote: (amount: number, method: string) => void topUp.actions.quote(amount, method),
-				onPay: (amount: number, method: string) => void topUp.actions.pay(amount, method),
-				onRedeem: topUp.actions.redeem,
+			subscription: {
+				rows: subscription.rows,
+				loading: subscription.loading,
+				error: subscription.error,
+				onManage: () => openSitePage("/subscriptions"),
+			},
+			webActions: {
+				onTopUp: () => openSitePage("/wallet"),
+				onSubscription: () => openSitePage("/subscriptions"),
+				onRedeem: () => openSitePage("/redemption-codes"),
+				onProfile: () => openSitePage("/profile"),
+				onUsage: () => openSitePage("/account-usage"),
 			},
 		}),
 		[
 			account.actions,
 			account.balance,
-			account.currency.symbol,
 			account.error,
 			account.loading,
 			account.requests,
@@ -253,22 +247,16 @@ export function useMetoAiSettingsModel(): MetoAiSettingsModel {
 			modelConnected,
 			modelMessage,
 			openSite,
+			openSitePage,
 			removeKey,
 			sections,
 			session.actions,
 			session.busy,
 			signIn,
+			subscription.error,
+			subscription.loading,
+			subscription.rows,
 			t,
-			topUp.actions,
-			topUp.amountOptions,
-			topUp.error,
-			topUp.loading,
-			topUp.methods,
-			topUp.paying,
-			topUp.quoting,
-			topUp.quote,
-			topUp.records,
-			topUp.redemptionEnabled,
 		],
 	);
 }

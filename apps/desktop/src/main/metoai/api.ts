@@ -156,6 +156,18 @@ export function readSetCookie(response: Response, name: string): string | undefi
 	}
 	return undefined;
 }
+/**
+ * 站点的时间戳一律是 unix 秒。字段缺失或不可解析时退到「现在」——访问令牌会被
+ * 判成立刻过期并触发一次刷新，比留下一个永不过期的假时间安全。
+ */
+export function toUnixSeconds(value: unknown): number {
+	if (typeof value === "number" && Number.isFinite(value)) return value;
+	if (typeof value === "string") {
+		const parsed = Number.parseInt(value, 10);
+		if (Number.isFinite(parsed)) return parsed;
+	}
+	return Math.floor(Date.now() / 1000);
+}
 
 export function describeError(error: unknown): string {
 	if (error instanceof MetoAiHttpError) {
