@@ -202,6 +202,15 @@ jobs:
       - name: Verify release notes exist
         run: node scripts/release/release-notes.mjs --check
 
+      # 私有仓库的标准 runner 内存很小，而 `bun run check` 用 concurrently 并发跑
+      # 四路类型检查，desktop 的 tsc 会在默认堆上限（约 2 GB）处 OOM（exit 134），
+      # 与代码无关。先单独跑一次 desktop 类型检查：独占内存、放宽堆上限，并写好
+      # 增量缓存，随后的 check 复用这份缓存。
+      - name: Type check desktop with an isolated heap
+        run: bunx tsc --noEmit -p apps/desktop/tsconfig.json --incremental --tsBuildInfoFile node_modules/.desktop-check.tsbuildinfo
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
+
       - name: Run repository checks
         run: bun run check
 
