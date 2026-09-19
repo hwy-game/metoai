@@ -1,14 +1,18 @@
 import { execFile } from "node:child_process";
 import { readdir, readFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { promisify } from "node:util";
 import { parse } from "yaml";
+import { resolveLinuxPayloadPaths } from "./linux-packaging-contract.mjs";
 
 const execFileAsync = promisify(execFile);
 const packageDir = resolve(import.meta.dirname, "..");
 const defaultReleaseDir = join(packageDir, "release");
-const requiredPayloadPaths = ["/opt/Vetta/Vetta", "/opt/Vetta/resources/package-type"];
+// prepare-pack 把交给 electron-builder 的配置写在这里。载荷路径必须按同一份配置推导：
+// 产品名（安装目录）与可执行文件名一旦变化，写死的品牌名就会指向不存在的路径。
+const defaultBuilderConfigPath = join(tmpdir(), "vetta-desktop-build", "electron-builder.json");
 
 function requireValue(value, label) {
 	if (typeof value !== "string" || value.trim().length === 0) {
@@ -48,7 +52,7 @@ export function parseRpmFields(output) {
 	};
 }
 
-function verifyPayload(format, paths) {
+function verifyPayload(format, paths, requiredPayloadPaths) {
 	const pathSet = new Set(paths);
 	for (const requiredPath of requiredPayloadPaths) {
 		if (!pathSet.has(requiredPath)) {
@@ -73,11 +77,28 @@ function verifyIdentity(format, actual, expected) {
 	}
 }
 
-export function verifyLinuxPackageInspection({ expectedVersion, deb, rpm }) {
+export function verifyLinuxPackageInspection({ expectedVersion, requiredPayloadPaths, deb, rpm }) {
 	verifyIdentity("Debian", deb, { name: "vetta", version: expectedVersion, arch: "amd64" });
 	verifyIdentity("RPM", rpm, { name: "vetta", version: expectedVersion, arch: "x86_64" });
-	verifyPayload("Debian", deb.paths);
-	verifyPayload("RPM", rpm.paths);
+	verifyPayload("Debian", deb.paths, requiredPayloadPaths);
+	verifyPayload("RPM", rpm.paths, requiredPayloadPaths);
+}
+
+export async function readLinuxPayloadPaths(builderConfigPath = defaultBuilderConfigPath) {
+	let raw;
+	try {
+		raw = await readFile(builderConfigPath, "utf8");
+	} catch (error) {
+		throw new Error(
+			`[verify-linux-packages] cannot read the staged electron-builder config ${builderConfigPath}: ${error.message}`,
+		);
+	}
+	const builderConfig = JSON.parse(raw);
+	return resolveLinuxPayloadPaths({
+		productName: builderConfig?.productName,
+		executableName: builderConfig?.executableName,
+		linuxExecutableName: builderConfig?.linux?.executableName,
+	});
 }
 
 async function findExactlyOnePackage(releaseDir, extension) {
@@ -109,12 +130,16 @@ export async function readExpectedVersion(releaseDir) {
 	return document.version;
 }
 
-export async function verifyLinuxPackages({ releaseDir = defaultReleaseDir } = {}) {
+export async function verifyLinuxPackages({
+	releaseDir = defaultReleaseDir,
+	builderConfigPath = defaultBuilderConfigPath,
+} = {}) {
 	if (process.platform !== "linux") {
 		throw new Error("[verify-linux-packages] native Linux package verification must run on Linux");
 	}
-	const [expectedVersion, debPath, rpmPath] = await Promise.all([
+	const [expectedVersion, requiredPayloadPaths, debPath, rpmPath] = await Promise.all([
 		readExpectedVersion(releaseDir),
+		readLinuxPayloadPaths(builderConfigPath),
 		findExactlyOnePackage(releaseDir, ".deb"),
 		findExactlyOnePackage(releaseDir, ".rpm"),
 	]);
@@ -134,9 +159,11 @@ export async function verifyLinuxPackages({ releaseDir = defaultReleaseDir } = {
 			paths: rpmContents.stdout.split(/\r?\n/).filter(Boolean),
 		},
 	};
-	verifyLinuxPackageInspection({ expectedVersion, ...inspection });
-	console.info(`[verify-linux-packages] Debian and RPM packages verified: ${expectedVersion}`);
-	return { version: expectedVersion, ...inspection };
+	verifyLinuxPackageInspection({ expectedVersion, requiredPayloadPaths, ...inspection });
+	console.info(
+		`[verify-linux-packages] Debian and RPM packages verified: ${expectedVersion} (${requiredPayloadPaths[0]})`,
+	);
+	return { version: expectedVersion, requiredPayloadPaths, ...inspection };
 }
 
 export async function main() {

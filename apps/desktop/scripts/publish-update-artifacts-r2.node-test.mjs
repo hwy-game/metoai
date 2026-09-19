@@ -28,17 +28,17 @@ test("collectArtifacts uploads updater files and matching Windows supplements be
 			),
 			writeFile(join(directory, "Vetta Setup 1.2.3.exe"), "installer"),
 			writeFile(join(directory, "Vetta Setup 1.2.3.exe.blockmap"), "blockmap"),
-			writeFile(join(directory, "Vetta-1.2.3-win-x64.msi"), "msi"),
-			writeFile(join(directory, "Vetta-1.2.3-win-x64.zip"), "zip"),
+			writeFile(join(directory, "Metoai-1.2.3-win-x64.msi"), "msi"),
+			writeFile(join(directory, "Metoai-1.2.3-win-x64.zip"), "zip"),
 			writeFile(join(directory, "Vetta Setup 1.2.2.exe"), "stale"),
-			writeFile(join(directory, "Vetta-1.2.2-win-x64.msi"), "stale"),
+			writeFile(join(directory, "Metoai-1.2.2-win-x64.msi"), "stale"),
 		]);
 
 		assert.deepEqual(await collectArtifacts(directory), [
+			"Metoai-1.2.3-win-x64.msi",
+			"Metoai-1.2.3-win-x64.zip",
 			"Vetta Setup 1.2.3.exe",
 			"Vetta Setup 1.2.3.exe.blockmap",
-			"Vetta-1.2.3-win-x64.msi",
-			"Vetta-1.2.3-win-x64.zip",
 			"latest.yml",
 		]);
 	} finally {

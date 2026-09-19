@@ -3,7 +3,7 @@ import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
-import { windowsSupplementalArtifactNames } from "./windows-packaging-contract.mjs";
+import { findWindowsSupplementalArtifacts } from "./windows-packaging-contract.mjs";
 import {
 	readExpectedWindowsVersion,
 	verifyExtractedWindowsLayout,
@@ -20,11 +20,14 @@ async function createLayout(root, version) {
 	]);
 }
 
-test("Windows supplemental package names are stable and versioned", () => {
-	assert.deepEqual(windowsSupplementalArtifactNames("1.2.3"), [
-		"Vetta-1.2.3-win-x64.msi",
-		"Vetta-1.2.3-win-x64.zip",
-	]);
+test("Windows supplemental artifacts are located by extension and version", () => {
+	assert.deepEqual(
+		findWindowsSupplementalArtifacts(
+			["Metoai-1.2.3-win-x64.msi", "Metoai-1.2.3-win-x64.zip", "Metoai-1.2.2-win-x64.msi", "latest.yml"],
+			"1.2.3",
+		),
+		["Metoai-1.2.3-win-x64.msi", "Metoai-1.2.3-win-x64.zip"],
+	);
 });
 
 test("Windows package inspection accepts the versioned launcher layout at any extraction depth", async () => {

@@ -1,4 +1,4 @@
-import { copyFileSync, existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { copyFileSync, existsSync, mkdtempSync, readdirSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { basename, join } from "node:path";
 
@@ -29,10 +29,15 @@ export function resolvePackagedE2eAppImagePath(packageRoot, version) {
 	if (typeof version !== "string" || !PACKAGE_VERSION_PATTERN.test(version)) {
 		throw new Error(`Linux packaged E2E has an invalid application version: ${String(version)}`);
 	}
-	const appImagePath = join(packageRoot, "release", `Vetta-${version}.AppImage`);
-	if (existsSync(appImagePath)) return appImagePath;
+	const releaseRoot = join(packageRoot, "release");
+	// AppImage 的产物名由构建配置的产品名推导（默认 `${productName}-${version}.AppImage`），
+	// 因此按扩展名 + 版本号定位，不写死品牌名。
+	const candidates = existsSync(releaseRoot)
+		? readdirSync(releaseRoot).filter((fileName) => fileName.endsWith(".AppImage") && fileName.includes(version))
+		: [];
+	if (candidates.length === 1) return join(releaseRoot, candidates[0]);
 	throw new Error(
-		`Linux packaged E2E AppImage not found: ${appImagePath}. Run bun run dist:linux:test first.`,
+		`Linux packaged E2E AppImage not found for ${version} in ${releaseRoot} (found ${candidates.length}). Run bun run dist:linux:test first.`,
 	);
 }
 

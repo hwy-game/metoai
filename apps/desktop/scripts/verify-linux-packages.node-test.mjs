@@ -3,25 +3,29 @@ import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
+import { resolveLinuxPayloadPaths } from "./linux-packaging-contract.mjs";
 import {
 	parseDebContents,
 	parseDebFields,
 	parseRpmFields,
 	readExpectedVersion,
+	readLinuxPayloadPaths,
 	verifyLinuxPackageInspection,
 } from "./verify-linux-packages.mjs";
 
+// 与 fork 的构建配置一致：productName 决定安装目录，executableName 决定可执行文件名。
+const payloadPaths = resolveLinuxPayloadPaths({ productName: "Metoai", executableName: "Vetta" });
 const paths = [
-	"/opt/Vetta/Vetta",
-	"/opt/Vetta/resources/package-type",
-	"/usr/share/applications/vetta.desktop",
-	"/usr/share/icons/hicolor/512x512/apps/vetta.png",
+	...payloadPaths,
+	"/usr/share/applications/Vetta.desktop",
+	"/usr/share/icons/hicolor/512x512/apps/Vetta.png",
 ];
 
 test("Linux package inspection accepts matching Debian and RPM packages", () => {
 	assert.doesNotThrow(() =>
 		verifyLinuxPackageInspection({
 			expectedVersion: "1.2.3",
+			requiredPayloadPaths: payloadPaths,
 			deb: { name: "vetta", version: "1.2.3", arch: "amd64", paths },
 			rpm: { name: "vetta", version: "1.2.3", arch: "x86_64", paths },
 		}),
@@ -33,6 +37,7 @@ test("Linux package inspection rejects wrong identities and incomplete payloads"
 		() =>
 			verifyLinuxPackageInspection({
 				expectedVersion: "1.2.3",
+				requiredPayloadPaths: payloadPaths,
 				deb: { name: "vetta", version: "1.2.2", arch: "amd64", paths },
 				rpm: { name: "vetta", version: "1.2.3", arch: "x86_64", paths },
 			}),
@@ -42,10 +47,11 @@ test("Linux package inspection rejects wrong identities and incomplete payloads"
 		() =>
 			verifyLinuxPackageInspection({
 				expectedVersion: "1.2.3",
+				requiredPayloadPaths: payloadPaths,
 				deb: { name: "vetta", version: "1.2.3", arch: "amd64", paths },
 				rpm: { name: "vetta", version: "1.2.3", arch: "x86_64", paths: paths.slice(1) },
 			}),
-		/RPM package is missing \/opt\/Vetta\/Vetta/,
+		/RPM package is missing \/opt\/Metoai\/Vetta/,
 	);
 });
 
@@ -61,10 +67,53 @@ test("package command output parsers normalize Debian and RPM metadata", () => {
 	});
 	assert.deepEqual(
 		parseDebContents(
-			"-rwxr-xr-x root/root 123 2026-01-01 00:00 ./opt/Vetta/Vetta\n" +
-				"lrwxrwxrwx root/root 0 2026-01-01 00:00 ./usr/bin/vetta -> /opt/Vetta/Vetta\n",
+			"-rwxr-xr-x root/root 123 2026-01-01 00:00 ./opt/Metoai/Vetta\n" +
+				"lrwxrwxrwx root/root 0 2026-01-01 00:00 ./usr/bin/vetta -> /opt/Metoai/Vetta\n",
 		),
-		["/opt/Vetta/Vetta", "/usr/bin/vetta"],
+		["/opt/Metoai/Vetta", "/usr/bin/vetta"],
+	);
+});
+
+test("Linux payload paths follow the staged electron-builder product identity", async () => {
+	const stageDir = await mkdtemp(join(tmpdir(), "vetta-linux-layout-"));
+	try {
+		const builderConfigPath = join(stageDir, "electron-builder.json");
+		await writeFile(
+			builderConfigPath,
+			JSON.stringify({ productName: "Metoai", executableName: "Vetta", linux: { target: ["deb"] } }),
+		);
+		assert.deepEqual(await readLinuxPayloadPaths(builderConfigPath), [
+			"/opt/Metoai/Vetta",
+			"/opt/Metoai/resources/package-type",
+		]);
+
+		await writeFile(
+			builderConfigPath,
+			JSON.stringify({ productName: "Metoai", executableName: "Vetta", linux: { executableName: "Metoai" } }),
+		);
+		assert.deepEqual(await readLinuxPayloadPaths(builderConfigPath), [
+			"/opt/Metoai/Metoai",
+			"/opt/Metoai/resources/package-type",
+		]);
+
+		await rm(builderConfigPath);
+		await assert.rejects(
+			() => readLinuxPayloadPaths(builderConfigPath),
+			/cannot read the staged electron-builder config/,
+		);
+	} finally {
+		await rm(stageDir, { recursive: true, force: true });
+	}
+});
+
+test("Linux payload paths reject identities that electron-builder would sanitize", () => {
+	assert.throws(
+		() => resolveLinuxPayloadPaths({ productName: "Metoai Desktop", executableName: "Vetta" }),
+		/productName Metoai Desktop is not a plain path segment/,
+	);
+	assert.throws(
+		() => resolveLinuxPayloadPaths({ productName: "Metoai", executableName: "" }),
+		/missing executableName/,
 	);
 });
 

@@ -7,7 +7,7 @@ import { HeadObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";
 import { parse } from "yaml";
 import { referencedFileName, updaterMetadataPattern } from "./updater-metadata.mjs";
-import { windowsSupplementalArtifactNames } from "./windows-packaging-contract.mjs";
+import { findWindowsSupplementalArtifacts } from "./windows-packaging-contract.mjs";
 
 const projectRoot = join(import.meta.dirname, "..");
 const releaseDir = join(projectRoot, "release");
@@ -145,8 +145,8 @@ export async function collectArtifacts(directory = releaseDir) {
 	}
 	if (releaseVersions.size === 1) {
 		const [releaseVersion] = releaseVersions;
-		for (const fileName of windowsSupplementalArtifactNames(releaseVersion)) {
-			if (availableFiles.has(fileName)) artifacts.add(fileName);
+		for (const fileName of findWindowsSupplementalArtifacts(availableFiles, releaseVersion)) {
+			artifacts.add(fileName);
 		}
 	}
 

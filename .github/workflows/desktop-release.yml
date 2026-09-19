@@ -426,14 +426,18 @@ jobs:
           docker run --rm --volume "${PWD}/release:/release:ro" ubuntu:24.04 bash -euo pipefail -c '
             apt-get update
             apt-get install --yes /release/*.deb
-            test -x /opt/Vetta/Vetta
-            test "$(cat /opt/Vetta/resources/package-type)" = "deb"
+            app_dir="$(find /opt -mindepth 2 -maxdepth 2 -type f -name Vetta -printf '%h\n' -quit)"
+            test -n "${app_dir}"
+            test -x "${app_dir}/Vetta"
+            test "$(cat "${app_dir}/resources/package-type")" = "deb"
             find /usr/share/applications -maxdepth 1 -type f -iname "*vetta*.desktop" -print -quit | grep -q .
           '
           docker run --rm --volume "${PWD}/release:/release:ro" fedora:latest bash -euo pipefail -c '
             dnf install --assumeyes --nogpgcheck /release/*.rpm
-            test -x /opt/Vetta/Vetta
-            test "$(cat /opt/Vetta/resources/package-type)" = "rpm"
+            app_dir="$(find /opt -mindepth 2 -maxdepth 2 -type f -name Vetta -printf '%h\n' -quit)"
+            test -n "${app_dir}"
+            test -x "${app_dir}/Vetta"
+            test "$(cat "${app_dir}/resources/package-type")" = "rpm"
             find /usr/share/applications -maxdepth 1 -type f -iname "*vetta*.desktop" -print -quit | grep -q .
           '
 

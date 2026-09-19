@@ -5,7 +5,7 @@ import { dirname, join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { promisify } from "node:util";
 import { parse } from "yaml";
-import { windowsSupplementalArtifactNames } from "./windows-packaging-contract.mjs";
+import { findWindowsSupplementalArtifacts } from "./windows-packaging-contract.mjs";
 
 const execFileAsync = promisify(execFile);
 const packageDir = resolve(import.meta.dirname, "..");
@@ -16,6 +16,16 @@ async function assertNonEmptyFile(filePath) {
 	if (!info.isFile() || info.size === 0) {
 		throw new Error(`[verify-windows-packages] expected a non-empty file: ${filePath}`);
 	}
+}
+
+function requireOneSupplementalArtifact(fileNames, extension, releaseDir) {
+	const matches = fileNames.filter((fileName) => fileName.endsWith(extension));
+	if (matches.length !== 1) {
+		throw new Error(
+			`[verify-windows-packages] expected one ${extension} package in ${releaseDir}, found ${matches.length}`,
+		);
+	}
+	return matches[0];
 }
 
 async function findFiles(root, fileName, relativeRoot = "") {
@@ -90,9 +100,12 @@ export async function verifyWindowsPackages({ releaseDir = defaultReleaseDir } =
 		throw new Error("[verify-windows-packages] native Windows package verification must run on Windows");
 	}
 	const expectedVersion = await readExpectedWindowsVersion(releaseDir);
-	const [msiFileName, zipFileName] = windowsSupplementalArtifactNames(expectedVersion);
-	const msiPath = join(releaseDir, msiFileName);
-	const zipPath = join(releaseDir, zipFileName);
+	const releaseFiles = (await readdir(releaseDir, { withFileTypes: true }))
+		.filter((entry) => entry.isFile())
+		.map((entry) => entry.name);
+	const supplementalArtifacts = findWindowsSupplementalArtifacts(releaseFiles, expectedVersion);
+	const msiPath = join(releaseDir, requireOneSupplementalArtifact(supplementalArtifacts, ".msi", releaseDir));
+	const zipPath = join(releaseDir, requireOneSupplementalArtifact(supplementalArtifacts, ".zip", releaseDir));
 	await Promise.all([assertNonEmptyFile(msiPath), assertNonEmptyFile(zipPath)]);
 
 	const extractionRoot = await mkdtemp(join(tmpdir(), "vetta-windows-packages-"));

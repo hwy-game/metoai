@@ -11,7 +11,7 @@ import {
 
 test("Linux unpacked E2E uses the built AppImage as the updater runtime image", async () => {
 	const packageRoot = await mkdtemp(join(tmpdir(), "vetta-packaged-e2e-"));
-	const appImage = join(packageRoot, "release", "Vetta-1.2.3.AppImage");
+	const appImage = join(packageRoot, "release", "Metoai-1.2.3.AppImage");
 	await mkdir(join(packageRoot, "release"), { recursive: true });
 	await writeFile(appImage, "appimage");
 
@@ -33,6 +33,14 @@ test("Linux packaged E2E rejects unsafe or missing AppImage paths", async () => 
 			() => resolvePackagedE2eAppImagePath(packageRoot, "1.2.3"),
 			/AppImage not found/,
 		);
+
+		// 只按版本号定位：别的版本的 AppImage 不会被当成这次构建的产物。
+		await mkdir(join(packageRoot, "release"), { recursive: true });
+		await writeFile(join(packageRoot, "release", "Metoai-1.2.2.AppImage"), "stale");
+		assert.throws(
+			() => resolvePackagedE2eAppImagePath(packageRoot, "1.2.3"),
+			/AppImage not found/,
+		);
 	} finally {
 		await rm(packageRoot, { recursive: true, force: true });
 	}
@@ -41,7 +49,7 @@ test("Linux packaged E2E rejects unsafe or missing AppImage paths", async () => 
 test("Linux packaged E2E stages an isolated AppImage before updater tests", async () => {
 	const packageRoot = await mkdtemp(join(tmpdir(), "vetta-packaged-e2e-"));
 	const temporaryRoot = await mkdtemp(join(tmpdir(), "vetta-packaged-e2e-stage-"));
-	const releaseAppImage = join(packageRoot, "release", "Vetta-1.2.3.AppImage");
+	const releaseAppImage = join(packageRoot, "release", "Metoai-1.2.3.AppImage");
 	await mkdir(join(packageRoot, "release"), { recursive: true });
 	await writeFile(releaseAppImage, "release-appimage");
 
