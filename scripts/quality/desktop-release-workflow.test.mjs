@@ -12,6 +12,15 @@ const upgradeWorkflow = readFileSync(
 	"utf8",
 );
 
+/**
+ * 抽出 `docker run ... -c '<脚本>'` 的脚本体。这些脚本整体由外层单引号包裹，脚本内再
+ * 出现单引号会提前闭合外层引号，外层 shell 随后会吃掉反斜杠（`-printf '%h\n'` 实际变成
+ * `-printf %hn`），容器检查就会在没有任何输出的情况下失败。
+ */
+function dockerContainerScripts(workflowSource) {
+	return [...workflowSource.matchAll(/-c '\r?\n([\s\S]*?)\r?\n\s*'\r?\n/g)].map((match) => match[1]);
+}
+
 describe("Desktop release workflow contracts", () => {
 	it("runs quality and packaging tests before the platform matrix", () => {
 		expect(workflow).toContain("  quality:");
@@ -70,6 +79,21 @@ describe("Desktop release workflow contracts", () => {
 		expect(workflow).toContain("apps/desktop/release/*.AppImage");
 		expect(workflow).toContain("apps/desktop/release/*.deb");
 		expect(workflow).toContain("apps/desktop/release/*.rpm");
+	});
+
+	it("keeps the Linux container probes quoting-safe and self-reporting", () => {
+		const containerScripts = dockerContainerScripts(workflow).filter((script) =>
+			/(apt-get install|dnf install) /.test(script),
+		);
+		expect(containerScripts).toHaveLength(2);
+		for (const script of containerScripts) {
+			// 脚本体由外层单引号包裹，内部再出现单引号会提前闭合它并让外层 shell 吃掉
+			// 反斜杠（`-printf '%h\n'` 实际变成 `-printf %hn`），探测会静默失败。
+			expect(script).not.toContain("'");
+			expect(script).toContain("find /opt -mindepth 2 -maxdepth 2 -type f -name Vetta -print -quit");
+			expect(script).toContain(`test -n "\${binary}" || { echo "no Vetta executable installed under /opt"`);
+			expect(script).toContain('|| { echo "no desktop entry installed"');
+		}
 	});
 
 	it("keeps pull-request Linux packaging on the AppImage smoke target", () => {

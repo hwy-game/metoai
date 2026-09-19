@@ -418,6 +418,10 @@ jobs:
 
       # 包内清单校验能捕获元数据和路径错误；容器安装再覆盖 dpkg/dnf 的真实事务、
       # desktop entry 与 electron-updater 用于选择 deb/rpm 的 package-type 标记。
+      #
+      # 容器脚本整体由外层单引号包裹，脚本内部只能再用双引号：内层单引号会提前闭合
+      # 外层引号，外层 shell 随即吃掉反斜杠（-printf '%h\n' 会变成 -printf %hn），
+      # 检查会在没有任何输出的情况下失败。
       - name: Verify native Linux package installation
         if: matrix.platform == 'linux'
         working-directory: apps/desktop
@@ -426,19 +430,21 @@ jobs:
           docker run --rm --volume "${PWD}/release:/release:ro" ubuntu:24.04 bash -euo pipefail -c '
             apt-get update
             apt-get install --yes /release/*.deb
-            app_dir="$(find /opt -mindepth 2 -maxdepth 2 -type f -name Vetta -printf '%h\n' -quit)"
-            test -n "${app_dir}"
+            binary="$(find /opt -mindepth 2 -maxdepth 2 -type f -name Vetta -print -quit)"
+            test -n "${binary}" || { echo "no Vetta executable installed under /opt" >&2; ls -l /opt >&2; exit 1; }
+            app_dir="$(dirname "${binary}")"
             test -x "${app_dir}/Vetta"
             test "$(cat "${app_dir}/resources/package-type")" = "deb"
-            find /usr/share/applications -maxdepth 1 -type f -iname "*vetta*.desktop" -print -quit | grep -q .
+            find /usr/share/applications -maxdepth 1 -type f -iname "*vetta*.desktop" -print -quit | grep -q . || { echo "no desktop entry installed" >&2; ls -l /usr/share/applications >&2; exit 1; }
           '
           docker run --rm --volume "${PWD}/release:/release:ro" fedora:latest bash -euo pipefail -c '
             dnf install --assumeyes --nogpgcheck /release/*.rpm
-            app_dir="$(find /opt -mindepth 2 -maxdepth 2 -type f -name Vetta -printf '%h\n' -quit)"
-            test -n "${app_dir}"
+            binary="$(find /opt -mindepth 2 -maxdepth 2 -type f -name Vetta -print -quit)"
+            test -n "${binary}" || { echo "no Vetta executable installed under /opt" >&2; ls -l /opt >&2; exit 1; }
+            app_dir="$(dirname "${binary}")"
             test -x "${app_dir}/Vetta"
             test "$(cat "${app_dir}/resources/package-type")" = "rpm"
-            find /usr/share/applications -maxdepth 1 -type f -iname "*vetta*.desktop" -print -quit | grep -q .
+            find /usr/share/applications -maxdepth 1 -type f -iname "*vetta*.desktop" -print -quit | grep -q . || { echo "no desktop entry installed" >&2; ls -l /usr/share/applications >&2; exit 1; }
           '
 
       - name: Run packaged app and updater E2E
