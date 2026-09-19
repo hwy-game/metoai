@@ -54,6 +54,15 @@ export function stagePackagedE2eAppImage(packageRoot, version, temporaryRoot = t
 	}
 }
 
+/**
+ * electron-builder 打 deb/rpm 时会往共用的 linux-unpacked 写 resources/package-type，
+ * electron-updater 读到它会改用 deb/rpm 更新器，AppImage 更新流程就卡在下载阶段。
+ * 模拟 AppImage 的打包 E2E 必须清掉这个标记。
+ */
+export function clearLinuxUnpackedPackageType(packageRoot) {
+	rmSync(join(packageRoot, "release", "linux-unpacked", "resources", "package-type"), { force: true });
+}
+
 export function resolvePackagedE2eBinaryPath(packageRoot, platform = process.platform) {
 	const releaseRoot = join(packageRoot, "release");
 	const candidates =
