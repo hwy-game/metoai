@@ -15,6 +15,7 @@ import { useAtom, useSetAtom } from "jotai";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { MetoAiAuthorizeRejection, MetoAiUser } from "@/shared/metoai-types";
+import { clearMetoAiGateSkipped } from "../gate-storage";
 
 /** `idle` 可发起授权；`waiting` 表示授权页已在浏览器打开，等回调。 */
 export type MetoAiAuthorizePhase = "idle" | "waiting";
@@ -165,6 +166,9 @@ export function useMetoAiSessionModel(): MetoAiSessionModel {
 		setBusy(true);
 		try {
 			const result = await window.vetta.metoai.logout();
+			// 主进程已经清掉本地会话与模型 Key；这里同步清掉「已跳过」标记，
+			// 让下次启动重新出现登录 / 填 Key 入口。
+			clearMetoAiGateSkipped();
 			// 会话已被服务端终结时不必再提示：本地已经登出，界面状态本身就是对的。
 			if (!result.ok) {
 				const failure = new MetoAiCallError(result.error);

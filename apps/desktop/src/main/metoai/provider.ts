@@ -11,7 +11,7 @@ import { METOAI_BASE_URL, METOAI_DISPLAY_NAME, METOAI_ICON, METOAI_PRESET_ID } f
 import type { MetoAiModelAccessResult } from "../../shared/metoai-types.js";
 import { getAppLogger } from "../logger.js";
 import { getDesktopModelSettingsService } from "../models/model-settings-host.js";
-import type { ModelsConfig } from "../models/model-settings-service.js";
+import type { ModelsConfig, ProviderConfig } from "../models/model-settings-service.js";
 import { isInvalidKey } from "../models/presets/errors.js";
 import { refreshPresetModels } from "../models/presets/sync.js";
 import { createToken, listTokens, revealTokenKey } from "./account.js";
@@ -119,4 +119,29 @@ async function runEnsureModelAccess(): Promise<MetoAiModelAccessResult> {
 	return { ok: true, created: token.created };
 }
 
-/** 退出登录后模型配置保持不变：已签发的 Key 仍属于用户账号，删掉反而更意外。 */
+/**
+ * 退出登录时释放本地模型接入：清掉预设的 Key，模型条目与 baseUrl 原样保留。
+ *
+ * 站点上那把 Key 不动——它属于用户账号，用户可能在别处用它，登出就删更意外；但本地
+ * 凭据必须清掉，否则「退出登录」之后应用仍能拿它继续调用中转。重新登录时
+ * `ensureModelAccess` 会复用账号下启用中的令牌，用户不会因此丢模型。
+ */
+export async function releaseModelAccess(): Promise<void> {
+	// 登录后的后台预热可能还在写配置：先让它落地，否则它会把刚清掉的 Key 写回去。
+	await ensureInFlight?.catch(() => undefined);
+
+	const service = getDesktopModelSettingsService();
+	const latest = await service.getConfig();
+	const provider = latest.providers[METOAI_PRESET_ID];
+	if (!provider?.apiKey && !provider?.credentialRef) return;
+
+	// 只删凭据字段：`replaceConfig` 会连凭据库里的记录一起移除，模型列表保留。
+	const released: ProviderConfig = { ...provider };
+	delete released.apiKey;
+	delete released.credentialRef;
+	await service.replaceConfig({
+		...latest,
+		providers: { ...latest.providers, [METOAI_PRESET_ID]: released },
+	});
+	log.info("released the local MetaToken model credential");
+}

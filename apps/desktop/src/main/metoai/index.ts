@@ -42,12 +42,13 @@ import {
 	reopenAuthorize as reopenAuthorizeFlow,
 	startAuthorize,
 } from "./authorize.js";
-import { ensureModelAccess } from "./provider.js";
+import { ensureModelAccess, releaseModelAccess } from "./provider.js";
 import {
 	acceptAuthBundle,
 	clearSession,
 	logout as endSession,
 	getSessionSnapshot,
+	hasSession,
 	refreshAccessToken,
 } from "./session.js";
 
@@ -88,7 +89,15 @@ export function reopenAuthorize(): Promise<void> {
 }
 
 export async function logout(): Promise<void> {
+	// 没有会话时登出是空操作：不能顺手清掉用户自己填进预设的 Key。
+	const hadSession = hasSession();
 	await endSession();
+	if (hadSession) {
+		// 本地凭据必须跟着会话一起清掉：只撤会话的话，写进模型配置的那把 Key 还能继续调用中转。
+		await releaseModelAccess().catch((error: unknown) => {
+			log.warn(`failed to release model access on logout: ${String(error)}`);
+		});
+	}
 	broadcast(METOAI_SESSION_CHANGED_CHANNEL, getSessionSnapshot());
 }
 

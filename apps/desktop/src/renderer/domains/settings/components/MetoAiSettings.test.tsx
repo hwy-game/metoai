@@ -301,4 +301,18 @@ describe("MetaToken 个人中心", () => {
 		expect(await screen.findByText("subscription.errorLoad")).toBeTruthy();
 		expect(screen.queryByText("subscription.empty")).toBeNull();
 	});
+
+	it("退出登录会清掉「已跳过引导」标记，下次启动重新出现登录入口", async () => {
+		// 本地 Key 由主进程在 logout IPC 里清掉（见 main/metoai/logout.test.ts）；
+		// 这里验证渲染层补齐的另一半：不再把用户当成已经做过选择。
+		const api = authenticatedApi();
+		localStorage.setItem("vetta-metoai-gate-skipped", "1");
+		render(<MetoAiSettings />);
+
+		await userEvent.click(await screen.findByRole("button", { name: "account.signOut" }));
+
+		expect(api.logout).toHaveBeenCalledOnce();
+		expect(localStorage.getItem("vetta-metoai-gate-skipped")).toBeNull();
+	});
+
 });
