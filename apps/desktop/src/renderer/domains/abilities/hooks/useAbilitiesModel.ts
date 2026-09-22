@@ -6,7 +6,12 @@ import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { usePluginTextResolver } from "../../plugins/runtime/plugin-i18n";
 import { useMcpSettingsModel } from "../../settings/components/useMcpSettingsModel";
-import { isAbilityListedInDiscover, queryAbilityCatalog } from "../lib/ability-catalog-query";
+import {
+	countAbilitiesByModule,
+	isAbilityListedInDiscover,
+	pickDefaultModule,
+	queryAbilityCatalog,
+} from "../lib/ability-catalog-query";
 import { localizeMarketAbility } from "../lib/ability-presentation";
 import {
 	buildBundleAbilities,
@@ -18,7 +23,14 @@ import {
 import { decorateAbilityConflicts } from "../lib/decorate-ability-conflicts";
 import { groupAbilities } from "../lib/group-abilities";
 import { withLocalAbilityPresentation } from "../lib/local-ability-presentation";
-import type { AbilitiesModel, AbilityBannerIcon, AbilityGroup, AbilityItem, AbilityScope } from "../types";
+import type {
+	AbilitiesModel,
+	AbilityBannerIcon,
+	AbilityGroup,
+	AbilityItem,
+	AbilityModule,
+	AbilityScope,
+} from "../types";
 import { useAbilityActions } from "./useAbilityActions";
 import { useAbilityData } from "./useAbilityData";
 
@@ -29,6 +41,8 @@ export interface UseAbilitiesModelOptions {
 	readonly initialSearchQuery?: string;
 	/** 深链指定的落地分区；缺省仍是「发现」。 */
 	readonly initialScope?: AbilityScope;
+	/** 深链指定的模块；缺省时落在第一个有条目的模块。 */
+	readonly initialModule?: AbilityModule;
 }
 
 export function useAbilitiesModel(options: UseAbilitiesModelOptions = {}): AbilitiesModel {
@@ -36,6 +50,8 @@ export function useAbilitiesModel(options: UseAbilitiesModelOptions = {}): Abili
 	const [scope, setScope] = useState<AbilityScope>(options.initialScope ?? "discover");
 	const [searchQuery, setSearchQuery] = useState(options.initialSearchQuery ?? "");
 	const [visiblePages, setVisiblePages] = useState(1);
+	/** null = 用户还没选过模块，落点交给数据决定。 */
+	const [module, setModule] = useState<AbilityModule | null>(options.initialModule ?? null);
 
 	const data = useAbilityData();
 	const trPlugin = usePluginTextResolver();
@@ -107,16 +123,28 @@ export function useAbilitiesModel(options: UseAbilitiesModelOptions = {}): Abili
 		setSearchQuery(value);
 		setVisiblePages(1);
 	}, []);
+	const changeModule = useCallback((nextModule: AbilityModule) => {
+		setModule(nextModule);
+		setVisiblePages(1);
+	}, []);
+
+	const moduleCounts = useMemo(
+		() => countAbilitiesByModule(allItems, { scope, keyword: searchQuery }),
+		[allItems, scope, searchQuery],
+	);
+	// 没手动选过模块时跟着数据走：换 scope 或改搜索词后，落点始终是有内容的模块。
+	const activeModule = module ?? pickDefaultModule(moduleCounts);
 
 	const catalogPage = useMemo(
 		() =>
 			queryAbilityCatalog(allItems, {
 				scope,
 				keyword: searchQuery,
+				types: [activeModule],
 				page: 1,
 				pageSize: visiblePages * ABILITY_PAGE_SIZE,
 			}),
-		[allItems, scope, searchQuery, visiblePages],
+		[allItems, scope, searchQuery, activeModule, visiblePages],
 	);
 	const items = catalogPage.items;
 
@@ -165,6 +193,9 @@ export function useAbilitiesModel(options: UseAbilitiesModelOptions = {}): Abili
 		hasMore: items.length < catalogPage.total,
 		loadMore: () => setVisiblePages((current) => current + 1),
 		groups,
+		module: activeModule,
+		setModule: changeModule,
+		moduleCounts,
 		allItems,
 		bannerIcons,
 		// mcpConfig 缺省时 buildMcpAbilities 按空表处理，不必再挡整表转圈。

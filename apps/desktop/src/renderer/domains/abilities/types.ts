@@ -24,6 +24,22 @@ export type AbilityCatalogSource =
 	| { kind: "server"; id: "server" }
 	| { kind: "github"; id: string; name: string; repository: string };
 
+/**
+ * 能力模块：列表页的一级导航，与能力 type 一一对应。
+ *
+ * 模块内再按 `category` 做二级分组（`groupAbilities`）：分类是市场给的运营维度，
+ * 模块是能力形态，两者不是一回事，所以模块不做成分类的别名。
+ */
+export const ABILITY_MODULES = ["skill", "scene", "mcp", "plugin", "bundle"] as const satisfies readonly AbilityType[];
+
+export type AbilityModule = AbilityType;
+
+/** 模块 tab 的计数：只按 scope + 搜索词过滤，不含模块自身的筛选。 */
+export interface AbilityModuleCount {
+	module: AbilityModule;
+	total: number;
+}
+
 /** 分组 key：无分类的条目归到这一组。 */
 export const ABILITY_CATEGORY_UNCATEGORIZED = "__uncategorized__";
 
@@ -192,6 +208,12 @@ export interface AbilitiesModel {
 	loadMore: () => void;
 	/** items 按分类聚合；分类名升序，未分类置底。 */
 	groups: AbilityGroup[];
+
+	/** 当前模块（列表一级导航）；列表只展示该模块的条目。 */
+	module: AbilityModule;
+	setModule: (module: AbilityModule) => void;
+	/** 各模块在当前 scope + 搜索词下的条目数，供模块 tab 显示计数。 */
+	moduleCounts: AbilityModuleCount[];
 	/** 未经任何过滤的全集，供详情页按 id 查找。 */
 	allItems: AbilityItem[];
 	bannerIcons: AbilityBannerIcon[];

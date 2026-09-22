@@ -1,7 +1,7 @@
 import type { TFunction } from "i18next";
 import { describe, expect, it } from "vitest";
-import type { SkillAbility } from "../types";
-import { queryAbilityCatalog } from "./ability-catalog-query";
+import type { AbilityItem, SkillAbility } from "../types";
+import { countAbilitiesByModule, pickDefaultModule, queryAbilityCatalog } from "./ability-catalog-query";
 import { buildMcpAbilities } from "./build-ability-items";
 
 function ability(index: number, overrides: Partial<SkillAbility> = {}): SkillAbility {
@@ -147,5 +147,66 @@ describe("queryAbilityCatalog", () => {
 
 		expect(before.items.map((item) => item.id)).toEqual([popular.id, other.id]);
 		expect(after.items.map((item) => item.id)).toEqual([popular.id, other.id]);
+	});
+});
+
+/** 只关心 type / 安装态时用：按 type 造条目，其余字段沿用 skill 的默认值。 */
+function typedAbility(
+	index: number,
+	type: AbilityItem["type"],
+	slug: string,
+	overrides: Partial<AbilityItem> = {},
+): AbilityItem {
+	return {
+		...ability(index, { slug, id: `${type}:${slug}`, searchTerms: [slug, `keyword-${index}`] }),
+		type,
+		...overrides,
+	} as AbilityItem;
+}
+
+describe("countAbilitiesByModule", () => {
+	const items = [
+		typedAbility(1, "skill", "docx"),
+		typedAbility(2, "skill", "pdf", { installed: true }),
+		typedAbility(3, "mcp", "notion", { installed: true }),
+		typedAbility(4, "plugin", "feishu", { installed: true }),
+	];
+
+	it("counts every module including the empty ones, following scope and keyword", () => {
+		expect(countAbilitiesByModule(items, { scope: "discover" })).toEqual([
+			{ module: "skill", total: 2 },
+			{ module: "scene", total: 0 },
+			{ module: "mcp", total: 1 },
+			{ module: "plugin", total: 1 },
+			{ module: "bundle", total: 0 },
+		]);
+		// 换 scope 就是换口径：数字虚高会让 tab 骗人。
+		expect(countAbilitiesByModule(items, { scope: "mine" })).toEqual([
+			{ module: "skill", total: 1 },
+			{ module: "scene", total: 0 },
+			{ module: "mcp", total: 1 },
+			{ module: "plugin", total: 1 },
+			{ module: "bundle", total: 0 },
+		]);
+		expect(countAbilitiesByModule(items, { scope: "discover", keyword: "pdf" })).toEqual([
+			{ module: "skill", total: 1 },
+			{ module: "scene", total: 0 },
+			{ module: "mcp", total: 0 },
+			{ module: "plugin", total: 0 },
+			{ module: "bundle", total: 0 },
+		]);
+	});
+
+	it("keeps the same totals as the list each module points at", () => {
+		for (const { module, total } of countAbilitiesByModule(items, { scope: "discover" })) {
+			const page = queryAbilityCatalog(items, { scope: "discover", types: [module], page: 1, pageSize: 60 });
+			expect(page.total).toBe(total);
+		}
+	});
+
+	it("lands on the first non-empty module, falling back to skills", () => {
+		const pluginsOnly = countAbilitiesByModule([typedAbility(5, "plugin", "feishu")], { scope: "discover" });
+		expect(pickDefaultModule(pluginsOnly)).toBe("plugin");
+		expect(pickDefaultModule(countAbilitiesByModule([], { scope: "discover" }))).toBe("skill");
 	});
 });

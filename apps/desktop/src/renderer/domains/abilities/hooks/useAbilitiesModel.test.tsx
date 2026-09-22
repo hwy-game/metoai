@@ -18,6 +18,10 @@ import { BundleInstallDialog } from "../components/detail/BundleInstallDialog";
 import { useAbilitiesModel } from "./useAbilitiesModel";
 
 vi.mock("@shared/components/cloud-slots", () => ({ cloudEnabled: false }));
+vi.mock("@shared/lib/api", async () => {
+	const actual = await vi.importActual<typeof import("@shared/lib/api")>("@shared/lib/api");
+	return { ...actual, fetchMarketAbilities: vi.fn(async () => []) };
+});
 vi.mock("@shared/tour", () => ({ CapabilitiesTour: () => null }));
 vi.mock("../../settings/ai-assist", () => ({ SettingsAiAssist: () => null }));
 vi.mock("../components/AbilityMcpDialogs", () => ({ AbilityMcpDialogs: () => null }));
@@ -294,4 +298,77 @@ it("seeds the search keyword from an external deep link and lets the page take o
 	const mine = renderHook(() => useAbilitiesModel({ initialSearchQuery: "Notion", initialScope: "mine" }));
 	await waitFor(() => expect(mine.result.current.refreshing).toBe(false));
 	expect(mine.result.current.scope).toBe("mine");
+});
+
+it("splits the catalog into modules and lets the tab decide what the list shows", async () => {
+	const repository = "https://github.com/example/modules";
+	const source: MarketplaceSource = {
+		id: "modules", name: "Modules", type: "github", repository,
+		archiveUrl: `${repository}/archive/main.zip`, ref: "main",
+		enabled: true, builtin: false, autoUpdate: false, priority: 100,
+		createdAt: "2026-08-30T00:00:00.000Z", updatedAt: "2026-08-30T00:00:00.000Z",
+	};
+	const base = {
+		description: "", version: "1.0.0", configVersion: 1, author: "", license: "", icon: "", tags: [],
+		origin: { kind: "github-marketplace" as const, sourceId: source.id, marketplace: "modules", marketplaceVersion: "1", repository },
+		detail: {},
+	};
+	const snapshot: OpenMarketplaceSourceSnapshot = {
+		source, sourceId: source.id, marketplaceVersion: "1", repository, syncedAt: source.updatedAt, stale: false,
+		abilities: [
+			{ ...base, type: "skill", slug: "docx", name: "Docx", category: "Documents", listed: true, config: {} },
+			{ ...base, type: "mcp", slug: "notion", name: "Notion", category: "Productivity", listed: true,
+				config: { mcp: { type: "http" as const, url: "https://example.com/notion" } } },
+			{ ...base, type: "mcp", slug: "figma", name: "Figma", category: "Productivity", listed: true,
+				config: { mcp: { type: "http" as const, url: "https://example.com/figma" } } },
+		],
+	};
+	const catalog: OpenMarketplaceCatalog = {
+		sources: [source], snapshots: [snapshot], abilities: snapshot.abilities, failedSourceIds: [],
+	};
+	Object.defineProperty(window, "vetta", { configurable: true, value: {
+		abilities: {
+			getLedger: async () => ({}), listLocalPresentations: async () => ({}), getOpenMcpSetupStatus: async () => ({}),
+			listOpenMarketplaces: async () => structuredClone(catalog), refreshOpenMarketplaces: async () => structuredClone(catalog),
+			onOpenMarketplacesUpdated: () => () => undefined,
+		},
+		skills: { getMarketManifest: async () => ({}), list: async () => [] },
+		plugins: { listAll: async () => [] },
+		mcp: { get: async () => ({ mcpServers: {} }) },
+	} });
+	initI18n();
+	await i18n.changeLanguage("en");
+
+	const { result } = renderHook(() => useAbilitiesModel());
+	await waitFor(() => expect(result.current.refreshing).toBe(false));
+
+	// 五个模块都占位（空模块也要在），计数按当前 scope + 搜索词算。
+	expect(result.current.moduleCounts).toEqual([
+		{ module: "skill", total: 1 },
+		{ module: "scene", total: 0 },
+		{ module: "mcp", total: 2 },
+		{ module: "plugin", total: 0 },
+		{ module: "bundle", total: 0 },
+	]);
+	// 默认落在第一个有条目的模块，列表只给该模块的条目。
+	expect(result.current.module).toBe("skill");
+	expect(result.current.items.map((item) => item.slug)).toEqual(["docx"]);
+	expect(result.current.groups.map((group) => group.category)).toEqual(["Documents"]);
+
+	act(() => result.current.setModule("mcp"));
+	expect(result.current.module).toBe("mcp");
+	expect(result.current.items.map((item) => item.slug).sort()).toEqual(["figma", "notion"]);
+	// 模块内仍是二级分类分组：分类是运营维度，不随模块变。
+	expect(result.current.groups.map((group) => group.category)).toEqual(["Productivity"]);
+
+	// 搜索在模块内生效，并把结果同步反映到各模块的计数上。
+	act(() => result.current.setSearchQuery("Figma"));
+	expect(result.current.items.map((item) => item.slug)).toEqual(["figma"]);
+	expect(result.current.moduleCounts).toEqual([
+		{ module: "skill", total: 0 },
+		{ module: "scene", total: 0 },
+		{ module: "mcp", total: 1 },
+		{ module: "plugin", total: 0 },
+		{ module: "bundle", total: 0 },
+	]);
 });
