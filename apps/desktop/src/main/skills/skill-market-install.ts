@@ -1,16 +1,14 @@
 /**
- * 从 Vetta 能力市场按 slug 下载并安装 skill/scene。
- * 市场下载可匿名；有登录 token 时附带 Authorization。
+ * 从 MetoToken 能力市场按 slug 下载并安装 skill/scene。
+ * 市场下载公开可用，不携带 Vetta serverToken 或其它旧云服务凭据。
  */
 import { execSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { getVettaHomePath } from "@vetta/action-rpc";
+import { METOAI_API_BASE } from "../../shared/metoai.js";
 import { recordAbilityInstall } from "../abilities/ability-ledger.js";
-import { getCloudBridge } from "../cloud-bridge.js";
-import { DEFAULT_SERVER_URL } from "../constants.js";
-import { readSettings } from "../ipc/settings.js";
 import { getAppLogger } from "../logger.js";
 import { verifySha256 } from "../utils/integrity.js";
 import {
@@ -48,37 +46,12 @@ interface ApiEnvelope<T> {
 }
 
 function baseUrl(): string {
-	return DEFAULT_SERVER_URL.replace(/\/+$/, "");
+	return METOAI_API_BASE.replace(/\/+$/, "");
 }
 
-function currentToken(): string | undefined {
-	const token = readSettings().serverToken;
-	return typeof token === "string" && token !== "" ? token : undefined;
-}
-
-async function fetchWithOptionalAuth(path: string, accept: string): Promise<Response> {
-	// vetta 官方市场是云服务渠道：lite 构建不可用（github 来源不走这里）。
-	const cloud = getCloudBridge();
-	if (!cloud) {
-		throw new Error("Vetta market is not available in this build");
-	}
+async function fetchMarket(path: string, accept: string): Promise<Response> {
 	const url = `${baseUrl()}${path.startsWith("/") ? path : `/${path}`}`;
-	const doFetch = async (token?: string): Promise<Response> => {
-		const headers: Record<string, string> = { Accept: accept };
-		if (token) headers.Authorization = `Bearer ${token}`;
-		return fetch(url, { headers });
-	};
-
-	let token = currentToken();
-	let response = await doFetch(token);
-	if (response.status === 401 && token) {
-		const outcome = await cloud.tryRefreshAccessToken();
-		if (outcome.status === "ok") {
-			token = outcome.accessToken;
-			response = await doFetch(token);
-		}
-	}
-	return response;
+	return fetch(url, { headers: { Accept: accept } });
 }
 
 function parseVersionFromSkillDir(skillDir: string): string {
@@ -94,7 +67,7 @@ function parseVersionFromSkillDir(skillDir: string): string {
 }
 
 export async function fetchMarketAbilityInfo(type: InstalledSkillType, slug: string): Promise<MarketAbilityInfo> {
-	const response = await fetchWithOptionalAuth(
+	const response = await fetchMarket(
 		`/abilities/${encodeURIComponent(type)}/${encodeURIComponent(slug)}/info`,
 		"application/json",
 	);
@@ -109,7 +82,7 @@ export async function fetchMarketAbilityInfo(type: InstalledSkillType, slug: str
 }
 
 export async function downloadMarketAbilityArchive(type: InstalledSkillType, slug: string): Promise<Buffer> {
-	const response = await fetchWithOptionalAuth(
+	const response = await fetchMarket(
 		`/abilities/${encodeURIComponent(type)}/${encodeURIComponent(slug)}/download`,
 		"application/octet-stream",
 	);

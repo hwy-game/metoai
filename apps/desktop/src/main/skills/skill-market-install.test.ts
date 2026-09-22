@@ -1,15 +1,7 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 const fetchMock = vi.fn();
 vi.stubGlobal("fetch", fetchMock);
-
-vi.mock("../constants.js", () => ({
-	DEFAULT_SERVER_URL: "https://api.example.com/api/v1",
-}));
-
-vi.mock("../ipc/settings.js", () => ({
-	readSettings: vi.fn(() => ({})),
-}));
 
 vi.mock("../logger.js", () => ({
 	getAppLogger: () => ({ info: vi.fn(), warn: vi.fn(), error: vi.fn() }),
@@ -54,23 +46,7 @@ vi.mock("node:child_process", () => ({
 	execSync: vi.fn(),
 }));
 
-import { setCloudBridge } from "../cloud-bridge.js";
-
-/** 市场安装依赖云服务：默认给测试挂一个已登录形态的 bridge。 */
-function mountCloudBridge(): void {
-	setCloudBridge({
-		fetchRemoteProviders: vi.fn(async () => ({ providers: {} })),
-		requestGateway: vi.fn(),
-		tryRefreshAccessToken: vi.fn(async () => ({ status: "transient" as const })),
-	});
-}
-
-beforeEach(() => {
-	mountCloudBridge();
-});
-
 afterEach(() => {
-	setCloudBridge(null);
 	fetchMock.mockReset();
 	vi.clearAllMocks();
 });
@@ -105,24 +81,34 @@ describe("installSkillFromMarketSlug", () => {
 			version: "1.2.3",
 			updated: false,
 		});
-		expect(fetchMock).toHaveBeenNthCalledWith(
-			1,
-			"https://api.example.com/api/v1/abilities/skill/demo/info",
-			expect.objectContaining({ headers: expect.any(Object) }),
-		);
-		expect(fetchMock).toHaveBeenNthCalledWith(
-			2,
-			"https://api.example.com/api/v1/abilities/skill/demo/download",
-			expect.objectContaining({ headers: expect.any(Object) }),
-		);
+		expect(fetchMock).toHaveBeenNthCalledWith(1, "https://api.metotoken.ai/api/abilities/skill/demo/info", {
+			headers: { Accept: "application/json" },
+		});
+		expect(fetchMock).toHaveBeenNthCalledWith(2, "https://api.metotoken.ai/api/abilities/skill/demo/download", {
+			headers: { Accept: "application/octet-stream" },
+		});
 	});
 });
 
-describe("lite 构建（无 cloud bridge）", () => {
-	it("市场安装直接失败，不发出任何网络请求", async () => {
-		setCloudBridge(null);
+describe("MetoToken 市场（匿名）", () => {
+	it("仍可匿名拉取并安装市场能力", async () => {
+		fetchMock
+			.mockResolvedValueOnce({
+				ok: true,
+				json: async () => ({
+					code: 0,
+					data: { slug: "demo", name: "Demo", description: "desc", version: "1.2.3" },
+				}),
+			})
+			.mockResolvedValueOnce({
+				ok: true,
+				arrayBuffer: async () => new Uint8Array([1, 2, 3]).buffer,
+			});
 		const { installSkillFromMarketSlug } = await import("./skill-market-install.js");
-		await expect(installSkillFromMarketSlug("skill", "demo")).rejects.toThrow(/not available in this build/);
-		expect(fetchMock).not.toHaveBeenCalled();
+		await expect(installSkillFromMarketSlug("skill", "demo")).resolves.toMatchObject({ name: "demo", type: "skill" });
+		expect(fetchMock).toHaveBeenCalledTimes(2);
+		expect(fetchMock).toHaveBeenNthCalledWith(1, "https://api.metotoken.ai/api/abilities/skill/demo/info", {
+			headers: { Accept: "application/json" },
+		});
 	});
 });

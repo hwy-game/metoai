@@ -152,13 +152,13 @@ describe("useAbilityData independent markets", () => {
 		await waitFor(() => expect(result.current.market.map((ability) => ability.slug)).toEqual(["cloud-mcp", "x-api-mcp"]));
 	});
 
-	it("does not count disabled cloud as a successful request hiding GitHub failure", async () => {
+	it("loads the public MetoToken market even when Vetta cloud is disabled", async () => {
 		mocks.cloud = false;
 		api.listOpenMarketplaces.mockResolvedValue({ ...catalog("cached", true), abilities: [], snapshots: [] });
 		const { result } = renderHook(() => useAbilityData());
 		await waitFor(() => expect(result.current.refreshing).toBe(false));
-		expect(mocks.fetchMarket).not.toHaveBeenCalled();
-		expect(result.current.error).toContain("abilities:error.loadFailed");
+		expect(mocks.fetchMarket).toHaveBeenCalledWith(null);
+		expect(result.current.error).not.toContain("abilities:error.loadFailed");
 		expect(result.current.error).toContain("Official");
 	});
 
@@ -207,7 +207,7 @@ describe("useAbilityData independent markets", () => {
 		expect(result.current.market.map((ability) => ability.slug)).toEqual(["fresh", "cached"]);
 		expect(result.current.error).toContain("community");
 		expect(result.current.error).not.toContain("abilities:error.loadFailed");
-		expect(mocks.fetchMarket).not.toHaveBeenCalled();
+		expect(mocks.fetchMarket).toHaveBeenCalledWith(null);
 	});
 
 	it("retains a newly added source after sync failure so it can be retried", async () => {

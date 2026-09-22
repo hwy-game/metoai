@@ -1,4 +1,3 @@
-import { cloudEnabled } from "@shared/components/cloud-slots";
 import { abilityToMarketMcpServer, fetchMarketAbilities, type MarketMcpServer } from "@shared/lib/api";
 import { authTokenAtom } from "@shared/store/auth-atoms";
 import { useAtomValue } from "jotai";
@@ -29,19 +28,9 @@ export function useRemoteMcpSectionModel({
 	const [busy, setBusy] = useState<string | null>(null);
 
 	const load = useCallback(() => {
-		// lite 构建无 vetta 市场：不发请求也不提示登录（对应 UI 区段整体隐藏）。
-		if (!cloudEnabled) {
-			setItems([]);
-			return;
-		}
-		if (!token) {
-			setError(t("loginRequired"));
-			setItems([]);
-			return;
-		}
 		setLoading(true);
 		setError(null);
-		// MCP 已并入统一的能力市场（ADR-0049），这里只取 type=mcp 的行再适配成 mcp.json 条目。
+		// MCP 已并入统一的 MetoToken 能力市场（ADR-0049），这里只取 type=mcp 的行再适配成 mcp.json 条目。
 		void fetchMarketAbilities(token)
 			.then((list) => {
 				setItems(list.filter((entry) => entry.type === "mcp").map(abilityToMarketMcpServer));

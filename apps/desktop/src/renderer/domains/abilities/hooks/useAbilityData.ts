@@ -16,7 +16,6 @@ import type {
 	SkillInfo,
 	UpdateMarketplaceSourceInput,
 } from "@preload/api";
-import { cloudEnabled } from "@shared/components/cloud-slots";
 import { i18n } from "@shared/i18n";
 import type { MarketAbility } from "@shared/lib/api";
 import { fetchMarketAbilities } from "@shared/lib/api";
@@ -114,9 +113,9 @@ export function useAbilityData(): AbilityData {
 
 			const local = loadLocalState();
 
-			// 市场浏览无需登录；有 token 时仍带上。lite 构建无 vetta 官方市场，
-			// 只保留 github 开放市场（openMarketplaces）与本地来源。
-			const remote = cloudEnabled ? fetchMarketAbilities(token) : Promise.resolve([]);
+			// MetoToken 市场公开可读；token 仅保留在调用签名中兼容旧调用方，实际请求不带凭据。
+			// GitHub 开放市场继续独立同步。
+			const remote = fetchMarketAbilities(token);
 			const openResultPromise = loadOpen(forceOpenMarketplaceRefresh);
 
 			// 本地态先落地并结束列表转圈；市场两条在后台合并。
@@ -195,7 +194,7 @@ export function useAbilityData(): AbilityData {
 
 	const error = shouldReportAbilityLoadFailure({
 		localFailed,
-		server: { attempted: cloudEnabled, usable: cloudEnabled && !serverFailed },
+		server: { attempted: true, usable: !serverFailed },
 		open: getOpenMarketplaceLoadState(open.catalog),
 	})
 		? i18n.t("abilities:error.loadFailed")

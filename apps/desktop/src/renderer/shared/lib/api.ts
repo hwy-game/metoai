@@ -1,6 +1,7 @@
 import type { McpServerConfigData, RefreshOutcome } from "@preload/api";
 import { i18n } from "@shared/i18n";
 import type { SkillPresentation } from "@vetta-org/capability-sdk";
+import { METOAI_API_BASE } from "@/shared/metoai";
 
 let cachedBaseUrl: string | undefined;
 const hostFetch = globalThis.fetch.bind(globalThis);
@@ -509,37 +510,59 @@ function normalizeAbility(item: MarketAbility, icon: string | undefined): Market
 }
 
 /**
- * 市场浏览与安装（market / info / download）服务端已开放匿名访问，
- * token 因此可选：有就带上（便于服务端识别调用者），没有也照常返回。
+ * 市场浏览与安装（market / info / download）服务端已开放匿名访问。
+ * 保留 token 参数只是为了兼容已有调用方；市场请求本身始终不携带凭据。
  */
-function optionalAuthHeaders(token: string | null | undefined): HeadersInit | undefined {
-	return token ? authHeaders(token) : undefined;
+const metoaiApiBase = METOAI_API_BASE.replace(/\/+$/, "");
+
+function marketUrl(path: string): string {
+	return `${metoaiApiBase}${path.startsWith("/") ? path : `/${path}`}`;
+}
+
+/**
+ * MetoToken 的能力市场是独立的公开 API，不应走 Vetta server 的地址或 401 refresh 流程。
+ * 只复用相同的 `{ code, message, data }` envelope，避免影响其它 Vetta API。
+ */
+async function marketRequest<T>(path: string): Promise<T> {
+	// The market is public.  Keep this request deliberately credential-free so a
+	// legacy Vetta `serverToken` can never cross into the MetoToken API.
+	const response = await hostFetch(marketUrl(path));
+	let body: ApiResponse<T> | undefined;
+	try {
+		body = (await response.json()) as ApiResponse<T>;
+	} catch {
+		throw new Error(`MetoToken market request failed (${response.status})`);
+	}
+	if (!response.ok) {
+		throw new Error(body?.message || `MetoToken market request failed (${response.status})`);
+	}
+	if (!body || body.code !== 0) {
+		throw new Error(body?.message || "MetoToken market request failed");
+	}
+	return body.data as T;
 }
 
 /** 一次返回五种 type 的已上架能力。 */
-export async function fetchMarketAbilities(token?: string | null): Promise<MarketAbility[]> {
-	const items = await request<MarketAbility[]>("/abilities/market", {
-		headers: optionalAuthHeaders(token),
-	});
+export async function fetchMarketAbilities(_token?: string | null): Promise<MarketAbility[]> {
+	const items = await marketRequest<MarketAbility[]>("/abilities/market");
 	return Promise.all((items ?? []).map(async (item) => normalizeAbility(item, await resolveMarketIconUrl(item.icon))));
 }
 
-export async function fetchAbilityInfo(type: AbilityType, slug: string, token?: string | null): Promise<MarketAbility> {
-	const item = await request<MarketAbility>(
+export async function fetchAbilityInfo(
+	type: AbilityType,
+	slug: string,
+	_token?: string | null,
+): Promise<MarketAbility> {
+	const item = await marketRequest<MarketAbility>(
 		`/abilities/${encodeURIComponent(type)}/${encodeURIComponent(slug)}/info`,
-		{ headers: optionalAuthHeaders(token) },
 	);
 	return normalizeAbility(item, await resolveMarketIconUrl(item.icon));
 }
 
 /** mcp / bundle 没有业务服务端归档；GitHub MCP 的受管运行时由 Desktop Ability 安装器处理。 */
-export async function downloadAbility(type: AbilityType, slug: string, token?: string | null): Promise<ArrayBuffer> {
-	const serverUrl = await window.vetta.settings.getServerUrl();
+export async function downloadAbility(type: AbilityType, slug: string, _token?: string | null): Promise<ArrayBuffer> {
 	const resp = await hostFetch(
-		`${serverUrl}/abilities/${encodeURIComponent(type)}/${encodeURIComponent(slug)}/download`,
-		{
-			headers: optionalAuthHeaders(token),
-		},
+		marketUrl(`/abilities/${encodeURIComponent(type)}/${encodeURIComponent(slug)}/download`),
 	);
 	if (!resp.ok) throw new Error(i18n.t("abilities:error.downloadFailed", { status: resp.status }));
 	return resp.arrayBuffer();
@@ -592,7 +615,7 @@ export async function resolveMarketIconUrl(icon: string | undefined | null): Pro
 	) {
 		return trimmed;
 	}
-	const base = (await getApiBase()).replace(/\/$/, "");
+	const base = metoaiApiBase;
 	if (trimmed.startsWith("/")) {
 		// base 通常是 https://host/api/v1；相对路径可能是 /api/v1/...
 		try {

@@ -61,13 +61,6 @@ export function useSkillsPageModel(): SkillsPageModel {
 	}, []);
 
 	const loadMarket = useCallback(() => {
-		if (!token) {
-			// 未登录：不拉取市场数据，但仍展示本地已安装/Agent 场景。
-			setMarket([]);
-			setError(null);
-			setLoading(false);
-			return;
-		}
 		setLoading(true);
 		setError(null);
 		void fetchMarketAbilities(token)
@@ -92,7 +85,6 @@ export function useSkillsPageModel(): SkillsPageModel {
 
 	const handleInstall = useCallback(
 		(skill: MergedSkill) => {
-			if (!token) return;
 			setActionState(skill.name, "loading");
 			void downloadAbility(skill.type, skill.name, token)
 				.then((buffer) =>
