@@ -37,6 +37,23 @@ export function unwrapMetoAi<T>(result: MetoAiIpcResult<T>): T {
 	throw new MetoAiCallError(result.error);
 }
 
+/**
+ * 站点配置未知时的兜底币种规则：按 new-api 的默认换算（500000 额度单位 = 1 美元）
+ * 展示，好过把裸额度单位当成金额给用户看。
+ */
+export const DEFAULT_METOAI_CURRENCY: MetoAiCurrencyConfig = {
+	quotaPerUnit: 500_000,
+	displayType: "USD",
+	exchangeRate: 1,
+	symbol: "$",
+	isTokenDisplay: false,
+};
+
+/** 概览自带的币种规则；还没拉到概览时退回兜底规则。 */
+export function currencyFromOverview(overview: { currency: MetoAiCurrencyConfig } | null): MetoAiCurrencyConfig {
+	return overview?.currency ?? DEFAULT_METOAI_CURRENCY;
+}
+
 /** 额度单位 → 展示金额。 */
 export function quotaToDisplayAmount(quota: number, currency: MetoAiCurrencyConfig): number {
 	if (!Number.isFinite(quota)) return 0;

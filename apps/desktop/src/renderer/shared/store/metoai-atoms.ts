@@ -20,6 +20,19 @@ export const metoaiSessionAtom = atom<MetoAiSessionSnapshot>({ status: "anonymou
 /** 账号 + 站点配置 + 币种规则。未加载或已登出时为 null。 */
 export const metoaiOverviewAtom = atom<MetoAiAccountOverview | null>(null);
 
+/**
+ * 写入账号概览的唯一入口：只接受「当前登录用户本人」的数据。
+ *
+ * 各处的拉取都是异步的，登出与换账号随时可能插在请求与响应之间——迟到的响应若直接
+ * 落库，下一个登录用户会在自己的数据到达前看到上一个账号的余额。这里按用户 id 卡一道，
+ * 让「这是谁的余额」由会话决定，而不是由哪个请求先回来决定。
+ */
+export const writeMetoAiOverviewAtom = atom(null, (get, set, overview: MetoAiAccountOverview) => {
+	const session = get(metoaiSessionAtom);
+	if (session.status !== "authenticated" || session.user.id !== overview.user.id) return;
+	set(metoaiOverviewAtom, overview);
+});
+
 export const metoaiTokensAtom = atom<MetoAiToken[]>([]);
 
 /** 当前生效的订阅；未登录或未加载时为空数组。 */

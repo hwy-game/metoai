@@ -17,6 +17,7 @@ import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { getDefaultStore } from "jotai";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { MetoAiSessionProvider } from "@shared/hooks/useMetoAiSession";
 import { confirmDialogAtom, localModelsConfigAtom, metoaiSessionAtom } from "@shared/store/atoms";
 import { MetoAiSettings } from "./MetoAiSettings";
 
@@ -130,6 +131,14 @@ function authenticatedApi(overrides: Partial<MetoAiApi> = {}): MetoAiApi {
 	});
 }
 
+
+function renderSettings(): void {
+	render(
+		<MetoAiSessionProvider>
+			<MetoAiSettings />
+		</MetoAiSessionProvider>,
+	);
+}
 const store = getDefaultStore();
 
 beforeEach(() => {
@@ -142,7 +151,7 @@ beforeEach(() => {
 describe("MetaToken 个人中心", () => {
 	it("未登录时先授权，登录成功后看到余额、订阅与 Key", async () => {
 		const api = setupApi();
-		render(<MetoAiSettings />);
+		renderSettings();
 
 		await userEvent.click(await screen.findByRole("button", { name: "authorize.submit" }));
 		expect(api.authorize).toHaveBeenCalledOnce();
@@ -166,7 +175,7 @@ describe("MetaToken 个人中心", () => {
 
 	it("授权被拒绝时回到可重试状态并显示原因", async () => {
 		setupApi();
-		render(<MetoAiSettings />);
+		renderSettings();
 
 		await userEvent.click(await screen.findByRole("button", { name: "authorize.submit" }));
 		await screen.findByText("authorize.waitingTitle");
@@ -181,7 +190,7 @@ describe("MetaToken 个人中心", () => {
 
 	it("订阅段展示套餐、额度用量与到期时间，并能去官网管理", async () => {
 		authenticatedApi();
-		render(<MetoAiSettings />);
+		renderSettings();
 
 		const expiresAt = new Date(SUBSCRIPTION.endTime * 1000).toLocaleDateString();
 		const nextResetAt = new Date(SUBSCRIPTION.nextResetTime * 1000).toLocaleDateString();
@@ -198,7 +207,7 @@ describe("MetaToken 个人中心", () => {
 
 	it("充值、订阅、兑换码、账户资料与用量明细都跳官网对应页面", async () => {
 		authenticatedApi();
-		render(<MetoAiSettings />);
+		renderSettings();
 
 		const buttons = await screen.findAllByRole("button", { name: "webActions.open" });
 		for (const button of buttons) await userEvent.click(button);
@@ -221,7 +230,7 @@ describe("MetaToken 个人中心", () => {
 				return ok({ id: 9, key: "sk-newkey" });
 			}),
 		});
-		render(<MetoAiSettings />);
+		renderSettings();
 
 		await userEvent.click(await screen.findByRole("button", { name: "keys.create" }));
 		await userEvent.type(screen.getByLabelText("keys.name"), "CI");
@@ -239,7 +248,7 @@ describe("MetaToken 个人中心", () => {
 				return ok({ user: USER, siteConfig: SITE_CONFIG, currency: CURRENCY });
 			}),
 		});
-		render(<MetoAiSettings />);
+		renderSettings();
 
 		expect(await screen.findByText("account.errorLoad")).toBeTruthy();
 
@@ -252,7 +261,7 @@ describe("MetaToken 个人中心", () => {
 
 	it("删除 Key 先确认，确认后才调用站点删除", async () => {
 		const api = authenticatedApi();
-		render(<MetoAiSettings />);
+		renderSettings();
 
 		await userEvent.click(await screen.findByRole("button", { name: "keys.delete" }));
 
@@ -268,7 +277,7 @@ describe("MetaToken 个人中心", () => {
 
 	it("换码失败时按站点错误码展示 i18n 文案，而不是英文 HTTP 短语", async () => {
 		setupApi();
-		render(<MetoAiSettings />);
+		renderSettings();
 
 		await userEvent.click(await screen.findByRole("button", { name: "authorize.submit" }));
 		await screen.findByText("authorize.waitingTitle");
@@ -296,7 +305,7 @@ describe("MetaToken 个人中心", () => {
 				}),
 			),
 		});
-		render(<MetoAiSettings />);
+		renderSettings();
 
 		expect(await screen.findByText("subscription.errorLoad")).toBeTruthy();
 		expect(screen.queryByText("subscription.empty")).toBeNull();
@@ -307,7 +316,7 @@ describe("MetaToken 个人中心", () => {
 		// 这里验证渲染层补齐的另一半：不再把用户当成已经做过选择。
 		const api = authenticatedApi();
 		localStorage.setItem("vetta-metoai-gate-skipped", "1");
-		render(<MetoAiSettings />);
+		renderSettings();
 
 		await userEvent.click(await screen.findByRole("button", { name: "account.signOut" }));
 

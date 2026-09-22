@@ -7,9 +7,20 @@
  * 充值与订阅购买都不在这里：那是站点网页的事，客户端只读状态并给出官网入口。
  */
 
-import { displayAmountToQuota, formatQuota, isSessionTerminal, unwrapMetoAi } from "@shared/lib/metoai";
-import { metoaiOverviewAtom, metoaiSubscriptionAtom, metoaiTokensAtom } from "@shared/store/atoms";
-import { useAtom } from "jotai";
+import {
+	currencyFromOverview,
+	displayAmountToQuota,
+	formatQuota,
+	isSessionTerminal,
+	unwrapMetoAi,
+} from "@shared/lib/metoai";
+import {
+	metoaiOverviewAtom,
+	metoaiSubscriptionAtom,
+	metoaiTokensAtom,
+	writeMetoAiOverviewAtom,
+} from "@shared/store/atoms";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { MetoAiCurrencyConfig, MetoAiSubscription, MetoAiToken, MetoAiUser } from "@/shared/metoai-types";
@@ -28,19 +39,6 @@ export function tokenStatusLabelKey(status: number): MetoAiTokenStatusLabelKey {
 	return TOKEN_STATUS_LABEL_KEYS[status as keyof typeof TOKEN_STATUS_LABEL_KEYS] ?? "keys.status.disabled";
 }
 
-/** 落库的额度是「额度单位」，展示与输入都要过币种规则。 */
-function currencyOf(overview: { currency: MetoAiCurrencyConfig } | null): MetoAiCurrencyConfig {
-	return (
-		overview?.currency ?? {
-			quotaPerUnit: 500_000,
-			displayType: "USD",
-			exchangeRate: 1,
-			symbol: "$",
-			isTokenDisplay: false,
-		}
-	);
-}
-
 export interface MetoAiAccountModel {
 	loading: boolean;
 	error: string | null;
@@ -55,7 +53,8 @@ export interface MetoAiAccountModel {
 
 export function useMetoAiAccountModel(authenticated: boolean): MetoAiAccountModel {
 	const { t } = useTranslation("metoai");
-	const [overview, setOverview] = useAtom(metoaiOverviewAtom);
+	const overview = useAtomValue(metoaiOverviewAtom);
+	const writeOverview = useSetAtom(writeMetoAiOverviewAtom);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
@@ -63,23 +62,21 @@ export function useMetoAiAccountModel(authenticated: boolean): MetoAiAccountMode
 		setLoading(true);
 		setError(null);
 		try {
-			setOverview(unwrapMetoAi(await window.vetta.metoai.overview()));
+			writeOverview(unwrapMetoAi(await window.vetta.metoai.overview()));
 		} catch (caught) {
 			setError(caught instanceof Error && caught.message !== "network" ? caught.message : t("account.errorLoad"));
 		} finally {
 			setLoading(false);
 		}
-	}, [setOverview, t]);
+	}, [writeOverview, t]);
 
+	// 未登录时不必在这里清空概览：会话变回匿名由 App 根部的 provider 统一清（见 clearMetoAiStateAtom）。
 	useEffect(() => {
-		if (!authenticated) {
-			setOverview(null);
-			return;
-		}
+		if (!authenticated) return;
 		void reload();
-	}, [authenticated, reload, setOverview]);
+	}, [authenticated, reload]);
 
-	const currency = currencyOf(overview);
+	const currency = currencyFromOverview(overview);
 	const user = overview?.user ?? null;
 	const balance = user ? formatQuota(user.quota, currency) : "-";
 	const used = user ? formatQuota(user.used_quota, currency) : "-";
