@@ -16,6 +16,7 @@ import { SchedulerDeleteApproval } from "../shared/action-approval/scheduler/Sch
 import { SchedulerExecutionApproval } from "../shared/action-approval/scheduler/SchedulerExecutionApproval";
 import { SchedulerToggleApproval } from "../shared/action-approval/scheduler/SchedulerToggleApproval";
 import { SchedulerUpdateApproval } from "../shared/action-approval/scheduler/SchedulerUpdateApproval";
+import { UpdateRequiredOverlay } from "../shared/components/UpdateRequiredOverlay";
 import { UpdateRestartDialog } from "../shared/components/UpdateRestartDialog";
 import { Toaster } from "../shared/components/ui/Toaster";
 import { ConfirmDialog } from "../shared/components/ui/confirm-dialog";
@@ -67,6 +68,8 @@ export function RootGlobalOverlays(): JSX.Element {
 			<ThemedToaster />
 			{/* 首次启动引导：盖在其它 overlay 之上；完成后写 localStorage 并通知 SidebarTour */}
 			<SetupWizard />
+			{/* 强制更新：阻塞式覆盖层，服务端策略要求且更新源给出可下载版本时才渲染 */}
+			<UpdateRequiredOverlay />
 		</>
 	);
 }

@@ -1,6 +1,7 @@
 import { basename } from "node:path";
 import type { BrowserWindow } from "electron";
 
+import { clampCheckInterval, type UpdatePolicy } from "./update-policy.js";
 import type { UpdateEngine, UpdateEngineDownload, UpdateEngineInfo } from "./updater-engine.js";
 
 const EVENT_CHANNEL = "vetta:updater:state";
@@ -29,6 +30,12 @@ export interface UpdaterState {
 	totalBytes?: number;
 	assetFileName?: string;
 	error?: string;
+	/** 服务端更新策略要求强制更新时为 true：此时提示不可关闭、下载不可取消。 */
+	forced?: boolean;
+	/** 强制更新的原因，用于覆盖层区分文案（"当前版本已不再支持" vs 一般强制）。 */
+	forceReason?: "" | "policy" | "min_supported";
+	/** 最近一次成功获取更新策略的时间（ISO 字符串）；拿不到策略时不更新。 */
+	policyCheckedAt?: string;
 }
 
 export type UpdaterTranslate = (key: string, options?: Record<string, unknown>) => string;
@@ -52,6 +59,11 @@ export interface UpdaterServiceOptions {
 	/** 机会性补查（唤醒、打开设置菜单）与上一次检查之间要求的最小间隔。 */
 	backgroundCheckMinGapMs?: number;
 	systemEvents?: UpdaterSystemEvents;
+	/**
+	 * 更新策略来源。不传等价于「拿不到策略」：`forced` 恒为 false，一切行为照旧。
+	 * 由宿主注入（见 updater.ts），便于测试替换。
+	 */
+	policyProvider?: () => Promise<UpdatePolicy | null>;
 }
 
 export class UpdaterService {
@@ -72,9 +84,10 @@ export class UpdaterService {
 	private readonly autoDownloadRetryDelaysMs: readonly number[];
 	private readonly downloadStallTimeoutMs: number;
 	private readonly stagingTimeoutMs: number;
-	private readonly periodicCheckIntervalMs: number;
+	private periodicCheckIntervalMs: number;
 	private readonly backgroundCheckMinGapMs: number;
 	private readonly systemEvents: UpdaterSystemEvents | undefined;
+	private readonly policyProvider: (() => Promise<UpdatePolicy | null>) | undefined;
 
 	constructor(
 		private readonly engine: UpdateEngine,
@@ -94,6 +107,7 @@ export class UpdaterService {
 		this.periodicCheckIntervalMs = options.periodicCheckIntervalMs ?? DEFAULT_PERIODIC_CHECK_INTERVAL_MS;
 		this.backgroundCheckMinGapMs = options.backgroundCheckMinGapMs ?? DEFAULT_BACKGROUND_CHECK_MIN_GAP_MS;
 		this.systemEvents = options.systemEvents;
+		this.policyProvider = options.policyProvider;
 	}
 
 	setMainWindow(win: BrowserWindow): void {
@@ -151,6 +165,7 @@ export class UpdaterService {
 				});
 				return this.getState();
 			}
+			await this.applyPolicy();
 
 			if (!result.hasUpdate) {
 				this.latestInfo = null;
@@ -188,6 +203,39 @@ export class UpdaterService {
 			});
 		}
 		return this.getState();
+	}
+
+	/**
+	 * 合并服务端更新策略。拿不到策略（provider 未注入、抛错或返回 null）时按
+	 * 「无强制约束」处理：`forced` 回落 false、`policyCheckedAt` 不更新，只记一条 warn，
+	 * 其余行为与改造前完全一致。
+	 */
+	private async applyPolicy(): Promise<void> {
+		let policy: UpdatePolicy | null = null;
+		if (this.policyProvider) {
+			try {
+				policy = await this.policyProvider();
+			} catch (error) {
+				console.warn("[updater] update policy provider failed", error);
+				policy = null;
+			}
+		}
+
+		if (!policy) {
+			console.warn("[updater] update policy unavailable; forced update disabled for this check");
+			if (this.state.forced) this.setState({ forced: false, forceReason: "" });
+			return;
+		}
+
+		// 采用夹取后的服务端建议间隔：既对齐策略，也不会比默认更激进。
+		this.periodicCheckIntervalMs = clampCheckInterval(policy.checkIntervalSeconds);
+		this.setState({
+			forced: policy.forced,
+			forceReason: policy.reason,
+			policyCheckedAt: new Date().toISOString(),
+		});
+		// 若已有待触发的周期定时器，用新间隔重新对齐；关闭周期重查时不主动开启。
+		if (this.periodicCheckTimer) this.schedulePeriodicCheck();
 	}
 
 	async startDownload(options?: { auto?: boolean }): Promise<UpdaterState> {
@@ -276,10 +324,14 @@ export class UpdaterService {
 	}
 
 	dismissReady(): void {
+		// 强制更新期间提示不可关闭：用户必须先完成更新。
+		if (this.state.forced) return;
 		if (this.state.phase === "ready") this.emit();
 	}
 
 	cancel(): void {
+		// 强制更新期间不可取消下载/回退，否则用户能绕过强制约束。
+		if (this.state.forced) return;
 		if (this.state.phase === "ready" || this.state.phase === "installing") return;
 		this.autoDownloadOptOut = true;
 		this.cancelScheduledAutoDownload();

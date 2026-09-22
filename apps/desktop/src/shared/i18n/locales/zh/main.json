@@ -78,6 +78,22 @@
 			"checkFailed": "检查更新失败",
 			"downloadFailed": "下载更新失败",
 			"installFailed": "安装更新失败"
+		},
+		"forced": {
+			"title": "需要更新才能继续使用",
+			"reasonPolicy": "此版本需要更新后才能继续使用。",
+			"reasonMinSupported": "当前版本已不再支持，请更新后继续使用。",
+			"checking": "正在检查更新…",
+			"available": "更新已准备好，可以开始下载。",
+			"download": "开始下载",
+			"downloading": "正在下载更新（{{progress}}%）",
+			"ready": "更新已下载完成，重启后即可使用新版本。",
+			"restart": "立即重启并安装",
+			"preparing": "正在安装更新，应用即将重启。",
+			"failed": "更新未能完成，请重试。",
+			"retry": "重试",
+			"releaseNotes": "更新说明",
+			"version": "新版本 {{version}}"
 		}
 	}
 }

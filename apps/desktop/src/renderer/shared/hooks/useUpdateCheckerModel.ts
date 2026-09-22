@@ -5,7 +5,14 @@ import { useTranslation } from "react-i18next";
 import { filePreviewAtom } from "../store/file-preview-atoms";
 import { updaterRestartDialogOpenAtom, updaterStateAtom } from "../store/updater-atoms";
 
-export function useUpdateCheckerModel(): UpdateCheckerViewProps {
+export type UpdateCheckerModel = UpdateCheckerViewProps & {
+	/** forced 为 false 时更新提示可关闭；强制更新期间恒为 false。 */
+	dismissable: boolean;
+	forced: boolean;
+	forceReason: "" | "policy" | "min_supported";
+};
+
+export function useUpdateCheckerModel(): UpdateCheckerModel {
 	const { t } = useTranslation("settings");
 	const state = useAtomValue(updaterStateAtom);
 	const openRestartDialog = useSetAtom(updaterRestartDialogOpenAtom);
@@ -25,6 +32,9 @@ export function useUpdateCheckerModel(): UpdateCheckerViewProps {
 		() => ({
 			checking,
 			currentVersion: state.currentVersion,
+			dismissable: !state.forced,
+			forced: state.forced === true,
+			forceReason: state.forceReason ?? "",
 			labels: {
 				check: t("updaterCheck"),
 				checking: t("updaterChecking"),

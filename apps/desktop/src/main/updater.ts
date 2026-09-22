@@ -15,6 +15,7 @@ import {
 } from "./inno-windows-update.js";
 import { handOffToInstaller, MACOS_SHIPIT_JOB_LABEL } from "./mac-installer-handoff.js";
 import { runQuitCleanup } from "./quit-cleanup.js";
+import { fetchUpdatePolicy, resolveUpdatePlatform } from "./update-policy.js";
 import { markPendingUpdateRelaunch } from "./update-relaunch-marker.js";
 import { ElectronUpdaterEngine } from "./updater-engine.js";
 import { type UpdaterPhase, UpdaterService, type UpdaterState } from "./updater-service.js";
@@ -128,6 +129,15 @@ const systemEvents = {
 };
 export const updaterService = new UpdaterService(updaterEngine, currentVersion, app.isPackaged, mainT, {
 	systemEvents,
+	policyProvider: () => {
+		// 开发态不打网络：直接当作「拿不到策略」，行为与改造前一致。
+		if (!app.isPackaged) return Promise.resolve(null);
+		return fetchUpdatePolicy({
+			version: currentVersion,
+			platform: resolveUpdatePlatform(process.platform),
+			arch: process.arch,
+		});
+	},
 });
 
 interface UpgradeE2eState {

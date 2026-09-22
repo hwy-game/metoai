@@ -9,16 +9,20 @@ export function SidebarUpdateBanner(): JSX.Element | null {
 
 	return (
 		<div className="group flex w-full min-w-0 items-center gap-2 rounded-md border border-border bg-white px-2 py-1.5 dark:bg-card">
-			<button
-				type="button"
-				onClick={model.onDismiss}
-				title={model.dismissLabel}
-				aria-label={model.dismissLabel}
-				className="relative size-4 shrink-0 text-muted-foreground transition-colors hover:text-foreground"
-			>
-				<ArrowUpCircle className="absolute inset-0 size-4 text-primary group-hover:hidden" />
-				<X className="absolute inset-0 hidden size-4 group-hover:block" />
-			</button>
+			{model.dismissable ? (
+				<button
+					type="button"
+					onClick={model.onDismiss}
+					title={model.dismissLabel}
+					aria-label={model.dismissLabel}
+					className="relative size-4 shrink-0 text-muted-foreground transition-colors hover:text-foreground"
+				>
+					<ArrowUpCircle className="absolute inset-0 size-4 text-primary group-hover:hidden" />
+					<X className="absolute inset-0 hidden size-4 group-hover:block" />
+				</button>
+			) : (
+				<ArrowUpCircle className="size-4 shrink-0 text-primary" />
+			)}
 			<span className="min-w-0 flex-1 truncate text-foreground text-xs">{model.label}</span>
 			<button
 				type="button"

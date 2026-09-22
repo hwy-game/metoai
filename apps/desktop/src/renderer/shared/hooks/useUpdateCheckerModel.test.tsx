@@ -44,4 +44,55 @@ describe("useUpdateCheckerModel", () => {
 		expect(globalPreview.name).toBe("v1.1.0_changelog.md");
 		expect(globalPreview.url).toMatch(/^blob:/);
 	});
+	it("reports a forced update as not dismissable", () => {
+		const { result } = renderHook(() => {
+			const setUpdaterState = useSetAtom(updaterStateAtom);
+			return { setUpdaterState, model: useUpdateCheckerModel() };
+		});
+
+		act(() => {
+			result.current.setUpdaterState({
+				phase: "ready",
+				currentVersion: "1.0.0",
+				latestVersion: "1.1.0",
+				forced: true,
+				forceReason: "min_supported",
+			});
+		});
+
+		expect(result.current.model.forced).toBe(true);
+		expect(result.current.model.dismissable).toBe(false);
+		expect(result.current.model.forceReason).toBe("min_supported");
+	});
+
+	it("stays dismissable while the update is optional", () => {
+		const { result } = renderHook(() => {
+			const setUpdaterState = useSetAtom(updaterStateAtom);
+			return { setUpdaterState, model: useUpdateCheckerModel() };
+		});
+
+		act(() => {
+			result.current.setUpdaterState({
+				phase: "ready",
+				currentVersion: "1.0.0",
+				latestVersion: "1.1.0",
+				forced: false,
+				forceReason: "",
+			});
+		});
+		expect(result.current.model.forced).toBe(false);
+		expect(result.current.model.dismissable).toBe(true);
+
+		// 老版本主进程不会下发 forced 字段，缺省同样必须可关闭。
+		act(() => {
+			result.current.setUpdaterState({
+				phase: "ready",
+				currentVersion: "1.0.0",
+				latestVersion: "1.1.0",
+			});
+		});
+		expect(result.current.model.forced).toBe(false);
+		expect(result.current.model.dismissable).toBe(true);
+		expect(result.current.model.forceReason).toBe("");
+	});
 });

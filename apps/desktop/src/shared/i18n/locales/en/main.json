@@ -78,6 +78,22 @@
 			"checkFailed": "Failed to check for updates",
 			"downloadFailed": "Failed to download the update",
 			"installFailed": "Failed to install the update"
+		},
+		"forced": {
+			"title": "Update required to continue",
+			"reasonPolicy": "This version requires an update before you can continue.",
+			"reasonMinSupported": "This version is no longer supported. Please update to continue.",
+			"checking": "Checking for updates…",
+			"available": "The update is ready to download.",
+			"download": "Download update",
+			"downloading": "Downloading the update ({{progress}}%)",
+			"ready": "The update has been downloaded. Restart to start using it.",
+			"restart": "Restart and install now",
+			"preparing": "Installing the update. The app will restart shortly.",
+			"failed": "The update didn't finish. Please try again.",
+			"retry": "Retry",
+			"releaseNotes": "What's new",
+			"version": "New version {{version}}"
 		}
 	}
 }

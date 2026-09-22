@@ -11,6 +11,12 @@ export interface UpdaterState {
 	totalBytes?: number;
 	assetFileName?: string;
 	error?: string;
+	/** 服务端更新策略要求强制更新时为 true：提示不可关闭、下载不可取消。 */
+	forced?: boolean;
+	/** 强制更新的原因，用于覆盖层区分文案。 */
+	forceReason?: "" | "policy" | "min_supported";
+	/** 最近一次成功获取更新策略的时间（ISO 字符串）；拿不到策略时不更新。 */
+	policyCheckedAt?: string;
 }
 
 export interface DesktopUpdaterApi {

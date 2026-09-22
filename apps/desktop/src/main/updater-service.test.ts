@@ -1,8 +1,10 @@
 import type { ProgressInfo } from "builder-util-runtime";
+import type { BrowserWindow } from "electron";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
+import type { UpdatePolicy } from "./update-policy.js";
 import type { UpdateEngine, UpdateEngineCheckResult, UpdateEngineDownload } from "./updater-engine.js";
-import { UpdaterService } from "./updater-service.js";
+import { UpdaterService, type UpdaterState } from "./updater-service.js";
 
 class FakeUpdateEngine implements UpdateEngine {
 	checkResult: UpdateEngineCheckResult | null = null;
@@ -86,6 +88,48 @@ function createAvailableEngine(): FakeUpdateEngine {
 		},
 	};
 	return engine;
+}
+
+/** 主进程把状态推给渲染层的那次 IPC 调用，是 `dismissReady()` 唯一的可见行为。 */
+function createWindowRecorder(): { win: BrowserWindow; sends: Array<{ channel: string; state: UpdaterState }> } {
+	const sends: Array<{ channel: string; state: UpdaterState }> = [];
+	const win = {
+		isDestroyed: () => false,
+		webContents: {
+			send: (channel: string, state: UpdaterState) => {
+				sends.push({ channel, state });
+			},
+		},
+	} as unknown as BrowserWindow;
+	return { sends, win };
+}
+
+/** 服务端策略：`forced` 为真即「强制更新」，由 metotoken 决定（见 update-policy.ts）。 */
+async function createCheckedService(forced: boolean): Promise<{ engine: FakeUpdateEngine; service: UpdaterService }> {
+	const engine = createAvailableEngine();
+	const service = new UpdaterService(engine, "0.5.21", true, translate, {
+		autoDownloadDelayMs: 10_000_000,
+		periodicCheckIntervalMs: 0,
+		policyProvider: async () => ({
+			hasUpdate: true,
+			forced,
+			reason: forced ? "policy" : "",
+			checkIntervalSeconds: 7_200,
+		}),
+	});
+	await service.check();
+	expect(service.getState().forced).toBe(forced);
+	return { engine, service };
+}
+
+/** 走完 check → 下载完成，落到「提示可被忽略 / 不可被忽略」的 ready 阶段。 */
+async function createReadyService(forced: boolean): Promise<{ engine: FakeUpdateEngine; service: UpdaterService }> {
+	const { engine, service } = await createCheckedService(forced);
+	const downloadPromise = service.startDownload();
+	engine.completeDownload(["C:\\updates\\Vetta-0.6.0.exe"]);
+	await downloadPromise;
+	expect(service.getState().phase).toBe("ready");
+	return { engine, service };
 }
 
 describe("UpdaterService", () => {
@@ -381,6 +425,117 @@ describe("UpdaterService", () => {
 		expect(service.getState()).toMatchObject({
 			phase: "error",
 			error: "updater.errors.developmentUnsupported",
+		});
+	});
+	it("ignores dismiss while the server forces the update", async () => {
+		const { service } = await createReadyService(true);
+		const { sends, win } = createWindowRecorder();
+		service.setMainWindow(win);
+		sends.length = 0;
+		const before = service.getState();
+
+		service.dismissReady();
+
+		expect(service.getState()).toEqual(before);
+		// 强制更新期间连「把状态推给渲染层」都不做，渲染层不会收到任何可以收尾的信号。
+		expect(sends).toHaveLength(0);
+	});
+
+	it("notifies the renderer on dismiss when the update is optional", async () => {
+		const { service } = await createReadyService(false);
+		const { sends, win } = createWindowRecorder();
+		service.setMainWindow(win);
+		sends.length = 0;
+		const before = service.getState();
+
+		service.dismissReady();
+
+		expect(service.getState()).toEqual(before);
+		expect(sends.map((send) => send.channel)).toEqual(["vetta:updater:state"]);
+		expect(sends[0]?.state.phase).toBe("ready");
+	});
+
+	it("ignores cancel while the server forces the update", async () => {
+		const { engine, service } = await createCheckedService(true);
+		void service.startDownload();
+		const before = service.getState();
+		expect(before.phase).toBe("downloading");
+
+		service.cancel();
+
+		expect(service.getState()).toEqual(before);
+		expect(engine.cancelCalls).toBe(0);
+	});
+
+	it("cancels an optional download", async () => {
+		const { engine, service } = await createCheckedService(false);
+		void service.startDownload();
+		expect(service.getState().phase).toBe("downloading");
+
+		service.cancel();
+
+		expect(engine.cancelCalls).toBe(1);
+		expect(service.getState()).toMatchObject({
+			phase: "idle",
+			forced: false,
+			latestVersion: undefined,
+		});
+	});
+
+	it("keeps the forced flag off when the policy provider returns null", async () => {
+		const engine = createAvailableEngine();
+		const service = new UpdaterService(engine, "0.5.21", true, translate, {
+			autoDownloadDelayMs: 10_000_000,
+			periodicCheckIntervalMs: 0,
+			policyProvider: async () => null,
+		});
+
+		await service.check();
+
+		const state = service.getState();
+		// metotoken 不可达：初始状态里连 forced 字段都没有，关键契约是绝不进入强制态。
+		expect(state.forced).toBeFalsy();
+		expect(state.forceReason ?? "").toBe("");
+		expect(state.policyCheckedAt).toBeUndefined();
+		expect(state).toMatchObject({
+			phase: "available",
+			latestVersion: "0.6.0",
+			error: undefined,
+		});
+	});
+
+	it("drops a previously forced state when the policy becomes unavailable", async () => {
+		const engine = createAvailableEngine();
+		let policy: UpdatePolicy | null = {
+			hasUpdate: true,
+			forced: true,
+			reason: "policy",
+			checkIntervalSeconds: 7_200,
+		};
+		const service = new UpdaterService(engine, "0.5.21", true, translate, {
+			autoDownloadDelayMs: 10_000_000,
+			periodicCheckIntervalMs: 0,
+			policyProvider: async () => policy,
+		});
+
+		await service.check();
+		const forcedState = service.getState();
+		expect(forcedState.forced).toBe(true);
+		expect(forcedState.policyCheckedAt).toBeDefined();
+
+		// 拿不到策略时必须回落成「无强制约束」，不能把上一次的强制态留在界面上。
+		policy = null;
+		await service.check();
+
+		const state = service.getState();
+		expect(state.forced).toBe(false);
+		expect(state.forceReason).toBe("");
+		expect(state.policyCheckedAt).toBe(forcedState.policyCheckedAt);
+		expect(state).toMatchObject({
+			phase: "available",
+			latestVersion: "0.6.0",
+			releaseNote: "Release notes",
+			error: undefined,
 		});
 	});
 });
