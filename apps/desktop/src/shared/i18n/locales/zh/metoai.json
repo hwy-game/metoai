@@ -43,6 +43,15 @@
     "title": "登录 MetaToken 账号",
     "subtitle": "通过浏览器授权登录后，可以在这里查看余额、订阅与 API Key。"
   },
+  "menu": {
+    "login": "登录 MetaToken",
+    "opening": "正在打开授权页…",
+    "waiting": "授权页已在浏览器打开，完成后会自动登录。",
+    "reopen": "重新打开授权页",
+    "cancel": "取消授权",
+    "logout": "退出 MetaToken",
+    "signingOut": "退出中…"
+  },
   "account": {
     "title": "账号",
     "signOut": "退出登录",

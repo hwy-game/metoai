@@ -5,6 +5,7 @@ import { PopoverContent } from "@vetta-org/ui";
 import type { SettingsMenuModel } from "./types";
 import { SettingsMenuAccountSection } from "./SettingsMenuAccountSection";
 import { SettingsMenuDivider } from "./SettingsMenuDivider";
+import { SettingsMenuMetoAiSection } from "./SettingsMenuMetoAiSection";
 import { SettingsMenuQuotaSection } from "./SettingsMenuQuotaSection";
 import { SettingsMenuThemeSection } from "./SettingsMenuThemeSection";
 
@@ -20,7 +21,7 @@ export function SettingsMenuPopover({ model }: SettingsMenuPopoverProps): JSX.El
 			side="top"
 			align="start"
 			sideOffset={6}
-			className="w-[180px] gap-0 overflow-hidden rounded-lg border border-border p-1"
+			className="w-[240px] gap-0 overflow-hidden rounded-lg border border-border p-1"
 			style={{ animation: "none" }}
 		>
 			<motion.div
@@ -32,13 +33,14 @@ export function SettingsMenuPopover({ model }: SettingsMenuPopoverProps): JSX.El
 				<SettingsMenuThemeSection model={model} />
 				<SettingsMenuQuotaSection model={model} />
 				<SettingsMenuDivider />
-				{/* 登录/登出属于云服务：lite 构建整段隐藏 */}
+				<SettingsMenuMetoAiSection model={model.metoai} />
 				{model.cloudEnabled && (
 					<>
-						<SettingsMenuAccountSection model={model} />
 						<SettingsMenuDivider />
+						<SettingsMenuAccountSection model={model} />
 					</>
 				)}
+				<SettingsMenuDivider />
 				<SettingsMenuSettingsItemHost model={model} />
 			</motion.div>
 		</PopoverContent>

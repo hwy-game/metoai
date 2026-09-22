@@ -1,5 +1,7 @@
 import { cloudEnabled } from "@shared/components/cloud-slots";
 import { useImOnline } from "@shared/hooks/useImOnline";
+import { useMetoAiBalanceModel } from "@shared/hooks/useMetoAiBalance";
+import { useMetoAiSessionModel } from "@shared/hooks/useMetoAiSession";
 import { useTheme } from "@shared/hooks/useTheme";
 import { authUserAtom, loginPopoverOpenAtom, type ThemeMode, themeModeAtom } from "@shared/store/atoms";
 import { cloudLogoutAtom, subscriptionStatusAtom } from "@shared/store/auth-atoms";
@@ -22,6 +24,9 @@ export function useSettingsMenuModel(open: boolean, setOpen: (open: boolean) => 
 	const logout = useSetAtom(cloudLogoutAtom);
 	const subscription = useAtomValue(subscriptionStatusAtom);
 	const clawOnline = useImOnline();
+	const metoaiSession = useMetoAiSessionModel();
+	// 打开拉窗且已登录时才拉余额；登出后迟到的响应不会再写回共享原子（见 hook 注释）。
+	const metoaiBalance = useMetoAiBalanceModel(open && metoaiSession.authenticated);
 
 	const goEnabled = subscription.go_enabled;
 	const fiveHourWindowRaw = goEnabled ? subscription.windows?.find((window) => window.kind === "5h") : undefined;
@@ -49,6 +54,24 @@ export function useSettingsMenuModel(open: boolean, setOpen: (open: boolean) => 
 		subscriptionTierName: subscription.tier_name,
 		themeOptions,
 		user,
+		metoai: {
+			balance: metoaiBalance.balance,
+			used: metoaiBalance.used,
+			user: metoaiSession.user,
+			busy: metoaiSession.busy,
+			// 会话错误与余额拉取失败共用一行提示：拉窗太小，分两处说反而看不清。
+			error: metoaiSession.error ?? metoaiBalance.error,
+			phase: metoaiSession.phase,
+			actions: {
+				login: () => void metoaiSession.actions.startAuthorize(),
+				reopen: () => void metoaiSession.actions.reopenAuthorize(),
+				cancel: metoaiSession.actions.cancelAuthorize,
+				logout: () => {
+					setOpen(false);
+					void metoaiSession.actions.logout();
+				},
+			},
+		},
 		actions: {
 			login: () => {
 				setOpen(false);

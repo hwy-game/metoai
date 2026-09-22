@@ -43,6 +43,15 @@
     "title": "Sign in to MetaToken",
     "subtitle": "After authorizing in your browser, your balance, subscription and API keys show up here."
   },
+  "menu": {
+    "login": "Sign in to MetaToken",
+    "opening": "Opening authorization page…",
+    "waiting": "The authorization page is open in your browser. You will be signed in automatically when it is complete.",
+    "reopen": "Open authorization page again",
+    "cancel": "Cancel authorization",
+    "logout": "Sign out of MetaToken",
+    "signingOut": "Signing out…"
+  },
   "account": {
     "title": "Account",
     "signOut": "Sign out",
