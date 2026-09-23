@@ -57,7 +57,7 @@ function resolveElectronServiceOptions(): {
 
 	if (usePackaged) {
 		if (process.platform === "linux") {
-			// WDIO drives linux-unpacked/Vetta, but electron-updater only enables its
+			// WDIO drives linux-unpacked/Metoai, but electron-updater only enables its
 			// AppImage provider when the runtime supplies APPIMAGE. Stage a copy so
 			// the updater replacement flow cannot mutate the release artifact uploaded after E2E.
 			const staged = stagePackagedE2eAppImage(packagedArtifactRoot, packageVersion);
@@ -66,7 +66,7 @@ function resolveElectronServiceOptions(): {
 			clearLinuxUnpackedPackageType(packagedArtifactRoot);
 		}
 		return {
-			// Windows release/Vetta.exe is a detached stable launcher. ChromeDriver
+			// Windows release/Metoai.exe is a detached stable launcher. ChromeDriver
 			// must drive the versioned Electron executable that it launches.
 			appBinaryPath: resolvePackagedE2eBinaryPath(packagedArtifactRoot),
 			appArgs: isolationArgs,

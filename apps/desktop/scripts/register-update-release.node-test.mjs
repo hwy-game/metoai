@@ -120,7 +120,7 @@ function validPayload(overrides = {}) {
 		minSupportedVersion: "",
 		releaseNote: "",
 		downloadUrl: "",
-		fileName: "Vetta-0.5.58-win-x64.exe",
+		fileName: "Metoai-0.5.58-win-x64.exe",
 		sizeBytes: 426940214,
 		sha256: "a".repeat(64),
 		rolloutPercent: 100,
@@ -232,15 +232,15 @@ test("通道与超时默认值可被环境变量覆盖", () => {
 });
 
 test("download_url 前缀做斜杠归一化，未配置时为空串", () => {
-	assert.equal(buildDownloadUrl("", "Vetta-1.2.3-win-x64.exe"), "");
-	assert.equal(buildDownloadUrl(undefined, "Vetta-1.2.3-win-x64.exe"), "");
+	assert.equal(buildDownloadUrl("", "Metoai-1.2.3-win-x64.exe"), "");
+	assert.equal(buildDownloadUrl(undefined, "Metoai-1.2.3-win-x64.exe"), "");
 	assert.equal(
-		buildDownloadUrl("https://releases.example.com/desktop/stable/", "Vetta-1.2.3-win-x64.exe"),
-		"https://releases.example.com/desktop/stable/Vetta-1.2.3-win-x64.exe",
+		buildDownloadUrl("https://releases.example.com/desktop/stable/", "Metoai-1.2.3-win-x64.exe"),
+		"https://releases.example.com/desktop/stable/Metoai-1.2.3-win-x64.exe",
 	);
 	assert.equal(
-		buildDownloadUrl("https://releases.example.com/desktop/stable", "Vetta Setup 1.2.3.exe"),
-		"https://releases.example.com/desktop/stable/Vetta%20Setup%201.2.3.exe",
+		buildDownloadUrl("https://releases.example.com/desktop/stable", "Metoai Setup 1.2.3.exe"),
+		"https://releases.example.com/desktop/stable/Metoai%20Setup%201.2.3.exe",
 	);
 });
 
@@ -248,7 +248,7 @@ test("buildReleasePayload 的字段名与契约完全一致", () => {
 	const payload = buildReleasePayload(
 		validPayload({
 			releaseNote: "- 修复启动崩溃",
-			downloadUrl: "https://releases.example.com/desktop/stable/Vetta-0.5.58-win-x64.exe",
+			downloadUrl: "https://releases.example.com/desktop/stable/Metoai-0.5.58-win-x64.exe",
 		}),
 	);
 	assert.deepEqual(Object.keys(payload).sort(), CONTRACT_FIELDS);
@@ -260,8 +260,8 @@ test("buildReleasePayload 的字段名与契约完全一致", () => {
 		policy: "optional",
 		min_supported_version: "",
 		release_note: "- 修复启动崩溃",
-		download_url: "https://releases.example.com/desktop/stable/Vetta-0.5.58-win-x64.exe",
-		file_name: "Vetta-0.5.58-win-x64.exe",
+		download_url: "https://releases.example.com/desktop/stable/Metoai-0.5.58-win-x64.exe",
+		file_name: "Metoai-0.5.58-win-x64.exe",
 		size_bytes: 426940214,
 		sha256: "a".repeat(64),
 		rollout_percent: 100,
@@ -282,14 +282,14 @@ test("buildReleasePayload 拒绝非法枚举、非法 sha256 与非法 rollout_p
 
 test("collectInstallerFiles 按平台识别产物并拒绝空目录", async () => {
 	await withTempDir(async (directory) => {
-		await writeFile(join(directory, "Vetta-1.2.3-win-x64.exe"), "exe");
+		await writeFile(join(directory, "Metoai-1.2.3-win-x64.exe"), "exe");
 		await writeFile(join(directory, "Metoai-1.2.3-win-x64.msi"), "msi");
 		await writeFile(join(directory, "latest.yml"), "version: 1.2.3\n");
 
 		const { files, skipped } = await collectInstallerFiles({ directory, platform: "windows" });
 		assert.deepEqual(
 			files.map((file) => file.fileName),
-			["Metoai-1.2.3-win-x64.msi", "Vetta-1.2.3-win-x64.exe"],
+			["Metoai-1.2.3-win-x64.exe", "Metoai-1.2.3-win-x64.msi"],
 		);
 		assert.deepEqual(skipped, []);
 		await assert.rejects(() => collectInstallerFiles({ directory, platform: "linux" }), /没有 linux 可识别的安装包/);
@@ -301,14 +301,14 @@ test("collectInstallerFiles 按平台识别产物并拒绝空目录", async () =
 });
 
 test("isInstallerFile 覆盖三平台的扩展名", () => {
-	assert.equal(isInstallerFile("Vetta-0.5.58-win-x64.exe", "windows"), true);
+	assert.equal(isInstallerFile("Metoai-0.5.58-win-x64.exe", "windows"), true);
 	assert.equal(isInstallerFile("Metoai-0.5.58-win-x64.msi", "windows"), true);
-	assert.equal(isInstallerFile("Vetta-0.5.58-arm64-mac.dmg", "macos"), true);
-	assert.equal(isInstallerFile("Vetta-0.5.58-arm64-mac.zip", "macos"), true);
-	assert.equal(isInstallerFile("Vetta-0.5.58.AppImage", "linux"), true);
+	assert.equal(isInstallerFile("Metoai-0.5.58-arm64-mac.dmg", "macos"), true);
+	assert.equal(isInstallerFile("Metoai-0.5.58-arm64-mac.zip", "macos"), true);
+	assert.equal(isInstallerFile("Metoai-0.5.58.AppImage", "linux"), true);
 	assert.equal(isInstallerFile("vetta_0.5.58_amd64.deb", "linux"), true);
 	assert.equal(isInstallerFile("vetta-0.5.58.x86_64.rpm", "linux"), true);
-	assert.equal(isInstallerFile("Vetta-0.5.58-win-x64.exe", "macos"), false);
+	assert.equal(isInstallerFile("Metoai-0.5.58-win-x64.exe", "macos"), false);
 	assert.equal(isInstallerFile("latest.yml", "linux"), false);
 	assert.throws(() => isInstallerFile("a.exe", "android"), /未知平台/);
 });
@@ -335,7 +335,7 @@ test("默认发布说明路径指向仓库根的 .github/release-notes", () => {
 
 test("--dry-run 打印将提交的 JSON 且不发送任何 HTTP 请求", async () => {
 	await withTempDir(async (directory) => {
-		const installerPath = join(directory, "Vetta-1.2.3-win-x64.exe");
+		const installerPath = join(directory, "Metoai-1.2.3-win-x64.exe");
 		const content = "dry-run-installer-bytes";
 		await writeFile(installerPath, content);
 		const server = await startReleaseServer(jsonEnvelope({ code: 0, message: "", data: {} }));
@@ -376,7 +376,7 @@ test("--dry-run 打印将提交的 JSON 且不发送任何 HTTP 请求", async (
 
 test("真实登记把契约字段 POST 到管理端，且日志不回显凭据", async () => {
 	await withTempDir(async (directory) => {
-		const installerPath = join(directory, "Vetta-1.2.3-win-x64.exe");
+		const installerPath = join(directory, "Metoai-1.2.3-win-x64.exe");
 		const notePath = join(directory, "notes.md");
 		const content = "installer-bytes";
 		await writeFile(installerPath, content);
@@ -429,9 +429,9 @@ test("真实登记把契约字段 POST 到管理端，且日志不回显凭据",
 			assert.equal(payload.release_note, "## 1.2.3\n\n- 修复启动崩溃\n");
 			assert.equal(
 				payload.download_url,
-				"https://releases.example.com/desktop/stable/Vetta-1.2.3-win-x64.exe",
+				"https://releases.example.com/desktop/stable/Metoai-1.2.3-win-x64.exe",
 			);
-			assert.equal(payload.file_name, "Vetta-1.2.3-win-x64.exe");
+			assert.equal(payload.file_name, "Metoai-1.2.3-win-x64.exe");
 			assert.equal(payload.size_bytes, Buffer.byteLength(content));
 			assert.equal(payload.sha256, createHash("sha256").update(content).digest("hex"));
 			assert.match(payload.sha256, /^[0-9a-f]{64}$/);
@@ -487,7 +487,7 @@ test("--no-publish 与 --rollout-percent 进入请求体", async () => {
 
 test("code != 0 的响应被判定为失败并计入失败数", async () => {
 	await withTempDir(async (directory) => {
-		const installerPath = join(directory, "Vetta-1.2.3-win-x64.exe");
+		const installerPath = join(directory, "Metoai-1.2.3-win-x64.exe");
 		await writeFile(installerPath, "installer");
 		const server = await startReleaseServer(jsonEnvelope({ code: 1, message: "sha256 校验不一致" }));
 		try {

@@ -13,16 +13,19 @@
 
 [Setup]
 AppId={{A2B92798-AB76-4F6B-A9B9-C252DBCB617C}
-AppName=Vetta
-AppVerName=Vetta {#AppVersion}
+AppName=Metoai
+AppVerName=Metoai {#AppVersion}
 AppVersion={#AppVersion}
-AppPublisher=Vetta
-DefaultDirName={localappdata}\Programs\Vetta
-DefaultGroupName=Vetta
+AppPublisher=Metoai
+DefaultDirName={localappdata}\Programs\Metoai
+DefaultGroupName=Metoai
+; 品牌改名后不再沿用旧安装目录：旧版装在 Programs\Vetta，沿用会让改名只做一半。
+; 旧目录由 [Code] 的 RemoveLegacyBrandDirectories() 在安装成功后清理。
+UsePreviousAppDir=no
 OutputDir={#OutputDir}
-OutputBaseFilename=Vetta-{#AppVersion}-win-{#Arch}
+OutputBaseFilename=Metoai-{#AppVersion}-win-{#Arch}
 SetupIconFile={#SourceDir}\versions\{#AppVersion}\resources\build\icon.ico
-UninstallDisplayIcon={app}\Vetta.exe
+UninstallDisplayIcon={app}\Metoai.exe
 Compression=lzma2/max
 SolidCompression=no
 PrivilegesRequired=lowest
@@ -54,7 +57,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; Flags: unchecked
 Name: "{app}\versions"; Check: IsNotBackgroundUpdate
 
 [Files]
-Source: "{#SourceDir}\Vetta.exe"; DestDir: "{app}"; Flags: ignoreversion; Check: IsNotBackgroundUpdate
+Source: "{#SourceDir}\Metoai.exe"; DestDir: "{app}"; Flags: ignoreversion; Check: IsNotBackgroundUpdate
 Source: "{#SourceDir}\current.json"; DestDir: "{app}"; Flags: ignoreversion; Check: IsNotBackgroundUpdate
 ; app.asar is already an archive. Keeping it uncompressed lets the outer blockmap
 ; reuse unchanged chunks instead of invalidating one large LZMA2 stream.
@@ -64,30 +67,38 @@ Source: "{#SourceDir}\versions\{#AppVersion}\*"; DestDir: "{code:GetUpdateVersio
 Source: "{#SourceDir}\versions\{#AppVersion}\resources\app.asar"; DestDir: "{code:GetUpdateVersionDirectory}\resources"; Flags: ignoreversion nocompression; Check: IsBackgroundUpdate
 
 [Icons]
-Name: "{group}\Vetta"; Filename: "{app}\Vetta.exe"; Check: IsNotBackgroundUpdate
-Name: "{autodesktop}\Vetta"; Filename: "{app}\Vetta.exe"; Tasks: desktopicon; Check: IsNotBackgroundUpdate
+Name: "{group}\Metoai"; Filename: "{app}\Metoai.exe"; Check: IsNotBackgroundUpdate
+Name: "{autodesktop}\Metoai"; Filename: "{app}\Metoai.exe"; Tasks: desktopicon; Check: IsNotBackgroundUpdate
 
 [Registry]
-Root: HKCU; Subkey: "Software\Classes\vetta"; ValueType: string; ValueName: ""; ValueData: "URL:Vetta Protocol"; Flags: uninsdeletekey; Check: IsNotBackgroundUpdate
+Root: HKCU; Subkey: "Software\Classes\vetta"; ValueType: string; ValueName: ""; ValueData: "URL:Metoai Protocol"; Flags: uninsdeletekey; Check: IsNotBackgroundUpdate
 Root: HKCU; Subkey: "Software\Classes\vetta"; ValueType: string; ValueName: "URL Protocol"; ValueData: ""; Check: IsNotBackgroundUpdate
-Root: HKCU; Subkey: "Software\Classes\vetta\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\Vetta.exe,0"; Check: IsNotBackgroundUpdate
-Root: HKCU; Subkey: "Software\Classes\vetta\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\Vetta.exe"" ""%1"""; Check: IsNotBackgroundUpdate
+Root: HKCU; Subkey: "Software\Classes\vetta\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\Metoai.exe,0"; Check: IsNotBackgroundUpdate
+Root: HKCU; Subkey: "Software\Classes\vetta\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\Metoai.exe"" ""%1"""; Check: IsNotBackgroundUpdate
 ; MetaToken 授权回调（metoai://metotoken/callback）。运行时 main 也会用
 ; setAsDefaultProtocolClient 自注册，但那要等应用启动过一次；安装期写入让
 ; 「装完直接点深链」也能工作。vetta 仍被云服务登录与远程配对使用，保留。
 Root: HKCU; Subkey: "Software\Classes\metoai"; ValueType: string; ValueName: ""; ValueData: "URL:Metoai Protocol"; Flags: uninsdeletekey; Check: IsNotBackgroundUpdate
 Root: HKCU; Subkey: "Software\Classes\metoai"; ValueType: string; ValueName: "URL Protocol"; ValueData: ""; Check: IsNotBackgroundUpdate
-Root: HKCU; Subkey: "Software\Classes\metoai\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\Vetta.exe,0"; Check: IsNotBackgroundUpdate
-Root: HKCU; Subkey: "Software\Classes\metoai\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\Vetta.exe"" ""%1"""; Check: IsNotBackgroundUpdate
+Root: HKCU; Subkey: "Software\Classes\metoai\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\Metoai.exe,0"; Check: IsNotBackgroundUpdate
+Root: HKCU; Subkey: "Software\Classes\metoai\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\Metoai.exe"" ""%1"""; Check: IsNotBackgroundUpdate
 
 [Run]
-Filename: "{app}\Vetta.exe"; Description: "{cm:LaunchProgram,Vetta}"; Flags: nowait postinstall skipifsilent; Check: IsNotBackgroundUpdate
+Filename: "{app}\Metoai.exe"; Description: "{cm:LaunchProgram,Metoai}"; Flags: nowait postinstall skipifsilent; Check: IsNotBackgroundUpdate
+
+[InstallDelete]
+; 旧品牌残留：旧快捷方式指向 {app}\Vetta.exe，改名后这个文件不再存在，
+; 留着会让「点一下没反应」，所以正常安装时一并清掉（后台更新不动 {app}）。
+Type: files; Name: "{app}\Vetta.exe"; Check: IsNotBackgroundUpdate
+Type: files; Name: "{app}\VettaLauncher.exe"; Check: IsNotBackgroundUpdate
+Type: files; Name: "{group}\Vetta.lnk"; Check: IsNotBackgroundUpdate
+Type: files; Name: "{autodesktop}\Vetta.lnk"; Check: IsNotBackgroundUpdate
 
 [UninstallDelete]
-Type: filesandordirs; Name: "{localappdata}\Vetta\versions"
-Type: filesandordirs; Name: "{localappdata}\Vetta\installer"
-Type: filesandordirs; Name: "{localappdata}\Vetta\staging"
-Type: files; Name: "{localappdata}\Vetta\current.json"
+Type: filesandordirs; Name: "{localappdata}\Metoai\versions"
+Type: filesandordirs; Name: "{localappdata}\Metoai\installer"
+Type: filesandordirs; Name: "{localappdata}\Metoai\staging"
+Type: files; Name: "{localappdata}\Metoai\current.json"
 
 [Code]
 function CreateHardLinkW(
@@ -130,7 +141,7 @@ var
   SourceInstallerPath: String;
   TemporaryInstallerPath: String;
 begin
-  CacheDirectory := ExpandConstant('{localappdata}\vetta-updater');
+  CacheDirectory := ExpandConstant('{localappdata}\metoai-updater');
   CachedBlockmapPath := AddBackslash(CacheDirectory) + 'current.blockmap';
   CachedInstallerPath := AddBackslash(CacheDirectory) + 'installer.exe';
   SourceInstallerPath := ExpandConstant('{srcexe}');
@@ -199,12 +210,85 @@ begin
   end;
 end;
 
+function IsLegacyBrandInstall(): Boolean;
+begin
+  { 旧品牌安装的启动器只有两个可能位置：Inno 装到 Programs\Vetta，MSI 的载荷根是
+    Programs\Metoai。两处的启动器都叫 Vetta.exe，据此判断是否需要兼容垫片。 }
+  Result :=
+    FileExists(ExpandConstant('{localappdata}\Programs\Vetta\Vetta.exe')) or
+    FileExists(ExpandConstant('{localappdata}\Programs\Metoai\Vetta.exe'));
+end;
+
+procedure LinkLegacyLauncherName();
+var
+  VersionDirectory: String;
+  CurrentExecutable: String;
+  LegacyExecutable: String;
+begin
+  if not IsLegacyBrandInstall() then
+    exit;
+
+  VersionDirectory := GetUpdateVersionDirectory('');
+  CurrentExecutable := AddBackslash(VersionDirectory) + 'Metoai.exe';
+  LegacyExecutable := AddBackslash(VersionDirectory) + 'Vetta.exe';
+  if not FileExists(CurrentExecutable) then
+  begin
+    Log('Legacy launcher compatibility link skipped; missing ' + CurrentExecutable);
+    exit;
+  end;
+  if FileExists(LegacyExecutable) then
+    exit;
+
+  { 同一目录内的硬链接不占额外空间；失败时退化为复制，宁可多占一份也要让旧客户端
+    能把新版本启动起来。两种情况都只记日志，不阻断安装。 }
+  if not CreateHardLinkW(LegacyExecutable, CurrentExecutable, 0) then
+  begin
+    if FileCopy(CurrentExecutable, LegacyExecutable, False) then
+      Log('Legacy launcher compatibility link created by copy: ' + LegacyExecutable)
+    else
+      Log('Unable to create the legacy launcher compatibility link: ' + LegacyExecutable);
+  end;
+end;
+
+procedure RemoveLegacyBrandDirectories();
+var
+  LegacyProgramsDir: String;
+  LegacyStoreRoot: String;
+begin
+  { 旧品牌的安装目录：确认里面确实是本产品（启动器或 versions 目录）才删，并且不删
+    当前安装目录本身。删不掉（例如旧版本仍在运行）只记日志。 }
+  LegacyProgramsDir := ExpandConstant('{localappdata}\Programs\Vetta');
+  if (CompareText(LegacyProgramsDir, ExpandConstant('{app}')) <> 0)
+     and (FileExists(AddBackslash(LegacyProgramsDir) + 'Vetta.exe')
+          or DirExists(AddBackslash(LegacyProgramsDir) + 'versions')) then
+  begin
+    if DelTree(LegacyProgramsDir, True, True, True) then
+      Log('Removed the legacy install directory: ' + LegacyProgramsDir)
+    else
+      Log('Unable to remove the legacy install directory: ' + LegacyProgramsDir);
+  end;
+
+  { 旧品牌的更新暂存根：里面只有暂存版本、安装日志与版本指针，删掉不影响已安装版本。 }
+  LegacyStoreRoot := ExpandConstant('{localappdata}\Vetta');
+  if DirExists(AddBackslash(LegacyStoreRoot) + 'versions')
+     or FileExists(AddBackslash(LegacyStoreRoot) + 'current.json') then
+  begin
+    if DelTree(LegacyStoreRoot, True, True, True) then
+      Log('Removed the legacy update store: ' + LegacyStoreRoot)
+    else
+      Log('Unable to remove the legacy update store: ' + LegacyStoreRoot);
+  end;
+end;
+
 procedure CurStepChanged(CurStep: TSetupStep);
 begin
   if CurStep = ssPostInstall then
   begin
     if IsBackgroundUpdate() then
     begin
+      { 旧品牌客户端写死了 versions\<版本>\Vetta.exe：下载安装新版之后它按这个名字找
+        新版本的可执行文件，找不到就判定更新失败。所以先补一个同名硬链接，再写完成标记。 }
+      LinkLegacyLauncherName();
       if not SaveStringToFile(
         AddBackslash(GetUpdateVersionDirectory('')) + '.install-complete',
         '{#AppVersion}',
@@ -215,7 +299,8 @@ begin
     else
     begin
       SeedUpdaterDifferentialCache();
-      DeleteFile(ExpandConstant('{localappdata}\Vetta\current.json'));
+      DeleteFile(ExpandConstant('{localappdata}\Metoai\current.json'));
+      RemoveLegacyBrandDirectories();
     end;
   end;
 end;

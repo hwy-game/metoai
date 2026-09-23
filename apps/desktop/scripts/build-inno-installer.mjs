@@ -49,7 +49,7 @@ export async function writeAppUpdateConfig(sourceDir, version, publishConfig) {
 	if (publishConfig) {
 		await writeFile(
 			appUpdateConfigPath,
-			stringify({ ...publishConfig, updaterCacheDirName: "vetta-updater" }),
+			stringify({ ...publishConfig, updaterCacheDirName: "metoai-updater" }),
 			"utf8",
 		);
 		return;
@@ -85,7 +85,7 @@ async function main() {
 	if (typeof version !== "string" || !/^\d+\.\d+\.\d+$/.test(version)) {
 		throw new Error(`[build-inno] invalid staged version: ${version}`);
 	}
-	if (!existsSync(join(sourceDir, "versions", version, "Vetta.exe"))) {
+	if (!existsSync(join(sourceDir, "versions", version, "Metoai.exe"))) {
 		throw new Error(`[build-inno] versioned Electron output not found: ${sourceDir}`);
 	}
 
@@ -94,7 +94,7 @@ async function main() {
 	if (publishConfig) {
 		console.log(`[build-inno] wrote app-update.yml for ${publishConfig.provider}`);
 	}
-	const fileName = `Vetta-${version}-win-${arch}.exe`;
+	const fileName = `Metoai-${version}-win-${arch}.exe`;
 	const verificationManifestPath = join(releaseDir, `${fileName}.files.json`);
 	await writeInnoVerificationManifest(join(sourceDir, "versions", version), verificationManifestPath, version);
 

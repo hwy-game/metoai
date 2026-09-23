@@ -4,9 +4,9 @@ import { resolveUpdateFeedBase, verifyUpdateFeed } from "./verify-update-feed.mj
 
 const version = "0.5.46";
 const metadata = {
-	"latest.yml": `version: ${version}\npath: Vetta-Setup-${version}.exe\nfiles:\n  - url: Vetta-Setup-${version}.exe\n`,
-	"latest-mac.yml": `version: ${version}\nfiles:\n  - url: Vetta-${version}.zip\n    sha512: test\n`,
-	"latest-linux.yml": `version: ${version}\npath: Vetta-${version}.AppImage\nfiles:\n  - url: Vetta-${version}.AppImage\n`,
+	"latest.yml": `version: ${version}\npath: Metoai-Setup-${version}.exe\nfiles:\n  - url: Metoai-Setup-${version}.exe\n`,
+	"latest-mac.yml": `version: ${version}\nfiles:\n  - url: Metoai-${version}.zip\n    sha512: test\n`,
+	"latest-linux.yml": `version: ${version}\npath: Metoai-${version}.AppImage\nfiles:\n  - url: Metoai-${version}.AppImage\n`,
 };
 
 function createFetch() {

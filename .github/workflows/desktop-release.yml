@@ -430,21 +430,21 @@ jobs:
           docker run --rm --volume "${PWD}/release:/release:ro" ubuntu:24.04 bash -euo pipefail -c '
             apt-get update
             apt-get install --yes /release/*.deb
-            binary="$(find /opt -mindepth 2 -maxdepth 2 -type f -name Vetta -print -quit)"
-            test -n "${binary}" || { echo "no Vetta executable installed under /opt" >&2; ls -l /opt >&2; exit 1; }
+            binary="$(find /opt -mindepth 2 -maxdepth 2 -type f -name Metoai -print -quit)"
+            test -n "${binary}" || { echo "no Metoai executable installed under /opt" >&2; ls -l /opt >&2; exit 1; }
             app_dir="$(dirname "${binary}")"
-            test -x "${app_dir}/Vetta"
+            test -x "${app_dir}/Metoai"
             test "$(cat "${app_dir}/resources/package-type")" = "deb"
-            find /usr/share/applications -maxdepth 1 -type f -iname "*vetta*.desktop" -print -quit | grep -q . || { echo "no desktop entry installed" >&2; ls -l /usr/share/applications >&2; exit 1; }
+            find /usr/share/applications -maxdepth 1 -type f -iname "*metoai*.desktop" -print -quit | grep -q . || { echo "no desktop entry installed" >&2; ls -l /usr/share/applications >&2; exit 1; }
           '
           docker run --rm --volume "${PWD}/release:/release:ro" fedora:latest bash -euo pipefail -c '
             dnf install --assumeyes --nogpgcheck /release/*.rpm
-            binary="$(find /opt -mindepth 2 -maxdepth 2 -type f -name Vetta -print -quit)"
-            test -n "${binary}" || { echo "no Vetta executable installed under /opt" >&2; ls -l /opt >&2; exit 1; }
+            binary="$(find /opt -mindepth 2 -maxdepth 2 -type f -name Metoai -print -quit)"
+            test -n "${binary}" || { echo "no Metoai executable installed under /opt" >&2; ls -l /opt >&2; exit 1; }
             app_dir="$(dirname "${binary}")"
-            test -x "${app_dir}/Vetta"
+            test -x "${app_dir}/Metoai"
             test "$(cat "${app_dir}/resources/package-type")" = "rpm"
-            find /usr/share/applications -maxdepth 1 -type f -iname "*vetta*.desktop" -print -quit | grep -q . || { echo "no desktop entry installed" >&2; ls -l /usr/share/applications >&2; exit 1; }
+            find /usr/share/applications -maxdepth 1 -type f -iname "*metoai*.desktop" -print -quit | grep -q . || { echo "no desktop entry installed" >&2; ls -l /usr/share/applications >&2; exit 1; }
           '
 
       - name: Run packaged app and updater E2E
@@ -611,7 +611,7 @@ jobs:
             echo "Resuming draft release ${TAG}"
             gh release edit "${TAG}" --notes-file "${NOTES_FILE}"
           else
-            gh release create "${TAG}" --draft --notes-file "${NOTES_FILE}" --title "Vetta ${VERSION}" --target "${GITHUB_SHA}"
+            gh release create "${TAG}" --draft --notes-file "${NOTES_FILE}" --title "Metoai ${VERSION}" --target "${GITHUB_SHA}"
           fi
           find apps/desktop/release -maxdepth 1 -type f -print0 \
             | xargs -0 gh release upload "${TAG}" --clobber

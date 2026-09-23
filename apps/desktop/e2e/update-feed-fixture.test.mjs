@@ -41,7 +41,7 @@ test("packaged E2E update feed serves a checksum-bearing downloadable fixture", 
 	runningServers.add(fixture.server);
 
 	const metadata = await (await fetch(`${fixture.url}latest-linux.yml`)).text();
-	const artifact = await (await fetch(`${fixture.url}Vetta-e2e-update.AppImage`)).arrayBuffer();
+	const artifact = await (await fetch(`${fixture.url}Metoai-e2e-update.AppImage`)).arrayBuffer();
 
 	assert.match(metadata, /version: 0\.5\.47/);
 	assert.equal(Buffer.from(artifact).toString("utf8"), "vetta-packaged-e2e-update\n");

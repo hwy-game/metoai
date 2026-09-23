@@ -18,20 +18,20 @@ interface ActionCliResponse {
 	};
 }
 
-const HELP_TEXT = `Vetta action command line interface
+const HELP_TEXT = `Metoai action command line interface
 
 Usage:
-  Vetta.exe action search [query] [--domain <domain>]
-  Vetta.exe action describe <action-id>
-  Vetta.exe action run <action-id> [json-input]
-  Vetta.exe action -h
-  Vetta.exe action --help
+  Metoai.exe action search [query] [--domain <domain>]
+  Metoai.exe action describe <action-id>
+  Metoai.exe action run <action-id> [json-input]
+  Metoai.exe action -h
+  Metoai.exe action --help
 
 Description:
-  Operate the running Vetta Desktop app through its local action RPC.
+  Operate the running Metoai Desktop app through its local action RPC.
   The GUI must already be running. Do not guess action ids or parameters
   from memory; discover them at runtime.
-  Built-in actions operate Vetta Desktop itself; plugin-provided actions
+  Built-in actions operate Metoai Desktop itself; plugin-provided actions
   may own other resources, as declared in their usage. Developing a website,
   creating a React project, installing framework plugins, or implementing
   application cron jobs belongs to that project's tools, not App Actions.
@@ -54,10 +54,10 @@ Capability areas (high-level only; live catalog comes from search):
   batch-tasks, scheduler, knowledge, plugins, im, webhook, downloads, updater
 
 Examples:
-  Vetta.exe action search ""
-  Vetta.exe action search "model"
-  Vetta.exe action describe models.query
-  Vetta.exe action run models.query "{\\"operation\\":\\"help\\"}"
+  Metoai.exe action search ""
+  Metoai.exe action search "model"
+  Metoai.exe action describe models.query
+  Metoai.exe action run models.query "{\\"operation\\":\\"help\\"}"
 
 JSON input:
   In PowerShell and POSIX shells, wrap the JSON argument in single quotes.

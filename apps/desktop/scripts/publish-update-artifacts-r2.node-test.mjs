@@ -15,7 +15,7 @@ import {
 test("contentTypeFor publishes native package formats with package media types", () => {
 	assert.equal(contentTypeFor("vetta_1.2.3_amd64.deb"), "application/vnd.debian.binary-package");
 	assert.equal(contentTypeFor("vetta-1.2.3.x86_64.rpm"), "application/x-rpm");
-	assert.equal(contentTypeFor("Vetta-1.2.3-win-x64.msi"), "application/x-msi");
+	assert.equal(contentTypeFor("Metoai-1.2.3-win-x64.msi"), "application/x-msi");
 });
 
 test("collectArtifacts uploads updater files and matching Windows supplements before metadata", async () => {
@@ -24,21 +24,21 @@ test("collectArtifacts uploads updater files and matching Windows supplements be
 		await Promise.all([
 			writeFile(
 				join(directory, "latest.yml"),
-				"version: 1.2.3\nfiles:\n  - url: Vetta%20Setup%201.2.3.exe\npath: Vetta Setup 1.2.3.exe\n",
+				"version: 1.2.3\nfiles:\n  - url: Metoai%20Setup%201.2.3.exe\npath: Metoai Setup 1.2.3.exe\n",
 			),
-			writeFile(join(directory, "Vetta Setup 1.2.3.exe"), "installer"),
-			writeFile(join(directory, "Vetta Setup 1.2.3.exe.blockmap"), "blockmap"),
+			writeFile(join(directory, "Metoai Setup 1.2.3.exe"), "installer"),
+			writeFile(join(directory, "Metoai Setup 1.2.3.exe.blockmap"), "blockmap"),
 			writeFile(join(directory, "Metoai-1.2.3-win-x64.msi"), "msi"),
 			writeFile(join(directory, "Metoai-1.2.3-win-x64.zip"), "zip"),
-			writeFile(join(directory, "Vetta Setup 1.2.2.exe"), "stale"),
+			writeFile(join(directory, "Metoai Setup 1.2.2.exe"), "stale"),
 			writeFile(join(directory, "Metoai-1.2.2-win-x64.msi"), "stale"),
 		]);
 
 		assert.deepEqual(await collectArtifacts(directory), [
+			"Metoai Setup 1.2.3.exe",
+			"Metoai Setup 1.2.3.exe.blockmap",
 			"Metoai-1.2.3-win-x64.msi",
 			"Metoai-1.2.3-win-x64.zip",
-			"Vetta Setup 1.2.3.exe",
-			"Vetta Setup 1.2.3.exe.blockmap",
 			"latest.yml",
 		]);
 	} finally {
@@ -49,7 +49,7 @@ test("collectArtifacts uploads updater files and matching Windows supplements be
 test("collectArtifacts rejects metadata that points to a missing artifact", async () => {
 	const directory = await mkdtemp(join(tmpdir(), "vetta-r2-publish-"));
 	try {
-		await writeFile(join(directory, "latest-linux-arm64.yml"), "version: 1.2.3\npath: Vetta-1.2.3.AppImage\n");
+		await writeFile(join(directory, "latest-linux-arm64.yml"), "version: 1.2.3\npath: Metoai-1.2.3.AppImage\n");
 		await assert.rejects(() => collectArtifacts(directory), /references missing artifact/);
 	} finally {
 		await rm(directory, { recursive: true, force: true });

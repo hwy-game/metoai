@@ -67,10 +67,10 @@ async function findVettaExecutable(
 	const candidates =
 		options.platform === "win32"
 			? [
-					nodePath.join(options.environment.LOCALAPPDATA ?? "", "Programs", "Vetta", "Vetta.exe"),
-					nodePath.join(options.environment.ProgramFiles ?? "C:\\Program Files", "Vetta", "Vetta.exe"),
+					nodePath.join(options.environment.LOCALAPPDATA ?? "", "Programs", "Metoai", "Metoai.exe"),
+					nodePath.join(options.environment.ProgramFiles ?? "C:\\Program Files", "Metoai", "Metoai.exe"),
 				]
-			: ["/Applications/Vetta.app/Contents/MacOS/Vetta", "/usr/local/bin/vetta-desktop"];
+			: ["/Applications/Metoai.app/Contents/MacOS/Metoai", "/usr/local/bin/metoai-desktop"];
 	for (const candidate of candidates) {
 		if (candidate && (await options.fileExists(candidate))) {
 			return { path: candidate, staleConfiguredPath: configuredPath };
@@ -78,7 +78,7 @@ async function findVettaExecutable(
 	}
 	const staleNote = configuredPath ? ` Configured vettaAppPath is stale: ${configuredPath}` : "";
 	throw new Error(
-		`Vetta Desktop executable not found. Set VETTA_DESKTOP_EXE or start Vetta Desktop once to write vettaAppPath.${staleNote}`,
+		`Metoai Desktop executable not found. Set VETTA_DESKTOP_EXE or start Metoai Desktop once to write vettaAppPath.${staleNote}`,
 	);
 }
 

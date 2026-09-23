@@ -201,7 +201,7 @@ export interface SessionStateEntry {
  * Overrides how the sidecar invokes the coding-agent subprocess. When
  * omitted, the sidecar falls back to `vetta` on PATH — only valid in dev
  * where workspace linking puts it there. Production must populate this so
- * the sidecar can spawn the packaged Vetta.app executable (which detects
+ * the sidecar can spawn the packaged Metoai.app executable (which detects
  * `--agent-rpc` in argv and short-circuits into coding-agent's main).
  *
  * Final argv: [bin, ...prefixArgs, "--mode", "rpc", "--cwd", <cwd>, ...].

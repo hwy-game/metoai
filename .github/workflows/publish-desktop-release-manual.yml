@@ -56,7 +56,7 @@ jobs:
           if gh release view "${TAG}" >/dev/null 2>&1; then
             echo "Release ${TAG} already exists; uploading assets with --clobber."
           else
-            gh release create "${TAG}" --draft --notes-file "${NOTES_FILE}" --title "Vetta ${VERSION}"
+            gh release create "${TAG}" --draft --notes-file "${NOTES_FILE}" --title "Metoai ${VERSION}"
           fi
           find apps/desktop/release -maxdepth 1 -type f -print0 | xargs -0 gh release upload "${TAG}" --clobber
           gh release edit "${TAG}" --draft=false

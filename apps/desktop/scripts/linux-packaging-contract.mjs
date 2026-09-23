@@ -8,13 +8,13 @@ export const LINUX_INSTALL_PREFIX = "/opt";
 
 export const LINUX_PACKAGE_METADATA = Object.freeze({
 	author: Object.freeze({
-		name: "OpenVetta",
-		email: "openvetta@users.noreply.github.com",
+		name: "Metoai",
+		email: "metoai@users.noreply.github.com",
 	}),
-	homepage: "https://github.com/openvetta/open-vetta",
+	homepage: "https://github.com/hwy-game/metoai",
 	license: "Apache-2.0",
-	maintainer: "OpenVetta <openvetta@users.noreply.github.com>",
-	vendor: "OpenVetta",
+	maintainer: "Metoai <metoai@users.noreply.github.com>",
+	vendor: "Metoai",
 });
 
 /**

@@ -14,11 +14,11 @@ import {
 } from "./verify-linux-packages.mjs";
 
 // 与 fork 的构建配置一致：productName 决定安装目录，executableName 决定可执行文件名。
-const payloadPaths = resolveLinuxPayloadPaths({ productName: "Metoai", executableName: "Vetta" });
+const payloadPaths = resolveLinuxPayloadPaths({ productName: "Metoai", executableName: "Metoai" });
 const paths = [
 	...payloadPaths,
-	"/usr/share/applications/Vetta.desktop",
-	"/usr/share/icons/hicolor/512x512/apps/Vetta.png",
+	"/usr/share/applications/Metoai.desktop",
+	"/usr/share/icons/hicolor/512x512/apps/Metoai.png",
 ];
 
 test("Linux package inspection accepts matching Debian and RPM packages", () => {
@@ -51,13 +51,13 @@ test("Linux package inspection rejects wrong identities and incomplete payloads"
 				deb: { name: "vetta", version: "1.2.3", arch: "amd64", paths },
 				rpm: { name: "vetta", version: "1.2.3", arch: "x86_64", paths: paths.slice(1) },
 			}),
-		/RPM package is missing \/opt\/Metoai\/Vetta/,
+		/RPM package is missing \/opt\/Metoai\/Metoai/,
 	);
 });
 
 test("package command output parsers normalize Debian and RPM metadata", () => {
 	assert.deepEqual(
-		parseDebFields("Package: vetta\nVersion: 1.2.3\nArchitecture: amd64\nDescription: Vetta\n"),
+		parseDebFields("Package: vetta\nVersion: 1.2.3\nArchitecture: amd64\nDescription: Metoai\n"),
 		{ name: "vetta", version: "1.2.3", arch: "amd64" },
 	);
 	assert.deepEqual(parseRpmFields("vetta\n1.2.3\nx86_64\n"), {
@@ -67,10 +67,10 @@ test("package command output parsers normalize Debian and RPM metadata", () => {
 	});
 	assert.deepEqual(
 		parseDebContents(
-			"-rwxr-xr-x root/root 123 2026-01-01 00:00 ./opt/Metoai/Vetta\n" +
-				"lrwxrwxrwx root/root 0 2026-01-01 00:00 ./usr/bin/vetta -> /opt/Metoai/Vetta\n",
+			"-rwxr-xr-x root/root 123 2026-01-01 00:00 ./opt/Metoai/Metoai\n" +
+				"lrwxrwxrwx root/root 0 2026-01-01 00:00 ./usr/bin/vetta -> /opt/Metoai/Metoai\n",
 		),
-		["/opt/Metoai/Vetta", "/usr/bin/vetta"],
+		["/opt/Metoai/Metoai", "/usr/bin/vetta"],
 	);
 });
 
@@ -80,16 +80,16 @@ test("Linux payload paths follow the staged electron-builder product identity", 
 		const builderConfigPath = join(stageDir, "electron-builder.json");
 		await writeFile(
 			builderConfigPath,
-			JSON.stringify({ productName: "Metoai", executableName: "Vetta", linux: { target: ["deb"] } }),
+			JSON.stringify({ productName: "Metoai", executableName: "Metoai", linux: { target: ["deb"] } }),
 		);
 		assert.deepEqual(await readLinuxPayloadPaths(builderConfigPath), [
-			"/opt/Metoai/Vetta",
+			"/opt/Metoai/Metoai",
 			"/opt/Metoai/resources/package-type",
 		]);
 
 		await writeFile(
 			builderConfigPath,
-			JSON.stringify({ productName: "Metoai", executableName: "Vetta", linux: { executableName: "Metoai" } }),
+			JSON.stringify({ productName: "Metoai", executableName: "Metoai", linux: { executableName: "Metoai" } }),
 		);
 		assert.deepEqual(await readLinuxPayloadPaths(builderConfigPath), [
 			"/opt/Metoai/Metoai",
@@ -108,7 +108,7 @@ test("Linux payload paths follow the staged electron-builder product identity", 
 
 test("Linux payload paths reject identities that electron-builder would sanitize", () => {
 	assert.throws(
-		() => resolveLinuxPayloadPaths({ productName: "Metoai Desktop", executableName: "Vetta" }),
+		() => resolveLinuxPayloadPaths({ productName: "Metoai Desktop", executableName: "Metoai" }),
 		/productName Metoai Desktop is not a plain path segment/,
 	);
 	assert.throws(

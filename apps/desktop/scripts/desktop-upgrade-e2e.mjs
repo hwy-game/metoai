@@ -88,9 +88,9 @@ async function resolveCandidate(baseUrl, expectedVersion) {
 }
 
 function baselineArtifactName(buildVersion) {
-	if (platform === "win32") return `Vetta-${buildVersion}-win-x64.exe`;
-	if (platform === "linux") return `Vetta-${buildVersion}.AppImage`;
-	return architecture === "arm64" ? `Vetta-${buildVersion}-arm64-mac.zip` : `Vetta-${buildVersion}-mac.zip`;
+	if (platform === "win32") return `Metoai-${buildVersion}-win-x64.exe`;
+	if (platform === "linux") return `Metoai-${buildVersion}.AppImage`;
+	return architecture === "arm64" ? `Metoai-${buildVersion}-arm64-mac.zip` : `Metoai-${buildVersion}-mac.zip`;
 }
 
 async function installBaseline(installerPath, installRoot) {
@@ -107,7 +107,7 @@ async function installBaseline(installerPath, installRoot) {
 			child.once("error", reject);
 			child.once("exit", (code) => (code === 0 ? resolve() : reject(new Error(`Inno exited with ${code}`))));
 		});
-		return join(installRoot, "Vetta.exe");
+		return join(installRoot, "Metoai.exe");
 	}
 	if (platform === "linux") {
 		await chmod(installerPath, 0o755);
@@ -120,11 +120,11 @@ async function installBaseline(installerPath, installRoot) {
 		child.once("error", reject);
 		child.once("exit", (code) => (code === 0 ? resolve() : reject(new Error(`ditto exited with ${code}`))));
 	});
-	const appPath = join(extractedRoot, "Vetta.app");
-	const installedApp = join(installRoot, "Vetta.app");
+	const appPath = join(extractedRoot, "Metoai.app");
+	const installedApp = join(installRoot, "Metoai.app");
 	await rm(installedApp, { recursive: true, force: true });
 	await rename(appPath, installedApp);
-	return join(installedApp, "Contents", "MacOS", "Vetta");
+	return join(installedApp, "Contents", "MacOS", "Metoai");
 }
 
 function statePath(home) {

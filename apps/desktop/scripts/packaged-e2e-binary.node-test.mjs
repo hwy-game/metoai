@@ -72,10 +72,10 @@ test("Linux packaged E2E stages an isolated AppImage before updater tests", asyn
 test("Windows packaged E2E drives the versioned Electron binary instead of the detached launcher", async () => {
 	const packageRoot = await mkdtemp(join(tmpdir(), "vetta-packaged-e2e-"));
 	const unpackedRoot = join(packageRoot, "release", "win-unpacked");
-	const versionedBinary = join(unpackedRoot, "versions", "1.2.3", "Vetta.exe");
+	const versionedBinary = join(unpackedRoot, "versions", "1.2.3", "Metoai.exe");
 	await mkdir(join(unpackedRoot, "versions", "1.2.3"), { recursive: true });
 	await Promise.all([
-		writeFile(join(unpackedRoot, "Vetta.exe"), "launcher"),
+		writeFile(join(unpackedRoot, "Metoai.exe"), "launcher"),
 		writeFile(join(unpackedRoot, "current.json"), '{"version":"1.2.3"}\n'),
 		writeFile(versionedBinary, "electron"),
 	]);

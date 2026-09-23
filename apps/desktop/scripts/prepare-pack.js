@@ -313,7 +313,7 @@ if (process.platform === "darwin" && !macSigning.enabled) {
 	);
 }
 
-// macOS appshot: swiftc 编译 "Vetta Computer Use.app" 直接落到 staging appshot/，
+// macOS appshot: swiftc 编译 "Metoai Computer Use.app" 直接落到 staging appshot/，
 // 由 resolveExtraResources 带进 Resources/appshot/（filter "**/*" 递归带入
 // .app bundle 内部结构）。仅 darwin host 可编译。
 if (process.platform === "darwin") {
@@ -685,7 +685,7 @@ function resolveExtraResources() {
 			filter: sandboxFilters,
 		});
 	}
-	// "Vetta Computer Use.app" 仅 darwin 目标需要，且仅 darwin host 能编译（见上方 staging）。
+	// "Metoai Computer Use.app" 仅 darwin 目标需要，且仅 darwin host 能编译（见上方 staging）。
 	if (resolvePlatformFamilies().has("darwin") && process.platform === "darwin") {
 		extraResources.push({
 			from: "appshot",
@@ -709,7 +709,7 @@ const extraResources = resolveExtraResources();
 const builderConfig = {
 	appId: "com.vetta.desktop",
 	productName: "Metoai",
-	executableName: "Vetta",
+	executableName: "Metoai",
 	afterPack: join(projectRoot, "scripts", "windows-version-layout.mjs"),
 	electronVersion,
 	electronLanguages: ["zh-CN", "en-US"],
@@ -751,7 +751,7 @@ const builderConfig = {
 		// 用户的本地模型（Ollama / LM Studio / vLLM 等）通常监听在局域网
 		// 明文 HTTP（http://192.168.x.x:port）。macOS 14+ 的 TCC 与 ATS 默认
 		// 会静默拦截这种请求，表现为 Finder 双击启动后随机出现 "Connection
-		// error."，而从终端启动 Vetta 时 launchd context 不同会偶发放行。
+		// error."，而从终端启动 Metoai 时 launchd context 不同会偶发放行。
 		// 三个 key 缺一不可：
 		//   - NSAppTransportSecurity.NSAllowsLocalNetworking：放开局域网明文 HTTP
 		//   - NSLocalNetworkUsageDescription：macOS 14+ 触发本地网络权限弹窗
@@ -771,7 +771,7 @@ const builderConfig = {
 	// 位置必须与那里的 ICON_CENTERS_X_2X 对齐）。
 	// 未签名构建为三图标：多出的「修复已损坏.app」由 scripts/build-mac-repair-helper.js
 	// osacompile 生成，用户首次需 control-click → 「打开」绕过 Gatekeeper，
-	// 之后弹原生密码框对 /Applications/Vetta.app 执行 xattr -dr com.apple.quarantine。
+	// 之后弹原生密码框对 /Applications/Metoai.app 执行 xattr -dr com.apple.quarantine。
 	// 签名+公证构建不存在「已损坏」问题，退回两图标常规版式。
 	dmg: {
 		background: "build/background.png",
@@ -780,7 +780,7 @@ const builderConfig = {
 		iconTextSize: 12,
 		contents: macSigning.enabled
 			? [
-					{ x: 180, y: 200, type: "file" }, // Vetta.app（electron-builder 自动填入产物路径）
+					{ x: 180, y: 200, type: "file" }, // Metoai.app（electron-builder 自动填入产物路径）
 					{ x: 480, y: 200, type: "link", path: "/Applications" },
 				]
 			: [
@@ -803,6 +803,12 @@ const builderConfig = {
 		synopsis: "AI agent desktop application",
 		vendor: LINUX_PACKAGE_METADATA.vendor,
 	},
+	// deb/rpm 的默认产物名取自 staged package.json 的 name。那个 name 必须保持
+	// "vetta"：它是 Electron 的 app.name，改了会把 userData 从 %APPDATA%\vetta 迁走，
+	// 用户数据与 safeStorage 密钥存储都会丢。因此这里显式把产物名前缀指回产品名；
+	// dpkg/rpm 的包名字段（Package: / Name:）仍是 vetta，既有安装的升级连续性不变。
+	deb: { artifactName: "${productName}_${version}_${arch}.${ext}" },
+	rpm: { artifactName: "${productName}-${version}.${arch}.${ext}" },
 	// Sidecar binaries are picked up from the staged ./im-gateway dir
 	// (populated above by the cross-build step).
 	extraResources,

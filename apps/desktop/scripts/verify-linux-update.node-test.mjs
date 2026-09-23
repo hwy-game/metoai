@@ -22,20 +22,20 @@ test("verifyLinuxUpdates verifies AppImage size, hash, and embedded block map me
 		const { artifact, blockMap } = createAppImage();
 		const sha512 = createHash("sha512").update(artifact).digest("base64");
 		await Promise.all([
-			writeFile(join(releaseDir, "Vetta-1.2.3.AppImage"), artifact),
+			writeFile(join(releaseDir, "Metoai-1.2.3.AppImage"), artifact),
 			writeFile(
 				join(releaseDir, "latest-linux.yml"),
 				stringify({
 					version: "1.2.3",
 					files: [
 						{
-							url: "Vetta-1.2.3.AppImage",
+							url: "Metoai-1.2.3.AppImage",
 							sha512,
 							size: artifact.length,
 							blockMapSize: blockMap.length,
 						},
 					],
-					path: "Vetta-1.2.3.AppImage",
+					path: "Metoai-1.2.3.AppImage",
 					sha512,
 				}),
 			),
@@ -58,7 +58,7 @@ test("verifyLinuxUpdates requires every Linux release format from one update man
 		const rpm = Buffer.from("rpm-package");
 		const files = [
 			{
-				url: "Vetta-1.2.3.AppImage",
+				url: "Metoai-1.2.3.AppImage",
 				sha512: createHash("sha512").update(appImage).digest("base64"),
 				size: appImage.length,
 				blockMapSize: blockMap.length,
@@ -107,20 +107,20 @@ test("verifyLinuxUpdates rejects a release manifest that omits a native Linux fo
 		const { artifact, blockMap } = createAppImage();
 		const sha512 = createHash("sha512").update(artifact).digest("base64");
 		await Promise.all([
-			writeFile(join(releaseDir, "Vetta-1.2.3.AppImage"), artifact),
+			writeFile(join(releaseDir, "Metoai-1.2.3.AppImage"), artifact),
 			writeFile(
 				join(releaseDir, "latest-linux.yml"),
 				stringify({
 					version: "1.2.3",
 					files: [
 						{
-							url: "Vetta-1.2.3.AppImage",
+							url: "Metoai-1.2.3.AppImage",
 							sha512,
 							size: artifact.length,
 							blockMapSize: blockMap.length,
 						},
 					],
-					path: "Vetta-1.2.3.AppImage",
+					path: "Metoai-1.2.3.AppImage",
 					sha512,
 				}),
 			),
@@ -140,14 +140,14 @@ test("verifyLinuxUpdates rejects metadata whose hash does not match the AppImage
 	try {
 		const { artifact, blockMap } = createAppImage();
 		await Promise.all([
-			writeFile(join(releaseDir, "Vetta-1.2.3.AppImage"), artifact),
+			writeFile(join(releaseDir, "Metoai-1.2.3.AppImage"), artifact),
 			writeFile(
 				join(releaseDir, "latest-linux.yml"),
 				stringify({
 					version: "1.2.3",
 					files: [
 						{
-							url: "Vetta-1.2.3.AppImage",
+							url: "Metoai-1.2.3.AppImage",
 							sha512: "invalid",
 							size: artifact.length,
 							blockMapSize: blockMap.length,
