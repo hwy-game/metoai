@@ -282,3 +282,11 @@ describe("buildSystemPrompt", () => {
 		});
 	});
 });
+describe("产品身份", () => {
+	test("不在系统提示词里指定产品名，让模型自行回答「你是谁」", () => {
+		const prompt = buildSystemPrompt({ selectedTools: ["read", "bash"], contextFiles: [], skills: [] });
+
+		expect(prompt).not.toContain("Your name is");
+		expect(prompt.toLowerCase()).not.toContain("you are vetta");
+	});
+});

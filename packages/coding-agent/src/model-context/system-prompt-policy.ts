@@ -12,8 +12,6 @@ import {
 } from "./prompt-document.js";
 import { formatModelVisibleSkills, type ModelVisibleSkill } from "./skill-prompt.js";
 
-const SUBCONSCIOUS = `**Your name is Vetta. You are an AI assistant.**`;
-
 /** Tool descriptions for system prompt */
 const builtInToolDescriptions: Record<string, string> = {
 	read: "Read file contents",
@@ -390,7 +388,8 @@ export function buildSystemPromptDraft(options: BuildSystemPromptOptions = {}): 
 	const hasRead = tools.includes("read");
 	const skillsSection = (hasRead || hasInvokeSkill) && skills.length > 0 ? formatModelVisibleSkills(skills) : "";
 
-	blocks.push(coreBlock("core.subconscious", "subconscious", SUBCONSCIOUS, 100));
+	// 不注入产品身份：模型被问到「你是谁」「你是什么」时按自身训练回答即可，
+	// 宿主不在系统提示词里替它指定产品名。
 	blocks.push(coreBlock("core.base", "base", customPrompt ?? "", 150));
 	blocks.push(coreBlock("core.cache-prefix-addon", "append", systemPromptCachePrefixAddon ?? "", 175));
 	blocks.push({
