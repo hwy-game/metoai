@@ -12,6 +12,11 @@
    desktop-app no longer contain className literals for Tailwind to see. */
 @source "../../../../packages/ui/src/**/*.{ts,tsx}";
 
+/* 桌宠气泡样式是 JSON 里的 class 字面量（apps/desktop/src/shared/pet-bubble-styles/*.json）。
+   它们在 renderer 根目录之外，默认扫描看不到 ⇒ 气泡的背景板/边框没有规则，透明桌宠窗上
+   只剩继承来的文字色，浅色主题下就成了「黑底黑字」。整目录放行，新增气泡样式不必再补清单。 */
+@source "../shared/pet-bubble-styles";
+
 /* 系统插件贡献的侧边栏图标。
  *
  * 工作区视图的 icon 是插件在自己的源码里声明的 iconify class 字符串，宿主只是把它

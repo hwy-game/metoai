@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { PetBubbleStyleAsset, PetDecoration } from "../../../../preload/api-types/pet";
-import { PET_BUBBLE_STYLES, type PetBubbleStyleId } from "../../../../shared/pet-bubbles";
+import { type PetBubbleStyleId, VISIBLE_PET_BUBBLE_STYLES } from "../../../../shared/pet-bubbles";
 import { DEFAULT_PET_CONFIG, type PetConfig } from "../../../../shared/pet-config";
 import { SETTINGS_SECTION } from "../registry";
 import { recordSettingsUsage } from "./recordSettingsUsage";
@@ -112,7 +112,7 @@ export function usePetSettingsModel(): PetSettingsModel {
 
 	const bubbleStyles = useMemo<PetBubbleStyleModel[]>(
 		() =>
-			PET_BUBBLE_STYLES.map((style) => ({
+			VISIBLE_PET_BUBBLE_STYLES.map((style) => ({
 				id: style.id,
 				decorUrl: bubbleStyleAssets.find((asset) => asset.id === style.id)?.url,
 				description: t(style.descriptionKey),

@@ -81,6 +81,12 @@ export interface PetBubbleStyle {
 
 export const DEFAULT_PET_BUBBLE_STYLE_ID: PetBubbleStyleId = "plain";
 
+/**
+ * 设置页当前开放的样式。其余样式暂时隐藏：目录、资源与渲染链路都保留，
+ * 恢复时把 id 加回这里即可，存量配置会在读取时自动归一到默认样式。
+ */
+export const VISIBLE_PET_BUBBLE_STYLE_IDS: readonly PetBubbleStyleId[] = [DEFAULT_PET_BUBBLE_STYLE_ID];
+
 function definePetBubbleStyle(style: unknown): PetBubbleStyle {
 	return style as PetBubbleStyle;
 }
@@ -101,6 +107,10 @@ export const PET_BUBBLE_STYLES: readonly PetBubbleStyle[] = [
 	definePetBubbleStyle(songkranStyle),
 	definePetBubbleStyle(valentineDayStyle),
 ] as const;
+
+export const VISIBLE_PET_BUBBLE_STYLES: readonly PetBubbleStyle[] = PET_BUBBLE_STYLES.filter((style) =>
+	VISIBLE_PET_BUBBLE_STYLE_IDS.includes(style.id),
+);
 
 const PET_BUBBLE_STYLE_IDS = new Set<string>(PET_BUBBLE_STYLES.map((style) => style.id));
 const LEGACY_PET_BUBBLE_STYLE_ID_ALIASES: Readonly<Record<string, PetBubbleStyleId>> = {
@@ -124,8 +134,11 @@ export function isPetBubbleStyleId(value: unknown): value is PetBubbleStyleId {
 }
 
 export function normalizePetBubbleStyleId(value: unknown): PetBubbleStyleId {
-	if (isPetBubbleStyleId(value)) return value;
-	if (typeof value === "string") return LEGACY_PET_BUBBLE_STYLE_ID_ALIASES[value] ?? DEFAULT_PET_BUBBLE_STYLE_ID;
+	if (typeof value === "string") {
+		const resolved = isPetBubbleStyleId(value) ? value : LEGACY_PET_BUBBLE_STYLE_ID_ALIASES[value];
+		// 未开放的样式连存量配置一起归一到默认样式，避免设置页只列普通气泡、桌宠却用着别的样式。
+		if (resolved !== undefined && VISIBLE_PET_BUBBLE_STYLE_IDS.includes(resolved)) return resolved;
+	}
 	return DEFAULT_PET_BUBBLE_STYLE_ID;
 }
 
