@@ -68,7 +68,8 @@
       "clearConversationMessage": "Ini akan menghapus {{count}} sesi percakapan di bawah Chat sambil mempertahankan artefak. Sesi Claw tidak terpengaruh. Tindakan ini tidak dapat dibatalkan.",
       "clearClawTitle": "Bersihkan rekaman Claw",
       "clearClawMessage": "Ini akan menghapus {{count}} rekaman Claw sambil mempertahankan artefak. Tindakan ini tidak dapat dibatalkan.",
-      "clearConfirm": "Bersihkan"
+      "clearConfirm": "Bersihkan",
+      "deleteBoundSessionHint": "Otomatisasi \"{{task}}\" berjalan di sesi ini. Menghapus sesi ini akan menjeda otomatisasi tersebut sampai Anda memilih sesi lain."
     },
     "time": {
       "justNow": "baru saja",
@@ -92,7 +93,8 @@
     "newProject": "Proyek Baru",
     "openProject": "Buka Proyek",
     "importProject": "Impor Proyek",
-    "more": "Lainnya"
+    "more": "Lainnya",
+    "addFromRemoteHost": "Tambahkan dari host jarak jauh"
   },
   "contextMenu": {
     "openInFinder": "Tampilkan di Finder",
@@ -114,7 +116,8 @@
       "label": "Tag",
       "new": "Tag baru…",
       "manage": "Kelola tag…"
-    }
+    },
+    "createAutomation": "Buat otomatisasi dari sesi ini"
   },
   "tagEditor": {
     "createTitle": "Tag baru",
@@ -218,5 +221,32 @@
     "loading": "Memuat plugin…",
     "missing": "Tampilan ruang kerja ini tidak ada lagi. Kembali ke beranda.",
     "failed": "Tampilan ruang kerja ini gagal dirender. Periksa DevTools untuk detailnya."
+  },
+  "remotePicker": {
+    "title": "Tambahkan proyek dari host jarak jauh",
+    "pickHost": "Pilih host yang terdaftar",
+    "loading": "Memuat…",
+    "noHosts": "Belum ada host jarak jauh yang terdaftar",
+    "noHostsHint": "Tambahkan satu di Pengaturan → Host SSH, atau impor alias yang sudah ada di ~/.ssh/config.",
+    "parent": "Folder induk",
+    "emptyDir": "Tidak ada sub-folder di sini. Anda dapat menambahkan folder ini sebagai proyek.",
+    "browseFailed": "Tidak dapat membaca folder ini. Koneksi mungkin terputus, atau akun ini tidak memiliki izin.",
+    "details": "Detail teknis",
+    "backToHosts": "Pilih host lain",
+    "cancel": "Batal",
+    "confirm": "Tambahkan folder ini sebagai proyek",
+    "failedTitle": "Tidak dapat menambahkan proyek ini"
+  },
+  "orphanRemote": {
+    "title": "Host proyek ini tidak lagi ada di daftar host Anda",
+    "description": "Host SSH yang ditunjuknya telah dihapus, atau mendapat identitas baru saat ditambahkan lagi. Pilih host yang cocok untuk menghubungkan kembali proyek; sesinya tetap utuh.",
+    "pickHost": "Host mana yang dipakai sebelumnya?",
+    "noHosts": "Belum ada host yang terdaftar. Tambahkan host ini dulu, lalu kembali untuk menautkannya.",
+    "addHost": "Tambahkan host",
+    "rebind": "Tautkan ke host ini",
+    "rebinding": "Menautkan…",
+    "hostInUse": "Host ini sudah memiliki {{count}} proyek; menautkan di sini akan memutus proyek tersebut. Pilih host lain, atau tambahkan komputer ini lagi secara terpisah untuk proyek ini.",
+    "notOrphaned": "Proyek ini tidak lagi perlu ditautkan ulang. Coba segarkan.",
+    "footnote": "Host akan mengambil alih identitas yang tercatat di proyek. Jika Anda memilih mengingat kata sandi, Anda mungkin diminta memasukkannya sekali lagi."
   }
 }

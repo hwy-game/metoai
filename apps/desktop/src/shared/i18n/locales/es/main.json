@@ -95,5 +95,21 @@
       "releaseNotes": "Novedades",
       "version": "Nueva versión {{version}}"
     }
+  },
+  "pluginPackage": {
+    "confirmTitle": "Instalar complemento de Metoai",
+    "confirmMessage": "¿Instalar y habilitar {{name}} {{version}}?",
+    "confirmDetail": "Archivo: {{file}}\nID del complemento: {{id}}\nVersión: {{version}}\n\nPermisos que se otorgarán:\n{{permissions}}\n\nComandos que se habilitarán:\n{{commands}}\n\nEl código del complemento se ejecuta dentro de Metoai. Instala solo archivos de fuentes en las que confíes.",
+    "none": "Ninguno",
+    "install": "Instalar y habilitar",
+    "cancel": "Cancelar",
+    "done": "Listo",
+    "installedTitle": "Complemento instalado",
+    "installedMessage": "{{name}} {{version}} está instalado y habilitado.",
+    "failedTitle": "Error al instalar el complemento",
+    "failedMessage": "{{file}} no es un paquete de complemento de Metoai válido o no es compatible con esta versión."
+  },
+  "terminal": {
+    "remoteOutputDropped": "[salida remota demasiado rápida; se omitieron {{bytes}} bytes]"
   }
 }

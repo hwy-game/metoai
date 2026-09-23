@@ -10,12 +10,11 @@ import { getPresetProvider, PRESET_PROVIDERS, type PresetProviderDef } from "./c
 import { type PresetError, toPresetError } from "./errors.js";
 import { fetchPresetModels, type PresetModelsResult } from "./fetch.js";
 import {
-	enrichFromCatalog,
+	enrichModelsFromCatalog,
 	fetchModelsDevCatalog,
 	isCatalogFresh,
 	isCatalogUsable,
 	type ModelsDevCatalog,
-	selectLatestModels,
 } from "./models-dev.js";
 import { MODELS_DEV_SNAPSHOT } from "./models-dev-snapshot.generated.js";
 
@@ -79,9 +78,8 @@ function catalogModelsFor(catalog: ModelsDevCatalog | null, def: PresetProviderD
 	if (!entries) return [];
 	const models = Object.values(entries)
 		.filter((entry) => def.isChatModel(entry.model.id))
-		.map((entry) => enrichFromCatalog(catalog, def.id, entry.model))
-		.sort((a, b) => a.id.localeCompare(b.id));
-	return selectLatestModels(catalog, def.id, models, Date.now());
+		.map((entry) => entry.model);
+	return enrichModelsFromCatalog(catalog, def.id, models);
 }
 
 /**
@@ -115,7 +113,9 @@ export async function refreshPresetCatalog(): Promise<{
  * 不必让用户盯着 0 个模型手动重试。
  */
 async function refreshCatalogInBackground(): Promise<void> {
-	const before = catalogMemo;
+	// 比较用户当前实际看到的目录，而不是只比较内存/磁盘缓存槽。无缓存时可见值是随包快照，
+	// 若在线刷新失败仍返回同一快照，就不该把它广播成“目录已更新”并触发设置页重新加载。
+	const before = await getCachedCatalog();
 	const catalog = await ensureCatalog();
 	if (!catalog || catalog === before) return;
 	for (const win of BrowserWindow.getAllWindows()) {
@@ -224,8 +224,9 @@ export async function refreshPresetModels(providerId: string, apiKey?: string): 
 	if (result.models.length === 0) return result;
 
 	const catalog = await ensureCatalog();
-	const enriched = result.models.map((model) => enrichFromCatalog(catalog, def.id, model));
-	const models = selectLatestModels(catalog, def.id, enriched, Date.now());
+	// `/models` 是该账号可用模型的事实源；models.dev 只补元数据，不能按第三方 family
+	// 或发布日期把服务商明确返回的档位、预览版或账号专属模型删掉。
+	const models = enrichModelsFromCatalog(catalog, def.id, result.models);
 	return { ...result, models };
 }
 

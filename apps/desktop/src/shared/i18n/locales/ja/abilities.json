@@ -32,7 +32,8 @@
     "disabled": "無効",
     "updateAvailable": "更新あり",
     "openSource": "オープンソース",
-    "sameName": "同名が{{count}}件"
+    "sameName": "同名が{{count}}件",
+    "builtin": "組み込み"
   },
   "card": {
     "noDescription": "説明なし"
@@ -146,9 +147,10 @@
     "meta": {
       "author": "作者",
       "version": "バージョン",
-      "localVersion": "ローカルバージョン",
       "downloads": "ダウンロード数",
-      "license": "ライセンス"
+      "license": "ライセンス",
+      "installedVersion": "インストール済み",
+      "availableVersion": "更新先"
     },
     "story": {
       "vs": "vs",
@@ -282,7 +284,8 @@
         "shortcuts": "プラグインは登録したキーの組み合わせを監視し、アクションを実行できます",
         "fileDecorations": "プラグインはファイル項目の横にステータスや種類のマーカーを表示できます",
         "fileContextMenu": "プラグインのアクションをファイルとフォルダのコンテキストメニューに表示できます",
-        "fileToolbar": "プラグインはファイルエクスプローラーのツールバーにアクションボタンを追加できます"
+        "fileToolbar": "プラグインはファイルエクスプローラーのツールバーにアクションボタンを追加できます",
+        "bottomPanel": "下部パネル"
       },
       "previewFlow": "矢印は、この権限が有効にするデータまたはアクションの方向を示します",
       "scopeTitle": "スコープ",
@@ -414,7 +417,8 @@
       "settingsWrite": "ホストがプラグインに公開しているアプリ設定を変更し、アプリの動作を変える場合があります。",
       "shellOpenExternal": "プラグインが選択した外部リンクをシステムブラウザまたは既定のアプリで開きます。",
       "uiSlotNewSessionContext": "プラグインのエージェントやチームを選択したとき、またはそのアビリティに言及したときにのみ、新規セッション入力欄の下にブロックを表示できるようにします。",
-      "conversationDraftRead": "プラグインが、入力済みでまだ送信していない内容を読み取れるようにします。そのプラグインのコンテキストブロックが画面に表示されている間のみ提供されます。"
+      "conversationDraftRead": "プラグインが、入力済みでまだ送信していない内容を読み取れるようにします。そのプラグインのコンテキストブロックが画面に表示されている間のみ提供されます。",
+      "uiSlotBottomPanel": "プラグインがセッションの下部パネルにコンポーネントを追加できるようにします。複数のインスタンスを開いて並べて分割表示できます。"
     },
     "uiSlotGlobal": "グローバル UI スロット",
     "uiSlotAbilityDetail": "詳細設定パネルを表示",
@@ -475,7 +479,8 @@
     "settingsWrite": "設定を変更",
     "shellOpenExternal": "システムブラウザでリンクを開く",
     "uiSlotNewSessionContext": "新規セッションコンテキストスロット",
-    "conversationDraftRead": "入力ドラフトを読み取る"
+    "conversationDraftRead": "入力ドラフトを読み取る",
+    "uiSlotBottomPanel": "下部パネルのコンポーネント"
   },
   "meta": {
     "title": "その他",

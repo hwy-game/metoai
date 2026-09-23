@@ -32,7 +32,8 @@
     "disabled": "Nonaktif",
     "updateAvailable": "Pembaruan tersedia",
     "openSource": "Sumber terbuka",
-    "sameName": "{{count}} dengan nama sama"
+    "sameName": "{{count}} dengan nama sama",
+    "builtin": "Bawaan"
   },
   "card": {
     "noDescription": "Tanpa deskripsi"
@@ -146,9 +147,10 @@
     "meta": {
       "author": "Penulis",
       "version": "Versi",
-      "localVersion": "Versi lokal",
       "downloads": "Unduhan",
-      "license": "Lisensi"
+      "license": "Lisensi",
+      "installedVersion": "Terpasang",
+      "availableVersion": "Perbarui ke"
     },
     "story": {
       "vs": "vs",
@@ -282,7 +284,8 @@
         "shortcuts": "Plugin dapat mendengarkan kombinasi tombol yang terdaftar dan memicu tindakannya",
         "fileDecorations": "Plugin dapat menampilkan penanda status atau jenis di samping entri file",
         "fileContextMenu": "Tindakan plugin dapat muncul di menu konteks file dan folder",
-        "fileToolbar": "Plugin dapat menambahkan tombol tindakan ke bilah alat penjelajah file"
+        "fileToolbar": "Plugin dapat menambahkan tombol tindakan ke bilah alat penjelajah file",
+        "bottomPanel": "Panel bawah"
       },
       "previewFlow": "Panah menunjukkan arah data atau tindakan yang diaktifkan izin ini",
       "scopeTitle": "Cakupan",
@@ -414,7 +417,8 @@
       "settingsWrite": "Mengubah pengaturan aplikasi yang disediakan host untuk plugin dan dapat mengubah perilaku aplikasi.",
       "shellOpenExternal": "Membuka tautan eksternal yang dipilih plugin di browser sistem atau aplikasi bawaan.",
       "uiSlotNewSessionContext": "Memungkinkan plugin menampilkan blok di bawah input sesi baru, hanya saat Anda memilih salah satu agen atau timnya, atau menyebut salah satu kemampuannya.",
-      "conversationDraftRead": "Memungkinkan plugin membaca teks yang Anda ketik tetapi belum dikirim. Hanya tersedia selama blok konteks plugin tersebut tampil di layar."
+      "conversationDraftRead": "Memungkinkan plugin membaca teks yang Anda ketik tetapi belum dikirim. Hanya tersedia selama blok konteks plugin tersebut tampil di layar.",
+      "uiSlotBottomPanel": "Memungkinkan plugin menambahkan komponen ke panel bawah sesi; beberapa instance dapat dibuka dan dibagi berdampingan."
     },
     "uiSlotGlobal": "Slot UI global",
     "uiSlotAbilityDetail": "Tampilkan panel konfigurasi detail",
@@ -475,7 +479,8 @@
     "settingsWrite": "Ubah pengaturan",
     "shellOpenExternal": "Buka tautan di browser sistem",
     "uiSlotNewSessionContext": "Slot Konteks Sesi Baru",
-    "conversationDraftRead": "Baca draf input"
+    "conversationDraftRead": "Baca draf input",
+    "uiSlotBottomPanel": "Komponen panel bawah"
   },
   "meta": {
     "title": "Lainnya",

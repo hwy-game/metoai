@@ -40,9 +40,39 @@ function sourceId(item: AbilityItem): string {
 	return item.catalogSource.id;
 }
 
-/** 「发现」只展示已列入市场的条目；应用内置项不再作为能力市场来源。 */
+/** 是否为通用 Skill（~/.agents/skills 等通用 Agent 技能目录）。 */
+export function isUniversalSkill(item: AbilityItem): boolean {
+	return item.type === "skill" && Boolean(item.skillSource?.startsWith("agents-"));
+}
+
+/** 是否为手动安装/本地创建的能力（本地导入的 skill、本地插件包/npm 插件、手动添加的 MCP 服务）。 */
+export function isManuallyInstalledAbility(item: AbilityItem): boolean {
+	if (!item.installed || item.isBuiltin) return false;
+	if (item.isCustom) return true;
+	if (item.type === "plugin") {
+		return item.plugin?.source === "archive" || item.plugin?.source === "npm";
+	}
+	if (item.type === "skill") {
+		return (
+			(item.skillProvenance?.kind === "native" && item.skillProvenance.scope === "custom") ||
+			item.skillSource === "user" ||
+			item.skillSource === "project"
+		);
+	}
+	if (item.type === "mcp") {
+		return !item.fromMarket && item.origin?.kind !== "github-marketplace" && !item.preset;
+	}
+	return false;
+}
+
+/** 「公开」展示已列入市场的条目以及 Vetta 内置能力。 */
 export function isAbilityListedInDiscover(item: AbilityItem): boolean {
-	return item.fromMarket && (!item.market || isMarketAbilityListed(item.market));
+	return (item.fromMarket && (!item.market || isMarketAbilityListed(item.market))) || item.isBuiltin;
+}
+
+/** 「个人」只展示通用 skill 和手动安装的能力。 */
+export function isAbilityListedInPersonal(item: AbilityItem): boolean {
+	return isUniversalSkill(item) || isManuallyInstalledAbility(item);
 }
 
 /**
@@ -53,8 +83,9 @@ function filterAbilities(items: AbilityItem[], filter: AbilityCatalogFilter): Ab
 	const keyword = filter.keyword?.trim().toLowerCase() ?? "";
 	const types = filter.types ? new Set(filter.types) : null;
 	const sourceIds = filter.sourceIds ? new Set(filter.sourceIds) : null;
+	const isPublic = filter.scope === "discover" || (filter.scope as string) === "public";
 	return items
-		.filter((item) => (filter.scope === "discover" ? isAbilityListedInDiscover(item) : item.installed))
+		.filter((item) => (isPublic ? isAbilityListedInDiscover(item) : isAbilityListedInPersonal(item)))
 		.filter((item) => !keyword || item.searchTerms.some((term) => term.toLowerCase().includes(keyword)))
 		.filter((item) => !filter.category || item.category === filter.category)
 		.filter((item) => !types || types.has(item.type))

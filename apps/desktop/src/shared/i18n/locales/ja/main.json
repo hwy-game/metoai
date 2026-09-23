@@ -95,5 +95,21 @@
       "releaseNotes": "新着情報",
       "version": "新バージョン {{version}}"
     }
+  },
+  "pluginPackage": {
+    "confirmTitle": "Metoai プラグインをインストール",
+    "confirmMessage": "{{name}} {{version}} をインストールして有効にしますか？",
+    "confirmDetail": "ファイル：{{file}}\nプラグイン ID：{{id}}\nバージョン：{{version}}\n\n付与する権限：\n{{permissions}}\n\n有効にするコマンド：\n{{commands}}\n\nプラグインのコードは Metoai 内で実行されます。信頼できる提供元のファイルのみインストールしてください。",
+    "none": "なし",
+    "install": "インストールして有効化",
+    "cancel": "キャンセル",
+    "done": "完了",
+    "installedTitle": "プラグインをインストールしました",
+    "installedMessage": "{{name}} {{version}} をインストールして有効にしました。",
+    "failedTitle": "プラグインのインストールに失敗しました",
+    "failedMessage": "{{file}} は有効な Metoai プラグインパッケージではないか、このバージョンと互換性がありません。"
+  },
+  "terminal": {
+    "remoteOutputDropped": "[リモート出力が速すぎます。{{bytes}} バイトを省略]"
   }
 }

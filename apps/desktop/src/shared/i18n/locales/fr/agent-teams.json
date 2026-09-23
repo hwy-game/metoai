@@ -163,7 +163,15 @@
     "renameTeam": "Renommer l'équipe",
     "description": "Description de l'équipe",
     "descriptionPlaceholder": "Décrivez ce que fait cette équipe et comment elle collabore…",
-    "identity": "Identité de l'équipe"
+    "identity": "Identité de l'équipe",
+    "memberModel": "Modèle de ce membre",
+    "providedDefinitionReadOnly": "L'extension gère la composition et les affectations de cette équipe. Les modèles des membres sont vos réglages personnels et peuvent être modifiés ci-dessous.",
+    "memberModelInherit": "Suivre le modèle de la conversation",
+    "memberModelInheritHint": "Les prochains tours suivent le modèle de la conversation lorsqu'il change.",
+    "memberModelFixedHint": "Les prochains tours utilisent ce modèle même lorsque le modèle de la conversation change. Définissez le raisonnement dans le menu du modèle.",
+    "memberModelUnavailable": "{{model}} ne figure plus dans la liste des modèles. Choisissez un autre modèle ou suivez le modèle de la conversation ; il ne changera pas automatiquement.",
+    "automaticRetries": "Tentatives de reprise automatique",
+    "automaticRetriesHelp": "Autorisez 0 à 10 reprises automatiques par nouvelle tâche (par défaut : 2). Mettez 0 pour désactiver. La progression est conservée lorsque la limite est atteinte et que votre intervention est nécessaire."
   },
   "chat": {
     "hint": "Le chef d'équipe traite les demandes lorsqu'aucun membre n'est sélectionné.",

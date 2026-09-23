@@ -32,7 +32,8 @@
     "disabled": "Désactivé",
     "updateAvailable": "Mise à jour disponible",
     "openSource": "Open source",
-    "sameName": "{{count}} portant le même nom"
+    "sameName": "{{count}} portant le même nom",
+    "builtin": "Intégré"
   },
   "card": {
     "noDescription": "Aucune description"
@@ -146,9 +147,10 @@
     "meta": {
       "author": "Auteur",
       "version": "Version",
-      "localVersion": "Version locale",
       "downloads": "Téléchargements",
-      "license": "Licence"
+      "license": "Licence",
+      "installedVersion": "Installé",
+      "availableVersion": "Mettre à jour vers"
     },
     "story": {
       "vs": "vs",
@@ -282,7 +284,8 @@
         "shortcuts": "L'extension peut écouter une combinaison de touches enregistrée et déclencher son action",
         "fileDecorations": "L'extension peut afficher des marqueurs d'état ou de type à côté des entrées de fichiers",
         "fileContextMenu": "Les actions de l'extension peuvent apparaître dans les menus contextuels des fichiers et dossiers",
-        "fileToolbar": "L'extension peut ajouter des boutons d'action à la barre d'outils de l'explorateur de fichiers"
+        "fileToolbar": "L'extension peut ajouter des boutons d'action à la barre d'outils de l'explorateur de fichiers",
+        "bottomPanel": "Panneau inférieur"
       },
       "previewFlow": "La flèche indique le sens des données ou de l'action que cette autorisation permet",
       "scopeTitle": "Portée",
@@ -414,7 +417,8 @@
       "settingsWrite": "Modifie les paramètres de l'application que l'hôte expose aux extensions et peut changer le comportement de l'application.",
       "shellOpenExternal": "Ouvre dans le navigateur système ou l'application par défaut un lien externe choisi par l'extension.",
       "uiSlotNewSessionContext": "Permet à l'extension d'afficher un bloc sous la saisie de nouvelle session, uniquement lorsque vous choisissez l'un de ses agents ou équipes, ou mentionnez l'une de ses capacités.",
-      "conversationDraftRead": "Permet à l'extension de lire ce que vous avez saisi sans l'avoir encore envoyé. Fourni uniquement tant que le bloc de contexte de cette extension est affiché."
+      "conversationDraftRead": "Permet à l'extension de lire ce que vous avez saisi sans l'avoir encore envoyé. Fourni uniquement tant que le bloc de contexte de cette extension est affiché.",
+      "uiSlotBottomPanel": "Permet à l'extension d'ajouter un composant au panneau inférieur de la session ; plusieurs instances peuvent être ouvertes et réparties côte à côte."
     },
     "uiSlotGlobal": "Emplacement d'interface global",
     "uiSlotAbilityDetail": "Afficher le panneau de configuration des détails",
@@ -475,7 +479,8 @@
     "settingsWrite": "Modifier les paramètres",
     "shellOpenExternal": "Ouvrir des liens dans le navigateur système",
     "uiSlotNewSessionContext": "Emplacement de contexte de nouvelle session",
-    "conversationDraftRead": "Lire le brouillon de saisie"
+    "conversationDraftRead": "Lire le brouillon de saisie",
+    "uiSlotBottomPanel": "Composant du panneau inférieur"
   },
   "meta": {
     "title": "Autre",

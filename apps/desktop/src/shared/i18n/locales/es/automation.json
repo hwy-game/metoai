@@ -2,12 +2,11 @@
   "page": {
     "title": "Automatización",
     "subtitle": "Deja que la IA ejecute tareas según un horario y librérate del trabajo manual",
-    "newTask": "Nueva tarea",
-    "newTaskTitle": "Nueva tarea programada"
+    "create": "Crear",
+    "searchPlaceholder": "Buscar automatizaciones"
   },
   "recommend": {
     "title": "Recomendado",
-    "use": "Usar plantilla",
     "items": {
       "morningBrief": {
         "name": "Resumen matutino",
@@ -29,43 +28,85 @@
       }
     }
   },
-  "dialog": {
-    "namePlaceholderEdit": "Nombre de la tarea",
-    "namePlaceholderNew": "Nueva tarea",
-    "cancel": "Cancelar",
-    "save": "Guardar",
-    "create": "Crear"
-  },
+  "dialog": {},
   "form": {
     "namePlaceholder": "Nombre de la tarea",
     "promptPlaceholder": "Escribe un prompt... escribe / para invocar habilidades o escenas",
-    "selectWorkDir": "Seleccionar directorio de trabajo",
-    "conversation": "Conversación",
-    "modelEmpty": "Sin modelos",
-    "modelSelect": "Seleccionar modelo",
-    "defaultTag": "Predeterminado",
-    "enabled": "Habilitado",
-    "disabled": "Deshabilitado",
-    "fullAccess": "Acceso completo",
-    "useSandbox": "Usar entorno aislado",
-    "inherit": "Seguir el valor predeterminado ({{mode}})",
-    "sandbox": "entorno aislado",
-    "sandboxUnavailable": "El entorno aislado de {{platform}} no está disponible: {{reason}}",
-    "every": "Cada",
-    "unitHours": "horas",
-    "unitDays": "días"
+    "name": "Título de la tarea",
+    "runTarget": "Ejecutar en",
+    "runMode": {
+      "new-session": "Una sesión nueva cada vez",
+      "same-session": "La misma sesión"
+    },
+    "project": "Proyecto",
+    "projectNone": "Ninguno (conversación)",
+    "session": "Sesión",
+    "sessionHint": "Cada ejecución continúa en esta sesión, así que su contexto se irá acumulando",
+    "sessionNew": "Iniciar una sesión nueva",
+    "sessionMissing": "La sesión vinculada ya no existe",
+    "model": "Modelo",
+    "modelFollowDefault": "Seguir el modelo predeterminado",
+    "repeat": "Repetir",
+    "time": "Hora",
+    "atMinutePrefix": "En el minuto",
+    "atMinuteSuffix": "de cada hora",
+    "monthlyShortMonthHint": "Los meses que no tienen el día elegido (p. ej. el 30 de febrero) se omiten; elige \"Último día\" para ejecutar a fin de mes",
+    "cronExpression": "Expresión cron",
+    "cronHint": "minuto hora día mes día de la semana, en hora local; edita la expresión directamente y se mantendrá sincronizada con los selectores",
+    "cronAny": "Cualquiera",
+    "cronTextOnly": "Esta parte usa una sintaxis que los selectores no pueden mostrar; edita la expresión directamente",
+    "cronField": {
+      "minute": "Min",
+      "hour": "Hora",
+      "day": "Día",
+      "month": "Mes",
+      "weekday": "Día sem."
+    },
+    "notify": "Notificación por webhook",
+    "notifyEndpoints": "Notificar a",
+    "notifyGoSettings": "Aún no hay webhooks: añade uno en Ajustes",
+    "notifyEndpointDisabled": "Este webhook está deshabilitado y no enviará nada",
+    "notifyWhen": "Enviar cuando",
+    "notifyWhenOption": {
+      "always": "Siempre",
+      "success": "Solo si tiene éxito",
+      "failure": "Solo si falla"
+    },
+    "notifyTemplate": "Mensaje",
+    "notifyTemplateDefault": "{{name}} {{status}} ({{duration}})\n\n{{reply}}",
+    "variables": {
+      "name": "Tarea",
+      "status": "Estado",
+      "startedAt": "Inicio",
+      "duration": "Duración",
+      "reply": "Respuesta",
+      "error": "Error"
+    },
+    "enabledLabel": "Habilitado",
+    "intervalPrefix": "Cada",
+    "intervalSuffix": "minutos",
+    "intervalHint": "Se cuenta desde que guardas; cambiar el intervalo reinicia la cuenta",
+    "sectionDetails": "Detalles",
+    "sectionFrequency": "Frecuencia",
+    "sectionNotify": "Notificación",
+    "intervalLabel": "Intervalo",
+    "minuteLabel": "Minuto",
+    "weekdays": "Días de la semana",
+    "monthDays": "Días"
   },
   "scheduleMode": {
     "once": "Una vez",
     "daily": "Diario",
-    "interval": "Intervalo"
+    "interval": "Intervalo",
+    "hourly": "Cada hora",
+    "weekly": "Semanal",
+    "monthly": "Mensual",
+    "custom": "Personalizado"
   },
   "schedule": {
-    "once": "{{month}}/{{day}}/{{year}} {{time}}, una vez",
+    "once": "Una vez el {{date}} a las {{time}}",
     "daily": "Diario a las {{time}}",
     "weekly": "Semanal los {{days}} a las {{time}}",
-    "intervalOne": "Cada hora",
-    "interval": "Cada {{hours}} horas",
     "weekdayJoin": ", ",
     "weekdayNames": [
       "Dom",
@@ -75,13 +116,19 @@
       "Jue",
       "Vie",
       "Sáb"
-    ]
+    ],
+    "hourly": "Cada hora en el minuto :{{minute}}",
+    "monthly": "Mensual los {{days}} a las {{time}}",
+    "monthDay": "día {{day}}",
+    "lastDay": "Último día",
+    "custom": "Personalizado",
+    "intervalMinutes": "Cada {{minutes}} min",
+    "intervalHours": "Cada {{hours}} h"
   },
   "list": {
     "running": "En ejecución",
     "pending": "Pendiente",
     "disabled": "Deshabilitada",
-    "once": "Única",
     "runNow": "Ejecutar ahora",
     "run": "Ejecutar",
     "sectionTitle": "Tareas de automatización",
@@ -96,9 +143,21 @@
     "minutesAgo": "hace {{n}} min",
     "hoursAgo": "hace {{n}} h",
     "daysAgo": "hace {{n}} d",
-    "fullAccess": "Acceso completo",
-    "useSandbox": "Usar entorno aislado",
-    "inheritDefault": "Seguir el valor predeterminado"
+    "suspended": "En pausa",
+    "target": "{{mode}} · {{project}}",
+    "filter": {
+      "all": "Todo",
+      "enabled": "Activas",
+      "paused": "En pausa",
+      "done": "Completadas"
+    },
+    "emptySearch": "No hay automatizaciones coincidentes",
+    "emptyFilter": "Aquí todavía no hay nada",
+    "done": "Completada",
+    "nextRun": "próxima ejecución {{when}}",
+    "inMinutes": "en {{n}} min",
+    "inHours": "en {{n}} h",
+    "inDays": "en {{n}} días"
   },
   "confirm": {
     "deleteTitle": "¿Eliminar la tarea \"{{name}}\"?",
@@ -106,20 +165,57 @@
     "delete": "Eliminar",
     "cancel": "Cancelar"
   },
-  "drawer": {
-    "close": "Cerrar",
-    "runNow": "Ejecutar ahora",
-    "pause": "Pausar",
-    "enable": "Habilitar",
-    "edit": "Editar"
-  },
+  "drawer": {},
   "history": {
     "title": "Historial de ejecuciones",
     "refresh": "Actualizar",
     "empty": "No hay registros de ejecución",
-    "success": "Correcto",
-    "failed": "Fallido",
-    "running": "En ejecución",
-    "aborted": "Interrumpido"
+    "status": {
+      "success": "Correcto",
+      "failed": "Fallido",
+      "running": "En ejecución",
+      "aborted": "Interrumpido",
+      "skipped": "Omitido",
+      "missed": "Perdido"
+    },
+    "reason": {
+      "previous-running": "La ejecución anterior seguía en curso",
+      "app-not-running": "La aplicación no estaba en ejecución",
+      "system-sleep": "El equipo estaba suspendido"
+    },
+    "missedMany": "Se perdió {{times}} veces, hasta {{until}} · {{reason}}",
+    "notifyFailed": "No se pudo enviar la notificación: {{error}}"
+  },
+  "suspended": {
+    "session-deleted": "La sesión vinculada se eliminó. Elige una sesión de nuevo y habilita la automatización.",
+    "project-removed": "El proyecto de destino se quitó de la barra lateral. Elige un proyecto de nuevo y habilita la automatización."
+  },
+  "notify": {
+    "status": {
+      "success": "correcto",
+      "failed": "fallido",
+      "aborted": "interrumpido"
+    },
+    "noEndpoint": "Todos los webhooks seleccionados están deshabilitados o se eliminaron"
+  },
+  "detail": {
+    "status": {
+      "active": "Activa",
+      "running": "En ejecución",
+      "paused": "En pausa",
+      "suspended": "En pausa · destino no disponible",
+      "done": "Completada",
+      "draft": "Nueva automatización"
+    },
+    "close": "Cerrar",
+    "runNow": "Ejecutar ahora",
+    "pause": "Pausar",
+    "enable": "Habilitar",
+    "more": "Más",
+    "delete": "Eliminar",
+    "openChat": "Abrir chat",
+    "discard": "Descartar",
+    "save": "Guardar",
+    "create": "Crear"
   }
 }

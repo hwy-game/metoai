@@ -247,7 +247,25 @@
   "language": "Bahasa",
   "proxy": {
     "title": "Proxy",
-    "placeholder": "Contoh: http://127.0.0.1:7890"
+    "placeholder": "Contoh: http://127.0.0.1:7890",
+    "sectionTitle": "Proxy jaringan",
+    "enableTitle": "Aktifkan proxy aplikasi",
+    "enableDescription": "Permintaan model, perintah lokal, dan unduhan melewati proxy ini secara default. Alamat loopback (localhost / 127.0.0.1) selalu terhubung langsung.",
+    "protocolTitle": "Jenis proxy",
+    "hostTitle": "Host proxy",
+    "hostPlaceholder": "mis. 127.0.0.1",
+    "portTitle": "Port",
+    "usernameTitle": "Nama pengguna",
+    "usernamePlaceholder": "Opsional",
+    "passwordTitle": "Kata sandi",
+    "passwordPlaceholder": "Opsional",
+    "passwordStoredPlaceholder": "Tersimpan — biarkan kosong untuk mempertahankannya",
+    "providersTitle": "Per penyedia",
+    "providersDescription": "Setiap penyedia memakai proxy secara default. Nonaktifkan untuk penyedia yang dapat Anda akses lebih cepat secara langsung.",
+    "noProviders": "Belum ada penyedia yang dikonfigurasi.",
+    "invalidConfig": "Host atau port proxy tidak valid. Permintaan model akan gagal, bukan diam-diam beralih ke koneksi langsung.",
+    "providerLocal": "Upstream berada di komputer ini atau LAN Anda, sehingga hop ini tidak pernah keluar dari jaringan dan selalu terhubung langsung. Cara layanan itu mencapai internet adalah konfigurasinya sendiri.",
+    "providerFollowsGlobal": "SDK vendor penyedia ini mengirim permintaannya sendiri dan tidak dapat melihat transport yang disuntikkan, sehingga selalu mengikuti proxy global dan tidak dapat dikecualikan sendiri."
   },
   "workspace": {
     "title": "Ruang Kerja",
@@ -331,6 +349,10 @@
         "images": {
           "title": "Pemrosesan gambar",
           "description": "Konfigurasikan normalisasi gambar, batas keamanan, kompresi, dan anggaran permintaan model."
+        },
+        "compaction": {
+          "title": "Pemadatan konteks",
+          "description": "Kendalikan berapa banyak konteks yang dipakai percakapan sebelum pemadatan otomatis dan berapa banyak percakapan terbaru yang dibiarkan tidak berubah. Pemadatan manual tidak terpengaruh."
         }
       },
       "vetta": {
@@ -411,6 +433,22 @@
           "word": "Kata",
           "document-tree": "Pohon dokumen"
         }
+      },
+      "enabled": {
+        "title": "Pemadatan otomatis",
+        "description": "Padatkan percakapan panjang saat mendekati batas model. Pemadatan manual tetap tersedia saat opsi ini nonaktif."
+      },
+      "reserveTokens": {
+        "title": "Ambang sisa ruang (token)",
+        "description": "Padatkan secara otomatis saat sisa konteks kurang dari nilai ini dan penggunaan konteks telah mencapai ambang persentase."
+      },
+      "contextThresholdPercent": {
+        "title": "Ambang pemadatan konteks (%)",
+        "description": "Padatkan secara otomatis saat penggunaan konteks mencapai persentase ini dan sisa ruang juga di bawah ambang token di atas."
+      },
+      "keepRecentTokens": {
+        "title": "Percakapan terbaru yang dipertahankan setelah pemadatan (token)",
+        "description": "Pertahankan sekitar sebanyak ini dari percakapan terbaru tanpa diubah dan ringkas konten yang lebih lama. Nilai lebih tinggi mempertahankan lebih banyak detail terbaru."
       }
     }
   },
@@ -1148,18 +1186,8 @@
   "ornamentNoneHint": "Biarkan slot kosong agar halaman lebih bersih.",
   "ornamentViviTitle": "Vivi",
   "ornamentViviHint": "Stoat Metoai, Vivi — berkedip, melambai, dan sesekali merangkak di atas kolom penulisan.",
-  "ornamentOrbitTitle": "Orbit",
-  "ornamentOrbitHint": "Bola shader hidup, kerawangnya melayang perlahan di permukaan.",
-  "ornamentTorchTitle": "Obor",
-  "ornamentTorchHint": "Obor piksel dengan nyala api yang berkedip lembut; klik untuk memadamkan atau menyalakannya lagi.",
   "ornamentMarioTitle": "Mario",
   "ornamentMarioHint": "Sederet blok piksel — tumbuk blok tanda tanya untuk memunculkan jamur.",
-  "ornamentBlazeTitle": "Blaze",
-  "ornamentBlazeHint": "Bola api dalam halo hangat, nyala api berputar saat cahayanya berganti warna.",
-  "ornamentHandTitle": "Tangan mengetuk",
-  "ornamentHandHint": "Tangan yang bersandar di kolom penulisan, jari-jarinya mengetuk bergantian; klik untuk menggenggamnya.",
-  "ornamentWellTitle": "Sumur energi",
-  "ornamentWellHint": "Sumur yang melayang di udara, air terkumpul di mulutnya dan partikel naik melalui kerucut cahaya.",
   "section_appearance-texture": "Tekstur",
   "textureHint": "Latar belakang di balik seluruh halaman sesi baru",
   "textureNoneTitle": "Tidak ada",
@@ -1399,8 +1427,9 @@
       },
       "automation": {
         "create": "Buat tugas yang berjalan dengan jadwal harian",
-        "enable": "Aktifkan atau jeda tugas terjadwal",
-        "list": "Tampilkan tugas otomatisasi saya saat ini"
+        "list": "Tampilkan tugas otomatisasi saya saat ini",
+        "interval": "Setiap 30 menit, periksa build di sesi yang sama",
+        "notify": "Tambahkan notifikasi webhook saat gagal pada otomatisasi"
       },
       "im": {
         "enable": "Aktifkan jembatan IM Claw",
@@ -2122,5 +2151,50 @@
   "feishuManual": "Masukkan App ID / App Secret secara manual",
   "feishuUnbindApp": "Lepas tautan aplikasi",
   "feishuQrExpired": "Kode QR kedaluwarsa — pindai lagi",
-  "pleaseBindFeishu": "Siapkan bot Feishu via QR terlebih dahulu"
+  "pleaseBindFeishu": "Siapkan bot Feishu via QR terlebih dahulu",
+  "section_general-network": "Proxy jaringan",
+  "searchModels": "Cari model {{provider}}",
+  "clearModelSearch": "Bersihkan pencarian model",
+  "noMatchingModels": "Tidak ada model yang cocok",
+  "modelListLabel": "Daftar model {{provider}}",
+  "shortcutTogglePlanModeLabel": "Alihkan Mode Rencana",
+  "shortcutTogglePlanModeDesc": "Nyalakan atau matikan mode rencana dari kotak pesan: rencanakan dulu, jalankan setelah Anda menyetujui",
+  "tabSshHosts": "Host SSH",
+  "section_ssh-hosts-list": "Daftar host",
+  "sshHostsDescription": "Daftarkan komputer jarak jauh yang dapat menampung proyek Anda. Setelah terdaftar, Anda dapat memilih direktori di komputer tersebut saat menambahkan proyek, dan perintah serta pengeditan berkas agen akan terjadi di sana.",
+  "sshHostsEmpty": "Belum ada host",
+  "sshHostsEmptyHint": "Jika Anda sudah ssh ke server, impor alias dari ~/.ssh/config. Anda juga dapat menambahkannya secara manual.",
+  "sshAddHost": "Tambahkan host",
+  "sshEditHost": "Edit",
+  "sshSaveHost": "Simpan host",
+  "sshRemove": "Hapus host",
+  "sshRemoveTitle": "Hapus host ini?",
+  "sshRemoveConfirm": "“{{name}}” akan dihapus dari daftar. Berkas di komputer jarak jauh tidak tersentuh. Jika masih ada proyek di host ini, hapus proyek tersebut terlebih dahulu.",
+  "sshFieldTarget": "Target koneksi",
+  "sshFieldTargetHint": "Alias dari ~/.ssh/config (disarankan), atau user@host. Jika ssh dapat menjangkaunya di terminal Anda, Metoai juga bisa.",
+  "sshFieldLabel": "Nama tampilan",
+  "sshFieldLabelHint": "Default-nya adalah target koneksi.",
+  "sshFieldPort": "Port",
+  "sshFieldIdentityFile": "Kunci privat",
+  "sshFieldIdentityFileHint": "Biarkan kosong untuk memakai ssh-agent dan identitas default OpenSSH.",
+  "sshTest": "Uji koneksi",
+  "sshTesting": "Menghubungkan",
+  "sshTestOk": "Terhubung ({{platform}})",
+  "sshTestFailed": "Tidak dapat terhubung. Yang Anda masukkan telah disimpan — periksa target dan port, lalu coba lagi.",
+  "sshTestDetails": "Detail teknis",
+  "sshStatusConnected": "Terhubung",
+  "sshStatusUnverifiable": "Tidak dapat dijangkau",
+  "sshStatusUnknown": "Tidak terhubung",
+  "sshImportFromConfig": "Impor dari konfigurasi ssh",
+  "sshImportNone": "Tidak ada alias baru yang ditemukan. Host yang ada tidak pernah ditimpa.",
+  "sshImportDone": "Mengimpor {{count}} host.",
+  "sshPromptConfirmTitle": "Konfirmasi identitas host ini",
+  "sshPromptSecretTitle": "Kredensial diperlukan untuk terhubung",
+  "sshPromptHost": "Host: {{host}}",
+  "sshPromptSecretLabel": "Rahasia",
+  "sshPromptCodeLabel": "Kode verifikasi",
+  "sshPromptRemember": "Ingat (dienkripsi di komputer ini, diisi otomatis lain kali)",
+  "sshPromptSubmit": "Lanjutkan menghubungkan",
+  "sshPromptAccept": "Konfirmasi dan hubungkan",
+  "sshPromptReject": "Batalkan koneksi"
 }

@@ -32,7 +32,8 @@
     "disabled": "Deshabilitado",
     "updateAvailable": "Actualización disponible",
     "openSource": "Código abierto",
-    "sameName": "{{count}} con el mismo nombre"
+    "sameName": "{{count}} con el mismo nombre",
+    "builtin": "Integrado"
   },
   "card": {
     "noDescription": "Sin descripción"
@@ -146,9 +147,10 @@
     "meta": {
       "author": "Autor",
       "version": "Versión",
-      "localVersion": "Versión local",
       "downloads": "Descargas",
-      "license": "Licencia"
+      "license": "Licencia",
+      "installedVersion": "Instalado",
+      "availableVersion": "Actualizar a"
     },
     "story": {
       "vs": "vs",
@@ -282,7 +284,8 @@
         "shortcuts": "El complemento puede escuchar una combinación de teclas registrada y activar su acción",
         "fileDecorations": "El complemento puede mostrar indicadores de estado o de tipo junto a las entradas de archivo",
         "fileContextMenu": "Las acciones del complemento pueden aparecer en los menús contextuales de archivos y carpetas",
-        "fileToolbar": "El complemento puede agregar botones de acción en la barra de herramientas del explorador de archivos"
+        "fileToolbar": "El complemento puede agregar botones de acción en la barra de herramientas del explorador de archivos",
+        "bottomPanel": "Panel inferior"
       },
       "previewFlow": "La flecha muestra la dirección de los datos o de la acción que habilita este permiso",
       "scopeTitle": "Alcance",
@@ -414,7 +417,8 @@
       "settingsWrite": "Cambia los ajustes de la aplicación que el host expone a los complementos y puede alterar el comportamiento de la aplicación.",
       "shellOpenExternal": "Abre en el navegador del sistema o en la aplicación predeterminada un enlace externo elegido por el complemento.",
       "uiSlotNewSessionContext": "Permite que el complemento muestre un bloque debajo del campo de nueva sesión, solo cuando eliges uno de sus agentes o equipos, o mencionas una de sus habilidades.",
-      "conversationDraftRead": "Permite que el complemento lea lo que has escrito pero aún no has enviado. Solo se proporciona mientras el bloque de contexto de ese complemento está en pantalla."
+      "conversationDraftRead": "Permite que el complemento lea lo que has escrito pero aún no has enviado. Solo se proporciona mientras el bloque de contexto de ese complemento está en pantalla.",
+      "uiSlotBottomPanel": "Permite que el complemento aporte un componente al panel inferior de la sesión; se pueden abrir varias instancias y dividirlas en paralelo."
     },
     "uiSlotGlobal": "Ranura de interfaz global",
     "uiSlotAbilityDetail": "Mostrar panel de configuración de detalles",
@@ -475,7 +479,8 @@
     "settingsWrite": "Modificar ajustes",
     "shellOpenExternal": "Abrir enlaces en el navegador del sistema",
     "uiSlotNewSessionContext": "Ranura de contexto de nueva sesión",
-    "conversationDraftRead": "Leer el borrador de entrada"
+    "conversationDraftRead": "Leer el borrador de entrada",
+    "uiSlotBottomPanel": "Componente del panel inferior"
   },
   "meta": {
     "title": "Otros",

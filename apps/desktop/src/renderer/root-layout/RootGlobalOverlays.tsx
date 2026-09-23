@@ -17,6 +17,7 @@ import { SchedulerDeleteApproval } from "../shared/action-approval/scheduler/Sch
 import { SchedulerExecutionApproval } from "../shared/action-approval/scheduler/SchedulerExecutionApproval";
 import { SchedulerToggleApproval } from "../shared/action-approval/scheduler/SchedulerToggleApproval";
 import { SchedulerUpdateApproval } from "../shared/action-approval/scheduler/SchedulerUpdateApproval";
+import { SshPromptDialog } from "../shared/components/SshPromptDialog";
 import { UpdateRequiredOverlay } from "../shared/components/UpdateRequiredOverlay";
 import { UpdateRestartDialog } from "../shared/components/UpdateRestartDialog";
 import { Toaster } from "../shared/components/ui/Toaster";
@@ -50,6 +51,7 @@ export function RootGlobalOverlays(): JSX.Element {
 			<ThemedConfirmDialog />
 			<ThemedFilePreviewDialog />
 			<ThemedUpdateRestartDialog />
+			<SshPromptDialog />
 			<ActionApprovalCenter />
 			<ThemedGenericActionApproval />
 			<DomainManageApprovals />

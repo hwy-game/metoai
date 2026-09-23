@@ -163,7 +163,15 @@
     "renameTeam": "チーム名を変更",
     "description": "チームの説明",
     "descriptionPlaceholder": "このチームの役割と協働方法を説明してください…",
-    "identity": "チームの識別情報"
+    "identity": "チームの識別情報",
+    "memberModel": "このメンバーのモデル",
+    "providedDefinitionReadOnly": "このチームのメンバー構成と担当は拡張機能が管理しています。メンバーのモデルは個人設定で、以下で変更できます。",
+    "memberModelInherit": "会話のモデルに従う",
+    "memberModelInheritHint": "以降のターンは、会話のモデルが変わるとそれに従います。",
+    "memberModelFixedHint": "以降のターンは、会話のモデルが変わってもこのモデルを使用します。推論の設定はモデルメニューで行えます。",
+    "memberModelUnavailable": "{{model}} はモデル一覧にありません。別のモデルを選ぶか、会話のモデルに従う設定にしてください。自動では切り替わりません。",
+    "automaticRetries": "自動復旧の試行回数",
+    "automaticRetriesHelp": "新しいタスクごとに 0〜10 回の自動復旧を許可します（既定：2）。0 にすると無効になります。上限に達すると進行状況は保持され、ユーザーの対応が必要になります。"
   },
   "chat": {
     "hint": "メンバーが選択されていない場合、チームリードがリクエストを処理します。",

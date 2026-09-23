@@ -95,5 +95,21 @@
       "releaseNotes": "Что нового",
       "version": "Новая версия {{version}}"
     }
+  },
+  "pluginPackage": {
+    "confirmTitle": "Установить плагин Metoai",
+    "confirmMessage": "Установить и включить {{name}} {{version}}?",
+    "confirmDetail": "Файл: {{file}}\nID плагина: {{id}}\nВерсия: {{version}}\n\nРазрешения для выдачи:\n{{permissions}}\n\nКоманды для включения:\n{{commands}}\n\nКод плагина выполняется внутри Metoai. Устанавливайте файлы только из доверенных источников.",
+    "none": "Нет",
+    "install": "Установить и включить",
+    "cancel": "Отмена",
+    "done": "Готово",
+    "installedTitle": "Плагин установлен",
+    "installedMessage": "{{name}} {{version}} установлен и включён.",
+    "failedTitle": "Не удалось установить плагин",
+    "failedMessage": "{{file}} не является допустимым пакетом плагина Metoai или несовместим с этой версией."
+  },
+  "terminal": {
+    "remoteOutputDropped": "[вывод с удалённого хоста слишком быстрый; пропущено байт: {{bytes}}]"
   }
 }

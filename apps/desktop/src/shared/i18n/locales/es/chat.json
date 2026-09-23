@@ -7,7 +7,9 @@
       "backgroundTasks": "Tareas en segundo plano",
       "debug": "Depuración",
       "knowledgeHistory": "Historial de procesamiento",
-      "workflow": "Flujos de trabajo"
+      "workflow": "Flujos de trabajo",
+      "plan": "Plan",
+      "ports": "Reenvío de puertos"
     },
     "backgroundTasks": {
       "statusRunning": "En ejecución",
@@ -92,7 +94,9 @@
       "pause": "Pausar",
       "enable": "Habilitar",
       "executionRecords": "Registros de ejecución",
-      "noRecords": "No hay registros de ejecución"
+      "noRecords": "No hay registros de ejecución",
+      "statusSkipped": "Omitido",
+      "statusMissed": "Perdido"
     },
     "htmlPreview": {
       "title": "Vista previa de HTML"
@@ -109,6 +113,55 @@
       "statusInterrupted": "Interrumpido",
       "processingTitle": "{{count}} flujo(s) de trabajo en curso",
       "doneTitle": "Todos los flujos de trabajo finalizaron"
+    },
+    "ports": {
+      "heading": "Servicios remotos",
+      "runningStat": "{{count}} en ejecución",
+      "forwardedStat": "{{count}} reenviados",
+      "sectionForwarded": "Reenviados",
+      "sectionRunning": "En ejecución",
+      "manualTitle": "Reenviar un puerto",
+      "remotePortLabel": "Puerto remoto",
+      "localPortLabel": "Puerto local",
+      "empty": "Todavía no hay nada en ejecución en el host remoto",
+      "emptyHint": "Inicia un servidor en el host remoto (por ejemplo npm run dev) y aparecerá aquí; haz clic en Reenviar para abrirlo en este equipo.",
+      "remotePortPlaceholder": "p. ej. 3000",
+      "localPortPlaceholder": "El mismo",
+      "localPortPrefix": "localhost:",
+      "add": "Reenviar",
+      "addManual": "Introducir un número de puerto",
+      "forward": "Reenviar",
+      "preview": "Vista previa",
+      "openExternal": "Abrir en el navegador del sistema",
+      "copyAddress": "Copiar dirección",
+      "copied": "Copiado",
+      "changeLocalPort": "Cambiar el puerto local",
+      "stop": "Detener el reenvío",
+      "retry": "Reintentar",
+      "refresh": "Volver a explorar",
+      "statusActive": "Reenviado",
+      "statusReconnecting": "Reconectando",
+      "statusFailed": "Reenvío detenido",
+      "scanUnsupported": "Este host no tiene ningún escáner de puertos disponible (ss / netstat / lsof). Introduce el número de puerto para reenviarlo.",
+      "scanFailed": "No se pudieron leer los puertos del host remoto",
+      "fromOutput": "Salida de la tarea",
+      "notListening": "Ya no hay nada escuchando en este puerto",
+      "publicBind": "Escuchando en todas las interfaces: otras máquinas de la red remota pueden acceder",
+      "justNow": "ahora mismo",
+      "terminate": "Detener el proceso",
+      "forceTerminate": "Forzar la detención",
+      "terminateConfirm": "¿Detener {{name}}?",
+      "terminateStubborn": "{{name}} ignoró la señal de detención y sigue en ejecución. Haz clic en Forzar la detención para terminarlo.",
+      "terminateFailed": "No se pudo detener {{name}}: {{reason}}",
+      "sensitiveToggle": "{{count}} puertos del sistema",
+      "sensitiveHint": "Puertos privilegiados (por debajo de 1024) y el puerto que usa esta conexión SSH. Detenerlos podría cortar la conexión, así que no se pueden detener desde aquí.",
+      "unnamedToggle": "{{count}} puertos con un proceso desconocido",
+      "unnamedHint": "No se pudo leer el proceso propietario, normalmente porque pertenece a otro usuario.",
+      "ephemeralToggle": "{{count}} puertos efímeros más (por encima de 32768)",
+      "invalidPort": "Introduce un número de puerto entre 1 y 65535"
+    },
+    "plan": {
+      "headline": "Plan actual"
     }
   },
   "fileExplorer": {
@@ -174,6 +227,19 @@
       "prepareFailed": "No se pudieron leer los archivos soltados",
       "commitFailed": "Error al transferir los archivos",
       "failedCount": "{{count}} elemento(s) no se pudieron transferir"
+    },
+    "display": {
+      "invalidPatterns": "Usa hasta 100 patrones, cada uno de no más de 1024 caracteres",
+      "title": "Ajustes de visualización de archivos",
+      "showHidden": "Mostrar archivos y carpetas ocultos",
+      "exclude": "Patrones de exclusión",
+      "excludeHint": "Un patrón relativo al espacio de trabajo por línea, p. ej. **/node_modules o **/*.log. Déjalo vacío para mostrar todos los archivos normales.",
+      "iconTheme": "Tema de iconos de archivo",
+      "builtin": "Iconos integrados",
+      "unavailable": "El tema seleccionado no está disponible (se usan los iconos integrados)",
+      "apply": "Aplicar los patrones de exclusión",
+      "reset": "Restaurar la visualización predeterminada",
+      "saveFailed": "No se pudieron guardar los ajustes de visualización. Inténtalo de nuevo."
     }
   },
   "fileEditor": {
@@ -282,7 +348,17 @@
     "pinButton": {
       "pinned": "Desfijar ventana",
       "unpinned": "Fijar ventana (mantener encima)"
-    }
+    },
+    "bottomPanelButton": {
+      "closed": "Abrir el panel inferior",
+      "open": "Cerrar el panel inferior"
+    },
+    "terminalButton": {
+      "focused": "Terminal",
+      "open": "Abrir la terminal",
+      "unavailable": "La terminal local no está disponible"
+    },
+    "remoteBadge": "Remoto"
   },
   "contextRing": {
     "tooltip": {
@@ -358,7 +434,8 @@
       "label": "En espacio aislado",
       "title": "Permitir acceso restringido solo dentro del espacio de trabajo"
     },
-    "sandboxUnavailable": "Espacio aislado de {{platform}} no disponible: {{reason}}"
+    "sandboxUnavailable": "Espacio aislado de {{platform}} no disponible: {{reason}}",
+    "sandboxUnavailableRemote": "El espacio aislado no está disponible para los proyectos remotos: solo restringe los procesos de este equipo, y los comandos de un proyecto remoto se ejecutan en el host remoto"
   },
   "export": {
     "shareNavDescription": "compartió una sesión",
@@ -388,6 +465,9 @@
     "knowledgeRetrieval": {
       "label": "Búsqueda de conocimiento",
       "tooltip": "Cuando está activado, este turno puede usar herramientas de la base de conocimiento y prioriza responder desde tu base de conocimiento"
+    },
+    "planMode": {
+      "label": "Modo plan"
     }
   },
   "inputBar": {
@@ -511,9 +591,7 @@
       }
     },
     "assistantFoldTip": {
-      "collapse": "Contraer {{count}} elementos",
       "collapseLabel": "Contraer",
-      "expand": "Expandir {{count}} elementos",
       "expandLabel": "Expandir",
       "streaming": "Procesando · {{duration}}",
       "waiting": "En espera · {{duration}}",
@@ -730,18 +808,12 @@
       "showMascot": "Mostrar mascota",
       "playOnce": "Reproducir una vez la animación actual de la mascota"
     },
-    "torch": {
-      "light": "Encender la antorcha",
-      "extinguish": "Apagar la antorcha"
-    },
+    "torch": {},
     "mario": {
       "hit": "Golpear el hongo",
       "reset": "Devolver el hongo a su sitio"
     },
-    "hand": {
-      "rest": "Dejar descansar la mano",
-      "tap": "Volver a hacer que la mano toque"
-    },
+    "hand": {},
     "projectSelector": {
       "placeholder": "Seleccionar proyecto",
       "clear": "Sin proyecto",
@@ -938,5 +1010,95 @@
     "actionCreate": "Crear página",
     "actionUpdate": "Actualizar página",
     "originalLocation": "Original: {{path}}"
+  },
+  "bottomPanel": {
+    "tablist": "Pestañas del panel inferior",
+    "closeTab": "Cerrar",
+    "tabFailed": "Este panel no se pudo mostrar",
+    "pillsGroup": "Panel inferior",
+    "empty": {
+      "title": "El panel inferior está vacío",
+      "description": "Elige un panel para añadirlo.",
+      "pickerLabel": "Paneles que puedes añadir"
+    },
+    "actions": {
+      "add": "Panel nuevo",
+      "splitRight": "Dividir a la derecha",
+      "splitDown": "Dividir hacia abajo",
+      "splitLimit": "Se alcanzó el límite de divisiones",
+      "collapse": "Contraer el panel inferior"
+    },
+    "addMenu": {
+      "builtinGroup": "Integrados",
+      "pluginGroup": "Complementos",
+      "instanceLimit": "Se alcanzó el límite de instancias de este panel"
+    },
+    "closeConfirm": {
+      "title": "¿Cerrar este panel?",
+      "message": "El trabajo en curso dentro del panel se interrumpirá.",
+      "confirm": "Cerrar"
+    },
+    "terminal": {
+      "title": "Terminal",
+      "exited": "[el proceso terminó con el código {{code}}]",
+      "previousOutput": "-- la salida anterior es de la sesión previa (el proceso terminó) --",
+      "unavailable": "No se puede iniciar una terminal en este entorno",
+      "noResize": "Este host no tiene instalado el componente auxiliar, así que el tamaño de la terminal es fijo y no seguirá a la ventana.",
+      "replayTruncated": "[salida anterior omitida]",
+      "closeConfirm": {
+        "title": "¿Cerrar la terminal?",
+        "message": "“{{process}}” sigue en ejecución; cerrar la terminal lo terminará.",
+        "confirm": "Cerrar y terminar el proceso"
+      }
+    }
+  },
+  "planMode": {
+    "entryCard": {
+      "moreSteps": "{{count}} pasos más",
+      "open": "Ver el plan",
+      "stepCount": "{{count}} pasos",
+      "title": "Plan de implementación"
+    },
+    "review": {
+      "approve": "Aprobar y empezar",
+      "back": "Atrás",
+      "commentOnStep": "Comentar el paso {{number}}",
+      "dismiss": "Decidir más tarde",
+      "doneEditing": "Terminar de editar",
+      "edit": "Editar el plan",
+      "edited": "Editado",
+      "editorLabel": "Texto del plan",
+      "feedbackLabel": "¿Qué hay que cambiar?",
+      "feedbackPlaceholder": "Por ejemplo: no toques la migración de la base de datos; divide el paso 3 en dos…",
+      "requestChanges": "Solicitar cambios",
+      "resetEdits": "Restablecer",
+      "sendFeedback": "Enviar comentarios",
+      "sendFeedbackWithComments": "Enviar comentarios ({{count}})",
+      "stepCommentPlaceholder": "¿Cómo debería cambiar este paso…",
+      "subtitle": "Metoai empieza a trabajar a partir de este plan en cuanto lo apruebes. Hasta entonces no se cambia nada.",
+      "title": "Hay un plan esperando tu aprobación"
+    },
+    "switchFailed": "No se pudo cambiar el modo plan",
+    "toolCard": {
+      "approved": "Aprobado",
+      "changesRequested": "Devuelto para cambios",
+      "dismissed": "Aún sin decidir",
+      "pending": "Esperando tu aprobación",
+      "title": "Plan"
+    }
+  },
+  "subagentCard": {
+    "back": "Volver a la sesión principal",
+    "open": "Ver los mensajes del subagente {{name}}",
+    "viewerSubtitle": "Mensajes del subagente (solo lectura)",
+    "waitingForSession": "La sesión del subagente se está preparando",
+    "status": {
+      "queued": "En cola",
+      "pending": "Preparando",
+      "running": "En ejecución",
+      "completed": "Completado",
+      "failed": "Fallido",
+      "interrupted": "Interrumpido"
+    }
   }
 }

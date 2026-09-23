@@ -1,22 +1,17 @@
-// @vitest-environment jsdom
-import { render } from "@testing-library/react";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import { ChatComposer, ChatError, DefaultChatView } from "./DefaultChatView";
+import { describe, expect, it, vi } from "vitest";
+import { DefaultChatView, ChatComposer, ChatError } from "./DefaultChatView";
 
 const workspace = { id: "conversation:test", cwd: null, runtimeIds: [] };
-const panelRenders = vi.hoisted(() => ({ count: 0 }));
 
 vi.mock("@domains/activity-panel/components/ActivityPanel", () => ({
-	ActivityPanel: () => {
-		panelRenders.count += 1;
-		return createElement("aside", { "data-testid": "activity-panel" });
-	},
-	CurrentScenarioActivityPanel: () => {
-		panelRenders.count += 1;
-		return createElement("aside", { "data-testid": "activity-panel" });
-	},
+	ActivityPanel: () => createElement("aside", { "data-testid": "activity-panel" }),
+	CurrentScenarioActivityPanel: () => createElement("aside", { "data-testid": "activity-panel" }),
+}));
+
+vi.mock("@domains/bottom-panel/components/BottomPanelHost", () => ({
+	BottomPanelHost: () => createElement("section", { "data-testid": "bottom-panel" }),
 }));
 
 vi.mock("../ChatExportHost", () => ({
@@ -24,10 +19,6 @@ vi.mock("../ChatExportHost", () => ({
 }));
 
 describe("DefaultChatView layout", () => {
-	beforeEach(() => {
-		panelRenders.count = 0;
-	});
-
 	it("keeps the activity panel outside the input column (drop is owned by InputBar card)", () => {
 		const html = renderToStaticMarkup(
 			<DefaultChatView messages={[]} workspace={workspace}>
@@ -49,6 +40,26 @@ describe("DefaultChatView layout", () => {
 		expect(inputBar).toBeLessThan(activityPanel);
 	});
 
+	it("底部面板住在消息列内部：排在输入框之后、活动面板之前", () => {
+		const html = renderToStaticMarkup(
+			<DefaultChatView messages={[]} workspace={workspace}>
+				<div data-testid="message-list" />
+				<ChatComposer>
+					<div data-testid="input-bar" />
+				</ChatComposer>
+			</DefaultChatView>,
+		);
+
+		const inputBar = html.indexOf('data-testid="input-bar"');
+		const activityPanel = html.indexOf('data-testid="activity-panel"');
+		const bottomPanel = html.indexOf('data-testid="bottom-panel"');
+
+		// 夹在输入框与活动面板之间 = 它是消息列的最后一个子节点，宽度跟着消息列走，
+		// 不会横穿到右侧活动面板底下把两列看成一块。
+		expect(bottomPanel).toBeGreaterThan(inputBar);
+		expect(bottomPanel).toBeLessThan(activityPanel);
+	});
+
 	it("can compose a read-only feed without mounting a composer", () => {
 		const html = renderToStaticMarkup(
 			<DefaultChatView messages={[]} workspace={workspace}>
@@ -58,21 +69,5 @@ describe("DefaultChatView layout", () => {
 
 		expect(html).toContain('data-testid="read-only-feed"');
 		expect(html).not.toContain('data-testid="input-bar"');
-	});
-
-	it("does not remount the activity panel when only the transcript grows", () => {
-		const { rerender } = render(
-			<DefaultChatView messages={[]} workspace={workspace}>
-				<div />
-			</DefaultChatView>,
-		);
-		expect(panelRenders.count).toBe(1);
-
-		rerender(
-			<DefaultChatView messages={[{ id: "m1" } as never]} workspace={{ ...workspace }}>
-				<div />
-			</DefaultChatView>,
-		);
-		expect(panelRenders.count).toBe(1);
 	});
 });

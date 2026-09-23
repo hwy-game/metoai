@@ -7,7 +7,9 @@
       "backgroundTasks": "バックグラウンドタスク",
       "debug": "デバッグ",
       "knowledgeHistory": "処理履歴",
-      "workflow": "ワークフロー"
+      "workflow": "ワークフロー",
+      "plan": "プラン",
+      "ports": "ポート転送"
     },
     "backgroundTasks": {
       "statusRunning": "実行中",
@@ -92,7 +94,9 @@
       "pause": "一時停止",
       "enable": "有効化",
       "executionRecords": "実行記録",
-      "noRecords": "実行記録がありません"
+      "noRecords": "実行記録がありません",
+      "statusSkipped": "スキップ",
+      "statusMissed": "未実行"
     },
     "htmlPreview": {
       "title": "HTMLプレビュー"
@@ -109,6 +113,55 @@
       "statusInterrupted": "中断",
       "processingTitle": "{{count}} 件のワークフローを処理中",
       "doneTitle": "すべてのワークフローが完了しました"
+    },
+    "ports": {
+      "heading": "リモートサービス",
+      "runningStat": "{{count}} 件実行中",
+      "forwardedStat": "{{count}} 件転送中",
+      "sectionForwarded": "転送中",
+      "sectionRunning": "実行中",
+      "manualTitle": "ポートを転送",
+      "remotePortLabel": "リモートポート",
+      "localPortLabel": "ローカルポート",
+      "empty": "リモートホストではまだ何も実行されていません",
+      "emptyHint": "リモートホストでサーバーを起動すると（例：npm run dev）、ここに表示されます。「転送」をクリックするとこのマシンで開けます。",
+      "remotePortPlaceholder": "例：3000",
+      "localPortPlaceholder": "同じ",
+      "localPortPrefix": "localhost:",
+      "add": "転送",
+      "addManual": "ポート番号を入力",
+      "forward": "転送",
+      "preview": "プレビュー",
+      "openExternal": "システムブラウザで開く",
+      "copyAddress": "アドレスをコピー",
+      "copied": "コピーしました",
+      "changeLocalPort": "ローカルポートを変更",
+      "stop": "転送を停止",
+      "retry": "再試行",
+      "refresh": "再スキャン",
+      "statusActive": "転送中",
+      "statusReconnecting": "再接続中",
+      "statusFailed": "転送を停止しました",
+      "scanUnsupported": "このホストではポートスキャナー（ss / netstat / lsof）を利用できません。転送するにはポート番号を入力してください。",
+      "scanFailed": "リモートホストのポートを読み取れませんでした",
+      "fromOutput": "タスク出力",
+      "notListening": "このポートでは現在何も待ち受けていません",
+      "publicBind": "すべてのインターフェースで待ち受けています。リモートネットワーク上の他のマシンからもアクセスできます",
+      "justNow": "たった今",
+      "terminate": "プロセスを停止",
+      "forceTerminate": "強制停止",
+      "terminateConfirm": "{{name}} を停止しますか？",
+      "terminateStubborn": "{{name}} は停止シグナルを無視して実行中です。「強制停止」をクリックすると終了できます。",
+      "terminateFailed": "{{name}} を停止できませんでした：{{reason}}",
+      "sensitiveToggle": "システムポート {{count}} 件",
+      "sensitiveHint": "特権ポート（1024 未満）と、この SSH 接続が使用しているポートです。停止すると接続が切れるおそれがあるため、ここからは停止できません。",
+      "unnamedToggle": "プロセスが不明なポート {{count}} 件",
+      "unnamedHint": "所有プロセスを読み取れませんでした。多くの場合、別のユーザーが所有しています。",
+      "ephemeralToggle": "一時ポート（32768 超）をさらに {{count}} 件",
+      "invalidPort": "1〜65535 のポート番号を入力してください"
+    },
+    "plan": {
+      "headline": "現在のプラン"
     }
   },
   "fileExplorer": {
@@ -174,6 +227,19 @@
       "prepareFailed": "ドロップされたファイルを読み取れません",
       "commitFailed": "ファイル転送に失敗しました",
       "failedCount": "{{count}} 件の項目の転送に失敗しました"
+    },
+    "display": {
+      "invalidPatterns": "パターンは最大 100 件、各 1024 文字以内で指定してください",
+      "title": "ファイル表示設定",
+      "showHidden": "ドットファイルとフォルダを表示",
+      "exclude": "除外パターン",
+      "excludeHint": "ワークスペースからの相対パターンを 1 行に 1 つ記述します（例：**/node_modules や **/*.log）。空にすると通常のファイルをすべて表示します。",
+      "iconTheme": "ファイルアイコンのテーマ",
+      "builtin": "組み込みアイコン",
+      "unavailable": "選択したテーマは利用できません（組み込みアイコンを使用します）",
+      "apply": "除外パターンを適用",
+      "reset": "既定の表示に戻す",
+      "saveFailed": "表示設定を保存できませんでした。もう一度お試しください。"
     }
   },
   "fileEditor": {
@@ -282,7 +348,17 @@
     "pinButton": {
       "pinned": "ウィンドウのピン留めを解除",
       "unpinned": "ウィンドウをピン留め (常に手前に表示)"
-    }
+    },
+    "bottomPanelButton": {
+      "closed": "下部パネルを開く",
+      "open": "下部パネルを閉じる"
+    },
+    "terminalButton": {
+      "focused": "ターミナル",
+      "open": "ターミナルを開く",
+      "unavailable": "ローカルターミナルは利用できません"
+    },
+    "remoteBadge": "リモート"
   },
   "contextRing": {
     "tooltip": {
@@ -358,7 +434,8 @@
       "label": "サンドボックス",
       "title": "ワークスペース内のみの制限付きアクセスを許可"
     },
-    "sandboxUnavailable": "{{platform}} サンドボックスを利用できません: {{reason}}"
+    "sandboxUnavailable": "{{platform}} サンドボックスを利用できません: {{reason}}",
+    "sandboxUnavailableRemote": "リモートプロジェクトではサンドボックスを利用できません。サンドボックスが制限できるのはこのコンピューター上のプロセスだけで、リモートプロジェクトのコマンドはリモートホストで実行されます"
   },
   "export": {
     "shareNavDescription": "セッションを共有しました",
@@ -388,6 +465,9 @@
     "knowledgeRetrieval": {
       "label": "ナレッジ検索",
       "tooltip": "オンの場合、このターンでナレッジベースのツールを呼び出し、ナレッジベースからの回答を優先します"
+    },
+    "planMode": {
+      "label": "プランモード"
     }
   },
   "inputBar": {
@@ -511,9 +591,7 @@
       }
     },
     "assistantFoldTip": {
-      "collapse": "{{count}} 件の項目を折りたたむ",
       "collapseLabel": "折りたたむ",
-      "expand": "{{count}} 件の項目を展開",
       "expandLabel": "展開",
       "streaming": "処理中 · {{duration}}",
       "waiting": "待機中 · {{duration}}",
@@ -730,18 +808,12 @@
       "showMascot": "マスコットを表示",
       "playOnce": "現在のマスコットアニメーションを1回再生"
     },
-    "torch": {
-      "light": "トーチに火をつける",
-      "extinguish": "トーチの火を消す"
-    },
+    "torch": {},
     "mario": {
       "hit": "キノコを叩き出す",
       "reset": "キノコを元に戻す"
     },
-    "hand": {
-      "rest": "手を休ませる",
-      "tap": "手を再びタップさせる"
-    },
+    "hand": {},
     "projectSelector": {
       "placeholder": "プロジェクトを選択",
       "clear": "プロジェクトなし",
@@ -938,5 +1010,95 @@
     "actionCreate": "ページを作成",
     "actionUpdate": "ページを更新",
     "originalLocation": "元: {{path}}"
+  },
+  "bottomPanel": {
+    "tablist": "下部パネルのタブ",
+    "closeTab": "閉じる",
+    "tabFailed": "このパネルの描画に失敗しました",
+    "pillsGroup": "下部パネル",
+    "empty": {
+      "title": "下部パネルは空です",
+      "description": "追加するパネルを選択してください。",
+      "pickerLabel": "追加できるパネル"
+    },
+    "actions": {
+      "add": "新しいパネル",
+      "splitRight": "右に分割",
+      "splitDown": "下に分割",
+      "splitLimit": "分割の上限に達しました",
+      "collapse": "下部パネルを折りたたむ"
+    },
+    "addMenu": {
+      "builtinGroup": "組み込み",
+      "pluginGroup": "プラグイン",
+      "instanceLimit": "このパネルのインスタンス上限に達しました"
+    },
+    "closeConfirm": {
+      "title": "このパネルを閉じますか？",
+      "message": "パネル内の作業は中断されます。",
+      "confirm": "閉じる"
+    },
+    "terminal": {
+      "title": "ターミナル",
+      "exited": "[プロセスがコード {{code}} で終了しました]",
+      "previousOutput": "-- 上の出力は前回のセッションのものです（プロセスは終了しました） --",
+      "unavailable": "この環境ではターミナルを起動できません",
+      "noResize": "このホストにはヘルパーがインストールされていないため、ターミナルのサイズは固定でウィンドウに追従しません。",
+      "replayTruncated": "[以前の出力は省略]",
+      "closeConfirm": {
+        "title": "ターミナルを閉じますか？",
+        "message": "「{{process}}」が実行中です。ターミナルを閉じると終了します。",
+        "confirm": "閉じてプロセスを終了"
+      }
+    }
+  },
+  "planMode": {
+    "entryCard": {
+      "moreSteps": "さらに {{count}} ステップ",
+      "open": "プランを表示",
+      "stepCount": "{{count}} ステップ",
+      "title": "実装プラン"
+    },
+    "review": {
+      "approve": "承認して開始",
+      "back": "戻る",
+      "commentOnStep": "ステップ {{number}} にコメント",
+      "dismiss": "後で決める",
+      "doneEditing": "編集を完了",
+      "edit": "プランを編集",
+      "edited": "編集済み",
+      "editorLabel": "プラン本文",
+      "feedbackLabel": "どこを変更しますか？",
+      "feedbackPlaceholder": "例：データベースのマイグレーションには手を付けない。ステップ 3 を 2 つに分ける…",
+      "requestChanges": "変更を依頼",
+      "resetEdits": "リセット",
+      "sendFeedback": "フィードバックを送信",
+      "sendFeedbackWithComments": "フィードバックを送信（{{count}}）",
+      "stepCommentPlaceholder": "このステップをどう変更しますか…",
+      "subtitle": "承認すると Metoai はこのプランに沿って作業を開始します。それまでは何も変更されません。",
+      "title": "承認待ちのプランがあります"
+    },
+    "switchFailed": "プランモードを切り替えられませんでした",
+    "toolCard": {
+      "approved": "承認済み",
+      "changesRequested": "変更のため差し戻し",
+      "dismissed": "未決定",
+      "pending": "承認待ち",
+      "title": "プラン"
+    }
+  },
+  "subagentCard": {
+    "back": "親セッションに戻る",
+    "open": "サブエージェント {{name}} のメッセージを表示",
+    "viewerSubtitle": "サブエージェントのメッセージ（読み取り専用）",
+    "waitingForSession": "サブエージェントのセッションを準備中",
+    "status": {
+      "queued": "待機中",
+      "pending": "準備中",
+      "running": "実行中",
+      "completed": "完了",
+      "failed": "失敗",
+      "interrupted": "中断"
+    }
   }
 }

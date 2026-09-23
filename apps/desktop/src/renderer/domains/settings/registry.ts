@@ -17,7 +17,8 @@ export type SettingsTabLabelKey =
 	| "tabKnowledge"
 	| "tabPet"
 	| "tabPermissions"
-	| "tabRemote";
+	| "tabRemote"
+	| "tabSshHosts";
 
 export interface SettingsTabRegistration {
 	key: SettingsTab;
@@ -54,6 +55,12 @@ export const SETTINGS_TABS: readonly SettingsTabRegistration[] = [
 	{ key: "models", label: "模型配置", labelKey: "tabModels", icon: "icon-[mdi--brain]" },
 	// MetaToken 中转站的个人中心：登录、余额、Key 与充值。
 	{ key: "metoai", label: "MetaToken", labelKey: "tabMetaToken", icon: "icon-[mdi--wallet-outline]" },
+	{
+		key: "sshHosts",
+		label: "SSH 主机",
+		labelKey: "tabSshHosts",
+		icon: "icon-[solar--server-linear]",
+	},
 	// MCP 管理已迁至侧栏「扩展 → 连接器」
 	{ key: "im", label: "Claw", labelKey: "tabIm", icon: "icon-[mdi--message-text-outline]" },
 	{ key: "webhook", label: "消息推送", labelKey: "tabWebhook", icon: "icon-[mdi--webhook]" },
@@ -74,7 +81,7 @@ export const SETTINGS_TABS: readonly SettingsTabRegistration[] = [
 		labelKey: "tabKnowledge",
 		icon: "icon-[mdi--database-outline]",
 	},
-	{ key: "pet", label: "Vetta Vivi", labelKey: "tabPet", icon: "icon-[mdi--paw-outline]" },
+	{ key: "pet", label: "Metoai Vivi", labelKey: "tabPet", icon: "icon-[mdi--paw-outline]" },
 	{
 		key: "permissions",
 		label: "权限管理",
@@ -87,10 +94,12 @@ export const SETTINGS_TABS: readonly SettingsTabRegistration[] = [
 
 export const SETTINGS_SECTIONS = [
 	{ tab: "general", id: "general-basics", title: "基础", titleKey: "section_general-basics" },
+	{ tab: "general", id: "general-network", title: "网络代理", titleKey: "section_general-network" },
 	{ tab: "general", id: "general-app", title: "应用", titleKey: "section_general-app" },
 	{ tab: "general", id: "general-developer", title: "开发者", titleKey: "section_general-developer" },
 	{ tab: "remote", id: "remote-pairing", title: "手机配对", titleKey: "section_remote-pairing" },
 	{ tab: "remote", id: "remote-permissions", title: "控制权限", titleKey: "section_remote-permissions" },
+	{ tab: "sshHosts", id: "ssh-hosts-list", title: "主机列表", titleKey: "section_ssh-hosts-list" },
 	{ tab: "appearance", id: "appearance-mode", title: "外观模式", titleKey: "section_appearance-mode" },
 	{ tab: "appearance", id: "appearance-ui-theme", title: "界面主题", titleKey: "section_appearance-ui-theme" },
 	{ tab: "appearance", id: "appearance-cursor", title: "鼠标指针", titleKey: "section_appearance-cursor" },
@@ -161,13 +170,6 @@ export function getSettingsSections(): readonly SettingsSectionRegistration[] {
 
 export function getSettingsSectionsByTab(tab: SettingsTab): SettingsSectionRegistration[] {
 	return SETTINGS_SECTIONS.filter((section) => section.tab === tab);
-}
-
-/** 设置标签内容区首帧标题。未登记的标签（如已下线的 team）回退到「设置」。 */
-export function settingsTabTitleKey(tab: SettingsTab): SettingsTabLabelKey | "title" {
-	if (tab === "mcp") return "tabGeneral";
-	const registered = SETTINGS_TABS.find((item) => item.key === tab);
-	return registered?.labelKey ?? "title";
 }
 
 export function findSettingsSection(id: string): SettingsSectionRegistration | undefined {

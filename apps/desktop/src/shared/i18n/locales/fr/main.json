@@ -95,5 +95,21 @@
       "releaseNotes": "Nouveautés",
       "version": "Nouvelle version {{version}}"
     }
+  },
+  "pluginPackage": {
+    "confirmTitle": "Installer l'extension Metoai",
+    "confirmMessage": "Installer et activer {{name}} {{version}} ?",
+    "confirmDetail": "Fichier : {{file}}\nID de l'extension : {{id}}\nVersion : {{version}}\n\nAutorisations à accorder :\n{{permissions}}\n\nCommandes à activer :\n{{commands}}\n\nLe code de l'extension s'exécute dans Metoai. N'installez des fichiers qu'à partir de sources fiables.",
+    "none": "Aucune",
+    "install": "Installer et activer",
+    "cancel": "Annuler",
+    "done": "Terminé",
+    "installedTitle": "Extension installée",
+    "installedMessage": "{{name}} {{version}} est installée et activée.",
+    "failedTitle": "Échec de l'installation de l'extension",
+    "failedMessage": "{{file}} n'est pas un paquet d'extension Metoai valide ou est incompatible avec cette version."
+  },
+  "terminal": {
+    "remoteOutputDropped": "[sortie distante trop rapide ; {{bytes}} octets omis]"
   }
 }

@@ -247,7 +247,25 @@
   "language": "言語",
   "proxy": {
     "title": "プロキシ",
-    "placeholder": "例：http://127.0.0.1:7890"
+    "placeholder": "例：http://127.0.0.1:7890",
+    "sectionTitle": "ネットワークプロキシ",
+    "enableTitle": "アプリのプロキシを有効化",
+    "enableDescription": "モデルへのリクエスト、ローカルコマンド、ダウンロードは既定でこのプロキシを経由します。ループバックアドレス（localhost / 127.0.0.1）は常に直接接続します。",
+    "protocolTitle": "プロキシの種類",
+    "hostTitle": "プロキシホスト",
+    "hostPlaceholder": "例：127.0.0.1",
+    "portTitle": "ポート",
+    "usernameTitle": "ユーザー名",
+    "usernamePlaceholder": "任意",
+    "passwordTitle": "パスワード",
+    "passwordPlaceholder": "任意",
+    "passwordStoredPlaceholder": "保存済み。変更しない場合は空欄にしてください",
+    "providersTitle": "プロバイダーごと",
+    "providersDescription": "既定ではすべてのプロバイダーがプロキシを使用します。直接接続したほうが速いプロバイダーではオフにしてください。",
+    "noProviders": "設定済みのプロバイダーがありません。",
+    "invalidConfig": "プロキシホストまたはポートが無効です。モデルへのリクエストは直接接続に切り替わらず、失敗します。",
+    "providerLocal": "接続先がこのマシンまたは LAN 上にあるため、この区間はネットワーク外に出ず常に直接接続します。そのサービスがインターネットに接続する方法は、そのサービス側の設定によります。",
+    "providerFollowsGlobal": "このプロバイダーはベンダー SDK が独自にリクエストを送信し、アプリが設定したトランスポートを参照できないため、常にグローバルプロキシに従い、個別に除外できません。"
   },
   "workspace": {
     "title": "ワークスペース",
@@ -331,6 +349,10 @@
         "images": {
           "title": "画像処理",
           "description": "画像の正規化、安全制限、圧縮、モデルリクエストの予算を構成します。"
+        },
+        "compaction": {
+          "title": "コンテキスト圧縮",
+          "description": "自動圧縮を始める前に会話が使うコンテキスト量と、直近の会話をどれだけそのまま残すかを設定します。手動圧縮には影響しません。"
         }
       },
       "vetta": {
@@ -411,6 +433,22 @@
           "word": "単語",
           "document-tree": "ドキュメントツリー"
         }
+      },
+      "enabled": {
+        "title": "自動圧縮",
+        "description": "長い会話がモデルの上限に近づくと自動で圧縮します。オフでも手動圧縮は利用できます。"
+      },
+      "reserveTokens": {
+        "title": "残りコンテキストのしきい値（トークン）",
+        "description": "残りのコンテキストがこの値より少なく、かつコンテキスト使用率がしきい値に達したときに自動で圧縮します。"
+      },
+      "contextThresholdPercent": {
+        "title": "コンテキスト圧縮のしきい値（%）",
+        "description": "コンテキスト使用率がこの割合に達し、かつ残り容量が上のトークンしきい値を下回ったときに自動で圧縮します。"
+      },
+      "keepRecentTokens": {
+        "title": "圧縮後に残す直近の会話（トークン）",
+        "description": "直近の会話をこの量だけそのまま残し、それ以前の内容は要約します。値を大きくするほど直近の詳細が残ります。"
       }
     }
   },
@@ -1148,18 +1186,8 @@
   "ornamentNoneHint": "何も表示せず、すっきりとしたページにします。",
   "ornamentViviTitle": "Vivi",
   "ornamentViviHint": "Metoai のオコジョ Vivi — まばたきしたり、手を振ったり、ときどき入力欄を這い回ったりします。",
-  "ornamentOrbitTitle": "オービット",
-  "ornamentOrbitHint": "光るシェーダーの球体で、表面を繊細な模様がゆっくりと漂います。",
-  "ornamentTorchTitle": "たいまつ",
-  "ornamentTorchHint": "炎がやわらかく揺れるピクセルたいまつ。クリックすると消したり、再び点けたりできます。",
   "ornamentMarioTitle": "マリオ",
   "ornamentMarioHint": "ピクセルブロックが並び、ハテナブロックを叩くとキノコが飛び出します。",
-  "ornamentBlazeTitle": "ブレイズ",
-  "ornamentBlazeHint": "暖かな光輪をまとった火の玉で、光の色が移り変わるにつれて炎が渦巻きます。",
-  "ornamentHandTitle": "トントンする手",
-  "ornamentHandHint": "入力欄に置かれた手で、指が順番にトントンと叩きます。クリックすると拳を握ります。",
-  "ornamentWellTitle": "エネルギーの井戸",
-  "ornamentWellHint": "宙に浮かぶ井戸で、水面が口元にたまり、光の円錐に沿って粒子が漂い上がります。",
   "section_appearance-texture": "テクスチャ",
   "textureHint": "新規セッションページ全体の背景",
   "textureNoneTitle": "なし",
@@ -1399,8 +1427,9 @@
       },
       "automation": {
         "create": "毎日スケジュールで実行するタスクを作成",
-        "enable": "スケジュールタスクを有効化または一時停止",
-        "list": "現在の自動化タスクを表示"
+        "list": "現在の自動化タスクを表示",
+        "interval": "30 分ごとに同じセッションでビルドを確認する",
+        "notify": "自動化に失敗時の Webhook 通知を追加する"
       },
       "im": {
         "enable": "Claw の IM ブリッジを有効にする",
@@ -2122,5 +2151,50 @@
   "feishuManual": "App ID / App Secret を手動で入力",
   "feishuUnbindApp": "アプリの連携を解除",
   "feishuQrExpired": "QR コードの有効期限が切れました — もう一度スキャンしてください",
-  "pleaseBindFeishu": "先に QR で Feishu ボットを設定してください"
+  "pleaseBindFeishu": "先に QR で Feishu ボットを設定してください",
+  "section_general-network": "ネットワークプロキシ",
+  "searchModels": "{{provider}} のモデルを検索",
+  "clearModelSearch": "モデル検索をクリア",
+  "noMatchingModels": "一致するモデルがありません",
+  "modelListLabel": "{{provider}} のモデル一覧",
+  "shortcutTogglePlanModeLabel": "プランモードを切り替え",
+  "shortcutTogglePlanModeDesc": "メッセージ入力欄からプランモードのオン／オフを切り替えます。まずプランを作成し、承認後に実行します",
+  "tabSshHosts": "SSH ホスト",
+  "section_ssh-hosts-list": "ホスト一覧",
+  "sshHostsDescription": "プロジェクトを置けるリモートマシンを登録します。登録すると「プロジェクトを追加」でそのマシン上のディレクトリを選べるようになり、エージェントのコマンド実行とファイル編集もそのマシンで行われます。",
+  "sshHostsEmpty": "ホストがまだありません",
+  "sshHostsEmptyHint": "すでに ssh でサーバーに接続している場合は、~/.ssh/config のエイリアスをインポートできます。手動で追加することもできます。",
+  "sshAddHost": "ホストを追加",
+  "sshEditHost": "編集",
+  "sshSaveHost": "ホストを保存",
+  "sshRemove": "ホストを削除",
+  "sshRemoveTitle": "このホストを削除しますか？",
+  "sshRemoveConfirm": "「{{name}}」が一覧から削除されます。リモートマシン上のファイルは変更されません。このホストにまだプロジェクトがある場合は、先にそれらのプロジェクトを削除してください。",
+  "sshFieldTarget": "接続先",
+  "sshFieldTargetHint": "~/.ssh/config のエイリアス（推奨）または user@host を指定します。ターミナルで ssh 接続できる宛先なら、Metoai からも接続できます。",
+  "sshFieldLabel": "表示名",
+  "sshFieldLabelHint": "既定では接続先が使われます。",
+  "sshFieldPort": "ポート",
+  "sshFieldIdentityFile": "秘密鍵",
+  "sshFieldIdentityFileHint": "空欄にすると ssh-agent と OpenSSH の既定の鍵を使用します。",
+  "sshTest": "接続をテスト",
+  "sshTesting": "接続中",
+  "sshTestOk": "接続しました（{{platform}}）",
+  "sshTestFailed": "接続できませんでした。入力した内容は保存されています。接続先とポートを確認して、もう一度お試しください。",
+  "sshTestDetails": "技術的な詳細",
+  "sshStatusConnected": "接続済み",
+  "sshStatusUnverifiable": "到達不可",
+  "sshStatusUnknown": "未接続",
+  "sshImportFromConfig": "ssh config からインポート",
+  "sshImportNone": "新しいエイリアスは見つかりませんでした。既存のホストが上書きされることはありません。",
+  "sshImportDone": "{{count}} 件のホストをインポートしました。",
+  "sshPromptConfirmTitle": "このホストの識別情報を確認",
+  "sshPromptSecretTitle": "接続に必要な認証情報",
+  "sshPromptHost": "ホスト：{{host}}",
+  "sshPromptSecretLabel": "シークレット",
+  "sshPromptCodeLabel": "確認コード",
+  "sshPromptRemember": "保存する（このマシンで暗号化し、次回から自動入力します）",
+  "sshPromptSubmit": "接続を続行",
+  "sshPromptAccept": "確認して接続",
+  "sshPromptReject": "接続をキャンセル"
 }

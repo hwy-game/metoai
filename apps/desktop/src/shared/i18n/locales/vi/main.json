@@ -95,5 +95,21 @@
       "releaseNotes": "Có gì mới",
       "version": "Phiên bản mới {{version}}"
     }
+  },
+  "pluginPackage": {
+    "confirmTitle": "Cài đặt tiện ích Metoai",
+    "confirmMessage": "Cài đặt và bật {{name}} {{version}}?",
+    "confirmDetail": "Tệp: {{file}}\nID tiện ích: {{id}}\nPhiên bản: {{version}}\n\nQuyền sẽ cấp:\n{{permissions}}\n\nLệnh sẽ bật:\n{{commands}}\n\nMã tiện ích chạy bên trong Metoai. Chỉ cài tệp từ nguồn bạn tin cậy.",
+    "none": "Không có",
+    "install": "Cài đặt và bật",
+    "cancel": "Hủy",
+    "done": "Xong",
+    "installedTitle": "Đã cài đặt tiện ích",
+    "installedMessage": "{{name}} {{version}} đã được cài đặt và bật.",
+    "failedTitle": "Cài đặt tiện ích thất bại",
+    "failedMessage": "{{file}} không phải là gói tiện ích Metoai hợp lệ hoặc không tương thích với phiên bản này."
+  },
+  "terminal": {
+    "remoteOutputDropped": "[đầu ra từ xa quá nhanh; đã lược bớt {{bytes}} byte]"
   }
 }

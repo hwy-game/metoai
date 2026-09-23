@@ -2,12 +2,11 @@
   "page": {
     "title": "自動化",
     "subtitle": "AI にスケジュールでタスクを実行させ、手を離しましょう",
-    "newTask": "新規タスク",
-    "newTaskTitle": "新しいスケジュールタスク"
+    "create": "作成",
+    "searchPlaceholder": "自動化を検索"
   },
   "recommend": {
     "title": "おすすめ",
-    "use": "テンプレートを使用",
     "items": {
       "morningBrief": {
         "name": "モーニングブリーフィング",
@@ -29,43 +28,85 @@
       }
     }
   },
-  "dialog": {
-    "namePlaceholderEdit": "タスク名",
-    "namePlaceholderNew": "新しいタスク",
-    "cancel": "キャンセル",
-    "save": "保存",
-    "create": "作成"
-  },
+  "dialog": {},
   "form": {
     "namePlaceholder": "タスク名",
     "promptPlaceholder": "プロンプトを入力... / でスキル/シーンを呼び出せます",
-    "selectWorkDir": "作業ディレクトリを選択",
-    "conversation": "会話",
-    "modelEmpty": "モデルなし",
-    "modelSelect": "モデルを選択",
-    "defaultTag": "既定",
-    "enabled": "有効",
-    "disabled": "無効",
-    "fullAccess": "フルアクセス",
-    "useSandbox": "サンドボックスを使用",
-    "inherit": "既定に従う（{{mode}}）",
-    "sandbox": "サンドボックス",
-    "sandboxUnavailable": "{{platform}} サンドボックスは利用できません：{{reason}}",
-    "every": "毎",
-    "unitHours": "時間",
-    "unitDays": "日"
+    "name": "タスク名",
+    "runTarget": "実行先",
+    "runMode": {
+      "new-session": "毎回新しいセッション",
+      "same-session": "同じセッション"
+    },
+    "project": "プロジェクト",
+    "projectNone": "なし（会話）",
+    "session": "セッション",
+    "sessionHint": "毎回の実行はこのセッションで続行されるため、コンテキストが積み上がり続けます",
+    "sessionNew": "新しいセッションを開始",
+    "sessionMissing": "紐付けられたセッションが存在しません",
+    "model": "モデル",
+    "modelFollowDefault": "既定のモデルに従う",
+    "repeat": "繰り返し",
+    "time": "時刻",
+    "atMinutePrefix": "毎時",
+    "atMinuteSuffix": "分",
+    "monthlyShortMonthHint": "選んだ日付が存在しない月（例：2月30日）はスキップされます。月末に実行するには「最終日」を選んでください",
+    "cronExpression": "Cron 式",
+    "cronHint": "分 時 日 月 曜日（ローカル時刻）。式を直接編集しても、選択ツールと同期したままです",
+    "cronAny": "すべて",
+    "cronTextOnly": "この部分は選択ツールで表示できない構文を使用しています。式を直接編集してください",
+    "cronField": {
+      "minute": "分",
+      "hour": "時",
+      "day": "日",
+      "month": "月",
+      "weekday": "曜日"
+    },
+    "notify": "Webhook 通知",
+    "notifyEndpoints": "通知先",
+    "notifyGoSettings": "Webhook がまだありません。設定で追加してください",
+    "notifyEndpointDisabled": "この Webhook は無効なため送信されません",
+    "notifyWhen": "送信タイミング",
+    "notifyWhenOption": {
+      "always": "常に",
+      "success": "成功時のみ",
+      "failure": "失敗時のみ"
+    },
+    "notifyTemplate": "メッセージ",
+    "notifyTemplateDefault": "{{name}} {{status}}（{{duration}}）\n\n{{reply}}",
+    "variables": {
+      "name": "タスク",
+      "status": "ステータス",
+      "startedAt": "開始時刻",
+      "duration": "所要時間",
+      "reply": "返信",
+      "error": "エラー"
+    },
+    "enabledLabel": "有効",
+    "intervalPrefix": "毎",
+    "intervalSuffix": "分",
+    "intervalHint": "保存した時点から数えます。間隔を変更するとカウントはやり直しになります",
+    "sectionDetails": "詳細",
+    "sectionFrequency": "頻度",
+    "sectionNotify": "通知",
+    "intervalLabel": "間隔",
+    "minuteLabel": "分",
+    "weekdays": "曜日",
+    "monthDays": "日"
   },
   "scheduleMode": {
     "once": "1回",
     "daily": "毎日",
-    "interval": "間隔"
+    "interval": "間隔",
+    "hourly": "毎時",
+    "weekly": "毎週",
+    "monthly": "毎月",
+    "custom": "カスタム"
   },
   "schedule": {
-    "once": "{{year}}/{{month}}/{{day}} {{time}} に1回",
+    "once": "{{date}} {{time}} に1回",
     "daily": "毎日 {{time}}",
     "weekly": "毎週 {{days}} の {{time}}",
-    "intervalOne": "1時間ごと",
-    "interval": "{{hours}} 時間ごと",
     "weekdayJoin": ", ",
     "weekdayNames": [
       "日",
@@ -75,13 +116,19 @@
       "木",
       "金",
       "土"
-    ]
+    ],
+    "hourly": "毎時 {{minute}} 分",
+    "monthly": "毎月 {{days}} の {{time}}",
+    "monthDay": "{{day}} 日",
+    "lastDay": "最終日",
+    "custom": "カスタム",
+    "intervalMinutes": "{{minutes}} 分ごと",
+    "intervalHours": "{{hours}} 時間ごと"
   },
   "list": {
     "running": "実行中",
     "pending": "待機中",
     "disabled": "無効",
-    "once": "1回のみ",
     "runNow": "今すぐ実行",
     "run": "実行",
     "sectionTitle": "自動化タスク",
@@ -96,9 +143,21 @@
     "minutesAgo": "{{n}} 分前",
     "hoursAgo": "{{n}} 時間前",
     "daysAgo": "{{n}} 日前",
-    "fullAccess": "フルアクセス",
-    "useSandbox": "サンドボックスを使用",
-    "inheritDefault": "既定に従う"
+    "suspended": "一時停止中",
+    "target": "{{mode}} · {{project}}",
+    "filter": {
+      "all": "すべて",
+      "enabled": "有効",
+      "paused": "一時停止",
+      "done": "完了"
+    },
+    "emptySearch": "一致する自動化がありません",
+    "emptyFilter": "まだ何もありません",
+    "done": "完了",
+    "nextRun": "次回実行 {{when}}",
+    "inMinutes": "{{n}} 分後",
+    "inHours": "{{n}} 時間後",
+    "inDays": "{{n}} 日後"
   },
   "confirm": {
     "deleteTitle": "タスク「{{name}}」を削除しますか？",
@@ -106,20 +165,57 @@
     "delete": "削除",
     "cancel": "キャンセル"
   },
-  "drawer": {
-    "close": "閉じる",
-    "runNow": "今すぐ実行",
-    "pause": "一時停止",
-    "enable": "有効化",
-    "edit": "編集"
-  },
+  "drawer": {},
   "history": {
     "title": "実行履歴",
     "refresh": "更新",
     "empty": "実行記録がありません",
-    "success": "成功",
-    "failed": "失敗",
-    "running": "実行中",
-    "aborted": "中断"
+    "status": {
+      "success": "成功",
+      "failed": "失敗",
+      "running": "実行中",
+      "aborted": "中断",
+      "skipped": "スキップ",
+      "missed": "未実行"
+    },
+    "reason": {
+      "previous-running": "前回の実行がまだ続いていました",
+      "app-not-running": "アプリが起動していませんでした",
+      "system-sleep": "コンピューターがスリープしていました"
+    },
+    "missedMany": "{{times}} 回未実行（{{until}} まで） · {{reason}}",
+    "notifyFailed": "通知に失敗しました：{{error}}"
+  },
+  "suspended": {
+    "session-deleted": "紐付けられたセッションが削除されました。セッションを選び直してから有効にしてください。",
+    "project-removed": "対象のプロジェクトがサイドバーから削除されました。プロジェクトを選び直してから有効にしてください。"
+  },
+  "notify": {
+    "status": {
+      "success": "成功",
+      "failed": "失敗",
+      "aborted": "中断"
+    },
+    "noEndpoint": "選択した Webhook はすべて無効または削除されています"
+  },
+  "detail": {
+    "status": {
+      "active": "有効",
+      "running": "実行中",
+      "paused": "一時停止",
+      "suspended": "一時停止 · 対象を利用できません",
+      "done": "完了",
+      "draft": "新しい自動化"
+    },
+    "close": "閉じる",
+    "runNow": "今すぐ実行",
+    "pause": "一時停止",
+    "enable": "有効化",
+    "more": "その他",
+    "delete": "削除",
+    "openChat": "チャットを開く",
+    "discard": "破棄",
+    "save": "保存",
+    "create": "作成"
   }
 }

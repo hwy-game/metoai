@@ -78,9 +78,10 @@
       "name": "Terbitkan Kemampuan",
       "description": "Kirim keterampilan, skenario, server MCP, plugin, atau bundel kemampuan ke marketplace Metoai, mencakup kolom wajib, pelokalan, dan alur peninjauan."
     },
-    "vetta-blog": {
-      "name": "Blog Metoai",
-      "description": "Meneliti, menguji, menulis, dan meninjau blog produk serta teknis Metoai yang berbasis bukti."
+    "vetta-blog": {},
+    "install-ability": {
+      "name": "Pasang Kemampuan",
+      "description": "Pasang plugin, Keterampilan/skenario, dan server MCP ke Metoai di komputer ini, lalu muat ulang segera saat peningkatan plugin menyisakan versi yang tertunda."
     }
   }
 }

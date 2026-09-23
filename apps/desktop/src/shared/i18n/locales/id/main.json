@@ -95,5 +95,21 @@
       "releaseNotes": "Yang baru",
       "version": "Versi baru {{version}}"
     }
+  },
+  "pluginPackage": {
+    "confirmTitle": "Pasang Plugin Metoai",
+    "confirmMessage": "Pasang dan aktifkan {{name}} {{version}}?",
+    "confirmDetail": "Berkas: {{file}}\nID Plugin: {{id}}\nVersi: {{version}}\n\nIzin yang akan diberikan:\n{{permissions}}\n\nPerintah yang akan diaktifkan:\n{{commands}}\n\nKode plugin berjalan di dalam Metoai. Pasang berkas hanya dari sumber yang Anda percayai.",
+    "none": "Tidak ada",
+    "install": "Pasang dan Aktifkan",
+    "cancel": "Batal",
+    "done": "Selesai",
+    "installedTitle": "Plugin Terpasang",
+    "installedMessage": "{{name}} {{version}} telah dipasang dan diaktifkan.",
+    "failedTitle": "Pemasangan Plugin Gagal",
+    "failedMessage": "{{file}} bukan paket plugin Metoai yang valid atau tidak kompatibel dengan versi ini."
+  },
+  "terminal": {
+    "remoteOutputDropped": "[keluaran jarak jauh terlalu cepat; {{bytes}} byte dihilangkan]"
   }
 }

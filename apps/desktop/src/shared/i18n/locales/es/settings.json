@@ -247,7 +247,25 @@
   "language": "Idioma",
   "proxy": {
     "title": "Proxy",
-    "placeholder": "Ejemplo: http://127.0.0.1:7890"
+    "placeholder": "Ejemplo: http://127.0.0.1:7890",
+    "sectionTitle": "Proxy de red",
+    "enableTitle": "Habilitar el proxy de la aplicación",
+    "enableDescription": "Las solicitudes a los modelos, los comandos locales y las descargas pasan por este proxy de forma predeterminada. Las direcciones de bucle local (localhost / 127.0.0.1) siempre se conectan directamente.",
+    "protocolTitle": "Tipo de proxy",
+    "hostTitle": "Host del proxy",
+    "hostPlaceholder": "p. ej. 127.0.0.1",
+    "portTitle": "Puerto",
+    "usernameTitle": "Usuario",
+    "usernamePlaceholder": "Opcional",
+    "passwordTitle": "Contraseña",
+    "passwordPlaceholder": "Opcional",
+    "passwordStoredPlaceholder": "Guardada: déjalo vacío para conservarla",
+    "providersTitle": "Por proveedor",
+    "providersDescription": "Todos los proveedores usan el proxy de forma predeterminada. Desactívalo en los proveedores a los que llegues más rápido de forma directa.",
+    "noProviders": "Aún no hay proveedores configurados.",
+    "invalidConfig": "El host o el puerto del proxy no son válidos. Las solicitudes a los modelos fallarán en lugar de pasar silenciosamente a una conexión directa.",
+    "providerLocal": "El servicio de origen está en este equipo o en tu red local, así que este salto nunca sale de la red y siempre se conecta directamente. Cómo llega ese servicio a internet depende de su propia configuración.",
+    "providerFollowsGlobal": "El SDK del fabricante de este proveedor hace sus propias solicitudes y no ve el transporte inyectado, así que siempre sigue el proxy global y no se puede excluir por separado."
   },
   "workspace": {
     "title": "Espacio de trabajo",
@@ -331,6 +349,10 @@
         "images": {
           "title": "Procesamiento de imágenes",
           "description": "Configura la normalización de imágenes, los límites de seguridad, la compresión y los presupuestos de solicitudes de los modelos."
+        },
+        "compaction": {
+          "title": "Compactación del contexto",
+          "description": "Controla cuánto contexto usa una conversación antes de la compactación automática y cuánta conversación reciente se mantiene sin cambios. La compactación manual no se ve afectada."
         }
       },
       "vetta": {
@@ -411,6 +433,22 @@
           "word": "Palabras",
           "document-tree": "Árbol de documento"
         }
+      },
+      "enabled": {
+        "title": "Compactación automática",
+        "description": "Compacta las conversaciones largas cuando se acercan al límite del modelo. La compactación manual sigue disponible cuando está desactivada."
+      },
+      "reserveTokens": {
+        "title": "Umbral de espacio restante (tokens)",
+        "description": "Compacta automáticamente cuando queda menos contexto que este valor y el uso de contexto ha alcanzado el umbral porcentual."
+      },
+      "contextThresholdPercent": {
+        "title": "Umbral de compactación del contexto (%)",
+        "description": "Compacta automáticamente cuando el uso de contexto alcanza este porcentaje y el espacio restante también está por debajo del umbral de tokens anterior."
+      },
+      "keepRecentTokens": {
+        "title": "Conversación reciente conservada tras la compactación (tokens)",
+        "description": "Conserva sin cambios aproximadamente esta cantidad de la conversación más reciente y resume el contenido anterior. Los valores más altos conservan más detalle reciente."
       }
     }
   },
@@ -1148,18 +1186,8 @@
   "ornamentNoneHint": "Deja el espacio vacío para una página más limpia.",
   "ornamentViviTitle": "Vivi",
   "ornamentViviHint": "Vivi, el armiño de Metoai: parpadea, saluda y se arrastra por el compositor de vez en cuando.",
-  "ornamentOrbitTitle": "Órbita",
-  "ornamentOrbitHint": "Un orbe de shader en vivo, con su filigrana desplazándose lentamente por la superficie.",
-  "ornamentTorchTitle": "Antorcha",
-  "ornamentTorchHint": "Una antorcha de píxeles con una llama que parpadea suavemente; haz clic para apagarla o encenderla de nuevo.",
   "ornamentMarioTitle": "Mario",
   "ornamentMarioHint": "Una fila de bloques de píxeles: golpea el bloque de interrogación para que salga un hongo.",
-  "ornamentBlazeTitle": "Fuego",
-  "ornamentBlazeHint": "Una bola de fuego con un halo cálido, cuyas llamas giran mientras el resplandor cambia de tono.",
-  "ornamentHandTitle": "Mano que toca",
-  "ornamentHandHint": "Una mano apoyada en el compositor, con los dedos tamborileando uno tras otro; haz clic para cerrarlos en un puño.",
-  "ornamentWellTitle": "Pozo de energía",
-  "ornamentWellHint": "Un pozo suspendido en el aire, con agua acumulada en su boca y partículas que suben por el cono de luz.",
   "section_appearance-texture": "Textura",
   "textureHint": "El fondo detrás de toda la página de nueva sesión",
   "textureNoneTitle": "Ninguno",
@@ -1399,8 +1427,9 @@
       },
       "automation": {
         "create": "Crear una tarea que se ejecute a diario",
-        "enable": "Activar o pausar una tarea programada",
-        "list": "Mostrar mis tareas de automatización actuales"
+        "list": "Mostrar mis tareas de automatización actuales",
+        "interval": "Cada 30 minutos, revisa la compilación en la misma sesión",
+        "notify": "Añadir una notificación por webhook cuando falle una automatización"
       },
       "im": {
         "enable": "Activar el puente de mensajería de Claw",
@@ -2122,5 +2151,50 @@
   "feishuManual": "Introducir App ID / App Secret manualmente",
   "feishuUnbindApp": "Desvincular app",
   "feishuQrExpired": "El código QR caducó; escanéalo de nuevo",
-  "pleaseBindFeishu": "Configura primero el bot de Feishu con el código QR"
+  "pleaseBindFeishu": "Configura primero el bot de Feishu con el código QR",
+  "section_general-network": "Proxy de red",
+  "searchModels": "Buscar modelos de {{provider}}",
+  "clearModelSearch": "Borrar la búsqueda de modelos",
+  "noMatchingModels": "No hay modelos coincidentes",
+  "modelListLabel": "Lista de modelos de {{provider}}",
+  "shortcutTogglePlanModeLabel": "Alternar el modo plan",
+  "shortcutTogglePlanModeDesc": "Activa o desactiva el modo plan desde el cuadro de mensaje: primero el plan, y se ejecuta cuando lo apruebes",
+  "tabSshHosts": "Hosts SSH",
+  "section_ssh-hosts-list": "Lista de hosts",
+  "sshHostsDescription": "Registra las máquinas remotas que pueden alojar tus proyectos. Una vez registradas, podrás elegir un directorio de esa máquina en Añadir proyecto, y los comandos y las ediciones de archivos del agente se harán allí.",
+  "sshHostsEmpty": "Aún no hay hosts",
+  "sshHostsEmptyHint": "Si ya te conectas por ssh a servidores, importa los alias de ~/.ssh/config. También puedes añadir uno a mano.",
+  "sshAddHost": "Añadir host",
+  "sshEditHost": "Editar",
+  "sshSaveHost": "Guardar host",
+  "sshRemove": "Eliminar host",
+  "sshRemoveTitle": "¿Eliminar este host?",
+  "sshRemoveConfirm": "“{{name}}” se quitará de la lista. Los archivos de la máquina remota no se tocan. Si todavía hay proyectos en este host, elimina antes esos proyectos.",
+  "sshFieldTarget": "Destino de conexión",
+  "sshFieldTargetHint": "Un alias de ~/.ssh/config (recomendado), o user@host. Si ssh llega a él en tu terminal, Metoai también.",
+  "sshFieldLabel": "Nombre visible",
+  "sshFieldLabelHint": "De forma predeterminada, el destino de conexión.",
+  "sshFieldPort": "Puerto",
+  "sshFieldIdentityFile": "Clave privada",
+  "sshFieldIdentityFileHint": "Déjalo vacío para usar ssh-agent y las identidades predeterminadas de OpenSSH.",
+  "sshTest": "Probar la conexión",
+  "sshTesting": "Conectando",
+  "sshTestOk": "Conectado ({{platform}})",
+  "sshTestFailed": "No se pudo conectar. Lo que has introducido se ha guardado: revisa el destino y el puerto e inténtalo de nuevo.",
+  "sshTestDetails": "Detalles técnicos",
+  "sshStatusConnected": "Conectado",
+  "sshStatusUnverifiable": "Inaccesible",
+  "sshStatusUnknown": "Sin conexión",
+  "sshImportFromConfig": "Importar desde ssh config",
+  "sshImportNone": "No se han encontrado alias nuevos. Los hosts existentes nunca se sobrescriben.",
+  "sshImportDone": "Se importaron {{count}} host(s).",
+  "sshPromptConfirmTitle": "Confirma la identidad de este host",
+  "sshPromptSecretTitle": "Se necesitan credenciales para conectar",
+  "sshPromptHost": "Host: {{host}}",
+  "sshPromptSecretLabel": "Secreto",
+  "sshPromptCodeLabel": "Código de verificación",
+  "sshPromptRemember": "Recordarlo (se cifra en este equipo y se rellena la próxima vez)",
+  "sshPromptSubmit": "Continuar la conexión",
+  "sshPromptAccept": "Confirmar y conectar",
+  "sshPromptReject": "Cancelar la conexión"
 }

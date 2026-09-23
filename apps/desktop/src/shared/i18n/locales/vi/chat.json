@@ -7,7 +7,9 @@
       "backgroundTasks": "Tác vụ nền",
       "debug": "Gỡ lỗi",
       "knowledgeHistory": "Lịch sử xử lý",
-      "workflow": "Quy trình"
+      "workflow": "Quy trình",
+      "plan": "Kế hoạch",
+      "ports": "Chuyển tiếp cổng"
     },
     "backgroundTasks": {
       "statusRunning": "Đang chạy",
@@ -92,7 +94,9 @@
       "pause": "Tạm dừng",
       "enable": "Bật",
       "executionRecords": "Bản ghi thực thi",
-      "noRecords": "Không có bản ghi thực thi"
+      "noRecords": "Không có bản ghi thực thi",
+      "statusSkipped": "Đã bỏ qua",
+      "statusMissed": "Bị bỏ lỡ"
     },
     "htmlPreview": {
       "title": "Xem trước HTML"
@@ -109,6 +113,55 @@
       "statusInterrupted": "Bị ngắt",
       "processingTitle": "{{count}} quy trình đang chạy",
       "doneTitle": "Tất cả quy trình đã kết thúc"
+    },
+    "ports": {
+      "heading": "Dịch vụ từ xa",
+      "runningStat": "{{count}} đang chạy",
+      "forwardedStat": "{{count}} đã chuyển tiếp",
+      "sectionForwarded": "Đã chuyển tiếp",
+      "sectionRunning": "Đang chạy",
+      "manualTitle": "Chuyển tiếp một cổng",
+      "remotePortLabel": "Cổng từ xa",
+      "localPortLabel": "Cổng cục bộ",
+      "empty": "Chưa có gì đang chạy trên máy chủ từ xa",
+      "emptyHint": "Hãy khởi động một máy chủ trên máy chủ từ xa (ví dụ npm run dev) và nó sẽ hiện ở đây; nhấp Chuyển tiếp để mở trên máy này.",
+      "remotePortPlaceholder": "ví dụ: 3000",
+      "localPortPlaceholder": "Như trên",
+      "localPortPrefix": "localhost:",
+      "add": "Chuyển tiếp",
+      "addManual": "Nhập số cổng",
+      "forward": "Chuyển tiếp",
+      "preview": "Xem trước",
+      "openExternal": "Mở trong trình duyệt hệ thống",
+      "copyAddress": "Sao chép địa chỉ",
+      "copied": "Đã sao chép",
+      "changeLocalPort": "Đổi cổng cục bộ",
+      "stop": "Dừng chuyển tiếp",
+      "retry": "Thử lại",
+      "refresh": "Quét lại",
+      "statusActive": "Đã chuyển tiếp",
+      "statusReconnecting": "Đang kết nối lại",
+      "statusFailed": "Đã dừng chuyển tiếp",
+      "scanUnsupported": "Máy chủ này không có công cụ quét cổng (ss / netstat / lsof). Hãy nhập số cổng để chuyển tiếp.",
+      "scanFailed": "Không đọc được các cổng của máy chủ từ xa",
+      "fromOutput": "Đầu ra tác vụ",
+      "notListening": "Không còn gì lắng nghe trên cổng này nữa",
+      "publicBind": "Đang lắng nghe trên mọi giao diện: các máy khác trong mạng từ xa có thể truy cập",
+      "justNow": "vừa xong",
+      "terminate": "Dừng tiến trình",
+      "forceTerminate": "Buộc dừng",
+      "terminateConfirm": "Dừng {{name}}?",
+      "terminateStubborn": "{{name}} đã bỏ qua tín hiệu dừng và vẫn đang chạy. Nhấp Buộc dừng để kết thúc nó.",
+      "terminateFailed": "Không dừng được {{name}}: {{reason}}",
+      "sensitiveToggle": "{{count}} cổng hệ thống",
+      "sensitiveHint": "Các cổng đặc quyền (dưới 1024) và cổng mà kết nối SSH này đang dùng. Dừng chúng có thể làm rớt kết nối, nên không thể dừng từ đây.",
+      "unnamedToggle": "{{count}} cổng có tiến trình không xác định",
+      "unnamedHint": "Không đọc được tiến trình sở hữu, thường là do nó thuộc về người dùng khác.",
+      "ephemeralToggle": "{{count}} cổng tạm thời khác (trên 32768)",
+      "invalidPort": "Nhập số cổng trong khoảng 1 đến 65535"
+    },
+    "plan": {
+      "headline": "Kế hoạch hiện tại"
     }
   },
   "fileExplorer": {
@@ -174,6 +227,19 @@
       "prepareFailed": "Không đọc được tệp đã kéo thả",
       "commitFailed": "Chuyển tệp thất bại",
       "failedCount": "{{count}} mục chuyển thất bại"
+    },
+    "display": {
+      "invalidPatterns": "Dùng tối đa 100 mẫu, mỗi mẫu không quá 1024 ký tự",
+      "title": "Cài đặt hiển thị tệp",
+      "showHidden": "Hiện tệp và thư mục ẩn",
+      "exclude": "Mẫu loại trừ",
+      "excludeHint": "Mỗi dòng một mẫu tương đối theo không gian làm việc, ví dụ **/node_modules hoặc **/*.log. Xóa hết để hiện mọi tệp thông thường.",
+      "iconTheme": "Chủ đề biểu tượng tệp",
+      "builtin": "Biểu tượng tích hợp sẵn",
+      "unavailable": "Chủ đề đã chọn không khả dụng (đang dùng biểu tượng tích hợp sẵn)",
+      "apply": "Áp dụng mẫu loại trừ",
+      "reset": "Khôi phục hiển thị mặc định",
+      "saveFailed": "Không lưu được cài đặt hiển thị. Hãy thử lại."
     }
   },
   "fileEditor": {
@@ -282,7 +348,17 @@
     "pinButton": {
       "pinned": "Bỏ ghim cửa sổ",
       "unpinned": "Ghim cửa sổ (luôn trên cùng)"
-    }
+    },
+    "bottomPanelButton": {
+      "closed": "Mở bảng dưới",
+      "open": "Đóng bảng dưới"
+    },
+    "terminalButton": {
+      "focused": "Terminal",
+      "open": "Mở terminal",
+      "unavailable": "Terminal cục bộ không khả dụng"
+    },
+    "remoteBadge": "Từ xa"
   },
   "contextRing": {
     "tooltip": {
@@ -358,7 +434,8 @@
       "label": "Hộp cát",
       "title": "Chỉ cho phép truy cập hạn chế trong không gian làm việc"
     },
-    "sandboxUnavailable": "Hộp cát {{platform}} không khả dụng: {{reason}}"
+    "sandboxUnavailable": "Hộp cát {{platform}} không khả dụng: {{reason}}",
+    "sandboxUnavailableRemote": "Hộp cát không khả dụng cho dự án từ xa: nó chỉ giới hạn tiến trình trên máy này, còn lệnh của dự án từ xa chạy trên máy chủ từ xa"
   },
   "export": {
     "shareNavDescription": "đã chia sẻ một phiên",
@@ -388,6 +465,9 @@
     "knowledgeRetrieval": {
       "label": "Tìm kiếm tri thức",
       "tooltip": "Khi bật, lượt này có thể gọi công cụ cơ sở tri thức và ưu tiên trả lời từ cơ sở tri thức của bạn"
+    },
+    "planMode": {
+      "label": "Chế độ kế hoạch"
     }
   },
   "inputBar": {
@@ -511,9 +591,7 @@
       }
     },
     "assistantFoldTip": {
-      "collapse": "Thu gọn {{count}} mục",
       "collapseLabel": "Thu gọn",
-      "expand": "Mở rộng {{count}} mục",
       "expandLabel": "Mở rộng",
       "streaming": "Đang xử lý · {{duration}}",
       "waiting": "Đang chờ · {{duration}}",
@@ -730,18 +808,12 @@
       "showMascot": "Hiện linh vật",
       "playOnce": "Phát một lần hoạt ảnh linh vật hiện tại"
     },
-    "torch": {
-      "light": "Thắp đuốc",
-      "extinguish": "Tắt đuốc"
-    },
+    "torch": {},
     "mario": {
       "hit": "Đẩy nấm ra",
       "reset": "Đặt nấm về chỗ cũ"
     },
-    "hand": {
-      "rest": "Cho bàn tay nghỉ",
-      "tap": "Cho bàn tay gõ lại"
-    },
+    "hand": {},
     "projectSelector": {
       "placeholder": "Chọn dự án",
       "clear": "Không có dự án",
@@ -938,5 +1010,95 @@
     "actionCreate": "Tạo trang",
     "actionUpdate": "Cập nhật trang",
     "originalLocation": "Bản gốc: {{path}}"
+  },
+  "bottomPanel": {
+    "tablist": "Tab của bảng dưới",
+    "closeTab": "Đóng",
+    "tabFailed": "Không hiển thị được bảng này",
+    "pillsGroup": "Bảng dưới",
+    "empty": {
+      "title": "Bảng dưới đang trống",
+      "description": "Chọn một bảng để thêm.",
+      "pickerLabel": "Các bảng bạn có thể thêm"
+    },
+    "actions": {
+      "add": "Bảng mới",
+      "splitRight": "Chia sang phải",
+      "splitDown": "Chia xuống dưới",
+      "splitLimit": "Đã đạt giới hạn chia",
+      "collapse": "Thu gọn bảng dưới"
+    },
+    "addMenu": {
+      "builtinGroup": "Tích hợp sẵn",
+      "pluginGroup": "Tiện ích",
+      "instanceLimit": "Đã đạt giới hạn thực thể cho bảng này"
+    },
+    "closeConfirm": {
+      "title": "Đóng bảng này?",
+      "message": "Công việc đang làm trong bảng sẽ bị ngắt.",
+      "confirm": "Đóng"
+    },
+    "terminal": {
+      "title": "Terminal",
+      "exited": "[tiến trình đã thoát với mã {{code}}]",
+      "previousOutput": "-- phần đầu ra phía trên thuộc phiên trước (tiến trình đã kết thúc) --",
+      "unavailable": "Không thể khởi động terminal trong môi trường này",
+      "noResize": "Máy chủ này chưa cài helper, nên kích thước terminal cố định và không thay đổi theo cửa sổ.",
+      "replayTruncated": "[đã lược bớt phần đầu ra trước đó]",
+      "closeConfirm": {
+        "title": "Đóng terminal?",
+        "message": "“{{process}}” vẫn đang chạy; đóng terminal sẽ kết thúc nó.",
+        "confirm": "Đóng và kết thúc tiến trình"
+      }
+    }
+  },
+  "planMode": {
+    "entryCard": {
+      "moreSteps": "thêm {{count}} bước",
+      "open": "Xem kế hoạch",
+      "stepCount": "{{count}} bước",
+      "title": "Kế hoạch triển khai"
+    },
+    "review": {
+      "approve": "Phê duyệt và bắt đầu",
+      "back": "Quay lại",
+      "commentOnStep": "Bình luận về bước {{number}}",
+      "dismiss": "Quyết định sau",
+      "doneEditing": "Xong chỉnh sửa",
+      "edit": "Sửa kế hoạch",
+      "edited": "Đã sửa",
+      "editorLabel": "Nội dung kế hoạch",
+      "feedbackLabel": "Cần thay đổi điều gì?",
+      "feedbackPlaceholder": "Ví dụ: giữ nguyên phần di trú cơ sở dữ liệu; tách bước 3 thành hai…",
+      "requestChanges": "Yêu cầu chỉnh sửa",
+      "resetEdits": "Đặt lại",
+      "sendFeedback": "Gửi phản hồi",
+      "sendFeedbackWithComments": "Gửi phản hồi ({{count}})",
+      "stepCommentPlaceholder": "Bước này nên thay đổi thế nào…",
+      "subtitle": "Metoai sẽ bắt đầu làm theo kế hoạch này sau khi bạn phê duyệt. Trước đó sẽ không có gì bị thay đổi.",
+      "title": "Có một kế hoạch đang chờ bạn phê duyệt"
+    },
+    "switchFailed": "Không chuyển được chế độ kế hoạch",
+    "toolCard": {
+      "approved": "Đã phê duyệt",
+      "changesRequested": "Đã gửi lại để chỉnh sửa",
+      "dismissed": "Chưa quyết định",
+      "pending": "Đang chờ bạn phê duyệt",
+      "title": "Kế hoạch"
+    }
+  },
+  "subagentCard": {
+    "back": "Quay lại phiên cha",
+    "open": "Xem tin nhắn từ tác nhân phụ {{name}}",
+    "viewerSubtitle": "Tin nhắn của tác nhân phụ (chỉ đọc)",
+    "waitingForSession": "Phiên của tác nhân phụ đang chuẩn bị",
+    "status": {
+      "queued": "Trong hàng đợi",
+      "pending": "Đang chuẩn bị",
+      "running": "Đang chạy",
+      "completed": "Hoàn thành",
+      "failed": "Thất bại",
+      "interrupted": "Bị ngắt"
+    }
   }
 }

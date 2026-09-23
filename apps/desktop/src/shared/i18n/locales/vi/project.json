@@ -68,7 +68,8 @@
       "clearConversationMessage": "Thao tác này sẽ xóa {{count}} phiên trò chuyện trong Chat nhưng vẫn giữ các tệp kết quả. Phiên Claw không bị ảnh hưởng. Không thể hoàn tác.",
       "clearClawTitle": "Xóa bản ghi Claw",
       "clearClawMessage": "Thao tác này sẽ xóa {{count}} bản ghi Claw nhưng vẫn giữ các tệp kết quả. Không thể hoàn tác.",
-      "clearConfirm": "Xóa"
+      "clearConfirm": "Xóa",
+      "deleteBoundSessionHint": "Tự động hóa \"{{task}}\" chạy trong phiên này. Xóa phiên sẽ tạm dừng tự động hóa đó cho đến khi bạn chọn phiên khác."
     },
     "time": {
       "justNow": "vừa xong",
@@ -92,7 +93,8 @@
     "newProject": "Dự án mới",
     "openProject": "Mở dự án",
     "importProject": "Nhập dự án",
-    "more": "Thêm"
+    "more": "Thêm",
+    "addFromRemoteHost": "Thêm từ máy chủ từ xa"
   },
   "contextMenu": {
     "openInFinder": "Hiện trong Finder",
@@ -114,7 +116,8 @@
       "label": "Thẻ",
       "new": "Thẻ mới…",
       "manage": "Quản lý thẻ…"
-    }
+    },
+    "createAutomation": "Tạo tự động hóa từ phiên này"
   },
   "tagEditor": {
     "createTitle": "Thẻ mới",
@@ -218,5 +221,32 @@
     "loading": "Đang tải tiện ích…",
     "missing": "Chế độ xem không gian làm việc này không còn tồn tại. Đang quay về trang chính.",
     "failed": "Không hiển thị được chế độ xem không gian làm việc này. Kiểm tra DevTools để biết chi tiết."
+  },
+  "remotePicker": {
+    "title": "Thêm dự án từ máy chủ từ xa",
+    "pickHost": "Chọn một máy chủ đã đăng ký",
+    "loading": "Đang tải…",
+    "noHosts": "Chưa đăng ký máy chủ từ xa nào",
+    "noHostsHint": "Hãy thêm một máy chủ trong Cài đặt → Máy chủ SSH, hoặc nhập các bí danh bạn đã có trong ~/.ssh/config.",
+    "parent": "Thư mục cha",
+    "emptyDir": "Không có thư mục con ở đây. Bạn có thể thêm thư mục này làm dự án.",
+    "browseFailed": "Không đọc được thư mục này. Kết nối có thể đã ngắt, hoặc tài khoản này không đủ quyền.",
+    "details": "Chi tiết kỹ thuật",
+    "backToHosts": "Chọn máy chủ khác",
+    "cancel": "Hủy",
+    "confirm": "Thêm thư mục này làm dự án",
+    "failedTitle": "Không thêm được dự án này"
+  },
+  "orphanRemote": {
+    "title": "Máy chủ của dự án này không còn trong danh sách máy chủ của bạn",
+    "description": "Máy chủ SSH mà nó trỏ tới đã bị xóa, hoặc có danh tính mới khi được thêm lại. Hãy chọn máy chủ tương ứng để kết nối lại dự án; các phiên của nó vẫn nguyên vẹn.",
+    "pickHost": "Dự án này ở trên máy chủ nào?",
+    "noHosts": "Chưa có máy chủ nào được đăng ký. Hãy thêm máy chủ này trước, rồi quay lại để liên kết.",
+    "addHost": "Thêm máy chủ",
+    "rebind": "Liên kết với máy chủ này",
+    "rebinding": "Đang liên kết…",
+    "hostInUse": "Máy chủ này đã có {{count}} dự án; liên kết ở đây sẽ ngắt kết nối của chúng. Hãy chọn máy chủ khác, hoặc thêm máy này lại riêng cho dự án này.",
+    "notOrphaned": "Dự án này không cần liên kết lại nữa. Hãy thử làm mới.",
+    "footnote": "Máy chủ sẽ tiếp nhận danh tính đã ghi trong dự án. Nếu bạn từng chọn ghi nhớ mật khẩu, có thể bạn sẽ được yêu cầu nhập lại một lần."
   }
 }

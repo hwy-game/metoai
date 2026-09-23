@@ -32,7 +32,8 @@
     "disabled": "Đã tắt",
     "updateAvailable": "Có bản cập nhật",
     "openSource": "Mã nguồn mở",
-    "sameName": "{{count}} cùng tên"
+    "sameName": "{{count}} cùng tên",
+    "builtin": "Tích hợp sẵn"
   },
   "card": {
     "noDescription": "Không có mô tả"
@@ -146,9 +147,10 @@
     "meta": {
       "author": "Tác giả",
       "version": "Phiên bản",
-      "localVersion": "Phiên bản trên máy",
       "downloads": "Lượt tải",
-      "license": "Giấy phép"
+      "license": "Giấy phép",
+      "installedVersion": "Đã cài đặt",
+      "availableVersion": "Cập nhật lên"
     },
     "story": {
       "vs": "vs",
@@ -282,7 +284,8 @@
         "shortcuts": "Tiện ích có thể lắng nghe tổ hợp phím đã đăng ký và kích hoạt thao tác của nó",
         "fileDecorations": "Tiện ích có thể hiển thị dấu trạng thái hoặc loại bên cạnh các mục tệp",
         "fileContextMenu": "Thao tác của tiện ích có thể xuất hiện trong menu chuột phải của tệp và thư mục",
-        "fileToolbar": "Tiện ích có thể thêm nút thao tác vào thanh công cụ của trình quản lý tệp"
+        "fileToolbar": "Tiện ích có thể thêm nút thao tác vào thanh công cụ của trình quản lý tệp",
+        "bottomPanel": "Bảng dưới"
       },
       "previewFlow": "Mũi tên cho biết hướng dữ liệu hoặc thao tác mà quyền này cho phép",
       "scopeTitle": "Phạm vi",
@@ -414,7 +417,8 @@
       "settingsWrite": "Thay đổi cài đặt ứng dụng mà hệ thống cung cấp cho tiện ích, có thể làm thay đổi hành vi ứng dụng.",
       "shellOpenExternal": "Mở liên kết bên ngoài do tiện ích chọn bằng trình duyệt hệ thống hoặc ứng dụng mặc định.",
       "uiSlotNewSessionContext": "Cho phép tiện ích hiển thị một khối bên dưới ô nhập phiên mới, chỉ khi bạn chọn một tác nhân hoặc nhóm của nó, hay nhắc đến một khả năng của nó.",
-      "conversationDraftRead": "Cho phép tiện ích đọc nội dung bạn đã nhập nhưng chưa gửi. Chỉ được cung cấp khi khối ngữ cảnh của tiện ích đó đang hiển thị."
+      "conversationDraftRead": "Cho phép tiện ích đọc nội dung bạn đã nhập nhưng chưa gửi. Chỉ được cung cấp khi khối ngữ cảnh của tiện ích đó đang hiển thị.",
+      "uiSlotBottomPanel": "Cho phép tiện ích đóng góp một thành phần vào bảng dưới của phiên; có thể mở nhiều thực thể và chia cạnh nhau."
     },
     "uiSlotGlobal": "Vị trí giao diện chung",
     "uiSlotAbilityDetail": "Hiển thị bảng cấu hình chi tiết",
@@ -475,7 +479,8 @@
     "settingsWrite": "Sửa cài đặt",
     "shellOpenExternal": "Mở liên kết bằng trình duyệt hệ thống",
     "uiSlotNewSessionContext": "Vị trí ngữ cảnh phiên mới",
-    "conversationDraftRead": "Đọc bản nháp trong ô nhập"
+    "conversationDraftRead": "Đọc bản nháp trong ô nhập",
+    "uiSlotBottomPanel": "Thành phần bảng dưới"
   },
   "meta": {
     "title": "Khác",

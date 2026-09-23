@@ -2,12 +2,11 @@
   "page": {
     "title": "Автоматизация",
     "subtitle": "Позвольте ИИ выполнять задачи по расписанию",
-    "newTask": "Новая задача",
-    "newTaskTitle": "Новая задача по расписанию"
+    "create": "Создать",
+    "searchPlaceholder": "Поиск задач автоматизации"
   },
   "recommend": {
     "title": "Рекомендуемые",
-    "use": "Использовать шаблон",
     "items": {
       "morningBrief": {
         "name": "Утренняя сводка",
@@ -29,43 +28,85 @@
       }
     }
   },
-  "dialog": {
-    "namePlaceholderEdit": "Название задачи",
-    "namePlaceholderNew": "Новая задача",
-    "cancel": "Отмена",
-    "save": "Сохранить",
-    "create": "Создать"
-  },
+  "dialog": {},
   "form": {
     "namePlaceholder": "Название задачи",
     "promptPlaceholder": "Введите промпт... наберите / для вызова навыков и сцен",
-    "selectWorkDir": "Выбрать рабочий каталог",
-    "conversation": "Диалог",
-    "modelEmpty": "Нет моделей",
-    "modelSelect": "Выбрать модель",
-    "defaultTag": "По умолчанию",
-    "enabled": "Включено",
-    "disabled": "Отключено",
-    "fullAccess": "Полный доступ",
-    "useSandbox": "Использовать песочницу",
-    "inherit": "Как по умолчанию ({{mode}})",
-    "sandbox": "песочница",
-    "sandboxUnavailable": "Песочница {{platform}} недоступна: {{reason}}",
-    "every": "Каждые",
-    "unitHours": "ч.",
-    "unitDays": "дн."
+    "name": "Название задачи",
+    "runTarget": "Запускать в",
+    "runMode": {
+      "new-session": "Новая сессия каждый раз",
+      "same-session": "Та же сессия"
+    },
+    "project": "Проект",
+    "projectNone": "Нет (диалог)",
+    "session": "Сессия",
+    "sessionHint": "Каждый запуск продолжается в этой сессии, поэтому её контекст постоянно накапливается",
+    "sessionNew": "Начать новую сессию",
+    "sessionMissing": "Связанная сессия больше не существует",
+    "model": "Модель",
+    "modelFollowDefault": "Следовать модели по умолчанию",
+    "repeat": "Повтор",
+    "time": "Время",
+    "atMinutePrefix": "В минуту",
+    "atMinuteSuffix": "каждого часа",
+    "monthlyShortMonthHint": "Месяцы, в которых нет выбранной даты (например, 30 февраля), пропускаются; выберите «Последний день», чтобы запускать в конце месяца",
+    "cronExpression": "Cron-выражение",
+    "cronHint": "минута час день месяц день недели, по местному времени; измените выражение напрямую — оно останется синхронным с полями выбора",
+    "cronAny": "Любой",
+    "cronTextOnly": "В этой части используется синтаксис, который нельзя задать полями выбора; измените выражение напрямую",
+    "cronField": {
+      "minute": "Мин",
+      "hour": "Час",
+      "day": "День",
+      "month": "Месяц",
+      "weekday": "День недели"
+    },
+    "notify": "Уведомление по вебхуку",
+    "notifyEndpoints": "Уведомлять",
+    "notifyGoSettings": "Вебхуков пока нет — добавьте в настройках",
+    "notifyEndpointDisabled": "Этот вебхук отключён, и отправка не выполняется",
+    "notifyWhen": "Отправлять",
+    "notifyWhenOption": {
+      "always": "Всегда",
+      "success": "Только при успехе",
+      "failure": "Только при ошибке"
+    },
+    "notifyTemplate": "Сообщение",
+    "notifyTemplateDefault": "{{name}} {{status}} ({{duration}})\n\n{{reply}}",
+    "variables": {
+      "name": "Задача",
+      "status": "Статус",
+      "startedAt": "Начало",
+      "duration": "Длительность",
+      "reply": "Ответ",
+      "error": "Ошибка"
+    },
+    "enabledLabel": "Включено",
+    "intervalPrefix": "Каждые",
+    "intervalSuffix": "минут",
+    "intervalHint": "Отсчёт начинается с момента сохранения; при изменении интервала отсчёт начинается заново",
+    "sectionDetails": "Детали",
+    "sectionFrequency": "Частота",
+    "sectionNotify": "Уведомление",
+    "intervalLabel": "Интервал",
+    "minuteLabel": "Минута",
+    "weekdays": "Дни недели",
+    "monthDays": "Дни"
   },
   "scheduleMode": {
     "once": "Однократно",
     "daily": "Ежедневно",
-    "interval": "Интервал"
+    "interval": "Интервал",
+    "hourly": "Ежечасно",
+    "weekly": "Еженедельно",
+    "monthly": "Ежемесячно",
+    "custom": "Настраиваемый"
   },
   "schedule": {
-    "once": "{{day}}.{{month}}.{{year}} {{time}}, однократно",
+    "once": "Однократно: {{date}} в {{time}}",
     "daily": "Ежедневно в {{time}}",
     "weekly": "Еженедельно: {{days}} в {{time}}",
-    "intervalOne": "Каждый час",
-    "interval": "Каждые {{hours}} ч.",
     "weekdayJoin": ", ",
     "weekdayNames": [
       "Вс",
@@ -75,13 +116,19 @@
       "Чт",
       "Пт",
       "Сб"
-    ]
+    ],
+    "hourly": "Каждый час в :{{minute}}",
+    "monthly": "Ежемесячно: {{days}} в {{time}}",
+    "monthDay": "{{day}} числа",
+    "lastDay": "Последний день",
+    "custom": "Настраиваемое",
+    "intervalMinutes": "Каждые {{minutes}} мин",
+    "intervalHours": "Каждые {{hours}} ч"
   },
   "list": {
     "running": "Выполняется",
     "pending": "Ожидает",
     "disabled": "Отключено",
-    "once": "Однократно",
     "runNow": "Запустить сейчас",
     "run": "Запустить",
     "sectionTitle": "Задачи автоматизации",
@@ -96,9 +143,21 @@
     "minutesAgo": "{{n}} мин назад",
     "hoursAgo": "{{n}} ч назад",
     "daysAgo": "{{n}} дн назад",
-    "fullAccess": "Полный доступ",
-    "useSandbox": "Использовать песочницу",
-    "inheritDefault": "Как по умолчанию"
+    "suspended": "На паузе",
+    "target": "{{mode}} · {{project}}",
+    "filter": {
+      "all": "Все",
+      "enabled": "Активные",
+      "paused": "На паузе",
+      "done": "Завершённые"
+    },
+    "emptySearch": "Подходящих автоматизаций нет",
+    "emptyFilter": "Здесь пока ничего нет",
+    "done": "Завершено",
+    "nextRun": "следующий запуск {{when}}",
+    "inMinutes": "через {{n}} мин",
+    "inHours": "через {{n}} ч",
+    "inDays": "через {{n}} дн"
   },
   "confirm": {
     "deleteTitle": "Удалить задачу «{{name}}»?",
@@ -106,20 +165,57 @@
     "delete": "Удалить",
     "cancel": "Отмена"
   },
-  "drawer": {
-    "close": "Закрыть",
-    "runNow": "Запустить сейчас",
-    "pause": "Приостановить",
-    "enable": "Включить",
-    "edit": "Изменить"
-  },
+  "drawer": {},
   "history": {
     "title": "История выполнения",
     "refresh": "Обновить",
     "empty": "Записей о выполнении нет",
-    "success": "Успешно",
-    "failed": "Ошибка",
-    "running": "Выполняется",
-    "aborted": "Прервано"
+    "status": {
+      "success": "Успешно",
+      "failed": "Ошибка",
+      "running": "Выполняется",
+      "aborted": "Прервано",
+      "skipped": "Пропущено",
+      "missed": "Пропущен запуск"
+    },
+    "reason": {
+      "previous-running": "Предыдущий запуск ещё выполнялся",
+      "app-not-running": "Приложение не было запущено",
+      "system-sleep": "Компьютер находился в спящем режиме"
+    },
+    "missedMany": "Пропущено запусков: {{times}}, до {{until}} · {{reason}}",
+    "notifyFailed": "Не удалось отправить уведомление: {{error}}"
+  },
+  "suspended": {
+    "session-deleted": "Связанная сессия удалена. Выберите сессию снова и включите автоматизацию.",
+    "project-removed": "Целевой проект удалён из боковой панели. Выберите проект снова и включите автоматизацию."
+  },
+  "notify": {
+    "status": {
+      "success": "выполнено",
+      "failed": "с ошибкой",
+      "aborted": "прервано"
+    },
+    "noEndpoint": "Все выбранные вебхуки отключены или удалены"
+  },
+  "detail": {
+    "status": {
+      "active": "Активна",
+      "running": "Выполняется",
+      "paused": "На паузе",
+      "suspended": "Пауза · цель недоступна",
+      "done": "Завершена",
+      "draft": "Новая автоматизация"
+    },
+    "close": "Закрыть",
+    "runNow": "Запустить сейчас",
+    "pause": "Приостановить",
+    "enable": "Включить",
+    "more": "Ещё",
+    "delete": "Удалить",
+    "openChat": "Открыть чат",
+    "discard": "Отменить",
+    "save": "Сохранить",
+    "create": "Создать"
   }
 }

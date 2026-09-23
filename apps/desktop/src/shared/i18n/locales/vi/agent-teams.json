@@ -163,7 +163,15 @@
     "renameTeam": "Đổi tên nhóm",
     "description": "Mô tả nhóm",
     "descriptionPlaceholder": "Mô tả nhóm này làm gì và phối hợp ra sao…",
-    "identity": "Nhận diện nhóm"
+    "identity": "Nhận diện nhóm",
+    "memberModel": "Mô hình cho thành viên này",
+    "providedDefinitionReadOnly": "Tiện ích mở rộng quản lý đội hình và nhiệm vụ của nhóm này. Mô hình của thành viên là cài đặt cá nhân của bạn và có thể thay đổi bên dưới.",
+    "memberModelInherit": "Theo mô hình của hội thoại",
+    "memberModelInheritHint": "Các lượt sau sẽ theo mô hình của hội thoại khi mô hình đó thay đổi.",
+    "memberModelFixedHint": "Các lượt sau dùng mô hình này kể cả khi mô hình của hội thoại thay đổi. Đặt mức suy luận trong menu mô hình.",
+    "memberModelUnavailable": "{{model}} không còn trong danh sách mô hình. Hãy chọn mô hình khác hoặc theo mô hình của hội thoại; hệ thống sẽ không tự chuyển.",
+    "automaticRetries": "Số lần tự khôi phục",
+    "automaticRetriesHelp": "Cho phép 0–10 lần tự khôi phục cho mỗi tác vụ mới (mặc định: 2). Đặt 0 để tắt. Khi đạt giới hạn, tiến độ được giữ nguyên và cần bạn xử lý."
   },
   "chat": {
     "hint": "Trưởng nhóm sẽ xử lý yêu cầu khi không chọn thành viên nào.",

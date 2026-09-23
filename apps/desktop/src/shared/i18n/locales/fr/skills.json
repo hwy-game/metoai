@@ -78,9 +78,10 @@
       "name": "Publier une capacité",
       "description": "Soumettez une compétence, une scène, un serveur MCP, une extension ou un lot de capacités à la place de marché Metoai, en couvrant les champs obligatoires, la localisation et le processus de validation."
     },
-    "vetta-blog": {
-      "name": "Blog Metoai",
-      "description": "Recherchez, testez, rédigez et relisez des articles de blog produits et techniques Metoai étayés par des preuves."
+    "vetta-blog": {},
+    "install-ability": {
+      "name": "Installer une capacité",
+      "description": "Installez des extensions, des compétences/scènes et des serveurs MCP dans le Metoai de cette machine, en rechargeant immédiatement lorsqu'une mise à jour d'extension laisse une version en attente."
     }
   }
 }

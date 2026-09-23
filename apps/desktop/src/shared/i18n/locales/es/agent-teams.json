@@ -163,7 +163,15 @@
     "renameTeam": "Cambiar el nombre del equipo",
     "description": "Descripción del equipo",
     "descriptionPlaceholder": "Describe qué hace este equipo y cómo colabora…",
-    "identity": "Identidad del equipo"
+    "identity": "Identidad del equipo",
+    "memberModel": "Modelo de este miembro",
+    "providedDefinitionReadOnly": "La extensión mantiene la plantilla y las asignaciones de este equipo. Los modelos de los miembros son tus ajustes personales y puedes cambiarlos abajo.",
+    "memberModelInherit": "Seguir el modelo de la conversación",
+    "memberModelInheritHint": "Los próximos turnos seguirán el modelo de la conversación cuando este cambie.",
+    "memberModelFixedHint": "Los próximos turnos usarán este modelo aunque cambie el modelo de la conversación. Configura el razonamiento en el menú del modelo.",
+    "memberModelUnavailable": "{{model}} ya no está en la lista de modelos. Elige otro modelo o sigue el modelo de la conversación; no cambiará automáticamente.",
+    "automaticRetries": "Intentos de recuperación automática",
+    "automaticRetriesHelp": "Permite entre 0 y 10 recuperaciones automáticas por tarea nueva (predeterminado: 2). Pon 0 para desactivarlas. Si se alcanza el límite, se conserva el progreso y se necesita tu intervención."
   },
   "chat": {
     "hint": "El líder del equipo atiende las solicitudes cuando no hay ningún miembro seleccionado.",

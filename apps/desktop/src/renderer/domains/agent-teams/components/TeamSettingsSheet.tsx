@@ -1,4 +1,9 @@
 import { useAgentAvatarResolver } from "@shared/agent-teams/agent-avatar";
+import { ModelSelect } from "@shared/components/ModelSelect";
+import { useModelOptions } from "@shared/components/ModelSelect/useModelOptions";
+import type { TeamMemberModelPreference, TeamMemberModelSelection } from "../../../../shared/agent-team-member-model";
+import { resolveReasoning } from "@shared/components/ModelSelect/resolveReasoning";
+import { DEFAULT_TEAM_AUTOMATIC_RETRIES } from "@vetta/agent-team";
 import type { AgentProfile, TeamDefinition, TeamMemberAssignment } from "@vetta/agent-team";
 import { AgentAvatarView } from "@vetta-org/theme-ui/chat";
 import { DetailDrawer, DetailDrawerEnter } from "@vetta-org/theme-ui/overlays";
@@ -70,6 +75,34 @@ export function TeamSettingsSheet({
 	const [assignmentAgentId, setAssignmentAgentId] = useState<string>();
 	const [saving, setSaving] = useState(false);
 	const [error, setError] = useState<string>();
+	const [memberModels, setMemberModels] = useState<Readonly<Record<string, TeamMemberModelPreference>>>({});
+	const [modelSaving, setModelSaving] = useState<string>();
+	const [modelError, setModelError] = useState<string>();
+	const { options: modelOptions } = useModelOptions();
+
+	useEffect(() => {
+		if (!open) return;
+		let active = true;
+		setMemberModels({});
+		void window.vetta.agentTeams.listMemberModels(team.id).then((models) => {
+			if (active) setMemberModels(models);
+		}).catch((cause: unknown) => {
+			if (active) setModelError(cause instanceof Error ? cause.message : String(cause));
+		});
+		return () => { active = false; };
+	}, [open, team.id]);
+
+	async function setMemberModel(memberId: string, selection: TeamMemberModelSelection | null): Promise<void> {
+		setModelSaving(memberId);
+		setModelError(undefined);
+		try {
+			setMemberModels(await window.vetta.agentTeams.setMemberModel(team.id, memberId, selection));
+		} catch (cause) {
+			setModelError(cause instanceof Error ? cause.message : String(cause));
+		} finally {
+			setModelSaving(undefined);
+		}
+	}
 
 	// 团队被外部保存（改名、拉拢成员）后重新起草，避免抽屉里留着旧修订。
 	useEffect(() => setDraft(assemblyDraftFromTeam(team)), [team]);
@@ -151,7 +184,7 @@ export function TeamSettingsSheet({
 								{readOnly ? (
 									<p className="flex items-start gap-1.5 rounded-lg bg-muted/60 px-3 py-2 text-[11px] text-muted-foreground">
 										<span className="icon-[solar--lock-keyhole-linear] mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-										<span>{t("center.providedReadOnly")}</span>
+										<span>{t("settings.providedDefinitionReadOnly")}</span>
 									</p>
 								) : (
 								<div className="flex flex-wrap items-center gap-2">
@@ -191,6 +224,7 @@ export function TeamSettingsSheet({
 										{error}
 									</p>
 								)}
+								{modelError && <p aria-live="polite" className="rounded-lg bg-destructive/10 px-3 py-2 text-[12px] text-destructive">{modelError}</p>}
 							</div>
 						</DetailDrawerEnter>
 
@@ -237,6 +271,18 @@ export function TeamSettingsSheet({
 											className="min-h-20 w-full resize-none rounded-xl border border-border/60 bg-background/50 px-3.5 py-2.5 text-[12px] leading-relaxed text-foreground caret-primary outline-none transition-colors placeholder:text-muted-foreground/50 hover:border-border focus:border-primary/50 focus:bg-background"
 										/>
 									</label>
+									<label className="flex flex-col gap-1.5">
+										<span className="text-[12px] font-medium text-foreground">{t("settings.automaticRetries")}</span>
+										<Input
+											type="number" min={0} max={10} step={1}
+											value={Number.isNaN(draft.maxAutomaticRetries) ? "" : draft.maxAutomaticRetries ?? DEFAULT_TEAM_AUTOMATIC_RETRIES}
+											onChange={(event) => setDraft((current) => ({ ...current, maxAutomaticRetries: event.target.valueAsNumber }))}
+											aria-label={t("settings.automaticRetries")}
+											aria-describedby="team-automatic-retries-help"
+											className="h-9"
+										/>
+										<span id="team-automatic-retries-help" className="text-[11px] text-muted-foreground">{t("settings.automaticRetriesHelp")}</span>
+									</label>
 								</>
 							)}
 						</DetailDrawerEnter>
@@ -255,6 +301,9 @@ export function TeamSettingsSheet({
 							<ul className="flex flex-col gap-1.5">
 								{members.map((member) => {
 									const isLeader = member.id === leaderId;
+									const memberId = team.members.find((candidate) => candidate.binding.agentProfileId === member.id)?.id;
+									const selectedModel = memberId ? memberModels[memberId]?.modelKey : undefined;
+									const modelUnavailable = Boolean(selectedModel && modelOptions.length > 0 && !modelOptions.some((option) => option.key === selectedModel));
 									return (
 										<li
 											key={member.id}
@@ -335,6 +384,23 @@ export function TeamSettingsSheet({
 													onOpen={() => setAssignmentAgentId(member.id)}
 												/>
 											)}
+											{memberId ? <div className="flex flex-col gap-1.5 border-t border-border/40 pt-2">
+												<span className="text-[11px] font-medium text-muted-foreground">{t("settings.memberModel")}</span>
+												<ModelSelect
+													value={selectedModel ?? null}
+													onChange={(value) => {
+														const defaultReasoning = resolveReasoning(modelOptions.find((option) => option.key === value))?.default;
+														void setMemberModel(memberId, value ? { modelKey: value, ...(defaultReasoning ? { reasoning: defaultReasoning } : {}) } : null);
+													}}
+													allowClear
+													disabled={modelSaving === memberId}
+													placeholder={selectedModel ?? t("settings.memberModelInherit")}
+													triggerClassName="w-full justify-between"
+													reasoning={selectedModel ? { value: memberModels[memberId]?.reasoning, onChange: (reasoning) => void setMemberModel(memberId, { modelKey: selectedModel, reasoning }) } : undefined}
+												/>
+												<span className="text-[11px] text-muted-foreground/70">{selectedModel ? t("settings.memberModelFixedHint") : t("settings.memberModelInheritHint")}</span>
+												{modelUnavailable ? <span role="status" className="text-[11px] text-destructive">{t("settings.memberModelUnavailable", { model: selectedModel })}</span> : null}
+											</div> : null}
 										</li>
 									);
 								})}
@@ -618,6 +684,7 @@ function SectionTitle({ children }: { readonly children: string }): JSX.Element 
 function sameDraft(left: TeamAssemblyDraft, right: TeamAssemblyDraft): boolean {
 	return (
 		left.name === right.name &&
+		left.maxAutomaticRetries === right.maxAutomaticRetries &&
 		(left.description ?? "") === (right.description ?? "") &&
 		left.leaderId === right.leaderId &&
 		left.memberIds.length === right.memberIds.length &&

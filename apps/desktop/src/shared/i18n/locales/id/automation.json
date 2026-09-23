@@ -2,12 +2,11 @@
   "page": {
     "title": "Otomatisasi",
     "subtitle": "Biarkan AI menjalankan tugas sesuai jadwal dan bebaskan waktu Anda",
-    "newTask": "Tugas Baru",
-    "newTaskTitle": "Tugas terjadwal baru"
+    "create": "Buat",
+    "searchPlaceholder": "Cari otomatisasi"
   },
   "recommend": {
     "title": "Direkomendasikan",
-    "use": "Gunakan templat",
     "items": {
       "morningBrief": {
         "name": "Ringkasan pagi",
@@ -29,43 +28,85 @@
       }
     }
   },
-  "dialog": {
-    "namePlaceholderEdit": "Nama tugas",
-    "namePlaceholderNew": "Tugas baru",
-    "cancel": "Batal",
-    "save": "Simpan",
-    "create": "Buat"
-  },
+  "dialog": {},
   "form": {
     "namePlaceholder": "Nama tugas",
     "promptPlaceholder": "Masukkan prompt... ketik / untuk memanggil keterampilan/scene",
-    "selectWorkDir": "Pilih direktori kerja",
-    "conversation": "Percakapan",
-    "modelEmpty": "Tidak ada model",
-    "modelSelect": "Pilih model",
-    "defaultTag": "Default",
-    "enabled": "Aktif",
-    "disabled": "Nonaktif",
-    "fullAccess": "Akses penuh",
-    "useSandbox": "Gunakan sandbox",
-    "inherit": "Ikuti default ({{mode}})",
-    "sandbox": "sandbox",
-    "sandboxUnavailable": "Sandbox {{platform}} tidak tersedia: {{reason}}",
-    "every": "Setiap",
-    "unitHours": "jam",
-    "unitDays": "hari"
+    "name": "Judul tugas",
+    "runTarget": "Jalankan di",
+    "runMode": {
+      "new-session": "Sesi baru setiap kali",
+      "same-session": "Sesi yang sama"
+    },
+    "project": "Proyek",
+    "projectNone": "Tidak ada (Percakapan)",
+    "session": "Sesi",
+    "sessionHint": "Setiap eksekusi berlanjut di sesi ini, sehingga konteksnya terus bertambah",
+    "sessionNew": "Mulai sesi baru",
+    "sessionMissing": "Sesi yang ditautkan sudah tidak ada",
+    "model": "Model",
+    "modelFollowDefault": "Ikuti model default",
+    "repeat": "Ulangi",
+    "time": "Waktu",
+    "atMinutePrefix": "Pada menit",
+    "atMinuteSuffix": "setiap jam",
+    "monthlyShortMonthHint": "Bulan yang tidak memiliki tanggal terpilih (mis. 30 Feb) akan dilewati; pilih \"Hari terakhir\" untuk berjalan di akhir bulan",
+    "cronExpression": "Ekspresi cron",
+    "cronHint": "menit jam hari bulan hari dalam seminggu, dalam waktu lokal; edit ekspresi langsung dan ekspresi tetap sinkron dengan pemilih",
+    "cronAny": "Sembarang",
+    "cronTextOnly": "Bagian ini memakai sintaks yang tidak dapat ditampilkan pemilih; edit ekspresi langsung",
+    "cronField": {
+      "minute": "Mnt",
+      "hour": "Jam",
+      "day": "Hari",
+      "month": "Bulan",
+      "weekday": "Hari dalam seminggu"
+    },
+    "notify": "Notifikasi webhook",
+    "notifyEndpoints": "Beri tahu",
+    "notifyGoSettings": "Belum ada webhook — tambahkan di Pengaturan",
+    "notifyEndpointDisabled": "Webhook ini nonaktif dan tidak akan mengirim",
+    "notifyWhen": "Kirim saat",
+    "notifyWhenOption": {
+      "always": "Selalu",
+      "success": "Hanya saat berhasil",
+      "failure": "Hanya saat gagal"
+    },
+    "notifyTemplate": "Pesan",
+    "notifyTemplateDefault": "{{name}} {{status}} ({{duration}})\n\n{{reply}}",
+    "variables": {
+      "name": "Tugas",
+      "status": "Status",
+      "startedAt": "Dimulai",
+      "duration": "Durasi",
+      "reply": "Balasan",
+      "error": "Kesalahan"
+    },
+    "enabledLabel": "Aktif",
+    "intervalPrefix": "Setiap",
+    "intervalSuffix": "menit",
+    "intervalHint": "Dihitung sejak Anda menyimpan; mengubah interval akan memulai ulang hitungan",
+    "sectionDetails": "Detail",
+    "sectionFrequency": "Frekuensi",
+    "sectionNotify": "Notifikasi",
+    "intervalLabel": "Interval",
+    "minuteLabel": "Menit",
+    "weekdays": "Hari dalam seminggu",
+    "monthDays": "Tanggal"
   },
   "scheduleMode": {
     "once": "Sekali",
     "daily": "Harian",
-    "interval": "Interval"
+    "interval": "Interval",
+    "hourly": "Per jam",
+    "weekly": "Mingguan",
+    "monthly": "Bulanan",
+    "custom": "Kustom"
   },
   "schedule": {
-    "once": "{{month}}/{{day}}/{{year}} {{time}}, sekali",
+    "once": "Sekali pada {{date}} {{time}}",
     "daily": "Setiap hari pukul {{time}}",
     "weekly": "Setiap minggu pada {{days}} pukul {{time}}",
-    "intervalOne": "Setiap jam",
-    "interval": "Setiap {{hours}} jam",
     "weekdayJoin": ", ",
     "weekdayNames": [
       "Min",
@@ -75,13 +116,19 @@
       "Kam",
       "Jum",
       "Sab"
-    ]
+    ],
+    "hourly": "Setiap jam pada :{{minute}}",
+    "monthly": "Setiap bulan pada {{days}} pukul {{time}}",
+    "monthDay": "tanggal {{day}}",
+    "lastDay": "Hari terakhir",
+    "custom": "Kustom",
+    "intervalMinutes": "Setiap {{minutes}} mnt",
+    "intervalHours": "Setiap {{hours}} jam"
   },
   "list": {
     "running": "Berjalan",
     "pending": "Menunggu",
     "disabled": "Nonaktif",
-    "once": "Sekali jalan",
     "runNow": "Jalankan sekarang",
     "run": "Jalankan",
     "sectionTitle": "Tugas otomatisasi",
@@ -96,9 +143,21 @@
     "minutesAgo": "{{n}} menit lalu",
     "hoursAgo": "{{n}} jam lalu",
     "daysAgo": "{{n}} hari lalu",
-    "fullAccess": "Akses penuh",
-    "useSandbox": "Gunakan sandbox",
-    "inheritDefault": "Ikuti default"
+    "suspended": "Dijeda",
+    "target": "{{mode}} · {{project}}",
+    "filter": {
+      "all": "Semua",
+      "enabled": "Aktif",
+      "paused": "Dijeda",
+      "done": "Selesai"
+    },
+    "emptySearch": "Tidak ada otomatisasi yang cocok",
+    "emptyFilter": "Belum ada apa pun di sini",
+    "done": "Selesai",
+    "nextRun": "jalan berikutnya {{when}}",
+    "inMinutes": "dalam {{n}} mnt",
+    "inHours": "dalam {{n}} jam",
+    "inDays": "dalam {{n}} hari"
   },
   "confirm": {
     "deleteTitle": "Hapus tugas \"{{name}}\"?",
@@ -106,20 +165,57 @@
     "delete": "Hapus",
     "cancel": "Batal"
   },
-  "drawer": {
-    "close": "Tutup",
-    "runNow": "Jalankan sekarang",
-    "pause": "Jeda",
-    "enable": "Aktifkan",
-    "edit": "Edit"
-  },
+  "drawer": {},
   "history": {
     "title": "Riwayat eksekusi",
     "refresh": "Segarkan",
     "empty": "Tidak ada catatan eksekusi",
-    "success": "Berhasil",
-    "failed": "Gagal",
-    "running": "Berjalan",
-    "aborted": "Dibatalkan"
+    "status": {
+      "success": "Berhasil",
+      "failed": "Gagal",
+      "running": "Berjalan",
+      "aborted": "Dibatalkan",
+      "skipped": "Dilewati",
+      "missed": "Terlewat"
+    },
+    "reason": {
+      "previous-running": "Eksekusi sebelumnya masih berjalan",
+      "app-not-running": "Aplikasi tidak sedang berjalan",
+      "system-sleep": "Komputer sedang tertidur"
+    },
+    "missedMany": "Terlewat {{times}} kali, hingga {{until}} · {{reason}}",
+    "notifyFailed": "Notifikasi gagal: {{error}}"
+  },
+  "suspended": {
+    "session-deleted": "Sesi yang ditautkan telah dihapus. Pilih sesi lagi, lalu aktifkan.",
+    "project-removed": "Proyek tujuan telah dihapus dari bilah samping. Pilih proyek lagi, lalu aktifkan."
+  },
+  "notify": {
+    "status": {
+      "success": "berhasil",
+      "failed": "gagal",
+      "aborted": "dibatalkan"
+    },
+    "noEndpoint": "Semua webhook yang dipilih dinonaktifkan atau dihapus"
+  },
+  "detail": {
+    "status": {
+      "active": "Aktif",
+      "running": "Berjalan",
+      "paused": "Dijeda",
+      "suspended": "Dijeda · target tidak tersedia",
+      "done": "Selesai",
+      "draft": "Otomatisasi baru"
+    },
+    "close": "Tutup",
+    "runNow": "Jalankan sekarang",
+    "pause": "Jeda",
+    "enable": "Aktifkan",
+    "more": "Lainnya",
+    "delete": "Hapus",
+    "openChat": "Buka obrolan",
+    "discard": "Buang",
+    "save": "Simpan",
+    "create": "Buat"
   }
 }

@@ -247,7 +247,25 @@
   "language": "Ngôn ngữ",
   "proxy": {
     "title": "Proxy",
-    "placeholder": "Ví dụ: http://127.0.0.1:7890"
+    "placeholder": "Ví dụ: http://127.0.0.1:7890",
+    "sectionTitle": "Proxy mạng",
+    "enableTitle": "Bật proxy cho ứng dụng",
+    "enableDescription": "Yêu cầu mô hình, lệnh cục bộ và tải xuống mặc định đều đi qua proxy này. Địa chỉ loopback (localhost / 127.0.0.1) luôn kết nối trực tiếp.",
+    "protocolTitle": "Loại proxy",
+    "hostTitle": "Máy chủ proxy",
+    "hostPlaceholder": "ví dụ: 127.0.0.1",
+    "portTitle": "Cổng",
+    "usernameTitle": "Tên người dùng",
+    "usernamePlaceholder": "Không bắt buộc",
+    "passwordTitle": "Mật khẩu",
+    "passwordPlaceholder": "Không bắt buộc",
+    "passwordStoredPlaceholder": "Đã lưu — để trống nếu muốn giữ nguyên",
+    "providersTitle": "Theo từng nhà cung cấp",
+    "providersDescription": "Mọi nhà cung cấp mặc định đều dùng proxy. Hãy tắt với những nhà cung cấp bạn truy cập trực tiếp nhanh hơn.",
+    "noProviders": "Chưa cấu hình nhà cung cấp nào.",
+    "invalidConfig": "Máy chủ proxy hoặc cổng không hợp lệ. Yêu cầu mô hình sẽ thất bại thay vì âm thầm chuyển sang kết nối trực tiếp.",
+    "providerLocal": "Dịch vụ thượng nguồn nằm trên máy này hoặc trong mạng LAN của bạn, nên chặng này không rời khỏi mạng và luôn kết nối trực tiếp. Cách dịch vụ đó ra internet là cấu hình riêng của nó.",
+    "providerFollowsGlobal": "SDK của nhà cung cấp này tự phát yêu cầu riêng và không thấy được transport được chèn vào, nên nó luôn theo proxy chung và không thể loại trừ riêng."
   },
   "workspace": {
     "title": "Không gian làm việc",
@@ -331,6 +349,10 @@
         "images": {
           "title": "Xử lý ảnh",
           "description": "Cấu hình chuẩn hóa ảnh, giới hạn an toàn, nén và ngân sách yêu cầu mô hình."
+        },
+        "compaction": {
+          "title": "Nén ngữ cảnh",
+          "description": "Kiểm soát lượng ngữ cảnh hội thoại dùng trước khi tự động nén và lượng hội thoại gần đây được giữ nguyên. Nén thủ công không bị ảnh hưởng."
         }
       },
       "vetta": {
@@ -411,6 +433,22 @@
           "word": "Từ",
           "document-tree": "Cây tài liệu"
         }
+      },
+      "enabled": {
+        "title": "Tự động nén",
+        "description": "Nén các hội thoại dài khi chúng gần đạt giới hạn của mô hình. Nén thủ công vẫn dùng được khi tắt tùy chọn này."
+      },
+      "reserveTokens": {
+        "title": "Ngưỡng khoảng trống còn lại (token)",
+        "description": "Tự động nén khi ngữ cảnh còn lại ít hơn mức này và mức dùng ngữ cảnh đã đạt ngưỡng phần trăm."
+      },
+      "contextThresholdPercent": {
+        "title": "Ngưỡng nén ngữ cảnh (%)",
+        "description": "Tự động nén khi mức dùng ngữ cảnh đạt tỷ lệ này và khoảng trống còn lại cũng thấp hơn ngưỡng token ở trên."
+      },
+      "keepRecentTokens": {
+        "title": "Hội thoại gần đây được giữ sau khi nén (token)",
+        "description": "Giữ gần đúng lượng này của hội thoại mới nhất ở dạng nguyên vẹn và tóm tắt nội dung cũ hơn. Giá trị cao hơn giữ được nhiều chi tiết gần đây hơn."
       }
     }
   },
@@ -1148,18 +1186,8 @@
   "ornamentNoneHint": "Để trống vị trí này cho trang gọn gàng hơn.",
   "ornamentViviTitle": "Vivi",
   "ornamentViviHint": "Chồn Vivi của Metoai — thỉnh thoảng chớp mắt, vẫy tay và bò ngang khung soạn thảo.",
-  "ornamentOrbitTitle": "Quỹ đạo",
-  "ornamentOrbitHint": "Quả cầu shader sống động, hoa văn uốn lượn chậm rãi trên bề mặt.",
-  "ornamentTorchTitle": "Đuốc",
-  "ornamentTorchHint": "Ngọn đuốc pixel với ngọn lửa chập chờn nhẹ; nhấp để tắt hoặc thắp lại.",
   "ornamentMarioTitle": "Mario",
   "ornamentMarioHint": "Một hàng khối pixel — đập vào khối dấu hỏi để làm bật ra cây nấm.",
-  "ornamentBlazeTitle": "Lửa cháy",
-  "ornamentBlazeHint": "Quả cầu lửa trong quầng sáng ấm, ngọn lửa cuộn xoáy khi ánh sáng đổi màu.",
-  "ornamentHandTitle": "Bàn tay gõ nhịp",
-  "ornamentHandHint": "Bàn tay đặt trên khung soạn thảo, các ngón gõ lần lượt; nhấp để nắm lại thành nắm đấm.",
-  "ornamentWellTitle": "Giếng năng lượng",
-  "ornamentWellHint": "Chiếc giếng lơ lửng giữa không trung, nước đọng ở miệng giếng và các hạt bay lên theo nón sáng.",
   "section_appearance-texture": "Họa tiết",
   "textureHint": "Nền phía sau toàn bộ trang phiên mới",
   "textureNoneTitle": "Không",
@@ -1399,8 +1427,9 @@
       },
       "automation": {
         "create": "Tạo tác vụ chạy theo lịch hằng ngày",
-        "enable": "Bật hoặc tạm dừng tác vụ theo lịch",
-        "list": "Hiện các tác vụ tự động hóa hiện tại của tôi"
+        "list": "Hiện các tác vụ tự động hóa hiện tại của tôi",
+        "interval": "Mỗi 30 phút, kiểm tra bản dựng trong cùng phiên",
+        "notify": "Thêm thông báo webhook khi thất bại cho một tự động hóa"
       },
       "im": {
         "enable": "Bật cầu nối IM Claw",
@@ -2122,5 +2151,50 @@
   "feishuManual": "Nhập App ID / App Secret thủ công",
   "feishuUnbindApp": "Hủy liên kết ứng dụng",
   "feishuQrExpired": "Mã QR đã hết hạn — hãy quét lại",
-  "pleaseBindFeishu": "Vui lòng thiết lập bot Feishu bằng mã QR trước"
+  "pleaseBindFeishu": "Vui lòng thiết lập bot Feishu bằng mã QR trước",
+  "section_general-network": "Proxy mạng",
+  "searchModels": "Tìm mô hình {{provider}}",
+  "clearModelSearch": "Xóa tìm kiếm mô hình",
+  "noMatchingModels": "Không có mô hình phù hợp",
+  "modelListLabel": "Danh sách mô hình {{provider}}",
+  "shortcutTogglePlanModeLabel": "Bật/tắt chế độ kế hoạch",
+  "shortcutTogglePlanModeDesc": "Bật hoặc tắt chế độ kế hoạch từ ô soạn tin: lập kế hoạch trước, thực thi sau khi bạn phê duyệt",
+  "tabSshHosts": "Máy chủ SSH",
+  "section_ssh-hosts-list": "Danh sách máy chủ",
+  "sshHostsDescription": "Đăng ký các máy từ xa có thể chạy dự án của bạn. Sau khi đăng ký, bạn có thể chọn một thư mục trên máy đó trong Thêm dự án, và lệnh cũng như thao tác sửa tệp của tác nhân sẽ diễn ra ở đó.",
+  "sshHostsEmpty": "Chưa có máy chủ nào",
+  "sshHostsEmptyHint": "Nếu bạn vẫn thường ssh vào các máy chủ, hãy nhập bí danh từ ~/.ssh/config. Bạn cũng có thể thêm thủ công.",
+  "sshAddHost": "Thêm máy chủ",
+  "sshEditHost": "Sửa",
+  "sshSaveHost": "Lưu máy chủ",
+  "sshRemove": "Xóa máy chủ",
+  "sshRemoveTitle": "Xóa máy chủ này?",
+  "sshRemoveConfirm": "“{{name}}” sẽ bị xóa khỏi danh sách. Tệp trên máy từ xa không bị ảnh hưởng. Nếu vẫn còn dự án trên máy chủ này, hãy xóa các dự án đó trước.",
+  "sshFieldTarget": "Đích kết nối",
+  "sshFieldTargetHint": "Một bí danh từ ~/.ssh/config (khuyến nghị), hoặc user@host. Nếu ssh kết nối được trong terminal của bạn thì Metoai cũng vậy.",
+  "sshFieldLabel": "Tên hiển thị",
+  "sshFieldLabelHint": "Mặc định lấy theo đích kết nối.",
+  "sshFieldPort": "Cổng",
+  "sshFieldIdentityFile": "Khóa riêng",
+  "sshFieldIdentityFileHint": "Để trống để dùng ssh-agent và các danh tính mặc định của OpenSSH.",
+  "sshTest": "Kiểm tra kết nối",
+  "sshTesting": "Đang kết nối",
+  "sshTestOk": "Đã kết nối ({{platform}})",
+  "sshTestFailed": "Không kết nối được. Nội dung bạn nhập đã được lưu — hãy kiểm tra đích và cổng, rồi thử lại.",
+  "sshTestDetails": "Chi tiết kỹ thuật",
+  "sshStatusConnected": "Đã kết nối",
+  "sshStatusUnverifiable": "Không kết nối được",
+  "sshStatusUnknown": "Chưa kết nối",
+  "sshImportFromConfig": "Nhập từ ssh config",
+  "sshImportNone": "Không tìm thấy bí danh mới. Máy chủ hiện có không bao giờ bị ghi đè.",
+  "sshImportDone": "Đã nhập {{count}} máy chủ.",
+  "sshPromptConfirmTitle": "Xác nhận danh tính của máy chủ này",
+  "sshPromptSecretTitle": "Cần thông tin xác thực để kết nối",
+  "sshPromptHost": "Máy chủ: {{host}}",
+  "sshPromptSecretLabel": "Mã bí mật",
+  "sshPromptCodeLabel": "Mã xác minh",
+  "sshPromptRemember": "Ghi nhớ (được mã hóa trên máy này, tự điền lần sau)",
+  "sshPromptSubmit": "Tiếp tục kết nối",
+  "sshPromptAccept": "Xác nhận và kết nối",
+  "sshPromptReject": "Hủy kết nối"
 }

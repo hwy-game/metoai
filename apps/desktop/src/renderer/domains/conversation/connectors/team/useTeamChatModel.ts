@@ -31,6 +31,8 @@ import {
 	createTeamChatSession,
 	loadTeamChatBootstrap,
 	loadTeamChatSession,
+	mergeTeamChatBootstrapSessions,
+	withTeamChatSnapshot,
 } from "./team-chat-session-service";
 import {
 	claimTeamSessionHandoff,
@@ -69,8 +71,15 @@ export function useTeamChatModel(
 	const selectedModel = useAtomValue(selectedModelAtom);
 	const reasoningByModel = useAtomValue(reasoningByModelAtom);
 	const [document, setDocument] = useState<AgentTeamDocument>();
-	const [snapshot, setSnapshot] = useState<DesktopTeamSessionSnapshot>();
+	const [storedSnapshot, setSnapshot] = useState<DesktopTeamSessionSnapshot>();
 	const [sessions, setSessions] = useState<readonly TeamSessionListItem[]>([]);
+	// Route params change before the loading effect clears the previous snapshot.
+	// Never expose a session from the previous route to send or the current view.
+	const snapshot =
+		storedSnapshot?.session.teamId === teamId &&
+		(!preferredSessionId || storedSnapshot.session.id === preferredSessionId)
+			? storedSnapshot
+			: undefined;
 	const session = snapshot?.session;
 	const effectiveModelKey = session?.modelSettings?.modelKey ?? selectedModel;
 	const effectiveReasoning =
@@ -143,7 +152,8 @@ export function useTeamChatModel(
 				? serializeInputSegments(segments)
 				: { text: next, memberMentions: [], tokens: [] };
 			setMemberMentionsByTeam((current) => ({ ...current, [draftScope]: serialized.memberMentions }));
-			setSelectedMemberIds([...new Set(serialized.memberMentions.map((mention) => mention.participantId))]);
+			const nextMemberIds = [...new Set(serialized.memberMentions.map((mention) => mention.participantId))];
+			setSelectedMemberIds((current) => (sameStrings(current, nextMemberIds) ? current : nextMemberIds));
 			const derived = deriveAttachments(activeSegments).map((attachment) => ({
 				path: attachment.path,
 				name: pathBasename(attachment.path),
@@ -167,6 +177,22 @@ export function useTeamChatModel(
 			setContextUsages(readSnapshotContextUsages(loaded.snapshot));
 			setSessions(loaded.sessions);
 			setStatus(snapshotHasRunningWork(loaded.snapshot) ? "streaming" : "ready");
+		},
+		[teamId],
+	);
+	const applyBootstrap = useCallback(
+		(bootstrap: Awaited<ReturnType<typeof loadTeamChatBootstrap>>) => {
+			startTeamTransition(() => {
+				setDocument(bootstrap.document);
+				const current = snapshotRef.current;
+				const fromSnapshot =
+					current?.session.teamId === teamId
+						? withTeamChatSnapshot(bootstrap.sessions, current)
+						: bootstrap.sessions;
+				const activeSessionId =
+					loadedSessionRef.current?.teamId === teamId ? loadedSessionRef.current.sessionId : undefined;
+				setSessions((existing) => mergeTeamChatBootstrapSessions(fromSnapshot, existing, activeSessionId));
+			});
 		},
 		[teamId],
 	);
@@ -209,10 +235,7 @@ export function useTeamChatModel(
 					void loadTeamChatBootstrap(teamId)
 						.then((bootstrap) => {
 							if (cancelled) return;
-							startTeamTransition(() => {
-								setDocument(bootstrap.document);
-								setSessions(bootstrap.sessions);
-							});
+							applyBootstrap(bootstrap);
 						})
 						.catch((cause: unknown) => {
 							console.warn("[agent-team] deferred Team bootstrap failed", {
@@ -235,10 +258,7 @@ export function useTeamChatModel(
 					void loadTeamChatBootstrap(teamId)
 						.then((bootstrap) => {
 							if (cancelled) return;
-							startTeamTransition(() => {
-								setDocument(bootstrap.document);
-								setSessions(bootstrap.sessions);
-							});
+							applyBootstrap(bootstrap);
 						})
 						.catch((cause: unknown) => {
 							if (!cancelled) setError({ message: errorMessage(cause) });
@@ -258,7 +278,7 @@ export function useTeamChatModel(
 			cancelled = true;
 			sessionCreationRef.current = undefined;
 		};
-	}, [teamId, preferredSessionId, createNewSession, applyLoadedSession]);
+	}, [teamId, preferredSessionId, createNewSession, applyBootstrap, applyLoadedSession]);
 
 	const openSession = useCallback(
 		async (sessionId: string) => {
@@ -349,19 +369,7 @@ export function useTeamChatModel(
 					snapshotRef.current = event.snapshot;
 					setSnapshot(event.snapshot);
 					if (titleChanged) {
-						setSessions((current) =>
-							current
-								.map((item) =>
-									item.id === event.teamSessionId
-										? {
-												...item,
-												title: event.snapshot.session.title ?? "",
-												updatedAt: event.snapshot.session.updatedAt,
-											}
-										: item,
-								)
-								.sort((left, right) => right.updatedAt - left.updatedAt),
-						);
+						setSessions((current) => withTeamChatSnapshot(current, event.snapshot));
 						notifyTeamSessionsChanged(teamId);
 					}
 				}
@@ -754,6 +762,7 @@ export function useTeamChatModel(
 						? next
 						: current,
 				);
+				setSessions((current) => withTeamChatSnapshot(current, next));
 				setContextUsages((current) => ({ ...current, ...readSnapshotContextUsages(next) }));
 				setError(undefined);
 				if (inFlightRequestIds.current.size <= 1) setStatus("ready");
@@ -898,10 +907,29 @@ export function useTeamChatModel(
 	// 自有工作空间标成 "conversation"，scope_use:["project"] 的插件就会出现「工具在
 	// Team 里可用、页签却永不上栏」的错位（scope_use 是 fail-closed 的）。
 	const pluginScenario: ConversationScenario = "project";
+	const feedKey = `${session?.id ?? preferredSessionId ?? teamId}:${memberViewId ?? "team"}`;
+	const workspace = useMemo(
+		() =>
+			createActivityWorkspace(
+				session?.workspaceId ?? `agent-team:${teamId}`,
+				session?.cwd ?? null,
+				activityRuntimeIds,
+			),
+		[activityRuntimeIds, session?.cwd, session?.workspaceId, teamId],
+	);
+	const runtimeSessionIds = useMemo(() => Object.values(memberRuntimeIds), [memberRuntimeIds]);
+	const sessionOptions = useMemo(
+		() =>
+			sessions.map((item, index) => ({
+				id: item.id,
+				label: item.title || t("chat.sessionLabel", { index: sessions.length - index }),
+			})),
+		[sessions, t],
+	);
 
 	const model = useMemo<TeamChatViewModel>(
 		() => ({
-			feedKey: `${session?.id ?? preferredSessionId ?? teamId}:${memberViewId ?? "team"}`,
+			feedKey,
 			title: team ? teamDisplayName(team, t) : t("teams.title"),
 			status: routeHandoff && !session ? "sending" : status,
 			draft,
@@ -919,14 +947,10 @@ export function useTeamChatModel(
 					(draft.trim() || attachments.length > 0) &&
 					!visiblePending,
 			),
-			workspace: createActivityWorkspace(
-				session?.workspaceId ?? `agent-team:${teamId}`,
-				session?.cwd ?? null,
-				activityRuntimeIds,
-			),
+			workspace,
 			pluginScenario,
 			activeSessionId: session?.id ?? (routeHandoff || pending ? (preferredSessionId ?? null) : null),
-			runtimeSessionIds: session ? Object.values(session.memberRuntime).map((runtime) => runtime.sessionId) : [],
+			runtimeSessionIds,
 			memberRuntimeIds,
 			...(memberViewId ? { memberViewId } : {}),
 			executionMode:
@@ -937,15 +961,12 @@ export function useTeamChatModel(
 			isCompacting,
 			modelKey: effectiveModelKey,
 			...(effectiveReasoning ? { reasoning: effectiveReasoning } : {}),
-			sessions: sessions.map((item, index) => ({
-				id: item.id,
-				label: item.title || t("chat.sessionLabel", { index: sessions.length - index }),
-			})),
+			sessions: sessionOptions,
 			sessionActionsDisabled: status === "loading" || Boolean(visiblePending),
 			labels,
 		}),
 		[
-			teamId,
+			feedKey,
 			team,
 			t,
 			status,
@@ -960,7 +981,7 @@ export function useTeamChatModel(
 			pending,
 			preferredSessionId,
 			routeHandoff,
-			sessions,
+			sessionOptions,
 			effectiveModelKey,
 			effectiveReasoning,
 			labels,
@@ -973,7 +994,8 @@ export function useTeamChatModel(
 			createNewSession,
 			snapshot?.display?.executionMode,
 			visiblePending,
-			activityRuntimeIds,
+			runtimeSessionIds,
+			workspace,
 		],
 	);
 	const actions = useMemo<TeamChatActions>(
@@ -1017,6 +1039,10 @@ function mergeAttachments(
 	const byPath = new Map(current.map((attachment) => [attachment.path, attachment]));
 	for (const attachment of additions) byPath.set(attachment.path, attachment);
 	return [...byPath.values()];
+}
+
+function sameStrings(left: readonly string[], right: readonly string[]): boolean {
+	return left === right || (left.length === right.length && left.every((value, index) => value === right[index]));
 }
 
 function toFileAttachment(path: string): TeamAttachmentViewModel {

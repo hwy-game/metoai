@@ -68,7 +68,8 @@
       "clearConversationMessage": "Cela supprimera {{count}} session(s) de conversation dans Chat tout en conservant les artefacts. Les sessions Claw ne sont pas concernées. Cette action est irréversible.",
       "clearClawTitle": "Effacer les enregistrements Claw",
       "clearClawMessage": "Cela supprimera {{count}} enregistrement(s) Claw tout en conservant les artefacts. Cette action est irréversible.",
-      "clearConfirm": "Effacer"
+      "clearConfirm": "Effacer",
+      "deleteBoundSessionHint": "L'automatisation « {{task}} » s'exécute dans cette session. La supprimer met cette automatisation en pause jusqu'à ce que vous choisissiez une autre session."
     },
     "time": {
       "justNow": "à l'instant",
@@ -92,7 +93,8 @@
     "newProject": "Nouveau projet",
     "openProject": "Ouvrir un projet",
     "importProject": "Importer un projet",
-    "more": "Plus"
+    "more": "Plus",
+    "addFromRemoteHost": "Ajouter depuis un hôte distant"
   },
   "contextMenu": {
     "openInFinder": "Afficher dans le Finder",
@@ -114,7 +116,8 @@
       "label": "Étiquettes",
       "new": "Nouvelle étiquette…",
       "manage": "Gérer les étiquettes…"
-    }
+    },
+    "createAutomation": "Créer une automatisation à partir de cette session"
   },
   "tagEditor": {
     "createTitle": "Nouvelle étiquette",
@@ -218,5 +221,32 @@
     "loading": "Chargement des extensions…",
     "missing": "Cette vue d'espace de travail n'existe plus. Retour à l'accueil.",
     "failed": "Cette vue d'espace de travail n'a pas pu s'afficher. Consultez les DevTools pour plus de détails."
+  },
+  "remotePicker": {
+    "title": "Ajouter un projet depuis un hôte distant",
+    "pickHost": "Choisir un hôte enregistré",
+    "loading": "Chargement…",
+    "noHosts": "Aucun hôte distant enregistré pour l'instant",
+    "noHostsHint": "Ajoutez-en un dans Paramètres → Hôtes SSH, ou importez les alias déjà présents dans ~/.ssh/config.",
+    "parent": "Dossier parent",
+    "emptyDir": "Aucun sous-dossier ici. Vous pouvez ajouter ce dossier comme projet.",
+    "browseFailed": "Impossible de lire ce dossier. La connexion est peut-être interrompue, ou ce compte n'a pas les autorisations nécessaires.",
+    "details": "Détails techniques",
+    "backToHosts": "Choisir un autre hôte",
+    "cancel": "Annuler",
+    "confirm": "Ajouter ce dossier comme projet",
+    "failedTitle": "Impossible d'ajouter ce projet"
+  },
+  "orphanRemote": {
+    "title": "L'hôte de ce projet ne figure plus dans votre liste d'hôtes",
+    "description": "L'hôte SSH vers lequel il pointe a été supprimé, ou a reçu une nouvelle identité lors d'un nouvel ajout. Choisissez l'hôte correspondant pour reconnecter le projet ; ses sessions restent intactes.",
+    "pickHost": "Sur quel hôte était-il ?",
+    "noHosts": "Aucun hôte n'est encore enregistré. Ajoutez d'abord cet hôte, puis revenez pour le lier.",
+    "addHost": "Ajouter un hôte",
+    "rebind": "Lier à cet hôte",
+    "rebinding": "Liaison…",
+    "hostInUse": "Cet hôte possède déjà {{count}} projet(s) ; le lier ici les déconnecterait. Choisissez un autre hôte, ou ajoutez à nouveau cette machine séparément pour ce projet.",
+    "notOrphaned": "Ce projet n'a plus besoin d'être relié. Essayez d'actualiser.",
+    "footnote": "L'hôte reprend l'identité enregistrée dans le projet. Si vous aviez choisi de mémoriser un mot de passe, il pourra vous être demandé une nouvelle fois."
   }
 }

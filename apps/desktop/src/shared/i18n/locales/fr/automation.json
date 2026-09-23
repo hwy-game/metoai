@@ -2,12 +2,11 @@
   "page": {
     "title": "Automatisation",
     "subtitle": "Laissez l'IA exécuter des tâches planifiées et libérez-vous du temps",
-    "newTask": "Nouvelle tâche",
-    "newTaskTitle": "Nouvelle tâche planifiée"
+    "create": "Créer",
+    "searchPlaceholder": "Rechercher des automatisations"
   },
   "recommend": {
     "title": "Recommandé",
-    "use": "Utiliser le modèle",
     "items": {
       "morningBrief": {
         "name": "Briefing matinal",
@@ -29,43 +28,85 @@
       }
     }
   },
-  "dialog": {
-    "namePlaceholderEdit": "Nom de la tâche",
-    "namePlaceholderNew": "Nouvelle tâche",
-    "cancel": "Annuler",
-    "save": "Enregistrer",
-    "create": "Créer"
-  },
+  "dialog": {},
   "form": {
     "namePlaceholder": "Nom de la tâche",
     "promptPlaceholder": "Saisissez une invite... tapez / pour invoquer des compétences/scènes",
-    "selectWorkDir": "Sélectionner le répertoire de travail",
-    "conversation": "Conversation",
-    "modelEmpty": "Aucun modèle",
-    "modelSelect": "Sélectionner un modèle",
-    "defaultTag": "Par défaut",
-    "enabled": "Activé",
-    "disabled": "Désactivé",
-    "fullAccess": "Accès complet",
-    "useSandbox": "Utiliser le bac à sable",
-    "inherit": "Suivre la valeur par défaut ({{mode}})",
-    "sandbox": "bac à sable",
-    "sandboxUnavailable": "Bac à sable {{platform}} indisponible : {{reason}}",
-    "every": "Toutes les",
-    "unitHours": "heures",
-    "unitDays": "jours"
+    "name": "Titre de la tâche",
+    "runTarget": "Exécuter dans",
+    "runMode": {
+      "new-session": "Nouvelle session à chaque fois",
+      "same-session": "Même session"
+    },
+    "project": "Projet",
+    "projectNone": "Aucun (conversation)",
+    "session": "Session",
+    "sessionHint": "Chaque exécution se poursuit dans cette session, son contexte s'enrichit donc progressivement",
+    "sessionNew": "Démarrer une nouvelle session",
+    "sessionMissing": "La session liée n'existe plus",
+    "model": "Modèle",
+    "modelFollowDefault": "Suivre le modèle par défaut",
+    "repeat": "Répéter",
+    "time": "Heure",
+    "atMinutePrefix": "À la minute",
+    "atMinuteSuffix": "de chaque heure",
+    "monthlyShortMonthHint": "Les mois sans la date choisie (par ex. le 30 février) sont ignorés ; choisissez « Dernier jour » pour exécuter en fin de mois",
+    "cronExpression": "Expression cron",
+    "cronHint": "minute heure jour mois jour de la semaine, en heure locale ; modifiez directement l'expression et elle reste synchronisée avec les sélecteurs",
+    "cronAny": "Indifférent",
+    "cronTextOnly": "Cette partie utilise une syntaxe que les sélecteurs ne peuvent pas afficher ; modifiez directement l'expression",
+    "cronField": {
+      "minute": "Min",
+      "hour": "Heure",
+      "day": "Jour",
+      "month": "Mois",
+      "weekday": "Jour de la semaine"
+    },
+    "notify": "Notification webhook",
+    "notifyEndpoints": "Notifier",
+    "notifyGoSettings": "Aucun webhook pour l'instant — ajoutez-en un dans les paramètres",
+    "notifyEndpointDisabled": "Ce webhook est désactivé et n'enverra rien",
+    "notifyWhen": "Envoyer quand",
+    "notifyWhenOption": {
+      "always": "Toujours",
+      "success": "Uniquement en cas de réussite",
+      "failure": "Uniquement en cas d'échec"
+    },
+    "notifyTemplate": "Message",
+    "notifyTemplateDefault": "{{name}} {{status}} ({{duration}})\n\n{{reply}}",
+    "variables": {
+      "name": "Tâche",
+      "status": "Statut",
+      "startedAt": "Début",
+      "duration": "Durée",
+      "reply": "Réponse",
+      "error": "Erreur"
+    },
+    "enabledLabel": "Activé",
+    "intervalPrefix": "Toutes les",
+    "intervalSuffix": "minutes",
+    "intervalHint": "Compté à partir de l'enregistrement ; modifier l'intervalle relance le décompte",
+    "sectionDetails": "Détails",
+    "sectionFrequency": "Fréquence",
+    "sectionNotify": "Notification",
+    "intervalLabel": "Intervalle",
+    "minuteLabel": "Minute",
+    "weekdays": "Jours de la semaine",
+    "monthDays": "Jours"
   },
   "scheduleMode": {
     "once": "Une fois",
     "daily": "Tous les jours",
-    "interval": "Intervalle"
+    "interval": "Intervalle",
+    "hourly": "Toutes les heures",
+    "weekly": "Chaque semaine",
+    "monthly": "Chaque mois",
+    "custom": "Personnalisé"
   },
   "schedule": {
-    "once": "{{month}}/{{day}}/{{year}} {{time}}, une fois",
+    "once": "Une fois le {{date}} à {{time}}",
     "daily": "Tous les jours à {{time}}",
     "weekly": "Chaque semaine le {{days}} à {{time}}",
-    "intervalOne": "Toutes les heures",
-    "interval": "Toutes les {{hours}} heures",
     "weekdayJoin": ", ",
     "weekdayNames": [
       "dim.",
@@ -75,13 +116,19 @@
       "jeu.",
       "ven.",
       "sam."
-    ]
+    ],
+    "hourly": "Toutes les heures à la minute :{{minute}}",
+    "monthly": "Chaque mois le {{days}} à {{time}}",
+    "monthDay": "jour {{day}}",
+    "lastDay": "Dernier jour",
+    "custom": "Personnalisé",
+    "intervalMinutes": "Toutes les {{minutes}} min",
+    "intervalHours": "Toutes les {{hours}} h"
   },
   "list": {
     "running": "En cours",
     "pending": "En attente",
     "disabled": "Désactivé",
-    "once": "Ponctuelle",
     "runNow": "Exécuter maintenant",
     "run": "Exécuter",
     "sectionTitle": "Tâches automatisées",
@@ -96,9 +143,21 @@
     "minutesAgo": "il y a {{n}} min",
     "hoursAgo": "il y a {{n}} h",
     "daysAgo": "il y a {{n}} j",
-    "fullAccess": "Accès complet",
-    "useSandbox": "Utiliser le bac à sable",
-    "inheritDefault": "Suivre la valeur par défaut"
+    "suspended": "En pause",
+    "target": "{{mode}} · {{project}}",
+    "filter": {
+      "all": "Tout",
+      "enabled": "Actives",
+      "paused": "En pause",
+      "done": "Terminées"
+    },
+    "emptySearch": "Aucune automatisation correspondante",
+    "emptyFilter": "Rien ici pour l'instant",
+    "done": "Terminée",
+    "nextRun": "prochaine exécution {{when}}",
+    "inMinutes": "dans {{n}} min",
+    "inHours": "dans {{n}} h",
+    "inDays": "dans {{n}} jours"
   },
   "confirm": {
     "deleteTitle": "Supprimer la tâche « {{name}} » ?",
@@ -106,20 +165,57 @@
     "delete": "Supprimer",
     "cancel": "Annuler"
   },
-  "drawer": {
-    "close": "Fermer",
-    "runNow": "Exécuter maintenant",
-    "pause": "Suspendre",
-    "enable": "Activer",
-    "edit": "Modifier"
-  },
+  "drawer": {},
   "history": {
     "title": "Historique d'exécution",
     "refresh": "Actualiser",
     "empty": "Aucun enregistrement d'exécution",
-    "success": "Réussi",
-    "failed": "Échec",
-    "running": "En cours",
-    "aborted": "Interrompu"
+    "status": {
+      "success": "Réussi",
+      "failed": "Échec",
+      "running": "En cours",
+      "aborted": "Interrompu",
+      "skipped": "Ignoré",
+      "missed": "Manqué"
+    },
+    "reason": {
+      "previous-running": "L'exécution précédente était encore en cours",
+      "app-not-running": "L'application n'était pas lancée",
+      "system-sleep": "L'ordinateur était en veille"
+    },
+    "missedMany": "Manqué {{times}} fois, jusqu'à {{until}} · {{reason}}",
+    "notifyFailed": "Échec de la notification : {{error}}"
+  },
+  "suspended": {
+    "session-deleted": "La session liée a été supprimée. Choisissez à nouveau une session, puis activez-la.",
+    "project-removed": "Le projet cible a été retiré de la barre latérale. Choisissez à nouveau un projet, puis activez-le."
+  },
+  "notify": {
+    "status": {
+      "success": "réussie",
+      "failed": "échouée",
+      "aborted": "interrompue"
+    },
+    "noEndpoint": "Tous les webhooks sélectionnés sont désactivés ou supprimés"
+  },
+  "detail": {
+    "status": {
+      "active": "Activée",
+      "running": "En cours",
+      "paused": "En pause",
+      "suspended": "En pause · cible indisponible",
+      "done": "Terminée",
+      "draft": "Nouvelle automatisation"
+    },
+    "close": "Fermer",
+    "runNow": "Exécuter maintenant",
+    "pause": "Suspendre",
+    "enable": "Activer",
+    "more": "Plus",
+    "delete": "Supprimer",
+    "openChat": "Ouvrir la conversation",
+    "discard": "Abandonner",
+    "save": "Enregistrer",
+    "create": "Créer"
   }
 }

@@ -78,9 +78,10 @@
       "name": "Publicar habilidad",
       "description": "Envía una habilidad, escena, servidor MCP, complemento o paquete de habilidades al mercado de Metoai, cubriendo los campos obligatorios, la localización y el proceso de revisión."
     },
-    "vetta-blog": {
-      "name": "Blog de Metoai",
-      "description": "Investiga, prueba, escribe y revisa artículos de blog técnicos y de producto de Metoai respaldados por evidencia."
+    "vetta-blog": {},
+    "install-ability": {
+      "name": "Instalar habilidad",
+      "description": "Instala complementos, habilidades/escenas y servidores MCP en el Metoai de este equipo, y recarga al instante cuando una actualización de complemento deja una versión pendiente."
     }
   }
 }

@@ -247,7 +247,25 @@
   "language": "Langue",
   "proxy": {
     "title": "Proxy",
-    "placeholder": "Exemple : http://127.0.0.1:7890"
+    "placeholder": "Exemple : http://127.0.0.1:7890",
+    "sectionTitle": "Proxy réseau",
+    "enableTitle": "Activer le proxy de l'application",
+    "enableDescription": "Les requêtes de modèles, les commandes locales et les téléchargements passent par ce proxy par défaut. Les adresses de bouclage (localhost / 127.0.0.1) se connectent toujours directement.",
+    "protocolTitle": "Type de proxy",
+    "hostTitle": "Hôte du proxy",
+    "hostPlaceholder": "ex. 127.0.0.1",
+    "portTitle": "Port",
+    "usernameTitle": "Nom d'utilisateur",
+    "usernamePlaceholder": "Facultatif",
+    "passwordTitle": "Mot de passe",
+    "passwordPlaceholder": "Facultatif",
+    "passwordStoredPlaceholder": "Enregistré — laissez vide pour le conserver",
+    "providersTitle": "Par fournisseur",
+    "providersDescription": "Chaque fournisseur utilise le proxy par défaut. Désactivez-le pour les fournisseurs que vous joignez plus vite en direct.",
+    "noProviders": "Aucun fournisseur configuré pour l'instant.",
+    "invalidConfig": "L'hôte ou le port du proxy est invalide. Les requêtes de modèles échoueront au lieu de revenir silencieusement à une connexion directe.",
+    "providerLocal": "Le service amont se trouve sur cette machine ou sur votre réseau local : ce saut ne quitte donc jamais le réseau et se connecte toujours directement. La façon dont ce service accède à Internet relève de sa propre configuration.",
+    "providerFollowsGlobal": "Le SDK de ce fournisseur émet ses propres requêtes et ne voit pas le transport injecté : il suit donc toujours le proxy global et ne peut pas en être exclu séparément."
   },
   "workspace": {
     "title": "Espace de travail",
@@ -331,6 +349,10 @@
         "images": {
           "title": "Traitement des images",
           "description": "Configurez la normalisation des images, les limites de sécurité, la compression et les budgets de requête des modèles."
+        },
+        "compaction": {
+          "title": "Compactage du contexte",
+          "description": "Contrôlez la quantité de contexte qu'une conversation utilise avant le compactage automatique et la part de conversation récente laissée inchangée. Le compactage manuel n'est pas concerné."
         }
       },
       "vetta": {
@@ -411,6 +433,22 @@
           "word": "Mots",
           "document-tree": "Arborescence de document"
         }
+      },
+      "enabled": {
+        "title": "Compactage automatique",
+        "description": "Compactez les longues conversations à mesure qu'elles approchent de la limite du modèle. Le compactage manuel reste disponible lorsque cette option est désactivée."
+      },
+      "reserveTokens": {
+        "title": "Seuil d'espace restant (jetons)",
+        "description": "Compactez automatiquement lorsqu'il reste moins de contexte que cette valeur et que l'utilisation du contexte a atteint le seuil en pourcentage."
+      },
+      "contextThresholdPercent": {
+        "title": "Seuil de compactage du contexte (%)",
+        "description": "Compactez automatiquement lorsque l'utilisation du contexte atteint ce pourcentage et que l'espace restant est aussi inférieur au seuil en jetons ci-dessus."
+      },
+      "keepRecentTokens": {
+        "title": "Conversation récente conservée après compactage (jetons)",
+        "description": "Conservez environ cette quantité de conversation récente inchangée et résumez le contenu plus ancien. Des valeurs plus élevées préservent davantage de détails récents."
       }
     }
   },
@@ -1148,18 +1186,8 @@
   "ornamentNoneHint": "Laisser l'emplacement vide pour une page plus épurée.",
   "ornamentViviTitle": "Vivi",
   "ornamentViviHint": "L'hermine de Metoai, Vivi — cligne des yeux, salue et traverse parfois le champ de saisie.",
-  "ornamentOrbitTitle": "Orbite",
-  "ornamentOrbitHint": "Un orbe de shader animé, dont les filigranes dérivent lentement à la surface.",
-  "ornamentTorchTitle": "Torche",
-  "ornamentTorchHint": "Une torche en pixels à la flamme vacillante ; cliquez dessus pour l'éteindre ou la rallumer.",
   "ornamentMarioTitle": "Mario",
   "ornamentMarioHint": "Une rangée de blocs en pixels — frappez le bloc question pour en faire sortir un champignon.",
-  "ornamentBlazeTitle": "Brasier",
-  "ornamentBlazeHint": "Une boule de feu dans un halo chaleureux, les flammes tourbillonnant tandis que la lueur change de teinte.",
-  "ornamentHandTitle": "Main qui tapote",
-  "ornamentHandHint": "Une main posée sur le champ de saisie, les doigts tambourinant l'un après l'autre ; cliquez dessus pour les replier en poing.",
-  "ornamentWellTitle": "Puits d'énergie",
-  "ornamentWellHint": "Un puits suspendu dans les airs, l'eau accumulée à son ouverture et des particules s'élevant le long du cône de lumière.",
   "section_appearance-texture": "Texture",
   "textureHint": "L'arrière-plan de toute la page de nouvelle session",
   "textureNoneTitle": "Aucun",
@@ -1399,8 +1427,9 @@
       },
       "automation": {
         "create": "Créer une tâche qui s'exécute selon une planification quotidienne",
-        "enable": "Activer ou suspendre une tâche planifiée",
-        "list": "Afficher mes tâches d'automatisation actuelles"
+        "list": "Afficher mes tâches d'automatisation actuelles",
+        "interval": "Toutes les 30 minutes, vérifier la compilation dans la même session",
+        "notify": "Ajouter une notification webhook en cas d'échec à une automatisation"
       },
       "im": {
         "enable": "Activer la passerelle IM Claw",
@@ -2122,5 +2151,50 @@
   "feishuManual": "Saisir l'App ID / l'App Secret manuellement",
   "feishuUnbindApp": "Dissocier l'application",
   "feishuQrExpired": "Le code QR a expiré — scannez à nouveau",
-  "pleaseBindFeishu": "Configurez d'abord le bot Feishu par QR"
+  "pleaseBindFeishu": "Configurez d'abord le bot Feishu par QR",
+  "section_general-network": "Proxy réseau",
+  "searchModels": "Rechercher dans les modèles {{provider}}",
+  "clearModelSearch": "Effacer la recherche de modèles",
+  "noMatchingModels": "Aucun modèle correspondant",
+  "modelListLabel": "Liste des modèles {{provider}}",
+  "shortcutTogglePlanModeLabel": "Activer/désactiver le mode plan",
+  "shortcutTogglePlanModeDesc": "Activez ou désactivez le mode plan depuis la zone de saisie : planifier d'abord, exécuter après votre approbation",
+  "tabSshHosts": "Hôtes SSH",
+  "section_ssh-hosts-list": "Liste des hôtes",
+  "sshHostsDescription": "Enregistrez des machines distantes pouvant héberger vos projets. Une fois enregistrée, vous pouvez choisir un dossier sur cette machine dans Ajouter un projet, et les commandes et modifications de fichiers de l'agent s'y dérouleront.",
+  "sshHostsEmpty": "Aucun hôte pour l'instant",
+  "sshHostsEmptyHint": "Si vous vous connectez déjà en ssh à des serveurs, importez les alias de ~/.ssh/config. Vous pouvez aussi en ajouter un manuellement.",
+  "sshAddHost": "Ajouter un hôte",
+  "sshEditHost": "Modifier",
+  "sshSaveHost": "Enregistrer l'hôte",
+  "sshRemove": "Supprimer l'hôte",
+  "sshRemoveTitle": "Supprimer cet hôte ?",
+  "sshRemoveConfirm": "« {{name}} » sera retiré de la liste. Les fichiers de la machine distante ne sont pas touchés. Si des projets se trouvent encore sur cet hôte, supprimez d'abord ces projets.",
+  "sshFieldTarget": "Cible de connexion",
+  "sshFieldTargetHint": "Un alias de ~/.ssh/config (recommandé), ou user@host. Si ssh y accède dans votre terminal, Metoai aussi.",
+  "sshFieldLabel": "Nom affiché",
+  "sshFieldLabelHint": "Par défaut, la cible de connexion.",
+  "sshFieldPort": "Port",
+  "sshFieldIdentityFile": "Clé privée",
+  "sshFieldIdentityFileHint": "Laissez vide pour utiliser ssh-agent et les identités par défaut d'OpenSSH.",
+  "sshTest": "Tester la connexion",
+  "sshTesting": "Connexion",
+  "sshTestOk": "Connecté ({{platform}})",
+  "sshTestFailed": "Connexion impossible. Ce que vous avez saisi est enregistré — vérifiez la cible et le port, puis réessayez.",
+  "sshTestDetails": "Détails techniques",
+  "sshStatusConnected": "Connecté",
+  "sshStatusUnverifiable": "Injoignable",
+  "sshStatusUnknown": "Non connecté",
+  "sshImportFromConfig": "Importer depuis la configuration ssh",
+  "sshImportNone": "Aucun nouvel alias trouvé. Les hôtes existants ne sont jamais écrasés.",
+  "sshImportDone": "{{count}} hôte(s) importé(s).",
+  "sshPromptConfirmTitle": "Confirmez l'identité de cet hôte",
+  "sshPromptSecretTitle": "Identifiants requis pour la connexion",
+  "sshPromptHost": "Hôte : {{host}}",
+  "sshPromptSecretLabel": "Secret",
+  "sshPromptCodeLabel": "Code de vérification",
+  "sshPromptRemember": "Mémoriser (chiffré sur cette machine, rempli la prochaine fois)",
+  "sshPromptSubmit": "Poursuivre la connexion",
+  "sshPromptAccept": "Confirmer et connecter",
+  "sshPromptReject": "Annuler la connexion"
 }

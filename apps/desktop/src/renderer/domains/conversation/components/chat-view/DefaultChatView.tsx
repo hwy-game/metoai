@@ -1,4 +1,5 @@
 import { ActivityPanel, CurrentScenarioActivityPanel } from "@domains/activity-panel/components/ActivityPanel";
+import { BottomPanelHost } from "@domains/bottom-panel/components/BottomPanelHost";
 import { cn } from "@shared/lib/utils";
 import { PerfSendProfiler } from "@shared/lib/perf-send";
 import type { ChatConversationItem } from "@shared/store/atoms";
@@ -8,13 +9,11 @@ import type { ConversationScenario } from "@vetta-org/plugin-sdk";
 import { memo, type ReactNode } from "react";
 import { ChatExportHost } from "../ChatExportHost";
 
-export const EMPTY_CHAT_MESSAGES: ChatConversationItem[] = [];
-
 export interface DefaultChatViewProps {
 	readonly children: ReactNode;
 	/** 消息流上方的常驻条（Team 的成员胶囊条就住在这里）。 */
 	readonly subHeader?: ReactNode;
-	readonly messages: ChatConversationItem[];
+	readonly messages: readonly ChatConversationItem[];
 	readonly workspace: ActivityWorkspace;
 	readonly rootClassName?: string;
 	readonly exportState?: {
@@ -29,37 +28,28 @@ export interface DefaultChatViewProps {
 	};
 }
 
-function sameStringList(left: readonly string[] | undefined, right: readonly string[] | undefined): boolean {
-	if (left === right) return true;
-	if (!left || !right || left.length !== right.length) return false;
-	return left.every((value, index) => value === right[index]);
+function sameIds(left: readonly string[], right: readonly string[]): boolean {
+	return left === right || (left.length === right.length && left.every((id, index) => id === right[index]));
 }
 
-function isSameWorkspace(left: ActivityWorkspace, right: ActivityWorkspace): boolean {
-	return left.id === right.id && left.cwd === right.cwd && sameStringList(left.runtimeIds, right.runtimeIds);
+function sameOptionalIds(left?: readonly string[], right?: readonly string[]): boolean {
+	if (!left || !right) return left === right;
+	return sameIds(left, right);
 }
 
-function isSameActivity(
+function sameActivity(
 	left: DefaultChatViewProps["activity"],
 	right: DefaultChatViewProps["activity"],
 ): boolean {
 	if (left === right) return true;
 	if (!left || !right) return false;
-	return (
-		left.enablePluginTabs === right.enablePluginTabs &&
+	return left.enablePluginTabs === right.enablePluginTabs &&
 		left.pluginScenario === right.pluginScenario &&
-		sameStringList(left.enabledBuiltinTabs, right.enabledBuiltinTabs)
-	);
+		sameOptionalIds(left.enabledBuiltinTabs, right.enabledBuiltinTabs);
 }
 
-const FrozenActivityColumn = memo(
-	function FrozenActivityColumn({
-		workspace,
-		activity,
-	}: {
-		workspace: ActivityWorkspace;
-		activity?: DefaultChatViewProps["activity"];
-	}) {
+const ActivityColumn = memo(
+	function ActivityColumn({ workspace, activity }: Pick<DefaultChatViewProps, "workspace" | "activity">) {
 		return activity ? (
 			<ActivityPanel
 				workspace={workspace}
@@ -71,7 +61,11 @@ const FrozenActivityColumn = memo(
 			<CurrentScenarioActivityPanel workspace={workspace} />
 		);
 	},
-	(previous, next) => isSameWorkspace(previous.workspace, next.workspace) && isSameActivity(previous.activity, next.activity),
+	(previous, next) =>
+		previous.workspace.id === next.workspace.id &&
+		previous.workspace.cwd === next.workspace.cwd &&
+		sameIds(previous.workspace.runtimeIds, next.workspace.runtimeIds) &&
+		sameActivity(previous.activity, next.activity),
 );
 
 export function DefaultChatView({
@@ -90,11 +84,21 @@ export function DefaultChatView({
 					<ChatExportHost messages={messages} title={exportState.title} onFinished={exportState.onFinished} />
 				) : null}
 				<div className="flex min-h-0 flex-1 gap-2 overflow-visible">
-					<div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+					{/*
+					 * 用 clip + clip-margin 代替 overflow-hidden：活动面板收起时底部面板要铺到
+					 * 窗口边缘，右边得越过这一行的 gap-2 再加 AppFrame 的 p-2（共 16px），
+					 * 而消息流本身仍然需要被裁住。
+					 */}
+					<div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-clip [overflow-clip-margin:16px]">
 						{subHeader}
 						{children}
+						{/*
+						 * 底部面板住在消息列内部，宽度跟着消息列走、不伸到活动面板下方：
+						 * 活动面板是与消息流并列的一列，横穿它的底边会把两列看成一块。
+						 */}
+						<BottomPanelHost />
 					</div>
-					<FrozenActivityColumn workspace={workspace} activity={activity} />
+					<ActivityColumn workspace={workspace} activity={activity} />
 				</div>
 			</div>
 		</PerfSendProfiler>

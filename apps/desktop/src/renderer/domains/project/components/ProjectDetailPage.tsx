@@ -5,11 +5,22 @@ import { BatchQueueStatus } from "./BatchQueueStatus";
 import { useProjectDetailPageModel } from "../hooks/useProjectDetailPageModel";
 import { useActiveSessionRuntimeIds } from "@shared/workspace/active-session-runtime";
 import { createActivityWorkspace } from "@shared/workspace/activity-workspace";
+import { useParams } from "@tanstack/react-router";
+import { OrphanRemoteProjectGuard } from "./orphan-remote/OrphanRemoteProjectGuard";
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
-export function ProjectDetailPage({ cwd }: { cwd?: string } = {}): JSX.Element {
-	const model = useProjectDetailPageModel(cwd);
+export function ProjectDetailPage(): JSX.Element {
+	const { cwd } = useParams({ strict: false }) as { cwd?: string };
+	return (
+		<OrphanRemoteProjectGuard cwd={cwd ? decodeURIComponent(cwd) : null}>
+			<ProjectDetailPageContent />
+		</OrphanRemoteProjectGuard>
+	);
+}
+
+function ProjectDetailPageContent(): JSX.Element {
+	const model = useProjectDetailPageModel();
 	const activeRuntimeIds = useActiveSessionRuntimeIds();
 
 	const batchSection =

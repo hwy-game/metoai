@@ -68,7 +68,8 @@
       "clearConversationMessage": "Se eliminarán {{count}} sesiones de conversación de Chat y se conservarán los artefactos. Las sesiones de Claw no se ven afectadas. Esto no se puede deshacer.",
       "clearClawTitle": "Borrar registros de Claw",
       "clearClawMessage": "Se eliminarán {{count}} registros de Claw y se conservarán los artefactos. Esto no se puede deshacer.",
-      "clearConfirm": "Borrar"
+      "clearConfirm": "Borrar",
+      "deleteBoundSessionHint": "La automatización \"{{task}}\" se ejecuta en esta sesión. Si la eliminas, esa automatización se pausará hasta que elijas otra sesión."
     },
     "time": {
       "justNow": "ahora",
@@ -92,7 +93,8 @@
     "newProject": "Nuevo proyecto",
     "openProject": "Abrir proyecto",
     "importProject": "Importar proyecto",
-    "more": "Más"
+    "more": "Más",
+    "addFromRemoteHost": "Añadir desde un host remoto"
   },
   "contextMenu": {
     "openInFinder": "Mostrar en Finder",
@@ -114,7 +116,8 @@
       "label": "Etiquetas",
       "new": "Nueva etiqueta…",
       "manage": "Gestionar etiquetas…"
-    }
+    },
+    "createAutomation": "Crear una automatización desde esta sesión"
   },
   "tagEditor": {
     "createTitle": "Nueva etiqueta",
@@ -218,5 +221,32 @@
     "loading": "Cargando complementos…",
     "missing": "Esta vista del espacio de trabajo ya no existe. Volviendo al inicio.",
     "failed": "No se pudo mostrar esta vista del espacio de trabajo. Consulta DevTools para más detalles."
+  },
+  "remotePicker": {
+    "title": "Añadir un proyecto desde un host remoto",
+    "pickHost": "Elige un host registrado",
+    "loading": "Cargando…",
+    "noHosts": "Aún no hay hosts remotos registrados",
+    "noHostsHint": "Añade uno en Ajustes → Hosts SSH, o importa los alias que ya tengas en ~/.ssh/config.",
+    "parent": "Carpeta superior",
+    "emptyDir": "Aquí no hay subcarpetas. Puedes añadir esta carpeta como proyecto.",
+    "browseFailed": "No se pudo leer esta carpeta. Puede que la conexión esté caída o que esta cuenta no tenga permisos.",
+    "details": "Detalles técnicos",
+    "backToHosts": "Elegir otro host",
+    "cancel": "Cancelar",
+    "confirm": "Añadir esta carpeta como proyecto",
+    "failedTitle": "No se pudo añadir este proyecto"
+  },
+  "orphanRemote": {
+    "title": "El host de este proyecto ya no está en tu lista de hosts",
+    "description": "El host SSH al que apunta se eliminó o recibió una identidad nueva al volver a añadirlo. Elige el host correspondiente para reconectar el proyecto; sus sesiones se conservan intactas.",
+    "pickHost": "¿En qué host estaba?",
+    "noHosts": "Aún no hay hosts registrados. Añade este host primero y vuelve después para vincularlo.",
+    "addHost": "Añadir un host",
+    "rebind": "Vincular a este host",
+    "rebinding": "Vinculando…",
+    "hostInUse": "Este host ya tiene {{count}} proyecto(s); vincularlo aquí los dejaría desconectados. Elige otro host o añade esta máquina de nuevo por separado para este proyecto.",
+    "notOrphaned": "Este proyecto ya no necesita volver a vincularse. Prueba a actualizar.",
+    "footnote": "El host asume la identidad registrada en el proyecto. Si elegiste recordar la contraseña, puede que te la pida una vez más."
   }
 }

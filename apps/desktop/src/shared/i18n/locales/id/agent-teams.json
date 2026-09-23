@@ -163,7 +163,15 @@
     "renameTeam": "Ubah nama tim",
     "description": "Deskripsi tim",
     "descriptionPlaceholder": "Jelaskan apa yang dilakukan tim ini dan bagaimana mereka berkolaborasi…",
-    "identity": "Identitas tim"
+    "identity": "Identitas tim",
+    "memberModel": "Model untuk anggota ini",
+    "providedDefinitionReadOnly": "Ekstensi mengelola susunan dan penugasan tim ini. Model anggota adalah pengaturan pribadi Anda dan dapat diubah di bawah.",
+    "memberModelInherit": "Ikuti model percakapan",
+    "memberModelInheritHint": "Giliran berikutnya mengikuti model percakapan saat model itu berubah.",
+    "memberModelFixedHint": "Giliran berikutnya memakai model ini meskipun model percakapan berubah. Atur penalaran di menu model.",
+    "memberModelUnavailable": "{{model}} tidak lagi ada dalam daftar model. Pilih model lain atau ikuti model percakapan; model tidak akan beralih otomatis.",
+    "automaticRetries": "Percobaan pemulihan otomatis",
+    "automaticRetriesHelp": "Izinkan 0–10 pemulihan otomatis per tugas baru (default: 2). Setel ke 0 untuk menonaktifkan. Progres tetap tersimpan saat batas tercapai dan Anda perlu menanganinya."
   },
   "chat": {
     "hint": "Ketua tim menangani permintaan saat tidak ada anggota yang dipilih.",

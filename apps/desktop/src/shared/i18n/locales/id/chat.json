@@ -7,7 +7,9 @@
       "backgroundTasks": "Tugas latar belakang",
       "debug": "Debug",
       "knowledgeHistory": "Riwayat pemrosesan",
-      "workflow": "Alur kerja"
+      "workflow": "Alur kerja",
+      "plan": "Rencana",
+      "ports": "Penerusan port"
     },
     "backgroundTasks": {
       "statusRunning": "Berjalan",
@@ -92,7 +94,9 @@
       "pause": "Jeda",
       "enable": "Aktifkan",
       "executionRecords": "Catatan eksekusi",
-      "noRecords": "Tidak ada catatan eksekusi"
+      "noRecords": "Tidak ada catatan eksekusi",
+      "statusSkipped": "Dilewati",
+      "statusMissed": "Terlewat"
     },
     "htmlPreview": {
       "title": "Pratinjau HTML"
@@ -109,6 +113,55 @@
       "statusInterrupted": "Terputus",
       "processingTitle": "{{count}} alur kerja sedang berjalan",
       "doneTitle": "Semua alur kerja selesai"
+    },
+    "ports": {
+      "heading": "Layanan jarak jauh",
+      "runningStat": "{{count}} berjalan",
+      "forwardedStat": "{{count}} diteruskan",
+      "sectionForwarded": "Diteruskan",
+      "sectionRunning": "Berjalan",
+      "manualTitle": "Teruskan port",
+      "remotePortLabel": "Port jarak jauh",
+      "localPortLabel": "Port lokal",
+      "empty": "Belum ada yang berjalan di host jarak jauh",
+      "emptyHint": "Jalankan server di host jarak jauh (misalnya npm run dev) dan server akan muncul di sini; klik Teruskan untuk membukanya di komputer ini.",
+      "remotePortPlaceholder": "mis. 3000",
+      "localPortPlaceholder": "Sama",
+      "localPortPrefix": "localhost:",
+      "add": "Teruskan",
+      "addManual": "Masukkan nomor port",
+      "forward": "Teruskan",
+      "preview": "Pratinjau",
+      "openExternal": "Buka di peramban sistem",
+      "copyAddress": "Salin alamat",
+      "copied": "Tersalin",
+      "changeLocalPort": "Ubah port lokal",
+      "stop": "Hentikan penerusan",
+      "retry": "Coba lagi",
+      "refresh": "Pindai lagi",
+      "statusActive": "Diteruskan",
+      "statusReconnecting": "Menghubungkan ulang",
+      "statusFailed": "Penerusan dihentikan",
+      "scanUnsupported": "Host ini tidak memiliki pemindai port (ss / netstat / lsof). Masukkan nomor port untuk meneruskannya.",
+      "scanFailed": "Tidak dapat membaca port host jarak jauh",
+      "fromOutput": "Keluaran tugas",
+      "notListening": "Tidak ada lagi yang mendengarkan di port ini",
+      "publicBind": "Mendengarkan di semua antarmuka: komputer lain di jaringan jarak jauh dapat mengaksesnya",
+      "justNow": "baru saja",
+      "terminate": "Hentikan proses",
+      "forceTerminate": "Hentikan paksa",
+      "terminateConfirm": "Hentikan {{name}}?",
+      "terminateStubborn": "{{name}} mengabaikan sinyal henti dan masih berjalan. Klik Hentikan paksa untuk mematikannya.",
+      "terminateFailed": "Tidak dapat menghentikan {{name}}: {{reason}}",
+      "sensitiveToggle": "{{count}} port sistem",
+      "sensitiveHint": "Port istimewa (di bawah 1024) dan port yang dipakai koneksi SSH ini. Menghentikannya dapat memutus koneksi, jadi port tersebut tidak dapat dihentikan dari sini.",
+      "unnamedToggle": "{{count}} port dengan proses tidak diketahui",
+      "unnamedHint": "Proses pemiliknya tidak dapat dibaca, biasanya karena milik pengguna lain.",
+      "ephemeralToggle": "{{count}} port sementara lainnya (di atas 32768)",
+      "invalidPort": "Masukkan nomor port antara 1 dan 65535"
+    },
+    "plan": {
+      "headline": "Rencana saat ini"
     }
   },
   "fileExplorer": {
@@ -174,6 +227,19 @@
       "prepareFailed": "Tidak dapat membaca berkas yang dijatuhkan",
       "commitFailed": "Transfer berkas gagal",
       "failedCount": "{{count}} item gagal ditransfer"
+    },
+    "display": {
+      "invalidPatterns": "Gunakan maksimal 100 pola, masing-masing tidak lebih dari 1024 karakter",
+      "title": "Pengaturan tampilan berkas",
+      "showHidden": "Tampilkan dotfile dan folder",
+      "exclude": "Pola pengecualian",
+      "excludeHint": "Satu pola relatif ruang kerja per baris, mis. **/node_modules atau **/*.log. Kosongkan untuk menampilkan semua berkas biasa.",
+      "iconTheme": "Tema ikon berkas",
+      "builtin": "Ikon bawaan",
+      "unavailable": "Tema yang dipilih tidak tersedia (memakai ikon bawaan)",
+      "apply": "Terapkan pola pengecualian",
+      "reset": "Kembalikan tampilan default",
+      "saveFailed": "Tidak dapat menyimpan pengaturan tampilan. Coba lagi."
     }
   },
   "fileEditor": {
@@ -282,7 +348,17 @@
     "pinButton": {
       "pinned": "Lepas sematan jendela",
       "unpinned": "Sematkan jendela (selalu di atas)"
-    }
+    },
+    "bottomPanelButton": {
+      "closed": "Buka panel bawah",
+      "open": "Tutup panel bawah"
+    },
+    "terminalButton": {
+      "focused": "Terminal",
+      "open": "Buka terminal",
+      "unavailable": "Terminal lokal tidak tersedia"
+    },
+    "remoteBadge": "Jarak jauh"
   },
   "contextRing": {
     "tooltip": {
@@ -358,7 +434,8 @@
       "label": "Dalam sandbox",
       "title": "Hanya izinkan akses terbatas di dalam ruang kerja"
     },
-    "sandboxUnavailable": "Sandbox {{platform}} tidak tersedia: {{reason}}"
+    "sandboxUnavailable": "Sandbox {{platform}} tidak tersedia: {{reason}}",
+    "sandboxUnavailableRemote": "Sandbox tidak tersedia untuk proyek jarak jauh: sandbox hanya membatasi proses di komputer ini, sedangkan perintah proyek jarak jauh berjalan di host jarak jauh"
   },
   "export": {
     "shareNavDescription": "membagikan sebuah sesi",
@@ -388,6 +465,9 @@
     "knowledgeRetrieval": {
       "label": "Pencarian pengetahuan",
       "tooltip": "Saat aktif, giliran ini dapat memanggil alat basis pengetahuan dan mengutamakan jawaban dari basis pengetahuan Anda"
+    },
+    "planMode": {
+      "label": "Mode rencana"
     }
   },
   "inputBar": {
@@ -511,9 +591,7 @@
       }
     },
     "assistantFoldTip": {
-      "collapse": "Ciutkan {{count}} item",
       "collapseLabel": "Ciutkan",
-      "expand": "Perluas {{count}} item",
       "expandLabel": "Perluas",
       "streaming": "Memproses · {{duration}}",
       "waiting": "Menunggu · {{duration}}",
@@ -730,18 +808,12 @@
       "showMascot": "Tampilkan maskot",
       "playOnce": "Putar animasi maskot saat ini sekali"
     },
-    "torch": {
-      "light": "Nyalakan obor",
-      "extinguish": "Padamkan obor"
-    },
+    "torch": {},
     "mario": {
       "hit": "Munculkan jamur",
       "reset": "Kembalikan jamur"
     },
-    "hand": {
-      "rest": "Istirahatkan tangan",
-      "tap": "Buat tangan mengetuk lagi"
-    },
+    "hand": {},
     "projectSelector": {
       "placeholder": "Pilih proyek",
       "clear": "Tanpa proyek",
@@ -938,5 +1010,95 @@
     "actionCreate": "Buat halaman",
     "actionUpdate": "Perbarui halaman",
     "originalLocation": "Asli: {{path}}"
+  },
+  "bottomPanel": {
+    "tablist": "Tab panel bawah",
+    "closeTab": "Tutup",
+    "tabFailed": "Panel ini gagal dirender",
+    "pillsGroup": "Panel bawah",
+    "empty": {
+      "title": "Panel bawah kosong",
+      "description": "Pilih panel untuk ditambahkan.",
+      "pickerLabel": "Panel yang dapat Anda tambahkan"
+    },
+    "actions": {
+      "add": "Panel baru",
+      "splitRight": "Bagi ke kanan",
+      "splitDown": "Bagi ke bawah",
+      "splitLimit": "Batas pembagian tercapai",
+      "collapse": "Ciutkan panel bawah"
+    },
+    "addMenu": {
+      "builtinGroup": "Bawaan",
+      "pluginGroup": "Plugin",
+      "instanceLimit": "Batas instance tercapai untuk panel ini"
+    },
+    "closeConfirm": {
+      "title": "Tutup panel ini?",
+      "message": "Pekerjaan yang sedang berjalan di dalam panel akan terputus.",
+      "confirm": "Tutup"
+    },
+    "terminal": {
+      "title": "Terminal",
+      "exited": "[proses keluar dengan kode {{code}}]",
+      "previousOutput": "-- keluaran di atas berasal dari sesi sebelumnya (proses berakhir) --",
+      "unavailable": "Terminal tidak dapat dijalankan di lingkungan ini",
+      "noResize": "Host ini tidak memiliki helper yang terpasang, sehingga ukuran terminal tetap dan tidak mengikuti jendela.",
+      "replayTruncated": "[keluaran sebelumnya dihilangkan]",
+      "closeConfirm": {
+        "title": "Tutup terminal?",
+        "message": "“{{process}}” masih berjalan; menutup terminal akan mengakhirinya.",
+        "confirm": "Tutup dan akhiri proses"
+      }
+    }
+  },
+  "planMode": {
+    "entryCard": {
+      "moreSteps": "{{count}} langkah lagi",
+      "open": "Lihat rencana",
+      "stepCount": "{{count}} langkah",
+      "title": "Rencana implementasi"
+    },
+    "review": {
+      "approve": "Setujui dan mulai",
+      "back": "Kembali",
+      "commentOnStep": "Komentari langkah {{number}}",
+      "dismiss": "Putuskan nanti",
+      "doneEditing": "Selesai mengedit",
+      "edit": "Edit rencana",
+      "edited": "Diedit",
+      "editorLabel": "Teks rencana",
+      "feedbackLabel": "Apa yang perlu diubah?",
+      "feedbackPlaceholder": "Misalnya: jangan sentuh migrasi basis data; bagi langkah 3 menjadi dua…",
+      "requestChanges": "Minta perubahan",
+      "resetEdits": "Setel ulang",
+      "sendFeedback": "Kirim umpan balik",
+      "sendFeedbackWithComments": "Kirim umpan balik ({{count}})",
+      "stepCommentPlaceholder": "Bagaimana langkah ini harus diubah…",
+      "subtitle": "Metoai mulai bekerja dari rencana ini setelah Anda menyetujuinya. Tidak ada yang diubah sebelum itu.",
+      "title": "Ada rencana yang menunggu persetujuan Anda"
+    },
+    "switchFailed": "Tidak dapat beralih mode rencana",
+    "toolCard": {
+      "approved": "Disetujui",
+      "changesRequested": "Dikembalikan untuk perubahan",
+      "dismissed": "Belum diputuskan",
+      "pending": "Menunggu persetujuan Anda",
+      "title": "Rencana"
+    }
+  },
+  "subagentCard": {
+    "back": "Kembali ke sesi induk",
+    "open": "Lihat pesan dari subagen {{name}}",
+    "viewerSubtitle": "Pesan subagen (hanya baca)",
+    "waitingForSession": "Sesi subagen sedang disiapkan",
+    "status": {
+      "queued": "Dalam antrean",
+      "pending": "Menyiapkan",
+      "running": "Berjalan",
+      "completed": "Selesai",
+      "failed": "Gagal",
+      "interrupted": "Terputus"
+    }
   }
 }
