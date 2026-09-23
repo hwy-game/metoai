@@ -32,11 +32,12 @@ export const PET_VIDEO_SCALE_MIN = 0.4;
 export const PET_VIDEO_SCALE_MAX = 2.5;
 export const PET_VIDEO_SCALE_STEP = 0.01;
 export const DEFAULT_PET_VIDEO_SCALE = 1;
-export const PET_CONFIG_SCHEMA_VERSION = 4;
+export const PET_CONFIG_SCHEMA_VERSION = 5;
 
 export const DEFAULT_PET_CONFIG: PetConfig = {
 	schemaVersion: PET_CONFIG_SCHEMA_VERSION,
-	enabled: true,
+	// 默认不显示桌宠：它浮在桌面上，首次安装就弹出来更像打扰而不是功能。
+	enabled: false,
 	autoMode: true,
 	alwaysOnTop: true,
 	size: 220,
