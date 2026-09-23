@@ -1,6 +1,6 @@
 {
 	"name": "@vetta/desktop",
-	"version": "0.5.60",
+	"version": "0.5.61",
 	"description": "Metoai Desktop App",
 	"author": "Metoai",
 	"type": "module",
