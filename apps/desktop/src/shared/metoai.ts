@@ -20,6 +20,12 @@ export const METOAI_BASE_URL = `${METOAI_SITE_URL}/v1`;
 export const METOAI_DISPLAY_NAME = "MetaToken";
 export const METOAI_ICON = "metaai";
 /**
+ * 品牌标识（renderer 资产，相对 renderer 根目录，见 `src/renderer/public/`）。
+ * 引导屏与首启向导的登录页共用；`METOAI_ICON` 是 provider 图标位，指向 Meta 的商标，
+ * 不能拿它当 MetaToken 的品牌标识。
+ */
+export const METOAI_LOGO_SRC = "./metoai-logo.png";
+/**
  * 站点 API 前缀。个人中心(登录/余额/Key/充值)与能力市场走这套接口,
  * 与 /v1 的中转接口不同域:前者是控制台契约,后者是 OpenAI 兼容契约。
  */

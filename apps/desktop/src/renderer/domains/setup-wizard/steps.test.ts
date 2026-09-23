@@ -20,23 +20,37 @@ describe("getSetupWizardSteps", () => {
 		flags.mac = true;
 	});
 
-	it("完全体构建包含登录步", () => {
-		expect(getSetupWizardSteps()).toEqual(["languageAppearance", "permissions", "login", "welcome"]);
+	it("MetaToken 登录步紧跟「语言与外观」", () => {
+		expect(getSetupWizardSteps()).toEqual(["languageAppearance", "metoai", "permissions", "login", "welcome"]);
 	});
 
 	it("已登录用户跳过登录步", () => {
-		expect(getSetupWizardSteps({ isLoggedIn: true })).toEqual(["languageAppearance", "permissions", "welcome"]);
+		expect(getSetupWizardSteps({ isLoggedIn: true })).toEqual([
+			"languageAppearance",
+			"metoai",
+			"permissions",
+			"welcome",
+		]);
 	});
 
-	it("lite 构建（无云服务）不引导登录", () => {
+	it("lite 构建（无云服务）不引导云登录，但保留 MetaToken 步", () => {
 		flags.cloud = false;
-		expect(getSetupWizardSteps()).toEqual(["languageAppearance", "permissions", "welcome"]);
+		expect(getSetupWizardSteps()).toEqual(["languageAppearance", "metoai", "permissions", "welcome"]);
 	});
 
-	it("非 macOS 跳过权限步；lite 下同样不含登录步", () => {
+	it("已接入 MetaToken（有 Key 或已登录）时不再引导登录", () => {
+		expect(getSetupWizardSteps({ isMetoAiReady: true })).toEqual([
+			"languageAppearance",
+			"permissions",
+			"login",
+			"welcome",
+		]);
+	});
+
+	it("非 macOS 跳过权限步；lite 下同样不含云登录步", () => {
 		flags.mac = false;
-		expect(getSetupWizardSteps()).toEqual(["languageAppearance", "login", "welcome"]);
+		expect(getSetupWizardSteps()).toEqual(["languageAppearance", "metoai", "login", "welcome"]);
 		flags.cloud = false;
-		expect(getSetupWizardSteps()).toEqual(["languageAppearance", "welcome"]);
+		expect(getSetupWizardSteps()).toEqual(["languageAppearance", "metoai", "welcome"]);
 	});
 });

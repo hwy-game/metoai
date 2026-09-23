@@ -1,5 +1,6 @@
 import { FilePreviewDialog } from "../domains/file-preview/components/FilePreviewDialog";
 import { KnowledgeDropOverlay } from "../domains/knowledge-base/components/KnowledgeDropOverlay";
+import { MetoAiGate } from "../domains/metoai/MetoAiGate";
 import { PluginGlobalSlotHost } from "../domains/plugins/components/PluginGlobalSlotHost";
 import { SetupWizard } from "../domains/setup-wizard";
 import { ActionApprovalCenter } from "../shared/action-approval/ActionApprovalCenter";
@@ -66,6 +67,12 @@ export function RootGlobalOverlays(): JSX.Element {
 			<PluginGlobalSlotHost />
 			<ThemedKnowledgeDropOverlay />
 			<ThemedToaster />
+			{/*
+			 * MetaToken 首次接入引导：必须排在 SetupWizard 之前——两者都是 z-[100] 全屏层，
+			 * DOM 靠后的向导才能盖住它，用户才会先看到「语言与外观」而不是登录页。
+			 * 向导里的登录步结束后会写「跳过」标记，这里便不再弹出。
+			 */}
+			<MetoAiGate />
 			{/* 首次启动引导：盖在其它 overlay 之上；完成后写 localStorage 并通知 SidebarTour */}
 			<SetupWizard />
 			{/* 强制更新：阻塞式覆盖层，服务端策略要求且更新源给出可下载版本时才渲染 */}

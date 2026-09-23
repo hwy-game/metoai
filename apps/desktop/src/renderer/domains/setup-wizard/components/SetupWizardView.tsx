@@ -1,18 +1,22 @@
 import { cn } from "@shared/lib/utils";
 import { Button } from "@vetta-org/ui";
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
+import { useCallback } from "react";
 import type { SetupWizardModel } from "../hooks/useSetupWizard";
 import type { SetupWizardStepId } from "../steps";
 import { CloudLoginStep } from "@shared/components/cloud-slots";
+import { MetoAiLoginStep } from "@domains/metoai/MetoAiLoginStep";
 import { LanguageAppearanceStep } from "./steps/LanguageAppearanceStep";
 import { PermissionsStep } from "./steps/PermissionsStep";
 import { WelcomeStep } from "./steps/WelcomeStep";
 
 function StepBody({
 	onLoginSuccess,
+	onMetoAiSuccess,
 	step,
 }: {
 	onLoginSuccess: () => void;
+	onMetoAiSuccess: () => void;
 	step: SetupWizardStepId;
 }): JSX.Element {
 	switch (step) {
@@ -20,6 +24,9 @@ function StepBody({
 			return <PermissionsStep />;
 		case "languageAppearance":
 			return <LanguageAppearanceStep />;
+		case "metoai":
+			// 用「仍停在这一步才前进」的动作：本步的完成回调可能迟到（退出动画期间 Key 刚落盘）。
+			return <MetoAiLoginStep onSuccess={onMetoAiSuccess} />;
 		case "login":
 			// lite 构建下 steps 列表不含 login，此分支不可达（槽位渲染 null 兜底）
 			return <CloudLoginStep onSuccess={onLoginSuccess} />;
@@ -74,6 +81,11 @@ function StepIndicator({
 }
 
 export function SetupWizardView({ model }: { model: SetupWizardModel }): JSX.Element | null {
+	// Hook 要放在下面这个提前 return 之前：向导关闭时它同样会被渲染一次，
+	// Hook 数量不能随 open 变化（设置 →「启动App引导」会把向导再打开一次）。
+	// nextIfCurrent 本身是稳定引用，据此绑定步骤，避免每次渲染都换一个新的回调。
+	const onMetoAiSuccess = useCallback(() => model.actions.nextIfCurrent("metoai"), [model.actions.nextIfCurrent]);
+
 	if (!model.open) return null;
 
 	const { actions, currentStep, isFirst, isLast, labels, stepIndex, totalSteps } = model;
@@ -102,7 +114,7 @@ export function SetupWizardView({ model }: { model: SetupWizardModel }): JSX.Ele
 							exit={{ opacity: 0, y: -10, filter: "blur(6px)" }}
 							transition={{ duration: 0.32, ease: easeOut }}
 						>
-							<StepBody step={currentStep} onLoginSuccess={actions.next} />
+							<StepBody onLoginSuccess={actions.next} onMetoAiSuccess={onMetoAiSuccess} step={currentStep} />
 						</motion.div>
 					</AnimatePresence>
 				</div>
