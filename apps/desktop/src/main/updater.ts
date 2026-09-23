@@ -17,6 +17,7 @@ import { handOffToInstaller, MACOS_SHIPIT_JOB_LABEL } from "./mac-installer-hand
 import { runQuitCleanup } from "./quit-cleanup.js";
 import { downloadUpdatePackage } from "./update-download.js";
 import { fetchUpdatePolicy, resolveUpdatePlatform } from "./update-policy.js";
+import { readE2eUpdatePolicy } from "./update-policy-e2e.js";
 import { markPendingUpdateRelaunch } from "./update-relaunch-marker.js";
 import { ElectronUpdaterEngine } from "./updater-engine.js";
 import { type UpdaterPhase, UpdaterService, type UpdaterState } from "./updater-service.js";
@@ -141,6 +142,9 @@ export const updaterService = new UpdaterService(updaterEngine, currentVersion, 
 	policyProvider: () => {
 		// 开发态不打网络：直接当作「没有可交付的更新」，行为与改造前一致。
 		if (!app.isPackaged) return Promise.resolve(null);
+		// 打包 E2E 访问不到控制台，用环境变量提供策略替身；生产构建里这段读不到。
+		const e2ePolicy = readE2eUpdatePolicy(process.env, currentVersion);
+		if (e2ePolicy) return Promise.resolve(e2ePolicy);
 		return fetchUpdatePolicy({
 			version: currentVersion,
 			platform: resolveUpdatePlatform(process.platform),

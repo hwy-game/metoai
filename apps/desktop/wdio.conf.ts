@@ -4,7 +4,7 @@ import { homedir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { Server } from "node:http";
-import { startUpdateFeedFixture } from "./e2e/update-feed-fixture.mjs";
+import { incrementPatch, startUpdateFeedFixture, updatePolicyFixture } from "./e2e/update-feed-fixture.mjs";
 import {
 	resolveElectronE2eServiceOptions,
 	resolveElectronE2eSpecRetryOptions,
@@ -145,7 +145,12 @@ export const config = {
 		});
 		updateFeedServer = fixture.server;
 		process.env.VETTA_E2E_UPDATE_URL = fixture.url;
-		console.log(`[wdio] packaged E2E update feed: ${fixture.url}`);
+		// 版本检测只认服务端登记（docs/adr/0120），而 CI 里的产物指向真实站点、无法登记测试
+		// 版本，所以由测试登记一个比本机更高的版本。feed 是否送得到它仍由平台决定：Linux 的
+		// fixture 会提供这个版本（走真实下载），Windows/macOS 只提供本机版本（收敛成无更新）。
+		const registeredVersion = incrementPatch(packageVersion);
+		process.env.VETTA_E2E_UPDATE_POLICY = JSON.stringify(updatePolicyFixture(registeredVersion));
+		console.log(`[wdio] packaged E2E update source: feed=${fixture.url} registered=${registeredVersion}`);
 	},
 	onComplete: () => {
 		updateFeedServer?.close();

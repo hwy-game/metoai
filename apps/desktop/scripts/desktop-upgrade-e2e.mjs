@@ -1,3 +1,4 @@
+import { updatePolicyFixture } from "../e2e/update-feed-fixture.mjs";
 import { createWriteStream } from "node:fs";
 import { chmod, mkdir, readFile, rename, rm, writeFile } from "node:fs/promises";
 import { spawn } from "node:child_process";
@@ -194,6 +195,9 @@ async function main() {
 		VETTA_E2E: "1",
 		VETTA_E2E_UPGRADE: "1",
 		VETTA_E2E_UPDATE_URL: baseUrl,
+		// 版本检测只认服务端登记（docs/adr/0120）：这次升级在真实控制台上没有登记记录，用策略
+		// 替身把「候选版本已登记」告诉客户端，否则检查只会收敛成「没有更新」而永远装不上。
+		VETTA_E2E_UPDATE_POLICY: JSON.stringify(updatePolicyFixture(candidateVersion)),
 		VETTA_E2E_UPGRADE_STATE: state,
 		VETTA_HOME: home,
 		VETTA_CONFIG_DIR: ".vetta-upgrade-e2e",
