@@ -33,7 +33,42 @@ describe("Desktop release workflow contracts", () => {
 
 	it("verifies the public update feed after either publish target", () => {
 		expect(workflow.match(/node scripts\/verify-update-feed\.mjs/g)).toHaveLength(2);
-		expect(workflow.match(/needs: \[prepare, quality, build\]/g)).toHaveLength(2);
+		// 两个 publish job 都排在 release-gate 之后：由 gate 决定本次真正产出的平台清单。
+		expect(workflow.match(/needs: \[prepare, quality, release-gate\]/g)).toHaveLength(2);
+		expect(
+			workflow.match(/VETTA_UPDATE_FEED_PLATFORMS: \$\{\{ needs\.release-gate\.outputs\.built-platforms \}\}/g),
+		).toHaveLength(2);
+	});
+
+	// mac 是尽力而为平台：没有 Apple 凭据时它的失败不该作废整轮发布，但 windows / linux
+	// 的缺失必须仍然拦住 publish。
+	it("keeps macOS best-effort without letting a missing Windows or Linux build publish", () => {
+		expect(workflow).toContain("continue-on-error: $" + "{{ matrix.bestEffort == true }}");
+		// 只有两条 mac matrix 条目带 bestEffort，windows / linux 不带。
+		expect(workflow.match(/bestEffort: true/g)).toHaveLength(2);
+
+		const gateJob = workflow.slice(workflow.indexOf("\n  release-gate:"), workflow.indexOf("\n  publish-r2:"));
+		expect(workflow).toContain("\n  release-gate:");
+		expect(gateJob).toContain("if: always()");
+		expect(gateJob).toContain("built-platforms: $" + "{{ steps.platforms.outputs.built-platforms }}");
+		expect(gateJob).toContain("name: desktop-windows");
+		expect(gateJob).toContain("name: desktop-linux");
+		expect(gateJob).toContain("if-no-files-found: error");
+		expect(gateJob).toContain("name: desktop-macos-arm64");
+		expect(gateJob).toContain("name: desktop-macos-x64");
+		expect(gateJob).toContain("if-no-files-found: ignore");
+		expect(gateJob).toContain("release/windows/latest.yml");
+		expect(gateJob).toContain("release/linux/latest-linux.yml");
+		expect(gateJob).toContain("release/macos-*/latest-mac-*.yml");
+		expect(gateJob).toContain("Required release platforms produced no updater metadata");
+	});
+
+	// 缺凭据不再让 tag 构建整轮失败；维护者配好真证书后可以用仓库变量重新收紧。
+	it("lets maintainers re-tighten macOS signing through a repository variable", () => {
+		expect(workflow).toContain("REQUIRE_RELEASE_SIGNATURE: $" + "{{ vars.MACOS_REQUIRE_SIGNATURE }}");
+		expect(workflow).not.toContain("REQUIRE_RELEASE_SIGNATURE: $" + "{{ needs.prepare.outputs.should-publish");
+		expect(workflow).toContain("the macOS artifacts are ad-hoc signed");
+		expect(workflow).toContain("GITHUB_STEP_SUMMARY");
 	});
 
 	it("runs packaged boot and updater E2E on every release platform", () => {

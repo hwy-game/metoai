@@ -227,6 +227,9 @@ jobs:
     name: build ${{ matrix.platform }}
     needs: [prepare, quality]
     if: needs.prepare.outputs.should-build == 'true'
+    # mac 是尽力而为平台：它的失败会显示为红色 job，但不让整轮发布作废（windows / linux
+    # 缺失会被 release-gate 拦下）。只有两条 mac matrix 条目带 bestEffort。
+    continue-on-error: ${{ matrix.bestEffort == true }}
     runs-on: ${{ matrix.runner }}
     # macOS 发布构建要对内置 node/python 运行时和各个 sidecar 二进制逐个签名再上传
     # 公证，比未签名构建多出 10~30 分钟，托管 runner 上还要叠加 packaged E2E。
@@ -251,11 +254,13 @@ jobs:
             command: dist:mac:arm64
             verify: verify:updates:mac
             macArch: arm64
+            bestEffort: true
           - platform: macos-x64
             runner: macos-15-intel
             command: dist:mac:x64
             verify: verify:updates:mac
             macArch: x64
+            bestEffort: true
           - platform: linux
             runner: ubuntu-latest
             command: dist:linux
@@ -302,7 +307,9 @@ jobs:
           SECRET_APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
           SECRET_APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
           SECRET_APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-          REQUIRE_RELEASE_SIGNATURE: ${{ needs.prepare.outputs.should-publish == 'true' }}
+          # 缺凭据时是否硬失败由仓库 / Environment 变量决定：默认不失败（走 ad-hoc 签名），
+          # 配好真证书后把 MACOS_REQUIRE_SIGNATURE 设为 true 即可重新收紧。
+          REQUIRE_RELEASE_SIGNATURE: ${{ vars.MACOS_REQUIRE_SIGNATURE }}
         run: |
           # 托管 runner 上凭据全部来自下面的 CI Secret。这个分支只在 runner 自身环境
           # 已经提供凭据时生效（自持签名机把它们放在 runner 目录的 .env 里）。
@@ -338,13 +345,23 @@ jobs:
             fi
           done
           if [[ "${PROVIDED}" -eq 0 ]]; then
-            # 任何会进入发布 job 的构建都必须使用生产级签名；只有不发布的
-            # workflow_dispatch 构建才允许生成未签名包供本地调试。
+            # 缺凭据不再让整轮发布作废：mac 走 ad-hoc 签名，用户看到的是「未知开发者」而不是
+            # 「已损坏」，见 docs/adr/0122-macos-adhoc-signed-release-builds.md。只有显式要求
+            # 签名（仓库 / Environment 变量 MACOS_REQUIRE_SIGNATURE=true）时才硬失败。
             if [[ "${REQUIRE_RELEASE_SIGNATURE}" == "true" ]]; then
               echo "A published macOS build requires signing and notarization credentials." >&2
               exit 1
             fi
-            echo "No macOS signing credentials configured; this non-publishing workflow_dispatch will build an unsigned package."
+            echo "::warning::No macOS signing credentials configured; the macOS artifacts are ad-hoc signed."
+            # 警告必须写进 Step Summary：没人会去翻一百多分钟的构建日志。
+            {
+              echo "### macOS 产物为 ad-hoc 签名"
+              echo ""
+              echo "本次运行没有配置 Apple 签名凭据，macOS 产物为 ad-hoc 签名：用户首次打开需要"
+              echo "右键→打开，或到「系统设置 → 隐私与安全性 → 仍要打开」放行；mac 自动更新不可用。"
+              echo ""
+              echo '要恢复「凭据缺失即失败」，把仓库或 Environment 变量 MACOS_REQUIRE_SIGNATURE 设为 true。'
+            } >> "${GITHUB_STEP_SUMMARY}"
             exit 0
           fi
           if [[ "${#MISSING[@]}" -ne 0 ]]; then
@@ -489,10 +506,84 @@ jobs:
             apps/desktop/release/*.zip
             apps/desktop/release/latest*.yml
 
+  # mac 是尽力而为平台：它的失败会显示为红色 job，但不让整轮发布作废。这个 gate 只看
+  # 「产物是否真的产出」，而不是「job 是否成功」：windows / linux 的元数据缺失就让本 job
+  # 失败，两个 publish job 随之被跳过（与改造前一致）；mac 缺席只从 feed 校验清单里去掉 mac。
+  release-gate:
+    name: release gate
+    needs: [prepare, build]
+    # always()：build 里有红色 job 时也要给出确定性结论。叠加 should-build 判断，避免
+    # 不该构建的运行（例如只改文档）也去下载根本不存在的产物。
+    if: always() && needs.prepare.outputs.should-build == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      built-platforms: ${{ steps.platforms.outputs.built-platforms }}
+    steps:
+      - name: Download Windows updater artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: desktop-windows
+          path: release/windows
+          if-no-files-found: error
+
+      - name: Download Linux updater artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: desktop-linux
+          path: release/linux
+          if-no-files-found: error
+
+      - name: Download macOS arm64 updater artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: desktop-macos-arm64
+          path: release/macos-arm64
+          if-no-files-found: ignore
+
+      - name: Download macOS x64 updater artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: desktop-macos-x64
+          path: release/macos-x64
+          if-no-files-found: ignore
+
+      # 按 windows → linux → macos 的固定顺序输出实际产出的平台，供 publish 的 feed 校验收口。
+      - name: Resolve built platforms
+        id: platforms
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          BUILT=()
+          MISSING=()
+          if [[ -f release/windows/latest.yml ]]; then
+            BUILT+=(windows)
+          else
+            MISSING+=(windows)
+          fi
+          if [[ -f release/linux/latest-linux.yml ]]; then
+            BUILT+=(linux)
+          else
+            MISSING+=(linux)
+          fi
+          shopt -s nullglob
+          MACOS_METADATA=(release/macos-*/latest-mac-*.yml)
+          if [[ "${#MACOS_METADATA[@]}" -gt 0 ]]; then
+            BUILT+=(macos)
+          else
+            echo "macOS updater metadata is absent; the macOS artifacts are best-effort and the feed is verified without them."
+          fi
+          echo "built-platforms=$(IFS=,; echo "${BUILT[*]}")" >> "${GITHUB_OUTPUT}"
+          if [[ "${#MISSING[@]}" -ne 0 ]]; then
+            echo "::error::Required release platforms produced no updater metadata: ${MISSING[*]}"
+            exit 1
+          fi
+
   publish-r2:
     name: publish R2
     if: needs.prepare.outputs.should-build == 'true' && needs.prepare.outputs.should-publish == 'true' && needs.prepare.outputs.release_target == 'r2'
-    needs: [prepare, quality, build]
+    needs: [prepare, quality, release-gate]
     runs-on: ubuntu-latest
     timeout-minutes: 30
     environment: ${{ needs.prepare.outputs.channel == 'test' && 'desktop-test' || 'desktop-production' }}
@@ -554,6 +645,8 @@ jobs:
         working-directory: apps/desktop
         env:
           VETTA_DESKTOP_RELEASE_VERSION: ${{ needs.prepare.outputs.build-version }}
+          # mac 是尽力而为平台：只校验本次真正产出的平台，缺失的 mac 元数据不算失败。
+          VETTA_UPDATE_FEED_PLATFORMS: ${{ needs.release-gate.outputs.built-platforms }}
         run: node scripts/verify-update-feed.mjs
 
   # R2 目标也要发 GitHub Release：R2 是更新源，GitHub Release 是对外的下载入口和
@@ -561,7 +654,7 @@ jobs:
   publish-github:
     name: publish GitHub Release
     if: needs.prepare.outputs.should-build == 'true' && needs.prepare.outputs.should-publish == 'true' && needs.prepare.outputs.channel != 'test'
-    needs: [prepare, quality, build]
+    needs: [prepare, quality, release-gate]
     runs-on: ubuntu-latest
     timeout-minutes: 15
     environment: desktop-production
@@ -621,6 +714,8 @@ jobs:
         working-directory: apps/desktop
         env:
           VETTA_DESKTOP_RELEASE_VERSION: ${{ needs.prepare.outputs.build-version }}
+          # mac 是尽力而为平台：只校验本次真正产出的平台，缺失的 mac 元数据不算失败。
+          VETTA_UPDATE_FEED_PLATFORMS: ${{ needs.release-gate.outputs.built-platforms }}
           VETTA_UPDATE_PROVIDER: github
           VETTA_UPDATE_GITHUB_OWNER: ${{ github.repository_owner }}
           VETTA_UPDATE_GITHUB_REPO: ${{ github.event.repository.name }}

@@ -92,3 +92,81 @@ test("rejects a feed that serves a different release version", async () => {
 		/expected 0\.5\.47/,
 	);
 });
+
+// mac 是尽力而为平台（见 docs/adr/0122-macos-adhoc-signed-release-builds.md）：release-gate
+// 报出的平台清单决定校验范围，缺 mac 不再让发布失败。
+test("verifies only the platforms the release gate reported", async () => {
+	const fake = createFetch();
+	const result = await verifyUpdateFeed({
+		env: {
+			VETTA_UPDATE_PROVIDER: "generic",
+			VETTA_UPDATE_URL: "https://updates.example.com/desktop/stable",
+			VETTA_UPDATE_FEED_PLATFORMS: "windows,linux",
+		},
+		version,
+		fetchImpl: fake.fetchImpl,
+		retryDelayMs: 0,
+	});
+	assert.deepEqual(result.metadataFiles, ["latest.yml", "latest-linux.yml"]);
+	assert.equal(
+		fake.calls.some((call) => call.url.endsWith("latest-mac.yml")),
+		false,
+	);
+});
+
+test("verifies a macOS-only release feed when that is the only platform built", async () => {
+	const fake = createFetch();
+	const result = await verifyUpdateFeed({
+		env: {
+			VETTA_UPDATE_PROVIDER: "generic",
+			VETTA_UPDATE_URL: "https://updates.example.com/desktop/stable",
+			VETTA_UPDATE_FEED_PLATFORMS: "macos",
+		},
+		version,
+		fetchImpl: fake.fetchImpl,
+		retryDelayMs: 0,
+	});
+	assert.deepEqual(result.metadataFiles, ["latest-mac.yml"]);
+});
+
+// 收窄范围不等于放宽校验：清单里列出的每个平台都必须单独过。
+test("still checks every reported platform instead of passing on the first one", async () => {
+	const fetchImpl = async (url) => {
+		const fileName = new URL(url).pathname.split("/").at(-1);
+		if (fileName === "latest-linux.yml") {
+			return { ok: true, status: 200, text: async () => `version: 0.5.47\npath: x\nfiles:\n  - url: x\n` };
+		}
+		return { ok: true, status: 200, text: async () => metadata[fileName] ?? "" };
+	};
+	await assert.rejects(
+		verifyUpdateFeed({
+			env: {
+				VETTA_UPDATE_PROVIDER: "generic",
+				VETTA_UPDATE_URL: "https://updates.example.com/desktop/stable",
+				VETTA_UPDATE_FEED_PLATFORMS: "windows,linux",
+			},
+			version,
+			fetchImpl,
+			retryDelayMs: 0,
+		}),
+		/latest-linux\.yml has version 0\.5\.47/,
+	);
+});
+
+test("rejects an unsupported platform name in VETTA_UPDATE_FEED_PLATFORMS", async () => {
+	const fake = createFetch();
+	await assert.rejects(
+		verifyUpdateFeed({
+			env: {
+				VETTA_UPDATE_PROVIDER: "generic",
+				VETTA_UPDATE_URL: "https://updates.example.com/desktop/stable",
+				VETTA_UPDATE_FEED_PLATFORMS: "windows,plan9",
+			},
+			version,
+			fetchImpl: fake.fetchImpl,
+			retryDelayMs: 0,
+		}),
+		/VETTA_UPDATE_FEED_PLATFORMS contains unsupported platform "plan9"/,
+	);
+	assert.equal(fake.calls.length, 0);
+});

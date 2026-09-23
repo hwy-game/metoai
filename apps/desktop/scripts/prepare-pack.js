@@ -8,6 +8,7 @@ import { validateDesktopBuildEnvironment } from "./desktop-build-environment.mjs
 import { DESKTOP_BUILD_OUTPUTS } from "./desktop-packaging-layout.mjs";
 import { LINUX_PACKAGE_METADATA, LINUX_RELEASE_TARGETS } from "./linux-packaging-contract.mjs";
 import { loadBuildEnv } from "./load-build-env.mjs";
+import { MAC_SIGNING_MODES } from "./mac-signing-config.mjs";
 import { resolvePackagedNativeDependencies } from "./packaged-native-dependencies.mjs";
 import { resolveReleaseInfo } from "./resolve-release-info.mjs";
 import { prepareSpeechModels, SPEECH_MODEL_RESOURCE_ROOT } from "./fetch-speech-models.mjs";
@@ -140,8 +141,17 @@ console.log(
 );
 
 // 签名配置已经由统一构建环境检查解析；这里仅负责把结果映射到 builder 配置。
-if (!macSigning.enabled) {
-	console.log("[prepare-pack] macOS 签名凭据未配置，产出未签名包");
+if (macSigning.mode === MAC_SIGNING_MODES.ADHOC) {
+	console.warn(
+		"[prepare-pack] macOS 未配置 Apple 签名凭据，产出 ad-hoc 签名包——" +
+			"用户首次打开需右键→打开，或到「系统设置 → 隐私与安全性 → 仍要打开」放行；" +
+			"mac 自动更新不可用",
+	);
+} else if (macSigning.mode === MAC_SIGNING_MODES.UNSIGNED) {
+	console.warn(
+		"[prepare-pack] macOS 签名凭据未配置且 VETTA_MAC_ADHOC_SIGN=0，产出完全未签名包——" +
+			"用户需要 DMG 里的「修复已损坏.app」才能打开",
+	);
 } else if (macSigning.notarize) {
 	console.log(`[prepare-pack] macOS 签名与公证已启用（team=${macSigning.teamId}）`);
 } else {
@@ -291,11 +301,11 @@ for (const { source, target } of DESKTOP_BUILD_OUTPUTS) {
 
 // macOS DMG: 生成背景图（写入 repo build/，下面 cpSync 会一并带到 staging）。
 // 仅 darwin host 跑；非 darwin 上即使存在 mac target，也不会真正出 dmg。
-// 签名构建没有「已损坏」问题，不带修复助手，背景图退回两图标版式。
+// 只有签名+公证构建没有「已损坏」问题、不带修复助手，背景图退回两图标版式。
 if (process.platform === "darwin") {
 	execFileSync(
 		"node",
-		[join(import.meta.dirname, "generate-dmg-background.js"), ...(macSigning.enabled ? ["--two-icons"] : [])],
+		[join(import.meta.dirname, "generate-dmg-background.js"), ...(macSigning.mode === MAC_SIGNING_MODES.SIGNED ? ["--two-icons"] : [])],
 		{ stdio: "inherit" },
 	);
 }
@@ -304,8 +314,9 @@ if (process.platform === "darwin") {
 cpSync(join(projectRoot, "build"), join(buildStageDir, "build"), { recursive: true });
 
 // macOS DMG: 编译「修复已损坏.app」直接落到 staging build/，由下面 dmg.contents 引用。
-// 仅未签名构建需要；签名+公证后 quarantine 不再拦截，且该 helper 自身未签名会拖累公证。
-if (process.platform === "darwin" && !macSigning.enabled) {
+// 未签名与 ad-hoc 构建都需要它：ad-hoc 已消除「已损坏」，但未公证的包仍可能被 Gatekeeper
+// 拦下，摘掉隔离属性依然有效。签名+公证后 quarantine 不再拦截，且该 helper 自身未签名会拖累公证。
+if (process.platform === "darwin" && macSigning.mode !== MAC_SIGNING_MODES.SIGNED) {
 	execFileSync(
 		"node",
 		[join(import.meta.dirname, "build-mac-repair-helper.js"), join(buildStageDir, "build")],
@@ -705,6 +716,31 @@ function resolveExtraResources() {
 
 const extraResources = resolveExtraResources();
 
+// macOS 签名模式 → electron-builder 的 mac 选项（三态定义见 docs/deploy/apple-code-signing.md）。
+function resolveMacBuilderOptions(macSigning) {
+	// 凭据齐全：Developer ID 签名 + hardened runtime + 公证。签名身份由 electron-builder 从
+	// CSC_LINK / CSC_NAME 自动发现，因此不写 identity；notarize 自 electron-builder 26 起只接受
+	// 布尔值，团队与密钥一律从 APPLE_TEAM_ID / APPLE_API_* 环境变量读取。
+	if (macSigning.mode === MAC_SIGNING_MODES.SIGNED) {
+		return {
+			hardenedRuntime: true,
+			gatekeeperAssess: false,
+			entitlements: "build/entitlements.mac.plist",
+			entitlementsInherit: "build/entitlements.mac.inherit.plist",
+			notarize: macSigning.notarize,
+		};
+	}
+	// ad-hoc：electron-builder 以 identity "-" 就地签名，用户看到「未知开发者」而不是「已损坏」。
+	// 这里必须关掉 hardened runtime——它默认启用 library validation，会拒绝 Team ID 不同的
+	// 预签名 Electron framework，应用启动即失败。hardened runtime 关闭时 entitlements 不生效，
+	// 因此不写。
+	if (macSigning.mode === MAC_SIGNING_MODES.ADHOC) {
+		return { identity: "-", notarize: false, hardenedRuntime: false };
+	}
+	// unsigned：完全不签名，配套 DMG 里的「修复已损坏.app」。
+	return { identity: null, notarize: false, hardenedRuntime: false };
+}
+
 // Write electron-builder config
 const builderConfig = {
 	appId: "com.vetta.desktop",
@@ -728,26 +764,9 @@ const builderConfig = {
 		target: ["dmg", "zip"],
 		category: "public.app-category.productivity",
 		icon: "build/icon.icns",
-		// 签名/公证开关由 resolveMacSigning() 按环境变量决定（见
-		// docs/deploy/apple-code-signing.md）：凭据齐全 → Developer ID 签名 +
-		// hardened runtime + 公证；一个都不设 → 维持未签名产物，配套 DMG 里的
-		// 「修复已损坏.app」。签名身份由 electron-builder 从 CSC_LINK / CSC_NAME
-		// 自动发现，因此签名分支不写 identity。
-		...(macSigning.enabled
-			? {
-					hardenedRuntime: true,
-					gatekeeperAssess: false,
-					entitlements: "build/entitlements.mac.plist",
-					entitlementsInherit: "build/entitlements.mac.inherit.plist",
-					// electron-builder 26 起 notarize 只接受布尔值，团队与密钥
-					// 一律从 APPLE_TEAM_ID / APPLE_API_* 环境变量读取。
-					notarize: macSigning.notarize,
-				}
-			: {
-					identity: null,
-					notarize: false,
-					hardenedRuntime: false,
-				}),
+		// 签名模式由 resolveMacSigningConfig() 按环境变量决定，三种模式的差异见
+		// resolveMacBuilderOptions() 与 docs/deploy/apple-code-signing.md。
+		...resolveMacBuilderOptions(macSigning),
 		// 用户的本地模型（Ollama / LM Studio / vLLM 等）通常监听在局域网
 		// 明文 HTTP（http://192.168.x.x:port）。macOS 14+ 的 TCC 与 ATS 默认
 		// 会静默拦截这种请求，表现为 Finder 双击启动后随机出现 "Connection
@@ -769,16 +788,18 @@ const builderConfig = {
 	// 坐标以 @1x 660×440 为准；背景图 build/background.png 与 build/background@2x.png
 	// 由 scripts/generate-dmg-background.js 在 prebuild 阶段生成（两种版式的图标
 	// 位置必须与那里的 ICON_CENTERS_X_2X 对齐）。
-	// 未签名构建为三图标：多出的「修复已损坏.app」由 scripts/build-mac-repair-helper.js
-	// osacompile 生成，用户首次需 control-click → 「打开」绕过 Gatekeeper，
-	// 之后弹原生密码框对 /Applications/Metoai.app 执行 xattr -dr com.apple.quarantine。
-	// 签名+公证构建不存在「已损坏」问题，退回两图标常规版式。
+	// 未签名 / ad-hoc 构建为三图标：多出的「修复已损坏.app」由
+	// scripts/build-mac-repair-helper.js osacompile 生成，用户首次需 control-click → 「打开」
+	// 绕过 Gatekeeper，之后弹原生密码框对 /Applications/Metoai.app 执行
+	// xattr -dr com.apple.quarantine。ad-hoc 签名消除了「已损坏」，但未公证的包仍可能被
+	// Gatekeeper 拦下，因此保留这个助手作兜底。
+	// 签名+公证构建不存在这些问题，退回两图标常规版式。
 	dmg: {
 		background: "build/background.png",
 		window: { width: 660, height: 440 },
 		iconSize: 100,
 		iconTextSize: 12,
-		contents: macSigning.enabled
+		contents: macSigning.mode === MAC_SIGNING_MODES.SIGNED
 			? [
 					{ x: 180, y: 200, type: "file" }, // Metoai.app（electron-builder 自动填入产物路径）
 					{ x: 480, y: 200, type: "link", path: "/Applications" },

@@ -600,7 +600,8 @@ install failed
 | `apps/desktop/src/main/updater.ts` | 按平台装配引擎；macOS 注入原生 `autoUpdater` 事件源 |
 | `apps/desktop/src/main/updater-service.ts` | 平台无关的状态机、自动下载、重试、停滞与暂存超时 |
 | `apps/desktop/src/main/updater-engine.ts` | electron-updater 适配、进度压缩、Squirrel.Mac 暂存等待 |
-| `apps/desktop/scripts/prepare-pack.js` | `resolveMacSigning()` 决定签名开关；生成 electron-builder 配置 |
+| `apps/desktop/scripts/mac-signing-config.mjs` | `resolveMacSigningConfig()` 解析签名模式（签名+公证 / ad-hoc / 未签名） |
+| `apps/desktop/scripts/prepare-pack.js` | 按签名模式生成 electron-builder 配置 |
 | `apps/desktop/scripts/verify-mac-update.mjs` | 发布前清单、哈希、签名、公证票据校验 |
 | `apps/desktop/scripts/merge-mac-update-metadata.mjs` | 合并双架构 `latest-mac-<arch>.yml` |
 | `scripts/release-mac.sh` | 构建 + 校验 + 合并 + 发布的一键入口，含全部前置校验 |

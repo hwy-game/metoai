@@ -1,4 +1,4 @@
-import { resolveMacSigningConfig } from "./mac-signing-config.mjs";
+import { MAC_SIGNING_MODES, resolveMacSigningConfig } from "./mac-signing-config.mjs";
 import { resolveSpeechInputBuildConfig } from "./speech-input-build-config.js";
 import { resolveSystemPluginSelection } from "./stage-system-plugins.mjs";
 import { resolveUpdatePublishConfig } from "./resolve-update-publish-config.mjs";
@@ -23,7 +23,7 @@ const OPTIONAL_BOOLEAN_KEYS = [
 	"VETTA_POSTHOG_REPLAY_ENABLED",
 	"VETTA_SHOW_UI_THEME",
 ];
-const OPTIONAL_ZERO_ONE_KEYS = ["VETTA_REQUIRE_MAC_SIGNATURE"];
+const OPTIONAL_ZERO_ONE_KEYS = ["VETTA_REQUIRE_MAC_SIGNATURE", "VETTA_MAC_ADHOC_SIGN"];
 const SAMPLE_RATE_KEYS = ["VETTA_POSTHOG_REPLAY_SAMPLE_RATE", "VETTA_SENTRY_TRACES_SAMPLE_RATE"];
 const MARKETPLACE_REF_PATTERN = /^[A-Za-z0-9][A-Za-z0-9._/-]{0,127}$/;
 const GITHUB_COORDINATE_PATTERN = /^[A-Za-z0-9_.-]+$/;
@@ -268,10 +268,12 @@ export function validateDesktopBuildEnvironment({
 	let macSigning;
 	try {
 		macSigning = resolveMacSigningConfig(env);
+		// ad-hoc 签名不是生产级签名：要求“必须签名”时它和完全未签名一样不满足，
+		// 只是产物的用户可见表现从「已损坏」变成「未知开发者」。
 		if (
 			readValue(env, "VETTA_REQUIRE_MAC_SIGNATURE") === "1" &&
 			platformTags.some((tag) => tag.startsWith("darwin-")) &&
-			(!macSigning.enabled || !macSigning.notarize)
+			(macSigning.mode !== MAC_SIGNING_MODES.SIGNED || !macSigning.notarize)
 		) {
 			errors.push("VETTA_REQUIRE_MAC_SIGNATURE=1 requires macOS signing and notarization");
 		}
@@ -279,8 +281,10 @@ export function validateDesktopBuildEnvironment({
 		errors.push(error instanceof Error ? error.message : String(error));
 	}
 
+	// 同一个非法取值可能被通用校验与解析器各报一次，去重后只留一条。
 	if (errors.length > 0) {
-		throw new Error(`[desktop-build-env] invalid build environment:\n${errors.map((item) => `- ${item}`).join("\n")}`);
+		const uniqueErrors = [...new Set(errors)];
+		throw new Error(`[desktop-build-env] invalid build environment:\n${uniqueErrors.map((item) => `- ${item}`).join("\n")}`);
 	}
 
 	return {

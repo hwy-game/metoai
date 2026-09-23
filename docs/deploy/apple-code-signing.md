@@ -2,7 +2,7 @@
 
 面向 Metoai 桌面端 macOS 发版：从零申请公司主体的 Apple 开发者账号，拿到 **Developer ID Application** 证书与公证凭据，注入构建，直到用户双击 DMG 不再看到「已损坏」。
 
-构建侧改动见 `apps/desktop/scripts/prepare-pack.js` 的 `resolveMacSigning()`。**只要环境变量齐全就自动开启签名+公证，一个都不设就是现在的未签名产物**，不需要改代码。
+构建侧开关在 `apps/desktop/scripts/mac-signing-config.mjs` 的 `resolveMacSigningConfig()`，产物选项在 `apps/desktop/scripts/prepare-pack.js`。**凭据齐全就签名+公证；一个都不设则退回 ad-hoc 签名（不再报错，用户看到「未知开发者」）；`VETTA_MAC_ADHOC_SIGN=0` 才产出完全未签名的包**，不需要改代码。三种模式的差异见第 4 节，决策背景见 [ADR-0122](../adr/0122-macos-adhoc-signed-release-builds.md)。
 
 ---
 
@@ -152,11 +152,12 @@ VETTA_REQUIRE_MAC_SIGNATURE=1 bun run verify:updates:mac
 
 CI 上 `CSC_LINK` 可以直接放 base64：`export CSC_LINK="$(base64 -i developer-id.p12)"`。
 
-构建脚本的行为：
+构建脚本按环境变量解析出三种签名模式（`resolveMacSigningConfig()` 的 `mode`），行为分别是：
 
-- **一个相关变量都没设** → 走原来的未签名路径（`identity: null` / `notarize: false`），DMG 里带「修复已损坏.app」
-- **设了一部分** → 直接报错并列出缺哪些，不会产出「签了名但没公证」这种半成品
-- **全齐** → 开启 hardened runtime + entitlements + 公证，DMG 变回两图标常规版式，不再带修复助手
+- **凭据全齐**（`mode: signed`）→ Developer ID 签名 + hardened runtime + entitlements + 公证，DMG 变回两图标常规版式，不再带修复助手；用户双击直接启动，自动更新可用
+- **一个相关变量都没设**（`mode: adhoc`，默认）→ ad-hoc 签名（`identity: "-"`，并强制关闭 hardened runtime），详见 4.3
+- **一个都没设且 `VETTA_MAC_ADHOC_SIGN=0`**（`mode: unsigned`）→ 完全不签名（`identity: null`），只能靠 DMG 里的「修复已损坏.app」摘掉隔离属性
+- **只设了一部分** → 直接报错并列出缺哪些，不会产出「签了名但没公证」这种半成品
 
 签名+公证会让 `dist:mac` 明显变慢：产物里内置了 Node / Python 运行时与多个 sidecar 二进制，逐个签名再上传公证，整体多出 10～30 分钟属正常。
 
@@ -197,10 +198,24 @@ xcrun notarytool history --key "$APPLE_API_KEY" --key-id "$APPLE_API_KEY_ID" --i
 | `APPLE_API_ISSUER` | App Store Connect Issuer ID |
 | `APPLE_TEAM_ID` | Developer Program Team ID |
 
-macOS 在 matrix 里是 `dist:mac:arm64` 与 `dist:mac:x64` 两个任务（内置的 node/python 运行时按 `VETTA_VENDOR_PLATFORM` 单架构落盘，一次构建出不了两套），分别跑在 `macos-15` 与 `macos-15-intel` 托管 runner 上，两者各自签名公证并校验，产物元数据以 `latest-mac-<arch>.yml` 上传，由发布任务的 `merge:updates:mac` 合并回单一 `latest-mac.yml`。
+macOS 在 matrix 里是 `dist:mac:arm64` 与 `dist:mac:x64` 两个任务（内置的 node/python 运行时按 `VETTA_VENDOR_PLATFORM` 单架构落盘，一次构建出不了两套），分别跑在 `macos-15` 与 `macos-15-intel` 托管 runner 上，两者各自签名公证并校验，产物元数据以 `latest-mac-<arch>.yml` 上传，由发布任务的 `merge:updates:mac` 合并回单一 `latest-mac.yml`。这两个任务标记为尽力而为（`continue-on-error`）：mac 失败会显示为红色 job，但不让整轮发布作废；windows / linux 的产物缺失则由 `release-gate` 拦下，两个发布任务被跳过。
 
-公证不需要专用签名机：`notarytool` 只是把签好名的产物传给 Apple 换票据，托管 runner 有网络即可。工作流会在 runner 的临时目录还原 `.p12` 和 `.p8`（`chmod 600`），仅通过环境变量传给 electron-builder，构建结束随 runner 销毁。完全没有这些 Secrets 时，tag 和手动构建都允许生成未签名包；只配置一部分仍会直接失败，避免产出「签了名但没公证」的半成品。反过来，**只要 Secrets 配齐，非发布的 `workflow_dispatch` 演练也会签名并公证**，因为开关只看凭据完整性；想快速验证构建可以设 `VETTA_SKIP_NOTARIZE=1` 只签名不公证。凭据齐全时会设置 `VETTA_REQUIRE_MAC_SIGNATURE=1`，构建后自动校验 ZIP 内应用的签名、Gatekeeper 接受状态和公证票据。正式启用签名后，发布负责人还应把“macOS 必须签名”设为发布策略，不能继续把未签名包当成最终交付物。
+凭据缺失时不再让整轮发布失败：macOS 两个任务会产出 ad-hoc 签名包，签名步骤在日志和 `GITHUB_STEP_SUMMARY` 里留下警告，**Windows / Linux 照常发布**（决策背景见 [ADR-0122](../adr/0122-macos-adhoc-signed-release-builds.md)）。只配置一部分 Secrets 仍会直接失败，避免产出「签了名但没公证」的半成品。反过来，**只要 Secrets 配齐，非发布的 `workflow_dispatch` 演练也会签名并公证**，因为开关只看凭据完整性；想快速验证构建可以设 `VETTA_SKIP_NOTARIZE=1` 只签名不公证。凭据齐全时会设置 `VETTA_REQUIRE_MAC_SIGNATURE=1`，构建后自动校验 ZIP 内应用的签名、Gatekeeper 接受状态和公证票据。
 
+想恢复「缺凭据即失败」，把仓库或 `desktop-production` Environment 的变量 `MACOS_REQUIRE_SIGNATURE` 设为 `true`：签名步骤会据此硬失败，macOS 构建失败不会阻塞其他平台，但 mac 产物会缺席。正式启用签名后，发布负责人还应把「macOS 必须签名」设为发布策略，不能继续把 ad-hoc 包当成最终交付物。
+
+### 4.3 没有凭据：ad-hoc 签名（默认回退）
+
+仓库还没有 Apple 开发者凭据时，macOS 任务不再失败，而是产出 ad-hoc 签名包（electron-builder 的 `identity: "-"`）。构建脚本同时强制 `hardenedRuntime: false`：hardened runtime 默认启用 library validation，会拒绝 Team ID 不同的预签名 Electron framework，应用会启动即崩溃。
+
+用户侧的表现与代价：
+
+- 不再出现「已损坏」，改为「未知开发者」。用户首次打开要**右键 → 打开**，或到「系统设置 → 隐私与安全性 → 仍要打开」放行一次
+- **mac 自动更新不可用**：ad-hoc 签名每次构建都变，Squirrel.Mac 要求前后版本使用同一 Developer ID 身份才会接受更新
+- ad-hoc 包**无法公证**（Apple 只接受 Developer ID 签名的产物），`spctl` 也不会给出 `accepted`
+- DMG 仍保留三图标版式与「修复已损坏.app」作兜底：Gatekeeper 有时仍会拦下未公证的包，摘掉 `com.apple.quarantine` 依然有效
+
+想产出完全未签名的包（例如排查签名相关问题时）设 `VETTA_MAC_ADHOC_SIGN=0`，此时走 `identity: null`；它与凭据齐全时的 `VETTA_SKIP_NOTARIZE=1` 一样只适合本地闭环。
 ## 5. 验证
 
 拿到 `apps/desktop/release/Metoai-<version>.dmg` 后逐条跑：
@@ -235,6 +250,8 @@ spctl -a -vvv -t install /Volumes/Metoai*/Metoai.app
 
 hdiutil detach /Volumes/Metoai*
 ```
+
+ad-hoc 或未签名产物**不要**照第 2、5 条期望通过：没有公证票据，`spctl` 不会给出 `accepted`，`codesign -dv` 显示的是 `Signature=adhoc` / `TeamIdentifier=not set`。这类产物只需确认能启动（右键 → 打开）且功能正常。
 
 最后必须做一次**真机端到端验证**：把 DMG 上传到 CDN，从**另一台没装过开发者证书的 Mac** 用浏览器下载（一定要走浏览器，`scp`/AirDrop 不会打 quarantine 标记，测不出问题），拖入 `/Applications` 双击——应该直接启动，不出现任何「已损坏」「无法验证开发者」弹窗。
 
@@ -280,14 +297,27 @@ xcrun notarytool log <submissionId> \
 
 Developer ID Application 证书有效期 5 年。**已公证的历史产物不受影响**（票据不随证书过期失效），但过期后无法签新版本。到期前重新走一遍第 2 节即可，`.p12` 与相关 Secret 一并更新。
 
+**用户报「未知开发者」而不是「已损坏」**
+
+这是 ad-hoc 签名（未配置 Apple 凭据）的预期表现。让用户右键 → 打开，或到「系统设置 → 隐私与安全性 → 仍要打开」；DMG 里的「修复已损坏.app」也能摘掉隔离属性。要彻底消除该提示必须配齐签名与公证凭据。
+
+**ad-hoc 包点「仍要打开」后仍然打不开**
+
+ad-hoc 签名不含 Team ID，也没有公证票据，Gatekeeper 可能直接拒绝。先让用户执行 `xattr -dr com.apple.quarantine /Applications/Metoai.app`（或跑 DMG 里的修复助手）再试；仍然失败说明产物本身有问题，回到构建日志确认签名步骤。
+
+**ad-hoc 包的自动更新一直失败**
+
+预期行为，不是 bug。ad-hoc 签名每次构建都不同，Squirrel.Mac 会拒绝身份不一致的更新，只能由用户手动下载安装包。需要 mac 自动更新就必须配置 Developer ID 凭据。
+
 ---
 
 ## 7. 相关文件
 
 | 路径 | 作用 |
 |---|---|
-| `apps/desktop/scripts/prepare-pack.js` | `resolveMacSigning()` 决定开不开签名；生成 electron-builder 配置 |
+| `apps/desktop/scripts/mac-signing-config.mjs` | `resolveMacSigningConfig()` 解析三态签名模式（signed / adhoc / unsigned） |
+| `apps/desktop/scripts/prepare-pack.js` | 按签名模式生成 electron-builder 配置与 DMG 版式 |
 | `apps/desktop/build/entitlements.mac.plist` | 主 app 的 hardened runtime entitlements |
 | `apps/desktop/build/entitlements.mac.inherit.plist` | 子进程继承用 entitlements |
-| `apps/desktop/scripts/build-mac-repair-helper.js` | 「修复已损坏.app」，仅未签名构建使用 |
+| `apps/desktop/scripts/build-mac-repair-helper.js` | 「修复已损坏.app」，未签名与 ad-hoc 构建使用 |
 | `docs/adr/0003-dmg-repair-helper.md` | 未签名时期修复助手的决策背景 |
