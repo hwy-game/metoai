@@ -1,0 +1,63 @@
+# 手工发布辅助工作流。
+#
+# 背景：desktop-release 在「本次要发布」时会要求 macOS 构建必须带签名与公证凭据
+# （desktop-release.yml 里的 REQUIRE_RELEASE_SIGNATURE），因此没有 Apple 凭据的
+# fork 无法用它发布 Windows / Linux 产物。这个工作流只做发布动作本身：把一次已经
+# 构建成功的 desktop-release 运行里指定平台的产物，按 apps/desktop/package.json
+# 的版本号建或更新 GitHub Release。
+#
+# 它不构建、不改动 desktop-release 的任何检查，也不替代那条链路；有签名凭据时仍应
+# 走 desktop-release。发布说明与版本号都取自当前 ref，因此必须用与产物相同的提交
+# （通常是 main 上对应的提交）来触发。
+name: publish-desktop-release-manual
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 提供产物的 desktop-release 运行 id
+        required: true
+      artifact_pattern:
+        description: 要发布的产物名通配（例如 desktop-windows）
+        required: true
+        default: desktop-windows
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  publish:
+    name: publish selected artifacts
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download updater artifacts from the build run
+        uses: actions/download-artifact@v4
+        with:
+          pattern: ${{ inputs.artifact_pattern }}
+          merge-multiple: true
+          path: apps/desktop/release
+          github-token: ${{ github.token }}
+          run-id: ${{ inputs.run_id }}
+
+      - name: Publish release after all assets are ready
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="$(node -p "require('./apps/desktop/package.json').version")"
+          TAG="v${VERSION}"
+          NOTES_FILE="$(node scripts/release/release-notes.mjs --version "${VERSION}")"
+          echo "Publishing ${TAG} from release notes ${NOTES_FILE}"
+          if gh release view "${TAG}" >/dev/null 2>&1; then
+            echo "Release ${TAG} already exists; uploading assets with --clobber."
+          else
+            gh release create "${TAG}" --draft --notes-file "${NOTES_FILE}" --title "Vetta ${VERSION}"
+          fi
+          find apps/desktop/release -maxdepth 1 -type f -print0 | xargs -0 gh release upload "${TAG}" --clobber
+          gh release edit "${TAG}" --draft=false
+          gh release view "${TAG}" --json tagName,isDraft,assets --jq '{tag: .tagName, draft: .isDraft, assets: [.assets[].name]}'
