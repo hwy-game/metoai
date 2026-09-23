@@ -1,3 +1,4 @@
+import { DEFAULT_RESOLVED_MODE, DEFAULT_THEME_MODE, MODE_STORAGE_KEY } from "@shared/theme/apply";
 import { DEFAULT_THEME_ID, resolveThemeId } from "@shared/theme/themes";
 import { atom } from "jotai";
 import type { ReactNode } from "react";
@@ -73,8 +74,10 @@ export type SettingsTab =
 // ─── Theme ───
 
 export type ThemeMode = "light" | "dark" | "auto";
-export const themeModeAtom = atom<ThemeMode>((localStorage.getItem("vetta-theme") as ThemeMode) || "dark");
-export const resolvedThemeAtom = atom<"light" | "dark">("dark");
+export const themeModeAtom = atom<ThemeMode>(
+	(localStorage.getItem(MODE_STORAGE_KEY) as ThemeMode | null) ?? DEFAULT_THEME_MODE,
+);
+export const resolvedThemeAtom = atom<"light" | "dark">(DEFAULT_RESOLVED_MODE);
 export const themeNameAtom = atom<string>(
 	resolveThemeId(localStorage.getItem("vetta-color-theme") || DEFAULT_THEME_ID),
 );

@@ -1,4 +1,5 @@
 // @vitest-environment jsdom
+import { themeModeAtom } from "@shared/store/atoms";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { createStore, Provider } from "jotai";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -69,12 +70,16 @@ describe("useTheme", () => {
 		);
 		installThemeApi(setNativeTheme);
 
-		render(
-			<Provider store={createStore()}>
-				<ThemeController />
-				<ModeHarness />
-			</Provider>,
-		);
+	// 默认模式已是浅色，这里显式把起始模式设成深色，才能验证「切到浅色」的时序。
+	const store = createStore();
+	store.set(themeModeAtom, "dark");
+
+	render(
+		<Provider store={store}>
+			<ThemeController />
+			<ModeHarness />
+		</Provider>,
+	);
 		setNativeTheme.mockClear();
 
 		fireEvent.click(screen.getByRole("button", { name: "dark" }));

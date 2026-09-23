@@ -3,7 +3,13 @@ import type { PluginOfficialApi } from "@vetta-org/plugin-sdk";
 import { getDefaultStore } from "jotai";
 import { type AppLanguage, isSupportedLanguage, resolveAppLanguageFromLocale } from "@/shared/i18n/config";
 import { cursorStyleAtom, resolvedThemeAtom, themeModeAtom, themeNameAtom } from "../../../shared/store/ui-atoms";
-import { applyTheme, MODE_STORAGE_KEY, type ResolvedMode, THEME_STORAGE_KEY } from "../../../shared/theme/apply";
+import {
+	applyTheme,
+	DEFAULT_THEME_MODE,
+	MODE_STORAGE_KEY,
+	type ResolvedMode,
+	THEME_STORAGE_KEY,
+} from "../../../shared/theme/apply";
 import { type CursorStyle, getStoredCursorStyle, setStoredCursorStyle } from "../../../shared/theme/cursor";
 import { DEFAULT_THEME_ID, resolveThemeId, THEME_MAP, THEMES } from "../../../shared/theme/themes";
 import { pluginRendererCapabilityHost } from "./plugin-renderer-capability-host";
@@ -22,7 +28,7 @@ function getThemeSnapshot() {
 	const root = document.documentElement;
 	const resolvedMode = root.getAttribute("data-mode");
 	return {
-		mode: storedMode === "light" || storedMode === "dark" || storedMode === "auto" ? storedMode : "dark",
+		mode: storedMode === "light" || storedMode === "dark" || storedMode === "auto" ? storedMode : DEFAULT_THEME_MODE,
 		themeId: resolveThemeId(storedThemeId && storedThemeId.length > 0 ? storedThemeId : DEFAULT_THEME_ID),
 		resolved: resolvedMode === "light" || resolvedMode === "dark" ? resolvedMode : null,
 		appliedThemeId: root.getAttribute("data-theme"),
