@@ -2,7 +2,7 @@
 
 ## 状态
 
-已接受
+已被 [ADR-0120](0120-version-detection-from-metotoken.md) 取代：第 1、2、3 条（策略面冻结为三字段、安装包归 feed、`download_url` 只做白名单校验后丢弃）不再成立；第 4 条「强制更新必须 fail-open」与第 5、6 条继续有效。下方内容保留为当时的决策记录。
 
 ## 背景
 

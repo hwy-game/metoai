@@ -15,6 +15,7 @@ import {
 } from "./inno-windows-update.js";
 import { handOffToInstaller, MACOS_SHIPIT_JOB_LABEL } from "./mac-installer-handoff.js";
 import { runQuitCleanup } from "./quit-cleanup.js";
+import { downloadUpdatePackage } from "./update-download.js";
 import { fetchUpdatePolicy, resolveUpdatePlatform } from "./update-policy.js";
 import { markPendingUpdateRelaunch } from "./update-relaunch-marker.js";
 import { ElectronUpdaterEngine } from "./updater-engine.js";
@@ -28,6 +29,14 @@ export function getAppVersion(): string {
 	return app.isPackaged
 		? app.getVersion()
 		: (JSON.parse(readFileSync(join(__dirname, "../../package.json"), "utf-8")).version as string);
+}
+
+/**
+ * 服务端登记的安装包落点：userData 下的固定子目录。安装准备完成后由
+ * `UpdaterService` 删除，失败路径刻意保留，便于排查「装不上」的原因。
+ */
+function resolveUpdateDownloadDir(): string {
+	return join(app.getPath("userData"), "update-downloads");
 }
 
 // electron-updater 是 CommonJS 包；主进程产物为 ESM 且将它 externalize，
@@ -130,7 +139,7 @@ const systemEvents = {
 export const updaterService = new UpdaterService(updaterEngine, currentVersion, app.isPackaged, mainT, {
 	systemEvents,
 	policyProvider: () => {
-		// 开发态不打网络：直接当作「拿不到策略」，行为与改造前一致。
+		// 开发态不打网络：直接当作「没有可交付的更新」，行为与改造前一致。
 		if (!app.isPackaged) return Promise.resolve(null);
 		return fetchUpdatePolicy({
 			version: currentVersion,
@@ -138,6 +147,10 @@ export const updaterService = new UpdaterService(updaterEngine, currentVersion, 
 			arch: process.arch,
 		});
 	},
+	// 服务端登记了 download_url 时优先自己下载并校验；引擎接不了（macOS、MSI 安装）
+	// 或没登记时，UpdaterService 会回落 electron-updater 的 feed。
+	downloadPackage: (source, options) =>
+		downloadUpdatePackage(source, { ...options, destinationDir: resolveUpdateDownloadDir() }),
 });
 
 interface UpgradeE2eState {

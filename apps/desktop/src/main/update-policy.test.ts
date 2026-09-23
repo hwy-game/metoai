@@ -13,6 +13,9 @@ import {
 
 const CURRENT_VERSION = "0.5.21";
 
+/** 一个合法的 64 位十六进制校验值（`sha256("test")`）。 */
+const SHA256 = "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08";
+
 /** 服务端「无更新」响应的 `data` 形状；各用例在其上做局部覆盖。 */
 function updateCheckData(overrides: Record<string, unknown> = {}): Record<string, unknown> {
 	return {
@@ -37,7 +40,7 @@ function latestRelease(overrides: Record<string, unknown> = {}): Record<string, 
 		download_url: "https://releases.openvetta.com/desktop/stable/Metoai-0.6.0.exe",
 		file_name: "Metoai-0.6.0.exe",
 		size_bytes: 1_024,
-		sha256: "abc123",
+		sha256: SHA256,
 		published_at: "2026-05-01T00:00:00Z",
 		...overrides,
 	};
@@ -83,7 +86,8 @@ describe("decideUpdatePolicy", () => {
 			latestVersion: "0.6.0",
 			releaseNote: "修复若干问题",
 			downloadUrl: "https://releases.openvetta.com/desktop/stable/Metoai-0.6.0.exe",
-			sha256: "abc123",
+			fileName: "Metoai-0.6.0.exe",
+			sha256: SHA256,
 			sizeBytes: 1_024,
 			publishedAt: "2026-05-01T00:00:00Z",
 		});
@@ -116,19 +120,24 @@ describe("decideUpdatePolicy", () => {
 		expect(policy).toMatchObject({ forced: true, reason: "" });
 	});
 
-	it("fails open when forced arrives without a release to install", () => {
+	it("drops to no update when forced arrives without a release to install", () => {
 		expect(
 			decideUpdatePolicy(updateCheckData({ has_update: true, forced: true, reason: "policy" }), CURRENT_VERSION),
-		).toBeNull();
+		).toEqual({ hasUpdate: false, forced: false, reason: "", checkIntervalSeconds: 3_600 });
 	});
 
-	it("fails open when forced arrives without a higher version", () => {
+	it("normalizes a registered version that is not higher into no update", () => {
 		for (const version of [CURRENT_VERSION, "0.5.20", "0.5.21-rc.1"]) {
 			const policy = decideUpdatePolicy(
 				updateCheckData({ has_update: true, forced: true, reason: "policy", latest: latestRelease({ version }) }),
 				CURRENT_VERSION,
 			);
-			expect(policy, `version ${version}`).toBeNull();
+			expect(policy, `version ${version}`).toEqual({
+				hasUpdate: false,
+				forced: false,
+				reason: "",
+				checkIntervalSeconds: 3_600,
+			});
 		}
 	});
 
@@ -142,6 +151,54 @@ describe("decideUpdatePolicy", () => {
 		);
 
 		expect(policy?.downloadUrl).toBeUndefined();
+	});
+
+	it("normalizes the declared checksum and keeps the file name", () => {
+		const policy = decideUpdatePolicy(
+			updateCheckData({ has_update: true, latest: latestRelease({ sha256: `SHA256:${SHA256.toUpperCase()}` }) }),
+			CURRENT_VERSION,
+		);
+
+		expect(policy).toMatchObject({ fileName: "Metoai-0.6.0.exe", sha256: SHA256 });
+	});
+
+	it("drops a malformed checksum instead of failing the whole policy", () => {
+		const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+		try {
+			const policy = decideUpdatePolicy(
+				updateCheckData({ has_update: true, latest: latestRelease({ sha256: "abc123" }) }),
+				CURRENT_VERSION,
+			);
+
+			expect(policy?.latestVersion).toBe("0.6.0");
+			expect(policy?.sha256).toBeUndefined();
+			expect(warn).toHaveBeenCalled();
+		} finally {
+			warn.mockRestore();
+		}
+	});
+
+	it("keeps a release the server registered without any download metadata", () => {
+		// 线上真实形状：后台登记了版本与策略，但没有产物。策略层照实返回，
+		// 「装不上」由 updater-service 判定并收口成「无更新」（见 updater-service.test.ts）。
+		const policy = decideUpdatePolicy(
+			updateCheckData({
+				has_update: true,
+				forced: true,
+				reason: "policy",
+				latest: latestRelease({ download_url: "", file_name: "", size_bytes: 0, sha256: "" }),
+			}),
+			CURRENT_VERSION,
+		);
+
+		expect(policy).toMatchObject({
+			hasUpdate: true,
+			forced: true,
+			latestVersion: "0.6.0",
+			downloadUrl: undefined,
+			fileName: undefined,
+			sha256: undefined,
+		});
 	});
 
 	it.each([

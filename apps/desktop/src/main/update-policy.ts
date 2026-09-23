@@ -47,6 +47,7 @@ export interface UpdatePolicy {
 	latestVersion?: string;
 	releaseNote?: string;
 	downloadUrl?: string;
+	fileName?: string;
 	sha256?: string;
 	sizeBytes?: number;
 	publishedAt?: string;
@@ -158,6 +159,24 @@ export function clampCheckInterval(seconds: unknown): number {
 }
 
 /**
+ * 服务端登记的校验值：只接受归一化后的 64 位十六进制（容忍 `sha256:` 前缀与大小写）。
+ * 登记了但不合法时丢弃并记 warn —— 一个录入错误不应该让整条更新通道装不上；
+ * 丢弃后的风险与「服务端压根没登记 sha256」完全相同。
+ */
+function readSha256(value: unknown): string | undefined {
+	const normalized = readString(value)
+		?.trim()
+		.replace(/^sha256:/i, "")
+		.toLowerCase();
+	if (normalized === undefined || normalized === "") return undefined;
+	if (!/^[0-9a-f]{64}$/.test(normalized)) {
+		console.warn("[update-policy] ignoring an invalid sha256 in the release metadata");
+		return undefined;
+	}
+	return normalized;
+}
+
+/**
  * 纯函数判定：把服务端 `data`（嵌套形状，见下）与当前版本合成为一份更新策略。
  *
  * ```
@@ -173,7 +192,8 @@ export function clampCheckInterval(seconds: unknown): number {
  * 解析规则：
  * - `latest === null` → 无更新、不强制，但仍要取到 `check_interval_seconds`；
  * - `forced` 取服务端结论（服务端已综合 policy 与 min_supported_version），客户端不重新推导；
- * - 安全护栏：`forced === true` 却拿不到更高版本的更新包 → 响应不自洽 → 整体返回 `null`；
+ * - `latest.version` 不高于当前版本 → 收敛成「无更新、不强制」：登记了等于没登记，
+ *   不能让一次误登记把用户锁在一个永远装不上的弹窗里；
  * - 任何必需字段类型不符 → 返回 `null`（fail-open，退回原有行为）。
  */
 export function decideUpdatePolicy(responseData: unknown, currentVersion: string): UpdatePolicy | null {
@@ -191,8 +211,7 @@ export function decideUpdatePolicy(responseData: unknown, currentVersion: string
 
 	if (latest === null) {
 		// 服务端明确表示「没有可用的更新包」：此时不允许进入强制态，否则用户会被锁在
-		// 一个根本下载不到更新的界面里。
-		if (forced) return null;
+		// 一个根本下载不到更新的界面里。这里不看 forced：一律收敛成无更新。
 		return {
 			hasUpdate: false,
 			forced: false,
@@ -203,8 +222,15 @@ export function decideUpdatePolicy(responseData: unknown, currentVersion: string
 
 	const latestVersion = readString(latest.version);
 	if (latestVersion === undefined) return null;
-	// 声称强制更新、却拿不到比当前版本更高的包，说明响应与客户端状态不符：整体放弃。
-	if (forced && compareVersions(latestVersion, currentVersion) <= 0) return null;
+	// 登记的版本不高于本机运行版本：没有任何可交付的更新，按「无更新」收口。
+	if (compareVersions(latestVersion, currentVersion) <= 0) {
+		return {
+			hasUpdate: false,
+			forced: false,
+			reason: "",
+			checkIntervalSeconds: clampCheckInterval(checkIntervalSeconds),
+		};
+	}
 
 	const downloadUrl = readString(latest.download_url);
 	return {
@@ -215,7 +241,8 @@ export function decideUpdatePolicy(responseData: unknown, currentVersion: string
 		latestVersion,
 		releaseNote: readString(latest.release_note),
 		downloadUrl: isAllowedDownloadUrl(downloadUrl) ? downloadUrl : undefined,
-		sha256: readString(latest.sha256),
+		fileName: readString(latest.file_name),
+		sha256: readSha256(latest.sha256),
 		sizeBytes: readNumber(latest.size_bytes),
 		publishedAt: readString(latest.published_at),
 	};

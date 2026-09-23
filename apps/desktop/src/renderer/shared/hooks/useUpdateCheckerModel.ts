@@ -24,7 +24,9 @@ export function useUpdateCheckerModel(): UpdateCheckerModel {
 	const statusText = (() => {
 		if (state.phase === "checking") return t("updaterChecking");
 		if (state.phase === "error") return state.error ?? "";
-		if (state.phase === "idle") return t("updaterIdle", { version: state.currentVersion });
+		// 主进程在「拿不到策略」或「没有可交付的更新」时都停在 idle：前者带 error，
+		// 直接显示出来，否则设置页会谎称「已是最新版本」。
+		if (state.phase === "idle") return state.error ?? t("updaterIdle", { version: state.currentVersion });
 		return "";
 	})();
 

@@ -1,8 +1,15 @@
+import { rm } from "node:fs/promises";
 import { basename } from "node:path";
 import type { BrowserWindow } from "electron";
 
-import { clampCheckInterval, type UpdatePolicy } from "./update-policy.js";
-import type { UpdateEngine, UpdateEngineDownload, UpdateEngineInfo } from "./updater-engine.js";
+import { resolvePackageFileName, type UpdatePackageDownloader } from "./update-download.js";
+import { clampCheckInterval, compareVersions, type UpdatePolicy } from "./update-policy.js";
+import type {
+	UpdateEngine,
+	UpdateEngineCheckResult,
+	UpdateEngineDownload,
+	UpdateEngineInfo,
+} from "./updater-engine.js";
 
 const EVENT_CHANNEL = "vetta:updater:state";
 const DEFAULT_AUTO_DOWNLOAD_DELAY_MS = 20_000;
@@ -17,11 +24,35 @@ const DEFAULT_PERIODIC_CHECK_INTERVAL_MS = 2 * 60 * 60 * 1_000;
 // 机会性补查的触发源都可能连发（合盖再开、反复开合菜单），与上一次检查间隔太近就跳过。
 const DEFAULT_BACKGROUND_CHECK_MIN_GAP_MS = 30 * 60 * 1_000;
 
+/**
+ * 本次可交付的更新来源：服务端登记了 `download_url` 且引擎能接管下载好的安装包时走
+ * `package`，否则回落 electron-updater 的 feed（`engine`）。
+ */
+type PendingUpdate =
+	| { kind: "engine"; info: UpdateEngineInfo }
+	| { kind: "package"; version: string; url: string; sha256?: string; sizeBytes?: number; fileName: string };
+
+interface ResolvedUpdateSource {
+	pending: PendingUpdate;
+	assetFileName?: string;
+	totalBytes?: number;
+	/** 引擎给出的更新说明，只在服务端没登记 `release_note` 时兜底。 */
+	fallbackReleaseNote?: string;
+}
+
+interface UpdateSourceResolution {
+	source: ResolvedUpdateSource | null;
+	/** 选不出通道时给用户看的原因；「服务端说没有更新」时留空。 */
+	error?: string;
+}
+
 export type UpdaterPhase = "idle" | "checking" | "available" | "downloading" | "ready" | "installing" | "error";
 
 export interface UpdaterState {
 	phase: UpdaterPhase;
 	currentVersion: string;
+	/** 是否存在一条「真的能装到的新版本」。覆盖层只认这个信号，不再看 phase。 */
+	hasUpdate?: boolean;
 	latestVersion?: string;
 	releaseNote?: string;
 	/** 0..1 */
@@ -60,16 +91,22 @@ export interface UpdaterServiceOptions {
 	backgroundCheckMinGapMs?: number;
 	systemEvents?: UpdaterSystemEvents;
 	/**
-	 * 更新策略来源。不传等价于「拿不到策略」：`forced` 恒为 false，一切行为照旧。
-	 * 由宿主注入（见 updater.ts），便于测试替换。
+	 * 更新策略来源，也是客户端唯一的版本检测来源。不传或返回 `null` 等价于
+	 * 「当前没有可交付的更新」：既不弹窗也不强制。由宿主注入（见 updater.ts），
+	 * 便于测试替换。
 	 */
 	policyProvider?: () => Promise<UpdatePolicy | null>;
+	/**
+	 * 服务端登记了 `download_url` 时使用的安装包下载器。不传则一律回落
+	 * electron-updater 的 feed；注入后是否使用还要看引擎能否接管下载好的安装包。
+	 */
+	downloadPackage?: UpdatePackageDownloader;
 }
 
 export class UpdaterService {
 	private state: UpdaterState;
 	private mainWindow: BrowserWindow | null = null;
-	private latestInfo: UpdateEngineInfo | null = null;
+	private pendingUpdate: PendingUpdate | null = null;
 	private activeDownload: UpdateEngineDownload | null = null;
 	private autoDownloadTimer: NodeJS.Timeout | null = null;
 	private downloadStallTimer: NodeJS.Timeout | null = null;
@@ -88,6 +125,7 @@ export class UpdaterService {
 	private readonly backgroundCheckMinGapMs: number;
 	private readonly systemEvents: UpdaterSystemEvents | undefined;
 	private readonly policyProvider: (() => Promise<UpdatePolicy | null>) | undefined;
+	private readonly downloadPackage: UpdatePackageDownloader | undefined;
 
 	constructor(
 		private readonly engine: UpdateEngine,
@@ -108,6 +146,7 @@ export class UpdaterService {
 		this.backgroundCheckMinGapMs = options.backgroundCheckMinGapMs ?? DEFAULT_BACKGROUND_CHECK_MIN_GAP_MS;
 		this.systemEvents = options.systemEvents;
 		this.policyProvider = options.policyProvider;
+		this.downloadPackage = options.downloadPackage;
 	}
 
 	setMainWindow(win: BrowserWindow): void {
@@ -146,6 +185,15 @@ export class UpdaterService {
 		return this.checkPromise;
 	}
 
+	/**
+	 * 检测、弹窗内容与下载来源都以 metotoken 的版本管理为准（见 docs/adr/0120）。
+	 *
+	 * 判定顺序：
+	 * 1. 拿不到策略 → 认为「没有可交付的更新」，并清掉上一次的强制态与版本字段；
+	 * 2. 策略说没有更高版本 → 同上；
+	 * 3. 策略登记了更高版本，但既没有可用的 `download_url`、feed 也给不出这个版本
+	 *    → 同样按「没有更新」收口。宁可暂时不提示，也不能弹一条永远装不上的强制提示。
+	 */
 	private async runCheck(): Promise<UpdaterState> {
 		if (!this.isPackaged) {
 			this.setState({
@@ -156,86 +204,135 @@ export class UpdaterService {
 		}
 
 		this.setState({ phase: "checking", error: undefined });
-		try {
-			const result = await this.engine.checkForUpdates();
-			if (!result) {
-				this.setState({
-					phase: "idle",
-					error: this.translate("updater.errors.configurationUnavailable"),
-				});
-				return this.getState();
-			}
-			await this.applyPolicy();
 
-			if (!result.hasUpdate) {
-				this.latestInfo = null;
-				this.setState({
-					phase: "idle",
-					latestVersion: result.info.version,
-					releaseNote: result.info.releaseNote,
-					progress: undefined,
-					downloadedBytes: undefined,
-					totalBytes: undefined,
-					assetFileName: undefined,
-					error: undefined,
-				});
-				return this.getState();
-			}
-
-			this.latestInfo = result.info;
-			this.autoDownloadAttempts = 0;
-			this.setState({
-				phase: "available",
-				latestVersion: result.info.version,
-				releaseNote: result.info.releaseNote,
-				assetFileName: result.info.assetFileName,
-				totalBytes: result.info.totalBytes,
-				progress: undefined,
-				downloadedBytes: undefined,
-				error: undefined,
-			});
-			this.scheduleAutoDownload(this.autoDownloadDelayMs);
-		} catch (error) {
-			console.error("[updater] check failed", error);
-			this.setState({
-				phase: "idle",
-				error: this.translate("updater.errors.checkFailed"),
-			});
+		const policy = await this.resolvePolicy();
+		if (!policy) {
+			// 拿不到策略：清掉上一次的强制态，避免旧的「必须更新」残留。
+			this.resetToIdle();
+			return this.getState();
 		}
+
+		// 只有「服务端登记的版本高于本机」才继续；否则这次检查就是「没有更新」。
+		const latestVersion = policy.hasUpdate ? policy.latestVersion : undefined;
+		if (!latestVersion || compareVersions(latestVersion, this.state.currentVersion) <= 0) {
+			this.resetToIdle();
+			return this.getState();
+		}
+		// 采用夹取后的服务端建议间隔：既对齐策略，也不会比默认更激进。
+		this.periodicCheckIntervalMs = clampCheckInterval(policy.checkIntervalSeconds);
+		this.setState({ policyCheckedAt: new Date().toISOString() });
+		// 若已有待触发的周期定时器，用新间隔重新对齐；关闭周期重查时不主动开启。
+		if (this.periodicCheckTimer) this.schedulePeriodicCheck();
+
+		const resolution = await this.resolveUpdateSource(policy, latestVersion);
+		if (!resolution.source) {
+			console.warn(`[updater] no deliverable package for ${latestVersion}; keeping the user unblocked`);
+			this.resetToIdle(resolution.error);
+			return this.getState();
+		}
+
+		this.pendingUpdate = resolution.source.pending;
+		this.autoDownloadAttempts = 0;
+		this.setState({
+			phase: "available",
+			hasUpdate: true,
+			forced: policy.forced,
+			forceReason: policy.reason,
+			// 界面上的版本号与更新说明一律取服务端登记值：它是唯一事实源，
+			// feed 只负责把安装包送到本地。
+			latestVersion,
+			releaseNote: policy.releaseNote ?? resolution.source.fallbackReleaseNote,
+			assetFileName: resolution.source.assetFileName,
+			totalBytes: resolution.source.totalBytes,
+			progress: undefined,
+			downloadedBytes: undefined,
+			error: undefined,
+		});
+		this.scheduleAutoDownload(this.autoDownloadDelayMs);
 		return this.getState();
 	}
 
+	/** 策略来源：provider 未注入、抛错或返回 `null` 都算「拿不到策略」。 */
+	private async resolvePolicy(): Promise<UpdatePolicy | null> {
+		if (!this.policyProvider) return null;
+		try {
+			return await this.policyProvider();
+		} catch (error) {
+			console.warn("[updater] update policy provider failed", error);
+			return null;
+		}
+	}
+
 	/**
-	 * 合并服务端更新策略。拿不到策略（provider 未注入、抛错或返回 null）时按
-	 * 「无强制约束」处理：`forced` 回落 false、`policyCheckedAt` 不更新，只记一条 warn，
-	 * 其余行为与改造前完全一致。
+	 * 选一条真能把 `latestVersion` 装到本机的通道：优先服务端登记的可下载包
+	 * （还要求引擎能接管下载好的安装包），否则回落 electron-updater feed，并要求
+	 * feed 给出的版本不低于策略版本。两者都不可用 → `source` 为 `null`。
 	 */
-	private async applyPolicy(): Promise<void> {
-		let policy: UpdatePolicy | null = null;
-		if (this.policyProvider) {
-			try {
-				policy = await this.policyProvider();
-			} catch (error) {
-				console.warn("[updater] update policy provider failed", error);
-				policy = null;
-			}
+	private async resolveUpdateSource(policy: UpdatePolicy, latestVersion: string): Promise<UpdateSourceResolution> {
+		const adopt = this.engine.adoptDownloadedPackage?.bind(this.engine);
+		if (policy.downloadUrl && this.downloadPackage && adopt && this.engine.canInstallDownloadedPackage?.()) {
+			const fileName = resolvePackageFileName({
+				version: latestVersion,
+				url: policy.downloadUrl,
+				fileName: policy.fileName,
+			});
+			return {
+				source: {
+					pending: {
+						kind: "package",
+						version: latestVersion,
+						url: policy.downloadUrl,
+						sha256: policy.sha256,
+						sizeBytes: policy.sizeBytes,
+						fileName,
+					},
+					assetFileName: fileName,
+					totalBytes: policy.sizeBytes,
+				},
+			};
 		}
 
-		if (!policy) {
-			console.warn("[updater] update policy unavailable; forced update disabled for this check");
-			if (this.state.forced) this.setState({ forced: false, forceReason: "" });
-			return;
+		let result: UpdateEngineCheckResult | null;
+		try {
+			result = await this.engine.checkForUpdates();
+		} catch (error) {
+			console.error("[updater] update feed check failed", error);
+			return { source: null };
 		}
+		if (!result) return { source: null, error: this.translate("updater.errors.configurationUnavailable") };
+		if (!result.hasUpdate || compareVersions(result.info.version, latestVersion) < 0) return { source: null };
 
-		// 采用夹取后的服务端建议间隔：既对齐策略，也不会比默认更激进。
-		this.periodicCheckIntervalMs = clampCheckInterval(policy.checkIntervalSeconds);
+		return {
+			source: {
+				pending: { kind: "engine", info: result.info },
+				assetFileName: result.info.assetFileName,
+				totalBytes: result.info.totalBytes,
+				fallbackReleaseNote: result.info.releaseNote,
+			},
+		};
+	}
+
+	/**
+	 * 收口到「没有可交付的更新」：清掉上一次的强制态与版本字段，避免策略不可达或
+	 * 后台误登记时界面留着一条装不上的提示。`policyCheckedAt` 刻意保留——它记录的
+	 * 是「上一次成功拿到策略」的时间，不是本次结果。
+	 */
+	private resetToIdle(error?: string): void {
+		this.pendingUpdate = null;
+		this.cancelScheduledAutoDownload();
 		this.setState({
-			forced: policy.forced,
-			forceReason: policy.reason,
-			policyCheckedAt: new Date().toISOString(),
+			phase: "idle",
+			hasUpdate: false,
+			forced: false,
+			forceReason: "",
+			latestVersion: undefined,
+			releaseNote: undefined,
+			progress: undefined,
+			downloadedBytes: undefined,
+			totalBytes: undefined,
+			assetFileName: undefined,
+			error,
 		});
-		// 若已有待触发的周期定时器，用新间隔重新对齐；关闭周期重查时不主动开启。
-		if (this.periodicCheckTimer) this.schedulePeriodicCheck();
 	}
 
 	async startDownload(options?: { auto?: boolean }): Promise<UpdaterState> {
@@ -255,23 +352,28 @@ export class UpdaterService {
 			this.autoDownloadOptOut = false;
 			this.cancelScheduledAutoDownload();
 		}
-		if (!this.latestInfo) {
+		let pending = this.pendingUpdate;
+		if (!pending) {
 			await this.check();
-			if (this.state.phase !== "available" || !this.latestInfo) return this.getState();
+			pending = this.pendingUpdate;
+			if (this.state.phase !== "available" || !pending) return this.getState();
 		}
 
 		this.setState({
 			phase: "downloading",
 			progress: 0,
 			downloadedBytes: 0,
-			totalBytes: this.latestInfo.totalBytes,
+			totalBytes: pending.kind === "engine" ? pending.info.totalBytes : pending.sizeBytes,
 			error: undefined,
 		});
 
-		const download = this.engine.downloadUpdate(
-			(progress) => this.onProgress(progress),
-			() => this.onStaging(),
-		);
+		const download =
+			pending.kind === "package"
+				? this.startPackageDownload(pending)
+				: this.engine.downloadUpdate(
+						(progress) => this.onProgress(progress),
+						() => this.onStaging(),
+					);
 		this.activeDownload = download;
 		this.resetDownloadStallTimer(download);
 		try {
@@ -309,6 +411,48 @@ export class UpdaterService {
 		return this.getState();
 	}
 
+	/**
+	 * 走服务端登记的安装包：先下载并按 `sha256` 校验，再交给引擎走同一套安装准备
+	 * 流程。进度语义与 electron-updater 路径保持一致——网络阶段占 0～90%，剩下 10%
+	 * 是 Inno Setup 展开新版本目录的本地准备。
+	 */
+	private startPackageDownload(pending: Extract<PendingUpdate, { kind: "package" }>): UpdateEngineDownload {
+		const downloader = this.downloadPackage;
+		const abortController = new AbortController();
+		const promise = (async () => {
+			if (!downloader) throw new Error("no update package downloader is configured");
+			const adopt = this.engine.adoptDownloadedPackage?.bind(this.engine);
+			if (!adopt) throw new Error("this engine cannot install a downloaded update package");
+
+			const downloaded = await downloader(
+				{
+					version: pending.version,
+					url: pending.url,
+					fileName: pending.fileName,
+					sha256: pending.sha256,
+					sizeBytes: pending.sizeBytes,
+				},
+				{
+					signal: abortController.signal,
+					onProgress: (progress) =>
+						this.onProgress({ ...progress, percent: Math.min(90, progress.percent * 0.9) }),
+				},
+			);
+
+			// 传输已结束：后面是本地安装准备，不再产生网络进度。
+			this.onStaging();
+			const preparedPaths = await adopt(downloaded, (progress) => this.onProgress(progress), abortController.signal);
+			// 安装器已经把新版本展开到 storeRoot，源安装包不再需要；失败路径刻意保留它，
+			// 便于排查「装不上」到底是下载还是安装的问题。
+			void rm(downloaded.path, { force: true }).catch((error) => {
+				console.warn("[updater] unable to remove the downloaded update package", error);
+			});
+			return preparedPaths;
+		})();
+
+		return { promise, cancel: () => abortController.abort() };
+	}
+
 	async install(): Promise<void> {
 		if (this.state.phase !== "ready") return Promise.resolve();
 		this.setState({ phase: "installing" });
@@ -339,9 +483,10 @@ export class UpdaterService {
 		this.clearDownloadStallTimer();
 		this.activeDownload = null;
 		download?.cancel();
-		this.latestInfo = null;
+		this.pendingUpdate = null;
 		this.setState({
 			phase: "idle",
+			hasUpdate: false,
 			latestVersion: undefined,
 			releaseNote: undefined,
 			progress: undefined,

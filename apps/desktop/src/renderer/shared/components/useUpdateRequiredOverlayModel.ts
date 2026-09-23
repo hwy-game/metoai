@@ -22,15 +22,17 @@ export interface UpdateRequiredOverlayModel {
  * 强制更新覆盖层的状态：服务端策略要求强制更新时，用户必须先完成更新才能继续使用，
  * 因此覆盖层没有关闭按钮、Esc 与遮罩点击都不生效。
  *
- * 唯一的例外是「要求强制更新、但更新源并没有给出可下载的版本」（`phase === "idle"`）：
- * 那种情况下界面里根本没有出路，硬锁会把用户彻底关在应用外面，所以退回不展示，
- * 只保留侧栏等非阻塞提示——安全阀优先于策略。
+ * 出现条件只有一条：`forced && hasUpdate`。`hasUpdate` 由主进程在「确认存在一条真的
+ * 能装到的更新」时才置位（服务端登记的版本高于本机，并且要么有可下载的安装包、
+ * 要么 feed 真的能交付这个版本）。用这个信号而不是 `phase !== "idle"`，是因为后者
+ * 在每次重查的 `checking` 期间会把上一次的 `forced` 重新当成「有待更新」，
+ * 表现为弹窗随检查节奏反复出现又消失。
  */
 export function useUpdateRequiredOverlayModel(): UpdateRequiredOverlayModel | null {
 	const { t } = useTranslation("main");
 	const state = useAtomValue(updaterStateAtom);
 
-	const active = state.forced === true && state.phase !== "idle";
+	const active = state.forced === true && state.hasUpdate === true;
 
 	// 阻塞式覆盖层：不注册任何关闭绑定，并独占 modal 作用域的键盘（Esc 不生效）。
 	useShortcutScope({

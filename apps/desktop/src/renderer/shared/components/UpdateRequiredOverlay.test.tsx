@@ -2,6 +2,8 @@
 /**
  * 强制更新覆盖层是最后一道锁：策略要求强制更新时，用户必须先完成更新才能继续用。
  * 这里锁住它的三条边界——该出现时必须出现、Esc 与点击遮罩都不能关掉它、不该出现时绝不出现。
+ * 出现条件只有 `forced && hasUpdate`：服务端说强制但没有任何可交付的更新时不能锁住用户，
+ * 后台重查的 `checking` 期间 hasUpdate 仍为真，覆盖层也不能跟着闪。
  */
 import type { UpdaterState } from "@preload/api";
 import { useShortcutScope } from "@shared/shortcuts";
@@ -18,6 +20,7 @@ function forcedState(overrides: Partial<UpdaterState> = {}): UpdaterState {
 	return {
 		phase: "ready",
 		currentVersion: "0.5.21",
+		hasUpdate: true,
 		latestVersion: "0.6.0",
 		releaseNote: "Release notes",
 		progress: 1,
@@ -117,9 +120,32 @@ describe("UpdateRequiredOverlay", () => {
 		expect(screen.queryByTestId("update-required-overlay")).toBeNull();
 	});
 
-	it("要求强制更新但更新源没给出可下载版本时退回不展示（安全阀）", () => {
-		renderOverlay(forcedState({ phase: "idle", latestVersion: undefined, progress: undefined }));
+	it("要求强制更新但没有任何可交付的更新时不展示（安全阀）", () => {
+		renderOverlay(forcedState({ hasUpdate: false, phase: "idle", latestVersion: undefined, progress: undefined }));
 
 		expect(screen.queryByTestId("update-required-overlay")).toBeNull();
+	});
+
+	// 本次修复的回归点：判据从 `phase !== "idle"` 换成 `hasUpdate`。服务端说强制、
+	// 但没有任何真的能装到的更新时不能锁住用户。
+	it("服务端要求强制更新但没有任何可交付的更新时不锁住用户", () => {
+		renderOverlay(forcedState({ hasUpdate: false }));
+
+		expect(screen.queryByTestId("update-required-overlay")).toBeNull();
+	});
+
+	it("服务端要求强制更新但状态里还没有 hasUpdate 信号时不展示", () => {
+		renderOverlay(forcedState({ hasUpdate: undefined }));
+
+		expect(screen.queryByTestId("update-required-overlay")).toBeNull();
+	});
+
+	// 后台重查会把 phase 打回 checking，此时 hasUpdate 仍为真，覆盖层必须留在原地，
+	// 否则用户看到的是弹窗跟着检查节奏反复出现又消失。
+	it("后台重查期间只要还有可交付的更新，覆盖层就不闪烁", () => {
+		renderOverlay(forcedState({ phase: "checking", hasUpdate: true }));
+
+		expect(screen.getByTestId("update-required-overlay")).toBeTruthy();
+		expect(screen.getByTestId("update-required-status").textContent).toBe("updater.forced.checking");
 	});
 });

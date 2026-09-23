@@ -1,9 +1,30 @@
+import { resolvedThemeAtom } from "@shared/store/atoms";
+import { MarkdownPreviewView } from "@vetta-org/theme-ui/activity";
 import { Button } from "@shared/components/ui/button";
+import { useAtomValue } from "jotai";
+import { useCallback } from "react";
 import { createPortal } from "react-dom";
 import {
 	type UpdateRequiredOverlayModel,
 	useUpdateRequiredOverlayModel,
 } from "./useUpdateRequiredOverlayModel";
+
+/**
+ * 更新说明由 metotoken 后台登记，是 markdown。这里复用活动面板的 markdown 渲染器：
+ * 它会把链接点击交给 `shell.openExternal`，避免在弹窗里把整个渲染进程导航走。
+ */
+function UpdateReleaseNotes({ content }: { readonly content: string }): JSX.Element {
+	const theme = useAtomValue(resolvedThemeAtom);
+	const onOpenExternal = useCallback((href: string) => {
+		void window.vetta.shell.openExternal(href);
+	}, []);
+
+	return (
+		<div className="[&_.markdown-body]:p-0">
+			<MarkdownPreviewView content={content} theme={theme} onOpenExternal={onOpenExternal} />
+		</div>
+	);
+}
 
 /**
  * 阻塞式强制更新覆盖层：没有关闭按钮，Esc 与点击遮罩都不关闭。
@@ -48,7 +69,7 @@ function UpdateRequiredOverlayView({
 					<div className="mt-2">
 						<p className="text-[11px] font-medium text-muted-foreground">{releaseNotesLabel}</p>
 						<div className="mt-1.5 max-h-[40vh] overflow-auto rounded-lg border border-border bg-secondary/50 p-3">
-							<p className="whitespace-pre-wrap break-words text-[12px] text-muted-foreground">{releaseNote}</p>
+							<UpdateReleaseNotes content={releaseNote} />
 						</div>
 					</div>
 				)}

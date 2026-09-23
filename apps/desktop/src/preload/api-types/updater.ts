@@ -3,6 +3,8 @@ export type UpdaterPhase = "idle" | "checking" | "available" | "downloading" | "
 export interface UpdaterState {
 	phase: UpdaterPhase;
 	currentVersion: string;
+	/** 是否存在一条「真的能装到的新版本」。覆盖层只认这个信号，不再看 phase。 */
+	hasUpdate?: boolean;
 	latestVersion?: string;
 	releaseNote?: string;
 	/** 0..1 */
