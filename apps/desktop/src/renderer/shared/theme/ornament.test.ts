@@ -29,4 +29,9 @@ describe("新会话页装饰件", () => {
 
 		expect(getStoredOrnamentId()).toBe(id);
 	});
+
+	it("默认装饰件是 Vivi", () => {
+		expect(DEFAULT_ORNAMENT_ID).toBe("vivi");
+		expect(getStoredOrnamentId()).toBe("vivi");
+	});
 });

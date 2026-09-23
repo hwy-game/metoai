@@ -9,10 +9,11 @@
 
 export type OrnamentId = "blaze" | "hand" | "mario" | "none" | "orbit" | "torch" | "vivi" | "well";
 
-export const ORNAMENT_STORAGE_KEY = "vetta-hero-ornament";
+/** 存储键带版本：v2 起默认装饰件是 Vivi，换键让存量选择一次性回到新默认（用户可在设置里重选）。 */
+export const ORNAMENT_STORAGE_KEY = "vetta-hero-ornament-v2";
 
-/** 默认挂上「燃烧」：首次打开时它最能说明这块位置是活的，空着会让 hero 显得没做完。 */
-export const DEFAULT_ORNAMENT_ID: OrnamentId = "blaze";
+/** 默认挂上 Vivi：它是产品的默认形象，首次打开时它最能说明这块位置是活的。 */
+export const DEFAULT_ORNAMENT_ID: OrnamentId = "vivi";
 
 export interface OrnamentCatalogEntry {
 	/** i18n 描述文案（settings 命名空间）。 */

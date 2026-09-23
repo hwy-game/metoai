@@ -102,7 +102,7 @@ export function NewSessionPageView({
 	// 与装饰件相反——这一枚是功能入口，宁可多测一帧位置也不能有一帧点不到。
 	const optionsSlot = useSlotWidth();
 	const stackProjectSelector = shouldStackProjectSelector(optionsSlot.width);
-	// hero 仍比位移收得更快：吉祥物层级高于输入栏，淡得慢会在面板前面停留一下。
+	// hero 仍比位移收得更快：命令区向上生长会盖到 hero 上，淡得慢会让旧标题在面板边缘多留一瞬。
 	const heroTransition = reduceMotion
 		? { duration: 0 }
 		: { duration: PANEL_REVEAL_DURATION * 0.6, ease: PANEL_REVEAL_EASE };
@@ -165,7 +165,10 @@ export function NewSessionPageView({
 				}
 				inputBar={
 					<motion.div
-						className="relative"
+					// 输入栏（含向上生长的命令区）必须压在 hero 那一栈之上：hero 是 `relative z-20`，
+					// 装饰件挂在它内部，内部 z 值再高也翻不出这一层——Vivi 的爪子、以及它那层
+					// 铺到卡片顶边上的透明热区，因此都落在输入框卡片下面。
+					className="relative z-30"
 						animate={{ y: commandPanelShift ? PANEL_SHIFT_Y : 0 }}
 						transition={shiftTransition}
 					>
