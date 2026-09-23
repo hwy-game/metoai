@@ -1,0 +1,222 @@
+{
+  "sidebar": {
+    "nav": {
+      "newSession": "Sesi Baru",
+      "automation": "Otomatisasi",
+      "batchTasks": "Tugas Batch",
+      "knowledge": "Pengetahuan",
+      "skills": "Kemampuan",
+      "agents": "Agen",
+      "scenes": "Skenario",
+      "plugins": "Plugin",
+      "modelSettings": "Pengaturan Model",
+      "agentSettings": "Pengaturan Agen",
+      "appearance": "Tampilan",
+      "extensions": "Opsi lainnya",
+      "more": "Lainnya",
+      "betaBadge": "BETA",
+      "pin": "Sematkan",
+      "unpin": "Lepas sematan",
+      "pinFull": "Maksimal 5 entri tersemat (termasuk Sesi baru)",
+      "reset": "Reset urutan",
+      "customize": "Sesuaikan navigasi"
+    },
+    "clawConnected": "Claw terhubung",
+    "hide": "Sembunyikan bilah samping",
+    "empty": {
+      "title": "Belum ada proyek",
+      "description": "Klik + di atas untuk membuat proyek"
+    },
+    "projects": {
+      "noSessions": "Tidak ada sesi",
+      "collapseSessions": "Ciutkan sesi",
+      "expandMore": "Tampilkan lebih banyak ({{count}})",
+      "scrollToTop": "Gulir ke atas",
+      "scrollToBottom": "Gulir ke bawah"
+    },
+    "defaultConversation": {
+      "noConversations": "Tidak ada percakapan",
+      "emptyTitle": "Belum ada percakapan",
+      "emptyDescription": "Mulai obrolan baru dan akan muncul di sini",
+      "emptyAction": "Mulai obrolan",
+      "emptyClawTitle": "Belum ada rekaman Claw",
+      "emptyTagTitle": "Tidak ada percakapan dengan tag ini",
+      "emptyTagDescription": "Beri tag pada percakapan dari menu konteksnya",
+      "emptyClawDescription": "Obrolan dengan Claw melalui WeChat, Feishu, dan saluran lain untuk melihat rekamannya di sini"
+    },
+    "teams": {
+      "title": "Tim",
+      "new": "Tim baru",
+      "empty": "Belum ada tim; klik untuk membuatnya"
+    },
+    "session": {
+      "forkedTooltip": "Dicabang dari sesi lain",
+      "untitledTeam": "Percakapan tim baru"
+    },
+    "dialogs": {
+      "deleteSessionTitle": "Hapus sesi",
+      "deleteSessionMessage": "Hapus permanen sesi \"{{name}}\"? Tindakan ini tidak dapat dibatalkan.",
+      "deleteBatchTitle": "Hapus proyek batch",
+      "deleteBatchMessage": "Hapus proyek batch \"{{name}}\"? Tindakan ini tidak dapat dibatalkan.",
+      "deleteConfirm": "Hapus",
+      "removeTitle": "Hapus dari daftar",
+      "removeMessage": "Hapus \"{{name}}\" dari daftar proyek? Ini tidak akan menghapus berkas di disk.",
+      "removeConfirm": "Hapus",
+      "deleteProjectTitle": "Hapus proyek",
+      "deleteProjectMessage": "Hapus permanen \"{{name}}\"? Ini akan menghapus folder proyek dari disk dan tidak dapat dibatalkan.",
+      "clearConversationTitle": "Bersihkan sesi",
+      "clearConversationMessage": "Ini akan menghapus {{count}} sesi percakapan di bawah Chat sambil mempertahankan artefak. Sesi Claw tidak terpengaruh. Tindakan ini tidak dapat dibatalkan.",
+      "clearClawTitle": "Bersihkan rekaman Claw",
+      "clearClawMessage": "Ini akan menghapus {{count}} rekaman Claw sambil mempertahankan artefak. Tindakan ini tidak dapat dibatalkan.",
+      "clearConfirm": "Bersihkan"
+    },
+    "time": {
+      "justNow": "baru saja",
+      "minutes": "{{n}}mnt",
+      "hours": "{{n}}j",
+      "days": "{{n}}hr",
+      "weeks": "{{n}}mgg",
+      "months": "{{n}}bln",
+      "years": "{{n}}thn"
+    }
+  },
+  "filterTabs": {
+    "all": "Semua",
+    "normal": "Normal",
+    "batch": "Batch",
+    "conversation": "Obrolan",
+    "team": "Tim",
+    "claw": "Claw"
+  },
+  "actions": {
+    "newProject": "Proyek Baru",
+    "openProject": "Buka Proyek",
+    "importProject": "Impor Proyek",
+    "more": "Lainnya"
+  },
+  "contextMenu": {
+    "openInFinder": "Tampilkan di Finder",
+    "openInExplorer": "Tampilkan di Explorer",
+    "clearConversation": "Bersihkan sesi",
+    "clearConversationDisabled": "Hentikan sesi yang berjalan terlebih dahulu",
+    "clearClaw": "Bersihkan rekaman",
+    "clearClawDisabled": "Hentikan sesi Claw yang berjalan terlebih dahulu",
+    "clawSettings": "Pengaturan Claw",
+    "archiveProject": "Arsipkan proyek",
+    "removeFromList": "Hapus dari daftar",
+    "deleteProject": "Hapus proyek",
+    "rename": "Ganti nama",
+    "pin": "Sematkan percakapan",
+    "unpin": "Lepas sematan",
+    "openArtifactDir": "Buka folder artefak",
+    "delete": "Hapus",
+    "tags": {
+      "label": "Tag",
+      "new": "Tag baru…",
+      "manage": "Kelola tag…"
+    }
+  },
+  "tagEditor": {
+    "createTitle": "Tag baru",
+    "manageTitle": "Kelola tag",
+    "namePlaceholder": "Nama tag",
+    "colorLabel": "Warna tag",
+    "customColor": "Warna khusus",
+    "emptyNameError": "Masukkan nama tag",
+    "cancel": "Batal",
+    "create": "Buat",
+    "done": "Selesai",
+    "newTag": "Tag baru",
+    "remove": "Hapus tag",
+    "empty": "Belum ada tag",
+    "removeHint": "Menghapusnya dari {{count}} percakapan"
+  },
+  "importDialog": {
+    "failedTitle": "Impor gagal",
+    "failedConfirm": "OK",
+    "partialTitle": "Impor selesai (beberapa jalur sumber tidak ada)",
+    "partialMessage": "Proyek \"{{name}}\" telah diimpor, tetapi {{count}} jalur sumber batch tidak ada di komputer ini:\n\n{{list}}\n\nMetadata untuk tugas-tugas ini dipertahankan; Anda dapat menautkan ulang atau menghapusnya secara manual setelah membuka proyek.",
+    "partialMore": "\n…dan {{count}} lagi",
+    "doneTitle": "Impor selesai",
+    "doneMessage": "Proyek \"{{name}}\" telah diimpor ke ruang kerja.",
+    "viewProject": "Lihat proyek",
+    "gotIt": "Mengerti"
+  },
+  "detail": {
+    "typeBatch": "Tugas Batch",
+    "showInFinder": "Tampilkan di Finder",
+    "showInExplorer": "Tampilkan di Explorer",
+    "finder": "Finder",
+    "explorer": "Explorer",
+    "export": "Ekspor",
+    "exportTitle": "Ekspor proyek (dengan riwayat sesi)",
+    "newSession": "Sesi baru",
+    "closeActivityPanel": "Tutup panel aktivitas",
+    "openActivityPanel": "Buka panel aktivitas",
+    "sessionCount": "{{count}} sesi",
+    "taskCount": "{{count}} tugas",
+    "persona": "Persona proyek",
+    "unsavedChanges": "Perubahan belum disimpan",
+    "saved": "Tersimpan",
+    "saveFailed": "Gagal menyimpan",
+    "save": "Simpan",
+    "editorPlaceholder": "Tulis instruksi proyek AGENTS.md di sini...",
+    "agentsMdHint": "AGENTS.md menentukan instruksi AI tingkat proyek; setiap sesi memuat berkas ini secara otomatis.",
+    "quickSave": "Simpan cepat"
+  },
+  "exportDialog": {
+    "title": "Ekspor proyek",
+    "message": "Ekspor proyek \"{{name}}\"?\n\nIni akan mengemas semua berkas di direktori proyek saat ini, termasuk riwayat .vetta/sessions serta direktori kerja dan status tugas batch. Kunci berkas (*.lock) dikecualikan.",
+    "confirm": "Ekspor",
+    "failedTitle": "Ekspor gagal",
+    "failedConfirm": "OK"
+  },
+  "newProjectDialog": {
+    "title": "Proyek Baru",
+    "description": "Folder proyek baru akan dibuat di direktori ruang kerja.",
+    "placeholder": "Masukkan nama proyek",
+    "cancel": "Batal",
+    "create": "Buat",
+    "emptyError": "Harap masukkan nama proyek",
+    "invalidError": "Nama proyek tidak boleh berisi karakter khusus",
+    "duplicateError": "Proyek dengan nama ini sudah ada"
+  },
+  "update": {
+    "newVersion": "Versi baru {{version}} tersedia — klik untuk mengunduh di latar belakang",
+    "downloading": "Mengunduh {{version}} ({{pct}}%)",
+    "ready": "Pembaruan {{version}} siap — klik untuk memulai ulang",
+    "checkFailed": "Pemeriksaan pembaruan gagal, klik untuk mencoba lagi",
+    "downloadProgress": "Progres unduhan",
+    "bannerReady": "Versi {{version}} siap",
+    "bannerRestart": "Mulai ulang",
+    "bannerDismiss": "Tutup"
+  },
+  "tabPicker": {
+    "moreTabs": "Tab lainnya",
+    "hiddenPanels": "Panel tersembunyi",
+    "availablePlugins": "Tambahkan panel plugin",
+    "hideTab": "Sembunyikan tab",
+    "menu": "Menu tab"
+  },
+  "tour": {
+    "sidebar": {
+      "projects": {
+        "title": "Proyek",
+        "description": "Kelola proyek kerja Anda di sini. Perluas proyek untuk melihat sesinya, atau gunakan tombol di atas untuk membuat atau mengimpor proyek."
+      },
+      "conversations": {
+        "title": "Percakapan",
+        "description": "Daftar percakapan default Anda ada di sini. Sesi terbaru diurutkan berdasarkan waktu — klik salah satunya untuk melanjutkan."
+      },
+      "skills": {
+        "title": "Kemampuan",
+        "description": "Buka halaman Kemampuan untuk memasang keterampilan dan konektor yang memberi Metoai lebih banyak keahlian."
+      }
+    }
+  },
+  "workspaceView": {
+    "loading": "Memuat plugin…",
+    "missing": "Tampilan ruang kerja ini tidak ada lagi. Kembali ke beranda.",
+    "failed": "Tampilan ruang kerja ini gagal dirender. Periksa DevTools untuk detailnya."
+  }
+}

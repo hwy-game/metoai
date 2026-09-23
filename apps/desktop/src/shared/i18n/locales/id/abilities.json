@@ -1,0 +1,537 @@
+{
+  "page": {
+    "title": "Kemampuan",
+    "subtitle": "Berikan lebih banyak kemampuan kepada agen Anda: keterampilan, scene, MCP, plugin, dan bundel"
+  },
+  "banner": {
+    "title": "Temukan lebih banyak kemampuan",
+    "description": "Pilih yang ingin Anda lakukan — tambahkan lalu gunakan langsung dari obrolan"
+  },
+  "loading": "Memuat…",
+  "type": {
+    "skill": "Keterampilan",
+    "scene": "Scene",
+    "mcp": "MCP",
+    "plugin": "Plugin",
+    "bundle": "Bundel"
+  },
+  "scope": {
+    "discover": "Jelajahi",
+    "mine": "Milik saya"
+  },
+  "group": {
+    "connectors": "Koneksi",
+    "vettaBuiltin": "Bawaan Metoai",
+    "uncategorized": "Tanpa kategori"
+  },
+  "search": {
+    "placeholder": "Cari kemampuan"
+  },
+  "status": {
+    "setupRequired": "Perlu penyiapan",
+    "disabled": "Nonaktif",
+    "updateAvailable": "Pembaruan tersedia",
+    "openSource": "Sumber terbuka",
+    "sameName": "{{count}} dengan nama sama"
+  },
+  "card": {
+    "noDescription": "Tanpa deskripsi"
+  },
+  "operation": {
+    "processing": "Memproses…",
+    "checkingSource": "Memeriksa versi marketplace…",
+    "refreshing": "Menyegarkan status lokal…",
+    "installing": "Menambahkan…",
+    "updating": "Memperbarui…",
+    "applyingUpdate": "Memuat ulang versi baru…",
+    "removing": "Menghapus…",
+    "enabling": "Mengaktifkan…",
+    "disabling": "Menonaktifkan…",
+    "reloading": "Memuat ulang…",
+    "saving": "Menyimpan…",
+    "applyingSetup": "Menerapkan izin…",
+    "activating": "Mengaktifkan kemampuan…",
+    "preparingRuntime": "Menyiapkan runtime…",
+    "downloadingRuntime": "Mengunduh runtime…",
+    "verifyingRuntime": "Memverifikasi runtime…",
+    "installingRuntime": "Memasang runtime…",
+    "readyRuntime": "Runtime siap",
+    "failedRuntime": "Penyiapan runtime gagal"
+  },
+  "actions": {
+    "add": "Tambahkan",
+    "update": "Perbarui",
+    "finishSetup": "Selesaikan penyiapan",
+    "connectAccount": "Hubungkan akun",
+    "disconnectAccount": "Putuskan akun",
+    "configure": "Konfigurasikan kredensial",
+    "edit": "Edit konfigurasi",
+    "viewDetails": "Lihat detail",
+    "remove": "Hapus",
+    "enable": "Aktifkan",
+    "disable": "Nonaktifkan",
+    "more": "Tindakan lainnya",
+    "refresh": "Segarkan",
+    "loadMore": "Muat lebih banyak ({{remaining}} tersisa)",
+    "reload": "Muat ulang",
+    "cancel": "Batal"
+  },
+  "add": {
+    "trigger": "Tambahkan kemampuan",
+    "title": "Pilih cara menambahkan",
+    "importSkill": "Impor arsip keterampilan",
+    "importSkillHint": "Pasang dari arsip zip, tar.gz, atau tgz lokal",
+    "importPlugin": "Impor arsip plugin",
+    "importPluginHint": "Pasang dari zip lokal yang berisi plugin.json",
+    "addMcp": "Tambahkan MCP secara manual",
+    "addMcpHint": "Konfigurasikan server MCP stdio atau HTTP secara manual"
+  },
+  "empty": {
+    "noMatch": "Tidak ada kemampuan yang cocok",
+    "noMatchHint": "Coba kata kunci lain",
+    "discover": "Belum ada yang bisa dijelajahi",
+    "mine": "Belum ada kemampuan yang ditambahkan",
+    "hint": "Segarkan nanti, atau impor melalui \"Tambahkan kemampuan\" di atas"
+  },
+  "error": {
+    "sourcesFailed": "Sumber GitHub gagal disinkronkan (konten cache tetap tersedia): {{names}}",
+    "sourcesOutdated": "Sumber ini memerlukan Metoai versi lebih baru sebelum dapat dimuat: {{names}}",
+    "serverFailed": "Marketplace cloud gagal dimuat; sumber lain tetap tersedia",
+    "loadFailed": "Gagal memuat kemampuan",
+    "downloadFailed": "Unduhan gagal: {{status}}",
+    "installSourceConflict": "Pengenal kemampuan yang sama sudah dipasang dari sumber lain dan tidak akan ditimpa. Periksa sumbernya di halaman detail.",
+    "membersUnavailable": "Anggota berikut tidak tersedia dan tidak dipasang: {{names}}",
+    "partial": "Beberapa kemampuan tidak dapat dimuat: {{error}}",
+    "openMarketplaceSyncFailed": "Kemampuan terbuka tidak dapat disinkronkan; snapshot terakhir yang masih dapat dipakai tetap disimpan"
+  },
+  "message": {
+    "installed": "{{name}} terpasang",
+    "installedCount": "{{count}} kemampuan terpasang",
+    "setupRequired": "{{name}} perlu disiapkan sebelum ditambahkan",
+    "uninstalled": "{{name}} dihapus",
+    "uninstalledCount": "{{count}} kemampuan dihapus",
+    "imported": "{{name}} diimpor",
+    "updatedAndReloaded": "{{name}} {{version}} diperbarui dan dimuat ulang",
+    "reloaded": "{{name}} {{version}} dimuat ulang"
+  },
+  "detail": {
+    "noContent": "Tidak ada deskripsi lebih lanjut. Tambahkan lalu gunakan langsung dari obrolan.",
+    "notFound": "Kemampuan tidak ditemukan — mungkin sudah ditarik atau dihapus.",
+    "source": {
+      "title": "Sumber",
+      "builtin": "Bawaan aplikasi",
+      "local": "Ditambahkan secara lokal",
+      "server": "Server kemampuan Metoai",
+      "sameNameTitle": "{{count}} kemampuan lain memiliki nama yang sama",
+      "installConflict": "Sumber lain sudah menempati lokasi pemasangan ini. Lokasi tersebut tidak akan ditimpa secara otomatis; hapus item yang terpasang lebih dahulu atau tunggu alur penggantian eksplisit."
+    },
+    "status": {
+      "available": "Belum ditambahkan",
+      "setup_required": "Perlu penyiapan",
+      "disabled": "Nonaktif",
+      "enabled": "Aktif",
+      "readonly": "Hanya baca"
+    },
+    "primary": {
+      "add": "Tambahkan kemampuan",
+      "update": "Perbarui kemampuan",
+      "setup": "Selesaikan penyiapan",
+      "enable": "Aktifkan kemampuan"
+    },
+    "secondary": {
+      "disable": "Nonaktifkan",
+      "configure": "Konfigurasikan",
+      "remove": "Hapus"
+    },
+    "meta": {
+      "author": "Penulis",
+      "version": "Versi",
+      "localVersion": "Versi lokal",
+      "downloads": "Unduhan",
+      "license": "Lisensi"
+    },
+    "story": {
+      "vs": "vs",
+      "compareBoth": "Bandingkan",
+      "stepProgress": "{{current}} / {{total}}",
+      "stepPrevious": "Kembali",
+      "stepNext": "Berikutnya",
+      "replayScene": "Putar percakapan",
+      "previewImage": "Lihat gambar",
+      "closePreview": "Tutup"
+    }
+  },
+  "plugin": {
+    "currentVersion": "Versi saat ini",
+    "source": {
+      "label": "Sumber",
+      "remote": "Pemasangan jarak jauh",
+      "npm": "Paket npm",
+      "system": "Bawaan",
+      "local": "Zip lokal"
+    },
+    "reloadVersion": "Muat ulang ke {{version}}",
+    "permissions": "Izin",
+    "permissionsSystemHint": "Diberikan otomatis untuk plugin sistem, tidak dapat diubah",
+    "setupDialog": "Aktivasi dan izin",
+    "setupDialogHint": "Plugin sudah terpasang. Tinjau status aktif, izin host, dan perintah yang dapat dijalankan, lalu konfirmasi untuk menerapkan.",
+    "updateSetupDialogHint": "Versi baru sudah diunduh tetapi belum aktif. Izin baru sudah dipilih sebelumnya; tinjau perubahannya sebelum mengaktifkan.",
+    "permissionAdded": "Ditambahkan dalam pembaruan",
+    "permissionRemoved": "Dihapus dalam pembaruan",
+    "trustNotice": "Kode plugin berjalan langsung di renderer aplikasi. Izin mendeklarasikan dan membatasi API host; izin bukan sandbox keamanan. Aktifkan hanya plugin yang Anda percayai.",
+    "setupEnable": "Aktifkan plugin",
+    "setupEnableHint": "Saat nonaktif, plugin tidak pernah dimuat — tab dan fiturnya tidak akan muncul.",
+    "setupDiscardTitle": "Buang penyiapan ini?",
+    "setupDiscardMessage": "Menutup sekarang membuat plugin tetap nonaktif atau kekurangan izin, sehingga tab dan sebagian fiturnya tidak akan muncul. Anda dapat mengaktifkannya dan menyesuaikan izin nanti di halaman detail plugin.",
+    "setupDiscardConfirm": "Buang dan tutup",
+    "noPermissions": "Plugin ini tidak mendeklarasikan izin apa pun.",
+    "commands": "Perintah yang dapat dijalankan",
+    "commandsHint": "Menonaktifkan akan memblokir panggilan dari plugin",
+    "contributions": "Termasuk dalam plugin ini",
+    "contributionsHint": "Dipasang dan dihapus bersama plugin",
+    "contributedMcp": "Server MCP",
+    "contributedSkills": "Keterampilan",
+    "expandList": "Tampilkan {{count}} lagi",
+    "collapseList": "Tampilkan lebih sedikit"
+  },
+  "mcp": {
+    "title": "Penyiapan koneksi",
+    "secretsLead": "Koneksi ini memerlukan kredensial berikut sebelum dapat digunakan:",
+    "oauth": "Otorisasi akun",
+    "oauthAuthorized": "Terotorisasi",
+    "oauthNotAuthorized": "Belum terotorisasi",
+    "setupLoginTitle": "Masuk ke {{name}}",
+    "setupLoginLead": "Pindai kode QR dengan aplikasi {{name}}. Sesi tetap tersimpan di perangkat ini.",
+    "setupLoginPreparing": "Menjalankan server dan mengambil kode QR…",
+    "setupLoginFirstRun": "Jalan pertama kali mungkin mengunduh dependensi runtime-nya; ini bisa memakan waktu.",
+    "setupLoginWaiting": "Menunggu pemindaian…",
+    "setupLoginSuccess": "Berhasil masuk. Kemampuan siap digunakan.",
+    "setupLoginExpired": "Kode QR sudah kedaluwarsa.",
+    "setupLoginFailed": "Tidak dapat mengambil kode QR: {{error}}",
+    "setupLoginRetry": "Ambil ulang",
+    "setupLoginManual": "Anda juga dapat meminta agen memanggil tool {{tool}} di obrolan.",
+    "setupLoginClose": "Tutup",
+    "loginStatusTitle": "Status masuk",
+    "loginChecking": "Memeriksa sesi Xiaohongshu saat ini…",
+    "loginAuthenticated": "Sudah masuk dan siap digunakan",
+    "loginAuthenticatedAs": "Masuk sebagai {{username}}",
+    "loginUnauthenticated": "Belum masuk. Pindai kode QR sebelum menggunakan kemampuan ini.",
+    "loginCheckFailed": "Tidak dapat memverifikasi status masuk: {{error}}",
+    "loginCheckRetry": "Periksa lagi",
+    "loginAction": "Masuk ke Xiaohongshu",
+    "loginRequired": "Perlu masuk",
+    "connectionConfig": "Pengaturan koneksi",
+    "settings": {
+      "title": "Pengaturan {{name}}",
+      "description": "Kelola status masuk dan parameter koneksi runtime. Menyimpan tidak memulai proses masuk.",
+      "back": "Kembali ke detail kemampuan",
+      "runtimeTitle": "Koneksi runtime",
+      "runtimeDescription": "Parameter hanya diteruskan ke layanan terkelola lokal. Layanan akan dimulai ulang pada pemeriksaan atau penggunaan berikutnya setelah ada perubahan.",
+      "proxyLabel": "URL proxy",
+      "proxyHint": "Mendukung proxy HTTP, HTTPS, atau SOCKS5, misalnya http://127.0.0.1:7890. Biarkan kosong untuk koneksi langsung.",
+      "optional": "opsional",
+      "save": "Simpan pengaturan koneksi",
+      "saving": "Menyimpan…",
+      "clearLogin": "Hapus status masuk",
+      "confirmClearLogin": "Konfirmasi penghapusan status masuk",
+      "clearing": "Menghapus…",
+      "checkedAt": "Terakhir diverifikasi: {{time}}"
+    }
+  },
+  "bundle": {
+    "install": {
+      "title": "Pilih kemampuan yang akan dipasang",
+      "description": "Pilih anggota \"{{name}}\" yang akan dipasang. Anggota yang sudah terbaru tidak akan dipasang lagi.",
+      "nothing": "Bundel ini tidak memiliki anggota untuk dipasang atau diperbarui.",
+      "confirm": "Pasang {{count}}"
+    },
+    "members": "Berisi {{count}} kemampuan",
+    "inline": "Inline",
+    "missing": "Ditarik",
+    "memberInstalled": "Terpasang",
+    "memberNotInstalled": "Belum terpasang",
+    "uninstall": {
+      "title": "Copot bundel",
+      "description": "\"{{name}}\" tidak memiliki artefak sendiri — mencopotnya akan menghapus anggota di bawah ini. Hapus centang pada yang ingin Anda pertahankan.",
+      "nothing": "Bundel ini tidak memiliki anggota yang dapat dihapus saat ini.",
+      "confirm": "Copot {{count}}"
+    }
+  },
+  "permission": {
+    "detailUnavailable": {
+      "title": "Panel konfigurasi plugin disembunyikan",
+      "description": "Plugin ini belum diizinkan menampilkan panel konfigurasinya di sini. Tinjau izinnya dan aktifkan yang Anda butuhkan.",
+      "review": "Periksa izin plugin"
+    },
+    "page": {
+      "open": "Tinjau izin",
+      "title": "Izin dan akses data",
+      "back": "Kembali ke detail kemampuan",
+      "description": "Lihat kemampuan host yang dideklarasikan plugin ini. Menonaktifkan salah satunya akan memblokir panggilan API host terkait; ini tidak mengisolasi kode plugin dalam sandbox keamanan.",
+      "toggleLabel": "Alihkan izin {{permission}}",
+      "hostVerified": "Pagar pengaman API host Metoai",
+      "preview": {
+        "global": "Konten plugin dapat muncul di area aplikasi bersama yang tetap ada di berbagai halaman",
+        "filePreview": "Plugin dapat menampilkan penampil konten khusus di area pratinjau file",
+        "activityTab": "Plugin dapat menambahkan dan mengisi tab di panel aktivitas sisi kanan",
+        "inputAction": "Plugin dapat menambahkan tombol tindakan pada kolom input percakapan",
+        "message": "Konten plugin dapat dilampirkan di bawah pesan obrolan tertentu",
+        "toolCall": "Plugin dapat menampilkan kemajuan dan hasil pemanggilan tool dalam kartu khusus",
+        "turnCard": "Plugin dapat memperluas kartu yang memuat satu giliran percakapan penuh",
+        "workspaceView": "Plugin dapat menyediakan tampilan ruang kerja satu halaman penuh dengan entri sidebar-nya sendiri",
+        "shortcuts": "Plugin dapat mendengarkan kombinasi tombol yang terdaftar dan memicu tindakannya",
+        "fileDecorations": "Plugin dapat menampilkan penanda status atau jenis di samping entri file",
+        "fileContextMenu": "Tindakan plugin dapat muncul di menu konteks file dan folder",
+        "fileToolbar": "Plugin dapat menambahkan tombol tindakan ke bilah alat penjelajah file"
+      },
+      "previewFlow": "Panah menunjukkan arah data atau tindakan yang diaktifkan izin ini",
+      "scopeTitle": "Cakupan",
+      "disabledTitle": "Saat dinonaktifkan",
+      "status": {
+        "configureOnInstall": "Diatur saat pemasangan",
+        "systemGranted": "Diberikan sistem"
+      },
+      "readOnly": {
+        "install": "Plugin ini belum terpasang. Berikut izin yang dimintanya; Anda akan mengonfirmasi pemberian izin sebenarnya saat pemasangan.",
+        "system": "Ini plugin sistem bawaan. Metoai mengelola dan memberikan izinnya secara otomatis, sehingga tidak dapat dinonaktifkan satu per satu."
+      },
+      "summary": {
+        "requested": "Diminta",
+        "highRisk": "Risiko tinggi",
+        "granted": "Diberikan saat ini",
+        "timing": "Kapan dikonfigurasi",
+        "onInstall": "Konfirmasi saat pemasangan"
+      },
+      "flow": {
+        "plugin": "Plugin ini",
+        "data": "File dan data aplikasi",
+        "agent": "Sesi dan perilaku agen",
+        "execution": "Operasi yang dikendalikan host",
+        "external": "Aplikasi atau jaringan eksternal",
+        "intelligence": "Layanan AI dan media"
+      },
+      "scope": {
+        "interface": "Hanya mengizinkan penyajian atau interaksi di lokasi UI yang disebutkan. Izin ini sendiri tidak memberikan akses ke data file atau sesi.",
+        "data": "Terbatas pada jenis data yang disediakan API host. Path atau rekaman persisnya bergantung pada panggilan plugin.",
+        "agent": "Berlaku untuk sesi Agen, prompt, tool, atau status runtime yang disediakan host.",
+        "execution": "Host yang menjalankan operasi, sedangkan plugin memilih perintah, halaman, atau tindakan yang diminta.",
+        "external": "Dapat keluar dari Metoai untuk membuka target atau membuat permintaan. Plugin menentukan tujuannya saat pemanggilan.",
+        "intelligence": "Menggunakan model atau layanan media yang Anda konfigurasikan, dapat mengirim input yang disusun plugin, dan dapat memakai kuota layanan."
+      },
+      "disabled": {
+        "interface": "Entri, konten, atau interaksi terkait tidak akan muncul. Fitur plugin lain tetap dapat berjalan.",
+        "data": "Panggilan untuk membaca atau mengubah data ini akan gagal, sehingga fitur yang bergantung padanya mungkin tidak tersedia.",
+        "agent": "Plugin tidak dapat memengaruhi bagian perilaku Agen ini, sehingga otomatisasi atau peningkatan terkait mungkin berhenti berfungsi.",
+        "execution": "Host memblokir operasi tersebut, dan alur kerja yang bergantung pada hasilnya mungkin tidak selesai.",
+        "external": "Plugin tidak dapat menyelesaikan akses eksternal tersebut. Fitur yang tidak membutuhkannya tetap tersedia.",
+        "intelligence": "Fitur pembuatan, analisis, dan penyedia yang menggunakan layanan AI atau media menjadi tidak tersedia."
+      }
+    },
+    "group": {
+      "interface": {
+        "title": "Antarmuka dan interaksi",
+        "description": "Di mana plugin dapat muncul di dalam Metoai"
+      },
+      "projectData": {
+        "title": "Data proyek dan aplikasi",
+        "description": "Data apa yang dapat dibaca atau diubah plugin"
+      },
+      "agent": {
+        "title": "Kendali Agen",
+        "description": "Bagaimana plugin dapat memengaruhi sesi dan runtime Agen"
+      },
+      "execution": {
+        "title": "Eksekusi dan akses eksternal",
+        "description": "Operasi sistem dan koneksi luar yang dapat diminta plugin"
+      },
+      "intelligence": {
+        "title": "AI dan media",
+        "description": "Layanan kecerdasan yang dapat digunakan atau disediakan plugin"
+      }
+    },
+    "risk": {
+      "low": "Risiko rendah",
+      "medium": "Tinjau",
+      "high": "Risiko tinggi"
+    },
+    "description": {
+      "uiSlotGlobal": "Memungkinkan plugin menampilkan konten antarmuka di area aplikasi bersama yang dapat tetap terlihat di berbagai halaman.",
+      "uiSlotAbilityDetail": "Memungkinkan plugin menampilkan status pemasangan, penyiapan, atau runtime di halaman detail kemampuannya sendiri.",
+      "uiSlotFilePreview": "Memungkinkan plugin menampilkan konten khusus atau penampil di area pratinjau file.",
+      "uiSlotActivityTab": "Memungkinkan plugin menambahkan tab yang dapat dipilih di panel aktivitas sisi kanan.",
+      "uiSlotInputAction": "Memungkinkan plugin menambahkan tindakan yang dapat diklik di dekat kolom input obrolan.",
+      "uiSlotMessage": "Memungkinkan plugin menambahkan konten atau tindakan khusus di bawah pesan obrolan.",
+      "uiSlotToolCall": "Memungkinkan plugin menyesuaikan cara hasil pemanggilan tool Agen ditampilkan.",
+      "uiSlotTurnCard": "Memungkinkan plugin menampilkan status atau tindakan di dalam kartu giliran percakapan.",
+      "uiSlotWorkspaceView": "Memungkinkan plugin menyediakan tampilan ruang kerja satu halaman penuh dengan entri sidebar yang dapat disematkan.",
+      "uiShortcutsRegister": "Memungkinkan plugin mendaftarkan pintasan papan tik dan menjalankan tindakan plugin saat pintasan ditekan.",
+      "uiFileExplorerDecorations": "Memungkinkan plugin menambahkan ikon, lencana, atau petunjuk status ke penjelajah file.",
+      "uiFileExplorerContextMenu": "Memungkinkan plugin menambahkan tindakan ke menu konteks file dan folder.",
+      "uiFileExplorerToolbar": "Memungkinkan plugin menambahkan tindakan ke bilah alat penjelajah file.",
+      "workspaceRead": "Melihat metadata ruang kerja, folder, dan daftar file yang terbuka tanpa membaca isi file secara langsung.",
+      "agentSessionRead": "Membaca pesan, status, dan konteks terkait dari sesi Agen saat ini.",
+      "agentSessionWrite": "Mengubah status atau konten sesi Agen saat ini dan dapat memengaruhi perilaku percakapan berikutnya.",
+      "agentCommandRun": "Menjalankan perintah Agen yang dideklarasikan dan diminta plugin melalui host.",
+      "agentCommandSpawn": "Menjalankan proses latar belakang yang dapat terus berjalan sampai plugin atau host menghentikannya.",
+      "captureOffscreen": "Memuat konten di lingkungan halaman tersembunyi dan mengambil gambar dari konten tersebut.",
+      "browserRead": "Membuat sesi browser yang dikelola host, mengunjungi situs yang disetujui manifes, serta membaca teks, struktur, dan tangkapan layar dari halaman yang sudah masuk.",
+      "browserOpen": "Membuka halaman web yang disetujui di browser bawaan Metoai tanpa membaca atau berinteraksi dengan halaman tersebut.",
+      "browserInteract": "Mengklik, mengetik, memilih, dan mengirim di situs yang disetujui serta dapat melakukan tindakan nyata atas nama akun Anda.",
+      "browserProfilePersist": "Menyimpan profil browser terisolasi beserta status masuknya untuk sesi berikutnya milik plugin ini.",
+      "browserAttach": "Terhubung ke browser yang sudah terbuka dan dapat mengakses tab serta status masuknya.",
+      "browserRuntimeManage": "Memasang atau memperbaiki runtime otomatisasi browser yang dikelola host.",
+      "agentSystemPromptRead": "Membaca system prompt yang menentukan perilaku dasar Agen.",
+      "agentSystemPromptWrite": "Menambahkan atau mengubah konten yang dikelola plugin di system prompt Agen.",
+      "agentSystemPromptFullControl": "Mengganti atau menyusun ulang seluruh system prompt dan dapat mengubah perilaku Agen secara signifikan.",
+      "agentSkillsControl": "Mengendalikan keterampilan yang dimuat Agen dan kapan keterampilan itu tersedia.",
+      "agentMcpControl": "Menyediakan layanan dan tool MCP Agen yang dikelola plugin.",
+      "agentToolsControl": "Mengaktifkan, menonaktifkan, atau menyesuaikan tool yang saat ini tersedia bagi Agen.",
+      "agentToolsRegister": "Mendaftarkan nama, deskripsi, dan bentuk input tool Agen yang baru.",
+      "agentToolHandlerExecute": "Menjalankan logika handler dari plugin saat Agen memanggil tool milik plugin.",
+      "agentHooksRegister": "Mendaftarkan handler yang dapat mengamati atau memengaruhi peristiwa siklus hidup Coding Agent.",
+      "agentHookHandlerExecute": "Menjalankan logika hook dari plugin saat Coding Agent mencapai peristiwa yang cocok.",
+      "agentStateRead": "Membaca status runtime Agen yang disimpan untuk plugin ini.",
+      "agentStateWrite": "Memperbarui status runtime Agen yang disimpan untuk plugin ini.",
+      "agentContinuationRegister": "Menentukan apakah Agen melanjutkan secara otomatis setelah satu giliran berakhir.",
+      "agentRuntimeConfigure": "Menyesuaikan konfigurasi runtime Agen dan dapat memengaruhi model, tool, atau kebijakan eksekusi.",
+      "appActionsRegister": "Mendaftarkan tindakan aplikasi yang dapat dipanggil dari antarmuka atau fitur lain.",
+      "appActionHandlerExecute": "Menjalankan logika handler dari plugin saat tindakan aplikasi dipicu.",
+      "aiModelsList": "Melihat model AI yang Anda konfigurasikan dan sediakan untuk plugin.",
+      "aiComplete": "Mengirim input yang disusun plugin ke model AI yang dikonfigurasikan dan menerima keluarannya.",
+      "modelsManage": "Membuat, memperbarui, atau menghapus penyedia model milik namespace plugin ini.",
+      "fsRead": "Membaca isi file yang dipilih plugin melalui API file host.",
+      "fsWrite": "Membuat, menimpa, memindahkan, atau menghapus file yang dipilih plugin melalui API file host.",
+      "networkFetch": "Mengirim permintaan ke alamat jaringan yang dipilih plugin, mungkin termasuk data yang diakses plugin.",
+      "storageRead": "Membaca data persisten yang bersifat privat untuk plugin ini dan tidak tersedia langsung bagi plugin lain.",
+      "storageWrite": "Menulis data persisten privat plugin ini untuk status atau konfigurasi.",
+      "mediaGenerate": "Memanggil layanan pembuatan gambar, audio, atau media lain yang dikonfigurasikan.",
+      "mediaProviderRegister": "Mendaftarkan layanan pembuatan media dari plugin ke Metoai.",
+      "ocrRecognize": "Menggunakan layanan pengenalan teks yang dikonfigurasikan untuk gambar yang dikirim plugin secara eksplisit.",
+      "ocrProviderRegister": "Mendaftarkan layanan pengenalan teks dari plugin; layanan jarak jauh dapat mengunggah gambar.",
+      "secretsRead": "Membaca rahasia yang disimpan plugin ini sendiri, seperti kunci API.",
+      "secretsWrite": "Menulis atau menghapus rahasia yang disimpan plugin ini sendiri, seperti kunci API.",
+      "settingsRead": "Membaca pengaturan aplikasi yang disediakan host untuk plugin.",
+      "settingsWrite": "Mengubah pengaturan aplikasi yang disediakan host untuk plugin dan dapat mengubah perilaku aplikasi.",
+      "shellOpenExternal": "Membuka tautan eksternal yang dipilih plugin di browser sistem atau aplikasi bawaan.",
+      "uiSlotNewSessionContext": "Memungkinkan plugin menampilkan blok di bawah input sesi baru, hanya saat Anda memilih salah satu agen atau timnya, atau menyebut salah satu kemampuannya.",
+      "conversationDraftRead": "Memungkinkan plugin membaca teks yang Anda ketik tetapi belum dikirim. Hanya tersedia selama blok konteks plugin tersebut tampil di layar."
+    },
+    "uiSlotGlobal": "Slot UI global",
+    "uiSlotAbilityDetail": "Tampilkan panel konfigurasi detail",
+    "uiSlotFilePreview": "Slot pratinjau file",
+    "uiSlotActivityTab": "Tab panel aktivitas",
+    "uiSlotInputAction": "Slot tindakan bilah input",
+    "uiSlotMessage": "Slot di bawah pesan",
+    "uiSlotToolCall": "Slot render pemanggilan tool",
+    "uiSlotTurnCard": "Slot kartu giliran",
+    "uiSlotWorkspaceView": "Slot tampilan ruang kerja",
+    "uiShortcutsRegister": "Daftarkan pintasan papan tik",
+    "uiFileExplorerDecorations": "Hiasi penjelajah file",
+    "uiFileExplorerContextMenu": "Perluas menu konteks file",
+    "uiFileExplorerToolbar": "Perluas bilah alat penjelajah file",
+    "workspaceRead": "Baca metadata ruang kerja dan daftar file",
+    "agentSessionRead": "Baca sesi agen",
+    "agentSessionWrite": "Ubah sesi agen",
+    "agentCommandRun": "Jalankan perintah agen",
+    "agentCommandSpawn": "Jalankan proses latar belakang berdurasi panjang",
+    "captureOffscreen": "Tangkap halaman di jendela tersembunyi",
+    "browserRead": "Baca halaman browser",
+    "browserOpen": "Buka halaman browser bawaan",
+    "browserInteract": "Berinteraksi dengan halaman browser",
+    "browserProfilePersist": "Simpan profil masuk browser",
+    "browserAttach": "Terhubung ke browser yang terbuka",
+    "browserRuntimeManage": "Kelola runtime browser",
+    "agentSystemPromptRead": "Baca system prompt agen",
+    "agentSystemPromptWrite": "Ubah system prompt agen",
+    "agentSystemPromptFullControl": "Kendali penuh atas system prompt agen",
+    "agentSkillsControl": "Kendalikan pemuatan keterampilan agen",
+    "agentMcpControl": "Sediakan server MCP khusus plugin",
+    "agentToolsControl": "Kendalikan pemuatan tool agen",
+    "agentToolsRegister": "Daftarkan tool agen",
+    "agentToolHandlerExecute": "Jalankan handler tool plugin",
+    "agentHooksRegister": "Daftarkan hook Coding Agent",
+    "agentHookHandlerExecute": "Jalankan handler hook plugin",
+    "agentStateRead": "Baca status agen plugin",
+    "agentStateWrite": "Tulis status agen plugin",
+    "agentContinuationRegister": "Daftarkan kebijakan lanjutan otomatis agen",
+    "agentRuntimeConfigure": "Konfigurasikan runtime agen",
+    "appActionsRegister": "Daftarkan tindakan aplikasi",
+    "appActionHandlerExecute": "Jalankan handler tindakan plugin",
+    "aiModelsList": "Daftar model AI yang tersedia",
+    "aiComplete": "Lengkapi teks dengan model AI",
+    "modelsManage": "Kelola penyedia model plugin",
+    "fsRead": "Baca file",
+    "fsWrite": "Tulis file",
+    "networkFetch": "Akses jaringan",
+    "storageRead": "Baca data privat plugin",
+    "storageWrite": "Tulis data privat plugin",
+    "mediaGenerate": "Gunakan penyedia pembuatan media",
+    "mediaProviderRegister": "Sediakan penyedia pembuatan media",
+    "ocrRecognize": "Gunakan layanan pengenalan teks",
+    "ocrProviderRegister": "Sediakan layanan pengenalan teks",
+    "secretsRead": "Baca rahasia sendiri",
+    "secretsWrite": "Kelola rahasia sendiri",
+    "settingsRead": "Baca pengaturan",
+    "settingsWrite": "Ubah pengaturan",
+    "shellOpenExternal": "Buka tautan di browser sistem",
+    "uiSlotNewSessionContext": "Slot Konteks Sesi Baru",
+    "conversationDraftRead": "Baca draf input"
+  },
+  "meta": {
+    "title": "Lainnya",
+    "homepage": "Situs web",
+    "repository": "Repositori",
+    "docs": "Dokumentasi",
+    "license": "Lisensi"
+  },
+  "sources": {
+    "trigger": "Sumber",
+    "dialog": {
+      "title": "Sumber marketplace",
+      "description": "Kelola sumber marketplace GitHub. Sumber yang aktif digabungkan di marketplace; sumber resmi bawaan tidak dapat dinonaktifkan atau dihapus."
+    },
+    "empty": "Belum ada sumber yang dikonfigurasikan",
+    "builtinBadge": "Bawaan",
+    "lockedHint": "Sumber resmi bawaan selalu aktif dan tidak dapat dihapus",
+    "credentialConfigured": "Kredensial akses GitHub sudah dikonfigurasikan",
+    "status": {
+      "disabled": "Nonaktif",
+      "pending": "Belum disinkronkan",
+      "authRequired": "Kredensial GitHub diperlukan atau sudah kedaluwarsa",
+      "forbidden": "Kredensial GitHub tidak dapat membaca repositori ini",
+      "notFound": "Repositori, cabang, atau manifes marketplace tidak ditemukan",
+      "rateLimited": "Batas laju GitHub tercapai; coba lagi nanti",
+      "appOutdated": "Versi Metoai ini terlalu lama; tingkatkan ke {{version}} atau yang lebih baru",
+      "ready": "Tersinkron · {{version}}",
+      "failed": "Sinkronisasi gagal; dapat dicoba lagi",
+      "cached": "Sinkronisasi gagal; menampilkan konten cache"
+    },
+    "actions": {
+      "refresh": "Segarkan sumber {{name}}",
+      "autoUpdate": "Pembaruan otomatis",
+      "add": "Tambahkan sumber",
+      "edit": "Edit sumber",
+      "remove": "Hapus sumber",
+      "clearCredential": "Hapus kredensial akses GitHub",
+      "configureCredential": "Konfigurasikan kredensial akses GitHub",
+      "confirmRemove": "Konfirmasi penghapusan",
+      "toggle": "Aktifkan sumber"
+    },
+    "form": {
+      "addTitle": "Tambahkan sumber",
+      "editTitle": "Edit sumber",
+      "repositoryLabel": "Repositori GitHub",
+      "repositoryPlaceholder": "owner/repo atau https://github.com/owner/repo",
+      "credentialLabel": "Token akses GitHub (opsional)",
+      "credentialPlaceholder": "Token terperinci, Contents hanya baca",
+      "credentialHint": "Token disimpan di penyimpanan aman perangkat ini dan tidak pernah diunggah ke Metoai.",
+      "nameLabel": "Nama",
+      "namePlaceholder": "Default: nama repositori",
+      "refLabel": "Cabang",
+      "refPlaceholder": "main",
+      "submitAdd": "Tambahkan dan sinkronkan",
+      "submitEdit": "Simpan"
+    },
+    "error": "Operasi gagal: {{error}}"
+  }
+}

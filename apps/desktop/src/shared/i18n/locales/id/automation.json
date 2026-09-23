@@ -1,0 +1,125 @@
+{
+  "page": {
+    "title": "Otomatisasi",
+    "subtitle": "Biarkan AI menjalankan tugas sesuai jadwal dan bebaskan waktu Anda",
+    "newTask": "Tugas Baru",
+    "newTaskTitle": "Tugas terjadwal baru"
+  },
+  "recommend": {
+    "title": "Direkomendasikan",
+    "use": "Gunakan templat",
+    "items": {
+      "morningBrief": {
+        "name": "Ringkasan pagi",
+        "desc": "Ringkasan pagi hari kerja tentang perubahan repositori, pekerjaan yang belum di-commit, dan hal yang perlu difokuskan",
+        "schedule": "Hari kerja 09:00",
+        "prompt": "Bertindaklah sebagai asisten ringkasan pagi saya di ruang kerja saat ini:\n1. Periksa status git dan commit terbaru jika git tersedia\n2. Daftarkan perubahan yang belum di-commit, cabang yang belum di-push, atau kemungkinan hambatan\n3. Sarankan 3 hal utama untuk difokuskan hari ini\nBalas dengan struktur yang ringkas. Jangan mengubah file apa pun."
+      },
+      "dailySummary": {
+        "name": "Rekap harian",
+        "desc": "Tinjauan sore atas perubahan hari ini menjadi catatan kerja singkat",
+        "schedule": "Setiap hari 18:00",
+        "prompt": "Buat ringkasan pekerjaan hari ini untuk ruang kerja ini:\n1. Ringkas apa yang dikerjakan berdasarkan git log / perubahan file\n2. Tunjukkan hal yang belum selesai atau perlu ditindaklanjuti\n3. Usulkan hingga 3 langkah berikutnya untuk besok\nGunakan poin-poin yang ringkas. Jangan mengubah kode."
+      },
+      "weeklyReview": {
+        "name": "Tinjauan mingguan",
+        "desc": "Laporan mingguan Jumat sore dari commit minggu ini",
+        "schedule": "Jumat 17:00",
+        "prompt": "Buat tinjauan mingguan untuk repositori saat ini:\n1. Ringkas commit utama dan kemajuan fitur minggu ini\n2. Catat risiko, utang teknis, atau masalah yang berulang\n3. Rekomendasikan prioritas minggu depan (maksimal 5 item)\nTulis agar siap ditempel ke laporan mingguan. Jangan mengubah file repositori."
+      }
+    }
+  },
+  "dialog": {
+    "namePlaceholderEdit": "Nama tugas",
+    "namePlaceholderNew": "Tugas baru",
+    "cancel": "Batal",
+    "save": "Simpan",
+    "create": "Buat"
+  },
+  "form": {
+    "namePlaceholder": "Nama tugas",
+    "promptPlaceholder": "Masukkan prompt... ketik / untuk memanggil keterampilan/scene",
+    "selectWorkDir": "Pilih direktori kerja",
+    "conversation": "Percakapan",
+    "modelEmpty": "Tidak ada model",
+    "modelSelect": "Pilih model",
+    "defaultTag": "Default",
+    "enabled": "Aktif",
+    "disabled": "Nonaktif",
+    "fullAccess": "Akses penuh",
+    "useSandbox": "Gunakan sandbox",
+    "inherit": "Ikuti default ({{mode}})",
+    "sandbox": "sandbox",
+    "sandboxUnavailable": "Sandbox {{platform}} tidak tersedia: {{reason}}",
+    "every": "Setiap",
+    "unitHours": "jam",
+    "unitDays": "hari"
+  },
+  "scheduleMode": {
+    "once": "Sekali",
+    "daily": "Harian",
+    "interval": "Interval"
+  },
+  "schedule": {
+    "once": "{{month}}/{{day}}/{{year}} {{time}}, sekali",
+    "daily": "Setiap hari pukul {{time}}",
+    "weekly": "Setiap minggu pada {{days}} pukul {{time}}",
+    "intervalOne": "Setiap jam",
+    "interval": "Setiap {{hours}} jam",
+    "weekdayJoin": ", ",
+    "weekdayNames": [
+      "Min",
+      "Sen",
+      "Sel",
+      "Rab",
+      "Kam",
+      "Jum",
+      "Sab"
+    ]
+  },
+  "list": {
+    "running": "Berjalan",
+    "pending": "Menunggu",
+    "disabled": "Nonaktif",
+    "once": "Sekali jalan",
+    "runNow": "Jalankan sekarang",
+    "run": "Jalankan",
+    "sectionTitle": "Tugas otomatisasi",
+    "pause": "Jeda",
+    "enable": "Aktifkan",
+    "edit": "Edit",
+    "delete": "Hapus",
+    "success": "Berhasil",
+    "failed": "Gagal",
+    "neverRun": "Belum pernah dijalankan",
+    "justNow": "baru saja",
+    "minutesAgo": "{{n}} menit lalu",
+    "hoursAgo": "{{n}} jam lalu",
+    "daysAgo": "{{n}} hari lalu",
+    "fullAccess": "Akses penuh",
+    "useSandbox": "Gunakan sandbox",
+    "inheritDefault": "Ikuti default"
+  },
+  "confirm": {
+    "deleteTitle": "Hapus tugas \"{{name}}\"?",
+    "deleteMsg": "Tindakan ini tidak dapat dibatalkan. Konfirmasikan untuk melanjutkan.",
+    "delete": "Hapus",
+    "cancel": "Batal"
+  },
+  "drawer": {
+    "close": "Tutup",
+    "runNow": "Jalankan sekarang",
+    "pause": "Jeda",
+    "enable": "Aktifkan",
+    "edit": "Edit"
+  },
+  "history": {
+    "title": "Riwayat eksekusi",
+    "refresh": "Segarkan",
+    "empty": "Tidak ada catatan eksekusi",
+    "success": "Berhasil",
+    "failed": "Gagal",
+    "running": "Berjalan",
+    "aborted": "Dibatalkan"
+  }
+}

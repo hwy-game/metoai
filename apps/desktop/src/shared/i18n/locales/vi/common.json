@@ -1,0 +1,1067 @@
+{
+  "appName": "Metoai",
+  "actions": {
+    "cancel": "Hủy",
+    "confirm": "Xác nhận",
+    "save": "Lưu",
+    "delete": "Xóa",
+    "close": "Đóng",
+    "apply": "Áp dụng",
+    "back": "Quay lại"
+  },
+  "tour": {
+    "next": "Tiếp",
+    "prev": "Quay lại",
+    "done": "Xong",
+    "progress": "{{current}} / {{total}}"
+  },
+  "appearance": {
+    "languageTitle": "Ngôn ngữ",
+    "languageHint": "Mặc định theo ngôn ngữ hệ thống; có thể đổi bất cứ lúc nào"
+  },
+  "updateRestart": {
+    "title": "Bản cập nhật sẵn sàng",
+    "message": "Đã tải phiên bản {{latestVersion}} (hiện tại {{currentVersion}}). Khởi động lại Metoai ngay để áp dụng bản cập nhật, hoặc chọn \"Để sau\" để được nhắc ở lần mở tiếp theo.",
+    "later": "Để sau",
+    "install": "Khởi động lại ngay"
+  },
+  "filePreview": {
+    "showInFolder": "Hiện trong thư mục",
+    "download": "Tải xuống",
+    "close": "Đóng (Esc)"
+  },
+  "login": {
+    "oauthButton": "Ủy quyền & Đăng nhập",
+    "waitingTitle": "Đang chờ trình duyệt ủy quyền",
+    "waitingHint": "Bạn sẽ được đăng nhập tự động",
+    "reopen": "Mở lại liên kết",
+    "retry": "Ủy quyền lại",
+    "openFailed": "Không mở được trình duyệt. Vui lòng thử lại.",
+    "rejected": "Liên kết ủy quyền này không còn hiệu lực. Vui lòng đăng nhập lại."
+  },
+  "actionApproval": {
+    "reject": "Từ chối",
+    "confirm": "Xác nhận",
+    "processing": "Đang xử lý...",
+    "permission": "Quyền: {{permission}}",
+    "permissionPrefix": "Quyền: ",
+    "whyConfirm": "AI đang yêu cầu hành động này. Nó chỉ chạy sau khi bạn xác nhận.",
+    "genericTitle": "Xác nhận hành động",
+    "genericSummary": "Vui lòng xác nhận có cho phép hành động này không.",
+    "genericImpact": "Xác nhận để chạy. Từ chối sẽ hủy yêu cầu mà không thay đổi dữ liệu của bạn.",
+    "showTechnicalDetails": "Hiện chi tiết kỹ thuật",
+    "hideTechnicalDetails": "Ẩn chi tiết kỹ thuật",
+    "unreadableRequest": "Không phân tích đầy đủ yêu cầu này. Nếu bạn không chắc, hãy từ chối và yêu cầu AI giải thích.",
+    "fields": {
+      "request": "Yêu cầu",
+      "operation": "Thao tác",
+      "arrayCount": "{{count}} mục",
+      "objectSummary": "{{count}} trường"
+    }
+  },
+  "manageApproval": {
+    "fallbackTitle": "Xác nhận hành động",
+    "fallbackConfirm": "Xác nhận",
+    "fallbackBadge": "Hành động",
+    "rawInput": "Nội dung yêu cầu",
+    "yes": "Có",
+    "no": "Không",
+    "on": "Bật",
+    "off": "Tắt",
+    "toggle": {
+      "willBecome": "Sẽ trở thành",
+      "stateOnHint": "Khi bật, các khả năng liên quan sẽ khả dụng. Cài đặt hiện có được giữ nguyên.",
+      "stateOffHint": "Khi tắt, việc sử dụng sẽ tạm dừng. Cài đặt vẫn được giữ để bạn bật lại bất cứ lúc nào.",
+      "editableHint": "Bạn có thể đổi mục này trước khi xác nhận"
+    },
+    "toggleCopy": {
+      "mcp": {
+        "enableTitle": "Bật máy chủ MCP",
+        "disableTitle": "Tắt máy chủ MCP",
+        "enableSummary": "Sau khi bật, AI có thể dùng các khả năng của MCP này trong trò chuyện (duyệt web, gọi công cụ bên ngoài, v.v.).",
+        "disableSummary": "Sau khi tắt, MCP này tạm dừng và không thể dùng trong trò chuyện. Cấu hình không bị xóa.",
+        "enableConfirm": "Bật",
+        "disableConfirm": "Tắt",
+        "enableImpact": "MCP này khả dụng ngay cho các cuộc trò chuyện sau.",
+        "disableImpact": "MCP này tạm dừng ngay. Cài đặt vẫn còn; không có gì bị gỡ cài đặt."
+      },
+      "skills": {
+        "enableTitle": "Bật khả năng",
+        "disableTitle": "Tắt khả năng",
+        "enableSummary": "Sau khi bật, AI có thể dùng khả năng này (kỹ năng/bối cảnh) trong trò chuyện khi cần.",
+        "disableSummary": "Sau khi tắt, khả năng này sẽ không được dùng. Tệp không bị gỡ cài đặt.",
+        "enableConfirm": "Bật",
+        "disableConfirm": "Tắt",
+        "enableImpact": "Khả năng sẽ khả dụng để dùng trong trò chuyện.",
+        "disableImpact": "Khả năng tạm dừng. Cấu hình và tệp vẫn được giữ."
+      },
+      "plugins": {
+        "enableTitle": "Bật tiện ích",
+        "disableTitle": "Tắt tiện ích",
+        "enableSummary": "Sau khi bật, giao diện và khả năng của tiện ích này sẽ hoạt động trở lại.",
+        "disableSummary": "Sau khi tắt, tiện ích tạm dừng. Nó không bị gỡ cài đặt.",
+        "enableConfirm": "Bật",
+        "disableConfirm": "Tắt",
+        "enableImpact": "Các tính năng của tiện ích áp dụng cho ứng dụng ngay lập tức.",
+        "disableImpact": "Các tính năng của tiện ích tạm dừng ngay. Bản cài và cài đặt vẫn được giữ."
+      },
+      "im": {
+        "enableTitle": "Bật Claw (cầu nối IM)",
+        "disableTitle": "Tắt Claw (cầu nối IM)",
+        "enableSummary": "Sau khi bật, bạn có thể trò chuyện với AI qua Feishu, WeChat và các kênh bên ngoài khác.",
+        "disableSummary": "Sau khi tắt, các kênh IM bên ngoài không thể kết nối tới AI cục bộ nữa.",
+        "enableConfirm": "Bật",
+        "disableConfirm": "Tắt",
+        "enableImpact": "Cầu nối IM chạy với cài đặt hiện tại; tin nhắn bên ngoài có thể vào trò chuyện.",
+        "disableImpact": "Tin nhắn IM mới sẽ ngừng đến. Các phiên hiện có vẫn được giữ."
+      },
+      "webhook": {
+        "enableTitle": "Bật đẩy tin nhắn",
+        "disableTitle": "Tắt đẩy tin nhắn",
+        "enableSummary": "Sau khi bật, thông báo có thể được gửi tới webhook này (ví dụ bot DingTalk / Feishu).",
+        "disableSummary": "Sau khi tắt, không còn tin nhắn nào được đẩy tới địa chỉ này. URL và khóa bí mật vẫn được giữ.",
+        "enableConfirm": "Bật",
+        "disableConfirm": "Tắt",
+        "enableImpact": "Kênh này có thể nhận thông báo và tin nhắn thử.",
+        "disableImpact": "Kênh này tạm dừng. Cấu hình không bị xóa."
+      },
+      "general.notifications": {
+        "enableTitle": "Bật thông báo hệ thống",
+        "disableTitle": "Tắt thông báo hệ thống",
+        "enableSummary": "Sau khi bật, sự kiện hoàn thành tác vụ và cập nhật có thể hiển thị dưới dạng thông báo hệ thống.",
+        "disableSummary": "Sau khi tắt, ứng dụng sẽ không hiển thị thông báo hệ thống.",
+        "enableConfirm": "Bật",
+        "disableConfirm": "Tắt",
+        "enableImpact": "Các sự kiện phù hợp sẽ hiển thị thông báo hệ thống.",
+        "disableImpact": "Thông báo hệ thống dừng lại. Trạng thái trong ứng dụng vẫn hiển thị."
+      }
+    },
+    "fieldWithKey": "{{prefix}}.{{key}}",
+    "fields": {
+      "modelKey": "Mô hình",
+      "reasoningLevel": "Mức suy luận",
+      "provider": "Nhà cung cấp",
+      "config": "Cấu hình",
+      "serverName": "Máy chủ MCP",
+      "enabled": "Đã bật",
+      "skillName": "Tên khả năng",
+      "abilitySlug": "Slug khả năng",
+      "skill": "Kỹ năng",
+      "scene": "Bối cảnh",
+      "appId": "App ID",
+      "appSecret": "App Secret",
+      "verificationToken": "Verification Token",
+      "encryptKey": "Encrypt Key",
+      "env": "Biến môi trường (KEY=VALUE)",
+      "resourceType": "Loại",
+      "name": "Tên",
+      "newName": "Tên mới",
+      "path": "Đường dẫn",
+      "paths": "Đường dẫn tệp",
+      "packageName": "Gói npm",
+      "packageSpec": "Phiên bản yêu cầu",
+      "language": "Ngôn ngữ",
+      "executionMode": "Chế độ thực thi",
+      "experimental": "Tính năng thử nghiệm",
+      "knowledgeBase": "Cài đặt cơ sở tri thức",
+      "kbId": "ID cơ sở tri thức",
+      "relPath": "Đường dẫn tương đối",
+      "move": "Di chuyển tệp",
+      "pluginId": "ID tiện ích",
+      "url": "URL cài đặt",
+      "kind": "Nền tảng",
+      "webhookUrl": "URL webhook",
+      "signSecret": "Khóa ký",
+      "id": "ID",
+      "title": "Tiêu đề",
+      "level": "Cấp độ",
+      "text": "Tin nhắn",
+      "displayName": "Tên hiển thị",
+      "baseUrl": "URL cơ sở",
+      "api": "Loại API",
+      "apiKey": "API Key",
+      "models": "Mô hình",
+      "command": "Lệnh",
+      "args": "Đối số",
+      "cwd": "Thư mục làm việc",
+      "headers": "Header",
+      "shortcutActionId": "Hành động phím tắt",
+      "shortcutCombo": "Tổ hợp phím",
+      "quickpanelTrigger": "Phím gọi nhanh",
+      "quickpanelBehavior": "Sau khi gửi"
+    },
+    "shortcuts": {
+      "ops": {
+        "set-binding": {
+          "title": "Đổi phím tắt",
+          "summary": "Chọn một tính năng, sau đó nhấp vào vùng phím và nhấn tổ hợp mới. Thay đổi áp dụng ngay sau khi bạn xác nhận.",
+          "confirm": "Lưu phím tắt",
+          "badge": "Phím tắt",
+          "impact": "Bạn có thể kích hoạt tính năng này bằng tổ hợp mới. Các liên kết trùng sẽ không lưu được."
+        },
+        "reset-binding": {
+          "title": "Khôi phục phím tắt mặc định",
+          "summary": "Đưa phím tắt của tính năng này về mặc định của hệ thống.",
+          "confirm": "Khôi phục mặc định",
+          "badge": "Đặt lại",
+          "impact": "Tính năng này sẽ dùng lại tổ hợp phím mặc định."
+        },
+        "reset-all-bindings": {
+          "title": "Khôi phục tất cả phím tắt mặc định",
+          "summary": "Xóa phím tắt tùy chỉnh của các tính năng bên dưới và khôi phục mặc định.",
+          "confirm": "Khôi phục tất cả mặc định",
+          "badge": "Đặt lại",
+          "impact": "Phím tắt tính năng toàn cục trở về mặc định. Cách gọi Bảng nhanh và hành vi sau khi gửi giữ nguyên.",
+          "warningTitle": "Chỉ áp dụng phím tính năng toàn cục",
+          "warning": "Không thay đổi cách bạn mở Bảng nhanh, hay việc gửi có mở cửa sổ chính hay không."
+        },
+        "set-quick-panel-trigger": {
+          "title": "Đổi cách gọi Bảng nhanh",
+          "summary": "Chọn phím nhấn đúp để mở Bảng nhanh. “Tắt” nghĩa là bạn sẽ dùng cửa sổ chính thay thế.",
+          "confirm": "Lưu cách gọi",
+          "badge": "Phím tắt",
+          "impact": "Áp dụng ngay. Bạn có thể đổi lại bất cứ lúc nào."
+        },
+        "set-quick-panel-behavior": {
+          "title": "Đổi hành vi sau khi gửi",
+          "summary": "Sau khi gửi từ Bảng nhanh, mở cửa sổ chính để theo dõi tiếp, hoặc tiếp tục chạy nền.",
+          "confirm": "Lưu hành vi sau khi gửi",
+          "badge": "Phím tắt",
+          "impact": "Chỉ ảnh hưởng tới các cuộc trò chuyện bạn bắt đầu sau đó từ Bảng nhanh."
+        }
+      },
+      "bindingSectionTitle": "Phím tắt tính năng",
+      "bindingSectionDescription": "Giống Cài đặt → Phím tắt. Chọn một tính năng, sau đó ghi tổ hợp phím.",
+      "actionField": "Tính năng",
+      "comboField": "Tổ hợp phím",
+      "comboFieldHint": "Nhấp, rồi nhấn tổ hợp mới để ghi",
+      "resetToDefault": "Sẽ khôi phục về {{shortcut}}",
+      "quickPanelTriggerSectionTitle": "Cách gọi Bảng nhanh",
+      "quickPanelTriggerSectionDescription": "Cùng tùy chọn như trên trang cài đặt Phím tắt.",
+      "quickPanelBehaviorSectionTitle": "Sau khi bạn gửi",
+      "quickPanelBehaviorSectionDescription": "Giống “hành vi sau khi gửi” trên trang cài đặt.",
+      "quickPanelTriggers": {
+        "none": "Tắt",
+        "mod": "Nhấn đúp ⌘ / Ctrl",
+        "alt": "Nhấn đúp ⌥ / Alt",
+        "shift": "Nhấn đúp ⇧"
+      },
+      "quickPanelTriggerHints": {
+        "none": "Tắt gọi bằng nhấn đúp; dùng cửa sổ chính khi cần",
+        "mod": "Nhấn đúp ⌘ (Mac) hoặc Ctrl (Windows) ở bất kỳ đâu để mở bảng",
+        "alt": "Nhấn đúp ⌥ / Alt ở bất kỳ đâu để mở bảng",
+        "shift": "Nhấn đúp ⇧ ở bất kỳ đâu để mở bảng"
+      },
+      "quickPanelBehaviors": {
+        "foreground": "Mở cửa sổ chính",
+        "background": "Chạy nền"
+      },
+      "quickPanelBehaviorHints": {
+        "foreground": "Sau khi gửi, mở cửa sổ chính ở cuộc trò chuyện mới",
+        "background": "Sau khi gửi, đóng bảng và tiếp tục chạy cuộc trò chuyện ở nền"
+      }
+    },
+    "models": {
+      "ops": {
+        "set-default": {
+          "title": "Đặt mô hình trò chuyện mặc định",
+          "summary": "Chọn mô hình dùng mặc định cho cuộc trò chuyện mới. Bạn có thể thay đổi bên dưới trước khi xác nhận.",
+          "confirm": "Đặt làm mặc định",
+          "badge": "Mô hình mặc định",
+          "impact": "Cuộc trò chuyện mới sẽ ưu tiên mô hình này. Cuộc trò chuyện hiện có giữ mô hình hiện tại."
+        },
+        "upsert-provider": {
+          "title": "Xác nhận tạo hoặc cập nhật nhà cung cấp",
+          "summary": "Xem lại cấu hình nhà cung cấp. Các trường bí mật được che; xác nhận sẽ ghi cấu hình đã gửi.",
+          "confirm": "Lưu nhà cung cấp",
+          "badge": "Nhà cung cấp",
+          "impact": "Cấu hình nhà cung cấp sẽ được ghi vào models.json cục bộ và ảnh hưởng tới các mô hình khả dụng."
+        },
+        "remove-provider": {
+          "title": "Xác nhận xóa nhà cung cấp",
+          "summary": "Các mô hình thuộc nhà cung cấp này sẽ không còn khả dụng và tham chiếu mô hình mặc định sẽ bị xóa.",
+          "confirm": "Xóa nhà cung cấp",
+          "badge": "Xóa",
+          "impact": "Nhà cung cấp này và các mô hình của nó sẽ bị xóa khỏi cấu hình cục bộ.",
+          "warning": "Xóa nhà cung cấp cũng xóa các tham chiếu mô hình mặc định phụ thuộc vào nó."
+        }
+      },
+      "createProviderHint": "Tạo",
+      "updateProviderHint": "Cập nhật mục hiện có",
+      "modelsCount": "{{count}} mô hình",
+      "defaultSectionTitle": "Mô hình mặc định",
+      "defaultSectionDescription": "Giống Cài đặt → Mô hình. Có hiệu lực sau khi bạn xác nhận.",
+      "defaultModelHint": "Chọn từ các mô hình đã cấu hình"
+    },
+    "mcp": {
+      "ops": {
+        "upsert": {
+          "title": "Xác nhận tạo hoặc cập nhật máy chủ MCP",
+          "summary": "Xem lại cấu hình máy chủ MCP. Các header bí mật được che.",
+          "confirm": "Lưu máy chủ MCP",
+          "badge": "MCP",
+          "impact": "Cấu hình máy chủ MCP sẽ được ghi vào mcp.json cục bộ và có thể ảnh hưởng tới công cụ của tác nhân."
+        },
+        "set-enabled": {
+          "title": "Xác nhận bật/tắt máy chủ MCP",
+          "summary": "Thay đổi việc máy chủ MCP này có được bật hay không.",
+          "confirm": "Xác nhận thay đổi trạng thái",
+          "badge": "Trạng thái bật",
+          "impact": "Trạng thái bật của máy chủ MCP sẽ cập nhật ngay."
+        },
+        "remove": {
+          "title": "Xác nhận xóa máy chủ MCP",
+          "summary": "Cấu hình máy chủ MCP sẽ bị xóa cục bộ.",
+          "confirm": "Xóa máy chủ",
+          "badge": "Xóa",
+          "impact": "Cấu hình máy chủ MCP này sẽ bị xóa cục bộ.",
+          "warning": "Bạn sẽ cần cấu hình lại máy chủ MCP để khôi phục nó."
+        }
+      },
+      "headersConfigured": "Có header tùy chỉnh (bí mật được che)",
+      "envPlaceholder": "Mỗi dòng một KEY=VALUE; hãy tự điền bí mật ở đây",
+      "headersPlaceholder": "Mỗi dòng một HeaderName=value; hãy tự điền bí mật ở đây"
+    },
+    "skills": {
+      "ops": {
+        "set-enabled": {
+          "title": "Xác nhận bật/tắt khả năng",
+          "summary": "Thay đổi việc khả năng này (kỹ năng/bối cảnh) có được bật hay không.",
+          "confirm": "Xác nhận thay đổi trạng thái",
+          "badge": "Khả năng",
+          "impact": "Trạng thái bật của khả năng có hiệu lực ngay."
+        },
+        "uninstall": {
+          "title": "Xác nhận gỡ cài đặt khả năng",
+          "summary": "Các tệp khả năng cục bộ sẽ bị xóa. Không thể hoàn tác.",
+          "confirm": "Gỡ cài đặt",
+          "badge": "Gỡ cài đặt",
+          "impact": "Các tệp khả năng cục bộ sẽ bị gỡ cài đặt và khó khôi phục.",
+          "warning": "Các tệp khả năng sẽ bị xóa. Không thể hoàn tác."
+        },
+        "install-from-market": {
+          "title": "Xác nhận cài khả năng từ chợ ứng dụng",
+          "summary": "Tải và cài khả năng này (kỹ năng hoặc bối cảnh) từ chợ ứng dụng.",
+          "confirm": "Cài đặt",
+          "badge": "Cài đặt",
+          "impact": "Khả năng sẽ được tải về và xuất hiện trên trang Khả năng, mặc định được bật."
+        }
+      }
+    },
+    "projects": {
+      "ops": {
+        "create": {
+          "title": "Xác nhận tạo dự án",
+          "summary": "Tạo dự án mới và thêm vào thanh bên.",
+          "confirm": "Tạo dự án",
+          "badge": "Tạo",
+          "impact": "Dự án mới sẽ được tạo trong thanh bên và thư mục được đảm bảo tồn tại."
+        },
+        "open": {
+          "title": "Xác nhận mở dự án",
+          "summary": "Mở dự án tại đường dẫn đã chỉ định.",
+          "confirm": "Mở dự án",
+          "badge": "Mở",
+          "impact": "Đường dẫn dự án sẽ mở và được thêm vào danh sách đang hoạt động."
+        },
+        "rename": {
+          "title": "Xác nhận đổi tên dự án",
+          "summary": "Cập nhật tên hiển thị của dự án.",
+          "confirm": "Đổi tên dự án",
+          "badge": "Đổi tên",
+          "impact": "Chỉ tên hiển thị ở thanh bên thay đổi; đường dẫn trên ổ đĩa giữ nguyên."
+        },
+        "archive": {
+          "title": "Xác nhận lưu trữ dự án",
+          "summary": "Chuyển dự án vào danh sách lưu trữ. Lịch sử phiên được giữ.",
+          "confirm": "Lưu trữ dự án",
+          "badge": "Lưu trữ",
+          "impact": "Dự án chuyển vào danh sách lưu trữ; lịch sử phiên được giữ."
+        },
+        "unarchive": {
+          "title": "Xác nhận bỏ lưu trữ dự án",
+          "summary": "Khôi phục dự án vào danh sách đang hoạt động.",
+          "confirm": "Bỏ lưu trữ dự án",
+          "badge": "Bỏ lưu trữ",
+          "impact": "Dự án trở lại danh sách đang hoạt động."
+        },
+        "remove": {
+          "title": "Xác nhận xóa dự án",
+          "summary": "Xóa dự án khỏi danh sách mà không xóa tệp trên ổ đĩa.",
+          "confirm": "Xóa dự án",
+          "badge": "Xóa",
+          "impact": "Chỉ xóa mục ở thanh bên; tệp dự án trên ổ đĩa không bị xóa.",
+          "warning": "Chỉ mục ở thanh bên bị xóa; tệp dự án trên ổ đĩa vẫn được giữ."
+        }
+      },
+      "pathOptional": "Tùy chọn; bỏ trống để tạo trong không gian làm việc theo tên"
+    },
+    "general": {
+      "ops": {
+        "set-notifications": {
+          "title": "Đổi cài đặt thông báo",
+          "summary": "Chọn xem thông báo hệ thống có được phép hay không.",
+          "confirm": "Lưu thông báo",
+          "badge": "Thông báo",
+          "impact": "Cảnh báo tác vụ và cập nhật sẽ hiện hoặc ẩn theo cài đặt mới."
+        },
+        "set-execution-mode": {
+          "title": "Đổi quyền mặc định",
+          "summary": "Chọn mức quyền mặc định cho cuộc trò chuyện mới. Bạn có thể thay đổi bên dưới.",
+          "confirm": "Lưu quyền",
+          "badge": "Quyền",
+          "impact": "Cuộc trò chuyện mới sẽ dùng quyền này. Cuộc trò chuyện hiện có giữ nguyên."
+        },
+        "set-workspace": {
+          "title": "Đổi không gian làm việc mặc định",
+          "summary": "Dự án mới sẽ được tạo trong thư mục này theo mặc định.",
+          "confirm": "Lưu không gian làm việc",
+          "badge": "Không gian làm việc",
+          "impact": "Đường dẫn không gian làm việc mặc định được cập nhật. Dự án hiện có giữ nguyên."
+        }
+      },
+      "notificationsOn": "Bật thông báo",
+      "notificationsOff": "Tắt thông báo",
+      "notificationsTarget": "Thông báo hệ thống",
+      "notificationsTargetHint": "Hoàn thành tác vụ, cập nhật và các cảnh báo tương tự",
+      "executionModeSandbox": "Chế độ an toàn (sandbox)",
+      "executionModeFullAccess": "Toàn quyền truy cập",
+      "executionModeSandboxHint": "Giới hạn nơi có thể thay đổi tệp. An toàn hơn cho việc dùng hằng ngày.",
+      "executionModeFullAccessHint": "Cho phép thao tác tệp và hệ thống rộng hơn. Mạnh hơn nhưng rủi ro cao hơn."
+    },
+    "agent": {
+      "ops": {
+        "set-experimental": {
+          "title": "Đổi tính năng thử nghiệm",
+          "summary": "Bạn có thể điều chỉnh các tùy chọn thử nghiệm này trước khi xác nhận.",
+          "confirm": "Lưu tính năng thử nghiệm",
+          "badge": "Thử nghiệm",
+          "impact": "Các khả năng phù hợp sẽ bật hoặc tắt. Tính năng thử nghiệm có thể không ổn định."
+        }
+      },
+      "experimentalSectionTitle": "Tính năng thử nghiệm",
+      "experimentalSectionDescription": "Cùng tùy chọn như Cài đặt → Tác nhân. Bạn có thể điều chỉnh trước khi xác nhận.",
+      "experimentalFields": {
+        "vettaCli": "Metoai CLI",
+        "vettaCliDesc": "Cho phép gọi các khả năng cục bộ từ terminal qua Metoai CLI",
+        "promptPrediction": "Dự đoán nhập liệu",
+        "promptPredictionDesc": "Gợi ý văn bản tiếp theo khi bạn nhập; có thể dùng một chút hạn mức",
+        "agentSkills": "Tiện ích mở rộng kỹ năng của tác nhân",
+        "agentSkillsDesc": "Cho phép tác nhân dùng các khả năng kỹ năng mở rộng"
+      }
+    },
+    "knowledge": {
+      "ops": {
+        "create": {
+          "title": "Xác nhận tạo cơ sở tri thức",
+          "summary": "Tạo cơ sở tri thức mới.",
+          "confirm": "Tạo",
+          "badge": "Tạo",
+          "impact": "Một cơ sở tri thức mới sẽ được tạo."
+        },
+        "rename": {
+          "title": "Xác nhận đổi tên cơ sở tri thức",
+          "summary": "Cập nhật tên cơ sở tri thức.",
+          "confirm": "Đổi tên",
+          "badge": "Đổi tên",
+          "impact": "Tên hiển thị của cơ sở tri thức sẽ được cập nhật."
+        },
+        "delete": {
+          "title": "Xác nhận xóa cơ sở tri thức",
+          "summary": "Cơ sở tri thức và dữ liệu đã xử lý sẽ bị xóa. Không thể hoàn tác.",
+          "confirm": "Xóa",
+          "badge": "Xóa",
+          "impact": "Cơ sở tri thức và dữ liệu đã xử lý sẽ bị xóa.",
+          "warning": "Xóa cơ sở tri thức cũng xóa các tệp đã xử lý. Không thể hoàn tác."
+        },
+        "add-files": {
+          "title": "Xác nhận thêm tệp vào cơ sở tri thức",
+          "summary": "Thêm các tệp đã chọn và bắt đầu xử lý.",
+          "confirm": "Thêm tệp",
+          "badge": "Thêm tệp",
+          "impact": "Các tệp đã chọn sẽ được thêm và bắt đầu xử lý."
+        },
+        "delete-entry": {
+          "title": "Xác nhận xóa mục tri thức",
+          "summary": "Xóa mục đã chỉ định khỏi cơ sở tri thức.",
+          "confirm": "Xóa mục",
+          "badge": "Xóa mục",
+          "impact": "Mục trong cơ sở tri thức sẽ bị xóa.",
+          "warning": "Các mục đã xóa không thể khôi phục từ ứng dụng."
+        },
+        "scan-now": {
+          "title": "Xác nhận quét cơ sở tri thức ngay",
+          "summary": "Kích hoạt một chu kỳ quét và xử lý cơ sở tri thức.",
+          "confirm": "Quét ngay",
+          "badge": "Quét",
+          "impact": "Một chu kỳ quét và xử lý tri thức sẽ bắt đầu ngay."
+        },
+        "retry-failed": {
+          "title": "Xác nhận thử lại tác vụ tri thức thất bại",
+          "summary": "Xóa các bản ghi thất bại/cách ly và xử lý lại.",
+          "confirm": "Thử lại mục thất bại",
+          "badge": "Thử lại",
+          "impact": "Các bản ghi thất bại/cách ly sẽ bị xóa và xử lý lại."
+        },
+        "set-processing": {
+          "title": "Đổi cài đặt xử lý tri thức",
+          "summary": "Bạn có thể chỉnh các tùy chọn cơ sở tri thức này trước khi xác nhận.",
+          "confirm": "Lưu cài đặt cơ sở tri thức",
+          "badge": "Tri thức",
+          "impact": "Xử lý tri thức tự động sẽ tuân theo cài đặt mới."
+        }
+      },
+      "globalAction": "Hành động toàn cục cho cơ sở tri thức",
+      "processingSectionTitle": "Xử lý tri thức",
+      "processingSectionDescription": "Cùng tùy chọn như Cài đặt → Tri thức. Chỉ hiển thị các trường trong yêu cầu này.",
+      "processingFields": {
+        "enabled": "Bật xử lý tri thức",
+        "enabledDesc": "Khi tắt, xử lý tự động sẽ tạm dừng. Tri thức hiện có không bị xóa.",
+        "pollIntervalMinutes": "Khoảng thời gian xử lý tự động",
+        "pollIntervalDesc": "Tần suất kiểm tra các tệp cần xử lý",
+        "processingModelKey": "Mô hình xử lý",
+        "processingModelDesc": "Mô hình dùng để đọc và sắp xếp tài liệu",
+        "processingModelReasoningLevel": "Mức suy luận",
+        "agentConcurrency": "Tác vụ xử lý song song",
+        "agentConcurrencyDesc": "Nhiều tác vụ song song hơn thì nhanh hơn nhưng tốn nhiều tài nguyên hơn",
+        "ocrConcurrency": "Tác vụ OCR song song",
+        "ocrConcurrencyDesc": "Số tác vụ nhận dạng chữ trong ảnh chạy cùng lúc",
+        "pollMinutes": "Mỗi {{count}} phút"
+      }
+    },
+    "appearance": {
+      "ops": {
+        "set-language": {
+          "title": "Chuyển ngôn ngữ",
+          "summary": "Giao diện sẽ chuyển sang ngôn ngữ đã chọn.",
+          "confirm": "Chuyển ngôn ngữ",
+          "badge": "Ngôn ngữ",
+          "impact": "Menu, cài đặt và nút chuyển ngay. Nội dung trò chuyện không đổi."
+        }
+      }
+    },
+    "plugins": {
+      "ops": {
+        "set-enabled": {
+          "title": "Xác nhận bật/tắt tiện ích",
+          "summary": "Thay đổi việc tiện ích này có được bật hay không.",
+          "confirm": "Xác nhận thay đổi trạng thái",
+          "badge": "Tiện ích",
+          "impact": "Trạng thái bật của tiện ích sẽ cập nhật ngay."
+        },
+        "install-from-url": {
+          "title": "Xác nhận cài tiện ích từ URL",
+          "summary": "Tải và cài tiện ích từ URL đã cho.",
+          "confirm": "Cài đặt",
+          "badge": "Cài đặt",
+          "impact": "Tiện ích sẽ được tải và cài từ URL."
+        },
+        "install-from-path": {
+          "title": "Xác nhận cài tiện ích từ đường dẫn cục bộ",
+          "summary": "Cài tệp zip cục bộ, cấp một lần các quyền đã khai báo và bật tiện ích.",
+          "confirm": "Cài đặt và cấp quyền",
+          "badge": "Cài đặt",
+          "impact": "Gói tiện ích cục bộ sẽ được cài, cấp các quyền đã khai báo và bật."
+        },
+        "install-from-npm": {
+          "title": "Xác nhận cài tiện ích từ npm",
+          "summary": "Cài gói tiện ích npm đã phân giải, cấp một lần các quyền đã khai báo và bật nó.",
+          "confirm": "Cài đặt và cấp quyền",
+          "badge": "npm install",
+          "impact": "Ứng dụng sẽ xác minh lại mã băm gói, ID tiện ích và phiên bản trước khi cấp các quyền đã khai báo và bật nó."
+        },
+        "uninstall": {
+          "title": "Xác nhận gỡ cài đặt tiện ích",
+          "summary": "Tiện ích và dữ liệu cục bộ của nó sẽ bị xóa theo chính sách.",
+          "confirm": "Gỡ cài đặt",
+          "badge": "Gỡ cài đặt",
+          "impact": "Tiện ích sẽ được gỡ cài đặt theo chính sách.",
+          "warning": "Tiện ích và dữ liệu cục bộ của nó có thể bị xóa theo chính sách."
+        },
+        "reload": {
+          "title": "Xác nhận tải lại tiện ích",
+          "summary": "Tải lại tiện ích này.",
+          "confirm": "Tải lại",
+          "badge": "Tải lại",
+          "impact": "Tiện ích sẽ được tải lại."
+        }
+      }
+    },
+    "im": {
+      "ops": {
+        "set-enabled": {
+          "title": "Xác nhận bật/tắt cổng IM",
+          "summary": "Thay đổi việc cổng sidecar IM có được bật hay không.",
+          "confirm": "Xác nhận thay đổi trạng thái",
+          "badge": "IM",
+          "impact": "Trạng thái bật của cổng IM sẽ được cập nhật."
+        },
+        "restart": {
+          "title": "Xác nhận khởi động lại cổng IM",
+          "summary": "Khởi động lại tiến trình sidecar IM cục bộ.",
+          "confirm": "Khởi động lại",
+          "badge": "Khởi động lại",
+          "impact": "Tiến trình cổng IM cục bộ sẽ khởi động lại."
+        },
+        "set-agent-model": {
+          "title": "Đặt mô hình Claw",
+          "summary": "Chọn mô hình dùng cho trò chuyện IM bên ngoài (Claw). Cùng bộ chọn như trong Cài đặt.",
+          "confirm": "Lưu mô hình",
+          "badge": "Mô hình Claw",
+          "impact": "Các cuộc trò chuyện sau đó từ Feishu/WeChat sẽ dùng mô hình này. Để trống để theo mặc định."
+        },
+        "set-feishu-config": {
+          "title": "Cấu hình thông tin xác thực Feishu",
+          "summary": "Nhập App ID và khóa bí mật bên dưới. Hãy tự điền bí mật; đừng để AI truyền chúng.",
+          "confirm": "Lưu cấu hình Feishu",
+          "badge": "Feishu",
+          "impact": "Thông tin xác thực cầu nối Feishu cục bộ sẽ được cập nhật. Trường bí mật để trống sẽ giữ giá trị hiện có."
+        }
+      },
+      "enableTitle": "Bật cổng IM",
+      "disableTitle": "Tắt cổng IM",
+      "restartTarget": "Tiến trình cổng IM cục bộ",
+      "channelName": "Claw (cầu nối IM)",
+      "channelHint": "Kết nối các kênh trò chuyện bên ngoài như Feishu và WeChat",
+      "feishuTarget": "Ứng dụng Feishu",
+      "feishuHint": "Hãy tự điền App Secret và các bí mật khác bên dưới",
+      "modelKeyPlaceholder": "Chọn một mô hình, hoặc xóa",
+      "modelSectionTitle": "Mô hình Claw",
+      "modelSectionDescription": "Giống Cài đặt → Claw. Hỗ trợ mô hình và mức suy luận.",
+      "modelKeyHint": "Để trống để xóa mô hình riêng và dùng lại mặc định"
+    },
+    "webhook": {
+      "ops": {
+        "create": {
+          "title": "Xác nhận tạo webhook",
+          "summary": "Xem lại cấu hình webhook. Khóa ký được che.",
+          "confirm": "Tạo",
+          "badge": "Tạo",
+          "impact": "Cấu hình điểm cuối webhook mới sẽ được lưu."
+        },
+        "update": {
+          "title": "Xác nhận cập nhật webhook",
+          "summary": "Xem lại các trường webhook sẽ được ghi.",
+          "confirm": "Cập nhật",
+          "badge": "Cập nhật",
+          "impact": "Cấu hình webhook sẽ cập nhật cho các trường đã gửi."
+        },
+        "set-enabled": {
+          "title": "Xác nhận bật/tắt webhook",
+          "summary": "Thay đổi việc webhook này có được bật hay không.",
+          "confirm": "Xác nhận thay đổi trạng thái",
+          "badge": "Trạng thái bật",
+          "impact": "Trạng thái bật của webhook sẽ được cập nhật."
+        },
+        "delete": {
+          "title": "Xác nhận xóa webhook",
+          "summary": "Cấu hình webhook sẽ bị xóa vĩnh viễn.",
+          "confirm": "Xóa",
+          "badge": "Xóa",
+          "impact": "Cấu hình webhook sẽ bị xóa vĩnh viễn.",
+          "warning": "Cấu hình webhook đã xóa không thể khôi phục."
+        },
+        "test": {
+          "title": "Xác nhận thử webhook",
+          "summary": "Gửi tin nhắn thử tới webhook này.",
+          "confirm": "Gửi thử",
+          "badge": "Thử",
+          "impact": "Một tin nhắn thử sẽ được gửi tới webhook này."
+        },
+        "send": {
+          "title": "Xác nhận gửi tin nhắn webhook",
+          "summary": "Xem lại tin nhắn sẽ được gửi qua webhook.",
+          "confirm": "Gửi",
+          "badge": "Gửi",
+          "impact": "Một tin nhắn tùy chỉnh sẽ được gửi tới webhook này."
+        }
+      },
+      "notFound": "Không tìm thấy điểm cuối webhook",
+      "loadFailed": "Không tải được webhook",
+      "feishu": "Feishu",
+      "dingtalk": "DingTalk",
+      "botSuffix": "bot"
+    },
+    "downloads": {
+      "ops": {
+        "cancel": {
+          "title": "Hủy tải xuống",
+          "summary": "Thao tác này sẽ dừng việc tải tệp.",
+          "confirm": "Hủy tải xuống",
+          "badge": "Tải xuống",
+          "impact": "Việc tải dừng ngay. Tệp dở dang có thể còn lại tùy trạng thái.",
+          "warning": "Bạn sẽ cần tải lại để có tệp hoàn chỉnh."
+        }
+      },
+      "status": "Trạng thái",
+      "statuses": {
+        "queued": "Trong hàng đợi",
+        "downloading": "Đang tải",
+        "paused": "Tạm dừng",
+        "completed": "Hoàn thành",
+        "failed": "Thất bại",
+        "canceled": "Đã hủy"
+      }
+    },
+    "updater": {
+      "ops": {
+        "check": {
+          "title": "Xác nhận kiểm tra cập nhật",
+          "summary": "Kiểm tra xem có bản cập nhật ứng dụng hay không.",
+          "confirm": "Kiểm tra cập nhật",
+          "badge": "Kiểm tra",
+          "impact": "Ứng dụng sẽ kiểm tra các bản cập nhật khả dụng."
+        },
+        "download": {
+          "title": "Xác nhận tải bản cập nhật",
+          "summary": "Bắt đầu tải gói cập nhật khả dụng.",
+          "confirm": "Tải xuống",
+          "badge": "Tải xuống",
+          "impact": "Quá trình tải gói cập nhật sẽ bắt đầu."
+        },
+        "install": {
+          "title": "Xác nhận cài bản cập nhật",
+          "summary": "Cài bản cập nhật đã tải. Ứng dụng có thể cần khởi động lại.",
+          "confirm": "Cài đặt và khởi động lại",
+          "badge": "Cài đặt",
+          "impact": "Bản cập nhật sẽ được cài và ứng dụng có thể khởi động lại.",
+          "warning": "Cài bản cập nhật thường cần khởi động lại ứng dụng. Hãy lưu công việc trước."
+        },
+        "dismiss": {
+          "title": "Xác nhận bỏ qua nhắc cập nhật",
+          "summary": "Tạm thời bỏ qua nhắc cập nhật hiện tại.",
+          "confirm": "Bỏ qua",
+          "badge": "Bỏ qua",
+          "impact": "Nhắc cập nhật hiện tại sẽ tạm thời bị bỏ qua."
+        },
+        "cancel": {
+          "title": "Xác nhận hủy tải bản cập nhật",
+          "summary": "Hủy việc tải bản cập nhật đang diễn ra.",
+          "confirm": "Hủy tải xuống",
+          "badge": "Hủy",
+          "impact": "Việc tải bản cập nhật đang diễn ra sẽ bị hủy."
+        }
+      },
+      "target": "Cập nhật ứng dụng"
+    },
+    "afterActionTitle": "Điều gì xảy ra tiếp theo",
+    "unknown": "Không rõ",
+    "clearValue": "Xóa",
+    "secretPlaceholder": "Để trống để giữ bí mật hiện có / không thay đổi"
+  },
+  "navigationApproval": {
+    "title": "Mở trang",
+    "summary": "AI muốn mở trang sau. Xác nhận để chuyển đến đó.",
+    "target": "Trang",
+    "tab": "Mục cài đặt",
+    "section": "Vị trí",
+    "confirm": "Mở",
+    "responding": "Đang mở...",
+    "impact": "Ứng dụng sẽ chuyển sang trang đó. Dữ liệu của bạn không bị thay đổi.",
+    "targets": {
+      "chat": "Trò chuyện",
+      "automation": "Tự động hóa",
+      "batch-tasks": "Tác vụ hàng loạt",
+      "skills": "Khả năng",
+      "plugins": "Tiện ích",
+      "connectors": "Trình kết nối",
+      "settings": "Cài đặt"
+    }
+  },
+  "appearanceApproval": {
+    "pickerTitle": "Chọn giao diện",
+    "themeChangeTitle": "Chỉnh sửa thay đổi giao diện",
+    "apply": "Áp dụng giao diện",
+    "confirmChange": "Xác nhận thay đổi",
+    "submitting": "Đang gửi..."
+  },
+  "schedulerApproval": {
+    "createTitle": "Xác nhận tạo tác vụ theo lịch",
+    "createDescription": "Xem lại cấu hình tác vụ theo lịch. Sau khi xác nhận, tác vụ sẽ được lưu và lên lịch theo trạng thái bật của nó.",
+    "updateTitle": "Chỉnh sửa thay đổi tác vụ theo lịch",
+    "loadingCurrentTask": "Đang tải cấu hình tác vụ hiện tại...",
+    "updateNotFound": "Không tìm thấy tác vụ theo lịch hiện tại nên không thể tải toàn bộ cấu hình.",
+    "updateLoadFailed": "Không tải được cấu hình tác vụ theo lịch hiện tại.",
+    "taskId": "ID tác vụ",
+    "taskNamePlaceholder": "Tên tác vụ",
+    "confirmCreate": "Xác nhận tạo",
+    "creating": "Đang tạo...",
+    "confirmUpdate": "Xác nhận cập nhật",
+    "updating": "Đang cập nhật...",
+    "deleteTitle": "Xác nhận xóa tác vụ theo lịch",
+    "deleteLabel": "Xóa tác vụ",
+    "deleteTargetTask": "Tác vụ cần xóa",
+    "deleteDescriptionTitle": "Ảnh hưởng khi xóa",
+    "deleteDescription": "Xóa tác vụ theo lịch cũng xóa toàn bộ bản ghi thực thi của tác vụ đó. Không thể hoàn tác thao tác này.",
+    "deleteWarning": "Nếu tác vụ đang chạy, hãy dừng nó trước khi xóa.",
+    "confirmDelete": "Xác nhận xóa",
+    "deleting": "Đang xóa...",
+    "toggleTitle": "Xác nhận thay đổi trạng thái tác vụ theo lịch",
+    "enableTitle": "Xác nhận bật tác vụ theo lịch",
+    "disableTitle": "Xác nhận tắt tác vụ theo lịch",
+    "enableLabel": "Bật tác vụ",
+    "disableLabel": "Tắt tác vụ",
+    "enableDescription": "Sau khi bật, tác vụ theo lịch sẽ tự động chạy theo biểu thức Cron của nó.",
+    "disableDescription": "Sau khi tắt, tác vụ theo lịch sẽ không tự động chạy nữa, nhưng cấu hình và lịch sử vẫn được giữ.",
+    "executionTitle": "Xác nhận thực thi tác vụ theo lịch",
+    "runNowTitle": "Xác nhận chạy tác vụ theo lịch ngay",
+    "abortTitle": "Xác nhận dừng tác vụ theo lịch",
+    "runNowLabel": "Chạy ngay",
+    "abortLabel": "Dừng chạy",
+    "runNowDescription": "Kích hoạt một lần thực thi tác vụ theo lịch ngay, không chờ tới thời điểm đã lên lịch tiếp theo. Tác vụ sẽ chạy với câu lệnh và tham số hiện tại.",
+    "abortDescription": "Dừng tác nhân của tác vụ theo lịch đang chạy. Quá trình thực thi sẽ bị ngắt và kết quả đã tạo vẫn được giữ.",
+    "abortWarning": "Dừng ngay sẽ kết thúc lượt chạy của tác nhân, nên trạng thái thực thi hiện tại có thể không đầy đủ.",
+    "operationDescription": "Chi tiết thao tác",
+    "executionDescriptionTitle": "Điều gì xảy ra tiếp theo",
+    "targetTask": "Tác vụ đích",
+    "rawInput": "Yêu cầu thô",
+    "fallbackAction": "Hành động",
+    "confirmAction": "Xác nhận {{action}}"
+  },
+  "batchTasksApproval": {
+    "confirmAction": "Xác nhận {{action}}",
+    "fallbackAction": "Hành động",
+    "unknown": "Không rõ",
+    "unknownShort": "?",
+    "notFound": "Không tìm thấy",
+    "count": "{{count}} mục",
+    "yes": "Có",
+    "no": "Không",
+    "afterActionTitle": "Điều gì xảy ra tiếp theo",
+    "projectLoading": "Đang tải cấu hình dự án hiện tại...",
+    "projectLoadNotFound": "Không tìm thấy dự án hàng loạt hiện tại nên không thể tải toàn bộ cấu hình.",
+    "projectLoadFailed": "Không tải được cấu hình dự án hàng loạt hiện tại.",
+    "projectFallbackTitle": "Xác nhận thao tác dự án hàng loạt",
+    "projectCreateLabel": "Tạo dự án",
+    "projectUpdateLabel": "Cập nhật dự án",
+    "projectDeleteLabel": "Xóa dự án",
+    "projectCreateTitle": "Xác nhận tạo dự án hàng loạt",
+    "projectUpdateTitle": "Xác nhận cập nhật dự án hàng loạt",
+    "projectDeleteTitle": "Xác nhận xóa dự án hàng loạt",
+    "projectCreateSummary": "Xem lại cấu hình dự án hàng loạt. Sau khi xác nhận, một tác vụ con sẽ được tạo cho mỗi thư mục nguồn.",
+    "projectUpdateSummary": "Xem lại các thay đổi dự án hàng loạt sẽ ghi. Giao diện xác nhận đã hợp nhất cấu hình hiện tại và chỉ thêm các thư mục nguồn mới.",
+    "projectDeleteSummary": "Xác nhận xóa dự án hàng loạt này, toàn bộ tác vụ con, trạng thái phiên và tệp kết quả của tác vụ. Không thể hoàn tác thao tác này.",
+    "projectFullAccessWarning": "Tác vụ sẽ chạy với toàn quyền truy cập và có thể đọc hoặc sửa tệp trong và ngoài các thư mục đã chọn. Hãy xác nhận rằng câu lệnh và thư mục là đáng tin cậy.",
+    "newProjectNamePlaceholder": "Dự án hàng loạt mới",
+    "projectNamePlaceholder": "Tên dự án",
+    "sourceFolders": "Thư mục nguồn",
+    "folderList": "Danh sách thư mục",
+    "targetProject": "Dự án đích",
+    "projectPath": "Đường dẫn dự án",
+    "existingTasks": "Tác vụ hiện có",
+    "includedTasks": "Tác vụ được bao gồm",
+    "notFoundInCurrentList": "Không tìm thấy trong danh sách hiện tại",
+    "projectNotFoundInCurrentList": "Không tìm thấy dự án trong danh sách hiện tại",
+    "taskNotFoundInCurrentList": "Không tìm thấy tác vụ trong danh sách hiện tại",
+    "projectDeleteWarning": "Thao tác này xóa vĩnh viễn thư mục dự án, toàn bộ bản ghi tác vụ, trạng thái phiên và tệp kết quả của tác vụ. Thao tác sẽ bị từ chối nếu có tác vụ đang chạy hoặc trong hàng đợi.",
+    "taskFallbackTitle": "Xác nhận thao tác tác vụ con hàng loạt",
+    "taskId": "ID tác vụ",
+    "sourceFolder": "Thư mục nguồn",
+    "relatedSession": "Phiên liên quan",
+    "resumeDefaultText": "Tiếp tục",
+    "resumeTextLabel": "Tin nhắn bổ sung gửi tới phiên gốc",
+    "lastError": "Lỗi gần nhất",
+    "status": {
+      "pending": "Đang chờ",
+      "running": "Đang chạy",
+      "completed": "Hoàn thành",
+      "failed": "Thất bại",
+      "paused": "Tạm dừng"
+    },
+    "taskRunLabel": "Chạy tác vụ",
+    "taskRunTitle": "Xác nhận chạy tác vụ con hàng loạt",
+    "taskRunSummary": "Xác nhận tạo phiên cho tác vụ con đang chờ này và bắt đầu chạy nó.",
+    "taskRunDescription": "Tạo phiên cho tác vụ đang chờ này và bắt đầu chạy nó.",
+    "taskRetryLabel": "Thử lại từ đầu",
+    "taskRetryTitle": "Xác nhận thử lại tác vụ con hàng loạt",
+    "taskRetrySummary": "Xác nhận xóa kết quả cũ của tác vụ con này và chạy lại từ đầu.",
+    "taskRetryDescription": "Xóa kết quả cũ và chạy lại tác vụ này từ đầu.",
+    "taskRetryWarning": "Các phiên cũ, trạng thái và tệp kết quả hiện có trong thư mục tác vụ sẽ bị xóa và không thể khôi phục.",
+    "taskStopLabel": "Dừng và dọn dẹp",
+    "taskStopTitle": "Xác nhận dừng tác vụ con hàng loạt",
+    "taskStopSummary": "Xác nhận dừng hoặc xóa tác vụ con này và dọn dẹp phiên, trạng thái và tệp kết quả của nó.",
+    "taskStopDescription": "Dừng các tác vụ đang chạy hoặc trong hàng đợi và đặt lại trạng thái về đang chờ.",
+    "taskStopWarning": "Phiên hiện tại, trạng thái chạy và tệp kết quả hiện có trong thư mục tác vụ sẽ bị xóa.",
+    "taskDeleteLabel": "Xóa tác vụ",
+    "taskDeleteTitle": "Xác nhận xóa tác vụ con hàng loạt",
+    "taskDeleteSummary": "Xác nhận xóa vĩnh viễn tác vụ con này và dữ liệu liên quan khỏi dự án.",
+    "taskDeleteDescription": "Xóa vĩnh viễn tác vụ này khỏi dự án.",
+    "taskDeleteWarning": "Bản ghi tác vụ, thư mục con của dự án, trạng thái phiên và tệp kết quả sẽ bị xóa vĩnh viễn.",
+    "taskResumeLabel": "Tiếp tục tác vụ",
+    "taskResumeTitle": "Xác nhận tiếp tục tác vụ con hàng loạt",
+    "taskResumeSummary": "Xác nhận gửi “Tiếp tục” tới phiên gốc đang tạm dừng và giữ ngữ cảnh hiện có.",
+    "taskResumeDescription": "Gửi “Tiếp tục” tới phiên gốc đang tạm dừng, đồng thời giữ ngữ cảnh và tệp kết quả hiện có.",
+    "taskResumeWithTextLabel": "Tiếp tục kèm tin nhắn",
+    "taskResumeWithTextTitle": "Xác nhận tiếp tục tác vụ con hàng loạt kèm tin nhắn",
+    "taskResumeWithTextSummary": "Xác nhận tin nhắn bổ sung gửi tới phiên đang tạm dừng. Ngữ cảnh hiện có sẽ được giữ.",
+    "taskResumeWithTextDescription": "Gửi tin nhắn bổ sung tới phiên gốc đang tạm dừng, rồi tiếp tục thực thi.",
+    "taskDeleteSessionLabel": "Xóa phiên tác vụ",
+    "taskDeleteSessionTitle": "Xác nhận xóa phiên tác vụ con hàng loạt",
+    "taskDeleteSessionSummary": "Xác nhận xóa phiên trò chuyện gắn với tác vụ con này. Bản ghi tác vụ và thư mục tác vụ vẫn được giữ.",
+    "taskDeleteSessionDescription": "Xóa phiên trò chuyện gắn với tác vụ này.",
+    "taskDeleteSessionWarning": "Lịch sử phiên không thể khôi phục. Bản ghi tác vụ và thư mục tác vụ sẽ không bị xóa.",
+    "executionFallbackTitle": "Xác nhận điều khiển thực thi hàng loạt",
+    "totalTasks": "Tổng số tác vụ",
+    "estimatedImpact": "Ảnh hưởng ước tính",
+    "selectedTasks": "Tác vụ đã chọn",
+    "resetFailedPartialWarning": "Chỉ các tác vụ đang ở trạng thái Thất bại mới được xử lý. Các ID tác vụ khác sẽ bị bỏ qua.",
+    "executionDeleteAllLabel": "Xóa tất cả tác vụ",
+    "executionDeleteAllTitle": "Xác nhận xóa tất cả tác vụ hàng loạt",
+    "executionDeleteAllSummary": "Xác nhận xóa tất cả tác vụ con không đang chạy trong dự án này. Các tác vụ đang chạy vẫn được giữ.",
+    "executionDeleteAllDescription": "Xóa tất cả tác vụ không đang chạy trong dự án. Các tác vụ đang chạy vẫn được giữ.",
+    "executionDeleteAllWarning": "Các tác vụ trong hàng đợi sẽ bị loại khỏi hàng đợi, sau đó bản ghi tác vụ, trạng thái phiên và thư mục kết quả sẽ bị xóa vĩnh viễn.",
+    "executionStartLabel": "Bắt đầu thực thi",
+    "executionStartTitle": "Xác nhận bắt đầu dự án hàng loạt",
+    "executionStartSummary": "Xác nhận bắt đầu thực thi dự án hàng loạt này. Các tác vụ đang chờ và tạm dừng sẽ vào luồng thực thi.",
+    "executionStartDescription": "Đưa tất cả tác vụ đang chờ vào hàng đợi và tiếp tục các tác vụ tạm dừng. Tác vụ đã hoàn thành hoặc thất bại sẽ không chạy lại.",
+    "executionStopLabel": "Dừng và dọn dẹp",
+    "executionStopTitle": "Xác nhận dừng thực thi dự án hàng loạt",
+    "executionStopSummary": "Xác nhận dừng các tác vụ chưa xong trong dự án này và dọn dẹp phiên, trạng thái và tệp kết quả liên quan.",
+    "executionStopDescription": "Dừng tất cả tác vụ chưa xong trong dự án, đồng thời giữ các tác vụ đã hoàn thành.",
+    "executionStopWarning": "Phiên, trạng thái và thư mục kết quả của các tác vụ trong hàng đợi, đang chạy, thất bại và tạm dừng sẽ được dọn dẹp và đặt lại về đang chờ.",
+    "executionResetLabel": "Xóa và chạy lại",
+    "executionResetTitle": "Xác nhận xóa và chạy lại dự án hàng loạt",
+    "executionResetSummary": "Xác nhận xóa toàn bộ trạng thái và tệp kết quả của tác vụ trong dự án này rồi chạy lại toàn bộ dự án ngay.",
+    "executionResetDescription": "Xóa toàn bộ trạng thái thực thi và tệp kết quả của dự án, rồi chạy lại tất cả tác vụ ngay.",
+    "executionResetWarning": "Toàn bộ phiên, trạng thái và thư mục kết quả của tác vụ sẽ bị xóa, kể cả các tác vụ đã hoàn thành. Không thể hoàn tác thao tác này.",
+    "executionResetFailedLabel": "Đặt lại tác vụ thất bại",
+    "executionResetFailedTitle": "Xác nhận đặt lại tác vụ hàng loạt thất bại",
+    "executionResetFailedSummary": "Xác nhận dọn dẹp các tác vụ thất bại đã chọn. Chỉ các tác vụ đang ở trạng thái Thất bại mới được xử lý.",
+    "executionResetFailedDescription": "Dọn dẹp các tác vụ thất bại đã chọn. Nếu dự án vẫn đang chạy, chúng sẽ vào hàng đợi ngay; nếu không, chúng trở về trạng thái đang chờ.",
+    "executionResetFailedWarning": "Phiên cũ, trạng thái lỗi và tệp kết quả hiện có của các tác vụ thất bại đã chọn sẽ bị xóa."
+  },
+  "appShell": {
+    "routeTitles": {
+      "automation": "Tự động hóa",
+      "batchTasks": "Tác vụ hàng loạt",
+      "knowledgeAll": "Tất cả cơ sở tri thức",
+      "knowledge": "Cơ sở tri thức",
+      "skills": "Kỹ năng",
+      "scenes": "Bối cảnh",
+      "plugins": "Tiện ích",
+      "settings": "Cài đặt",
+      "project": "Chi tiết dự án",
+      "chat": "Trò chuyện"
+    },
+    "sidebarTrigger": {
+      "open": "Thanh bên",
+      "expand": "Mở rộng thanh bên"
+    },
+    "windowControls": {
+      "minimize": "Thu nhỏ",
+      "maximize": "Phóng to",
+      "restore": "Khôi phục",
+      "close": "Đóng"
+    }
+  },
+  "modelSelect": {
+    "placeholder": "Chọn mô hình",
+    "searchPlaceholder": "Tìm mô hình hoặc nhà cung cấp",
+    "clearSearch": "Xóa tìm kiếm",
+    "noResults": "Không tìm thấy mô hình",
+    "noResultsHint": "Thử tên mô hình, ID hoặc nhà cung cấp khác",
+    "unset": "Chưa đặt",
+    "defaultBadge": "Mặc định",
+    "visionBadge": "vision",
+    "cloudOnly": "Đám mây",
+    "reasoningHeader": "Suy luận",
+    "modelHeader": "Mô hình",
+    "multiplier": "{{value}}×",
+    "free": "Miễn phí",
+    "reasoningLevel": {
+      "minimal": "Tối thiểu",
+      "low": "Thấp",
+      "medium": "Trung bình",
+      "high": "Cao",
+      "xhigh": "Rất cao",
+      "max": "Tối đa",
+      "none": "Không",
+      "off": "Tắt"
+    }
+  },
+  "setupWizard": {
+    "skip": "Bỏ qua",
+    "next": "Tiếp",
+    "back": "Quay lại",
+    "getStarted": "Bắt đầu",
+    "progress": "{{current}} / {{total}}",
+    "permissions": {
+      "title": "Cấp quyền",
+      "subtitle": "Bật chụp màn hình, tự động hóa và thông báo hệ thống. Bạn có thể hoàn tất sau trong Cài đặt",
+      "systemSection": "Quyền hệ thống",
+      "computerUseTitle": "Metoai Computer Use",
+      "computerUseDesc": "Một trợ giúp riêng chụp cửa sổ trên cùng và cần quyền Trợ năng và Ghi màn hình riêng",
+      "optionalHint": "Mọi quyền đều tùy chọn. Điều chỉnh bất cứ lúc nào trong Cài đặt → Quyền"
+    },
+    "languageAppearance": {
+      "title": "Ngôn ngữ & giao diện",
+      "subtitle": "Ngôn ngữ mặc định theo hệ thống. Điều chỉnh chế độ chủ đề và màu sắc — thay đổi bất cứ lúc nào trong Cài đặt",
+      "language": "Ngôn ngữ",
+      "appearance": "Giao diện",
+      "theme": "Chủ đề màu"
+    },
+    "metoai": {
+      "title": "Đăng nhập MetaToken",
+      "subtitle": "Đăng nhập để dùng toàn bộ mô hình trên gateway tích hợp; số dư, gói đăng ký và khóa API cũng ở đây",
+      "optionalHint": "Tùy chọn — nhấn Tiếp để tiếp tục"
+    },
+    "login": {
+      "title": "Đăng nhập",
+      "subtitle": "Đăng nhập để dùng tính năng đám mây và gói đăng ký. Bạn có thể bỏ qua và đăng nhập sau",
+      "optionalHint": "Tùy chọn — nhấn Tiếp để tiếp tục",
+      "signedInTitle": "Đã đăng nhập",
+      "signedInDesc": "Chào mừng trở lại, {{name}}",
+      "signedInFallback": "Người dùng"
+    },
+    "welcome": {
+      "title": "Chào mừng đến với Metoai",
+      "subtitle": "Trợ lý lập trình AI trên máy tính của bạn đã sẵn sàng. Hãy bắt đầu bằng một cuộc trò chuyện",
+      "highlights": {
+        "chat": {
+          "title": "Trò chuyện thông minh",
+          "desc": "Đặt câu hỏi, sửa mã và chạy lệnh trong ngữ cảnh dự án"
+        },
+        "skills": {
+          "title": "Kỹ năng & trình kết nối",
+          "desc": "Mở rộng khả năng và kết nối những công cụ bạn đang dùng"
+        },
+        "automation": {
+          "title": "Tự động hóa",
+          "desc": "Tác vụ theo lịch và tác vụ hàng loạt cho công việc lặp lại"
+        }
+      }
+    }
+  },
+  "commandMenu": {
+    "placeholder": "Tìm dự án, phiên, khả năng, cài đặt…",
+    "empty": "Không có kết quả",
+    "emptyHint": "Thử từ khóa khác",
+    "loading": "Đang tìm phiên",
+    "title": "Menu lệnh",
+    "hintNavigate": "↑↓ Di chuyển",
+    "hintSelect": "↵ Mở",
+    "hintClose": "esc Đóng",
+    "overflow": "{{count}} mục nữa",
+    "sessionUnavailable": "Không thể mở phiên này ngay bây giờ",
+    "searchMarketplace": "Tìm trong chợ khả năng",
+    "trigger": "Tìm kiếm",
+    "groups": {
+      "projects": "Dự án",
+      "sessions": "Phiên",
+      "abilities": "Khả năng",
+      "settings": "Cài đặt",
+      "workspaceViews": "Chế độ xem tiện ích"
+    },
+    "badges": {
+      "skill": "Kỹ năng",
+      "scene": "Bối cảnh",
+      "plugin": "Tiện ích"
+    },
+    "sessionTypes": {
+      "conversation": "Trò chuyện",
+      "claw": "Claw",
+      "project": "Dự án",
+      "batch": "Hàng loạt"
+    }
+  }
+}

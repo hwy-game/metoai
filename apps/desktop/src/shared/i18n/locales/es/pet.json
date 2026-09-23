@@ -1,0 +1,119 @@
+{
+  "settings": {
+    "pageTitle": "Metoai Vivi",
+    "showPet": "Mostrar mascota",
+    "showPetDesc": "Cuando está desactivado, la ventana de la mascota se oculta y sigue oculta en el próximo inicio.",
+    "alwaysOnTop": "Siempre visible",
+    "alwaysOnTopDesc": "Cuando está activado, la mascota flota sobre las demás ventanas; cuando está desactivado, se puede tapar como cualquier otra ventana.",
+    "developerDesc": "Se usa para distinguir los límites de la ventana de la mascota del área real de visualización del vídeo.",
+    "debugFrame": "Marco de depuración",
+    "debugFrameDesc": "Muestra los límites de la ventana y del área de vídeo, y muestra los tamaños actuales de ventana y vídeo dentro de la ventana de la mascota.",
+    "decoration": {
+      "sectionDescription": "Por ahora solo muestra los materiales de decoración disponibles; la lógica de decoración real se puede conectar más adelante.",
+      "materialMissing": "Falta el material",
+      "available": "Disponible",
+      "missing": "No disponible",
+      "items": {
+        "monitor": "Monitor",
+        "santa": "Traje de Papá Noel",
+        "business": "Atuendo formal",
+        "office": "Oración de oficina",
+        "peekingMonitor": "Asomándose desde el monitor",
+        "dragonBoat": "Decoración del Festival del Bote del Dragón"
+      }
+    },
+    "bubble": {
+      "sectionDescription": "Elige el estilo del bocadillo de la mascota de escritorio. Cada estilo puede definir su propio fondo, sus dimensiones y la colocación de la decoración.",
+      "styleTitle": "Estilo del bocadillo",
+      "styleDescription": "El estilo seleccionado se aplica a la ventana de la mascota de inmediato.",
+      "styles": {
+        "plain": {
+          "label": "Bocadillo sencillo",
+          "description": "Bocadillo básico que sigue el tema de la aplicación."
+        },
+        "springFestival": {
+          "label": "Bocadillo del Festival de Primavera",
+          "description": "Fondo rojo cálido con decoraciones de esquina del Festival de Primavera."
+        },
+        "dragonBoat": {
+          "label": "Bocadillo del Festival del Bote del Dragón",
+          "description": "Fondo verde con decoraciones de esquina del Festival del Bote del Dragón."
+        },
+        "midAutumn": {
+          "label": "Bocadillo del Festival del Medio Otoño",
+          "description": "Fondo amarillo lunar con decoraciones de esquina del Festival del Medio Otoño."
+        },
+        "qingming": {
+          "label": "Bocadillo de Qingming",
+          "description": "Fondo verde claro con decoraciones de esquina de Qingming."
+        },
+        "winterSolstice": {
+          "label": "Bocadillo del solsticio de invierno",
+          "description": "Fondo azul hielo con decoraciones de esquina del solsticio de invierno."
+        },
+        "aprilFools": {
+          "label": "Bocadillo del Día de los Inocentes",
+          "description": "Fondo lila claro con decoraciones de esquina del Día de los Inocentes."
+        },
+        "childrenDay": {
+          "label": "Bocadillo del Día del Niño",
+          "description": "Fondo amarillo brillante con decoraciones de esquina del Día del Niño."
+        },
+        "christmas": {
+          "label": "Bocadillo de Navidad",
+          "description": "Fondo verde claro con decoraciones de esquina de Navidad."
+        },
+        "halloween": {
+          "label": "Bocadillo de Halloween",
+          "description": "Fondo naranja cálido con decoraciones de esquina de Halloween."
+        },
+        "laborDay": {
+          "label": "Bocadillo del Día del Trabajo",
+          "description": "Fondo naranja cálido con decoraciones de esquina del Día del Trabajo."
+        },
+        "nationalDay": {
+          "label": "Bocadillo del Día Nacional",
+          "description": "Fondo rojo cálido con decoraciones de esquina del Día Nacional."
+        },
+        "songkran": {
+          "label": "Bocadillo de Songkran",
+          "description": "Fondo azul claro con decoraciones de esquina de Songkran."
+        },
+        "valentineDay": {
+          "label": "Bocadillo de San Valentín",
+          "description": "Fondo rosa claro con decoraciones de esquina de San Valentín."
+        }
+      }
+    }
+  },
+  "video": {
+    "missingTitle": "Vídeo de la mascota",
+    "missingSubtitle": "No proporcionado"
+  },
+  "notice": {
+    "lifecycle": {
+      "started": "Yo me encargo",
+      "completed": "Todo listo",
+      "paused": "En pausa hasta que continúes"
+    },
+    "context": {
+      "compacting": "Déjame ordenar el contexto"
+    },
+    "tool": {
+      "running": "Ejecutando una herramienta",
+      "runningWithDescription": "{{description}}",
+      "completed": "Herramienta completada"
+    },
+    "retry": {
+      "running": "Reintentando ({{attempt}}/{{maxAttempts}})"
+    },
+    "background": {
+      "running": "Hay una tarea en segundo plano en ejecución",
+      "completed": "Tarea en segundo plano completada",
+      "failed": "La tarea en segundo plano tuvo un problema"
+    },
+    "error": {
+      "generic": "Este paso tuvo un problema"
+    }
+  }
+}

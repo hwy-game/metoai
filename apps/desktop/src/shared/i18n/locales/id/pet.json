@@ -1,0 +1,119 @@
+{
+  "settings": {
+    "pageTitle": "Metoai Vivi",
+    "showPet": "Tampilkan Pet",
+    "showPetDesc": "Saat nonaktif, jendela pet disembunyikan dan tetap tersembunyi pada peluncuran berikutnya.",
+    "alwaysOnTop": "Selalu di Atas",
+    "alwaysOnTopDesc": "Saat aktif, pet melayang di atas jendela lain; saat nonaktif, pet dapat tertutup seperti jendela biasa.",
+    "developerDesc": "Digunakan untuk membedakan batas jendela pet dari area tampilan video sebenarnya.",
+    "debugFrame": "Bingkai Debug",
+    "debugFrameDesc": "Tampilkan batas jendela dan batas area video, serta tampilkan ukuran jendela dan video secara langsung di dalam jendela pet.",
+    "decoration": {
+      "sectionDescription": "Saat ini hanya menampilkan materi dekorasi yang tersedia; logika dekorasi sebenarnya dapat dihubungkan nanti.",
+      "materialMissing": "Materi tidak ada",
+      "available": "Tersedia",
+      "missing": "Tidak ada",
+      "items": {
+        "monitor": "Monitor",
+        "santa": "Kostum Sinterklas",
+        "business": "Pakaian kerja",
+        "office": "Salat di kantor",
+        "peekingMonitor": "Mengintip dari monitor",
+        "dragonBoat": "Dekorasi Perahu Naga"
+      }
+    },
+    "bubble": {
+      "sectionDescription": "Pilih gaya gelembung ucapan pet desktop. Setiap gaya dapat menentukan latar belakang, dimensi, dan penempatan dekorasinya sendiri.",
+      "styleTitle": "Gaya gelembung",
+      "styleDescription": "Gaya yang dipilih langsung diterapkan pada jendela pet.",
+      "styles": {
+        "plain": {
+          "label": "Gelembung polos",
+          "description": "Gelembung dasar yang mengikuti tema aplikasi."
+        },
+        "springFestival": {
+          "label": "Gelembung Festival Musim Semi",
+          "description": "Latar merah hangat dengan dekorasi sudut Festival Musim Semi."
+        },
+        "dragonBoat": {
+          "label": "Gelembung Festival Perahu Naga",
+          "description": "Latar hijau dengan dekorasi sudut Festival Perahu Naga."
+        },
+        "midAutumn": {
+          "label": "Gelembung Festival Pertengahan Musim Gugur",
+          "description": "Latar kuning cahaya bulan dengan dekorasi sudut Festival Pertengahan Musim Gugur."
+        },
+        "qingming": {
+          "label": "Gelembung Qingming",
+          "description": "Latar hijau muda dengan dekorasi sudut Qingming."
+        },
+        "winterSolstice": {
+          "label": "Gelembung Titik Balik Musim Dingin",
+          "description": "Latar biru es dengan dekorasi sudut Titik Balik Musim Dingin."
+        },
+        "aprilFools": {
+          "label": "Gelembung April Mop",
+          "description": "Latar ungu muda dengan dekorasi sudut April Mop."
+        },
+        "childrenDay": {
+          "label": "Gelembung Hari Anak",
+          "description": "Latar kuning cerah dengan dekorasi sudut Hari Anak."
+        },
+        "christmas": {
+          "label": "Gelembung Natal",
+          "description": "Latar hijau muda dengan dekorasi sudut Natal."
+        },
+        "halloween": {
+          "label": "Gelembung Halloween",
+          "description": "Latar oranye hangat dengan dekorasi sudut Halloween."
+        },
+        "laborDay": {
+          "label": "Gelembung Hari Buruh",
+          "description": "Latar oranye hangat dengan dekorasi sudut Hari Buruh."
+        },
+        "nationalDay": {
+          "label": "Gelembung Hari Nasional",
+          "description": "Latar merah hangat dengan dekorasi sudut Hari Nasional."
+        },
+        "songkran": {
+          "label": "Gelembung Songkran",
+          "description": "Latar biru muda dengan dekorasi sudut Songkran."
+        },
+        "valentineDay": {
+          "label": "Gelembung Hari Valentine",
+          "description": "Latar merah muda dengan dekorasi sudut Hari Valentine."
+        }
+      }
+    }
+  },
+  "video": {
+    "missingTitle": "Video Pet",
+    "missingSubtitle": "Tidak disediakan"
+  },
+  "notice": {
+    "lifecycle": {
+      "started": "Saya akan mengurus ini",
+      "completed": "Semua selesai",
+      "paused": "Dijeda sampai Anda melanjutkan"
+    },
+    "context": {
+      "compacting": "Biar saya rapikan konteksnya"
+    },
+    "tool": {
+      "running": "Menjalankan alat",
+      "runningWithDescription": "{{description}}",
+      "completed": "Alat selesai"
+    },
+    "retry": {
+      "running": "Mencoba lagi ({{attempt}}/{{maxAttempts}})"
+    },
+    "background": {
+      "running": "Tugas latar belakang sedang berjalan",
+      "completed": "Tugas latar belakang selesai",
+      "failed": "Tugas latar belakang mengalami masalah"
+    },
+    "error": {
+      "generic": "Langkah ini mengalami masalah"
+    }
+  }
+}

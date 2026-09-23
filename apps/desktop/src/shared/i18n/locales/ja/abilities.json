@@ -1,0 +1,537 @@
+{
+  "page": {
+    "title": "アビリティ",
+    "subtitle": "エージェントにできることを増やしましょう：スキル、シーン、MCP、プラグイン、バンドル"
+  },
+  "banner": {
+    "title": "もっとアビリティを見つける",
+    "description": "やりたいことを選んで追加 — チャットからすぐに使えます"
+  },
+  "loading": "読み込み中…",
+  "type": {
+    "skill": "スキル",
+    "scene": "シーン",
+    "mcp": "MCP",
+    "plugin": "プラグイン",
+    "bundle": "バンドル"
+  },
+  "scope": {
+    "discover": "見つける",
+    "mine": "マイ"
+  },
+  "group": {
+    "connectors": "接続",
+    "vettaBuiltin": "Metoai 標準搭載",
+    "uncategorized": "未分類"
+  },
+  "search": {
+    "placeholder": "アビリティを検索"
+  },
+  "status": {
+    "setupRequired": "セットアップが必要",
+    "disabled": "無効",
+    "updateAvailable": "更新あり",
+    "openSource": "オープンソース",
+    "sameName": "同名が{{count}}件"
+  },
+  "card": {
+    "noDescription": "説明なし"
+  },
+  "operation": {
+    "processing": "処理中…",
+    "checkingSource": "マーケットプレイスのバージョンを確認中…",
+    "refreshing": "ローカル状態を更新中…",
+    "installing": "追加中…",
+    "updating": "更新中…",
+    "applyingUpdate": "新しいバージョンを再読み込み中…",
+    "removing": "削除中…",
+    "enabling": "有効化中…",
+    "disabling": "無効化中…",
+    "reloading": "再読み込み中…",
+    "saving": "保存中…",
+    "applyingSetup": "権限を適用中…",
+    "activating": "機能を有効化中…",
+    "preparingRuntime": "ランタイムを準備中…",
+    "downloadingRuntime": "ランタイムをダウンロード中…",
+    "verifyingRuntime": "ランタイムを検証中…",
+    "installingRuntime": "ランタイムをインストール中…",
+    "readyRuntime": "ランタイムの準備完了",
+    "failedRuntime": "ランタイムの準備に失敗しました"
+  },
+  "actions": {
+    "add": "追加",
+    "update": "更新",
+    "finishSetup": "セットアップを完了",
+    "connectAccount": "アカウントを接続",
+    "disconnectAccount": "アカウントを切断",
+    "configure": "認証情報を設定",
+    "edit": "設定を編集",
+    "viewDetails": "詳細を表示",
+    "remove": "削除",
+    "enable": "有効化",
+    "disable": "無効化",
+    "more": "その他の操作",
+    "refresh": "更新",
+    "loadMore": "さらに読み込む（残り{{remaining}}件）",
+    "reload": "再読み込み",
+    "cancel": "キャンセル"
+  },
+  "add": {
+    "trigger": "アビリティを追加",
+    "title": "追加方法を選択",
+    "importSkill": "スキルアーカイブをインポート",
+    "importSkillHint": "ローカルの zip、tar.gz、tgz アーカイブからインストールします",
+    "importPlugin": "プラグインアーカイブをインポート",
+    "importPluginHint": "plugin.json を含むローカルの zip からインストールします",
+    "addMcp": "MCP を手動で追加",
+    "addMcpHint": "stdio または HTTP の MCP サーバーを手動で設定します"
+  },
+  "empty": {
+    "noMatch": "一致するアビリティがありません",
+    "noMatchHint": "別のキーワードをお試しください",
+    "discover": "まだ見つかるアビリティはありません",
+    "mine": "追加されたアビリティはまだありません",
+    "hint": "後で更新するか、上の「アビリティを追加」からインポートしてください"
+  },
+  "error": {
+    "sourcesFailed": "GitHub ソースの同期に失敗しました（キャッシュされた内容は引き続き利用できます）：{{names}}",
+    "sourcesOutdated": "これらのソースを読み込むには新しいバージョンの Metoai が必要です：{{names}}",
+    "serverFailed": "クラウドマーケットプレイスの読み込みに失敗しました。他のソースは引き続き利用できます",
+    "loadFailed": "アビリティの読み込みに失敗しました",
+    "downloadFailed": "ダウンロードに失敗しました：{{status}}",
+    "installSourceConflict": "同じアビリティ識別子が別のソースからインストールされているため、上書きされません。詳細ページでソースを確認してください。",
+    "membersUnavailable": "次のメンバーは利用できないためインストールされませんでした：{{names}}",
+    "partial": "一部のアビリティを読み込めませんでした：{{error}}",
+    "openMarketplaceSyncFailed": "オープンアビリティを同期できませんでした。最後に使用できたスナップショットを保持しました"
+  },
+  "message": {
+    "installed": "{{name}} をインストールしました",
+    "installedCount": "{{count}} 件のアビリティをインストールしました",
+    "setupRequired": "{{name}} は追加前にセットアップが必要です",
+    "uninstalled": "{{name}} を削除しました",
+    "uninstalledCount": "{{count}} 件のアビリティを削除しました",
+    "imported": "{{name}} をインポートしました",
+    "updatedAndReloaded": "{{name}} {{version}} を更新して再読み込みしました",
+    "reloaded": "{{name}} {{version}} を再読み込みしました"
+  },
+  "detail": {
+    "noContent": "これ以上の説明はありません。追加するとチャットからすぐに使えます。",
+    "notFound": "アビリティが見つかりません — 公開停止または削除された可能性があります。",
+    "source": {
+      "title": "ソース",
+      "builtin": "アプリに標準搭載",
+      "local": "ローカルで追加",
+      "server": "Metoai アビリティサーバー",
+      "sameNameTitle": "同名のアビリティが他に{{count}}件あります",
+      "installConflict": "別のソースがこのインストール先をすでに使用しています。自動では上書きされません。先にインストール済みの項目を削除するか、明示的な置き換えフローをお待ちください。"
+    },
+    "status": {
+      "available": "未追加",
+      "setup_required": "セットアップが必要",
+      "disabled": "無効",
+      "enabled": "有効",
+      "readonly": "読み取り専用"
+    },
+    "primary": {
+      "add": "アビリティを追加",
+      "update": "アビリティを更新",
+      "setup": "セットアップを完了",
+      "enable": "アビリティを有効化"
+    },
+    "secondary": {
+      "disable": "無効化",
+      "configure": "設定",
+      "remove": "削除"
+    },
+    "meta": {
+      "author": "作者",
+      "version": "バージョン",
+      "localVersion": "ローカルバージョン",
+      "downloads": "ダウンロード数",
+      "license": "ライセンス"
+    },
+    "story": {
+      "vs": "vs",
+      "compareBoth": "比較",
+      "stepProgress": "{{current}} / {{total}}",
+      "stepPrevious": "戻る",
+      "stepNext": "次へ",
+      "replayScene": "会話を再生",
+      "previewImage": "画像を表示",
+      "closePreview": "閉じる"
+    }
+  },
+  "plugin": {
+    "currentVersion": "現在のバージョン",
+    "source": {
+      "label": "ソース",
+      "remote": "リモートインストール",
+      "npm": "npm パッケージ",
+      "system": "組み込み",
+      "local": "ローカル zip"
+    },
+    "reloadVersion": "{{version}} に再読み込み",
+    "permissions": "権限",
+    "permissionsSystemHint": "システムプラグインには自動で付与され、編集できません",
+    "setupDialog": "有効化と権限",
+    "setupDialogHint": "プラグインはインストール済みです。有効状態、ホスト権限、実行可能なコマンドを確認してから適用してください。",
+    "updateSetupDialogHint": "新しいバージョンはダウンロード済みですが、まだ有効ではありません。新しい権限はあらかじめ選択されています。有効化する前に変更内容を確認してください。",
+    "permissionAdded": "更新で追加",
+    "permissionRemoved": "更新で削除",
+    "trustNotice": "プラグインのコードはアプリのレンダラーで直接実行されます。権限はホスト API を宣言して制御するものであり、セキュリティサンドボックスではありません。信頼できるプラグインのみ有効にしてください。",
+    "setupEnable": "プラグインを有効化",
+    "setupEnableHint": "オフの間はプラグインが読み込まれず、タブと機能が表示されません。",
+    "setupDiscardTitle": "このセットアップを破棄しますか？",
+    "setupDiscardMessage": "ここで閉じると、プラグインは無効のままか権限が不足し、タブと一部の機能が表示されません。後からプラグインの詳細ページで有効化し、権限を調整できます。",
+    "setupDiscardConfirm": "破棄して閉じる",
+    "noPermissions": "このプラグインは権限を宣言していません。",
+    "commands": "実行可能なコマンド",
+    "commandsHint": "無効にするとプラグインからの呼び出しがブロックされます",
+    "contributions": "このプラグインに含まれるもの",
+    "contributionsHint": "プラグインと一緒にインストール・削除されます",
+    "contributedMcp": "MCP サーバー",
+    "contributedSkills": "スキル",
+    "expandList": "さらに{{count}}件表示",
+    "collapseList": "表示を減らす"
+  },
+  "mcp": {
+    "title": "接続のセットアップ",
+    "secretsLead": "この接続を使用するには、次の認証情報が必要です：",
+    "oauth": "アカウント認証",
+    "oauthAuthorized": "認証済み",
+    "oauthNotAuthorized": "未認証",
+    "setupLoginTitle": "{{name}} にサインイン",
+    "setupLoginLead": "{{name}} アプリで QR コードをスキャンしてください。セッションはこのマシン上に保持されます。",
+    "setupLoginPreparing": "サーバーを起動して QR コードを取得しています…",
+    "setupLoginFirstRun": "初回実行時はランタイム依存関係のダウンロードで時間がかかることがあります。",
+    "setupLoginWaiting": "スキャンを待っています…",
+    "setupLoginSuccess": "サインインしました。アビリティを使用できます。",
+    "setupLoginExpired": "QR コードの有効期限が切れました。",
+    "setupLoginFailed": "QR コードを取得できませんでした：{{error}}",
+    "setupLoginRetry": "再取得",
+    "setupLoginManual": "チャットでエージェントに {{tool}} ツールの呼び出しを依頼することもできます。",
+    "setupLoginClose": "閉じる",
+    "loginStatusTitle": "サインイン状態",
+    "loginChecking": "現在の Xiaohongshu セッションを確認中…",
+    "loginAuthenticated": "サインイン済みで使用できます",
+    "loginAuthenticatedAs": "{{username}} としてサインイン中",
+    "loginUnauthenticated": "サインインしていません。このアビリティを使用する前に QR コードをスキャンしてください。",
+    "loginCheckFailed": "サインイン状態を確認できませんでした：{{error}}",
+    "loginCheckRetry": "再確認",
+    "loginAction": "Xiaohongshu にサインイン",
+    "loginRequired": "サインインが必要",
+    "connectionConfig": "接続設定",
+    "settings": {
+      "title": "{{name}} の設定",
+      "description": "サインイン状態とランタイム接続パラメータを管理します。保存してもサインインは開始されません。",
+      "back": "アビリティ詳細に戻る",
+      "runtimeTitle": "ランタイム接続",
+      "runtimeDescription": "パラメータはローカルの管理サービスにのみ渡されます。変更後、次回の確認または使用時にサービスが再起動します。",
+      "proxyLabel": "プロキシ URL",
+      "proxyHint": "HTTP、HTTPS、SOCKS5 プロキシに対応しています。例：http://127.0.0.1:7890。直接接続の場合は空欄にしてください。",
+      "optional": "任意",
+      "save": "接続設定を保存",
+      "saving": "保存中…",
+      "clearLogin": "サインイン状態をクリア",
+      "confirmClearLogin": "サインイン状態のクリアを確認",
+      "clearing": "クリア中…",
+      "checkedAt": "最終確認：{{time}}"
+    }
+  },
+  "bundle": {
+    "install": {
+      "title": "インストールするアビリティを選択",
+      "description": "「{{name}}」のうちインストールするメンバーを選択します。すでに最新のメンバーは再インストールされません。",
+      "nothing": "このバンドルにはインストールまたは更新するメンバーがありません。",
+      "confirm": "{{count}} 件をインストール"
+    },
+    "members": "{{count}} 件のアビリティを含む",
+    "inline": "インライン",
+    "missing": "公開停止",
+    "memberInstalled": "インストール済み",
+    "memberNotInstalled": "未インストール",
+    "uninstall": {
+      "title": "バンドルをアンインストール",
+      "description": "「{{name}}」には独自の成果物がありません — アンインストールすると以下のメンバーが削除されます。残したいもののチェックを外してください。",
+      "nothing": "このバンドルには現在削除できるメンバーがありません。",
+      "confirm": "{{count}} 件をアンインストール"
+    }
+  },
+  "permission": {
+    "detailUnavailable": {
+      "title": "プラグイン設定パネルは非表示です",
+      "description": "このプラグインには、ここで設定パネルを表示する権限がありません。権限を確認し、必要なものを有効にしてください。",
+      "review": "プラグインの権限を確認"
+    },
+    "page": {
+      "open": "権限を確認",
+      "title": "権限とデータアクセス",
+      "back": "アビリティ詳細に戻る",
+      "description": "このプラグインが宣言しているホスト機能を確認できます。オフにすると対応するホスト API 呼び出しがブロックされますが、プラグインコードがセキュリティサンドボックスに隔離されるわけではありません。",
+      "toggleLabel": "{{permission}} 権限を切り替え",
+      "hostVerified": "Metoai ホスト API ガードレール",
+      "preview": {
+        "global": "プラグインのコンテンツは、ページをまたいで表示され続ける共有アプリ領域に表示される場合があります",
+        "filePreview": "プラグインはファイルプレビュー領域に専用のコンテンツビューアを表示できます",
+        "activityTab": "プラグインは右側のアクティビティパネルにタブを追加して内容を表示できます",
+        "inputAction": "プラグインは会話入力欄にアクションボタンを追加できます",
+        "message": "プラグインのコンテンツは特定のチャットメッセージの下に添付できます",
+        "toolCall": "プラグインはツール呼び出しの進行状況と結果を専用カードで表示できます",
+        "turnCard": "プラグインは会話の1ターン全体を含むカードを拡張できます",
+        "workspaceView": "プラグインは独自のサイドバー項目を持つ全画面ワークスペースビューを提供できます",
+        "shortcuts": "プラグインは登録したキーの組み合わせを監視し、アクションを実行できます",
+        "fileDecorations": "プラグインはファイル項目の横にステータスや種類のマーカーを表示できます",
+        "fileContextMenu": "プラグインのアクションをファイルとフォルダのコンテキストメニューに表示できます",
+        "fileToolbar": "プラグインはファイルエクスプローラーのツールバーにアクションボタンを追加できます"
+      },
+      "previewFlow": "矢印は、この権限が有効にするデータまたはアクションの方向を示します",
+      "scopeTitle": "スコープ",
+      "disabledTitle": "無効にした場合",
+      "status": {
+        "configureOnInstall": "インストール時に設定",
+        "systemGranted": "システムが付与"
+      },
+      "readOnly": {
+        "install": "このプラグインはインストールされていません。これは要求される権限です。実際の付与はインストール時に確認します。",
+        "system": "これは組み込みのシステムプラグインです。Metoai が権限を自動的に管理・付与するため、個別に無効化できません。"
+      },
+      "summary": {
+        "requested": "要求",
+        "highRisk": "高リスク",
+        "granted": "現在付与済み",
+        "timing": "設定のタイミング",
+        "onInstall": "インストール時に確認"
+      },
+      "flow": {
+        "plugin": "このプラグイン",
+        "data": "ファイルとアプリデータ",
+        "agent": "エージェントセッションと動作",
+        "execution": "ホストが制御する操作",
+        "external": "外部アプリまたはネットワーク",
+        "intelligence": "AI とメディアサービス"
+      },
+      "scope": {
+        "interface": "指定された UI の場所での表示または操作のみを許可します。ファイルやセッションデータ自体へのアクセスは付与しません。",
+        "data": "ホスト API が公開するデータ型に限定されます。正確なパスやレコードはプラグインの呼び出しによって異なります。",
+        "agent": "ホストが公開するエージェントセッション、プロンプト、ツール、ランタイム状態に適用されます。",
+        "execution": "操作はホストが実行し、プラグインは要求するコマンド、ページ、アクションを選択します。",
+        "external": "Metoai の外部に出て対象を開いたりリクエストを送信したりできます。接続先は呼び出し時にプラグインが指定します。",
+        "intelligence": "設定済みのモデルまたはメディアサービスを使用し、プラグインが構成した入力を送信する場合があり、サービスの利用量を消費することがあります。"
+      },
+      "disabled": {
+        "interface": "対応する項目、コンテンツ、操作は表示されません。他のプラグイン機能は引き続き動作します。",
+        "data": "このデータの読み取りまたは変更の呼び出しが失敗するため、それに依存する機能が利用できなくなる場合があります。",
+        "agent": "プラグインはエージェント動作のこの部分に影響できず、関連する自動化や拡張が動作しなくなる場合があります。",
+        "execution": "ホストが操作をブロックするため、その結果に依存するワークフローが完了しない場合があります。",
+        "external": "プラグインはその外部アクセスを実行できません。必要としない機能は引き続き利用できます。",
+        "intelligence": "AI やメディアサービスを使用する生成・分析・プロバイダー機能が利用できなくなります。"
+      }
+    },
+    "group": {
+      "interface": {
+        "title": "インターフェースと操作",
+        "description": "プラグインが Metoai 内で表示できる場所"
+      },
+      "projectData": {
+        "title": "プロジェクトとアプリデータ",
+        "description": "プラグインが読み取りまたは変更できるデータ"
+      },
+      "agent": {
+        "title": "エージェント制御",
+        "description": "プラグインがエージェントセッションとランタイムに与える影響"
+      },
+      "execution": {
+        "title": "実行と外部アクセス",
+        "description": "プラグインが要求できるシステム操作と外部接続"
+      },
+      "intelligence": {
+        "title": "AI とメディア",
+        "description": "プラグインが使用または提供できるインテリジェンスサービス"
+      }
+    },
+    "risk": {
+      "low": "低リスク",
+      "medium": "要確認",
+      "high": "高リスク"
+    },
+    "description": {
+      "uiSlotGlobal": "プラグインが、ページをまたいで表示され続ける可能性のある共有アプリ領域にインターフェースコンテンツを表示できるようにします。",
+      "uiSlotAbilityDetail": "プラグインが自身のアビリティ詳細ページにインストール、セットアップ、ランタイムの状態を表示できるようにします。",
+      "uiSlotFilePreview": "プラグインがファイルプレビュー領域にカスタムコンテンツやビューアを表示できるようにします。",
+      "uiSlotActivityTab": "プラグインが右側のアクティビティパネルに選択可能なタブを追加できるようにします。",
+      "uiSlotInputAction": "プラグインがチャット入力欄の近くにクリック可能なアクションを追加できるようにします。",
+      "uiSlotMessage": "プラグインがチャットメッセージの下にカスタムコンテンツやアクションを追加できるようにします。",
+      "uiSlotToolCall": "プラグインがエージェントのツール呼び出し結果の表示方法をカスタマイズできるようにします。",
+      "uiSlotTurnCard": "プラグインが会話ターンカード内にステータスやアクションを表示できるようにします。",
+      "uiSlotWorkspaceView": "プラグインが独自のピン留め可能なサイドバー項目を持つ全画面ワークスペースビューを提供できるようにします。",
+      "uiShortcutsRegister": "プラグインがキーボードショートカットを登録し、押されたときにプラグインのアクションを実行できるようにします。",
+      "uiFileExplorerDecorations": "プラグインがファイルエクスプローラーにアイコン、バッジ、ステータスヒントを追加できるようにします。",
+      "uiFileExplorerContextMenu": "プラグインがファイルとフォルダのコンテキストメニューにアクションを追加できるようにします。",
+      "uiFileExplorerToolbar": "プラグインがファイルエクスプローラーのツールバーにアクションを追加できるようにします。",
+      "workspaceRead": "開いているワークスペース、フォルダ、ファイル一覧のメタデータを表示します。ファイルの内容を直接読み取ることはありません。",
+      "agentSessionRead": "現在のエージェントセッションからメッセージ、状態、関連コンテキストを読み取ります。",
+      "agentSessionWrite": "現在のエージェントセッションの状態や内容を変更し、以降の会話の動作に影響する場合があります。",
+      "agentCommandRun": "プラグインが宣言して要求したエージェントコマンドをホスト経由で実行します。",
+      "agentCommandSpawn": "プラグインまたはホストが停止するまで実行され続ける可能性のあるバックグラウンドプロセスを開始します。",
+      "captureOffscreen": "非表示のページ環境でコンテンツを読み込み、その画像をキャプチャします。",
+      "browserRead": "ホストが管理するブラウザセッションを作成し、マニフェストで承認されたサイトを訪問して、サインイン済みページのテキスト、構造、スクリーンショットを読み取ります。",
+      "browserOpen": "承認されたウェブページを Metoai 内蔵ブラウザで開きます。ページの読み取りや操作は行いません。",
+      "browserInteract": "承認されたサイトでクリック、入力、選択、送信を行い、あなたのアカウントとして実際の操作を実行する場合があります。",
+      "browserProfilePersist": "このプラグインが所有する以降のセッション用に、分離されたブラウザプロファイルとそのサインイン状態を保持します。",
+      "browserAttach": "すでに開いているブラウザに接続し、そのタブやサインイン状態にアクセスする場合があります。",
+      "browserRuntimeManage": "ホストが管理するブラウザ自動化ランタイムをインストールまたは修復します。",
+      "agentSystemPromptRead": "エージェントの基本動作を定義するシステムプロンプトを読み取ります。",
+      "agentSystemPromptWrite": "エージェントのシステムプロンプトにプラグイン管理のコンテンツを追加または変更します。",
+      "agentSystemPromptFullControl": "システムプロンプト全体を置き換えまたは再構成し、エージェントの動作を大きく変える可能性があります。",
+      "agentSkillsControl": "エージェントが読み込むスキルとその利用可能なタイミングを制御します。",
+      "agentMcpControl": "プラグインが管理するエージェントの MCP サービスとツールを提供します。",
+      "agentToolsControl": "エージェントが現在利用できるツールを有効化、無効化、調整します。",
+      "agentToolsRegister": "新しいエージェントツールの名前、説明、入力形式を登録します。",
+      "agentToolHandlerExecute": "エージェントがプラグインのツールを呼び出したときに、プラグイン提供のハンドラーロジックを実行します。",
+      "agentHooksRegister": "コーディングエージェントのライフサイクルイベントを監視または影響できるハンドラーを登録します。",
+      "agentHookHandlerExecute": "コーディングエージェントが該当するイベントに達したときに、プラグイン提供のフックロジックを実行します。",
+      "agentStateRead": "このプラグイン用に保存されたエージェントランタイム状態を読み取ります。",
+      "agentStateWrite": "このプラグイン用に保存されたエージェントランタイム状態を更新します。",
+      "agentContinuationRegister": "ターン終了後にエージェントが自動的に続行するかどうかを決定します。",
+      "agentRuntimeConfigure": "エージェントのランタイム設定を調整し、モデル、ツール、実行ポリシーに影響する場合があります。",
+      "appActionsRegister": "インターフェースや他の機能から呼び出せるアプリアクションを登録します。",
+      "appActionHandlerExecute": "アプリアクションがトリガーされたときに、プラグイン提供のハンドラーロジックを実行します。",
+      "aiModelsList": "設定済みでプラグインが利用できる AI モデルを表示します。",
+      "aiComplete": "プラグインが構成した入力を設定済みの AI モデルに送信し、生成された出力を受け取ります。",
+      "modelsManage": "このプラグインの名前空間が所有するモデルプロバイダーを作成、更新、削除します。",
+      "fsRead": "ホストファイル API を通じてプラグインが選択したファイルの内容を読み取ります。",
+      "fsWrite": "ホストファイル API を通じてプラグインが選択したファイルを作成、上書き、移動、削除します。",
+      "networkFetch": "プラグインが選択したネットワークアドレスにリクエストを送信します。プラグインがアクセスしたデータが含まれる場合があります。",
+      "storageRead": "このプラグイン専用で他のプラグインから直接アクセスできない永続データを読み取ります。",
+      "storageWrite": "状態や設定のために、このプラグイン専用の永続データを書き込みます。",
+      "mediaGenerate": "設定済みの画像、音声、その他のメディア生成サービスを呼び出します。",
+      "mediaProviderRegister": "プラグインが提供するメディア生成サービスを Metoai に登録します。",
+      "ocrRecognize": "プラグインが明示的に送信した画像に対して、設定済みのテキスト認識サービスを使用します。",
+      "ocrProviderRegister": "プラグインが提供するテキスト認識サービスを登録します。リモートサービスは画像をアップロードする場合があります。",
+      "secretsRead": "このプラグインが自身で保存した API キーなどのシークレットを読み取ります。",
+      "secretsWrite": "このプラグインが自身で保存した API キーなどのシークレットを書き込みまたは削除します。",
+      "settingsRead": "ホストがプラグインに公開しているアプリ設定を読み取ります。",
+      "settingsWrite": "ホストがプラグインに公開しているアプリ設定を変更し、アプリの動作を変える場合があります。",
+      "shellOpenExternal": "プラグインが選択した外部リンクをシステムブラウザまたは既定のアプリで開きます。",
+      "uiSlotNewSessionContext": "プラグインのエージェントやチームを選択したとき、またはそのアビリティに言及したときにのみ、新規セッション入力欄の下にブロックを表示できるようにします。",
+      "conversationDraftRead": "プラグインが、入力済みでまだ送信していない内容を読み取れるようにします。そのプラグインのコンテキストブロックが画面に表示されている間のみ提供されます。"
+    },
+    "uiSlotGlobal": "グローバル UI スロット",
+    "uiSlotAbilityDetail": "詳細設定パネルを表示",
+    "uiSlotFilePreview": "ファイルプレビュースロット",
+    "uiSlotActivityTab": "アクティビティパネルのタブ",
+    "uiSlotInputAction": "入力バーのアクションスロット",
+    "uiSlotMessage": "メッセージ下スロット",
+    "uiSlotToolCall": "ツール呼び出し表示スロット",
+    "uiSlotTurnCard": "ターンカードスロット",
+    "uiSlotWorkspaceView": "ワークスペースビュースロット",
+    "uiShortcutsRegister": "キーボードショートカットを登録",
+    "uiFileExplorerDecorations": "ファイルエクスプローラーを装飾",
+    "uiFileExplorerContextMenu": "ファイルのコンテキストメニューを拡張",
+    "uiFileExplorerToolbar": "ファイルエクスプローラーのツールバーを拡張",
+    "workspaceRead": "ワークスペースとファイル一覧のメタデータを読み取る",
+    "agentSessionRead": "エージェントセッションを読み取る",
+    "agentSessionWrite": "エージェントセッションを変更",
+    "agentCommandRun": "エージェントコマンドを実行",
+    "agentCommandSpawn": "長時間実行されるバックグラウンドプロセスを実行",
+    "captureOffscreen": "非表示のオフスクリーンウィンドウでページをキャプチャ",
+    "browserRead": "ブラウザページを読み取る",
+    "browserOpen": "内蔵ブラウザのページを開く",
+    "browserInteract": "ブラウザページを操作",
+    "browserProfilePersist": "ブラウザのサインインプロファイルを保持",
+    "browserAttach": "開いているブラウザに接続",
+    "browserRuntimeManage": "ブラウザランタイムを管理",
+    "agentSystemPromptRead": "エージェントのシステムプロンプトを読み取る",
+    "agentSystemPromptWrite": "エージェントのシステムプロンプトを変更",
+    "agentSystemPromptFullControl": "エージェントのシステムプロンプトを完全に制御",
+    "agentSkillsControl": "エージェントのスキル読み込みを制御",
+    "agentMcpControl": "プラグインスコープの MCP サーバーを提供",
+    "agentToolsControl": "エージェントのツール読み込みを制御",
+    "agentToolsRegister": "エージェントツールを登録",
+    "agentToolHandlerExecute": "プラグインのツールハンドラーを実行",
+    "agentHooksRegister": "コーディングエージェントのフックを登録",
+    "agentHookHandlerExecute": "プラグインのフックハンドラーを実行",
+    "agentStateRead": "プラグインのエージェント状態を読み取る",
+    "agentStateWrite": "プラグインのエージェント状態を書き込む",
+    "agentContinuationRegister": "エージェントの自動続行ポリシーを登録",
+    "agentRuntimeConfigure": "エージェントのランタイムを設定",
+    "appActionsRegister": "アプリアクションを登録",
+    "appActionHandlerExecute": "プラグインのアクションハンドラーを実行",
+    "aiModelsList": "利用可能な AI モデルを一覧表示",
+    "aiComplete": "AI モデルでテキストを生成",
+    "modelsManage": "プラグインのモデルプロバイダーを管理",
+    "fsRead": "ファイルを読み取る",
+    "fsWrite": "ファイルを書き込む",
+    "networkFetch": "ネットワークにアクセス",
+    "storageRead": "プラグインのプライベートデータを読み取る",
+    "storageWrite": "プラグインのプライベートデータを書き込む",
+    "mediaGenerate": "メディア生成プロバイダーを使用",
+    "mediaProviderRegister": "メディア生成プロバイダーを提供",
+    "ocrRecognize": "テキスト認識サービスを使用",
+    "ocrProviderRegister": "テキスト認識サービスを提供",
+    "secretsRead": "自身のシークレットを読み取る",
+    "secretsWrite": "自身のシークレットを管理",
+    "settingsRead": "設定を読み取る",
+    "settingsWrite": "設定を変更",
+    "shellOpenExternal": "システムブラウザでリンクを開く",
+    "uiSlotNewSessionContext": "新規セッションコンテキストスロット",
+    "conversationDraftRead": "入力ドラフトを読み取る"
+  },
+  "meta": {
+    "title": "その他",
+    "homepage": "ウェブサイト",
+    "repository": "リポジトリ",
+    "docs": "ドキュメント",
+    "license": "ライセンス"
+  },
+  "sources": {
+    "trigger": "ソース",
+    "dialog": {
+      "title": "マーケットプレイスのソース",
+      "description": "GitHub マーケットプレイスのソースを管理します。有効なソースはマーケットプレイスに集約されます。組み込みの公式ソースは無効化も削除もできません。"
+    },
+    "empty": "設定されたソースはまだありません",
+    "builtinBadge": "組み込み",
+    "lockedHint": "組み込みの公式ソースは常に有効で、削除できません",
+    "credentialConfigured": "GitHub アクセス認証情報を設定済み",
+    "status": {
+      "disabled": "無効",
+      "pending": "未同期",
+      "authRequired": "GitHub 認証情報が必要か、有効期限が切れています",
+      "forbidden": "GitHub 認証情報ではこのリポジトリを読み取れません",
+      "notFound": "リポジトリ、ブランチ、またはマーケットプレイスのマニフェストが見つかりません",
+      "rateLimited": "GitHub のレート制限に達しました。後でもう一度お試しください",
+      "appOutdated": "この Metoai のバージョンは古すぎます。{{version}} 以降にアップグレードしてください",
+      "ready": "同期済み · {{version}}",
+      "failed": "同期に失敗しました。再試行できます",
+      "cached": "同期に失敗しました。キャッシュされた内容を表示しています"
+    },
+    "actions": {
+      "refresh": "ソース {{name}} を更新",
+      "autoUpdate": "自動更新",
+      "add": "ソースを追加",
+      "edit": "ソースを編集",
+      "remove": "ソースを削除",
+      "clearCredential": "GitHub アクセス認証情報をクリア",
+      "configureCredential": "GitHub アクセス認証情報を設定",
+      "confirmRemove": "削除を確認",
+      "toggle": "ソースを有効化"
+    },
+    "form": {
+      "addTitle": "ソースを追加",
+      "editTitle": "ソースを編集",
+      "repositoryLabel": "GitHub リポジトリ",
+      "repositoryPlaceholder": "owner/repo または https://github.com/owner/repo",
+      "credentialLabel": "GitHub アクセストークン（任意）",
+      "credentialPlaceholder": "きめ細かいトークン、Contents 読み取り専用",
+      "credentialHint": "トークンはこのデバイスの安全なストレージに保持され、Metoai にアップロードされることはありません。",
+      "nameLabel": "名前",
+      "namePlaceholder": "既定ではリポジトリ名",
+      "refLabel": "ブランチ",
+      "refPlaceholder": "main",
+      "submitAdd": "追加して同期",
+      "submitEdit": "保存"
+    },
+    "error": "操作に失敗しました：{{error}}"
+  }
+}

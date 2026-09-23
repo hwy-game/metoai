@@ -1,0 +1,537 @@
+{
+  "page": {
+    "title": "Habilidades",
+    "subtitle": "Dale más recursos a tu agente: habilidades, escenas, MCP, complementos y paquetes"
+  },
+  "banner": {
+    "title": "Descubre más habilidades",
+    "description": "Elige lo que quieres hacer: agrégalo y úsalo directamente desde el chat"
+  },
+  "loading": "Cargando…",
+  "type": {
+    "skill": "Habilidad",
+    "scene": "Escena",
+    "mcp": "MCP",
+    "plugin": "Complemento",
+    "bundle": "Paquete"
+  },
+  "scope": {
+    "discover": "Descubrir",
+    "mine": "Mías"
+  },
+  "group": {
+    "connectors": "Conexiones",
+    "vettaBuiltin": "Integrado en Metoai",
+    "uncategorized": "Sin categoría"
+  },
+  "search": {
+    "placeholder": "Buscar habilidades"
+  },
+  "status": {
+    "setupRequired": "Configuración requerida",
+    "disabled": "Deshabilitado",
+    "updateAvailable": "Actualización disponible",
+    "openSource": "Código abierto",
+    "sameName": "{{count}} con el mismo nombre"
+  },
+  "card": {
+    "noDescription": "Sin descripción"
+  },
+  "operation": {
+    "processing": "Procesando…",
+    "checkingSource": "Comprobando la versión del mercado…",
+    "refreshing": "Actualizando el estado local…",
+    "installing": "Agregando…",
+    "updating": "Actualizando…",
+    "applyingUpdate": "Recargando la nueva versión…",
+    "removing": "Eliminando…",
+    "enabling": "Habilitando…",
+    "disabling": "Deshabilitando…",
+    "reloading": "Recargando…",
+    "saving": "Guardando…",
+    "applyingSetup": "Aplicando permisos…",
+    "activating": "Activando la capacidad…",
+    "preparingRuntime": "Preparando el entorno de ejecución…",
+    "downloadingRuntime": "Descargando el entorno de ejecución…",
+    "verifyingRuntime": "Verificando el entorno de ejecución…",
+    "installingRuntime": "Instalando el entorno de ejecución…",
+    "readyRuntime": "Entorno de ejecución listo",
+    "failedRuntime": "Falló la preparación del entorno de ejecución"
+  },
+  "actions": {
+    "add": "Agregar",
+    "update": "Actualizar",
+    "finishSetup": "Finalizar configuración",
+    "connectAccount": "Conectar cuenta",
+    "disconnectAccount": "Desconectar cuenta",
+    "configure": "Configurar credenciales",
+    "edit": "Editar configuración",
+    "viewDetails": "Ver detalles",
+    "remove": "Eliminar",
+    "enable": "Habilitar",
+    "disable": "Deshabilitar",
+    "more": "Más acciones",
+    "refresh": "Actualizar",
+    "loadMore": "Cargar más ({{remaining}} restantes)",
+    "reload": "Recargar",
+    "cancel": "Cancelar"
+  },
+  "add": {
+    "trigger": "Agregar habilidad",
+    "title": "Elige cómo agregar",
+    "importSkill": "Importar archivo de habilidad",
+    "importSkillHint": "Instala desde un archivo local zip, tar.gz o tgz",
+    "importPlugin": "Importar archivo de complemento",
+    "importPluginHint": "Instala desde un zip local que contenga plugin.json",
+    "addMcp": "Agregar MCP manualmente",
+    "addMcpHint": "Configura a mano un servidor MCP stdio o HTTP"
+  },
+  "empty": {
+    "noMatch": "No hay habilidades coincidentes",
+    "noMatchHint": "Prueba con otra palabra clave",
+    "discover": "Aún no hay nada para descubrir",
+    "mine": "Aún no has agregado habilidades",
+    "hint": "Actualiza más tarde o importa una desde \"Agregar habilidad\" arriba"
+  },
+  "error": {
+    "sourcesFailed": "No se pudieron sincronizar las fuentes de GitHub (el contenido en caché sigue disponible): {{names}}",
+    "sourcesOutdated": "Estas fuentes necesitan una versión más reciente de Metoai para cargarse: {{names}}",
+    "serverFailed": "No se pudo cargar el mercado en la nube; las demás fuentes siguen disponibles",
+    "loadFailed": "No se pudieron cargar las habilidades",
+    "downloadFailed": "Error de descarga: {{status}}",
+    "installSourceConflict": "El mismo identificador de habilidad ya está instalado desde otra fuente y no se sobrescribirá. Revisa la fuente en la página de detalles.",
+    "membersUnavailable": "Estos miembros no están disponibles y no se instalaron: {{names}}",
+    "partial": "Algunas habilidades no se pudieron cargar: {{error}}",
+    "openMarketplaceSyncFailed": "No se pudieron sincronizar las habilidades abiertas; se conservó la última instantánea utilizable"
+  },
+  "message": {
+    "installed": "Se instaló {{name}}",
+    "installedCount": "Se instalaron {{count}} habilidades",
+    "setupRequired": "{{name}} necesita configuración antes de agregarse",
+    "uninstalled": "Se eliminó {{name}}",
+    "uninstalledCount": "Se eliminaron {{count}} habilidades",
+    "imported": "Se importó {{name}}",
+    "updatedAndReloaded": "Se actualizó y recargó {{name}} {{version}}",
+    "reloaded": "Se recargó {{name}} {{version}}"
+  },
+  "detail": {
+    "noContent": "Sin más descripción. Agrégalo y úsalo directamente desde el chat.",
+    "notFound": "No se encontró la habilidad: puede que se haya retirado o eliminado.",
+    "source": {
+      "title": "Fuente",
+      "builtin": "Integrado en la aplicación",
+      "local": "Agregado localmente",
+      "server": "Servidor de habilidades de Metoai",
+      "sameNameTitle": "Otras {{count}} habilidades tienen el mismo nombre",
+      "installConflict": "Otra fuente ya ocupa esta ubicación de instalación. No se sobrescribirá automáticamente; elimina primero el elemento instalado o espera un flujo de reemplazo explícito."
+    },
+    "status": {
+      "available": "No agregado",
+      "setup_required": "Configuración requerida",
+      "disabled": "Deshabilitado",
+      "enabled": "Habilitado",
+      "readonly": "Solo lectura"
+    },
+    "primary": {
+      "add": "Agregar habilidad",
+      "update": "Actualizar habilidad",
+      "setup": "Finalizar configuración",
+      "enable": "Habilitar habilidad"
+    },
+    "secondary": {
+      "disable": "Deshabilitar",
+      "configure": "Configurar",
+      "remove": "Eliminar"
+    },
+    "meta": {
+      "author": "Autor",
+      "version": "Versión",
+      "localVersion": "Versión local",
+      "downloads": "Descargas",
+      "license": "Licencia"
+    },
+    "story": {
+      "vs": "vs",
+      "compareBoth": "Comparar",
+      "stepProgress": "{{current}} / {{total}}",
+      "stepPrevious": "Atrás",
+      "stepNext": "Siguiente",
+      "replayScene": "Reproducir conversación",
+      "previewImage": "Ver imagen",
+      "closePreview": "Cerrar"
+    }
+  },
+  "plugin": {
+    "currentVersion": "Versión actual",
+    "source": {
+      "label": "Fuente",
+      "remote": "Instalación remota",
+      "npm": "Paquete npm",
+      "system": "Integrado",
+      "local": "Zip local"
+    },
+    "reloadVersion": "Recargar a {{version}}",
+    "permissions": "Permisos",
+    "permissionsSystemHint": "Se otorgan automáticamente a los complementos del sistema y no son editables",
+    "setupDialog": "Habilitación y permisos",
+    "setupDialogHint": "El complemento está instalado. Revisa su estado de habilitación, sus permisos de host y sus comandos ejecutables, y luego confirma para aplicar.",
+    "updateSetupDialogHint": "La nueva versión ya se descargó, pero aún no está activa. Los nuevos permisos vienen preseleccionados; revisa los cambios antes de activarla.",
+    "permissionAdded": "Agregado en la actualización",
+    "permissionRemoved": "Eliminado en la actualización",
+    "trustNotice": "El código del complemento se ejecuta directamente en el renderizador de la aplicación. Los permisos declaran y controlan las API del host; no son un entorno aislado de seguridad. Habilita solo los complementos en los que confíes.",
+    "setupEnable": "Habilitar complemento",
+    "setupEnableHint": "Mientras esté desactivado, el complemento nunca se carga: su pestaña y sus funciones no aparecerán.",
+    "setupDiscardTitle": "¿Descartar esta configuración?",
+    "setupDiscardMessage": "Si cierras ahora, el complemento quedará deshabilitado o sin permisos, por lo que su pestaña y algunas funciones no aparecerán. Puedes habilitarlo y ajustar los permisos más tarde en la página de detalles del complemento.",
+    "setupDiscardConfirm": "Descartar y cerrar",
+    "noPermissions": "Este complemento no declara ningún permiso.",
+    "commands": "Comandos ejecutables",
+    "commandsHint": "Deshabilitarlos bloquea las llamadas del complemento",
+    "contributions": "Incluido en este complemento",
+    "contributionsHint": "Se instala y se elimina junto con el complemento",
+    "contributedMcp": "Servidores MCP",
+    "contributedSkills": "Habilidades",
+    "expandList": "Mostrar {{count}} más",
+    "collapseList": "Mostrar menos"
+  },
+  "mcp": {
+    "title": "Configuración de la conexión",
+    "secretsLead": "Esta conexión necesita las siguientes credenciales antes de poder usarse:",
+    "oauth": "Autorización de la cuenta",
+    "oauthAuthorized": "Autorizada",
+    "oauthNotAuthorized": "No autorizada",
+    "setupLoginTitle": "Inicia sesión en {{name}}",
+    "setupLoginLead": "Escanea el código QR con la aplicación {{name}}. La sesión permanece en este equipo.",
+    "setupLoginPreparing": "Iniciando el servidor y obteniendo el código QR…",
+    "setupLoginFirstRun": "La primera ejecución puede descargar sus dependencias de entorno; esto puede tardar un poco.",
+    "setupLoginWaiting": "Esperando el escaneo…",
+    "setupLoginSuccess": "Sesión iniciada. La habilidad está lista para usarse.",
+    "setupLoginExpired": "El código QR caducó.",
+    "setupLoginFailed": "No se pudo obtener el código QR: {{error}}",
+    "setupLoginRetry": "Obtener de nuevo",
+    "setupLoginManual": "También puedes pedirle al agente que llame a la herramienta {{tool}} en un chat.",
+    "setupLoginClose": "Cerrar",
+    "loginStatusTitle": "Estado de la sesión",
+    "loginChecking": "Comprobando la sesión actual de Xiaohongshu…",
+    "loginAuthenticated": "Sesión iniciada y lista para usarse",
+    "loginAuthenticatedAs": "Sesión iniciada como {{username}}",
+    "loginUnauthenticated": "No has iniciado sesión. Escanea un código QR antes de usar esta habilidad.",
+    "loginCheckFailed": "No se pudo verificar el estado de la sesión: {{error}}",
+    "loginCheckRetry": "Comprobar de nuevo",
+    "loginAction": "Iniciar sesión en Xiaohongshu",
+    "loginRequired": "Inicio de sesión requerido",
+    "connectionConfig": "Ajustes de conexión",
+    "settings": {
+      "title": "Ajustes de {{name}}",
+      "description": "Gestiona el estado de la sesión y los parámetros de conexión del entorno. Guardar no inicia la sesión.",
+      "back": "Volver a los detalles de la habilidad",
+      "runtimeTitle": "Conexión del entorno",
+      "runtimeDescription": "Los parámetros se pasan solo al servicio local gestionado. El servicio se reinicia en la siguiente comprobación o uso después de un cambio.",
+      "proxyLabel": "URL del proxy",
+      "proxyHint": "Compatible con proxies HTTP, HTTPS o SOCKS5, por ejemplo http://127.0.0.1:7890. Déjalo vacío para una conexión directa.",
+      "optional": "opcional",
+      "save": "Guardar ajustes de conexión",
+      "saving": "Guardando…",
+      "clearLogin": "Borrar el estado de la sesión",
+      "confirmClearLogin": "Confirmar el borrado del estado de la sesión",
+      "clearing": "Borrando…",
+      "checkedAt": "Última verificación: {{time}}"
+    }
+  },
+  "bundle": {
+    "install": {
+      "title": "Elige las habilidades que instalar",
+      "description": "Elige qué miembros de \"{{name}}\" instalar. Los miembros ya actualizados no se instalarán de nuevo.",
+      "nothing": "Este paquete no tiene miembros para instalar o actualizar.",
+      "confirm": "Instalar {{count}}"
+    },
+    "members": "Contiene {{count}} habilidades",
+    "inline": "En línea",
+    "missing": "Retirado",
+    "memberInstalled": "Instalado",
+    "memberNotInstalled": "No instalado",
+    "uninstall": {
+      "title": "Desinstalar paquete",
+      "description": "\"{{name}}\" no tiene un artefacto propio: al desinstalarlo se eliminan los miembros de abajo. Desmarca los que quieras conservar.",
+      "nothing": "Este paquete no tiene miembros que se puedan eliminar ahora.",
+      "confirm": "Desinstalar {{count}}"
+    }
+  },
+  "permission": {
+    "detailUnavailable": {
+      "title": "El panel de configuración del complemento está oculto",
+      "description": "No se ha permitido que este complemento muestre su panel de configuración aquí. Revisa sus permisos y habilita los que necesites.",
+      "review": "Revisar los permisos del complemento"
+    },
+    "page": {
+      "open": "Revisar permisos",
+      "title": "Permisos y acceso a datos",
+      "back": "Volver a los detalles de la habilidad",
+      "description": "Consulta qué capacidades del host declara este complemento. Desactivar una bloquea las llamadas correspondientes a la API del host; no aísla el código del complemento en un entorno de seguridad.",
+      "toggleLabel": "Activar o desactivar el permiso {{permission}}",
+      "hostVerified": "Protección de la API del host de Metoai",
+      "preview": {
+        "global": "El contenido del complemento puede aparecer en áreas compartidas de la aplicación que persisten entre páginas",
+        "filePreview": "El complemento puede mostrar un visor de contenido especializado en el área de vista previa de archivos",
+        "activityTab": "El complemento puede agregar y rellenar una pestaña en el panel de actividad lateral derecho",
+        "inputAction": "El complemento puede agregar un botón de acción en el campo de entrada de la conversación",
+        "message": "El contenido del complemento puede adjuntarse debajo de un mensaje concreto del chat",
+        "toolCall": "El complemento puede mostrar el progreso y los resultados de las llamadas a herramientas en una tarjeta especializada",
+        "turnCard": "El complemento puede ampliar la tarjeta que contiene un turno completo de conversación",
+        "workspaceView": "El complemento puede aportar una vista de espacio de trabajo a página completa con su propia entrada en la barra lateral",
+        "shortcuts": "El complemento puede escuchar una combinación de teclas registrada y activar su acción",
+        "fileDecorations": "El complemento puede mostrar indicadores de estado o de tipo junto a las entradas de archivo",
+        "fileContextMenu": "Las acciones del complemento pueden aparecer en los menús contextuales de archivos y carpetas",
+        "fileToolbar": "El complemento puede agregar botones de acción en la barra de herramientas del explorador de archivos"
+      },
+      "previewFlow": "La flecha muestra la dirección de los datos o de la acción que habilita este permiso",
+      "scopeTitle": "Alcance",
+      "disabledTitle": "Cuando está desactivado",
+      "status": {
+        "configureOnInstall": "Se define durante la instalación",
+        "systemGranted": "Otorgado por el sistema"
+      },
+      "readOnly": {
+        "install": "Este complemento no está instalado. Estos son los permisos que solicita; confirmarás los otorgamientos reales durante la instalación.",
+        "system": "Este es un complemento de sistema integrado. Metoai gestiona y otorga sus permisos automáticamente, por lo que no se pueden desactivar de forma individual."
+      },
+      "summary": {
+        "requested": "Solicitados",
+        "highRisk": "Riesgo alto",
+        "granted": "Otorgados actualmente",
+        "timing": "Cuándo configurarlos",
+        "onInstall": "Confirmar durante la instalación"
+      },
+      "flow": {
+        "plugin": "Este complemento",
+        "data": "Archivos y datos de la aplicación",
+        "agent": "Sesiones y comportamiento del agente",
+        "execution": "Operación controlada por el host",
+        "external": "Aplicación o red externa",
+        "intelligence": "Servicios de IA y multimedia"
+      },
+      "scope": {
+        "interface": "Solo permite presentación o interacción en la ubicación de interfaz indicada. No otorga por sí mismo datos de archivos ni de sesión.",
+        "data": "Limitado a los tipos de datos que expone la API del host. Las rutas o los registros exactos dependen de la llamada del complemento.",
+        "agent": "Se aplica a las sesiones del agente, los prompts, las herramientas o el estado del entorno que expone el host.",
+        "execution": "El host realiza la operación, mientras que el complemento elige el comando, la página o la acción que solicita.",
+        "external": "Puede salir de Metoai para abrir un destino o hacer una solicitud. El complemento indica el destino en el momento de la llamada.",
+        "intelligence": "Usa los modelos o servicios multimedia que hayas configurado; puede enviar entradas compuestas por el complemento y consumir cuota del servicio."
+      },
+      "disabled": {
+        "interface": "La entrada, el contenido o la interacción correspondiente no aparecerá. Las demás funciones del complemento pueden seguir ejecutándose.",
+        "data": "Las llamadas para leer o modificar estos datos fallan, por lo que las funciones que dependen de ellos pueden no estar disponibles.",
+        "agent": "El complemento no puede afectar a esta parte del comportamiento del agente, por lo que la automatización o las mejoras relacionadas pueden dejar de funcionar.",
+        "execution": "El host bloquea la operación y los flujos que dependen de su resultado podrían no completarse.",
+        "external": "El complemento no puede completar ese acceso externo. Las funciones que no lo necesitan siguen disponibles.",
+        "intelligence": "Las funciones de generación, análisis y proveedores que usan servicios de IA o multimedia dejan de estar disponibles."
+      }
+    },
+    "group": {
+      "interface": {
+        "title": "Interfaz e interacción",
+        "description": "Dónde puede aparecer el complemento dentro de Metoai"
+      },
+      "projectData": {
+        "title": "Datos del proyecto y de la aplicación",
+        "description": "Qué datos puede leer o modificar el complemento"
+      },
+      "agent": {
+        "title": "Control del agente",
+        "description": "Cómo puede afectar el complemento a las sesiones y al entorno del agente"
+      },
+      "execution": {
+        "title": "Ejecución y acceso externo",
+        "description": "Operaciones del sistema y conexiones externas que puede solicitar el complemento"
+      },
+      "intelligence": {
+        "title": "IA y multimedia",
+        "description": "Servicios de inteligencia que el complemento puede usar o proporcionar"
+      }
+    },
+    "risk": {
+      "low": "Riesgo bajo",
+      "medium": "Revisar",
+      "high": "Riesgo alto"
+    },
+    "description": {
+      "uiSlotGlobal": "Permite que el complemento muestre contenido de interfaz en áreas compartidas de la aplicación que pueden permanecer visibles entre páginas.",
+      "uiSlotAbilityDetail": "Permite que el complemento muestre el estado de instalación, configuración o entorno en su propia página de detalles de habilidad.",
+      "uiSlotFilePreview": "Permite que el complemento muestre contenido personalizado o un visor en el área de vista previa de archivos.",
+      "uiSlotActivityTab": "Permite que el complemento agregue una pestaña seleccionable al panel de actividad lateral derecho.",
+      "uiSlotInputAction": "Permite que el complemento agregue una acción en la que se puede hacer clic junto al campo de entrada del chat.",
+      "uiSlotMessage": "Permite que el complemento agregue contenido o acciones personalizadas debajo de los mensajes del chat.",
+      "uiSlotToolCall": "Permite que el complemento personalice cómo se presentan los resultados de las llamadas a herramientas del agente.",
+      "uiSlotTurnCard": "Permite que el complemento muestre el estado o las acciones dentro de la tarjeta de un turno de conversación.",
+      "uiSlotWorkspaceView": "Permite que el complemento aporte una vista de espacio de trabajo a página completa con su propia entrada fijable en la barra lateral.",
+      "uiShortcutsRegister": "Permite que el complemento registre atajos de teclado y ejecute acciones del complemento cuando se pulsan.",
+      "uiFileExplorerDecorations": "Permite que el complemento agregue iconos, insignias o indicadores de estado al explorador de archivos.",
+      "uiFileExplorerContextMenu": "Permite que el complemento agregue acciones a los menús contextuales de archivos y carpetas.",
+      "uiFileExplorerToolbar": "Permite que el complemento agregue acciones a la barra de herramientas del explorador de archivos.",
+      "workspaceRead": "Consulta metadatos de espacios de trabajo abiertos, carpetas y listas de archivos sin leer directamente el contenido de los archivos.",
+      "agentSessionRead": "Lee mensajes, estado y contexto relacionado de la sesión actual del agente.",
+      "agentSessionWrite": "Cambia el estado o el contenido de la sesión actual del agente y puede afectar al comportamiento de conversaciones posteriores.",
+      "agentCommandRun": "Ejecuta comandos del agente declarados y solicitados por el complemento a través del host.",
+      "agentCommandSpawn": "Inicia procesos en segundo plano que pueden seguir ejecutándose hasta que el complemento o el host los detenga.",
+      "captureOffscreen": "Carga contenido en una página oculta y captura una imagen de ella.",
+      "browserRead": "Crea sesiones de navegador gestionadas por el host, visita sitios aprobados en el manifiesto y lee texto, estructura y capturas de páginas con sesión iniciada.",
+      "browserOpen": "Abre una página web aprobada en el navegador integrado de Metoai sin leer la página ni interactuar con ella.",
+      "browserInteract": "Hace clic, escribe, selecciona y envía en sitios aprobados, y puede realizar acciones reales con tu cuenta.",
+      "browserProfilePersist": "Conserva un perfil de navegador aislado y su estado de sesión para futuras sesiones de este complemento.",
+      "browserAttach": "Se conecta a un navegador ya abierto y puede acceder a sus pestañas y a su estado de sesión.",
+      "browserRuntimeManage": "Instala o repara el entorno de automatización del navegador gestionado por el host.",
+      "agentSystemPromptRead": "Lee el prompt del sistema que define el comportamiento base del agente.",
+      "agentSystemPromptWrite": "Agrega o cambia contenido gestionado por el complemento en el prompt del sistema del agente.",
+      "agentSystemPromptFullControl": "Reemplaza o reorganiza todo el prompt del sistema y puede cambiar sustancialmente el comportamiento del agente.",
+      "agentSkillsControl": "Controla qué habilidades carga el agente y cuándo están disponibles.",
+      "agentMcpControl": "Proporciona servicios y herramientas MCP del agente gestionados por el complemento.",
+      "agentToolsControl": "Habilita, deshabilita o ajusta las herramientas disponibles actualmente para el agente.",
+      "agentToolsRegister": "Registra nombres, descripciones y formatos de entrada de nuevas herramientas del agente.",
+      "agentToolHandlerExecute": "Ejecuta la lógica de controlador proporcionada por el complemento cuando el agente llama a una herramienta del complemento.",
+      "agentHooksRegister": "Registra controladores que pueden observar o afectar a eventos del ciclo de vida del agente de programación.",
+      "agentHookHandlerExecute": "Ejecuta la lógica de enlace proporcionada por el complemento cuando el agente de programación alcanza un evento coincidente.",
+      "agentStateRead": "Lee el estado del entorno del agente guardado para este complemento.",
+      "agentStateWrite": "Actualiza el estado del entorno del agente guardado para este complemento.",
+      "agentContinuationRegister": "Decide si el agente continúa automáticamente cuando termina un turno.",
+      "agentRuntimeConfigure": "Ajusta la configuración del entorno del agente y puede afectar a modelos, herramientas o políticas de ejecución.",
+      "appActionsRegister": "Registra acciones de la aplicación que se pueden invocar desde la interfaz u otras funciones.",
+      "appActionHandlerExecute": "Ejecuta la lógica de controlador proporcionada por el complemento cuando se activa una acción de la aplicación.",
+      "aiModelsList": "Consulta los modelos de IA que configuraste y pusiste a disposición de los complementos.",
+      "aiComplete": "Envía entradas compuestas por el complemento a un modelo de IA configurado y recibe la salida generada.",
+      "modelsManage": "Crea, actualiza o elimina el proveedor de modelos que pertenece al espacio de nombres de este complemento.",
+      "fsRead": "Lee el contenido de los archivos que el complemento selecciona mediante la API de archivos del host.",
+      "fsWrite": "Crea, sobrescribe, mueve o elimina archivos que el complemento selecciona mediante la API de archivos del host.",
+      "networkFetch": "Envía solicitudes a direcciones de red que elige el complemento, posiblemente incluidos datos a los que accedió el complemento.",
+      "storageRead": "Lee datos persistentes privados de este complemento, no disponibles directamente para otros complementos.",
+      "storageWrite": "Escribe datos persistentes privados de este complemento para su estado o configuración.",
+      "mediaGenerate": "Llama a los servicios configurados de generación de imágenes, audio u otros medios.",
+      "mediaProviderRegister": "Registra en Metoai un servicio de generación de medios proporcionado por el complemento.",
+      "ocrRecognize": "Usa un servicio configurado de reconocimiento de texto para las imágenes que el complemento envía explícitamente.",
+      "ocrProviderRegister": "Registra un servicio de reconocimiento de texto proporcionado por el complemento; los servicios remotos pueden subir imágenes.",
+      "secretsRead": "Lee secretos que este complemento guardó por sí mismo, como claves de API.",
+      "secretsWrite": "Escribe o elimina secretos que este complemento guardó por sí mismo, como claves de API.",
+      "settingsRead": "Lee los ajustes de la aplicación que el host expone a los complementos.",
+      "settingsWrite": "Cambia los ajustes de la aplicación que el host expone a los complementos y puede alterar el comportamiento de la aplicación.",
+      "shellOpenExternal": "Abre en el navegador del sistema o en la aplicación predeterminada un enlace externo elegido por el complemento.",
+      "uiSlotNewSessionContext": "Permite que el complemento muestre un bloque debajo del campo de nueva sesión, solo cuando eliges uno de sus agentes o equipos, o mencionas una de sus habilidades.",
+      "conversationDraftRead": "Permite que el complemento lea lo que has escrito pero aún no has enviado. Solo se proporciona mientras el bloque de contexto de ese complemento está en pantalla."
+    },
+    "uiSlotGlobal": "Ranura de interfaz global",
+    "uiSlotAbilityDetail": "Mostrar panel de configuración de detalles",
+    "uiSlotFilePreview": "Ranura de vista previa de archivos",
+    "uiSlotActivityTab": "Pestaña del panel de actividad",
+    "uiSlotInputAction": "Ranura de acción en la barra de entrada",
+    "uiSlotMessage": "Ranura bajo el mensaje",
+    "uiSlotToolCall": "Ranura de representación de llamadas a herramientas",
+    "uiSlotTurnCard": "Ranura de tarjeta de turno",
+    "uiSlotWorkspaceView": "Ranura de vista de espacio de trabajo",
+    "uiShortcutsRegister": "Registrar atajos de teclado",
+    "uiFileExplorerDecorations": "Decorar el explorador de archivos",
+    "uiFileExplorerContextMenu": "Ampliar los menús contextuales de archivos",
+    "uiFileExplorerToolbar": "Ampliar la barra de herramientas del explorador de archivos",
+    "workspaceRead": "Leer metadatos del espacio de trabajo y de la lista de archivos",
+    "agentSessionRead": "Leer la sesión del agente",
+    "agentSessionWrite": "Modificar la sesión del agente",
+    "agentCommandRun": "Ejecutar comandos del agente",
+    "agentCommandSpawn": "Ejecutar procesos en segundo plano de larga duración",
+    "captureOffscreen": "Capturar páginas en ventanas ocultas fuera de pantalla",
+    "browserRead": "Leer páginas del navegador",
+    "browserOpen": "Abrir una página en el navegador integrado",
+    "browserInteract": "Interactuar con páginas del navegador",
+    "browserProfilePersist": "Conservar perfiles de sesión del navegador",
+    "browserAttach": "Conectarse a un navegador abierto",
+    "browserRuntimeManage": "Gestionar el entorno del navegador",
+    "agentSystemPromptRead": "Leer el prompt del sistema del agente",
+    "agentSystemPromptWrite": "Modificar el prompt del sistema del agente",
+    "agentSystemPromptFullControl": "Control total del prompt del sistema del agente",
+    "agentSkillsControl": "Controlar la carga de habilidades del agente",
+    "agentMcpControl": "Proporcionar servidores MCP con alcance del complemento",
+    "agentToolsControl": "Controlar la carga de herramientas del agente",
+    "agentToolsRegister": "Registrar herramientas del agente",
+    "agentToolHandlerExecute": "Ejecutar controladores de herramientas del complemento",
+    "agentHooksRegister": "Registrar enlaces del agente de programación",
+    "agentHookHandlerExecute": "Ejecutar controladores de enlaces del complemento",
+    "agentStateRead": "Leer el estado del agente del complemento",
+    "agentStateWrite": "Escribir el estado del agente del complemento",
+    "agentContinuationRegister": "Registrar la política de continuación automática del agente",
+    "agentRuntimeConfigure": "Configurar el entorno del agente",
+    "appActionsRegister": "Registrar acciones de la aplicación",
+    "appActionHandlerExecute": "Ejecutar controladores de acciones del complemento",
+    "aiModelsList": "Listar los modelos de IA disponibles",
+    "aiComplete": "Completar texto con modelos de IA",
+    "modelsManage": "Gestionar el proveedor de modelos del complemento",
+    "fsRead": "Leer archivos",
+    "fsWrite": "Escribir archivos",
+    "networkFetch": "Acceder a la red",
+    "storageRead": "Leer datos privados del complemento",
+    "storageWrite": "Escribir datos privados del complemento",
+    "mediaGenerate": "Usar proveedores de generación de medios",
+    "mediaProviderRegister": "Proporcionar proveedores de generación de medios",
+    "ocrRecognize": "Usar servicios de reconocimiento de texto",
+    "ocrProviderRegister": "Proporcionar servicios de reconocimiento de texto",
+    "secretsRead": "Leer secretos propios",
+    "secretsWrite": "Gestionar secretos propios",
+    "settingsRead": "Leer ajustes",
+    "settingsWrite": "Modificar ajustes",
+    "shellOpenExternal": "Abrir enlaces en el navegador del sistema",
+    "uiSlotNewSessionContext": "Ranura de contexto de nueva sesión",
+    "conversationDraftRead": "Leer el borrador de entrada"
+  },
+  "meta": {
+    "title": "Otros",
+    "homepage": "Sitio web",
+    "repository": "Repositorio",
+    "docs": "Documentación",
+    "license": "Licencia"
+  },
+  "sources": {
+    "trigger": "Fuentes",
+    "dialog": {
+      "title": "Fuentes del mercado",
+      "description": "Gestiona las fuentes del mercado de GitHub. Las fuentes habilitadas se agregan en el mercado; la fuente oficial integrada no se puede deshabilitar ni eliminar."
+    },
+    "empty": "Aún no hay fuentes configuradas",
+    "builtinBadge": "Integrada",
+    "lockedHint": "La fuente oficial integrada siempre está habilitada y no se puede eliminar",
+    "credentialConfigured": "Credencial de acceso a GitHub configurada",
+    "status": {
+      "disabled": "Deshabilitada",
+      "pending": "Aún no sincronizada",
+      "authRequired": "Se requiere una credencial de GitHub o esta ha caducado",
+      "forbidden": "La credencial de GitHub no puede leer este repositorio",
+      "notFound": "No se encontró el repositorio, la rama ni el manifiesto del mercado",
+      "rateLimited": "Se alcanzó el límite de solicitudes de GitHub; inténtalo más tarde",
+      "appOutdated": "Esta versión de Metoai es demasiado antigua; actualiza a {{version}} o posterior",
+      "ready": "Sincronizada · {{version}}",
+      "failed": "Error de sincronización; puedes reintentar",
+      "cached": "Error de sincronización; se muestra el contenido en caché"
+    },
+    "actions": {
+      "refresh": "Actualizar la fuente {{name}}",
+      "autoUpdate": "Actualización automática",
+      "add": "Agregar fuente",
+      "edit": "Editar fuente",
+      "remove": "Eliminar fuente",
+      "clearCredential": "Borrar la credencial de acceso a GitHub",
+      "configureCredential": "Configurar la credencial de acceso a GitHub",
+      "confirmRemove": "Confirmar eliminación",
+      "toggle": "Habilitar fuente"
+    },
+    "form": {
+      "addTitle": "Agregar fuente",
+      "editTitle": "Editar fuente",
+      "repositoryLabel": "Repositorio de GitHub",
+      "repositoryPlaceholder": "owner/repo o https://github.com/owner/repo",
+      "credentialLabel": "Token de acceso a GitHub (opcional)",
+      "credentialPlaceholder": "Token de grano fino, Contents en solo lectura",
+      "credentialHint": "El token permanece en el almacenamiento seguro de este dispositivo y nunca se sube a Metoai.",
+      "nameLabel": "Nombre",
+      "namePlaceholder": "De forma predeterminada, el nombre del repositorio",
+      "refLabel": "Rama",
+      "refPlaceholder": "main",
+      "submitAdd": "Agregar y sincronizar",
+      "submitEdit": "Guardar"
+    },
+    "error": "La operación falló: {{error}}"
+  }
+}

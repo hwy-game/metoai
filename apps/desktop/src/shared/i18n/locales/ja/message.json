@@ -1,0 +1,23 @@
+{
+  "title": "メッセージセンター",
+  "triggerTitle": "メッセージセンター",
+  "tabs": {
+    "all": "すべて",
+    "notifications": "通知"
+  },
+  "empty": {
+    "all": "メッセージはありません",
+    "notifications": "通知はありません"
+  },
+  "notification": {
+    "markAllRead": "すべて既読にする",
+    "clearRead": "既読を消去",
+    "delete": "削除"
+  },
+  "time": {
+    "justNow": "たった今",
+    "minutesAgo": "{{n}}分前",
+    "hoursAgo": "{{n}}時間前",
+    "daysAgo": "{{n}}日前"
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "tray": {
+    "showWindow": "Показать окно",
+    "hideWindow": "Скрыть окно",
+    "quitVetta": "Выйти из Metoai",
+    "quit": "Выход",
+    "hideToTray": "Скрыть в трей"
+  },
+  "menu": {
+    "app": {
+      "title": "Metoai",
+      "about": "О Metoai",
+      "services": "Службы",
+      "hide": "Скрыть Metoai",
+      "hideOthers": "Скрыть остальные",
+      "unhide": "Показать все",
+      "quit": "Выйти из Metoai"
+    },
+    "edit": {
+      "title": "Правка",
+      "undo": "Отменить",
+      "redo": "Повторить",
+      "cut": "Вырезать",
+      "copy": "Копировать",
+      "paste": "Вставить",
+      "pasteAndMatchStyle": "Вставить и согласовать стиль",
+      "delete": "Удалить",
+      "selectAll": "Выделить все"
+    },
+    "view": {
+      "title": "Вид",
+      "reload": "Перезагрузить",
+      "forceReload": "Принудительно перезагрузить",
+      "toggleDevTools": "Инструменты разработчика",
+      "resetZoom": "Фактический размер",
+      "zoomIn": "Увеличить",
+      "zoomOut": "Уменьшить",
+      "toggleFullScreen": "Полноэкранный режим"
+    },
+    "window": {
+      "title": "Окно",
+      "minimize": "Свернуть",
+      "zoom": "Развернуть",
+      "front": "Все окна на передний план",
+      "close": "Закрыть окно"
+    }
+  },
+  "notification": {
+    "turnComplete": "Ответ готов",
+    "turnError": "Ошибка ответа",
+    "questionPending": "Вопрос требует вашего подтверждения. Нажмите, чтобы посмотреть.",
+    "sessionFallback": "Новая сессия"
+  },
+  "pet": {
+    "openDevTools": "Открыть инструменты разработчика питомца"
+  },
+  "mcpOAuth": {
+    "authorizationSuccessful": "Авторизация выполнена",
+    "authorizationFailed": "Авторизация не выполнена",
+    "returnToVetta": "Можно закрыть это окно и вернуться в Metoai.",
+    "closeAndRetry": "Можно закрыть это окно и повторить попытку в Metoai.",
+    "missingAuthorizationCode": "Отсутствует код авторизации",
+    "callbackAlreadySettled": "Обратный вызов OAuth уже обработан",
+    "callbackTimedOut": "Истекло время ожидания авторизации OAuth в браузере",
+    "callbackBindFailed": "Не удалось запустить сервер обратного вызова OAuth",
+    "devicePageBindFailed": "Не удалось запустить сервер страницы кода устройства",
+    "connectGitHub": "Подключить GitHub",
+    "enterDeviceCode": "Введите этот код на странице GitHub и нажмите «Авторизовать».",
+    "copyCode": "Копировать код",
+    "openGitHub": "Открыть GitHub для авторизации",
+    "closeAfterAuthorization": "Это окно можно закрыть после авторизации в Metoai.",
+    "deviceFlowDisabled": "Запрос кода устройства не выполнен (422). Включите Device Flow в настройках OAuth или приложения GitHub: {{details}}"
+  },
+  "updater": {
+    "errors": {
+      "developmentUnsupported": "Автоматические обновления недоступны в режиме разработки",
+      "configurationUnavailable": "В этой сборке не настроен источник обновлений",
+      "checkFailed": "Не удалось проверить обновления",
+      "downloadFailed": "Не удалось скачать обновление",
+      "installFailed": "Не удалось установить обновление"
+    },
+    "forced": {
+      "title": "Для продолжения требуется обновление",
+      "reasonPolicy": "Для продолжения работы необходимо обновить эту версию.",
+      "reasonMinSupported": "Эта версия больше не поддерживается. Обновитесь, чтобы продолжить.",
+      "checking": "Проверка обновлений…",
+      "available": "Обновление готово к загрузке.",
+      "download": "Скачать обновление",
+      "downloading": "Загрузка обновления ({{progress}}%)",
+      "ready": "Обновление загружено. Перезапустите приложение, чтобы начать им пользоваться.",
+      "restart": "Перезапустить и установить",
+      "preparing": "Установка обновления. Приложение скоро перезапустится.",
+      "failed": "Обновление не завершено. Попробуйте еще раз.",
+      "retry": "Повторить",
+      "releaseNotes": "Что нового",
+      "version": "Новая версия {{version}}"
+    }
+  }
+}

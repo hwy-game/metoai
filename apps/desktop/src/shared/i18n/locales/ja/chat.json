@@ -1,0 +1,942 @@
+{
+  "activityPanel": {
+    "tabs": {
+      "file": "ファイル",
+      "batchProgress": "進捗",
+      "todo": "ToDo",
+      "backgroundTasks": "バックグラウンドタスク",
+      "debug": "デバッグ",
+      "knowledgeHistory": "処理履歴",
+      "workflow": "ワークフロー"
+    },
+    "backgroundTasks": {
+      "statusRunning": "実行中",
+      "statusCompleted": "完了",
+      "statusFailed": "失敗",
+      "statusKilled": "強制終了",
+      "subagentStatusPending": "保留中",
+      "subagentStatusInterrupted": "中断",
+      "durationSec": "{{sec}}秒",
+      "durationMin": "{{min}}分{{sec}}秒",
+      "durationHour": "{{hr}}時間{{min}}分",
+      "empty": "バックグラウンドタスクはありません",
+      "clearFinished": "完了したものをクリア ({{count}})",
+      "stop": "停止"
+    },
+    "mcpTasks": {
+      "statusWorking": "処理中",
+      "statusInputRequired": "入力待ち",
+      "statusCancelled": "キャンセル済み"
+    },
+    "subagents": {
+      "usage": "{{tokens}} トークン · {{cost}}",
+      "errorPermission": "権限がブロックされました",
+      "errorContext": "コンテキスト上限に達しました",
+      "errorConnection": "接続が中断されました",
+      "errorExecution": "実行に失敗しました"
+    },
+    "batchProgress": {
+      "notFound": "バッチプロジェクトが見つかりません"
+    },
+    "debug": {
+      "toolCalls": "ツール呼び出し",
+      "requestHistory": "リクエスト履歴"
+    },
+    "todo": {
+      "empty": "ToDo項目がありません",
+      "headline": "進行中",
+      "allDone": "すべて完了",
+      "progress": "{{total}} 件中 {{done}} 件完了",
+      "statusDone": "完了",
+      "statusInProgress": "進行中",
+      "statusPending": "保留中"
+    },
+    "toolCalls": {
+      "filterAll": "すべて",
+      "filterSuccess": "成功",
+      "filterError": "失敗",
+      "noSession": "アクティブなセッションがありません",
+      "searchPlaceholder": "ツール名を検索...",
+      "loading": "読み込み中...",
+      "recordCount": "{{count}} 件の記録",
+      "refresh": "更新",
+      "empty": "ツール呼び出しはまだありません",
+      "noMatch": "一致するものがありません",
+      "args": "引数",
+      "result": "結果"
+    },
+    "requestHistory": {
+      "noSession": "アクティブなセッションがありません",
+      "loading": "読み込み中...",
+      "requestCount": "{{count}} 件のリクエスト",
+      "refresh": "更新",
+      "empty": "デバッグモードでメッセージを送信すると、ここにリクエスト履歴が表示されます",
+      "showInFolder": "ディスク上に表示"
+    },
+    "schedule": {
+      "statusRunning": "実行中",
+      "statusSuccess": "成功",
+      "statusFailed": "失敗",
+      "statusAborted": "中止",
+      "unnamedTask": "無名のタスク",
+      "noTasks": "このプロジェクトには自動化タスクがありません",
+      "overview": "自動化の概要",
+      "refresh": "更新",
+      "totalTasks": "タスク総数",
+      "enabled": "有効",
+      "todayExecutions": "今日",
+      "taskControl": "タスク操作",
+      "enabledBadge": "有効",
+      "pausedBadge": "一時停止",
+      "run": "実行",
+      "pause": "一時停止",
+      "enable": "有効化",
+      "executionRecords": "実行記録",
+      "noRecords": "実行記録がありません"
+    },
+    "htmlPreview": {
+      "title": "HTMLプレビュー"
+    },
+    "workflow": {
+      "empty": "ワークフローがありません",
+      "noTranscript": "このワークフローからのメッセージはまだありません",
+      "stop": "停止",
+      "statusQueued": "キュー待ち",
+      "statusPending": "開始中",
+      "statusRunning": "実行中",
+      "statusCompleted": "完了",
+      "statusFailed": "失敗",
+      "statusInterrupted": "中断",
+      "processingTitle": "{{count}} 件のワークフローを処理中",
+      "doneTitle": "すべてのワークフローが完了しました"
+    }
+  },
+  "fileExplorer": {
+    "clearArtifactsTitle": "成果物をクリア",
+    "clearArtifactsMessage": "{{label}} プロジェクトのcwd配下にあるすべての成果物ファイルを削除します（セッション記録は保持されます）。この操作は元に戻せません。",
+    "clearArtifactsConfirm": "クリア",
+    "clearArtifactsFailed": "成果物のクリアに失敗しました",
+    "conversationLabel": "「会話」",
+    "moveFailed": "移動に失敗しました",
+    "deleteFailed": "削除に失敗しました",
+    "selectProject": "ファイルを閲覧するプロジェクトを選択",
+    "fileList": "プロジェクトのファイル",
+    "clearArtifacts": "成果物をクリア",
+    "refresh": "更新",
+    "newFile": "新しいファイル",
+    "newFolder": "新しいフォルダー",
+    "collapseAll": "すべて折りたたむ",
+    "newFileInputLabel": "新しいファイル名を入力",
+    "newFolderInputLabel": "新しいフォルダー名を入力",
+    "createAlreadyExists": "同名のファイルまたはフォルダーが既に存在します",
+    "createFailed": "項目の作成に失敗しました",
+    "invalidName": {
+      "empty": "名前を空にすることはできません",
+      "dotPath": "名前に . や .. は使用できません",
+      "pathSeparator": "名前にパス区切り文字を含めることはできません",
+      "invalidCharacter": "名前にWindowsで使用できない文字が含まれています",
+      "reservedName": "この名前はWindowsで予約されています",
+      "trailingCharacter": "名前の末尾にスペースやピリオドは使用できません"
+    },
+    "emptyFolder": "このフォルダーは空です",
+    "openInFinder": "Finderで表示",
+    "openInExplorer": "エクスプローラーで表示",
+    "copy": "コピー",
+    "paste": "貼り付け",
+    "copyPath": "パスをコピー",
+    "copyName": "名前をコピー",
+    "rename": "名前を変更",
+    "delete": "削除",
+    "confirmDeleteTitle": "削除の確認",
+    "confirmDeleteFolder": "フォルダー",
+    "confirmDeleteFile": "ファイル",
+    "confirmDeletePrefix": "{{type}}を削除",
+    "confirmDeleteSuffix": "しますか？{{folderNote}} この操作は元に戻せません。",
+    "confirmDeleteFolderNote": " フォルダー内のすべての内容が削除されます。",
+    "confirmDeleteMultiplePrefix": "これら {{count}} 件の項目を削除",
+    "confirmDeleteMultipleMore": " 他 {{count}} 件",
+    "confirmDeleteMultipleSuffix": "しますか？ この操作は元に戻せません。",
+    "cancel": "キャンセル",
+    "transfer": {
+      "title": "プロジェクトにファイルを追加",
+      "pasteCopyTitle": "ファイルを貼り付け",
+      "pasteMoveTitle": "ファイルを移動",
+      "description": "{{count}} 件の項目を「{{destination}}」に配置します",
+      "moveWarning": "移動すると、転送に成功した項目は元の場所から削除されます。",
+      "conflictLabel": "{{count}} 件の項目で名前が競合しています",
+      "keepBoth": "両方を保持",
+      "replace": "既存の項目を置き換え",
+      "skip": "競合する項目をスキップ",
+      "copy": "コピー",
+      "move": "移動",
+      "cancel": "キャンセル",
+      "processing": "処理中…",
+      "prepareFailed": "ドロップされたファイルを読み取れません",
+      "commitFailed": "ファイル転送に失敗しました",
+      "failedCount": "{{count}} 件の項目の転送に失敗しました"
+    }
+  },
+  "fileEditor": {
+    "loading": "ファイルを開いています…",
+    "edit": "編集",
+    "preview": "プレビュー",
+    "save": "保存",
+    "saving": "保存中…",
+    "saved": "保存しました",
+    "unsaved": "未保存の変更",
+    "conflict": "別のプログラムがこのファイルを変更しました。再読み込みするか、ディスク上のバージョンを明示的に上書きしてください。",
+    "reload": "再読み込み",
+    "overwrite": "上書き",
+    "errorTooLarge": "2 MBを超えるファイルは編集できません",
+    "errorPreviewTooLarge": "このファイルは大きすぎるためプレビューできません",
+    "errorNotUtf8": "このファイルは有効なUTF-8テキストではないため編集できません",
+    "errorRead": "このファイルを読み取れません",
+    "errorSave": "このファイルを保存できません。もう一度お試しください。",
+    "unsupported": "このファイル形式のプレビューには対応していません",
+    "download": "ファイルをダウンロード",
+    "showTree": "ファイルツリーを表示",
+    "hideTree": "ファイルツリーを非表示",
+    "previous": "前へ (←)",
+    "next": "次へ (→)",
+    "downloadShort": "ダウンロード",
+    "refresh": "更新",
+    "close": "閉じる"
+  },
+  "appshot": {
+    "errorSelfCapture": "Appshotをスキップしました: 最前面のウィンドウはMetoai自身です",
+    "errorNoPermission": "Appshotのキャプチャに失敗しました: 画面収録とアクセシビリティの権限がありません。設定 › 権限で許可してください",
+    "errorHelperFailed": "Appshotのキャプチャに失敗しました。もう一度お試しください"
+  },
+  "askUserQuestion": {
+    "cancelledMessage": "ユーザーがキャンセルしたため、回答されませんでした",
+    "defaultQuestionLabel": "質問 {{number}}"
+  },
+  "mcpElicitation": {
+    "title": "MCP情報リクエスト",
+    "source": "{{server}} より",
+    "urlNotice": "Metoaiがこのアドレスをシステムブラウザで開くのは、確認した後のみです。",
+    "decline": "拒否",
+    "openAndContinue": "開いて続行",
+    "submit": "送信",
+    "required": "(必須)",
+    "enabled": "有効",
+    "disabled": "無効",
+    "selectPlaceholder": "オプションを選択"
+  },
+  "atPanel": {
+    "emptyDirectory": "空のディレクトリ",
+    "enterDirectory": "Tabで移動",
+    "goUp": "..",
+    "header": "ファイルを参照",
+    "loading": "読み込み中...",
+    "noResults": "一致するものが見つかりません",
+    "searchResults": "{{count}} 件の結果"
+  },
+  "backgroundTasksBadge": {
+    "runningTasksTooltip": "{{count}} 件のバックグラウンドタスクを実行中"
+  },
+  "bashHeader": {
+    "statusCancelled": "キャンセル済み: {{short}}",
+    "statusError": "コマンドが失敗しました: {{short}}",
+    "statusPending": "実行中: {{short}}",
+    "statusSuccess": "コマンドを実行しました: {{short}}"
+  },
+  "bashTerminalCard": {
+    "copyCommand": "コマンドをコピー",
+    "metaDescription": "ローカルメタデータ、UI表示のみ、モデルには送信されません"
+  },
+  "browser": {
+    "addressPlaceholder": "URLを入力してEnterを押してください",
+    "back": "戻る",
+    "empty": "会話内のリンクをクリックするか、上にURLを入力してください",
+    "failed": "ページの読み込みに失敗しました",
+    "forward": "進む",
+    "loading": "読み込み中…",
+    "noSession": "アクティブなセッションがありません",
+    "openExternal": "システムブラウザで開く",
+    "reload": "再読み込み",
+    "retry": "再試行",
+    "stop": "停止",
+    "tab": "ブラウザ"
+  },
+  "capability": {
+    "network": "ネットワーク",
+    "read": "読み取り",
+    "write": "書き込み"
+  },
+  "chatExport": {
+    "defaultSessionName": "Metoaiセッション"
+  },
+  "chatView": {
+    "defaultSessionTitle": "Metoaiセッション",
+    "exportButton": {
+      "title": "セッション全体をHTMLでエクスポート"
+    },
+    "newSessionButton": {
+      "title": "新しいセッション"
+    },
+    "panelButton": {
+      "closed": "アクティビティパネルを開く",
+      "open": "アクティビティパネルを閉じる"
+    },
+    "pinButton": {
+      "pinned": "ウィンドウのピン留めを解除",
+      "unpinned": "ウィンドウをピン留め (常に手前に表示)"
+    }
+  },
+  "contextRing": {
+    "tooltip": {
+      "compacting": "コンテキストを圧縮中...",
+      "unknown": "コンテキストウィンドウ {{window}} (使用量不明)",
+      "usage": "コンテキスト {{tokens}} トークン使用 ({{percent}}%、{{window}} ウィンドウ)"
+    },
+    "details": {
+      "title": "コンテキスト構成 (最新の呼び出し)",
+      "actual": "実際の入力",
+      "section": "セクション",
+      "category": "カテゴリ",
+      "tokens": "トークン",
+      "share": "割合",
+      "unknown": "不明",
+      "back": "戻る",
+      "unavailableAfterRestart": "このセッションには復元可能な構成の詳細がありません。もう一度メッセージを送信すると、新しいレポートが生成・保存されます。",
+      "items": "{{count}} 件",
+      "unknownItems": "{{count}} 件不明",
+      "owner": {
+        "core": "システム",
+        "skill": "スキル",
+        "plugin": "プラグイン",
+        "mcp": "MCP",
+        "extension": "拡張機能",
+        "runtime": "ランタイム",
+        "user": "ユーザー",
+        "unknown": "未割り当て"
+      },
+      "kind": {
+        "instruction": "指示",
+        "tool_schema": "ツールスキーマ",
+        "history": "履歴",
+        "runtime_context": "ランタイムコンテキスト",
+        "user_input": "現在の入力"
+      },
+      "group": {
+        "instructions": "コア指示",
+        "capabilities": "拡張機能",
+        "tools": "ツール",
+        "conversation": "会話",
+        "runtime": "ランタイムコンテキスト"
+      }
+    }
+  },
+  "copyButton": {
+    "copied": "コピーしました",
+    "label": "コピー"
+  },
+  "dropZone": {
+    "externalRef": "画像は自動的に添付され、その他のファイルは参照されます",
+    "internalRef": "プロジェクト内から参照",
+    "releaseToRef": "離してファイルを参照"
+  },
+  "editDiff": {
+    "anchor": {
+      "badge": "アンカー編集",
+      "delete": "削除",
+      "insertAfter": "後に挿入",
+      "replace": "行を置換",
+      "replaceRange": "範囲を置換"
+    },
+    "netChangeLabel": "差引 {{net}}",
+    "newTextEmpty": "置換テキストが空です",
+    "oldTextEmpty": "一致テキストが空です"
+  },
+  "executionModeSelector": {
+    "fullAccess": {
+      "label": "フルアクセス",
+      "title": "現在のシステムへのフルアクセスを許可"
+    },
+    "sandbox": {
+      "label": "サンドボックス",
+      "title": "ワークスペース内のみの制限付きアクセスを許可"
+    },
+    "sandboxUnavailable": "{{platform}} サンドボックスを利用できません: {{reason}}"
+  },
+  "export": {
+    "shareNavDescription": "セッションを共有しました",
+    "shareNavDescriptionWithNickname": "{{nickname}} がセッションを共有しました"
+  },
+  "filterByTags": {
+    "hitCount": "{{count}} ページが一致",
+    "noResults": "一致するページがありません",
+    "noTitle": "(無題)"
+  },
+  "guideBadgeSwiper": {
+    "dismissTooltip": "今後表示しない",
+    "petFeatureText": "新しいデスクトップペット機能 — クリックして設定で有効化",
+    "quickPanelText": "Metoaiにクイックパネルが登場 — クリックして設定"
+  },
+  "imagePreview": {
+    "altText": "読み込まれた画像",
+    "imageLabel": "画像",
+    "originalLabel": "元の画像",
+    "processedLabel": "モデル入力",
+    "showInFolderButton": "元のファイルをファイルマネージャーで表示"
+  },
+  "inputActionBar": {
+    "chip": {
+      "removeTooltip": "クリックして削除"
+    },
+    "knowledgeRetrieval": {
+      "label": "ナレッジ検索",
+      "tooltip": "オンの場合、このターンでナレッジベースのツールを呼び出し、ナレッジベースからの回答を優先します"
+    }
+  },
+  "inputBar": {
+    "error": {
+      "multipleScenes": "1つのメッセージに選択できるシーンは1つだけです。余分なシーンを削除して再試行してください"
+    },
+    "capsule": {
+      "appshotThumbnailAlt": "スクリーンショット",
+      "appshotPreview": "スクリーンショットをプレビュー",
+      "appshotIconAlt": "アプリアイコン",
+      "removeDefault": "クリックして削除",
+      "removeImage": "画像を削除",
+      "removeTooltip": "{{path}}\nクリックして削除",
+      "activeGroup": "{{count}} 件のプラグイン",
+      "imageBadge": "画像 {{index}}"
+    },
+    "drawer": {
+      "permissionDesc": "確認待ち",
+      "permissionLabel": "権限リクエスト",
+      "queueDelete": "削除",
+      "contextCompaction": "コンテキストを圧縮",
+      "queueDesc": "{{count}} 件がキュー待ち",
+      "queueEmpty": "キューに入ったメッセージはありません",
+      "queueLabel": "キュー",
+      "queuePaused": "前のターンが中断されたため、キューのメッセージは保留中です",
+      "queuePausedDesc": "一時停止 · {{count}} 件がキュー待ち",
+      "queueResume": "送信を再開",
+      "queueSendNow": "今すぐ送信"
+    },
+    "permission": {
+      "allow": "1回のみ許可",
+      "allowSession": "このセッションでは今後確認しない",
+      "deny": "拒否"
+    },
+    "placeholder": {
+      "defaults": [
+        "Metoaiに質問、/ でスキル、@ でファイルを参照",
+        "タスクを説明し、⏎ で送信",
+        "スクリーンショットを貼り付けるか @ でファイルを参照して開始"
+      ],
+      "noSession": "セッションを選択または作成して開始",
+      "suggestion": "↵ {{suggestion}}",
+      "thinking": "Metoaiが考えています…"
+    },
+    "mention": {
+      "trigger": "メンバーをメンション",
+      "title": "チームメンバーをメンション",
+      "hint": "誰もメンションされていない場合はチームリードが引き継ぎます。",
+      "empty": "このチームにはメンションできるメンバーがいません",
+      "clear": "すべてクリア",
+      "selected": "{{count}} 名のメンバー"
+    },
+    "toolbar": {
+      "addImage": "画像を追加",
+      "attachFile": "ファイル参照を添付",
+      "skills": "スキル / シーン"
+    },
+    "speech": {
+      "actions": {
+        "start": "音声入力を開始",
+        "stop": "音声入力を停止"
+      },
+      "states": {
+        "loading": "オフライン音声モデルを読み込み中…",
+        "stopping": "音声認識を終了しています…"
+      },
+      "errors": {
+        "unsupported": "音声入力には現在Windows x64が必要です",
+        "missing": "このインストールには音声モデルがありません。アプリを再インストールしてください",
+        "integrity": "同梱の音声モデルが不完全です。アプリを再インストールしてください",
+        "recognizer": "音声認識を開始できませんでした。クリックして再試行"
+      }
+    },
+    "contextMenu": {
+      "cut": "切り取り",
+      "copy": "コピー",
+      "paste": "貼り付け"
+    },
+    "todo": {
+      "trigger": "ToDo",
+      "allDone": "すべて完了",
+      "panelTitle": "ToDoリスト",
+      "openPanel": "パネルで開く",
+      "statusDone": "完了",
+      "statusInProgress": "進行中",
+      "statusPending": "保留中"
+    }
+  },
+  "knowledgeTools": {
+    "empty": "結果がありません"
+  },
+  "listTags": {
+    "empty": "ナレッジベースにはまだタグがありません",
+    "tagCount": "タグは合計 {{count}} 件"
+  },
+  "messageCards": {
+    "layoutList": "リスト",
+    "layoutStacked": "スタック"
+  },
+  "messageList": {
+    "userMessage": {
+      "expand": "メッセージを展開",
+      "sceneBadge": "シーン",
+      "skillBadge": "スキル",
+      "settingsAssist": {
+        "mcp": "MCP設定アシスト",
+        "models": "モデル設定アシスト",
+        "knowledge": "ナレッジ設定アシスト",
+        "knowledgeBase": "ナレッジベースアシスト",
+        "batchTasks": "バッチタスクアシスト",
+        "automation": "自動化アシスト",
+        "im": "Claw設定アシスト",
+        "webhook": "Webhook設定アシスト",
+        "appearance": "外観設定アシスト",
+        "plugins": "プラグイン設定アシスト",
+        "pet": "ペット設定アシスト",
+        "environment": "環境設定アシスト",
+        "shortcuts": "ショートカット設定アシスト",
+        "agent": "エージェント設定アシスト",
+        "unknown": "設定アシスト"
+      }
+    },
+    "assistantFoldTip": {
+      "collapse": "{{count}} 件の項目を折りたたむ",
+      "collapseLabel": "折りたたむ",
+      "expand": "{{count}} 件の項目を展開",
+      "expandLabel": "展開",
+      "streaming": "処理中 · {{duration}}",
+      "waiting": "待機中 · {{duration}}",
+      "work": {
+        "collapse": "{{count}} ステップを折りたたむ",
+        "collapseZero": "処理を折りたたむ",
+        "expand": "{{count}} ステップを展開",
+        "expandZero": "処理を展開"
+      }
+    },
+    "assistantMessage": {
+      "predicting": "Metoaiが予測しています…",
+      "processing": "処理中…",
+      "waiting": "モデルの応答を待っています"
+    },
+    "duration": {
+      "seconds": "{{seconds}}秒",
+      "minutes": "{{minutes}}分{{seconds}}秒",
+      "hours": "{{hours}}時間{{minutes}}分"
+    },
+    "navigation": {
+      "title": "質問",
+      "count": "{{count}}",
+      "open": "質問を表示",
+      "close": "質問リストを閉じる",
+      "searchLabel": "質問を検索",
+      "searchPlaceholder": "質問を検索",
+      "noResults": "一致する質問がありません",
+      "jumpTo": "{{preview}} へ移動",
+      "emptyUser": "(テキストなし)"
+    },
+    "tokenUsage": {
+      "trigger": "トークン使用量を表示",
+      "sessionTitle": "セッションのトークン",
+      "messageTitle": "現在のメッセージのトークン",
+      "scopeLabel": "トークン使用量の範囲",
+      "session": "セッション合計",
+      "message": "現在のメッセージ",
+      "modelCalls": "{{count}} 回のモデル呼び出し",
+      "total": "合計",
+      "prompt": "プロンプトトークン",
+      "uncachedInput": "入力",
+      "output": "出力",
+      "cacheRead": "キャッシュヒット",
+      "cacheWrite": "キャッシュ書き込み",
+      "cacheHitRate": "キャッシュヒット率",
+      "moreParameters": "その他のパラメータ",
+      "readCoverage": "読み取り観測のカバレッジ",
+      "writeCoverage": "書き込み観測のカバレッジ",
+      "readOnlyReporting": "報告なし (読み取り専用)",
+      "diagnosticCoverage": "プレフィックス診断のカバレッジ",
+      "stableSystemChars": "安定したシステムプロンプトの文字数",
+      "volatileSystemChars": "変動するシステムプロンプトの文字数",
+      "historyMessages": "プレフィックス履歴メッセージ",
+      "toolCount": "ツール数",
+      "prefixStatus": "安定プレフィックスの状態",
+      "changedSegments": "変更されたセグメント",
+      "changedPromptBlocks": "変更されたプロンプトブロック",
+      "changedTools": "変更されたツール",
+      "definitionChange": "{{id}} ({{change}})",
+      "changeKinds": {
+        "added": "追加",
+        "removed": "削除",
+        "changed": "内容が変更",
+        "reordered": "順序が変更"
+      },
+      "segmentSeparator": "、",
+      "prefixStatuses": {
+        "initial": "初回の診断",
+        "extended": "継続的に拡張",
+        "changed": "プレフィックスが変更",
+        "unknown": "過去のバージョンは利用できません"
+      },
+      "prefixSegments": {
+        "stableSystem": "安定したシステムプロンプト",
+        "volatileSystem": "変動するシステムプロンプト",
+        "tools": "ツール定義",
+        "messages": "メッセージ履歴"
+      },
+      "prefixHash": "リクエストプレフィックスのフィンガープリント",
+      "unavailable": "報告なし"
+    },
+    "compactionBoundary": "コンテキストを圧縮しました",
+    "modelSwitched": "モデルを {{name}} に切り替えました",
+    "compactionIndicator": "コンテキストを圧縮中...",
+    "retryIndicator": "再接続中 ({{attempt}}/{{maxAttempts}})",
+    "retryReason": "前回のリクエストが失敗しました: {{reason}}",
+    "streamingPhrases": [
+      "Metoaiが返信しています…",
+      "少々お待ちください…",
+      "Metoaiが一生懸命作業しています…"
+    ],
+    "copyButton": {
+      "copied": "コピーしました",
+      "copy": "コピー"
+    },
+    "errorBlock": {
+      "showDetail": "詳細を表示",
+      "hideDetail": "詳細を非表示",
+      "retriedNote": "自動的に {{count}} 回再試行しました",
+      "repeatedNote": "{{count}} 回発生しました",
+      "diagnostic": {
+        "code": "エラーコード: {{value}}",
+        "origin": "発生元: {{value}}",
+        "statusCode": "HTTPステータス: {{value}}",
+        "provider": "プロバイダー: {{value}}",
+        "model": "モデル: {{value}}",
+        "providerCode": "プロバイダーエラーコード: {{value}}",
+        "phase": "フェーズ: {{value}}",
+        "requestId": "リクエストID: {{value}}",
+        "retryAfter": "推奨待機時間: {{value}} ms"
+      },
+      "kinds": {
+        "rate_limit": {
+          "title": "リクエストが多すぎます",
+          "hint": "しばらく待ってから再度送信してください。"
+        },
+        "quota": {
+          "title": "クォータを使い切りました",
+          "hint": "リセットを待つか、プランと使用量を確認してください。",
+          "action": "クォータを表示"
+        },
+        "network": {
+          "title": "ネットワークに接続されていません",
+          "hint": "ネットワークまたはプロキシを確認して、再度送信してください。"
+        },
+        "auth": {
+          "title": "モデルキーが無効または期限切れです",
+          "hint": "モデル設定でキーを更新して再試行してください。",
+          "action": "設定を開く"
+        },
+        "server": {
+          "title": "サービスで問題が発生しています",
+          "hint": "通常は数分で復旧します。しばらくしてから再試行してください。"
+        },
+        "unknown": {
+          "title": "この返信は中断されました",
+          "hint": "もう一度送信してみてください。繰り返す場合は詳細をコピーしてお知らせください。"
+        }
+      }
+    },
+    "contextMenu": {
+      "edit": "編集",
+      "copy": "コピー",
+      "delete": "削除"
+    },
+    "selectionContextMenu": {
+      "copy": "コピー",
+      "addToInput": "入力に追加"
+    },
+    "delete": {
+      "title": "このメッセージを削除しますか？",
+      "body": "以降のメッセージは保持されますが、そのコンテキストにこのメッセージは含まれなくなります。この操作は元に戻せません。",
+      "streamingBody": "進行中の返信を先に停止します。以降のメッセージは保持されますが、そのコンテキストにこのメッセージは含まれなくなります。この操作は元に戻せません。",
+      "confirm": "削除",
+      "suppressForOneMinute": "1分間は再確認しない"
+    },
+    "editButton": "編集",
+    "forkButton": "新しいセッションにフォーク",
+    "forkOrigin": {
+      "label": "元のセッションからフォーク",
+      "labelWithPreview": "メッセージからフォーク"
+    },
+    "branch": {
+      "prev": "前のバージョン",
+      "next": "次のバージョン",
+      "position": "{{total}} 件中 {{current}} 番目のバージョン"
+    },
+    "edit": {
+      "pendingHint": "最後のメッセージを編集中 — 送信すると元のメッセージと返信を置き換えます",
+      "overwriteDraftTitle": "現在の下書きを上書きしますか？",
+      "overwriteDraftBody": "入力欄には既に内容があります。最後のメッセージを編集すると下書きが置き換わります。",
+      "overwriteDraftConfirm": "上書きして編集"
+    },
+    "interrupt": {
+      "editTitle": "このターンを中断しますか？",
+      "editBody": "過去のメッセージを編集すると進行中の返信が停止します。既に生成された内容は元のブランチに残ります。",
+      "switchTitle": "このターンを中断しますか？",
+      "switchBody": "ブランチを切り替えると進行中の返信が停止します。既に生成された内容は元のブランチに残ります。",
+      "forkTitle": "このターンを中断しますか？",
+      "forkBody": "新しいセッションにフォークすると進行中の返信が停止します。",
+      "confirm": "中断して続行",
+      "cancel": "キャンセル"
+    },
+    "progressGroup": {
+      "fallbackTitle": "作業中",
+      "genericDone": "{{count}} ステップを完了しました",
+      "genericRunning": "作業中です",
+      "thinking": "思考中",
+      "thinkingActivity": "思考中: {{text}}",
+      "thinkingLabel": "思考"
+    },
+    "toolCallGroup": {
+      "completed": "{{count}} 件のツール呼び出しが完了",
+      "inProgress": "{{completed}}/{{total}} 件のツール呼び出し",
+      "thinking": "{{count}} 件の思考ステップ"
+    }
+  },
+  "modelSelector": {
+    "defaultBadge": "デフォルト",
+    "selectModel": "モデルを選択",
+    "visionBadge": "vision"
+  },
+  "newSession": {
+    "greetingDefault": "今日は調子はいかがですか？",
+    "greetingTitle": "こんにちは、{{nickname}} さん",
+    "subtitle": "お仕事のお手伝いをします。何をしましょうか？",
+    "defaultContext": "一般的な会話",
+    "teamNewWorkspaceContext": "新しいワークスペース",
+    "projectContext": "プロジェクト · {{name}}",
+    "mascot": {
+      "menuTrigger": "マスコット設定",
+      "hideMascot": "マスコットを非表示",
+      "showMascot": "マスコットを表示",
+      "playOnce": "現在のマスコットアニメーションを1回再生"
+    },
+    "torch": {
+      "light": "トーチに火をつける",
+      "extinguish": "トーチの火を消す"
+    },
+    "mario": {
+      "hit": "キノコを叩き出す",
+      "reset": "キノコを元に戻す"
+    },
+    "hand": {
+      "rest": "手を休ませる",
+      "tap": "手を再びタップさせる"
+    },
+    "projectSelector": {
+      "placeholder": "プロジェクトを選択",
+      "clear": "プロジェクトなし",
+      "searchPlaceholder": "プロジェクトを検索",
+      "empty": "一致するプロジェクトがありません",
+      "newProject": "新しいプロジェクト",
+      "openProject": "ローカルプロジェクトを開く",
+      "pendingHint": "保留中",
+      "creating": "作成中…",
+      "preparing": "プロジェクトを準備中",
+      "triggerTitle": "このセッションのプロジェクトを選択",
+      "createFailedTitle": "プロジェクトの作成に失敗しました"
+    },
+    "agentSelector": {
+      "clear": "エージェントなし",
+      "searchPlaceholder": "チームとエージェントを検索",
+      "empty": "一致するチームまたはエージェントがありません",
+      "loading": "読み込み中…",
+      "error": "リストの読み込みに失敗しました",
+      "invalid": "このチームは利用できなくなりました。別のチームを選択してください。",
+      "agentInvalid": "このエージェントは利用できなくなりました。別のものを選択してください。",
+      "retry": "再試行",
+      "memberCount": "{{count}} 名のメンバー",
+      "groupTeams": "チーム",
+      "groupAgents": "エージェント",
+      "pick": "エージェントを切り替え",
+      "pickTitle": "このタスクのチームまたは単一のエージェントを選択",
+      "switchTitle": "このセッションのチームまたはエージェントを切り替え"
+    }
+  },
+  "questionPanel": {
+    "keyboardHint": "↑↓ 移動 · Space 選択 · ←→ 切り替え · Enter 次へ",
+    "multiSelectHint": "複数選択",
+    "otherOption": "その他 (自由入力)",
+    "otherPlaceholder": "回答を入力…",
+    "nextButton": "次へ",
+    "questionTabLabel": "質問 {{number}}",
+    "submitButton": "送信",
+    "title": "Metoaiが選択を求めています"
+  },
+  "sandboxGrantsBadge": {
+    "revoke": "取り消す",
+    "revokeAll": "すべて取り消す",
+    "title": "このセッションのサンドボックス許可",
+    "tooltip": "このセッションのサンドボックス許可"
+  },
+  "sendButton": {
+    "sendMessage": "メッセージを送信",
+    "stopGenerating": "生成を停止"
+  },
+  "session": {
+    "emptyMessageLabel": "(画像)"
+  },
+  "sessionViewer": {
+    "badge": {
+      "liveUpdate": "ライブ更新",
+      "readOnly": "読み取り専用ビュー"
+    },
+    "emptyState": {
+      "noPath": "セッションパスが指定されていません"
+    },
+    "error": {
+      "loadPrefix": "読み込みに失敗しました: "
+    },
+    "export": {
+      "defaultTitle": "Metoaiセッション"
+    },
+    "exportButton": {
+      "title": "セッション全体をHTMLでエクスポート"
+    },
+    "header": {
+      "subtitle": "このセッションは別のクライアントが書き込んだもので、デスクトップアプリは表示のみ行います"
+    },
+    "panelToggleButton": {
+      "titleClose": "アクティビティパネルを閉じる",
+      "titleOpen": "アクティビティパネルを開く"
+    }
+  },
+  "skillPromptArea": {
+    "missingBadge": "未インストール",
+    "placeholder": "プロンプトを入力… スキル/シーンは / で呼び出し",
+    "removeSkill": "クリックして削除",
+    "removeSkillMissing": "スキルがインストールされていません。クリックして削除",
+    "skillButtonLabel": "スキル / シーン",
+    "skillButtonTitle": "スキル / シーン"
+  },
+  "slashPanel": {
+    "compaction": {
+      "label": "コンテキストを圧縮",
+      "description": "このチャットのコンテキストを圧縮 ({{percent}}% 使用)",
+      "descriptionUnknown": "このチャットのコンテキストを圧縮",
+      "queued": "キューに追加され、現在の応答の後に実行されます",
+      "compacting": "コンテキストを圧縮中",
+      "errorTitle": "コンテキストを圧縮できませんでした",
+      "errorMessage": "コンテキストの圧縮をキューに追加できませんでした。もう一度お試しください。"
+    },
+    "emptyNoMatch": "一致するものが見つかりません",
+    "emptyNoMatchHint": "別のキーワードを試すか、そのままリクエストを入力してください。",
+    "emptyNoSkills": "利用できるスキルやシーンがありません",
+    "emptyNoSkillsHint": "アビリティマーケットからスキルまたはシーンをインストールすると、ここで呼び出せます。",
+    "header": "シーンまたはスキルを選択",
+    "resultCount": "{{count}} 件の結果",
+    "scenesSection": "シーン",
+    "skillsSection": "スキル",
+    "sourceLabels": {
+      "agentsProject": "汎用 · プロジェクト",
+      "agentsUser": "汎用",
+      "path": "カスタム",
+      "project": "プロジェクト",
+      "scene": "シーン",
+      "user": "ユーザー",
+      "builtin": "組み込み",
+      "plugin": "プラグイン",
+      "market": "マーケット"
+    },
+    "connectorsSection": "接続済み"
+  },
+  "suggestionBubbles": {
+    "sendTooltip": "クリックしてこの候補を送信"
+  },
+  "textPreview": {
+    "characterUnit": "文字",
+    "emptyLabel": "空",
+    "lineUnit": "行"
+  },
+  "thinkingBlock": {
+    "lineCount": "{{count}} 行",
+    "title": "思考"
+  },
+  "toolCall": {
+    "error": "エラー",
+    "meta": "meta",
+    "metaLabel": "ローカルメタデータ、UI表示のみ、モデルには送信されません",
+    "audioPreview": "MCP音声結果"
+  },
+  "toolFormat": {
+    "unknown": "不明"
+  },
+  "toolLabel": {
+    "alias": {
+      "ask_user_question": "質問",
+      "bash": "コマンドを実行",
+      "current_time": "現在時刻",
+      "dir_tree": "ディレクトリツリー",
+      "dispatch_workflows": "ワークフローを起動",
+      "doc_to_pdf": "PDFへ変換",
+      "easy_use_vettaApp": "アプリを使用",
+      "edit": "編集",
+      "extract_text_from_img": "テキスト抽出 (画像)",
+      "extract_text_from_pdf": "テキスト抽出 (PDF)",
+      "find": "ファイルを検索",
+      "followup_task": "フォローアップタスク",
+      "glob": "ファイルを照合",
+      "grep": "検索",
+      "html_to_pdf": "PDFへ変換",
+      "im_send_attachment": "添付ファイルを送信",
+      "interrupt_agent": "エージェントを中断",
+      "invoke_skill": "スキルを実行",
+      "list_agents": "エージェント一覧",
+      "ls": "一覧",
+      "memory": "メモリ",
+      "read": "読み取り",
+      "render_pdf_page": "PDFページを描画",
+      "send_message": "メッセージを送信",
+      "shell": "コマンドを実行",
+      "spawn_agent": "エージェントを起動",
+      "task_output": "タスク出力",
+      "task_stop": "タスクを停止",
+      "todo": "ToDo",
+      "tool_search": "ツール検索",
+      "tree": "ディレクトリツリー",
+      "wait_agent": "エージェントを待機",
+      "write": "書き込み"
+    },
+    "knowledgeBase": {
+      "filterByTags": "ナレッジ · タグで絞り込み",
+      "listTags": "ナレッジ · タグ一覧",
+      "writePage": "ナレッジ · ページを書き込み"
+    }
+  },
+  "mcpApp": {
+    "externalAccess": "このMCP Appは {{count}} 件の外部ドメインへのアクセスを宣言しています",
+    "permissionsDenied": "このMCP Appはデバイス権限を要求しましたが、Metoaiは許可していません",
+    "title": "MCP App"
+  },
+  "usageBar": {
+    "durationLabel": "所要時間 {{duration}}",
+    "speedLabel": "速度 {{speed}} tok/s"
+  },
+  "writeContent": {
+    "label": "内容を書き込み"
+  },
+  "writePage": {
+    "actionCreate": "ページを作成",
+    "actionUpdate": "ページを更新",
+    "originalLocation": "元: {{path}}"
+  }
+}

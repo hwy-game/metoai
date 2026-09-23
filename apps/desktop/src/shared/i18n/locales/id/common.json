@@ -1,0 +1,1067 @@
+{
+  "appName": "Metoai",
+  "actions": {
+    "cancel": "Batal",
+    "confirm": "Konfirmasi",
+    "save": "Simpan",
+    "delete": "Hapus",
+    "close": "Tutup",
+    "apply": "Terapkan",
+    "back": "Kembali"
+  },
+  "tour": {
+    "next": "Berikutnya",
+    "prev": "Kembali",
+    "done": "Selesai",
+    "progress": "{{current}} / {{total}}"
+  },
+  "appearance": {
+    "languageTitle": "Bahasa",
+    "languageHint": "Default mengikuti bahasa sistem Anda; dapat diubah kapan saja"
+  },
+  "updateRestart": {
+    "title": "Pembaruan Siap",
+    "message": "Versi {{latestVersion}} telah diunduh (saat ini {{currentVersion}}). Mulai ulang Metoai sekarang untuk menerapkan pembaruan, atau pilih \"Nanti\" agar diingatkan saat aplikasi dijalankan lagi.",
+    "later": "Nanti",
+    "install": "Mulai Ulang Sekarang"
+  },
+  "filePreview": {
+    "showInFolder": "Tampilkan di Folder",
+    "download": "Unduh",
+    "close": "Tutup (Esc)"
+  },
+  "login": {
+    "oauthButton": "Otorisasi & Masuk",
+    "waitingTitle": "Menunggu otorisasi peramban",
+    "waitingHint": "Anda akan masuk secara otomatis",
+    "reopen": "Buka tautannya lagi",
+    "retry": "Otorisasi lagi",
+    "openFailed": "Tidak dapat membuka peramban Anda. Silakan coba lagi.",
+    "rejected": "Tautan otorisasi ini sudah tidak valid. Silakan masuk lagi."
+  },
+  "actionApproval": {
+    "reject": "Tolak",
+    "confirm": "Konfirmasi",
+    "processing": "Memproses...",
+    "permission": "Izin: {{permission}}",
+    "permissionPrefix": "Izin: ",
+    "whyConfirm": "AI meminta tindakan ini. Tindakan hanya akan berjalan setelah Anda mengonfirmasi.",
+    "genericTitle": "Konfirmasi tindakan",
+    "genericSummary": "Konfirmasikan apakah tindakan ini diizinkan.",
+    "genericImpact": "Konfirmasi untuk menjalankannya. Tolak akan membatalkan permintaan tanpa mengubah data Anda.",
+    "showTechnicalDetails": "Tampilkan detail teknis",
+    "hideTechnicalDetails": "Sembunyikan detail teknis",
+    "unreadableRequest": "Permintaan ini tidak dapat diuraikan sepenuhnya. Jika Anda ragu, tolak dan minta AI menjelaskannya.",
+    "fields": {
+      "request": "Permintaan",
+      "operation": "Operasi",
+      "arrayCount": "{{count}} item",
+      "objectSummary": "{{count}} kolom"
+    }
+  },
+  "manageApproval": {
+    "fallbackTitle": "Konfirmasi Tindakan",
+    "fallbackConfirm": "Konfirmasi",
+    "fallbackBadge": "Tindakan",
+    "rawInput": "Isi permintaan",
+    "yes": "Ya",
+    "no": "Tidak",
+    "on": "Aktif",
+    "off": "Nonaktif",
+    "toggle": {
+      "willBecome": "Akan menjadi",
+      "stateOnHint": "Saat aktif, kemampuan terkait tersedia. Pengaturan yang ada tetap dipertahankan.",
+      "stateOffHint": "Saat nonaktif, penggunaan dijeda. Pengaturan tetap ada sehingga Anda dapat mengaktifkannya kembali kapan saja.",
+      "editableHint": "Anda dapat mengubah ini sebelum mengonfirmasi"
+    },
+    "toggleCopy": {
+      "mcp": {
+        "enableTitle": "Aktifkan server MCP",
+        "disableTitle": "Nonaktifkan server MCP",
+        "enableSummary": "Setelah aktif, AI dapat memakai kemampuan MCP ini di obrolan (menjelajah web, memanggil alat eksternal, dan sejenisnya).",
+        "disableSummary": "Setelah nonaktif, MCP ini dijeda dan tidak dapat dipakai di obrolan. Konfigurasi tidak dihapus.",
+        "enableConfirm": "Aktifkan",
+        "disableConfirm": "Nonaktifkan",
+        "enableImpact": "MCP ini langsung tersedia untuk obrolan berikutnya.",
+        "disableImpact": "MCP ini langsung dijeda. Pengaturan tetap ada; tidak ada yang dihapus."
+      },
+      "skills": {
+        "enableTitle": "Aktifkan kemampuan",
+        "disableTitle": "Nonaktifkan kemampuan",
+        "enableSummary": "Setelah aktif, AI dapat memakai kemampuan ini (keterampilan/skenario) di obrolan saat diperlukan.",
+        "disableSummary": "Setelah nonaktif, kemampuan ini tidak akan dipakai. Berkas tidak dihapus.",
+        "enableConfirm": "Aktifkan",
+        "disableConfirm": "Nonaktifkan",
+        "enableImpact": "Kemampuan ini tersedia untuk dipakai di obrolan.",
+        "disableImpact": "Kemampuan ini dijeda. Konfigurasi dan berkas tetap ada."
+      },
+      "plugins": {
+        "enableTitle": "Aktifkan plugin",
+        "disableTitle": "Nonaktifkan plugin",
+        "enableSummary": "Setelah aktif, antarmuka dan kemampuan plugin ini aktif kembali.",
+        "disableSummary": "Setelah nonaktif, plugin ini dijeda. Plugin tidak dihapus.",
+        "enableConfirm": "Aktifkan",
+        "disableConfirm": "Nonaktifkan",
+        "enableImpact": "Fitur plugin langsung berlaku di aplikasi.",
+        "disableImpact": "Fitur plugin langsung dijeda. Instalasi dan pengaturan tetap ada."
+      },
+      "im": {
+        "enableTitle": "Aktifkan Claw (jembatan IM)",
+        "disableTitle": "Nonaktifkan Claw (jembatan IM)",
+        "enableSummary": "Setelah aktif, Anda dapat mengobrol dengan AI melalui Feishu, WeChat, dan kanal eksternal lainnya.",
+        "disableSummary": "Setelah nonaktif, kanal IM eksternal tidak lagi dapat menjangkau AI lokal.",
+        "enableConfirm": "Aktifkan",
+        "disableConfirm": "Nonaktifkan",
+        "enableImpact": "Jembatan IM berjalan dengan pengaturan saat ini; pesan eksternal dapat masuk ke obrolan.",
+        "disableImpact": "Pesan IM baru berhenti masuk. Sesi yang ada tetap ada."
+      },
+      "webhook": {
+        "enableTitle": "Aktifkan push pesan",
+        "disableTitle": "Nonaktifkan push pesan",
+        "enableSummary": "Setelah aktif, notifikasi dapat dikirim ke webhook ini (mis. bot DingTalk / Feishu).",
+        "disableSummary": "Setelah nonaktif, tidak ada lagi pesan yang dikirim ke alamat ini. URL dan rahasia tetap ada.",
+        "enableConfirm": "Aktifkan",
+        "disableConfirm": "Nonaktifkan",
+        "enableImpact": "Kanal ini dapat menerima notifikasi dan pesan uji.",
+        "disableImpact": "Kanal ini dijeda. Konfigurasi tidak dihapus."
+      },
+      "general.notifications": {
+        "enableTitle": "Aktifkan notifikasi sistem",
+        "disableTitle": "Nonaktifkan notifikasi sistem",
+        "enableSummary": "Setelah aktif, penyelesaian tugas dan peristiwa pembaruan dapat muncul sebagai peringatan sistem.",
+        "disableSummary": "Setelah nonaktif, aplikasi tidak akan menampilkan notifikasi sistem.",
+        "enableConfirm": "Aktifkan",
+        "disableConfirm": "Nonaktifkan",
+        "enableImpact": "Peristiwa yang sesuai akan menampilkan notifikasi sistem.",
+        "disableImpact": "Notifikasi sistem berhenti. Status di dalam aplikasi tetap terlihat."
+      }
+    },
+    "fieldWithKey": "{{prefix}}.{{key}}",
+    "fields": {
+      "modelKey": "Model",
+      "reasoningLevel": "Tingkat penalaran",
+      "provider": "Penyedia",
+      "config": "Konfigurasi",
+      "serverName": "Server MCP",
+      "enabled": "Diaktifkan",
+      "skillName": "Nama kemampuan",
+      "abilitySlug": "Slug kemampuan",
+      "skill": "Keterampilan",
+      "scene": "Skenario",
+      "appId": "App ID",
+      "appSecret": "App Secret",
+      "verificationToken": "Verification Token",
+      "encryptKey": "Encrypt Key",
+      "env": "Lingkungan (KEY=VALUE)",
+      "resourceType": "Jenis",
+      "name": "Nama",
+      "newName": "Nama baru",
+      "path": "Jalur",
+      "paths": "Jalur berkas",
+      "packageName": "Paket npm",
+      "packageSpec": "Versi yang diminta",
+      "language": "Bahasa",
+      "executionMode": "Mode eksekusi",
+      "experimental": "Fitur eksperimental",
+      "knowledgeBase": "Pengaturan basis pengetahuan",
+      "kbId": "ID basis pengetahuan",
+      "relPath": "Jalur relatif",
+      "move": "Pindahkan berkas",
+      "pluginId": "ID plugin",
+      "url": "URL instalasi",
+      "kind": "Platform",
+      "webhookUrl": "URL webhook",
+      "signSecret": "Rahasia penandatanganan",
+      "id": "ID",
+      "title": "Judul",
+      "level": "Tingkat",
+      "text": "Pesan",
+      "displayName": "Nama tampilan",
+      "baseUrl": "URL dasar",
+      "api": "Jenis API",
+      "apiKey": "API Key",
+      "models": "Model",
+      "command": "Perintah",
+      "args": "Argumen",
+      "cwd": "Direktori kerja",
+      "headers": "Header",
+      "shortcutActionId": "Tindakan pintasan",
+      "shortcutCombo": "Kombinasi tombol",
+      "quickpanelTrigger": "Pemicu pemanggilan",
+      "quickpanelBehavior": "Setelah kirim"
+    },
+    "shortcuts": {
+      "ops": {
+        "set-binding": {
+          "title": "Ubah pintasan",
+          "summary": "Pilih fitur, lalu klik area tombol dan tekan kombinasi baru. Berlaku langsung setelah Anda mengonfirmasi.",
+          "confirm": "Simpan pintasan",
+          "badge": "Pintasan",
+          "impact": "Anda dapat memicu fitur ini dengan kombinasi baru. Penetapan yang bertentangan akan gagal disimpan."
+        },
+        "reset-binding": {
+          "title": "Pulihkan pintasan bawaan",
+          "summary": "Kembalikan pintasan fitur ini ke bawaan sistem.",
+          "confirm": "Pulihkan bawaan",
+          "badge": "Setel ulang",
+          "impact": "Fitur ini akan kembali memakai kombinasi tombol bawaannya."
+        },
+        "reset-all-bindings": {
+          "title": "Pulihkan semua pintasan bawaan",
+          "summary": "Hapus pintasan khusus untuk fitur di bawah ini dan pulihkan bawaannya.",
+          "confirm": "Pulihkan semua bawaan",
+          "badge": "Setel ulang",
+          "impact": "Pintasan fitur global kembali ke bawaan. Pemanggilan Panel Cepat dan perilaku setelah kirim tetap sama.",
+          "warningTitle": "Hanya tombol fitur global",
+          "warning": "Tidak mengubah cara Anda membuka Panel Cepat, atau apakah kirim membuka jendela utama."
+        },
+        "set-quick-panel-trigger": {
+          "title": "Ubah pemanggilan Panel Cepat",
+          "summary": "Pilih tombol yang ditekan dua kali untuk membuka Panel Cepat. “Nonaktif” berarti Anda memakai jendela utama.",
+          "confirm": "Simpan cara pemanggilan",
+          "badge": "Pintasan",
+          "impact": "Berlaku langsung. Anda dapat mengubahnya lagi kapan saja."
+        },
+        "set-quick-panel-behavior": {
+          "title": "Ubah perilaku setelah kirim",
+          "summary": "Setelah Anda mengirim dari Panel Cepat, buka jendela utama untuk menindaklanjuti, atau biarkan tetap berjalan di latar belakang.",
+          "confirm": "Simpan perilaku setelah kirim",
+          "badge": "Pintasan",
+          "impact": "Hanya memengaruhi obrolan yang Anda mulai nanti dari Panel Cepat."
+        }
+      },
+      "bindingSectionTitle": "Pintasan fitur",
+      "bindingSectionDescription": "Sama seperti Pengaturan → Pintasan. Pilih fitur, lalu rekam kombinasi tombol.",
+      "actionField": "Fitur",
+      "comboField": "Kombinasi tombol",
+      "comboFieldHint": "Klik, lalu tekan kombinasi baru untuk merekam",
+      "resetToDefault": "Akan dipulihkan ke {{shortcut}}",
+      "quickPanelTriggerSectionTitle": "Pemanggilan Panel Cepat",
+      "quickPanelTriggerSectionDescription": "Opsi yang sama seperti di halaman pengaturan Pintasan.",
+      "quickPanelBehaviorSectionTitle": "Setelah Anda mengirim",
+      "quickPanelBehaviorSectionDescription": "Sama seperti “perilaku setelah kirim” di halaman pengaturan.",
+      "quickPanelTriggers": {
+        "none": "Nonaktif",
+        "mod": "Ketuk dua kali ⌘ / Ctrl",
+        "alt": "Ketuk dua kali ⌥ / Alt",
+        "shift": "Ketuk dua kali ⇧"
+      },
+      "quickPanelTriggerHints": {
+        "none": "Matikan pemanggilan ketuk dua kali; pakai jendela utama saat diperlukan",
+        "mod": "Ketuk dua kali ⌘ (Mac) atau Ctrl (Windows) di mana saja untuk membuka panel",
+        "alt": "Ketuk dua kali ⌥ / Alt di mana saja untuk membuka panel",
+        "shift": "Ketuk dua kali ⇧ di mana saja untuk membuka panel"
+      },
+      "quickPanelBehaviors": {
+        "foreground": "Buka jendela utama",
+        "background": "Jalankan di latar belakang"
+      },
+      "quickPanelBehaviorHints": {
+        "foreground": "Setelah kirim, buka jendela utama pada obrolan baru",
+        "background": "Setelah kirim, tutup panel dan biarkan obrolan tetap berjalan di latar belakang"
+      }
+    },
+    "models": {
+      "ops": {
+        "set-default": {
+          "title": "Tetapkan model obrolan bawaan",
+          "summary": "Pilih model yang dipakai secara bawaan untuk obrolan baru. Anda dapat mengubahnya di bawah sebelum mengonfirmasi.",
+          "confirm": "Jadikan bawaan",
+          "badge": "Model bawaan",
+          "impact": "Obrolan baru akan mengutamakan model ini. Obrolan yang ada tetap memakai modelnya saat ini."
+        },
+        "upsert-provider": {
+          "title": "Konfirmasi Buat atau Perbarui Penyedia",
+          "summary": "Tinjau konfigurasi penyedia. Kolom rahasia disamarkan; konfirmasi akan menulis konfigurasi yang dikirim.",
+          "confirm": "Simpan penyedia",
+          "badge": "Penyedia",
+          "impact": "Konfigurasi penyedia akan ditulis ke models.json lokal dan memengaruhi model yang tersedia."
+        },
+        "remove-provider": {
+          "title": "Konfirmasi Hapus Penyedia",
+          "summary": "Model di bawah penyedia ini akan menjadi tidak tersedia dan referensi model bawaan akan dihapus.",
+          "confirm": "Hapus penyedia",
+          "badge": "Hapus",
+          "impact": "Penyedia ini dan modelnya akan dihapus dari konfigurasi lokal.",
+          "warning": "Menghapus penyedia juga menghapus referensi model bawaan yang bergantung padanya."
+        }
+      },
+      "createProviderHint": "Buat",
+      "updateProviderHint": "Perbarui yang ada",
+      "modelsCount": "{{count}} model",
+      "defaultSectionTitle": "Model bawaan",
+      "defaultSectionDescription": "Sama seperti Pengaturan → Model. Berlaku setelah Anda mengonfirmasi.",
+      "defaultModelHint": "Pilih dari model yang dikonfigurasi"
+    },
+    "mcp": {
+      "ops": {
+        "upsert": {
+          "title": "Konfirmasi Buat atau Perbarui Server MCP",
+          "summary": "Tinjau konfigurasi server MCP. Header rahasia disamarkan.",
+          "confirm": "Simpan server MCP",
+          "badge": "MCP",
+          "impact": "Konfigurasi server MCP akan ditulis ke mcp.json lokal dan dapat memengaruhi alat agen."
+        },
+        "set-enabled": {
+          "title": "Konfirmasi Aktifkan/Nonaktifkan Server MCP",
+          "summary": "Ubah apakah server MCP ini diaktifkan.",
+          "confirm": "Konfirmasi perubahan status",
+          "badge": "Status aktif",
+          "impact": "Status aktif server MCP akan segera diperbarui."
+        },
+        "remove": {
+          "title": "Konfirmasi Hapus Server MCP",
+          "summary": "Konfigurasi server MCP akan dihapus secara lokal.",
+          "confirm": "Hapus server",
+          "badge": "Hapus",
+          "impact": "Konfigurasi server MCP ini akan dihapus secara lokal.",
+          "warning": "Anda perlu mengonfigurasi ulang server MCP untuk memulihkannya."
+        }
+      },
+      "headersConfigured": "Header khusus disertakan (rahasia disamarkan)",
+      "envPlaceholder": "Satu KEY=VALUE per baris; isi sendiri rahasianya di sini",
+      "headersPlaceholder": "Satu HeaderName=value per baris; isi sendiri rahasianya di sini"
+    },
+    "skills": {
+      "ops": {
+        "set-enabled": {
+          "title": "Konfirmasi Aktifkan/Nonaktifkan Kemampuan",
+          "summary": "Ubah apakah kemampuan ini (keterampilan/skenario) diaktifkan.",
+          "confirm": "Konfirmasi perubahan status",
+          "badge": "Kemampuan",
+          "impact": "Status aktif kemampuan langsung berlaku."
+        },
+        "uninstall": {
+          "title": "Konfirmasi Hapus Kemampuan",
+          "summary": "Berkas kemampuan lokal akan dihapus. Tindakan ini tidak dapat dibatalkan.",
+          "confirm": "Hapus",
+          "badge": "Hapus",
+          "impact": "Berkas kemampuan lokal akan dihapus dan sulit dipulihkan.",
+          "warning": "Berkas kemampuan akan dihapus. Tindakan ini tidak dapat dibatalkan."
+        },
+        "install-from-market": {
+          "title": "Konfirmasi Pasang Kemampuan dari Pasar",
+          "summary": "Unduh dan pasang kemampuan ini (keterampilan atau skenario) dari pasar.",
+          "confirm": "Pasang",
+          "badge": "Pasang",
+          "impact": "Kemampuan akan diunduh dan muncul di halaman Kemampuan, aktif secara bawaan."
+        }
+      }
+    },
+    "projects": {
+      "ops": {
+        "create": {
+          "title": "Konfirmasi Buat Proyek",
+          "summary": "Buat proyek baru dan tambahkan ke bilah samping.",
+          "confirm": "Buat proyek",
+          "badge": "Buat",
+          "impact": "Proyek baru akan dibuat di bilah samping dan direktorinya dipastikan ada."
+        },
+        "open": {
+          "title": "Konfirmasi Buka Proyek",
+          "summary": "Buka proyek pada jalur yang ditentukan.",
+          "confirm": "Buka proyek",
+          "badge": "Buka",
+          "impact": "Jalur proyek akan dibuka dan masuk ke daftar aktif."
+        },
+        "rename": {
+          "title": "Konfirmasi Ubah Nama Proyek",
+          "summary": "Perbarui nama tampilan proyek.",
+          "confirm": "Ubah nama proyek",
+          "badge": "Ubah nama",
+          "impact": "Hanya nama tampilan di bilah samping yang berubah; jalur disk tidak tersentuh."
+        },
+        "archive": {
+          "title": "Konfirmasi Arsipkan Proyek",
+          "summary": "Pindahkan proyek ke daftar arsip. Riwayat sesi tetap disimpan.",
+          "confirm": "Arsipkan proyek",
+          "badge": "Arsipkan",
+          "impact": "Proyek dipindahkan ke daftar arsip; riwayat sesi tetap disimpan."
+        },
+        "unarchive": {
+          "title": "Konfirmasi Batal Arsip Proyek",
+          "summary": "Pulihkan proyek ke daftar aktif.",
+          "confirm": "Batal arsipkan proyek",
+          "badge": "Batal arsip",
+          "impact": "Proyek kembali ke daftar aktif."
+        },
+        "remove": {
+          "title": "Konfirmasi Hapus Proyek",
+          "summary": "Hapus proyek dari daftar tanpa menghapus berkas di disk.",
+          "confirm": "Hapus proyek",
+          "badge": "Hapus",
+          "impact": "Hanya entri di bilah samping yang dihapus; berkas proyek di disk tidak dihapus.",
+          "warning": "Hanya entri di bilah samping yang dihapus; berkas proyek di disk tetap disimpan."
+        }
+      },
+      "pathOptional": "Opsional; kosongkan untuk membuat di dalam ruang kerja berdasarkan nama"
+    },
+    "general": {
+      "ops": {
+        "set-notifications": {
+          "title": "Ubah pengaturan notifikasi",
+          "summary": "Pilih apakah notifikasi sistem diizinkan.",
+          "confirm": "Simpan notifikasi",
+          "badge": "Notifikasi",
+          "impact": "Peringatan tugas dan pembaruan akan tampil atau disembunyikan sesuai pengaturan baru."
+        },
+        "set-execution-mode": {
+          "title": "Ubah izin bawaan",
+          "summary": "Pilih tingkat izin bawaan untuk obrolan baru. Anda dapat mengubahnya di bawah.",
+          "confirm": "Simpan izin",
+          "badge": "Izin",
+          "impact": "Obrolan baru akan memakai izin ini. Obrolan yang ada tetap seperti semula."
+        },
+        "set-workspace": {
+          "title": "Ubah ruang kerja bawaan",
+          "summary": "Proyek baru akan dibuat di dalam folder ini secara bawaan.",
+          "confirm": "Simpan ruang kerja",
+          "badge": "Ruang kerja",
+          "impact": "Jalur ruang kerja bawaan diperbarui. Proyek yang ada tetap di tempatnya."
+        }
+      },
+      "notificationsOn": "Aktifkan notifikasi",
+      "notificationsOff": "Nonaktifkan notifikasi",
+      "notificationsTarget": "Notifikasi sistem",
+      "notificationsTargetHint": "Penyelesaian tugas, pembaruan, dan peringatan serupa",
+      "executionModeSandbox": "Mode aman (sandbox)",
+      "executionModeFullAccess": "Akses penuh",
+      "executionModeSandboxHint": "Membatasi lokasi berkas yang dapat diubah. Lebih aman untuk penggunaan sehari-hari.",
+      "executionModeFullAccessHint": "Memungkinkan tindakan berkas dan sistem yang lebih luas. Lebih mumpuni, risiko lebih tinggi."
+    },
+    "agent": {
+      "ops": {
+        "set-experimental": {
+          "title": "Ubah fitur eksperimental",
+          "summary": "Anda dapat menyesuaikan tombol eksperimental ini sebelum mengonfirmasi.",
+          "confirm": "Simpan fitur eksperimental",
+          "badge": "Eksperimental",
+          "impact": "Kemampuan yang sesuai akan diaktifkan atau dinonaktifkan. Fitur eksperimental mungkin tidak stabil."
+        }
+      },
+      "experimentalSectionTitle": "Fitur eksperimental",
+      "experimentalSectionDescription": "Tombol yang sama seperti Pengaturan → Agen. Anda dapat menyesuaikannya sebelum mengonfirmasi.",
+      "experimentalFields": {
+        "vettaCli": "Metoai CLI",
+        "vettaCliDesc": "Izinkan pemanggilan kemampuan lokal dari terminal melalui Metoai CLI",
+        "promptPrediction": "Prediksi masukan",
+        "promptPredictionDesc": "Menyarankan teks lanjutan saat Anda mengetik; mungkin memakai sedikit kuota",
+        "agentSkills": "Ekstensi keterampilan agen",
+        "agentSkillsDesc": "Izinkan agen memakai kemampuan keterampilan yang diperluas"
+      }
+    },
+    "knowledge": {
+      "ops": {
+        "create": {
+          "title": "Konfirmasi Buat Basis Pengetahuan",
+          "summary": "Buat basis pengetahuan baru.",
+          "confirm": "Buat",
+          "badge": "Buat",
+          "impact": "Basis pengetahuan baru akan dibuat."
+        },
+        "rename": {
+          "title": "Konfirmasi Ubah Nama Basis Pengetahuan",
+          "summary": "Perbarui nama basis pengetahuan.",
+          "confirm": "Ubah nama",
+          "badge": "Ubah nama",
+          "impact": "Nama tampilan basis pengetahuan akan diperbarui."
+        },
+        "delete": {
+          "title": "Konfirmasi Hapus Basis Pengetahuan",
+          "summary": "Basis pengetahuan dan data yang diproses akan dihapus. Tindakan ini tidak dapat dibatalkan.",
+          "confirm": "Hapus",
+          "badge": "Hapus",
+          "impact": "Basis pengetahuan dan data yang diproses akan dihapus.",
+          "warning": "Menghapus basis pengetahuan juga menghapus artefak yang diproses. Tindakan ini tidak dapat dibatalkan."
+        },
+        "add-files": {
+          "title": "Konfirmasi Tambah Berkas ke Basis Pengetahuan",
+          "summary": "Tambahkan berkas yang dipilih dan mulai pemrosesan.",
+          "confirm": "Tambah berkas",
+          "badge": "Tambah berkas",
+          "impact": "Berkas yang dipilih akan ditambahkan dan masuk ke pemrosesan."
+        },
+        "delete-entry": {
+          "title": "Konfirmasi Hapus Entri Pengetahuan",
+          "summary": "Hapus entri yang ditentukan dari basis pengetahuan.",
+          "confirm": "Hapus entri",
+          "badge": "Hapus entri",
+          "impact": "Entri basis pengetahuan akan dihapus.",
+          "warning": "Entri yang dihapus tidak dapat dipulihkan dari aplikasi."
+        },
+        "scan-now": {
+          "title": "Konfirmasi Pindai Basis Pengetahuan Sekarang",
+          "summary": "Picu satu siklus pemindaian dan pemrosesan basis pengetahuan.",
+          "confirm": "Pindai sekarang",
+          "badge": "Pindai",
+          "impact": "Satu siklus pemindaian dan pemrosesan pengetahuan akan segera dimulai."
+        },
+        "retry-failed": {
+          "title": "Konfirmasi Coba Ulang Tugas Pengetahuan yang Gagal",
+          "summary": "Hapus catatan yang gagal/dikarantina lalu proses ulang.",
+          "confirm": "Coba ulang yang gagal",
+          "badge": "Coba ulang",
+          "impact": "Catatan yang gagal/dikarantina akan dihapus dan diproses ulang."
+        },
+        "set-processing": {
+          "title": "Ubah pengaturan pemrosesan pengetahuan",
+          "summary": "Anda dapat mengedit opsi basis pengetahuan ini sebelum mengonfirmasi.",
+          "confirm": "Simpan pengaturan basis pengetahuan",
+          "badge": "Pengetahuan",
+          "impact": "Pemrosesan pengetahuan otomatis akan mengikuti pengaturan baru."
+        }
+      },
+      "globalAction": "Tindakan global basis pengetahuan",
+      "processingSectionTitle": "Pemrosesan pengetahuan",
+      "processingSectionDescription": "Opsi yang sama seperti Pengaturan → Pengetahuan. Hanya kolom dalam permintaan ini yang ditampilkan.",
+      "processingFields": {
+        "enabled": "Aktifkan pemrosesan pengetahuan",
+        "enabledDesc": "Saat nonaktif, pemrosesan otomatis dijeda. Pengetahuan yang ada tidak dihapus.",
+        "pollIntervalMinutes": "Interval pemrosesan otomatis",
+        "pollIntervalDesc": "Seberapa sering memeriksa berkas yang perlu diproses",
+        "processingModelKey": "Model pemrosesan",
+        "processingModelDesc": "Model yang dipakai untuk membaca dan menata dokumen",
+        "processingModelReasoningLevel": "Tingkat penalaran",
+        "agentConcurrency": "Tugas pemrosesan paralel",
+        "agentConcurrencyDesc": "Tugas paralel lebih banyak lebih cepat tetapi memakai lebih banyak sumber daya",
+        "ocrConcurrency": "Tugas OCR paralel",
+        "ocrConcurrencyDesc": "Berapa banyak tugas pengenalan teks gambar yang berjalan sekaligus",
+        "pollMinutes": "Setiap {{count}} menit"
+      }
+    },
+    "appearance": {
+      "ops": {
+        "set-language": {
+          "title": "Ganti bahasa",
+          "summary": "Teks antarmuka akan berganti ke bahasa yang dipilih.",
+          "confirm": "Ganti bahasa",
+          "badge": "Bahasa",
+          "impact": "Menu, pengaturan, dan tombol langsung berganti. Isi obrolan tidak berubah."
+        }
+      }
+    },
+    "plugins": {
+      "ops": {
+        "set-enabled": {
+          "title": "Konfirmasi Aktifkan/Nonaktifkan Plugin",
+          "summary": "Ubah apakah plugin ini diaktifkan.",
+          "confirm": "Konfirmasi perubahan status",
+          "badge": "Plugin",
+          "impact": "Status aktif plugin akan segera diperbarui."
+        },
+        "install-from-url": {
+          "title": "Konfirmasi Pasang Plugin dari URL",
+          "summary": "Unduh dan pasang plugin dari URL yang diberikan.",
+          "confirm": "Pasang",
+          "badge": "Pasang",
+          "impact": "Plugin akan diunduh dan dipasang dari URL tersebut."
+        },
+        "install-from-path": {
+          "title": "Konfirmasi Pasang Plugin dari Jalur Lokal",
+          "summary": "Pasang zip lokal, berikan izin yang dideklarasikan sekali, lalu aktifkan plugin.",
+          "confirm": "Pasang dan izinkan",
+          "badge": "Pasang",
+          "impact": "Paket plugin lokal akan dipasang, diberi izin yang dideklarasikan, dan diaktifkan."
+        },
+        "install-from-npm": {
+          "title": "Konfirmasi Pasang Plugin dari npm",
+          "summary": "Pasang paket plugin npm yang sudah diselesaikan, berikan izin yang dideklarasikan sekali, lalu aktifkan.",
+          "confirm": "Pasang dan izinkan",
+          "badge": "npm install",
+          "impact": "Desktop akan memverifikasi ulang digest paket, ID plugin, dan versi sebelum memberikan izin yang dideklarasikan dan mengaktifkannya."
+        },
+        "uninstall": {
+          "title": "Konfirmasi Hapus Plugin",
+          "summary": "Plugin dan data lokalnya akan dihapus sesuai kebijakan.",
+          "confirm": "Hapus",
+          "badge": "Hapus",
+          "impact": "Plugin akan dihapus sesuai kebijakan.",
+          "warning": "Plugin dan data lokalnya dapat dihapus sesuai kebijakan."
+        },
+        "reload": {
+          "title": "Konfirmasi Muat Ulang Plugin",
+          "summary": "Muat ulang plugin ini.",
+          "confirm": "Muat ulang",
+          "badge": "Muat ulang",
+          "impact": "Plugin akan dimuat ulang."
+        }
+      }
+    },
+    "im": {
+      "ops": {
+        "set-enabled": {
+          "title": "Konfirmasi Aktifkan/Nonaktifkan Gateway IM",
+          "summary": "Ubah apakah gateway sidecar IM diaktifkan.",
+          "confirm": "Konfirmasi perubahan status",
+          "badge": "IM",
+          "impact": "Status aktif gateway IM akan diperbarui."
+        },
+        "restart": {
+          "title": "Konfirmasi Mulai Ulang Gateway IM",
+          "summary": "Mulai ulang proses sidecar IM lokal.",
+          "confirm": "Mulai ulang",
+          "badge": "Mulai ulang",
+          "impact": "Proses gateway IM lokal akan dimulai ulang."
+        },
+        "set-agent-model": {
+          "title": "Tetapkan model Claw",
+          "summary": "Pilih model yang dipakai untuk obrolan IM eksternal (Claw). Pemilih yang sama seperti Pengaturan.",
+          "confirm": "Simpan model",
+          "badge": "Model Claw",
+          "impact": "Obrolan berikutnya dari Feishu/WeChat memakai model ini. Biarkan kosong untuk mengikuti bawaan."
+        },
+        "set-feishu-config": {
+          "title": "Konfigurasikan kredensial Feishu",
+          "summary": "Masukkan App ID dan rahasia di bawah. Isi sendiri rahasianya; jangan mengandalkan AI untuk mengisinya.",
+          "confirm": "Simpan konfigurasi Feishu",
+          "badge": "Feishu",
+          "impact": "Kredensial jembatan Feishu lokal akan diperbarui. Kolom rahasia yang kosong mempertahankan nilai yang ada."
+        }
+      },
+      "enableTitle": "Aktifkan gateway IM",
+      "disableTitle": "Nonaktifkan gateway IM",
+      "restartTarget": "Proses gateway IM lokal",
+      "channelName": "Claw (jembatan IM)",
+      "channelHint": "Hubungkan kanal obrolan eksternal seperti Feishu dan WeChat",
+      "feishuTarget": "Aplikasi Feishu",
+      "feishuHint": "Isi App Secret dan rahasia lainnya di bawah ini sendiri",
+      "modelKeyPlaceholder": "Pilih model, atau kosongkan",
+      "modelSectionTitle": "Model Claw",
+      "modelSectionDescription": "Sama seperti Pengaturan → Claw. Mendukung model dan tingkat penalaran.",
+      "modelKeyHint": "Biarkan kosong untuk menghapus model khusus dan kembali ke bawaan"
+    },
+    "webhook": {
+      "ops": {
+        "create": {
+          "title": "Konfirmasi Buat Webhook",
+          "summary": "Tinjau konfigurasi webhook. Rahasia penandatanganan disamarkan.",
+          "confirm": "Buat",
+          "badge": "Buat",
+          "impact": "Konfigurasi endpoint webhook baru akan disimpan."
+        },
+        "update": {
+          "title": "Konfirmasi Perbarui Webhook",
+          "summary": "Tinjau kolom webhook yang akan ditulis.",
+          "confirm": "Perbarui",
+          "badge": "Perbarui",
+          "impact": "Konfigurasi webhook akan diperbarui untuk kolom yang dikirim."
+        },
+        "set-enabled": {
+          "title": "Konfirmasi Aktifkan/Nonaktifkan Webhook",
+          "summary": "Ubah apakah webhook ini diaktifkan.",
+          "confirm": "Konfirmasi perubahan status",
+          "badge": "Status aktif",
+          "impact": "Status aktif webhook akan diperbarui."
+        },
+        "delete": {
+          "title": "Konfirmasi Hapus Webhook",
+          "summary": "Konfigurasi webhook akan dihapus secara permanen.",
+          "confirm": "Hapus",
+          "badge": "Hapus",
+          "impact": "Konfigurasi webhook akan dihapus secara permanen.",
+          "warning": "Konfigurasi webhook yang dihapus tidak dapat dipulihkan."
+        },
+        "test": {
+          "title": "Konfirmasi Uji Webhook",
+          "summary": "Kirim pesan uji ke webhook ini.",
+          "confirm": "Kirim uji",
+          "badge": "Uji",
+          "impact": "Pesan uji akan dikirim ke webhook ini."
+        },
+        "send": {
+          "title": "Konfirmasi Kirim Pesan Webhook",
+          "summary": "Tinjau pesan yang akan dikirim melalui webhook.",
+          "confirm": "Kirim",
+          "badge": "Kirim",
+          "impact": "Pesan khusus akan dikirim ke webhook ini."
+        }
+      },
+      "notFound": "Endpoint webhook tidak ditemukan",
+      "loadFailed": "Gagal memuat webhook",
+      "feishu": "Feishu",
+      "dingtalk": "DingTalk",
+      "botSuffix": "bot"
+    },
+    "downloads": {
+      "ops": {
+        "cancel": {
+          "title": "Batalkan unduhan",
+          "summary": "Ini akan menghentikan unduhan berkas.",
+          "confirm": "Batalkan unduhan",
+          "badge": "Unduhan",
+          "impact": "Unduhan berhenti segera. Berkas sebagian mungkin tetap ada tergantung status.",
+          "warning": "Anda perlu mengunduh lagi untuk mendapatkan berkas yang lengkap."
+        }
+      },
+      "status": "Status",
+      "statuses": {
+        "queued": "Dalam antrean",
+        "downloading": "Mengunduh",
+        "paused": "Dijeda",
+        "completed": "Selesai",
+        "failed": "Gagal",
+        "canceled": "Dibatalkan"
+      }
+    },
+    "updater": {
+      "ops": {
+        "check": {
+          "title": "Konfirmasi Periksa Pembaruan",
+          "summary": "Periksa apakah ada pembaruan aplikasi.",
+          "confirm": "Periksa pembaruan",
+          "badge": "Periksa",
+          "impact": "Aplikasi akan memeriksa pembaruan yang tersedia."
+        },
+        "download": {
+          "title": "Konfirmasi Unduh Pembaruan",
+          "summary": "Mulai mengunduh paket pembaruan yang tersedia.",
+          "confirm": "Unduh",
+          "badge": "Unduh",
+          "impact": "Pengunduhan paket pembaruan akan dimulai."
+        },
+        "install": {
+          "title": "Konfirmasi Pasang Pembaruan",
+          "summary": "Pasang pembaruan yang sudah diunduh. Aplikasi mungkin perlu dimulai ulang.",
+          "confirm": "Pasang dan mulai ulang",
+          "badge": "Pasang",
+          "impact": "Pembaruan akan dipasang dan aplikasi mungkin dimulai ulang.",
+          "warning": "Memasang pembaruan biasanya memerlukan mulai ulang aplikasi. Simpan pekerjaan Anda lebih dulu."
+        },
+        "dismiss": {
+          "title": "Konfirmasi Tutup Ajakan Pembaruan",
+          "summary": "Tutup sementara ajakan pembaruan saat ini.",
+          "confirm": "Tutup",
+          "badge": "Tutup",
+          "impact": "Ajakan pembaruan saat ini akan ditutup sementara."
+        },
+        "cancel": {
+          "title": "Konfirmasi Batalkan Unduhan Pembaruan",
+          "summary": "Batalkan unduhan pembaruan yang sedang berlangsung.",
+          "confirm": "Batalkan unduhan",
+          "badge": "Batal",
+          "impact": "Unduhan pembaruan yang sedang berlangsung akan dibatalkan."
+        }
+      },
+      "target": "Pembaruan aplikasi"
+    },
+    "afterActionTitle": "Yang terjadi selanjutnya",
+    "unknown": "Tidak diketahui",
+    "clearValue": "Kosongkan",
+    "secretPlaceholder": "Biarkan kosong untuk mempertahankan rahasia yang ada / tanpa perubahan"
+  },
+  "navigationApproval": {
+    "title": "Buka halaman",
+    "summary": "AI ingin membuka halaman berikut. Konfirmasi untuk berpindah ke sana.",
+    "target": "Halaman",
+    "tab": "Bagian pengaturan",
+    "section": "Lokasi",
+    "confirm": "Buka",
+    "responding": "Membuka...",
+    "impact": "Aplikasi akan berpindah ke halaman itu. Data Anda tidak akan diubah.",
+    "targets": {
+      "chat": "Obrolan",
+      "automation": "Otomatisasi",
+      "batch-tasks": "Tugas batch",
+      "skills": "Kemampuan",
+      "plugins": "Plugin",
+      "connectors": "Konektor",
+      "settings": "Pengaturan"
+    }
+  },
+  "appearanceApproval": {
+    "pickerTitle": "Pilih Tampilan",
+    "themeChangeTitle": "Edit Perubahan Tampilan",
+    "apply": "Terapkan Tampilan",
+    "confirmChange": "Konfirmasi Perubahan",
+    "submitting": "Mengirim..."
+  },
+  "schedulerApproval": {
+    "createTitle": "Konfirmasi Buat Tugas Terjadwal",
+    "createDescription": "Tinjau konfigurasi tugas terjadwal. Setelah konfirmasi, tugas akan disimpan dan dijadwalkan sesuai status aktifnya.",
+    "updateTitle": "Edit Perubahan Tugas Terjadwal",
+    "loadingCurrentTask": "Memuat konfigurasi tugas saat ini...",
+    "updateNotFound": "Tugas terjadwal saat ini tidak ditemukan, sehingga konfigurasi lengkapnya tidak dapat dimuat.",
+    "updateLoadFailed": "Gagal memuat konfigurasi tugas terjadwal saat ini.",
+    "taskId": "ID tugas",
+    "taskNamePlaceholder": "Nama tugas",
+    "confirmCreate": "Konfirmasi Buat",
+    "creating": "Membuat...",
+    "confirmUpdate": "Konfirmasi Perbarui",
+    "updating": "Memperbarui...",
+    "deleteTitle": "Konfirmasi Hapus Tugas Terjadwal",
+    "deleteLabel": "Hapus Tugas",
+    "deleteTargetTask": "Tugas yang Dihapus",
+    "deleteDescriptionTitle": "Dampak Penghapusan",
+    "deleteDescription": "Menghapus tugas terjadwal juga menghapus semua catatan eksekusi tugas tersebut. Tindakan ini tidak dapat dibatalkan.",
+    "deleteWarning": "Jika tugas sedang berjalan, hentikan dulu sebelum menghapus.",
+    "confirmDelete": "Konfirmasi Hapus",
+    "deleting": "Menghapus...",
+    "toggleTitle": "Konfirmasi Perubahan Status Tugas Terjadwal",
+    "enableTitle": "Konfirmasi Aktifkan Tugas Terjadwal",
+    "disableTitle": "Konfirmasi Nonaktifkan Tugas Terjadwal",
+    "enableLabel": "Aktifkan Tugas",
+    "disableLabel": "Nonaktifkan Tugas",
+    "enableDescription": "Setelah diaktifkan, tugas terjadwal akan berjalan otomatis sesuai ekspresi Cron-nya.",
+    "disableDescription": "Setelah dinonaktifkan, tugas terjadwal tidak lagi berjalan otomatis, tetapi konfigurasi dan riwayatnya tetap disimpan.",
+    "executionTitle": "Konfirmasi Eksekusi Tugas Terjadwal",
+    "runNowTitle": "Konfirmasi Jalankan Tugas Terjadwal Sekarang",
+    "abortTitle": "Konfirmasi Hentikan Tugas Terjadwal",
+    "runNowLabel": "Jalankan Sekarang",
+    "abortLabel": "Hentikan Eksekusi",
+    "runNowDescription": "Picu satu eksekusi tugas terjadwal segera tanpa menunggu waktu terjadwal berikutnya. Tugas akan berjalan dengan prompt dan parameter saat ini.",
+    "abortDescription": "Hentikan agen tugas terjadwal yang sedang berjalan. Eksekusi akan dihentikan, dan keluaran yang dihasilkan tetap disimpan.",
+    "abortWarning": "Menghentikan segera mengakhiri jalannya agen, sehingga status eksekusi saat ini mungkin tidak lengkap.",
+    "operationDescription": "Detail Operasi",
+    "executionDescriptionTitle": "Yang Terjadi Selanjutnya",
+    "targetTask": "Tugas Sasaran",
+    "rawInput": "Permintaan Mentah",
+    "fallbackAction": "Tindakan",
+    "confirmAction": "Konfirmasi {{action}}"
+  },
+  "batchTasksApproval": {
+    "confirmAction": "Konfirmasi {{action}}",
+    "fallbackAction": "Tindakan",
+    "unknown": "Tidak diketahui",
+    "unknownShort": "?",
+    "notFound": "Tidak ditemukan",
+    "count": "{{count}} item",
+    "yes": "Ya",
+    "no": "Tidak",
+    "afterActionTitle": "Yang Terjadi Selanjutnya",
+    "projectLoading": "Memuat konfigurasi proyek saat ini...",
+    "projectLoadNotFound": "Proyek batch saat ini tidak ditemukan, sehingga konfigurasi lengkapnya tidak dapat dimuat.",
+    "projectLoadFailed": "Gagal memuat konfigurasi proyek batch saat ini.",
+    "projectFallbackTitle": "Konfirmasi Operasi Proyek Batch",
+    "projectCreateLabel": "Buat Proyek",
+    "projectUpdateLabel": "Perbarui Proyek",
+    "projectDeleteLabel": "Hapus Proyek",
+    "projectCreateTitle": "Konfirmasi Buat Proyek Batch",
+    "projectUpdateTitle": "Konfirmasi Perbarui Proyek Batch",
+    "projectDeleteTitle": "Konfirmasi Hapus Proyek Batch",
+    "projectCreateSummary": "Tinjau konfigurasi proyek batch. Setelah konfirmasi, satu subtugas akan dibuat untuk setiap folder sumber.",
+    "projectUpdateSummary": "Tinjau perubahan proyek batch yang akan ditulis. Antarmuka konfirmasi sudah menggabungkan konfigurasi saat ini dan hanya akan menambahkan folder sumber baru.",
+    "projectDeleteSummary": "Konfirmasi apakah akan menghapus proyek batch ini, semua subtugas, status sesi, dan artefak tugas. Tindakan ini tidak dapat dibatalkan.",
+    "projectFullAccessWarning": "Tugas akan berjalan dengan akses penuh dan dapat membaca atau mengubah berkas di dalam maupun di luar folder yang dipilih. Pastikan prompt dan folder tersebut tepercaya.",
+    "newProjectNamePlaceholder": "Proyek batch baru",
+    "projectNamePlaceholder": "Nama proyek",
+    "sourceFolders": "Folder sumber",
+    "folderList": "Daftar folder",
+    "targetProject": "Proyek Sasaran",
+    "projectPath": "Jalur Proyek",
+    "existingTasks": "Tugas yang Ada",
+    "includedTasks": "Tugas yang Disertakan",
+    "notFoundInCurrentList": "Tidak ditemukan di daftar saat ini",
+    "projectNotFoundInCurrentList": "Proyek tidak ditemukan di daftar saat ini",
+    "taskNotFoundInCurrentList": "Tugas tidak ditemukan di daftar saat ini",
+    "projectDeleteWarning": "Ini menghapus permanen direktori proyek, semua catatan tugas, status sesi, dan artefak tugas. Operasi akan ditolak jika ada tugas yang berjalan atau dalam antrean.",
+    "taskFallbackTitle": "Konfirmasi Operasi Subtugas Batch",
+    "taskId": "ID tugas",
+    "sourceFolder": "Folder Sumber",
+    "relatedSession": "Sesi Terkait",
+    "resumeDefaultText": "Lanjutkan",
+    "resumeTextLabel": "Pesan tambahan untuk dikirim ke sesi asli",
+    "lastError": "Kesalahan Terakhir",
+    "status": {
+      "pending": "Menunggu",
+      "running": "Berjalan",
+      "completed": "Selesai",
+      "failed": "Gagal",
+      "paused": "Dijeda"
+    },
+    "taskRunLabel": "Jalankan Tugas",
+    "taskRunTitle": "Konfirmasi Jalankan Subtugas Batch",
+    "taskRunSummary": "Konfirmasi apakah akan membuat sesi untuk subtugas yang menunggu ini dan mulai menjalankannya.",
+    "taskRunDescription": "Buat sesi untuk tugas yang menunggu ini dan mulai menjalankannya.",
+    "taskRetryLabel": "Coba Ulang dari Awal",
+    "taskRetryTitle": "Konfirmasi Coba Ulang Subtugas Batch",
+    "taskRetrySummary": "Konfirmasi apakah akan menghapus hasil lama subtugas ini dan menjalankannya ulang dari awal.",
+    "taskRetryDescription": "Hapus hasil lama dan jalankan ulang tugas ini dari awal.",
+    "taskRetryWarning": "Sesi lama, status, dan artefak yang ada di direktori tugas akan dihapus dan tidak dapat dipulihkan.",
+    "taskStopLabel": "Hentikan dan Bersihkan",
+    "taskStopTitle": "Konfirmasi Hentikan Subtugas Batch",
+    "taskStopSummary": "Konfirmasi apakah akan menghentikan atau menghapus subtugas ini serta membersihkan sesi, status, dan artefaknya.",
+    "taskStopDescription": "Hentikan tugas yang berjalan atau dalam antrean dan setel ulang statusnya menjadi menunggu.",
+    "taskStopWarning": "Sesi saat ini, status eksekusi, dan artefak yang ada di direktori tugas akan dihapus.",
+    "taskDeleteLabel": "Hapus Tugas",
+    "taskDeleteTitle": "Konfirmasi Hapus Subtugas Batch",
+    "taskDeleteSummary": "Konfirmasi apakah akan menghapus permanen subtugas ini dan data terkaitnya dari proyek.",
+    "taskDeleteDescription": "Hapus permanen tugas ini dari proyek.",
+    "taskDeleteWarning": "Catatan tugas, subdirektori proyek, status sesi, dan artefak akan dihapus permanen.",
+    "taskResumeLabel": "Lanjutkan Tugas",
+    "taskResumeTitle": "Konfirmasi Lanjutkan Subtugas Batch",
+    "taskResumeSummary": "Konfirmasi apakah akan mengirim \"Continue\" ke sesi asli yang dijeda dan mempertahankan konteks yang ada.",
+    "taskResumeDescription": "Kirim \"Continue\" ke sesi asli yang dijeda sambil mempertahankan konteks dan artefak yang ada.",
+    "taskResumeWithTextLabel": "Lanjutkan dengan Pesan",
+    "taskResumeWithTextTitle": "Konfirmasi Lanjutkan Subtugas Batch dengan Pesan",
+    "taskResumeWithTextSummary": "Konfirmasi pesan tambahan yang akan dikirim ke sesi yang dijeda. Konteks yang ada akan dipertahankan.",
+    "taskResumeWithTextDescription": "Kirim pesan tambahan ke sesi asli yang dijeda, lalu lanjutkan eksekusi.",
+    "taskDeleteSessionLabel": "Hapus Sesi Tugas",
+    "taskDeleteSessionTitle": "Konfirmasi Hapus Sesi Subtugas Batch",
+    "taskDeleteSessionSummary": "Konfirmasi apakah akan menghapus sesi percakapan yang terkait dengan subtugas ini. Catatan dan direktori tugas tetap disimpan.",
+    "taskDeleteSessionDescription": "Hapus sesi percakapan yang terkait dengan tugas ini.",
+    "taskDeleteSessionWarning": "Riwayat sesi tidak dapat dipulihkan. Catatan dan direktori tugas tidak akan dihapus.",
+    "executionFallbackTitle": "Konfirmasi Kontrol Eksekusi Batch",
+    "totalTasks": "Total Tugas",
+    "estimatedImpact": "Perkiraan Dampak",
+    "selectedTasks": "Tugas Terpilih",
+    "resetFailedPartialWarning": "Hanya tugas yang saat ini berstatus Gagal yang akan diproses. ID tugas lain akan diabaikan.",
+    "executionDeleteAllLabel": "Hapus Semua Tugas",
+    "executionDeleteAllTitle": "Konfirmasi Hapus Semua Tugas Batch",
+    "executionDeleteAllSummary": "Konfirmasi apakah akan menghapus semua subtugas yang tidak berjalan di proyek ini. Tugas yang berjalan tetap disimpan.",
+    "executionDeleteAllDescription": "Hapus semua tugas yang tidak berjalan di proyek. Tugas yang berjalan tetap disimpan.",
+    "executionDeleteAllWarning": "Tugas dalam antrean akan dikeluarkan dari antrean, lalu catatan tugas, status sesi, dan direktori artefak akan dihapus permanen.",
+    "executionStartLabel": "Mulai Eksekusi",
+    "executionStartTitle": "Konfirmasi Mulai Proyek Batch",
+    "executionStartSummary": "Konfirmasi apakah akan mulai mengeksekusi proyek batch ini. Tugas yang menunggu dan dijeda akan masuk ke alur eksekusi.",
+    "executionStartDescription": "Antrekan semua tugas yang menunggu dan lanjutkan tugas yang dijeda. Tugas yang selesai atau gagal tidak akan dijalankan ulang.",
+    "executionStopLabel": "Hentikan dan Bersihkan",
+    "executionStopTitle": "Konfirmasi Hentikan Eksekusi Proyek Batch",
+    "executionStopSummary": "Konfirmasi apakah akan menghentikan tugas yang belum selesai di proyek ini dan membersihkan sesi, status, serta artefak terkait.",
+    "executionStopDescription": "Hentikan semua tugas yang belum selesai di proyek sambil mempertahankan tugas yang sudah selesai.",
+    "executionStopWarning": "Sesi, status, dan direktori artefak tugas yang dalam antrean, berjalan, gagal, dan dijeda akan dibersihkan dan disetel ulang menjadi menunggu.",
+    "executionResetLabel": "Bersihkan dan Jalankan Ulang",
+    "executionResetTitle": "Konfirmasi Bersihkan dan Jalankan Ulang Proyek Batch",
+    "executionResetSummary": "Konfirmasi apakah akan menghapus semua status dan artefak tugas di proyek ini lalu segera menjalankan ulang seluruh proyek.",
+    "executionResetDescription": "Bersihkan seluruh status eksekusi dan artefak proyek, lalu segera jalankan ulang semua tugas.",
+    "executionResetWarning": "Semua sesi, status, dan direktori artefak tugas akan dihapus, termasuk tugas yang sudah selesai. Tindakan ini tidak dapat dibatalkan.",
+    "executionResetFailedLabel": "Setel Ulang Tugas yang Gagal",
+    "executionResetFailedTitle": "Konfirmasi Setel Ulang Tugas Batch yang Gagal",
+    "executionResetFailedSummary": "Konfirmasi apakah akan membersihkan tugas gagal yang dipilih. Hanya tugas yang saat ini berstatus Gagal yang akan diproses.",
+    "executionResetFailedDescription": "Bersihkan tugas gagal yang dipilih. Jika proyek masih berjalan, tugas tersebut langsung diantrekan; jika tidak, tugas kembali ke status menunggu.",
+    "executionResetFailedWarning": "Sesi lama, status kesalahan, dan artefak yang ada untuk tugas gagal yang dipilih akan dihapus."
+  },
+  "appShell": {
+    "routeTitles": {
+      "automation": "Otomatisasi",
+      "batchTasks": "Tugas Batch",
+      "knowledgeAll": "Semua Basis Pengetahuan",
+      "knowledge": "Basis Pengetahuan",
+      "skills": "Keterampilan",
+      "scenes": "Skenario",
+      "plugins": "Plugin",
+      "settings": "Pengaturan",
+      "project": "Detail Proyek",
+      "chat": "Obrolan"
+    },
+    "sidebarTrigger": {
+      "open": "Bilah samping",
+      "expand": "Bentangkan bilah samping"
+    },
+    "windowControls": {
+      "minimize": "Perkecil",
+      "maximize": "Perbesar",
+      "restore": "Pulihkan",
+      "close": "Tutup"
+    }
+  },
+  "modelSelect": {
+    "placeholder": "Pilih model",
+    "searchPlaceholder": "Cari model atau penyedia",
+    "clearSearch": "Kosongkan pencarian",
+    "noResults": "Model tidak ditemukan",
+    "noResultsHint": "Coba nama model, ID, atau penyedia lain",
+    "unset": "Belum diatur",
+    "defaultBadge": "Bawaan",
+    "visionBadge": "vision",
+    "cloudOnly": "Cloud",
+    "reasoningHeader": "Penalaran",
+    "modelHeader": "Model",
+    "multiplier": "{{value}}×",
+    "free": "Gratis",
+    "reasoningLevel": {
+      "minimal": "Minimal",
+      "low": "Rendah",
+      "medium": "Sedang",
+      "high": "Tinggi",
+      "xhigh": "Sangat tinggi",
+      "max": "Maks",
+      "none": "Tidak ada",
+      "off": "Nonaktif"
+    }
+  },
+  "setupWizard": {
+    "skip": "Lewati",
+    "next": "Berikutnya",
+    "back": "Kembali",
+    "getStarted": "Mulai",
+    "progress": "{{current}} / {{total}}",
+    "permissions": {
+      "title": "Berikan izin",
+      "subtitle": "Aktifkan tangkapan layar, otomatisasi, dan notifikasi sistem. Anda dapat menyelesaikannya nanti di Pengaturan",
+      "systemSection": "Izin sistem",
+      "computerUseTitle": "Metoai Computer Use",
+      "computerUseDesc": "Penolong terpisah menangkap jendela terdepan dan memerlukan izin Aksesibilitas serta Perekaman Layar tersendiri",
+      "optionalHint": "Semua izin bersifat opsional. Sesuaikan kapan saja di Pengaturan → Izin"
+    },
+    "languageAppearance": {
+      "title": "Bahasa & tampilan",
+      "subtitle": "Bahasa mengikuti bawaan sistem Anda. Sesuaikan mode tema dan warna — ubah kapan saja di Pengaturan",
+      "language": "Bahasa",
+      "appearance": "Tampilan",
+      "theme": "Tema warna"
+    },
+    "metoai": {
+      "title": "Masuk ke MetaToken",
+      "subtitle": "Masuk untuk memakai semua model di gateway bawaan; saldo, langganan, dan kunci API juga ada di sini",
+      "optionalHint": "Opsional — ketuk Berikutnya untuk melanjutkan"
+    },
+    "login": {
+      "title": "Masuk",
+      "subtitle": "Masuk untuk fitur cloud dan langganan. Anda dapat melewatinya dan masuk nanti",
+      "optionalHint": "Opsional — ketuk Berikutnya untuk melanjutkan",
+      "signedInTitle": "Sudah masuk",
+      "signedInDesc": "Selamat datang kembali, {{name}}",
+      "signedInFallback": "Pengguna"
+    },
+    "welcome": {
+      "title": "Selamat datang di Metoai",
+      "subtitle": "Asisten coding AI desktop Anda sudah siap. Mulai dengan percakapan",
+      "highlights": {
+        "chat": {
+          "title": "Obrolan cerdas",
+          "desc": "Ajukan pertanyaan, edit kode, dan jalankan perintah dalam konteks proyek"
+        },
+        "skills": {
+          "title": "Keterampilan & konektor",
+          "desc": "Perluas kemampuan dan hubungkan alat yang sudah Anda pakai"
+        },
+        "automation": {
+          "title": "Otomatisasi",
+          "desc": "Tugas terjadwal dan pekerjaan batch untuk pekerjaan berulang"
+        }
+      }
+    }
+  },
+  "commandMenu": {
+    "placeholder": "Cari proyek, sesi, kemampuan, pengaturan…",
+    "empty": "Tidak ada kecocokan",
+    "emptyHint": "Coba kata kunci lain",
+    "loading": "Mencari sesi",
+    "title": "Menu perintah",
+    "hintNavigate": "↑↓ Navigasi",
+    "hintSelect": "↵ Buka",
+    "hintClose": "esc Tutup",
+    "overflow": "{{count}} lagi",
+    "sessionUnavailable": "Sesi ini tidak dapat dibuka saat ini",
+    "searchMarketplace": "Cari di pasar kemampuan",
+    "trigger": "Cari",
+    "groups": {
+      "projects": "Proyek",
+      "sessions": "Sesi",
+      "abilities": "Kemampuan",
+      "settings": "Pengaturan",
+      "workspaceViews": "Tampilan plugin"
+    },
+    "badges": {
+      "skill": "Keterampilan",
+      "scene": "Skenario",
+      "plugin": "Plugin"
+    },
+    "sessionTypes": {
+      "conversation": "Obrolan",
+      "claw": "Claw",
+      "project": "Proyek",
+      "batch": "Batch"
+    }
+  }
+}

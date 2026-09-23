@@ -1,0 +1,942 @@
+{
+  "activityPanel": {
+    "tabs": {
+      "file": "Berkas",
+      "batchProgress": "Progres",
+      "todo": "Todo",
+      "backgroundTasks": "Tugas latar belakang",
+      "debug": "Debug",
+      "knowledgeHistory": "Riwayat pemrosesan",
+      "workflow": "Alur kerja"
+    },
+    "backgroundTasks": {
+      "statusRunning": "Berjalan",
+      "statusCompleted": "Selesai",
+      "statusFailed": "Gagal",
+      "statusKilled": "Dihentikan",
+      "subagentStatusPending": "Menunggu",
+      "subagentStatusInterrupted": "Terputus",
+      "durationSec": "{{sec}} dtk",
+      "durationMin": "{{min}} mnt {{sec}} dtk",
+      "durationHour": "{{hr}} jam {{min}} mnt",
+      "empty": "Tidak ada tugas latar belakang",
+      "clearFinished": "Bersihkan yang selesai ({{count}})",
+      "stop": "Hentikan"
+    },
+    "mcpTasks": {
+      "statusWorking": "Sedang bekerja",
+      "statusInputRequired": "Menunggu masukan",
+      "statusCancelled": "Dibatalkan"
+    },
+    "subagents": {
+      "usage": "{{tokens}} token · {{cost}}",
+      "errorPermission": "Izin diblokir",
+      "errorContext": "Batas konteks tercapai",
+      "errorConnection": "Koneksi terputus",
+      "errorExecution": "Eksekusi gagal"
+    },
+    "batchProgress": {
+      "notFound": "Proyek batch tidak ditemukan"
+    },
+    "debug": {
+      "toolCalls": "Panggilan alat",
+      "requestHistory": "Riwayat permintaan"
+    },
+    "todo": {
+      "empty": "Tidak ada item todo",
+      "headline": "Sedang berlangsung",
+      "allDone": "Semua selesai",
+      "progress": "{{done}} dari {{total}} selesai",
+      "statusDone": "Selesai",
+      "statusInProgress": "Sedang berlangsung",
+      "statusPending": "Menunggu"
+    },
+    "toolCalls": {
+      "filterAll": "Semua",
+      "filterSuccess": "Berhasil",
+      "filterError": "Gagal",
+      "noSession": "Tidak ada sesi aktif",
+      "searchPlaceholder": "Cari nama alat...",
+      "loading": "Memuat...",
+      "recordCount": "{{count}} catatan",
+      "refresh": "Muat ulang",
+      "empty": "Belum ada panggilan alat",
+      "noMatch": "Tidak ada yang cocok",
+      "args": "Argumen",
+      "result": "Hasil"
+    },
+    "requestHistory": {
+      "noSession": "Tidak ada sesi aktif",
+      "loading": "Memuat...",
+      "requestCount": "{{count}} permintaan",
+      "refresh": "Muat ulang",
+      "empty": "Setelah mengirim pesan dalam mode debug, riwayat permintaan akan muncul di sini",
+      "showInFolder": "Tampilkan di disk"
+    },
+    "schedule": {
+      "statusRunning": "Berjalan",
+      "statusSuccess": "Berhasil",
+      "statusFailed": "Gagal",
+      "statusAborted": "Dibatalkan",
+      "unnamedTask": "Tugas tanpa nama",
+      "noTasks": "Proyek ini tidak memiliki tugas otomatisasi",
+      "overview": "Ringkasan otomatisasi",
+      "refresh": "Muat ulang",
+      "totalTasks": "Total tugas",
+      "enabled": "Aktif",
+      "todayExecutions": "Hari ini",
+      "taskControl": "Kontrol tugas",
+      "enabledBadge": "Aktif",
+      "pausedBadge": "Dijeda",
+      "run": "Jalankan",
+      "pause": "Jeda",
+      "enable": "Aktifkan",
+      "executionRecords": "Catatan eksekusi",
+      "noRecords": "Tidak ada catatan eksekusi"
+    },
+    "htmlPreview": {
+      "title": "Pratinjau HTML"
+    },
+    "workflow": {
+      "empty": "Tidak ada alur kerja",
+      "noTranscript": "Belum ada pesan dari alur kerja ini",
+      "stop": "Hentikan",
+      "statusQueued": "Dalam antrean",
+      "statusPending": "Memulai",
+      "statusRunning": "Berjalan",
+      "statusCompleted": "Selesai",
+      "statusFailed": "Gagal",
+      "statusInterrupted": "Terputus",
+      "processingTitle": "{{count}} alur kerja sedang berjalan",
+      "doneTitle": "Semua alur kerja selesai"
+    }
+  },
+  "fileExplorer": {
+    "clearArtifactsTitle": "Bersihkan artefak",
+    "clearArtifactsMessage": "Ini akan menghapus semua berkas artefak di bawah cwd proyek {{label}} (catatan sesi tetap disimpan). Tindakan ini tidak dapat dibatalkan.",
+    "clearArtifactsConfirm": "Bersihkan",
+    "clearArtifactsFailed": "Gagal membersihkan artefak",
+    "conversationLabel": "\"Percakapan\"",
+    "moveFailed": "Gagal memindahkan",
+    "deleteFailed": "Gagal menghapus",
+    "selectProject": "Pilih proyek untuk menelusuri berkas",
+    "fileList": "Berkas proyek",
+    "clearArtifacts": "Bersihkan artefak",
+    "refresh": "Muat ulang",
+    "newFile": "Berkas baru",
+    "newFolder": "Folder baru",
+    "collapseAll": "Ciutkan semua",
+    "newFileInputLabel": "Masukkan nama berkas baru",
+    "newFolderInputLabel": "Masukkan nama folder baru",
+    "createAlreadyExists": "Berkas atau folder dengan nama ini sudah ada",
+    "createFailed": "Gagal membuat item",
+    "invalidName": {
+      "empty": "Nama tidak boleh kosong",
+      "dotPath": "Nama tidak boleh berupa . atau ..",
+      "pathSeparator": "Nama tidak boleh berisi pemisah jalur",
+      "invalidCharacter": "Nama berisi karakter yang tidak diizinkan di Windows",
+      "reservedName": "Nama ini dicadangkan di Windows",
+      "trailingCharacter": "Nama tidak boleh diakhiri spasi atau titik"
+    },
+    "emptyFolder": "Folder ini kosong",
+    "openInFinder": "Tampilkan di Finder",
+    "openInExplorer": "Tampilkan di Explorer",
+    "copy": "Salin",
+    "paste": "Tempel",
+    "copyPath": "Salin jalur",
+    "copyName": "Salin nama",
+    "rename": "Ubah nama",
+    "delete": "Hapus",
+    "confirmDeleteTitle": "Konfirmasi hapus",
+    "confirmDeleteFolder": "folder",
+    "confirmDeleteFile": "berkas",
+    "confirmDeletePrefix": "Hapus {{type}}",
+    "confirmDeleteSuffix": "?{{folderNote}} Tindakan ini tidak dapat dibatalkan.",
+    "confirmDeleteFolderNote": " Semua isi di dalam folder akan dihapus.",
+    "confirmDeleteMultiplePrefix": "Hapus {{count}} item ini",
+    "confirmDeleteMultipleMore": " dan {{count}} lainnya",
+    "confirmDeleteMultipleSuffix": "? Tindakan ini tidak dapat dibatalkan.",
+    "cancel": "Batal",
+    "transfer": {
+      "title": "Tambahkan berkas ke proyek",
+      "pasteCopyTitle": "Tempel berkas",
+      "pasteMoveTitle": "Pindahkan berkas",
+      "description": "Tempatkan {{count}} item di “{{destination}}”",
+      "moveWarning": "Pemindahan menghapus item yang berhasil dipindahkan dari lokasi asalnya.",
+      "conflictLabel": "{{count}} item memiliki konflik nama",
+      "keepBoth": "Simpan keduanya",
+      "replace": "Ganti item yang ada",
+      "skip": "Lewati item yang berkonflik",
+      "copy": "Salin",
+      "move": "Pindahkan",
+      "cancel": "Batal",
+      "processing": "Memproses…",
+      "prepareFailed": "Tidak dapat membaca berkas yang dijatuhkan",
+      "commitFailed": "Transfer berkas gagal",
+      "failedCount": "{{count}} item gagal ditransfer"
+    }
+  },
+  "fileEditor": {
+    "loading": "Membuka berkas…",
+    "edit": "Edit",
+    "preview": "Pratinjau",
+    "save": "Simpan",
+    "saving": "Menyimpan…",
+    "saved": "Tersimpan",
+    "unsaved": "Perubahan belum disimpan",
+    "conflict": "Program lain mengubah berkas ini. Muat ulang, atau timpa versi di disk secara eksplisit.",
+    "reload": "Muat ulang",
+    "overwrite": "Timpa",
+    "errorTooLarge": "Berkas yang lebih besar dari 2 MB tidak dapat diedit",
+    "errorPreviewTooLarge": "Berkas ini terlalu besar untuk dipratinjau",
+    "errorNotUtf8": "Berkas ini bukan teks UTF-8 yang valid dan tidak dapat diedit",
+    "errorRead": "Tidak dapat membaca berkas ini",
+    "errorSave": "Tidak dapat menyimpan berkas ini. Coba lagi.",
+    "unsupported": "Pratinjau tidak didukung untuk jenis berkas ini",
+    "download": "Unduh berkas",
+    "showTree": "Tampilkan pohon berkas",
+    "hideTree": "Sembunyikan pohon berkas",
+    "previous": "Sebelumnya (←)",
+    "next": "Berikutnya (→)",
+    "downloadShort": "Unduh",
+    "refresh": "Muat ulang",
+    "close": "Tutup"
+  },
+  "appshot": {
+    "errorSelfCapture": "Appshot dilewati: jendela terdepan adalah Metoai sendiri",
+    "errorNoPermission": "Pengambilan Appshot gagal: izin Perekaman Layar dan Aksesibilitas belum diberikan. Berikan izin di Pengaturan › Izin",
+    "errorHelperFailed": "Pengambilan Appshot gagal, silakan coba lagi"
+  },
+  "askUserQuestion": {
+    "cancelledMessage": "Dibatalkan oleh pengguna, tidak dijawab",
+    "defaultQuestionLabel": "Pertanyaan {{number}}"
+  },
+  "mcpElicitation": {
+    "title": "Permintaan informasi MCP",
+    "source": "Dari {{server}}",
+    "urlNotice": "Metoai membuka alamat ini di peramban sistem Anda hanya setelah Anda mengonfirmasi.",
+    "decline": "Tolak",
+    "openAndContinue": "Buka dan lanjutkan",
+    "submit": "Kirim",
+    "required": "(wajib)",
+    "enabled": "Aktif",
+    "disabled": "Nonaktif",
+    "selectPlaceholder": "Pilih opsi"
+  },
+  "atPanel": {
+    "emptyDirectory": "Direktori kosong",
+    "enterDirectory": "Tab untuk masuk",
+    "goUp": "..",
+    "header": "Rujuk berkas",
+    "loading": "Memuat...",
+    "noResults": "Tidak ada hasil",
+    "searchResults": "{{count}} hasil"
+  },
+  "backgroundTasksBadge": {
+    "runningTasksTooltip": "{{count}} tugas latar belakang berjalan"
+  },
+  "bashHeader": {
+    "statusCancelled": "Dibatalkan: {{short}}",
+    "statusError": "Perintah gagal: {{short}}",
+    "statusPending": "Menjalankan: {{short}}",
+    "statusSuccess": "Menjalankan perintah: {{short}}"
+  },
+  "bashTerminalCard": {
+    "copyCommand": "Salin perintah",
+    "metaDescription": "Metadata lokal, hanya untuk UI, tidak dikirim ke model"
+  },
+  "browser": {
+    "addressPlaceholder": "Masukkan URL lalu tekan Enter",
+    "back": "Kembali",
+    "empty": "Klik tautan di percakapan, atau ketik URL di atas",
+    "failed": "Gagal memuat halaman",
+    "forward": "Maju",
+    "loading": "Memuat…",
+    "noSession": "Tidak ada sesi aktif",
+    "openExternal": "Buka di peramban sistem",
+    "reload": "Muat ulang",
+    "retry": "Coba lagi",
+    "stop": "Hentikan",
+    "tab": "Peramban"
+  },
+  "capability": {
+    "network": "Jaringan",
+    "read": "Baca",
+    "write": "Tulis"
+  },
+  "chatExport": {
+    "defaultSessionName": "Sesi Metoai"
+  },
+  "chatView": {
+    "defaultSessionTitle": "Sesi Metoai",
+    "exportButton": {
+      "title": "Ekspor sesi lengkap sebagai HTML"
+    },
+    "newSessionButton": {
+      "title": "Sesi baru"
+    },
+    "panelButton": {
+      "closed": "Buka panel aktivitas",
+      "open": "Tutup panel aktivitas"
+    },
+    "pinButton": {
+      "pinned": "Lepas sematan jendela",
+      "unpinned": "Sematkan jendela (selalu di atas)"
+    }
+  },
+  "contextRing": {
+    "tooltip": {
+      "compacting": "Memadatkan konteks...",
+      "unknown": "Jendela konteks {{window}} (penggunaan tidak diketahui)",
+      "usage": "Konteks memakai {{tokens}} token ({{percent}}%, jendela {{window}})"
+    },
+    "details": {
+      "title": "Komposisi konteks (panggilan terakhir)",
+      "actual": "Masukan aktual",
+      "section": "Bagian",
+      "category": "Kategori",
+      "tokens": "Token",
+      "share": "Porsi",
+      "unknown": "Tidak diketahui",
+      "back": "Kembali",
+      "unavailableAfterRestart": "Tidak ada detail komposisi yang dapat dipulihkan untuk sesi ini. Kirim pesan lain untuk membuat dan menyimpan laporan baru.",
+      "items": "{{count}} item",
+      "unknownItems": "{{count}} tidak diketahui",
+      "owner": {
+        "core": "Sistem",
+        "skill": "Keterampilan",
+        "plugin": "Plugin",
+        "mcp": "MCP",
+        "extension": "Ekstensi",
+        "runtime": "Runtime",
+        "user": "Pengguna",
+        "unknown": "Tanpa atribusi"
+      },
+      "kind": {
+        "instruction": "Instruksi",
+        "tool_schema": "Skema alat",
+        "history": "Riwayat",
+        "runtime_context": "Konteks runtime",
+        "user_input": "Masukan saat ini"
+      },
+      "group": {
+        "instructions": "Instruksi inti",
+        "capabilities": "Ekstensi",
+        "tools": "Alat",
+        "conversation": "Percakapan",
+        "runtime": "Konteks runtime"
+      }
+    }
+  },
+  "copyButton": {
+    "copied": "Tersalin",
+    "label": "Salin"
+  },
+  "dropZone": {
+    "externalRef": "Gambar dilampirkan otomatis; berkas lain hanya dirujuk",
+    "internalRef": "Rujuk dari dalam proyek",
+    "releaseToRef": "Lepaskan untuk merujuk berkas"
+  },
+  "editDiff": {
+    "anchor": {
+      "badge": "Edit jangkar",
+      "delete": "Hapus",
+      "insertAfter": "Sisipkan setelah",
+      "replace": "Ganti baris",
+      "replaceRange": "Ganti rentang"
+    },
+    "netChangeLabel": "Bersih {{net}}",
+    "newTextEmpty": "Teks pengganti kosong",
+    "oldTextEmpty": "Teks yang cocok kosong"
+  },
+  "executionModeSelector": {
+    "fullAccess": {
+      "label": "Akses penuh",
+      "title": "Izinkan akses penuh ke sistem saat ini"
+    },
+    "sandbox": {
+      "label": "Dalam sandbox",
+      "title": "Hanya izinkan akses terbatas di dalam ruang kerja"
+    },
+    "sandboxUnavailable": "Sandbox {{platform}} tidak tersedia: {{reason}}"
+  },
+  "export": {
+    "shareNavDescription": "membagikan sebuah sesi",
+    "shareNavDescriptionWithNickname": "{{nickname}} membagikan sebuah sesi"
+  },
+  "filterByTags": {
+    "hitCount": "{{count}} halaman cocok",
+    "noResults": "Tidak ada halaman yang cocok",
+    "noTitle": "(tanpa judul)"
+  },
+  "guideBadgeSwiper": {
+    "dismissTooltip": "Jangan tampilkan lagi",
+    "petFeatureText": "Fitur hewan peliharaan desktop baru — klik untuk mengaktifkan di pengaturan",
+    "quickPanelText": "Metoai kini memiliki Panel Cepat — klik untuk mengaturnya"
+  },
+  "imagePreview": {
+    "altText": "Gambar yang dimuat",
+    "imageLabel": "Gambar",
+    "originalLabel": "Asli",
+    "processedLabel": "Masukan model",
+    "showInFolderButton": "Tampilkan asli di pengelola berkas"
+  },
+  "inputActionBar": {
+    "chip": {
+      "removeTooltip": "Klik untuk menghapus"
+    },
+    "knowledgeRetrieval": {
+      "label": "Pencarian pengetahuan",
+      "tooltip": "Saat aktif, giliran ini dapat memanggil alat basis pengetahuan dan mengutamakan jawaban dari basis pengetahuan Anda"
+    }
+  },
+  "inputBar": {
+    "error": {
+      "multipleScenes": "Hanya satu Skenario yang dapat dipilih per pesan. Hapus Skenario tambahan lalu coba lagi"
+    },
+    "capsule": {
+      "appshotThumbnailAlt": "Tangkapan layar",
+      "appshotPreview": "Pratinjau tangkapan layar",
+      "appshotIconAlt": "Ikon aplikasi",
+      "removeDefault": "Klik untuk menghapus",
+      "removeImage": "Hapus gambar",
+      "removeTooltip": "{{path}}\nKlik untuk menghapus",
+      "activeGroup": "{{count}} plugin",
+      "imageBadge": "Gambar {{index}}"
+    },
+    "drawer": {
+      "permissionDesc": "Menunggu konfirmasi",
+      "permissionLabel": "Permintaan izin",
+      "queueDelete": "Hapus",
+      "contextCompaction": "Padatkan konteks",
+      "queueDesc": "{{count}} dalam antrean",
+      "queueEmpty": "Tidak ada pesan dalam antrean",
+      "queueLabel": "Antrean",
+      "queuePaused": "Giliran terakhir terputus — pesan dalam antrean ditahan",
+      "queuePausedDesc": "Dijeda · {{count}} dalam antrean",
+      "queueResume": "Lanjutkan pengiriman",
+      "queueSendNow": "Kirim sekarang"
+    },
+    "permission": {
+      "allow": "Izinkan sekali",
+      "allowSession": "Jangan tanya lagi di sesi ini",
+      "deny": "Tolak"
+    },
+    "placeholder": {
+      "defaults": [
+        "Tanya Metoai, gunakan / untuk keterampilan, @ untuk merujuk berkas",
+        "Jelaskan tugas, tekan ⏎ untuk mengirim",
+        "Tempel tangkapan layar atau @ berkas untuk memulai"
+      ],
+      "noSession": "Pilih atau buat sesi untuk memulai",
+      "suggestion": "↵ {{suggestion}}",
+      "thinking": "Metoai sedang berpikir…"
+    },
+    "mention": {
+      "trigger": "Sebut anggota",
+      "title": "Sebut anggota tim",
+      "hint": "Pemimpin tim mengambil alih bila tidak ada yang disebut.",
+      "empty": "Tim ini tidak memiliki anggota untuk disebut",
+      "clear": "Bersihkan semua",
+      "selected": "{{count}} anggota"
+    },
+    "toolbar": {
+      "addImage": "Tambah gambar",
+      "attachFile": "Lampirkan rujukan berkas",
+      "skills": "Keterampilan / Skenario"
+    },
+    "speech": {
+      "actions": {
+        "start": "Mulai masukan suara",
+        "stop": "Hentikan masukan suara"
+      },
+      "states": {
+        "loading": "Memuat model suara offline…",
+        "stopping": "Menyelesaikan pengenalan suara…"
+      },
+      "errors": {
+        "unsupported": "Masukan suara saat ini memerlukan Windows x64",
+        "missing": "Model suara tidak ada dalam instalasi ini. Instal ulang aplikasi",
+        "integrity": "Model suara bawaan tidak lengkap. Instal ulang aplikasi",
+        "recognizer": "Pengenalan suara gagal dimulai. Klik untuk mencoba lagi"
+      }
+    },
+    "contextMenu": {
+      "cut": "Potong",
+      "copy": "Salin",
+      "paste": "Tempel"
+    },
+    "todo": {
+      "trigger": "Todo",
+      "allDone": "Semua selesai",
+      "panelTitle": "Daftar todo",
+      "openPanel": "Buka di panel",
+      "statusDone": "Selesai",
+      "statusInProgress": "Sedang berlangsung",
+      "statusPending": "Menunggu"
+    }
+  },
+  "knowledgeTools": {
+    "empty": "Tidak ada hasil"
+  },
+  "listTags": {
+    "empty": "Basis pengetahuan belum memiliki tag",
+    "tagCount": "Total {{count}} tag"
+  },
+  "messageCards": {
+    "layoutList": "Daftar",
+    "layoutStacked": "Bertumpuk"
+  },
+  "messageList": {
+    "userMessage": {
+      "expand": "Perluas pesan",
+      "sceneBadge": "Skenario",
+      "skillBadge": "Keterampilan",
+      "settingsAssist": {
+        "mcp": "Bantuan penyiapan MCP",
+        "models": "Bantuan penyiapan model",
+        "knowledge": "Bantuan penyiapan pengetahuan",
+        "knowledgeBase": "Bantuan basis pengetahuan",
+        "batchTasks": "Bantuan tugas batch",
+        "automation": "Bantuan otomatisasi",
+        "im": "Bantuan penyiapan Claw",
+        "webhook": "Bantuan penyiapan Webhook",
+        "appearance": "Bantuan penyiapan tampilan",
+        "plugins": "Bantuan penyiapan plugin",
+        "pet": "Bantuan penyiapan hewan peliharaan",
+        "environment": "Bantuan penyiapan lingkungan",
+        "shortcuts": "Bantuan penyiapan pintasan",
+        "agent": "Bantuan penyiapan agen",
+        "unknown": "Bantuan penyiapan pengaturan"
+      }
+    },
+    "assistantFoldTip": {
+      "collapse": "Ciutkan {{count}} item",
+      "collapseLabel": "Ciutkan",
+      "expand": "Perluas {{count}} item",
+      "expandLabel": "Perluas",
+      "streaming": "Memproses · {{duration}}",
+      "waiting": "Menunggu · {{duration}}",
+      "work": {
+        "collapse": "Ciutkan {{count}} langkah",
+        "collapseZero": "Ciutkan proses",
+        "expand": "Perluas {{count}} langkah",
+        "expandZero": "Perluas proses"
+      }
+    },
+    "assistantMessage": {
+      "predicting": "Metoai sedang memprediksi…",
+      "processing": "Memproses…",
+      "waiting": "Menunggu respons model"
+    },
+    "duration": {
+      "seconds": "{{seconds}} dtk",
+      "minutes": "{{minutes}} mnt {{seconds}} dtk",
+      "hours": "{{hours}} jam {{minutes}} mnt"
+    },
+    "navigation": {
+      "title": "Pertanyaan",
+      "count": "{{count}}",
+      "open": "Lihat pertanyaan",
+      "close": "Tutup daftar pertanyaan",
+      "searchLabel": "Cari pertanyaan",
+      "searchPlaceholder": "Cari pertanyaan",
+      "noResults": "Tidak ada pertanyaan yang cocok",
+      "jumpTo": "Lompat ke {{preview}}",
+      "emptyUser": "(Tidak ada teks)"
+    },
+    "tokenUsage": {
+      "trigger": "Lihat penggunaan token",
+      "sessionTitle": "Token sesi",
+      "messageTitle": "Token pesan saat ini",
+      "scopeLabel": "Cakupan penggunaan token",
+      "session": "Total sesi",
+      "message": "Pesan saat ini",
+      "modelCalls": "{{count}} panggilan model",
+      "total": "Total",
+      "prompt": "Token prompt",
+      "uncachedInput": "Masukan",
+      "output": "Keluaran",
+      "cacheRead": "Cache hit",
+      "cacheWrite": "Tulis cache",
+      "cacheHitRate": "Rasio cache hit",
+      "moreParameters": "Parameter lainnya",
+      "readCoverage": "Cakupan pengamatan baca",
+      "writeCoverage": "Cakupan pengamatan tulis",
+      "readOnlyReporting": "Tidak dilaporkan (hanya baca)",
+      "diagnosticCoverage": "Cakupan diagnostik prefiks",
+      "stableSystemChars": "Karakter prompt sistem stabil",
+      "volatileSystemChars": "Karakter prompt sistem volatil",
+      "historyMessages": "Pesan riwayat prefiks",
+      "toolCount": "Jumlah alat",
+      "prefixStatus": "Status prefiks stabil",
+      "changedSegments": "Segmen yang berubah",
+      "changedPromptBlocks": "Blok prompt yang berubah",
+      "changedTools": "Alat yang berubah",
+      "definitionChange": "{{id}} ({{change}})",
+      "changeKinds": {
+        "added": "ditambahkan",
+        "removed": "dihapus",
+        "changed": "konten berubah",
+        "reordered": "diurutkan ulang"
+      },
+      "segmentSeparator": ", ",
+      "prefixStatuses": {
+        "initial": "Diagnostik pertama",
+        "extended": "Terus diperluas",
+        "changed": "Prefiks berubah",
+        "unknown": "Versi historis tidak tersedia"
+      },
+      "prefixSegments": {
+        "stableSystem": "Prompt sistem stabil",
+        "volatileSystem": "Prompt sistem volatil",
+        "tools": "Definisi alat",
+        "messages": "Riwayat pesan"
+      },
+      "prefixHash": "Sidik jari prefiks permintaan",
+      "unavailable": "Tidak dilaporkan"
+    },
+    "compactionBoundary": "Konteks dipadatkan",
+    "modelSwitched": "Model dialihkan ke {{name}}",
+    "compactionIndicator": "Memadatkan konteks...",
+    "retryIndicator": "Menghubungkan ulang ({{attempt}}/{{maxAttempts}})",
+    "retryReason": "Permintaan terakhir gagal: {{reason}}",
+    "streamingPhrases": [
+      "Metoai sedang membalas…",
+      "Mohon tunggu sebentar…",
+      "Metoai sedang bekerja keras…"
+    ],
+    "copyButton": {
+      "copied": "Tersalin",
+      "copy": "Salin"
+    },
+    "errorBlock": {
+      "showDetail": "Tampilkan detail",
+      "hideDetail": "Sembunyikan detail",
+      "retriedNote": "Dicoba ulang otomatis {{count}} kali",
+      "repeatedNote": "Terjadi {{count}} kali",
+      "diagnostic": {
+        "code": "Kode kesalahan: {{value}}",
+        "origin": "Asal: {{value}}",
+        "statusCode": "Status HTTP: {{value}}",
+        "provider": "Penyedia: {{value}}",
+        "model": "Model: {{value}}",
+        "providerCode": "Kode kesalahan penyedia: {{value}}",
+        "phase": "Fase: {{value}}",
+        "requestId": "ID permintaan: {{value}}",
+        "retryAfter": "Saran waktu tunggu: {{value}} ms"
+      },
+      "kinds": {
+        "rate_limit": {
+          "title": "Terlalu banyak permintaan",
+          "hint": "Tunggu sebentar, lalu kirim lagi."
+        },
+        "quota": {
+          "title": "Kuota Anda habis",
+          "hint": "Tunggu hingga kuota disetel ulang, atau periksa paket dan penggunaan Anda.",
+          "action": "Lihat kuota"
+        },
+        "network": {
+          "title": "Tidak ada koneksi jaringan",
+          "hint": "Periksa jaringan atau proksi Anda, lalu kirim lagi."
+        },
+        "auth": {
+          "title": "Kunci model tidak valid atau kedaluwarsa",
+          "hint": "Perbarui kunci di pengaturan model lalu coba lagi.",
+          "action": "Buka pengaturan"
+        },
+        "server": {
+          "title": "Layanan sedang bermasalah",
+          "hint": "Biasanya pulih dalam beberapa menit — coba lagi sebentar lagi."
+        },
+        "unknown": {
+          "title": "Balasan ini terputus",
+          "hint": "Coba kirim lagi; jika terus terjadi, salin detailnya untuk kami."
+        }
+      }
+    },
+    "contextMenu": {
+      "edit": "Edit",
+      "copy": "Salin",
+      "delete": "Hapus"
+    },
+    "selectionContextMenu": {
+      "copy": "Salin",
+      "addToInput": "Tambahkan ke masukan"
+    },
+    "delete": {
+      "title": "Hapus pesan ini?",
+      "body": "Pesan berikutnya tetap disimpan, tetapi konteksnya tidak lagi menyertakan pesan ini. Tindakan ini tidak dapat dibatalkan.",
+      "streamingBody": "Balasan yang sedang berjalan akan dihentikan lebih dulu. Pesan berikutnya tetap disimpan, tetapi konteksnya tidak lagi menyertakan pesan ini. Tindakan ini tidak dapat dibatalkan.",
+      "confirm": "Hapus",
+      "suppressForOneMinute": "Jangan tanya lagi selama satu menit"
+    },
+    "editButton": "Edit",
+    "forkButton": "Cabangkan ke sesi baru",
+    "forkOrigin": {
+      "label": "Dicabangkan dari sesi asal",
+      "labelWithPreview": "Dicabangkan dari pesan"
+    },
+    "branch": {
+      "prev": "Versi sebelumnya",
+      "next": "Versi berikutnya",
+      "position": "Versi {{current}} dari {{total}}"
+    },
+    "edit": {
+      "pendingHint": "Mengedit pesan terakhir — kirim untuk menggantikan pesan dan balasan asli",
+      "overwriteDraftTitle": "Timpa draf saat ini?",
+      "overwriteDraftBody": "Kolom masukan sudah berisi teks. Mengedit pesan terakhir akan menggantikan draf Anda.",
+      "overwriteDraftConfirm": "Timpa dan edit"
+    },
+    "interrupt": {
+      "editTitle": "Putuskan giliran ini?",
+      "editBody": "Mengedit pesan sebelumnya akan menghentikan balasan yang sedang berjalan. Konten yang sudah dihasilkan tetap berada di cabang asal.",
+      "switchTitle": "Putuskan giliran ini?",
+      "switchBody": "Mengalihkan cabang akan menghentikan balasan yang sedang berjalan. Konten yang sudah dihasilkan tetap berada di cabang asal.",
+      "forkTitle": "Putuskan giliran ini?",
+      "forkBody": "Mencabangkan ke sesi baru akan menghentikan balasan yang sedang berjalan.",
+      "confirm": "Putuskan dan lanjutkan",
+      "cancel": "Batal"
+    },
+    "progressGroup": {
+      "fallbackTitle": "Bekerja",
+      "genericDone": "Menyelesaikan {{count}} langkah",
+      "genericRunning": "Sedang mengerjakan",
+      "thinking": "Berpikir",
+      "thinkingActivity": "Berpikir: {{text}}",
+      "thinkingLabel": "Berpikir"
+    },
+    "toolCallGroup": {
+      "completed": "{{count}} panggilan alat selesai",
+      "inProgress": "{{completed}}/{{total}} panggilan alat",
+      "thinking": "{{count}} langkah berpikir"
+    }
+  },
+  "modelSelector": {
+    "defaultBadge": "Default",
+    "selectModel": "Pilih model",
+    "visionBadge": "visi"
+  },
+  "newSession": {
+    "greetingDefault": "Bagaimana kabar Anda hari ini?",
+    "greetingTitle": "Hai, {{nickname}}",
+    "subtitle": "Saya dapat membantu Anda menyelesaikan pekerjaan. Ada yang bisa saya bantu?",
+    "defaultContext": "Percakapan umum",
+    "teamNewWorkspaceContext": "Ruang kerja baru",
+    "projectContext": "Proyek · {{name}}",
+    "mascot": {
+      "menuTrigger": "Pengaturan maskot",
+      "hideMascot": "Sembunyikan maskot",
+      "showMascot": "Tampilkan maskot",
+      "playOnce": "Putar animasi maskot saat ini sekali"
+    },
+    "torch": {
+      "light": "Nyalakan obor",
+      "extinguish": "Padamkan obor"
+    },
+    "mario": {
+      "hit": "Munculkan jamur",
+      "reset": "Kembalikan jamur"
+    },
+    "hand": {
+      "rest": "Istirahatkan tangan",
+      "tap": "Buat tangan mengetuk lagi"
+    },
+    "projectSelector": {
+      "placeholder": "Pilih proyek",
+      "clear": "Tanpa proyek",
+      "searchPlaceholder": "Cari proyek",
+      "empty": "Tidak ada proyek yang cocok",
+      "newProject": "Proyek baru",
+      "openProject": "Buka proyek lokal",
+      "pendingHint": "menunggu",
+      "creating": "Membuat…",
+      "preparing": "Menyiapkan proyek",
+      "triggerTitle": "Pilih proyek untuk sesi ini",
+      "createFailedTitle": "Gagal membuat proyek"
+    },
+    "agentSelector": {
+      "clear": "Tanpa agen",
+      "searchPlaceholder": "Cari tim dan agen",
+      "empty": "Tidak ada tim atau agen yang cocok",
+      "loading": "Memuat…",
+      "error": "Gagal memuat daftar",
+      "invalid": "Tim ini tidak lagi tersedia. Pilih tim lain.",
+      "agentInvalid": "Agen ini tidak lagi tersedia. Pilih agen lain.",
+      "retry": "Coba lagi",
+      "memberCount": "{{count}} anggota",
+      "groupTeams": "Tim",
+      "groupAgents": "Agen",
+      "pick": "Ganti agen",
+      "pickTitle": "Pilih tim atau satu agen untuk tugas ini",
+      "switchTitle": "Ganti tim atau agen untuk sesi ini"
+    }
+  },
+  "questionPanel": {
+    "keyboardHint": "↑↓ Navigasi · Spasi pilih · ←→ Ganti · Enter lanjut",
+    "multiSelectHint": "Pilihan ganda",
+    "otherOption": "Lainnya (masukan kustom)",
+    "otherPlaceholder": "Ketik jawaban Anda…",
+    "nextButton": "Berikutnya",
+    "questionTabLabel": "Pertanyaan {{number}}",
+    "submitButton": "Kirim",
+    "title": "Metoai membutuhkan pilihan Anda"
+  },
+  "sandboxGrantsBadge": {
+    "revoke": "Cabut",
+    "revokeAll": "Cabut semua",
+    "title": "Izin sandbox untuk sesi ini",
+    "tooltip": "Izin sandbox untuk sesi ini"
+  },
+  "sendButton": {
+    "sendMessage": "Kirim pesan",
+    "stopGenerating": "Hentikan pembuatan"
+  },
+  "session": {
+    "emptyMessageLabel": "(gambar)"
+  },
+  "sessionViewer": {
+    "badge": {
+      "liveUpdate": "Pembaruan langsung",
+      "readOnly": "Tampilan hanya baca"
+    },
+    "emptyState": {
+      "noPath": "Jalur sesi tidak ditentukan"
+    },
+    "error": {
+      "loadPrefix": "Gagal memuat: "
+    },
+    "export": {
+      "defaultTitle": "Sesi Metoai"
+    },
+    "exportButton": {
+      "title": "Ekspor sesi lengkap sebagai HTML"
+    },
+    "header": {
+      "subtitle": "Sesi ini ditulis oleh klien lain; aplikasi desktop hanya menampilkannya"
+    },
+    "panelToggleButton": {
+      "titleClose": "Tutup panel aktivitas",
+      "titleOpen": "Buka panel aktivitas"
+    }
+  },
+  "skillPromptArea": {
+    "missingBadge": "Belum terpasang",
+    "placeholder": "Ketik prompt… gunakan / untuk keterampilan/skenario",
+    "removeSkill": "Klik untuk menghapus",
+    "removeSkillMissing": "Keterampilan belum terpasang, klik untuk menghapus",
+    "skillButtonLabel": "Keterampilan / Skenario",
+    "skillButtonTitle": "Keterampilan / Skenario"
+  },
+  "slashPanel": {
+    "compaction": {
+      "label": "Padatkan konteks",
+      "description": "Padatkan konteks obrolan ini ({{percent}}% terpakai)",
+      "descriptionUnknown": "Padatkan konteks obrolan ini",
+      "queued": "Masuk antrean dan akan berjalan setelah respons saat ini",
+      "compacting": "Memadatkan konteks",
+      "errorTitle": "Tidak dapat memadatkan konteks",
+      "errorMessage": "Tidak dapat mengantrekan pemadatan konteks. Coba lagi."
+    },
+    "emptyNoMatch": "Tidak ada hasil",
+    "emptyNoMatchHint": "Coba kata kunci lain, atau langsung ketik permintaan Anda.",
+    "emptyNoSkills": "Tidak ada keterampilan atau skenario yang tersedia",
+    "emptyNoSkillsHint": "Pasang keterampilan atau skenario dari pasar kemampuan untuk memanggilnya di sini.",
+    "header": "Pilih skenario atau keterampilan",
+    "resultCount": "{{count}} hasil",
+    "scenesSection": "Skenario",
+    "skillsSection": "Keterampilan",
+    "sourceLabels": {
+      "agentsProject": "Umum · Proyek",
+      "agentsUser": "Umum",
+      "path": "Kustom",
+      "project": "Proyek",
+      "scene": "Skenario",
+      "user": "Pengguna",
+      "builtin": "Bawaan",
+      "plugin": "Plugin",
+      "market": "Pasar"
+    },
+    "connectorsSection": "Terhubung"
+  },
+  "suggestionBubbles": {
+    "sendTooltip": "Klik untuk mengirim saran ini"
+  },
+  "textPreview": {
+    "characterUnit": "karakter",
+    "emptyLabel": "Kosong",
+    "lineUnit": "baris"
+  },
+  "thinkingBlock": {
+    "lineCount": "{{count}} baris",
+    "title": "Berpikir"
+  },
+  "toolCall": {
+    "error": "Kesalahan",
+    "meta": "meta",
+    "metaLabel": "Metadata lokal, hanya untuk UI, tidak dikirim ke model",
+    "audioPreview": "Hasil audio MCP"
+  },
+  "toolFormat": {
+    "unknown": "Tidak diketahui"
+  },
+  "toolLabel": {
+    "alias": {
+      "ask_user_question": "Tanya",
+      "bash": "Jalankan perintah",
+      "current_time": "Waktu saat ini",
+      "dir_tree": "Pohon direktori",
+      "dispatch_workflows": "Kirim alur kerja",
+      "doc_to_pdf": "Ke PDF",
+      "easy_use_vettaApp": "Gunakan aplikasi",
+      "edit": "Edit",
+      "extract_text_from_img": "Ekstrak teks (gambar)",
+      "extract_text_from_pdf": "Ekstrak teks (PDF)",
+      "find": "Cari berkas",
+      "followup_task": "Tugas lanjutan",
+      "glob": "Cocokkan berkas",
+      "grep": "Cari",
+      "html_to_pdf": "Ke PDF",
+      "im_send_attachment": "Kirim lampiran",
+      "interrupt_agent": "Putuskan agen",
+      "invoke_skill": "Jalankan keterampilan",
+      "list_agents": "Daftar agen",
+      "ls": "Daftar",
+      "memory": "Memori",
+      "read": "Baca",
+      "render_pdf_page": "Render halaman PDF",
+      "send_message": "Kirim pesan",
+      "shell": "Jalankan perintah",
+      "spawn_agent": "Jalankan agen",
+      "task_output": "Keluaran tugas",
+      "task_stop": "Hentikan tugas",
+      "todo": "Todo",
+      "tool_search": "Cari alat",
+      "tree": "Pohon direktori",
+      "wait_agent": "Tunggu agen",
+      "write": "Tulis"
+    },
+    "knowledgeBase": {
+      "filterByTags": "Pengetahuan · Filter berdasarkan tag",
+      "listTags": "Pengetahuan · Daftar tag",
+      "writePage": "Pengetahuan · Tulis halaman"
+    }
+  },
+  "mcpApp": {
+    "externalAccess": "MCP App ini menyatakan akses ke {{count}} domain eksternal",
+    "permissionsDenied": "MCP App ini meminta izin perangkat; Metoai belum memberikannya",
+    "title": "MCP App"
+  },
+  "usageBar": {
+    "durationLabel": "Memerlukan waktu {{duration}}",
+    "speedLabel": "Kecepatan {{speed}} tok/s"
+  },
+  "writeContent": {
+    "label": "Tulis konten"
+  },
+  "writePage": {
+    "actionCreate": "Buat halaman",
+    "actionUpdate": "Perbarui halaman",
+    "originalLocation": "Asli: {{path}}"
+  }
+}

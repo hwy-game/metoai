@@ -1,0 +1,86 @@
+{
+  "tabs": {
+    "scene": "Scènes"
+  },
+  "typeNoun": {
+    "scene": "scènes"
+  },
+  "subtitle": "Installez et activez les capacités dont vous avez besoin pour donner plus d'expertise à Metoai",
+  "search": {
+    "placeholder": "Rechercher {{noun}}..."
+  },
+  "actions": {
+    "install": "Installer",
+    "use": "Utiliser",
+    "update": "Mettre à jour",
+    "uninstall": "Désinstaller"
+  },
+  "loading": "Chargement...",
+  "card": {
+    "noDescription": "Aucune description",
+    "custom": "Personnalisé",
+    "general": "Général",
+    "readonly": "Lecture seule",
+    "updatable": "Mise à jour disponible"
+  },
+  "scene": {
+    "generalReadonly": "Général · Lecture seule",
+    "localReadonly": "Local · Lecture seule",
+    "running": "En cours",
+    "installed": "Installé"
+  },
+  "group": {
+    "agentSkill": "Compétence d'agent générale",
+    "custom": "Personnalisé",
+    "uncategorized": "Non classé",
+    "enabledCount": "{{n}} activés"
+  },
+  "empty": {
+    "noMatch": "Aucun résultat correspondant",
+    "noMatchHint": "Essayez un autre mot-clé",
+    "none": "Pas de {{noun}} disponibles",
+    "noneHint": "Revenez plus tard"
+  },
+  "error": {
+    "loadFailed": "Échec du chargement",
+    "partialFallback": "{{error}}. Affichage des {{noun}} déjà en place uniquement"
+  },
+  "import": {
+    "failed": "Échec de l'importation : {{error}}",
+    "unknownError": "Erreur inconnue"
+  },
+  "tour": {
+    "capabilities": {
+      "banner": {
+        "title": "Étendre avec des capacités",
+        "description": "Cette page répertorie les compétences et les connecteurs. Choisissez ce que vous voulez accomplir et ajoutez-le en un clic pour l'utiliser dans le chat."
+      },
+      "searchAdd": {
+        "title": "Rechercher et ajouter",
+        "description": "Recherchez pour trouver rapidement une capacité, ou utilisez Ajouter pour importer une compétence ou une extension locale, ou configurer un connecteur MCP."
+      },
+      "scope": {
+        "title": "Découvrir / Les miens",
+        "description": "Découvrir parcourt les capacités que vous pouvez ajouter. Les miens gère ce que vous avez déjà installé : activer, configurer ou supprimer."
+      },
+      "list": {
+        "title": "Cartes de capacités",
+        "description": "Chaque carte correspond à une capacité. Consultez les détails, ajoutez-la ou activez-la ; vous serez invité à saisir des identifiants si nécessaire."
+      }
+    }
+  },
+  "builtin": {
+    "create-skill": {
+      "name": "Créer une compétence",
+      "description": "Créez ou mettez à jour une compétence d'agent conforme à la spécification Metoai : placez les fichiers, enregistrez-la dans skills-manifest.json ou mettez à jour la configuration de l'extension."
+    },
+    "publish-ability": {
+      "name": "Publier une capacité",
+      "description": "Soumettez une compétence, une scène, un serveur MCP, une extension ou un lot de capacités à la place de marché Metoai, en couvrant les champs obligatoires, la localisation et le processus de validation."
+    },
+    "vetta-blog": {
+      "name": "Blog Metoai",
+      "description": "Recherchez, testez, rédigez et relisez des articles de blog produits et techniques Metoai étayés par des preuves."
+    }
+  }
+}

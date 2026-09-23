@@ -1,0 +1,222 @@
+{
+  "sidebar": {
+    "nav": {
+      "newSession": "Phiên mới",
+      "automation": "Tự động hóa",
+      "batchTasks": "Tác vụ hàng loạt",
+      "knowledge": "Kiến thức",
+      "skills": "Kỹ năng",
+      "agents": "Tác nhân",
+      "scenes": "Bối cảnh",
+      "plugins": "Tiện ích",
+      "modelSettings": "Cài đặt mô hình",
+      "agentSettings": "Cài đặt tác nhân",
+      "appearance": "Giao diện",
+      "extensions": "Tùy chọn khác",
+      "more": "Thêm",
+      "betaBadge": "BETA",
+      "pin": "Ghim",
+      "unpin": "Bỏ ghim",
+      "pinFull": "Tối đa 5 mục được ghim (bao gồm Phiên mới)",
+      "reset": "Đặt lại thứ tự",
+      "customize": "Tùy chỉnh thanh điều hướng"
+    },
+    "clawConnected": "Đã kết nối Claw",
+    "hide": "Ẩn thanh bên",
+    "empty": {
+      "title": "Chưa có dự án nào",
+      "description": "Nhấp + ở trên để tạo dự án"
+    },
+    "projects": {
+      "noSessions": "Không có phiên",
+      "collapseSessions": "Thu gọn phiên",
+      "expandMore": "Hiện thêm ({{count}})",
+      "scrollToTop": "Cuộn lên đầu",
+      "scrollToBottom": "Cuộn xuống cuối"
+    },
+    "defaultConversation": {
+      "noConversations": "Không có cuộc trò chuyện",
+      "emptyTitle": "Chưa có cuộc trò chuyện nào",
+      "emptyDescription": "Bắt đầu cuộc trò chuyện mới và nó sẽ hiện ở đây",
+      "emptyAction": "Bắt đầu trò chuyện",
+      "emptyClawTitle": "Chưa có bản ghi Claw nào",
+      "emptyTagTitle": "Không có cuộc trò chuyện nào với thẻ này",
+      "emptyTagDescription": "Gắn thẻ cho cuộc trò chuyện từ menu ngữ cảnh của nó",
+      "emptyClawDescription": "Trò chuyện với Claw qua WeChat, Feishu và các kênh khác để xem bản ghi ở đây"
+    },
+    "teams": {
+      "title": "Nhóm",
+      "new": "Nhóm mới",
+      "empty": "Chưa có nhóm nào; nhấp để tạo"
+    },
+    "session": {
+      "forkedTooltip": "Được tách ra từ phiên khác",
+      "untitledTeam": "Cuộc trò chuyện nhóm mới"
+    },
+    "dialogs": {
+      "deleteSessionTitle": "Xóa phiên",
+      "deleteSessionMessage": "Xóa vĩnh viễn phiên \"{{name}}\"? Không thể hoàn tác.",
+      "deleteBatchTitle": "Xóa dự án hàng loạt",
+      "deleteBatchMessage": "Xóa dự án hàng loạt \"{{name}}\"? Không thể hoàn tác.",
+      "deleteConfirm": "Xóa",
+      "removeTitle": "Xóa khỏi danh sách",
+      "removeMessage": "Xóa \"{{name}}\" khỏi danh sách dự án? Thao tác này không xóa tệp trên đĩa.",
+      "removeConfirm": "Xóa",
+      "deleteProjectTitle": "Xóa dự án",
+      "deleteProjectMessage": "Xóa vĩnh viễn \"{{name}}\"? Thao tác này sẽ xóa thư mục dự án trên đĩa và không thể hoàn tác.",
+      "clearConversationTitle": "Xóa các phiên",
+      "clearConversationMessage": "Thao tác này sẽ xóa {{count}} phiên trò chuyện trong Chat nhưng vẫn giữ các tệp kết quả. Phiên Claw không bị ảnh hưởng. Không thể hoàn tác.",
+      "clearClawTitle": "Xóa bản ghi Claw",
+      "clearClawMessage": "Thao tác này sẽ xóa {{count}} bản ghi Claw nhưng vẫn giữ các tệp kết quả. Không thể hoàn tác.",
+      "clearConfirm": "Xóa"
+    },
+    "time": {
+      "justNow": "vừa xong",
+      "minutes": "{{n}} phút",
+      "hours": "{{n}} giờ",
+      "days": "{{n}} ngày",
+      "weeks": "{{n}} tuần",
+      "months": "{{n}} tháng",
+      "years": "{{n}} năm"
+    }
+  },
+  "filterTabs": {
+    "all": "Tất cả",
+    "normal": "Thường",
+    "batch": "Hàng loạt",
+    "conversation": "Trò chuyện",
+    "team": "Nhóm",
+    "claw": "Claw"
+  },
+  "actions": {
+    "newProject": "Dự án mới",
+    "openProject": "Mở dự án",
+    "importProject": "Nhập dự án",
+    "more": "Thêm"
+  },
+  "contextMenu": {
+    "openInFinder": "Hiện trong Finder",
+    "openInExplorer": "Hiện trong Explorer",
+    "clearConversation": "Xóa các phiên",
+    "clearConversationDisabled": "Dừng phiên đang chạy trước",
+    "clearClaw": "Xóa bản ghi",
+    "clearClawDisabled": "Dừng phiên Claw đang chạy trước",
+    "clawSettings": "Cài đặt Claw",
+    "archiveProject": "Lưu trữ dự án",
+    "removeFromList": "Xóa khỏi danh sách",
+    "deleteProject": "Xóa dự án",
+    "rename": "Đổi tên",
+    "pin": "Ghim cuộc trò chuyện",
+    "unpin": "Bỏ ghim",
+    "openArtifactDir": "Mở thư mục kết quả",
+    "delete": "Xóa",
+    "tags": {
+      "label": "Thẻ",
+      "new": "Thẻ mới…",
+      "manage": "Quản lý thẻ…"
+    }
+  },
+  "tagEditor": {
+    "createTitle": "Thẻ mới",
+    "manageTitle": "Quản lý thẻ",
+    "namePlaceholder": "Tên thẻ",
+    "colorLabel": "Màu thẻ",
+    "customColor": "Màu tùy chỉnh",
+    "emptyNameError": "Nhập tên thẻ",
+    "cancel": "Hủy",
+    "create": "Tạo",
+    "done": "Xong",
+    "newTag": "Thẻ mới",
+    "remove": "Xóa thẻ",
+    "empty": "Chưa có thẻ nào",
+    "removeHint": "Xóa thẻ khỏi {{count}} cuộc trò chuyện"
+  },
+  "importDialog": {
+    "failedTitle": "Nhập thất bại",
+    "failedConfirm": "OK",
+    "partialTitle": "Nhập xong (một số đường dẫn nguồn bị thiếu)",
+    "partialMessage": "Dự án \"{{name}}\" đã được nhập, nhưng {{count}} đường dẫn nguồn hàng loạt không tồn tại trên máy này:\n\n{{list}}\n\nSiêu dữ liệu của các tác vụ này được giữ lại; bạn có thể liên kết lại hoặc xóa thủ công sau khi mở dự án.",
+    "partialMore": "\n…và {{count}} mục nữa",
+    "doneTitle": "Nhập xong",
+    "doneMessage": "Dự án \"{{name}}\" đã được nhập vào không gian làm việc.",
+    "viewProject": "Xem dự án",
+    "gotIt": "Đã hiểu"
+  },
+  "detail": {
+    "typeBatch": "Tác vụ hàng loạt",
+    "showInFinder": "Hiện trong Finder",
+    "showInExplorer": "Hiện trong Explorer",
+    "finder": "Finder",
+    "explorer": "Explorer",
+    "export": "Xuất",
+    "exportTitle": "Xuất dự án (kèm lịch sử phiên)",
+    "newSession": "Phiên mới",
+    "closeActivityPanel": "Đóng bảng hoạt động",
+    "openActivityPanel": "Mở bảng hoạt động",
+    "sessionCount": "{{count}} phiên",
+    "taskCount": "{{count}} tác vụ",
+    "persona": "Nhân cách dự án",
+    "unsavedChanges": "Thay đổi chưa lưu",
+    "saved": "Đã lưu",
+    "saveFailed": "Lưu thất bại",
+    "save": "Lưu",
+    "editorPlaceholder": "Viết hướng dẫn dự án AGENTS.md tại đây...",
+    "agentsMdHint": "AGENTS.md định nghĩa hướng dẫn AI ở cấp dự án; mọi phiên đều tự động tải tệp này.",
+    "quickSave": "Lưu nhanh"
+  },
+  "exportDialog": {
+    "title": "Xuất dự án",
+    "message": "Xuất dự án \"{{name}}\"?\n\nThao tác này sẽ đóng gói mọi tệp trong thư mục dự án hiện tại, bao gồm lịch sử .vetta/sessions và thư mục làm việc cùng trạng thái của tác vụ hàng loạt. Các tệp khóa (*.lock) bị loại trừ.",
+    "confirm": "Xuất",
+    "failedTitle": "Xuất thất bại",
+    "failedConfirm": "OK"
+  },
+  "newProjectDialog": {
+    "title": "Dự án mới",
+    "description": "Một thư mục dự án mới sẽ được tạo trong thư mục không gian làm việc.",
+    "placeholder": "Nhập tên dự án",
+    "cancel": "Hủy",
+    "create": "Tạo",
+    "emptyError": "Vui lòng nhập tên dự án",
+    "invalidError": "Tên dự án không được chứa ký tự đặc biệt",
+    "duplicateError": "Đã có dự án trùng tên này"
+  },
+  "update": {
+    "newVersion": "Đã có phiên bản mới {{version}} — nhấp để tải trong nền",
+    "downloading": "Đang tải {{version}} ({{pct}}%)",
+    "ready": "Bản cập nhật {{version}} đã sẵn sàng — nhấp để khởi động lại",
+    "checkFailed": "Kiểm tra cập nhật thất bại, nhấp để thử lại",
+    "downloadProgress": "Tiến độ tải",
+    "bannerReady": "Phiên bản {{version}} đã sẵn sàng",
+    "bannerRestart": "Khởi động lại",
+    "bannerDismiss": "Bỏ qua"
+  },
+  "tabPicker": {
+    "moreTabs": "Thêm tab",
+    "hiddenPanels": "Bảng bị ẩn",
+    "availablePlugins": "Thêm bảng tiện ích",
+    "hideTab": "Ẩn tab",
+    "menu": "Menu tab"
+  },
+  "tour": {
+    "sidebar": {
+      "projects": {
+        "title": "Dự án",
+        "description": "Quản lý các dự án công việc của bạn ở đây. Mở rộng một dự án để xem các phiên, hoặc dùng các nút ở trên để tạo hay nhập dự án."
+      },
+      "conversations": {
+        "title": "Cuộc trò chuyện",
+        "description": "Danh sách cuộc trò chuyện mặc định của bạn nằm ở đây. Các phiên gần đây được sắp theo thời gian — nhấp một phiên để tiếp tục."
+      },
+      "skills": {
+        "title": "Kỹ năng",
+        "description": "Mở trang Kỹ năng để cài các kỹ năng và trình kết nối giúp Metoai có thêm chuyên môn."
+      }
+    }
+  },
+  "workspaceView": {
+    "loading": "Đang tải tiện ích…",
+    "missing": "Chế độ xem không gian làm việc này không còn tồn tại. Đang quay về trang chính.",
+    "failed": "Không hiển thị được chế độ xem không gian làm việc này. Kiểm tra DevTools để biết chi tiết."
+  }
+}

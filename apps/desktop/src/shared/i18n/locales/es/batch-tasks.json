@@ -1,0 +1,139 @@
+{
+  "page": {
+    "title": "Tareas por lotes",
+    "subtitle": "Configúralo una vez y deja que la IA procese varias carpetas automáticamente",
+    "newProject": "Nuevo proyecto"
+  },
+  "stats": {
+    "total": "Total",
+    "running": "En ejecución",
+    "completed": "Completadas",
+    "failed": "Fallidas"
+  },
+  "empty": {
+    "title": "Aún no hay tareas por lotes",
+    "desc": "Crea una tarea por lotes y deja que la IA procese varias carpetas automáticamente",
+    "action": "Crea tu primer proyecto"
+  },
+  "time": {
+    "justNow": "ahora mismo",
+    "minutes": "{{n}} min",
+    "hours": "{{n}} h",
+    "days": "{{n}} d",
+    "weeks": "{{n}} sem"
+  },
+  "group": {
+    "badge": "Lote"
+  },
+  "dialog": {
+    "editTitle": "Editar proyecto",
+    "newTitle": "Nuevo proyecto por lotes",
+    "namePlaceholderEdit": "Nombre del proyecto",
+    "namePlaceholderNew": "Nuevo proyecto por lotes",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "create": "Crear"
+  },
+  "form": {
+    "namePlaceholder": "Nombre del proyecto",
+    "promptPlaceholder": "Escribe un prompt... escribe / para invocar habilidades o escenas",
+    "model": "Modelo",
+    "modelEmpty": "No hay modelos disponibles",
+    "modelSelect": "Seleccionar modelo",
+    "defaultTag": "Predeterminado",
+    "concurrency": "Concurrencia",
+    "timeout": "Tiempo de espera (minutos)",
+    "timeoutHint": "Tiempo de espera máximo para una sola ejecución de subtarea. Reanudar tras una pausa reinicia el temporizador.",
+    "sandbox": "Estado del entorno aislado",
+    "sandboxInherit": "Seguir el valor global predeterminado ({{mode}})",
+    "fullAccess": "Acceso completo",
+    "useSandbox": "Usar entorno aislado",
+    "sandboxUnavailable": "El entorno aislado de {{platform}} no está disponible: {{reason}}",
+    "notifyTitle": "Habilitar notificaciones",
+    "notifyDesc": "Envía una notificación al webhook configurado cada vez que termine una subtarea y envía un resumen cuando termine todo el proyecto (gestiona los webhooks en Ajustes → Notificaciones).",
+    "artifact": "Comprobación de artefactos",
+    "optional": "Opcional",
+    "artifactPlaceholder": "Un nombre de archivo o comodín por línea; deja vacío para omitir la comprobación",
+    "artifactHint": "Todos los patrones deben coincidir en el nivel superior del directorio de la subtarea para contar como éxito. Se admiten comodines: * coincide con cualquier carácter y ? con un solo carácter.",
+    "folderLabel": "Lista de carpetas",
+    "folderEmpty": "Sin carpetas",
+    "folderModePicker": "Elegir",
+    "folderModeText": "Texto",
+    "selectFolder": "Seleccionar carpetas",
+    "folderTextHint": "Cuando la selección de varias carpetas no sea estable en Linux, pega las rutas directamente, una carpeta por línea."
+  },
+  "status": {
+    "waiting": "En espera",
+    "notRun": "Sin ejecutar",
+    "running": "En ejecución",
+    "completed": "Completado",
+    "failed": "Fallido",
+    "paused": "En pausa"
+  },
+  "list": {
+    "matchCount": "{{filtered}}/{{total}} coincidencias",
+    "taskCount": "{{n}} tareas",
+    "completedOf": "{{completed}}/{{total}} completadas",
+    "runningSuffix": " · {{n}} en ejecución",
+    "pausedSuffix": " · {{n}} en pausa",
+    "failedReset": "{{n}} fallidas · reiniciar",
+    "resetFailedHint": "Haz clic para reiniciar {{n}} tareas fallidas",
+    "searchPlaceholder": "Buscar títulos de tareas…",
+    "clear": "Limpiar",
+    "noMatch": "No hay tareas que coincidan con \"{{query}}\"",
+    "noTasks": "No hay tareas",
+    "expandMore": "Mostrar más ({{n}})",
+    "collapse": "Contraer"
+  },
+  "actions": {
+    "stop": "Detener",
+    "start": "Iniciar",
+    "reset": "Reiniciar",
+    "editProject": "Editar proyecto",
+    "deleteProject": "Eliminar proyecto",
+    "goToSession": "Ir a la sesión",
+    "cancelWait": "Cancelar espera",
+    "run": "Ejecutar",
+    "resume": "Reanudar",
+    "retry": "Reintentar",
+    "rerun": "Volver a ejecutar",
+    "delete": "Eliminar",
+    "allDoneOrFailed": "Todas las tareas están completadas o fallidas. Haz clic en la insignia \"{{n}} fallidas · reiniciar\" para reiniciar y reintentar",
+    "allDone": "Todas las tareas completadas"
+  },
+  "confirm": {
+    "cannotDeleteTitle": "No se puede eliminar el proyecto",
+    "cannotDeleteMsg": "Detenlo primero.",
+    "ok": "Aceptar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "deleteProjectTitle": "¿Eliminar el proyecto \"{{name}}\"?",
+    "deleteProjectMsg": "Esta acción no se puede deshacer. Confirma para continuar.",
+    "startTitle": "¿Iniciar la ejecución?",
+    "startMsg": "Se ejecutarán {{parts}} tareas en orden según la concurrencia (los demás estados no se modifican). ¿Continuar?",
+    "start": "Iniciar",
+    "partNeverExecuted": "{{n}} \"sin ejecutar\"",
+    "partPaused": "{{n}} \"en pausa\"",
+    "partJoin": " y ",
+    "stopTitle": "¿Detener?",
+    "stopMsg": "Se abortarán todas las tareas en ejecución ({{running}}) y se borrarán la sesión, los artefactos y el estado de todas las tareas excepto las \"completadas\" ({{target}}), reiniciándolas a \"sin ejecutar\".\n\nSe conservan: las sesiones, los artefactos y el estado de las tareas completadas.\nLas tareas completadas se conservan. Esta acción no se puede deshacer.",
+    "stop": "Detener",
+    "resetFailedTitle": "¿Reiniciar las tareas fallidas?",
+    "resetFailedQueueActive": "Se borrarán la sesión, los artefactos y el estado de {{n}} tareas fallidas y se añadirán a la cola para continuar. Esta acción no se puede deshacer. ¿Continuar?",
+    "resetFailedIdle": "Se borrarán la sesión, los artefactos y el estado de {{n}} tareas fallidas y se reiniciarán a \"sin ejecutar\". Después puedes hacer clic en \"Iniciar\" para continuar. Esta acción no se puede deshacer. ¿Continuar?",
+    "reset": "Reiniciar",
+    "resetTitle": "¿Reiniciar?",
+    "resetMsg": "Se eliminarán las sesiones y los archivos de todas las tareas (incluidas las completadas) y se volverán a ejecutar las {{n}} tareas. Esta acción no se puede deshacer. ¿Continuar?",
+    "rerunTitle": "¿Volver a ejecutar la tarea \"{{name}}\"?",
+    "retryTitle": "¿Reintentar la tarea \"{{name}}\"?",
+    "rerunMsg": "Se eliminarán la sesión y los artefactos existentes de esta tarea y se volverá a ejecutar. Esta acción no se puede deshacer. ¿Continuar?",
+    "retryMsg": "Se eliminarán la sesión y los archivos de esta tarea y se volverá a ejecutar. Esta acción no se puede deshacer. ¿Continuar?",
+    "rerun": "Volver a ejecutar",
+    "retry": "Reintentar",
+    "deleteTaskTitle": "¿Eliminar la tarea?",
+    "deleteTaskMsg": "Esta acción no se puede deshacer. Confirma para continuar."
+  },
+  "error": {
+    "stopFirst": "Detenlo primero"
+  }
+}

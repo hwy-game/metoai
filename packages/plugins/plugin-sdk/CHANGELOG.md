@@ -12,6 +12,7 @@ All notable changes to `@vetta-org/plugin-sdk` are documented in this file.
 - 官方插件新增 `ctx.official.agent.getImageGeneration()` / `setImageGeneration()`，用于读取或更新宿主 Agent 的文生图、图生图 Provider 偏好；普通插件仍会被官方能力门控拒绝。
 - `PluginImageRef.providerId` 可记录实际生成图片所使用的 Provider，便于历史记录展示来源和后续编辑追踪。
 - `PluginServiceRequest.timeoutMs` 的宿主上限统一为 5 分钟，覆盖图片、视频等长时间运行的受管服务请求；默认值仍为 30 秒。
+- `ctx.official.appearance.setLanguage` 的入参类型由 `"zh" | "en"` 放宽为全部 8 个界面语言码（`zh` / `en` / `es` / `fr` / `id` / `vi` / `ru` / `ja`），并新增 `PluginOfficialAppLanguage` 供插件引用。Desktop 的界面语言已扩到 8 种，旧的窄类型会逼着插件把 zh/en 写死。**对调用方是向后兼容的放宽**，旧代码照常编译；但实现方必须处理全部 8 个码，收到不支持的码要明确拒绝，不能静默落回 zh/en。
 
 ## [0.3.5] — 2026-09-16
 

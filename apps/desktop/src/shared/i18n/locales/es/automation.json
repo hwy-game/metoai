@@ -1,0 +1,125 @@
+{
+  "page": {
+    "title": "Automatización",
+    "subtitle": "Deja que la IA ejecute tareas según un horario y librérate del trabajo manual",
+    "newTask": "Nueva tarea",
+    "newTaskTitle": "Nueva tarea programada"
+  },
+  "recommend": {
+    "title": "Recomendado",
+    "use": "Usar plantilla",
+    "items": {
+      "morningBrief": {
+        "name": "Resumen matutino",
+        "desc": "Resumen matutino de días laborables con cambios del repositorio, trabajo sin confirmar y puntos de atención",
+        "schedule": "Días laborables 09:00",
+        "prompt": "Actúa como mi asistente de resumen matutino en el espacio de trabajo actual:\n1. Revisa el estado de git y los commits recientes si git está disponible\n2. Enumera los cambios sin confirmar, las ramas sin subir o los posibles bloqueos\n3. Sugiere 3 puntos de atención claros para hoy\nResponde en español con una estructura concisa. No modifiques ningún archivo."
+      },
+      "dailySummary": {
+        "name": "Resumen diario",
+        "desc": "Revisión vespertina de los cambios de hoy convertida en un breve registro de trabajo",
+        "schedule": "Diario 18:00",
+        "prompt": "Genera el resumen del trabajo de hoy para este espacio de trabajo:\n1. Resume lo que se hizo a partir del git log o de los cambios en los archivos\n2. Señala los elementos sin terminar o de seguimiento\n3. Propón hasta 3 próximos pasos accionables para mañana\nUsa viñetas concisas. No modifiques el código."
+      },
+      "weeklyReview": {
+        "name": "Revisión semanal",
+        "desc": "Informe semanal de los commits de esta semana los viernes por la tarde",
+        "schedule": "Viernes 17:00",
+        "prompt": "Genera una revisión semanal del repositorio actual:\n1. Resume los commits importantes y el avance de funciones de esta semana\n2. Recoge riesgos, deuda técnica o problemas recurrentes\n3. Recomienda prioridades para la próxima semana (hasta 5 elementos)\nEscríbelo listo para pegar en un informe semanal. No modifiques los archivos del repositorio."
+      }
+    }
+  },
+  "dialog": {
+    "namePlaceholderEdit": "Nombre de la tarea",
+    "namePlaceholderNew": "Nueva tarea",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "create": "Crear"
+  },
+  "form": {
+    "namePlaceholder": "Nombre de la tarea",
+    "promptPlaceholder": "Escribe un prompt... escribe / para invocar habilidades o escenas",
+    "selectWorkDir": "Seleccionar directorio de trabajo",
+    "conversation": "Conversación",
+    "modelEmpty": "Sin modelos",
+    "modelSelect": "Seleccionar modelo",
+    "defaultTag": "Predeterminado",
+    "enabled": "Habilitado",
+    "disabled": "Deshabilitado",
+    "fullAccess": "Acceso completo",
+    "useSandbox": "Usar entorno aislado",
+    "inherit": "Seguir el valor predeterminado ({{mode}})",
+    "sandbox": "entorno aislado",
+    "sandboxUnavailable": "El entorno aislado de {{platform}} no está disponible: {{reason}}",
+    "every": "Cada",
+    "unitHours": "horas",
+    "unitDays": "días"
+  },
+  "scheduleMode": {
+    "once": "Una vez",
+    "daily": "Diario",
+    "interval": "Intervalo"
+  },
+  "schedule": {
+    "once": "{{month}}/{{day}}/{{year}} {{time}}, una vez",
+    "daily": "Diario a las {{time}}",
+    "weekly": "Semanal los {{days}} a las {{time}}",
+    "intervalOne": "Cada hora",
+    "interval": "Cada {{hours}} horas",
+    "weekdayJoin": ", ",
+    "weekdayNames": [
+      "Dom",
+      "Lun",
+      "Mar",
+      "Mié",
+      "Jue",
+      "Vie",
+      "Sáb"
+    ]
+  },
+  "list": {
+    "running": "En ejecución",
+    "pending": "Pendiente",
+    "disabled": "Deshabilitada",
+    "once": "Única",
+    "runNow": "Ejecutar ahora",
+    "run": "Ejecutar",
+    "sectionTitle": "Tareas de automatización",
+    "pause": "Pausar",
+    "enable": "Habilitar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "success": "Correcto",
+    "failed": "Fallido",
+    "neverRun": "Nunca se ejecutó",
+    "justNow": "ahora mismo",
+    "minutesAgo": "hace {{n}} min",
+    "hoursAgo": "hace {{n}} h",
+    "daysAgo": "hace {{n}} d",
+    "fullAccess": "Acceso completo",
+    "useSandbox": "Usar entorno aislado",
+    "inheritDefault": "Seguir el valor predeterminado"
+  },
+  "confirm": {
+    "deleteTitle": "¿Eliminar la tarea \"{{name}}\"?",
+    "deleteMsg": "Esta acción no se puede deshacer. Confirma para continuar.",
+    "delete": "Eliminar",
+    "cancel": "Cancelar"
+  },
+  "drawer": {
+    "close": "Cerrar",
+    "runNow": "Ejecutar ahora",
+    "pause": "Pausar",
+    "enable": "Habilitar",
+    "edit": "Editar"
+  },
+  "history": {
+    "title": "Historial de ejecuciones",
+    "refresh": "Actualizar",
+    "empty": "No hay registros de ejecución",
+    "success": "Correcto",
+    "failed": "Fallido",
+    "running": "En ejecución",
+    "aborted": "Interrumpido"
+  }
+}

@@ -4,19 +4,9 @@ import { cn } from "@shared/lib/utils";
 import type { ThemeMode } from "@shared/store/atoms";
 import { THEMES } from "@shared/theme/themes";
 import type { ThemeDef } from "@shared/theme/tokens";
-import type { LanguagePreference } from "@/shared/i18n/config";
+import { FIXED_LANGUAGE_OPTIONS } from "@/shared/i18n/config";
 import { type MouseEvent, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-
-/** 固定语言自称；system 项 label 由 i18n 注入。 */
-const FIXED_LANGUAGES: ReadonlyArray<{
-	value: Exclude<LanguagePreference, "system">;
-	native: string;
-	alt: string;
-}> = [
-	{ value: "zh", native: "中文", alt: "Chinese" },
-	{ value: "en", native: "English", alt: "英文" },
-];
 
 const MODE_OPTIONS = [
 	{
@@ -130,7 +120,7 @@ export function LanguageAppearanceStep(): JSX.Element {
 				alt: t("settings:languageSystemAlt"),
 				icon: "icon-[solar--monitor-linear]",
 			},
-			...FIXED_LANGUAGES.map((lang) => ({
+			...FIXED_LANGUAGE_OPTIONS.map((lang) => ({
 				...lang,
 				icon: "icon-[solar--global-linear]",
 			})),
@@ -203,7 +193,9 @@ export function LanguageAppearanceStep(): JSX.Element {
 								/>
 								<span className="min-w-0 flex-1">
 									<span className="block text-[13px] font-medium text-foreground">{lang.native}</span>
-									<span className="block text-[11px] text-muted-foreground">{lang.alt}</span>
+									{lang.alt === lang.native ? null : (
+										<span className="block text-[11px] text-muted-foreground">{lang.alt}</span>
+									)}
 								</span>
 								{active && (
 									<span className="icon-[solar--check-circle-linear] h-4 w-4 shrink-0 text-primary" />

@@ -1,0 +1,23 @@
+{
+  "title": "Centro de mensajes",
+  "triggerTitle": "Centro de mensajes",
+  "tabs": {
+    "all": "Todos",
+    "notifications": "Notificaciones"
+  },
+  "empty": {
+    "all": "No hay mensajes",
+    "notifications": "No hay notificaciones"
+  },
+  "notification": {
+    "markAllRead": "Marcar todo como leído",
+    "clearRead": "Borrar leídos",
+    "delete": "Eliminar"
+  },
+  "time": {
+    "justNow": "Ahora mismo",
+    "minutesAgo": "hace {{n}}m",
+    "hoursAgo": "hace {{n}}h",
+    "daysAgo": "hace {{n}}d"
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "settings": {
+    "pageTitle": "Metoai Vivi",
+    "showPet": "Hiện thú cưng",
+    "showPetDesc": "Khi tắt, cửa sổ thú cưng bị ẩn và vẫn ẩn ở lần khởi động sau.",
+    "alwaysOnTop": "Luôn ở trên cùng",
+    "alwaysOnTopDesc": "Khi bật, thú cưng nổi trên các cửa sổ khác; khi tắt, nó có thể bị che như cửa sổ thường.",
+    "developerDesc": "Dùng để phân biệt vùng cửa sổ thú cưng với vùng hiển thị video thực tế.",
+    "debugFrame": "Khung gỡ lỗi",
+    "debugFrameDesc": "Hiện vùng cửa sổ và vùng video, đồng thời hiển thị kích thước cửa sổ và video trực tiếp trong cửa sổ thú cưng.",
+    "decoration": {
+      "sectionDescription": "Hiện chỉ hiển thị các vật trang trí khả dụng; logic trang trí thực tế có thể được kết nối sau.",
+      "materialMissing": "Thiếu vật liệu",
+      "available": "Khả dụng",
+      "missing": "Thiếu",
+      "items": {
+        "monitor": "Màn hình",
+        "santa": "Trang phục ông già Noel",
+        "business": "Trang phục công sở",
+        "office": "Cầu nguyện nơi công sở",
+        "peekingMonitor": "Thò đầu từ màn hình",
+        "dragonBoat": "Trang trí Tết Đoan Ngọ"
+      }
+    },
+    "bubble": {
+      "sectionDescription": "Chọn kiểu bong bóng thoại của thú cưng trên màn hình. Mỗi kiểu có thể tự định nghĩa nền, kích thước và vị trí trang trí.",
+      "styleTitle": "Kiểu bong bóng",
+      "styleDescription": "Kiểu đã chọn được áp dụng ngay cho cửa sổ thú cưng.",
+      "styles": {
+        "plain": {
+          "label": "Bong bóng đơn giản",
+          "description": "Bong bóng cơ bản theo chủ đề ứng dụng."
+        },
+        "springFestival": {
+          "label": "Bong bóng Tết Nguyên Đán",
+          "description": "Nền đỏ ấm với trang trí góc Tết Nguyên Đán."
+        },
+        "dragonBoat": {
+          "label": "Bong bóng Tết Đoan Ngọ",
+          "description": "Nền xanh lá với trang trí góc Tết Đoan Ngọ."
+        },
+        "midAutumn": {
+          "label": "Bong bóng Tết Trung Thu",
+          "description": "Nền vàng ánh trăng với trang trí góc Tết Trung Thu."
+        },
+        "qingming": {
+          "label": "Bong bóng Tết Thanh Minh",
+          "description": "Nền xanh nhạt với trang trí góc Tết Thanh Minh."
+        },
+        "winterSolstice": {
+          "label": "Bong bóng Đông Chí",
+          "description": "Nền xanh băng với trang trí góc Đông Chí."
+        },
+        "aprilFools": {
+          "label": "Bong bóng Cá tháng Tư",
+          "description": "Nền tím nhạt với trang trí góc Cá tháng Tư."
+        },
+        "childrenDay": {
+          "label": "Bong bóng Ngày Thiếu nhi",
+          "description": "Nền vàng tươi với trang trí góc Ngày Thiếu nhi."
+        },
+        "christmas": {
+          "label": "Bong bóng Giáng sinh",
+          "description": "Nền xanh nhạt với trang trí góc Giáng sinh."
+        },
+        "halloween": {
+          "label": "Bong bóng Halloween",
+          "description": "Nền cam ấm với trang trí góc Halloween."
+        },
+        "laborDay": {
+          "label": "Bong bóng Ngày Lao động",
+          "description": "Nền cam ấm với trang trí góc Ngày Lao động."
+        },
+        "nationalDay": {
+          "label": "Bong bóng Quốc khánh",
+          "description": "Nền đỏ ấm với trang trí góc Quốc khánh."
+        },
+        "songkran": {
+          "label": "Bong bóng Songkran",
+          "description": "Nền xanh nhạt với trang trí góc Songkran."
+        },
+        "valentineDay": {
+          "label": "Bong bóng Ngày Valentine",
+          "description": "Nền hồng nhạt với trang trí góc Ngày Valentine."
+        }
+      }
+    }
+  },
+  "video": {
+    "missingTitle": "Video thú cưng",
+    "missingSubtitle": "Chưa cung cấp"
+  },
+  "notice": {
+    "lifecycle": {
+      "started": "Để tôi lo việc này",
+      "completed": "Xong hết rồi",
+      "paused": "Tạm dừng cho đến khi bạn tiếp tục"
+    },
+    "context": {
+      "compacting": "Để tôi dọn dẹp ngữ cảnh"
+    },
+    "tool": {
+      "running": "Đang chạy công cụ",
+      "runningWithDescription": "{{description}}",
+      "completed": "Công cụ đã xong"
+    },
+    "retry": {
+      "running": "Đang thử lại ({{attempt}}/{{maxAttempts}})"
+    },
+    "background": {
+      "running": "Tác vụ nền đang chạy",
+      "completed": "Tác vụ nền đã xong",
+      "failed": "Tác vụ nền gặp sự cố"
+    },
+    "error": {
+      "generic": "Bước này gặp sự cố"
+    }
+  }
+}

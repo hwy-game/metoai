@@ -1,0 +1,119 @@
+{
+  "settings": {
+    "pageTitle": "Metoai Vivi",
+    "showPet": "ペットを表示",
+    "showPetDesc": "オフにするとペットウインドウが非表示になり、次回起動時も非表示のままです。",
+    "alwaysOnTop": "常に最前面",
+    "alwaysOnTopDesc": "オンにするとペットは他のウインドウより前面に表示され、オフにすると通常のウインドウと同じように隠れます。",
+    "developerDesc": "ペットウインドウの境界と実際の動画表示領域を区別するために使用します。",
+    "debugFrame": "デバッグフレーム",
+    "debugFrameDesc": "ウインドウの境界と動画領域の境界を表示し、ペットウインドウ内に現在のウインドウサイズと動画サイズを表示します。",
+    "decoration": {
+      "sectionDescription": "現在は利用可能な装飾素材のみを表示します。実際の装飾ロジックは後で接続できます。",
+      "materialMissing": "素材がありません",
+      "available": "利用可能",
+      "missing": "なし",
+      "items": {
+        "monitor": "モニター",
+        "santa": "サンタの衣装",
+        "business": "ビジネス衣装",
+        "office": "オフィス祈願",
+        "peekingMonitor": "モニターからのぞく",
+        "dragonBoat": "端午の節句の装飾"
+      }
+    },
+    "bubble": {
+      "sectionDescription": "デスクトップペットの吹き出しスタイルを選択します。各スタイルは独自の背景、サイズ、装飾の配置を定義できます。",
+      "styleTitle": "吹き出しスタイル",
+      "styleDescription": "選択したスタイルはすぐにペットウインドウに適用されます。",
+      "styles": {
+        "plain": {
+          "label": "シンプルな吹き出し",
+          "description": "アプリのテーマに従う基本的な吹き出しです。"
+        },
+        "springFestival": {
+          "label": "春節の吹き出し",
+          "description": "温かい赤い背景に春節のコーナー装飾。"
+        },
+        "dragonBoat": {
+          "label": "端午の節句の吹き出し",
+          "description": "緑の背景に端午の節句のコーナー装飾。"
+        },
+        "midAutumn": {
+          "label": "中秋節の吹き出し",
+          "description": "月明かりの黄色い背景に中秋節のコーナー装飾。"
+        },
+        "qingming": {
+          "label": "清明の吹き出し",
+          "description": "淡い緑の背景に清明のコーナー装飾。"
+        },
+        "winterSolstice": {
+          "label": "冬至の吹き出し",
+          "description": "アイスブルーの背景に冬至のコーナー装飾。"
+        },
+        "aprilFools": {
+          "label": "エイプリルフールの吹き出し",
+          "description": "淡い紫の背景にエイプリルフールのコーナー装飾。"
+        },
+        "childrenDay": {
+          "label": "こどもの日の吹き出し",
+          "description": "明るい黄色の背景にこどもの日のコーナー装飾。"
+        },
+        "christmas": {
+          "label": "クリスマスの吹き出し",
+          "description": "淡い緑の背景にクリスマスのコーナー装飾。"
+        },
+        "halloween": {
+          "label": "ハロウィンの吹き出し",
+          "description": "温かいオレンジの背景にハロウィンのコーナー装飾。"
+        },
+        "laborDay": {
+          "label": "レイバーデーの吹き出し",
+          "description": "温かいオレンジの背景にレイバーデーのコーナー装飾。"
+        },
+        "nationalDay": {
+          "label": "国慶節の吹き出し",
+          "description": "温かい赤い背景に国慶節のコーナー装飾。"
+        },
+        "songkran": {
+          "label": "ソンクラーンの吹き出し",
+          "description": "淡い青の背景にソンクラーンのコーナー装飾。"
+        },
+        "valentineDay": {
+          "label": "バレンタインデーの吹き出し",
+          "description": "淡いピンクの背景にバレンタインデーのコーナー装飾。"
+        }
+      }
+    }
+  },
+  "video": {
+    "missingTitle": "ペット動画",
+    "missingSubtitle": "未提供"
+  },
+  "notice": {
+    "lifecycle": {
+      "started": "私が対応します",
+      "completed": "すべて完了しました",
+      "paused": "続行するまで一時停止"
+    },
+    "context": {
+      "compacting": "コンテキストを整理します"
+    },
+    "tool": {
+      "running": "ツールを実行中",
+      "runningWithDescription": "{{description}}",
+      "completed": "ツールが完了しました"
+    },
+    "retry": {
+      "running": "再試行中（{{attempt}}/{{maxAttempts}}）"
+    },
+    "background": {
+      "running": "バックグラウンドタスクを実行中",
+      "completed": "バックグラウンドタスクが完了しました",
+      "failed": "バックグラウンドタスクで問題が発生しました"
+    },
+    "error": {
+      "generic": "この手順で問題が発生しました"
+    }
+  }
+}

@@ -1,0 +1,942 @@
+{
+  "activityPanel": {
+    "tabs": {
+      "file": "Archivos",
+      "batchProgress": "Progreso",
+      "todo": "Pendientes",
+      "backgroundTasks": "Tareas en segundo plano",
+      "debug": "Depuración",
+      "knowledgeHistory": "Historial de procesamiento",
+      "workflow": "Flujos de trabajo"
+    },
+    "backgroundTasks": {
+      "statusRunning": "En ejecución",
+      "statusCompleted": "Completado",
+      "statusFailed": "Fallido",
+      "statusKilled": "Terminado",
+      "subagentStatusPending": "Pendiente",
+      "subagentStatusInterrupted": "Interrumpido",
+      "durationSec": "{{sec}}s",
+      "durationMin": "{{min}}m {{sec}}s",
+      "durationHour": "{{hr}}h {{min}}m",
+      "empty": "No hay tareas en segundo plano",
+      "clearFinished": "Limpiar terminadas ({{count}})",
+      "stop": "Detener"
+    },
+    "mcpTasks": {
+      "statusWorking": "En proceso",
+      "statusInputRequired": "Esperando entrada",
+      "statusCancelled": "Cancelado"
+    },
+    "subagents": {
+      "usage": "{{tokens}} tokens · {{cost}}",
+      "errorPermission": "Permiso bloqueado",
+      "errorContext": "Se alcanzó el límite de contexto",
+      "errorConnection": "Conexión interrumpida",
+      "errorExecution": "Error de ejecución"
+    },
+    "batchProgress": {
+      "notFound": "No se encontró el proyecto por lotes"
+    },
+    "debug": {
+      "toolCalls": "Llamadas a herramientas",
+      "requestHistory": "Historial de solicitudes"
+    },
+    "todo": {
+      "empty": "No hay pendientes",
+      "headline": "En curso",
+      "allDone": "Todo completado",
+      "progress": "{{done}} de {{total}} completadas",
+      "statusDone": "Completado",
+      "statusInProgress": "En curso",
+      "statusPending": "Pendiente"
+    },
+    "toolCalls": {
+      "filterAll": "Todo",
+      "filterSuccess": "Correcto",
+      "filterError": "Fallido",
+      "noSession": "No hay sesión activa",
+      "searchPlaceholder": "Buscar nombre de herramienta...",
+      "loading": "Cargando...",
+      "recordCount": "{{count}} registros",
+      "refresh": "Actualizar",
+      "empty": "Aún no hay llamadas a herramientas",
+      "noMatch": "Sin coincidencias",
+      "args": "Argumentos",
+      "result": "Resultado"
+    },
+    "requestHistory": {
+      "noSession": "No hay sesión activa",
+      "loading": "Cargando...",
+      "requestCount": "{{count}} solicitudes",
+      "refresh": "Actualizar",
+      "empty": "Después de enviar un mensaje en modo depuración, el historial de solicitudes aparecerá aquí",
+      "showInFolder": "Mostrar en el disco"
+    },
+    "schedule": {
+      "statusRunning": "En ejecución",
+      "statusSuccess": "Correcto",
+      "statusFailed": "Fallido",
+      "statusAborted": "Abortado",
+      "unnamedTask": "Tarea sin nombre",
+      "noTasks": "Este proyecto no tiene tareas de automatización",
+      "overview": "Resumen de automatización",
+      "refresh": "Actualizar",
+      "totalTasks": "Tareas totales",
+      "enabled": "Habilitadas",
+      "todayExecutions": "Hoy",
+      "taskControl": "Control de tareas",
+      "enabledBadge": "Habilitada",
+      "pausedBadge": "En pausa",
+      "run": "Ejecutar",
+      "pause": "Pausar",
+      "enable": "Habilitar",
+      "executionRecords": "Registros de ejecución",
+      "noRecords": "No hay registros de ejecución"
+    },
+    "htmlPreview": {
+      "title": "Vista previa de HTML"
+    },
+    "workflow": {
+      "empty": "No hay flujos de trabajo",
+      "noTranscript": "Aún no hay mensajes de este flujo de trabajo",
+      "stop": "Detener",
+      "statusQueued": "En cola",
+      "statusPending": "Iniciando",
+      "statusRunning": "En ejecución",
+      "statusCompleted": "Completado",
+      "statusFailed": "Fallido",
+      "statusInterrupted": "Interrumpido",
+      "processingTitle": "{{count}} flujo(s) de trabajo en curso",
+      "doneTitle": "Todos los flujos de trabajo finalizaron"
+    }
+  },
+  "fileExplorer": {
+    "clearArtifactsTitle": "Borrar artefactos",
+    "clearArtifactsMessage": "Se eliminarán todos los archivos de artefactos en el directorio de trabajo del proyecto {{label}} (se conservan los registros de sesión). Esta acción no se puede deshacer.",
+    "clearArtifactsConfirm": "Borrar",
+    "clearArtifactsFailed": "No se pudieron borrar los artefactos",
+    "conversationLabel": "\"Conversación\"",
+    "moveFailed": "No se pudo mover",
+    "deleteFailed": "No se pudo eliminar",
+    "selectProject": "Selecciona un proyecto para explorar archivos",
+    "fileList": "Archivos del proyecto",
+    "clearArtifacts": "Borrar artefactos",
+    "refresh": "Actualizar",
+    "newFile": "Nuevo archivo",
+    "newFolder": "Nueva carpeta",
+    "collapseAll": "Contraer todo",
+    "newFileInputLabel": "Escribe un nombre de archivo nuevo",
+    "newFolderInputLabel": "Escribe un nombre de carpeta nueva",
+    "createAlreadyExists": "Ya existe un archivo o una carpeta con este nombre",
+    "createFailed": "No se pudo crear el elemento",
+    "invalidName": {
+      "empty": "El nombre no puede estar vacío",
+      "dotPath": "El nombre no puede ser . ni ..",
+      "pathSeparator": "El nombre no puede contener separadores de ruta",
+      "invalidCharacter": "El nombre contiene caracteres no permitidos en Windows",
+      "reservedName": "Este nombre está reservado en Windows",
+      "trailingCharacter": "El nombre no puede terminar con un espacio ni un punto"
+    },
+    "emptyFolder": "Esta carpeta está vacía",
+    "openInFinder": "Mostrar en Finder",
+    "openInExplorer": "Mostrar en el Explorador",
+    "copy": "Copiar",
+    "paste": "Pegar",
+    "copyPath": "Copiar ruta",
+    "copyName": "Copiar nombre",
+    "rename": "Cambiar nombre",
+    "delete": "Eliminar",
+    "confirmDeleteTitle": "Confirmar eliminación",
+    "confirmDeleteFolder": "carpeta",
+    "confirmDeleteFile": "archivo",
+    "confirmDeletePrefix": "¿Eliminar {{type}}",
+    "confirmDeleteSuffix": "?{{folderNote}} Esta acción no se puede deshacer.",
+    "confirmDeleteFolderNote": " Se eliminará todo el contenido de la carpeta.",
+    "confirmDeleteMultiplePrefix": "¿Eliminar estos {{count}} elementos",
+    "confirmDeleteMultipleMore": " y {{count}} más",
+    "confirmDeleteMultipleSuffix": "? Esta acción no se puede deshacer.",
+    "cancel": "Cancelar",
+    "transfer": {
+      "title": "Añadir archivos al proyecto",
+      "pasteCopyTitle": "Pegar archivos",
+      "pasteMoveTitle": "Mover archivos",
+      "description": "Colocar {{count}} elemento(s) en “{{destination}}”",
+      "moveWarning": "Mover quita los elementos transferidos correctamente de su ubicación original.",
+      "conflictLabel": "{{count}} elemento(s) tienen conflictos de nombre",
+      "keepBoth": "Conservar ambos",
+      "replace": "Reemplazar los existentes",
+      "skip": "Omitir los que tengan conflictos",
+      "copy": "Copiar",
+      "move": "Mover",
+      "cancel": "Cancelar",
+      "processing": "Procesando…",
+      "prepareFailed": "No se pudieron leer los archivos soltados",
+      "commitFailed": "Error al transferir los archivos",
+      "failedCount": "{{count}} elemento(s) no se pudieron transferir"
+    }
+  },
+  "fileEditor": {
+    "loading": "Abriendo archivo…",
+    "edit": "Editar",
+    "preview": "Vista previa",
+    "save": "Guardar",
+    "saving": "Guardando…",
+    "saved": "Guardado",
+    "unsaved": "Cambios sin guardar",
+    "conflict": "Otro programa modificó este archivo. Recárgalo o sobrescribe explícitamente la versión en el disco.",
+    "reload": "Recargar",
+    "overwrite": "Sobrescribir",
+    "errorTooLarge": "Los archivos de más de 2 MB no se pueden editar",
+    "errorPreviewTooLarge": "Este archivo es demasiado grande para previsualizarlo",
+    "errorNotUtf8": "Este archivo no es texto UTF-8 válido y no se puede editar",
+    "errorRead": "No se pudo leer este archivo",
+    "errorSave": "No se pudo guardar este archivo. Inténtalo de nuevo.",
+    "unsupported": "Este tipo de archivo no admite vista previa",
+    "download": "Descargar archivo",
+    "showTree": "Mostrar árbol de archivos",
+    "hideTree": "Ocultar árbol de archivos",
+    "previous": "Anterior (←)",
+    "next": "Siguiente (→)",
+    "downloadShort": "Descargar",
+    "refresh": "Actualizar",
+    "close": "Cerrar"
+  },
+  "appshot": {
+    "errorSelfCapture": "Appshot omitido: la ventana en primer plano es Metoai",
+    "errorNoPermission": "Falló la captura de Appshot: faltan los permisos de Grabación de pantalla y Accesibilidad. Concédelos en Ajustes › Permisos",
+    "errorHelperFailed": "Falló la captura de Appshot, inténtalo de nuevo"
+  },
+  "askUserQuestion": {
+    "cancelledMessage": "Cancelado por el usuario, sin responder",
+    "defaultQuestionLabel": "Pregunta {{number}}"
+  },
+  "mcpElicitation": {
+    "title": "Solicitud de información de MCP",
+    "source": "De {{server}}",
+    "urlNotice": "Metoai abrirá esta dirección en tu navegador del sistema solo después de que lo confirmes.",
+    "decline": "Rechazar",
+    "openAndContinue": "Abrir y continuar",
+    "submit": "Enviar",
+    "required": "(obligatorio)",
+    "enabled": "Habilitado",
+    "disabled": "Deshabilitado",
+    "selectPlaceholder": "Selecciona una opción"
+  },
+  "atPanel": {
+    "emptyDirectory": "Directorio vacío",
+    "enterDirectory": "Tab para entrar",
+    "goUp": "..",
+    "header": "Referenciar archivo",
+    "loading": "Cargando...",
+    "noResults": "No se encontraron coincidencias",
+    "searchResults": "{{count}} resultados"
+  },
+  "backgroundTasksBadge": {
+    "runningTasksTooltip": "{{count}} tareas en segundo plano en ejecución"
+  },
+  "bashHeader": {
+    "statusCancelled": "Cancelado: {{short}}",
+    "statusError": "El comando falló: {{short}}",
+    "statusPending": "Ejecutando: {{short}}",
+    "statusSuccess": "Comando ejecutado: {{short}}"
+  },
+  "bashTerminalCard": {
+    "copyCommand": "Copiar comando",
+    "metaDescription": "Metadatos locales, solo de la interfaz, no se envían al modelo"
+  },
+  "browser": {
+    "addressPlaceholder": "Escribe una URL y pulsa Enter",
+    "back": "Atrás",
+    "empty": "Haz clic en un enlace de la conversación o escribe una URL arriba",
+    "failed": "No se pudo cargar la página",
+    "forward": "Adelante",
+    "loading": "Cargando…",
+    "noSession": "No hay sesión activa",
+    "openExternal": "Abrir en el navegador del sistema",
+    "reload": "Recargar",
+    "retry": "Reintentar",
+    "stop": "Detener",
+    "tab": "Navegador"
+  },
+  "capability": {
+    "network": "Red",
+    "read": "Lectura",
+    "write": "Escritura"
+  },
+  "chatExport": {
+    "defaultSessionName": "Sesión de Metoai"
+  },
+  "chatView": {
+    "defaultSessionTitle": "Sesión de Metoai",
+    "exportButton": {
+      "title": "Exportar toda la sesión como HTML"
+    },
+    "newSessionButton": {
+      "title": "Nueva sesión"
+    },
+    "panelButton": {
+      "closed": "Abrir panel de actividad",
+      "open": "Cerrar panel de actividad"
+    },
+    "pinButton": {
+      "pinned": "Desfijar ventana",
+      "unpinned": "Fijar ventana (mantener encima)"
+    }
+  },
+  "contextRing": {
+    "tooltip": {
+      "compacting": "Compactando contexto...",
+      "unknown": "Ventana de contexto {{window}} (uso desconocido)",
+      "usage": "Contexto: {{tokens}} tokens usados ({{percent}}%, ventana {{window}})"
+    },
+    "details": {
+      "title": "Composición del contexto (última llamada)",
+      "actual": "Entrada real",
+      "section": "Sección",
+      "category": "Categoría",
+      "tokens": "Tokens",
+      "share": "Proporción",
+      "unknown": "Desconocido",
+      "back": "Atrás",
+      "unavailableAfterRestart": "No hay detalles de composición recuperables para esta sesión. Envía otro mensaje para generar y guardar un informe nuevo.",
+      "items": "{{count}} elementos",
+      "unknownItems": "{{count}} desconocidos",
+      "owner": {
+        "core": "Sistema",
+        "skill": "Habilidad",
+        "plugin": "Complemento",
+        "mcp": "MCP",
+        "extension": "Extensión",
+        "runtime": "Entorno de ejecución",
+        "user": "Usuario",
+        "unknown": "Sin atribuir"
+      },
+      "kind": {
+        "instruction": "Instrucción",
+        "tool_schema": "Esquema de herramienta",
+        "history": "Historial",
+        "runtime_context": "Contexto de ejecución",
+        "user_input": "Entrada actual"
+      },
+      "group": {
+        "instructions": "Instrucciones principales",
+        "capabilities": "Extensiones",
+        "tools": "Herramientas",
+        "conversation": "Conversación",
+        "runtime": "Contexto de ejecución"
+      }
+    }
+  },
+  "copyButton": {
+    "copied": "Copiado",
+    "label": "Copiar"
+  },
+  "dropZone": {
+    "externalRef": "Las imágenes se adjuntan automáticamente; los demás archivos se referencian",
+    "internalRef": "Referenciar desde el proyecto",
+    "releaseToRef": "Suelta para referenciar el archivo"
+  },
+  "editDiff": {
+    "anchor": {
+      "badge": "Edición por anclaje",
+      "delete": "Eliminar",
+      "insertAfter": "Insertar después",
+      "replace": "Reemplazar línea",
+      "replaceRange": "Reemplazar intervalo"
+    },
+    "netChangeLabel": "Neto {{net}}",
+    "newTextEmpty": "Texto de reemplazo vacío",
+    "oldTextEmpty": "Texto coincidente vacío"
+  },
+  "executionModeSelector": {
+    "fullAccess": {
+      "label": "Acceso total",
+      "title": "Permitir acceso total al sistema actual"
+    },
+    "sandbox": {
+      "label": "En espacio aislado",
+      "title": "Permitir acceso restringido solo dentro del espacio de trabajo"
+    },
+    "sandboxUnavailable": "Espacio aislado de {{platform}} no disponible: {{reason}}"
+  },
+  "export": {
+    "shareNavDescription": "compartió una sesión",
+    "shareNavDescriptionWithNickname": "{{nickname}} compartió una sesión"
+  },
+  "filterByTags": {
+    "hitCount": "{{count}} páginas coincidentes",
+    "noResults": "Ninguna página coincide",
+    "noTitle": "(sin título)"
+  },
+  "guideBadgeSwiper": {
+    "dismissTooltip": "No volver a mostrar",
+    "petFeatureText": "Nueva función de mascota de escritorio: haz clic para activarla en los ajustes",
+    "quickPanelText": "Metoai ahora tiene un Panel rápido: haz clic para configurarlo"
+  },
+  "imagePreview": {
+    "altText": "Imagen cargada",
+    "imageLabel": "Imagen",
+    "originalLabel": "Original",
+    "processedLabel": "Entrada del modelo",
+    "showInFolderButton": "Mostrar el original en el gestor de archivos"
+  },
+  "inputActionBar": {
+    "chip": {
+      "removeTooltip": "Haz clic para quitar"
+    },
+    "knowledgeRetrieval": {
+      "label": "Búsqueda de conocimiento",
+      "tooltip": "Cuando está activado, este turno puede usar herramientas de la base de conocimiento y prioriza responder desde tu base de conocimiento"
+    }
+  },
+  "inputBar": {
+    "error": {
+      "multipleScenes": "Solo se puede seleccionar una Escena por mensaje. Quita la Escena adicional e inténtalo de nuevo"
+    },
+    "capsule": {
+      "appshotThumbnailAlt": "Captura de pantalla",
+      "appshotPreview": "Previsualizar captura",
+      "appshotIconAlt": "Icono de la app",
+      "removeDefault": "Haz clic para quitar",
+      "removeImage": "Quitar imagen",
+      "removeTooltip": "{{path}}\nHaz clic para quitar",
+      "activeGroup": "{{count}} complementos",
+      "imageBadge": "Imagen {{index}}"
+    },
+    "drawer": {
+      "permissionDesc": "Esperando confirmación",
+      "permissionLabel": "Solicitud de permiso",
+      "queueDelete": "Quitar",
+      "contextCompaction": "Compactar contexto",
+      "queueDesc": "{{count}} en cola",
+      "queueEmpty": "No hay mensajes en cola",
+      "queueLabel": "En cola",
+      "queuePaused": "El último turno se interrumpió: los mensajes en cola están en espera",
+      "queuePausedDesc": "En pausa · {{count}} en cola",
+      "queueResume": "Reanudar envío",
+      "queueSendNow": "Enviar ahora"
+    },
+    "permission": {
+      "allow": "Permitir una vez",
+      "allowSession": "No preguntar de nuevo en esta sesión",
+      "deny": "Denegar"
+    },
+    "placeholder": {
+      "defaults": [
+        "Pregúntale a Metoai, usa / para habilidades y @ para referenciar archivos",
+        "Describe la tarea y pulsa ⏎ para enviar",
+        "Pega una captura o usa @ en un archivo para empezar"
+      ],
+      "noSession": "Selecciona o crea una sesión para empezar",
+      "suggestion": "↵ {{suggestion}}",
+      "thinking": "Metoai está pensando…"
+    },
+    "mention": {
+      "trigger": "Mencionar miembros",
+      "title": "Mencionar a miembros del equipo",
+      "hint": "El líder del equipo se encarga cuando no se menciona a nadie.",
+      "empty": "Este equipo no tiene miembros a los que mencionar",
+      "clear": "Borrar todo",
+      "selected": "{{count}} miembros"
+    },
+    "toolbar": {
+      "addImage": "Añadir imagen",
+      "attachFile": "Adjuntar referencia de archivo",
+      "skills": "Habilidades / Escenas"
+    },
+    "speech": {
+      "actions": {
+        "start": "Iniciar entrada de voz",
+        "stop": "Detener entrada de voz"
+      },
+      "states": {
+        "loading": "Cargando modelo de voz sin conexión…",
+        "stopping": "Finalizando el reconocimiento de voz…"
+      },
+      "errors": {
+        "unsupported": "La entrada de voz actualmente requiere Windows x64",
+        "missing": "Falta el modelo de voz en esta instalación. Reinstala la aplicación",
+        "integrity": "El modelo de voz incluido está incompleto. Reinstala la aplicación",
+        "recognizer": "No se pudo iniciar el reconocimiento de voz. Haz clic para reintentar"
+      }
+    },
+    "contextMenu": {
+      "cut": "Cortar",
+      "copy": "Copiar",
+      "paste": "Pegar"
+    },
+    "todo": {
+      "trigger": "Pendientes",
+      "allDone": "Todo completado",
+      "panelTitle": "Lista de pendientes",
+      "openPanel": "Abrir en el panel",
+      "statusDone": "Completado",
+      "statusInProgress": "En curso",
+      "statusPending": "Pendiente"
+    }
+  },
+  "knowledgeTools": {
+    "empty": "Sin resultados"
+  },
+  "listTags": {
+    "empty": "La base de conocimiento aún no tiene etiquetas",
+    "tagCount": "{{count}} etiquetas en total"
+  },
+  "messageCards": {
+    "layoutList": "Lista",
+    "layoutStacked": "Apilado"
+  },
+  "messageList": {
+    "userMessage": {
+      "expand": "Expandir mensaje",
+      "sceneBadge": "Escena",
+      "skillBadge": "Habilidad",
+      "settingsAssist": {
+        "mcp": "Asistente de configuración de MCP",
+        "models": "Asistente de configuración de modelos",
+        "knowledge": "Asistente de configuración de conocimiento",
+        "knowledgeBase": "Asistente de base de conocimiento",
+        "batchTasks": "Asistente de tareas por lotes",
+        "automation": "Asistente de automatización",
+        "im": "Asistente de configuración de Claw",
+        "webhook": "Asistente de configuración de webhooks",
+        "appearance": "Asistente de configuración de apariencia",
+        "plugins": "Asistente de configuración de complementos",
+        "pet": "Asistente de configuración de mascota",
+        "environment": "Asistente de configuración del entorno",
+        "shortcuts": "Asistente de configuración de atajos",
+        "agent": "Asistente de configuración de agentes",
+        "unknown": "Asistente de configuración de ajustes"
+      }
+    },
+    "assistantFoldTip": {
+      "collapse": "Contraer {{count}} elementos",
+      "collapseLabel": "Contraer",
+      "expand": "Expandir {{count}} elementos",
+      "expandLabel": "Expandir",
+      "streaming": "Procesando · {{duration}}",
+      "waiting": "En espera · {{duration}}",
+      "work": {
+        "collapse": "Contraer {{count}} pasos",
+        "collapseZero": "Contraer proceso",
+        "expand": "Expandir {{count}} pasos",
+        "expandZero": "Expandir proceso"
+      }
+    },
+    "assistantMessage": {
+      "predicting": "Metoai está prediciendo…",
+      "processing": "Procesando…",
+      "waiting": "Esperando la respuesta del modelo"
+    },
+    "duration": {
+      "seconds": "{{seconds}}s",
+      "minutes": "{{minutes}}m {{seconds}}s",
+      "hours": "{{hours}}h {{minutes}}m"
+    },
+    "navigation": {
+      "title": "Preguntas",
+      "count": "{{count}}",
+      "open": "Ver preguntas",
+      "close": "Cerrar lista de preguntas",
+      "searchLabel": "Buscar preguntas",
+      "searchPlaceholder": "Buscar preguntas",
+      "noResults": "No hay preguntas coincidentes",
+      "jumpTo": "Ir a {{preview}}",
+      "emptyUser": "(Sin texto)"
+    },
+    "tokenUsage": {
+      "trigger": "Ver uso de tokens",
+      "sessionTitle": "Tokens de la sesión",
+      "messageTitle": "Tokens del mensaje actual",
+      "scopeLabel": "Alcance del uso de tokens",
+      "session": "Total de la sesión",
+      "message": "Mensaje actual",
+      "modelCalls": "{{count}} llamadas al modelo",
+      "total": "Total",
+      "prompt": "Tokens de prompt",
+      "uncachedInput": "Entrada",
+      "output": "Salida",
+      "cacheRead": "Acierto de caché",
+      "cacheWrite": "Escritura en caché",
+      "cacheHitRate": "Tasa de aciertos de caché",
+      "moreParameters": "Más parámetros",
+      "readCoverage": "Cobertura de observación de lectura",
+      "writeCoverage": "Cobertura de observación de escritura",
+      "readOnlyReporting": "No informado (solo lectura)",
+      "diagnosticCoverage": "Cobertura de diagnóstico del prefijo",
+      "stableSystemChars": "Caracteres estables del prompt del sistema",
+      "volatileSystemChars": "Caracteres volátiles del prompt del sistema",
+      "historyMessages": "Mensajes del historial del prefijo",
+      "toolCount": "Número de herramientas",
+      "prefixStatus": "Estado del prefijo estable",
+      "changedSegments": "Segmentos modificados",
+      "changedPromptBlocks": "Bloques de prompt modificados",
+      "changedTools": "Herramientas modificadas",
+      "definitionChange": "{{id}} ({{change}})",
+      "changeKinds": {
+        "added": "añadido",
+        "removed": "eliminado",
+        "changed": "contenido modificado",
+        "reordered": "reordenado"
+      },
+      "segmentSeparator": ", ",
+      "prefixStatuses": {
+        "initial": "Primer diagnóstico",
+        "extended": "Ampliado continuamente",
+        "changed": "Prefijo modificado",
+        "unknown": "Versión histórica no disponible"
+      },
+      "prefixSegments": {
+        "stableSystem": "Prompt del sistema estable",
+        "volatileSystem": "Prompt del sistema volátil",
+        "tools": "Definiciones de herramientas",
+        "messages": "Historial de mensajes"
+      },
+      "prefixHash": "Huella del prefijo de la solicitud",
+      "unavailable": "No informado"
+    },
+    "compactionBoundary": "Contexto compactado",
+    "modelSwitched": "Modelo cambiado a {{name}}",
+    "compactionIndicator": "Compactando contexto...",
+    "retryIndicator": "Reconectando ({{attempt}}/{{maxAttempts}})",
+    "retryReason": "La última solicitud falló: {{reason}}",
+    "streamingPhrases": [
+      "Metoai está respondiendo…",
+      "Un momento…",
+      "Metoai está trabajando duro…"
+    ],
+    "copyButton": {
+      "copied": "Copiado",
+      "copy": "Copiar"
+    },
+    "errorBlock": {
+      "showDetail": "Mostrar detalles",
+      "hideDetail": "Ocultar detalles",
+      "retriedNote": "Se reintentó {{count}} vez/veces automáticamente",
+      "repeatedNote": "Ocurrió {{count}} veces",
+      "diagnostic": {
+        "code": "Código de error: {{value}}",
+        "origin": "Origen: {{value}}",
+        "statusCode": "Estado HTTP: {{value}}",
+        "provider": "Proveedor: {{value}}",
+        "model": "Modelo: {{value}}",
+        "providerCode": "Código de error del proveedor: {{value}}",
+        "phase": "Fase: {{value}}",
+        "requestId": "ID de solicitud: {{value}}",
+        "retryAfter": "Espera sugerida: {{value}} ms"
+      },
+      "kinds": {
+        "rate_limit": {
+          "title": "Demasiadas solicitudes",
+          "hint": "Espera un momento y vuelve a enviar."
+        },
+        "quota": {
+          "title": "Te quedaste sin cuota",
+          "hint": "Espera a que se restablezca o revisa tu plan y tu uso.",
+          "action": "Ver cuota"
+        },
+        "network": {
+          "title": "Sin conexión de red",
+          "hint": "Revisa tu red o tu proxy y vuelve a enviar."
+        },
+        "auth": {
+          "title": "La clave del modelo no es válida o caducó",
+          "hint": "Actualiza la clave en los ajustes de modelos e inténtalo de nuevo.",
+          "action": "Abrir ajustes"
+        },
+        "server": {
+          "title": "El servicio está teniendo problemas",
+          "hint": "Suele recuperarse en unos minutos; inténtalo de nuevo en breve."
+        },
+        "unknown": {
+          "title": "Esta respuesta se interrumpió",
+          "hint": "Intenta enviar de nuevo; si sigue ocurriendo, envíanos los detalles copiados."
+        }
+      }
+    },
+    "contextMenu": {
+      "edit": "Editar",
+      "copy": "Copiar",
+      "delete": "Eliminar"
+    },
+    "selectionContextMenu": {
+      "copy": "Copiar",
+      "addToInput": "Añadir a la entrada"
+    },
+    "delete": {
+      "title": "¿Eliminar este mensaje?",
+      "body": "Los mensajes posteriores se conservarán, pero su contexto ya no incluirá este mensaje. Esta acción no se puede deshacer.",
+      "streamingBody": "Primero se detendrá la respuesta en curso. Los mensajes posteriores se conservarán, pero su contexto ya no incluirá este mensaje. Esta acción no se puede deshacer.",
+      "confirm": "Eliminar",
+      "suppressForOneMinute": "No volver a preguntar durante un minuto"
+    },
+    "editButton": "Editar",
+    "forkButton": "Bifurcar a una sesión nueva",
+    "forkOrigin": {
+      "label": "Bifurcado de la sesión original",
+      "labelWithPreview": "Bifurcado del mensaje"
+    },
+    "branch": {
+      "prev": "Versión anterior",
+      "next": "Versión siguiente",
+      "position": "Versión {{current}} de {{total}}"
+    },
+    "edit": {
+      "pendingHint": "Editando el último mensaje: envía para reemplazar el mensaje original y su respuesta",
+      "overwriteDraftTitle": "¿Sobrescribir el borrador actual?",
+      "overwriteDraftBody": "La entrada ya tiene contenido. Editar el último mensaje reemplazará tu borrador.",
+      "overwriteDraftConfirm": "Sobrescribir y editar"
+    },
+    "interrupt": {
+      "editTitle": "¿Interrumpir este turno?",
+      "editBody": "Editar un mensaje anterior detendrá la respuesta en curso. El contenido ya generado permanece en la rama original.",
+      "switchTitle": "¿Interrumpir este turno?",
+      "switchBody": "Cambiar de rama detendrá la respuesta en curso. El contenido ya generado permanece en la rama original.",
+      "forkTitle": "¿Interrumpir este turno?",
+      "forkBody": "Bifurcar a una sesión nueva detendrá la respuesta en curso.",
+      "confirm": "Interrumpir y continuar",
+      "cancel": "Cancelar"
+    },
+    "progressGroup": {
+      "fallbackTitle": "Trabajando",
+      "genericDone": "Se completaron {{count}} pasos",
+      "genericRunning": "Trabajando en ello",
+      "thinking": "Pensando",
+      "thinkingActivity": "Pensando: {{text}}",
+      "thinkingLabel": "Pensando"
+    },
+    "toolCallGroup": {
+      "completed": "{{count}} llamadas a herramientas completadas",
+      "inProgress": "{{completed}}/{{total}} llamadas a herramientas",
+      "thinking": "{{count}} pasos de razonamiento"
+    }
+  },
+  "modelSelector": {
+    "defaultBadge": "Predeterminado",
+    "selectModel": "Seleccionar modelo",
+    "visionBadge": "visión"
+  },
+  "newSession": {
+    "greetingDefault": "¿Cómo va todo hoy?",
+    "greetingTitle": "Hola, {{nickname}}",
+    "subtitle": "Puedo ayudarte a avanzar con tu trabajo. ¿En qué puedo ayudarte?",
+    "defaultContext": "Conversación general",
+    "teamNewWorkspaceContext": "Espacio de trabajo nuevo",
+    "projectContext": "Proyecto · {{name}}",
+    "mascot": {
+      "menuTrigger": "Ajustes de la mascota",
+      "hideMascot": "Ocultar mascota",
+      "showMascot": "Mostrar mascota",
+      "playOnce": "Reproducir una vez la animación actual de la mascota"
+    },
+    "torch": {
+      "light": "Encender la antorcha",
+      "extinguish": "Apagar la antorcha"
+    },
+    "mario": {
+      "hit": "Golpear el hongo",
+      "reset": "Devolver el hongo a su sitio"
+    },
+    "hand": {
+      "rest": "Dejar descansar la mano",
+      "tap": "Volver a hacer que la mano toque"
+    },
+    "projectSelector": {
+      "placeholder": "Seleccionar proyecto",
+      "clear": "Sin proyecto",
+      "searchPlaceholder": "Buscar proyectos",
+      "empty": "No hay proyectos coincidentes",
+      "newProject": "Nuevo proyecto",
+      "openProject": "Abrir proyecto local",
+      "pendingHint": "pendiente",
+      "creating": "Creando…",
+      "preparing": "Preparando el proyecto",
+      "triggerTitle": "Elige el proyecto para esta sesión",
+      "createFailedTitle": "No se pudo crear el proyecto"
+    },
+    "agentSelector": {
+      "clear": "Sin agente",
+      "searchPlaceholder": "Buscar equipos y agentes",
+      "empty": "No hay equipos ni agentes coincidentes",
+      "loading": "Cargando…",
+      "error": "No se pudo cargar la lista",
+      "invalid": "Este equipo ya no está disponible. Elige otro equipo.",
+      "agentInvalid": "Este agente ya no está disponible. Elige otro.",
+      "retry": "Reintentar",
+      "memberCount": "{{count}} miembros",
+      "groupTeams": "Equipos",
+      "groupAgents": "Agentes",
+      "pick": "Cambiar de agente",
+      "pickTitle": "Elige un equipo o un solo agente para esta tarea",
+      "switchTitle": "Cambiar el equipo o el agente de esta sesión"
+    }
+  },
+  "questionPanel": {
+    "keyboardHint": "↑↓ Navegar · Espacio seleccionar · ←→ Cambiar · Enter siguiente",
+    "multiSelectHint": "Opción múltiple",
+    "otherOption": "Otro (entrada personalizada)",
+    "otherPlaceholder": "Escribe tu respuesta…",
+    "nextButton": "Siguiente",
+    "questionTabLabel": "Pregunta {{number}}",
+    "submitButton": "Enviar",
+    "title": "Metoai necesita que elijas"
+  },
+  "sandboxGrantsBadge": {
+    "revoke": "Revocar",
+    "revokeAll": "Revocar todo",
+    "title": "Permisos de espacio aislado para esta sesión",
+    "tooltip": "Permisos de espacio aislado para esta sesión"
+  },
+  "sendButton": {
+    "sendMessage": "Enviar mensaje",
+    "stopGenerating": "Detener generación"
+  },
+  "session": {
+    "emptyMessageLabel": "(imagen)"
+  },
+  "sessionViewer": {
+    "badge": {
+      "liveUpdate": "Actualización en vivo",
+      "readOnly": "Vista de solo lectura"
+    },
+    "emptyState": {
+      "noPath": "No se especificó la ruta de la sesión"
+    },
+    "error": {
+      "loadPrefix": "No se pudo cargar: "
+    },
+    "export": {
+      "defaultTitle": "Sesión de Metoai"
+    },
+    "exportButton": {
+      "title": "Exportar toda la sesión como HTML"
+    },
+    "header": {
+      "subtitle": "Otro cliente escribió esta sesión; la aplicación de escritorio solo la muestra"
+    },
+    "panelToggleButton": {
+      "titleClose": "Cerrar panel de actividad",
+      "titleOpen": "Abrir panel de actividad"
+    }
+  },
+  "skillPromptArea": {
+    "missingBadge": "No instalada",
+    "placeholder": "Escribe un prompt… usa / para habilidades/escenas",
+    "removeSkill": "Haz clic para quitar",
+    "removeSkillMissing": "Habilidad no instalada, haz clic para quitarla",
+    "skillButtonLabel": "Habilidades / Escenas",
+    "skillButtonTitle": "Habilidades / Escenas"
+  },
+  "slashPanel": {
+    "compaction": {
+      "label": "Compactar contexto",
+      "description": "Compactar el contexto de este chat ({{percent}}% usado)",
+      "descriptionUnknown": "Compactar el contexto de este chat",
+      "queued": "En cola; se ejecutará después de la respuesta actual",
+      "compacting": "Compactando contexto",
+      "errorTitle": "No se pudo compactar el contexto",
+      "errorMessage": "No se pudo poner en cola la compactación del contexto. Inténtalo de nuevo."
+    },
+    "emptyNoMatch": "No se encontraron coincidencias",
+    "emptyNoMatchHint": "Prueba con otra palabra clave o simplemente escribe tu solicitud.",
+    "emptyNoSkills": "No hay habilidades ni escenas disponibles",
+    "emptyNoSkillsHint": "Instala una habilidad o una escena desde el mercado de habilidades para poder usarla aquí.",
+    "header": "Selecciona una escena o habilidad",
+    "resultCount": "{{count}} resultados",
+    "scenesSection": "Escenas",
+    "skillsSection": "Habilidades",
+    "sourceLabels": {
+      "agentsProject": "Genérico · Proyecto",
+      "agentsUser": "Genérico",
+      "path": "Personalizado",
+      "project": "Proyecto",
+      "scene": "Escena",
+      "user": "Usuario",
+      "builtin": "Integrado",
+      "plugin": "Complemento",
+      "market": "Mercado"
+    },
+    "connectorsSection": "Conectado"
+  },
+  "suggestionBubbles": {
+    "sendTooltip": "Haz clic para enviar esta sugerencia"
+  },
+  "textPreview": {
+    "characterUnit": "caracteres",
+    "emptyLabel": "Vacío",
+    "lineUnit": "líneas"
+  },
+  "thinkingBlock": {
+    "lineCount": "{{count}} líneas",
+    "title": "Pensando"
+  },
+  "toolCall": {
+    "error": "Error",
+    "meta": "meta",
+    "metaLabel": "Metadatos locales, solo de la interfaz, no se envían al modelo",
+    "audioPreview": "Resultado de audio de MCP"
+  },
+  "toolFormat": {
+    "unknown": "Desconocido"
+  },
+  "toolLabel": {
+    "alias": {
+      "ask_user_question": "Preguntar",
+      "bash": "Ejecutar comando",
+      "current_time": "Hora actual",
+      "dir_tree": "Árbol de directorios",
+      "dispatch_workflows": "Despachar flujos de trabajo",
+      "doc_to_pdf": "A PDF",
+      "easy_use_vettaApp": "Usar app",
+      "edit": "Editar",
+      "extract_text_from_img": "Extraer texto (imagen)",
+      "extract_text_from_pdf": "Extraer texto (PDF)",
+      "find": "Buscar archivos",
+      "followup_task": "Tarea de seguimiento",
+      "glob": "Coincidir archivos",
+      "grep": "Buscar",
+      "html_to_pdf": "A PDF",
+      "im_send_attachment": "Enviar adjunto",
+      "interrupt_agent": "Interrumpir agente",
+      "invoke_skill": "Ejecutar habilidad",
+      "list_agents": "Listar agentes",
+      "ls": "Listar",
+      "memory": "Memoria",
+      "read": "Leer",
+      "render_pdf_page": "Renderizar página PDF",
+      "send_message": "Enviar mensaje",
+      "shell": "Ejecutar comando",
+      "spawn_agent": "Crear agente",
+      "task_output": "Salida de la tarea",
+      "task_stop": "Detener tarea",
+      "todo": "Pendientes",
+      "tool_search": "Búsqueda de herramientas",
+      "tree": "Árbol de directorios",
+      "wait_agent": "Esperar agente",
+      "write": "Escribir"
+    },
+    "knowledgeBase": {
+      "filterByTags": "Conocimiento · Filtrar por etiquetas",
+      "listTags": "Conocimiento · Listar etiquetas",
+      "writePage": "Conocimiento · Escribir página"
+    }
+  },
+  "mcpApp": {
+    "externalAccess": "Esta app MCP declara acceso a {{count}} dominio(s) externo(s)",
+    "permissionsDenied": "Esta app MCP solicitó permisos del dispositivo; Metoai no los ha concedido",
+    "title": "App MCP"
+  },
+  "usageBar": {
+    "durationLabel": "Tardó {{duration}}",
+    "speedLabel": "Velocidad {{speed}} tok/s"
+  },
+  "writeContent": {
+    "label": "Escribir contenido"
+  },
+  "writePage": {
+    "actionCreate": "Crear página",
+    "actionUpdate": "Actualizar página",
+    "originalLocation": "Original: {{path}}"
+  }
+}

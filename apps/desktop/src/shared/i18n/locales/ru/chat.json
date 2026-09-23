@@ -1,0 +1,942 @@
+{
+  "activityPanel": {
+    "tabs": {
+      "file": "Файлы",
+      "batchProgress": "Прогресс",
+      "todo": "Дела",
+      "backgroundTasks": "Фоновые задачи",
+      "debug": "Отладка",
+      "knowledgeHistory": "История обработки",
+      "workflow": "Рабочие процессы"
+    },
+    "backgroundTasks": {
+      "statusRunning": "Выполняется",
+      "statusCompleted": "Завершено",
+      "statusFailed": "Ошибка",
+      "statusKilled": "Остановлено",
+      "subagentStatusPending": "Ожидание",
+      "subagentStatusInterrupted": "Прервано",
+      "durationSec": "{{sec}} с",
+      "durationMin": "{{min}} мин {{sec}} с",
+      "durationHour": "{{hr}} ч {{min}} мин",
+      "empty": "Нет фоновых задач",
+      "clearFinished": "Очистить завершённые ({{count}})",
+      "stop": "Остановить"
+    },
+    "mcpTasks": {
+      "statusWorking": "Выполняется",
+      "statusInputRequired": "Ожидание ввода",
+      "statusCancelled": "Отменено"
+    },
+    "subagents": {
+      "usage": "{{tokens}} токенов · {{cost}}",
+      "errorPermission": "Доступ заблокирован",
+      "errorContext": "Достигнут лимит контекста",
+      "errorConnection": "Соединение прервано",
+      "errorExecution": "Ошибка выполнения"
+    },
+    "batchProgress": {
+      "notFound": "Пакетный проект не найден"
+    },
+    "debug": {
+      "toolCalls": "Вызовы инструментов",
+      "requestHistory": "История запросов"
+    },
+    "todo": {
+      "empty": "Нет пунктов списка дел",
+      "headline": "В работе",
+      "allDone": "Всё готово",
+      "progress": "{{done}} из {{total}} готово",
+      "statusDone": "Готово",
+      "statusInProgress": "В работе",
+      "statusPending": "Ожидание"
+    },
+    "toolCalls": {
+      "filterAll": "Все",
+      "filterSuccess": "Успешно",
+      "filterError": "Ошибка",
+      "noSession": "Нет активной сессии",
+      "searchPlaceholder": "Поиск по названию инструмента...",
+      "loading": "Загрузка...",
+      "recordCount": "{{count}} записей",
+      "refresh": "Обновить",
+      "empty": "Вызовов инструментов пока нет",
+      "noMatch": "Нет совпадений",
+      "args": "Аргументы",
+      "result": "Результат"
+    },
+    "requestHistory": {
+      "noSession": "Нет активной сессии",
+      "loading": "Загрузка...",
+      "requestCount": "{{count}} запросов",
+      "refresh": "Обновить",
+      "empty": "После отправки сообщения в режиме отладки здесь появится история запросов",
+      "showInFolder": "Показать на диске"
+    },
+    "schedule": {
+      "statusRunning": "Выполняется",
+      "statusSuccess": "Успешно",
+      "statusFailed": "Ошибка",
+      "statusAborted": "Прервано",
+      "unnamedTask": "Задача без названия",
+      "noTasks": "В этом проекте нет задач автоматизации",
+      "overview": "Обзор автоматизации",
+      "refresh": "Обновить",
+      "totalTasks": "Всего задач",
+      "enabled": "Включено",
+      "todayExecutions": "Сегодня",
+      "taskControl": "Управление задачами",
+      "enabledBadge": "Включено",
+      "pausedBadge": "На паузе",
+      "run": "Запустить",
+      "pause": "Пауза",
+      "enable": "Включить",
+      "executionRecords": "Записи о выполнении",
+      "noRecords": "Нет записей о выполнении"
+    },
+    "htmlPreview": {
+      "title": "Предпросмотр HTML"
+    },
+    "workflow": {
+      "empty": "Нет рабочих процессов",
+      "noTranscript": "Сообщений от этого рабочего процесса пока нет",
+      "stop": "Остановить",
+      "statusQueued": "В очереди",
+      "statusPending": "Запуск",
+      "statusRunning": "Выполняется",
+      "statusCompleted": "Завершено",
+      "statusFailed": "Ошибка",
+      "statusInterrupted": "Прервано",
+      "processingTitle": "Рабочих процессов в работе: {{count}}",
+      "doneTitle": "Все рабочие процессы завершены"
+    }
+  },
+  "fileExplorer": {
+    "clearArtifactsTitle": "Очистить артефакты",
+    "clearArtifactsMessage": "Все файлы артефактов в рабочем каталоге проекта {{label}} будут удалены (записи сессий сохраняются). Это действие нельзя отменить.",
+    "clearArtifactsConfirm": "Очистить",
+    "clearArtifactsFailed": "Не удалось очистить артефакты",
+    "conversationLabel": "\"Диалог\"",
+    "moveFailed": "Не удалось переместить",
+    "deleteFailed": "Не удалось удалить",
+    "selectProject": "Выберите проект для просмотра файлов",
+    "fileList": "Файлы проекта",
+    "clearArtifacts": "Очистить артефакты",
+    "refresh": "Обновить",
+    "newFile": "Новый файл",
+    "newFolder": "Новая папка",
+    "collapseAll": "Свернуть все",
+    "newFileInputLabel": "Введите имя нового файла",
+    "newFolderInputLabel": "Введите имя новой папки",
+    "createAlreadyExists": "Файл или папка с таким именем уже существует",
+    "createFailed": "Не удалось создать элемент",
+    "invalidName": {
+      "empty": "Имя не может быть пустым",
+      "dotPath": "Имя не может быть . или ..",
+      "pathSeparator": "Имя не может содержать разделители пути",
+      "invalidCharacter": "Имя содержит символы, недопустимые в Windows",
+      "reservedName": "Это имя зарезервировано в Windows",
+      "trailingCharacter": "Имя не может заканчиваться пробелом или точкой"
+    },
+    "emptyFolder": "Эта папка пуста",
+    "openInFinder": "Показать в Finder",
+    "openInExplorer": "Показать в Проводнике",
+    "copy": "Копировать",
+    "paste": "Вставить",
+    "copyPath": "Копировать путь",
+    "copyName": "Копировать имя",
+    "rename": "Переименовать",
+    "delete": "Удалить",
+    "confirmDeleteTitle": "Подтвердите удаление",
+    "confirmDeleteFolder": "папку",
+    "confirmDeleteFile": "файл",
+    "confirmDeletePrefix": "Удалить {{type}}",
+    "confirmDeleteSuffix": "?{{folderNote}} Это действие нельзя отменить.",
+    "confirmDeleteFolderNote": " Всё содержимое папки будет удалено.",
+    "confirmDeleteMultiplePrefix": "Удалить эти элементы ({{count}})",
+    "confirmDeleteMultipleMore": " и ещё {{count}}",
+    "confirmDeleteMultipleSuffix": "? Это действие нельзя отменить.",
+    "cancel": "Отмена",
+    "transfer": {
+      "title": "Добавить файлы в проект",
+      "pasteCopyTitle": "Вставить файлы",
+      "pasteMoveTitle": "Переместить файлы",
+      "description": "Разместить элементы ({{count}}) в «{{destination}}»",
+      "moveWarning": "При перемещении успешно перенесённые элементы удаляются из исходного расположения.",
+      "conflictLabel": "Конфликт имён у элементов: {{count}}",
+      "keepBoth": "Сохранить оба",
+      "replace": "Заменить существующие элементы",
+      "skip": "Пропустить конфликтующие элементы",
+      "copy": "Копировать",
+      "move": "Переместить",
+      "cancel": "Отмена",
+      "processing": "Обработка…",
+      "prepareFailed": "Не удалось прочитать перетащенные файлы",
+      "commitFailed": "Не удалось передать файлы",
+      "failedCount": "Не удалось передать элементы: {{count}}"
+    }
+  },
+  "fileEditor": {
+    "loading": "Открытие файла…",
+    "edit": "Изменить",
+    "preview": "Просмотр",
+    "save": "Сохранить",
+    "saving": "Сохранение…",
+    "saved": "Сохранено",
+    "unsaved": "Несохранённые изменения",
+    "conflict": "Другая программа изменила этот файл. Перезагрузите его или явно перезапишите версию на диске.",
+    "reload": "Перезагрузить",
+    "overwrite": "Перезаписать",
+    "errorTooLarge": "Файлы размером более 2 МБ нельзя редактировать",
+    "errorPreviewTooLarge": "Файл слишком большой для просмотра",
+    "errorNotUtf8": "Файл не является корректным текстом UTF-8 и не может быть отредактирован",
+    "errorRead": "Не удалось прочитать этот файл",
+    "errorSave": "Не удалось сохранить этот файл. Попробуйте ещё раз.",
+    "unsupported": "Просмотр этого типа файлов не поддерживается",
+    "download": "Скачать файл",
+    "showTree": "Показать дерево файлов",
+    "hideTree": "Скрыть дерево файлов",
+    "previous": "Предыдущий (←)",
+    "next": "Следующий (→)",
+    "downloadShort": "Скачать",
+    "refresh": "Обновить",
+    "close": "Закрыть"
+  },
+  "appshot": {
+    "errorSelfCapture": "Снимок пропущен: активное окно — сам Metoai",
+    "errorNoPermission": "Не удалось сделать снимок: отсутствуют разрешения на запись экрана и универсальный доступ. Выдайте их в разделе Настройки › Разрешения",
+    "errorHelperFailed": "Не удалось сделать снимок, попробуйте ещё раз"
+  },
+  "askUserQuestion": {
+    "cancelledMessage": "Отменено пользователем, ответ не получен",
+    "defaultQuestionLabel": "Вопрос {{number}}"
+  },
+  "mcpElicitation": {
+    "title": "Запрос информации MCP",
+    "source": "От {{server}}",
+    "urlNotice": "Metoai откроет этот адрес в системном браузере только после вашего подтверждения.",
+    "decline": "Отклонить",
+    "openAndContinue": "Открыть и продолжить",
+    "submit": "Отправить",
+    "required": "(обязательно)",
+    "enabled": "Включено",
+    "disabled": "Отключено",
+    "selectPlaceholder": "Выберите вариант"
+  },
+  "atPanel": {
+    "emptyDirectory": "Пустой каталог",
+    "enterDirectory": "Tab — войти",
+    "goUp": "..",
+    "header": "Ссылка на файл",
+    "loading": "Загрузка...",
+    "noResults": "Совпадений не найдено",
+    "searchResults": "{{count}} результатов"
+  },
+  "backgroundTasksBadge": {
+    "runningTasksTooltip": "Выполняется фоновых задач: {{count}}"
+  },
+  "bashHeader": {
+    "statusCancelled": "Отменено: {{short}}",
+    "statusError": "Ошибка команды: {{short}}",
+    "statusPending": "Выполняется: {{short}}",
+    "statusSuccess": "Команда выполнена: {{short}}"
+  },
+  "bashTerminalCard": {
+    "copyCommand": "Копировать команду",
+    "metaDescription": "Локальные метаданные, только для интерфейса, не отправляются модели"
+  },
+  "browser": {
+    "addressPlaceholder": "Введите URL и нажмите Enter",
+    "back": "Назад",
+    "empty": "Нажмите ссылку в диалоге или введите URL выше",
+    "failed": "Не удалось загрузить страницу",
+    "forward": "Вперёд",
+    "loading": "Загрузка…",
+    "noSession": "Нет активной сессии",
+    "openExternal": "Открыть в системном браузере",
+    "reload": "Перезагрузить",
+    "retry": "Повторить",
+    "stop": "Остановить",
+    "tab": "Браузер"
+  },
+  "capability": {
+    "network": "Сеть",
+    "read": "Чтение",
+    "write": "Запись"
+  },
+  "chatExport": {
+    "defaultSessionName": "Сессия Metoai"
+  },
+  "chatView": {
+    "defaultSessionTitle": "Сессия Metoai",
+    "exportButton": {
+      "title": "Экспортировать всю сессию в HTML"
+    },
+    "newSessionButton": {
+      "title": "Новая сессия"
+    },
+    "panelButton": {
+      "closed": "Открыть панель активности",
+      "open": "Закрыть панель активности"
+    },
+    "pinButton": {
+      "pinned": "Открепить окно",
+      "unpinned": "Закрепить окно (поверх остальных)"
+    }
+  },
+  "contextRing": {
+    "tooltip": {
+      "compacting": "Сжатие контекста...",
+      "unknown": "Окно контекста {{window}} (использование неизвестно)",
+      "usage": "Использовано {{tokens}} токенов контекста ({{percent}}%, окно {{window}})"
+    },
+    "details": {
+      "title": "Состав контекста (последний вызов)",
+      "actual": "Фактический ввод",
+      "section": "Раздел",
+      "category": "Категория",
+      "tokens": "Токены",
+      "share": "Доля",
+      "unknown": "Неизвестно",
+      "back": "Назад",
+      "unavailableAfterRestart": "Для этой сессии нет восстановимых сведений о составе. Отправьте ещё одно сообщение, чтобы создать и сохранить новый отчёт.",
+      "items": "{{count}} элементов",
+      "unknownItems": "{{count}} неизвестно",
+      "owner": {
+        "core": "Система",
+        "skill": "Навык",
+        "plugin": "Плагин",
+        "mcp": "MCP",
+        "extension": "Расширение",
+        "runtime": "Среда выполнения",
+        "user": "Пользователь",
+        "unknown": "Без источника"
+      },
+      "kind": {
+        "instruction": "Инструкция",
+        "tool_schema": "Схема инструмента",
+        "history": "История",
+        "runtime_context": "Контекст среды",
+        "user_input": "Текущий ввод"
+      },
+      "group": {
+        "instructions": "Основные инструкции",
+        "capabilities": "Расширения",
+        "tools": "Инструменты",
+        "conversation": "Диалог",
+        "runtime": "Контекст среды"
+      }
+    }
+  },
+  "copyButton": {
+    "copied": "Скопировано",
+    "label": "Копировать"
+  },
+  "dropZone": {
+    "externalRef": "Изображения прикрепляются автоматически; остальные файлы добавляются как ссылки",
+    "internalRef": "Ссылка из проекта",
+    "releaseToRef": "Отпустите, чтобы сослаться на файл"
+  },
+  "editDiff": {
+    "anchor": {
+      "badge": "Правка привязки",
+      "delete": "Удалить",
+      "insertAfter": "Вставить после",
+      "replace": "Заменить строку",
+      "replaceRange": "Заменить диапазон"
+    },
+    "netChangeLabel": "Итого {{net}}",
+    "newTextEmpty": "Пустой текст замены",
+    "oldTextEmpty": "Пустой искомый текст"
+  },
+  "executionModeSelector": {
+    "fullAccess": {
+      "label": "Полный доступ",
+      "title": "Разрешить полный доступ к текущей системе"
+    },
+    "sandbox": {
+      "label": "Песочница",
+      "title": "Разрешить ограниченный доступ только в пределах рабочей области"
+    },
+    "sandboxUnavailable": "Песочница {{platform}} недоступна: {{reason}}"
+  },
+  "export": {
+    "shareNavDescription": "поделился сессией",
+    "shareNavDescriptionWithNickname": "{{nickname}} поделился сессией"
+  },
+  "filterByTags": {
+    "hitCount": "Совпало страниц: {{count}}",
+    "noResults": "Нет совпавших страниц",
+    "noTitle": "(без названия)"
+  },
+  "guideBadgeSwiper": {
+    "dismissTooltip": "Больше не показывать",
+    "petFeatureText": "Новая функция: питомец на рабочем столе — нажмите, чтобы включить в настройках",
+    "quickPanelText": "В Metoai появилась быстрая панель — нажмите, чтобы настроить"
+  },
+  "imagePreview": {
+    "altText": "Загруженное изображение",
+    "imageLabel": "Изображение",
+    "originalLabel": "Оригинал",
+    "processedLabel": "Ввод модели",
+    "showInFolderButton": "Показать оригинал в файловом менеджере"
+  },
+  "inputActionBar": {
+    "chip": {
+      "removeTooltip": "Нажмите, чтобы удалить"
+    },
+    "knowledgeRetrieval": {
+      "label": "Поиск по знаниям",
+      "tooltip": "Когда включено, этот ход может вызывать инструменты базы знаний и предпочитает отвечать из вашей базы знаний"
+    }
+  },
+  "inputBar": {
+    "error": {
+      "multipleScenes": "За одно сообщение можно выбрать только одну сцену. Удалите лишнюю сцену и попробуйте снова"
+    },
+    "capsule": {
+      "appshotThumbnailAlt": "Скриншот",
+      "appshotPreview": "Предпросмотр скриншота",
+      "appshotIconAlt": "Значок приложения",
+      "removeDefault": "Нажмите, чтобы удалить",
+      "removeImage": "Удалить изображение",
+      "removeTooltip": "{{path}}\nНажмите, чтобы удалить",
+      "activeGroup": "{{count}} плагинов",
+      "imageBadge": "Изображение {{index}}"
+    },
+    "drawer": {
+      "permissionDesc": "Ожидает подтверждения",
+      "permissionLabel": "Запрос разрешения",
+      "queueDelete": "Удалить",
+      "contextCompaction": "Сжать контекст",
+      "queueDesc": "В очереди: {{count}}",
+      "queueEmpty": "Нет сообщений в очереди",
+      "queueLabel": "Очередь",
+      "queuePaused": "Последний ход был прерван — отправка сообщений из очереди приостановлена",
+      "queuePausedDesc": "Пауза · в очереди {{count}}",
+      "queueResume": "Возобновить отправку",
+      "queueSendNow": "Отправить сейчас"
+    },
+    "permission": {
+      "allow": "Разрешить один раз",
+      "allowSession": "Не спрашивать в этой сессии",
+      "deny": "Запретить"
+    },
+    "placeholder": {
+      "defaults": [
+        "Спросите Metoai, / — навыки, @ — ссылки на файлы",
+        "Опишите задачу, нажмите ⏎ для отправки",
+        "Вставьте скриншот или укажите файл через @"
+      ],
+      "noSession": "Выберите или создайте сессию, чтобы начать",
+      "suggestion": "↵ {{suggestion}}",
+      "thinking": "Metoai думает…"
+    },
+    "mention": {
+      "trigger": "Упомянуть участников",
+      "title": "Упомянуть участников команды",
+      "hint": "Если никого не упомянуть, задачу берёт на себя ведущий команды.",
+      "empty": "В этой команде нет участников для упоминания",
+      "clear": "Очистить всё",
+      "selected": "Участников: {{count}}"
+    },
+    "toolbar": {
+      "addImage": "Добавить изображение",
+      "attachFile": "Прикрепить ссылку на файл",
+      "skills": "Навыки / Сцены"
+    },
+    "speech": {
+      "actions": {
+        "start": "Начать голосовой ввод",
+        "stop": "Остановить голосовой ввод"
+      },
+      "states": {
+        "loading": "Загрузка офлайн-модели речи…",
+        "stopping": "Завершение распознавания речи…"
+      },
+      "errors": {
+        "unsupported": "Голосовой ввод сейчас требует Windows x64",
+        "missing": "Модель речи отсутствует в этой установке. Переустановите приложение",
+        "integrity": "Встроенная модель речи повреждена. Переустановите приложение",
+        "recognizer": "Не удалось запустить распознавание речи. Нажмите, чтобы повторить"
+      }
+    },
+    "contextMenu": {
+      "cut": "Вырезать",
+      "copy": "Копировать",
+      "paste": "Вставить"
+    },
+    "todo": {
+      "trigger": "Дела",
+      "allDone": "Всё готово",
+      "panelTitle": "Список дел",
+      "openPanel": "Открыть на панели",
+      "statusDone": "Готово",
+      "statusInProgress": "В работе",
+      "statusPending": "Ожидание"
+    }
+  },
+  "knowledgeTools": {
+    "empty": "Нет результатов"
+  },
+  "listTags": {
+    "empty": "В базе знаний пока нет тегов",
+    "tagCount": "Всего тегов: {{count}}"
+  },
+  "messageCards": {
+    "layoutList": "Список",
+    "layoutStacked": "Стопка"
+  },
+  "messageList": {
+    "userMessage": {
+      "expand": "Развернуть сообщение",
+      "sceneBadge": "Сцена",
+      "skillBadge": "Навык",
+      "settingsAssist": {
+        "mcp": "Помощь с настройкой MCP",
+        "models": "Помощь с настройкой модели",
+        "knowledge": "Помощь с настройкой знаний",
+        "knowledgeBase": "Помощь с базой знаний",
+        "batchTasks": "Помощь с пакетными задачами",
+        "automation": "Помощь с автоматизацией",
+        "im": "Помощь с настройкой Claw",
+        "webhook": "Помощь с настройкой webhook",
+        "appearance": "Помощь с настройкой оформления",
+        "plugins": "Помощь с настройкой плагинов",
+        "pet": "Помощь с настройкой питомца",
+        "environment": "Помощь с настройкой окружения",
+        "shortcuts": "Помощь с настройкой горячих клавиш",
+        "agent": "Помощь с настройкой агента",
+        "unknown": "Помощь с настройками"
+      }
+    },
+    "assistantFoldTip": {
+      "collapse": "Свернуть элементы ({{count}})",
+      "collapseLabel": "Свернуть",
+      "expand": "Развернуть элементы ({{count}})",
+      "expandLabel": "Развернуть",
+      "streaming": "Обработка · {{duration}}",
+      "waiting": "Ожидание · {{duration}}",
+      "work": {
+        "collapse": "Свернуть шаги ({{count}})",
+        "collapseZero": "Свернуть процесс",
+        "expand": "Развернуть шаги ({{count}})",
+        "expandZero": "Развернуть процесс"
+      }
+    },
+    "assistantMessage": {
+      "predicting": "Metoai предсказывает…",
+      "processing": "Обработка…",
+      "waiting": "Ожидание ответа модели"
+    },
+    "duration": {
+      "seconds": "{{seconds}} с",
+      "minutes": "{{minutes}} мин {{seconds}} с",
+      "hours": "{{hours}} ч {{minutes}} мин"
+    },
+    "navigation": {
+      "title": "Вопросы",
+      "count": "{{count}}",
+      "open": "Просмотреть вопросы",
+      "close": "Закрыть список вопросов",
+      "searchLabel": "Поиск вопросов",
+      "searchPlaceholder": "Поиск вопросов",
+      "noResults": "Нет подходящих вопросов",
+      "jumpTo": "Перейти к {{preview}}",
+      "emptyUser": "(Нет текста)"
+    },
+    "tokenUsage": {
+      "trigger": "Просмотреть использование токенов",
+      "sessionTitle": "Токены сессии",
+      "messageTitle": "Токены текущего сообщения",
+      "scopeLabel": "Область учёта токенов",
+      "session": "Итого за сессию",
+      "message": "Текущее сообщение",
+      "modelCalls": "Вызовов модели: {{count}}",
+      "total": "Всего",
+      "prompt": "Токены запроса",
+      "uncachedInput": "Ввод",
+      "output": "Вывод",
+      "cacheRead": "Попадание в кэш",
+      "cacheWrite": "Запись в кэш",
+      "cacheHitRate": "Доля попаданий в кэш",
+      "moreParameters": "Дополнительные параметры",
+      "readCoverage": "Покрытие наблюдений чтения",
+      "writeCoverage": "Покрытие наблюдений записи",
+      "readOnlyReporting": "Не сообщается (только чтение)",
+      "diagnosticCoverage": "Покрытие диагностики префикса",
+      "stableSystemChars": "Символы стабильного системного промпта",
+      "volatileSystemChars": "Символы изменчивого системного промпта",
+      "historyMessages": "Сообщения истории префикса",
+      "toolCount": "Число инструментов",
+      "prefixStatus": "Статус стабильного префикса",
+      "changedSegments": "Изменённые сегменты",
+      "changedPromptBlocks": "Изменённые блоки промпта",
+      "changedTools": "Изменённые инструменты",
+      "definitionChange": "{{id}} ({{change}})",
+      "changeKinds": {
+        "added": "добавлено",
+        "removed": "удалено",
+        "changed": "содержимое изменено",
+        "reordered": "порядок изменён"
+      },
+      "segmentSeparator": ", ",
+      "prefixStatuses": {
+        "initial": "Первая диагностика",
+        "extended": "Непрерывно расширялся",
+        "changed": "Префикс изменён",
+        "unknown": "Историческая версия недоступна"
+      },
+      "prefixSegments": {
+        "stableSystem": "Стабильный системный промпт",
+        "volatileSystem": "Изменчивый системный промпт",
+        "tools": "Определения инструментов",
+        "messages": "История сообщений"
+      },
+      "prefixHash": "Отпечаток префикса запроса",
+      "unavailable": "Не сообщается"
+    },
+    "compactionBoundary": "Контекст сжат",
+    "modelSwitched": "Модель переключена на {{name}}",
+    "compactionIndicator": "Сжатие контекста...",
+    "retryIndicator": "Переподключение ({{attempt}}/{{maxAttempts}})",
+    "retryReason": "Последний запрос не удался: {{reason}}",
+    "streamingPhrases": [
+      "Metoai отвечает…",
+      "Пожалуйста, подождите…",
+      "Metoai усердно работает…"
+    ],
+    "copyButton": {
+      "copied": "Скопировано",
+      "copy": "Копировать"
+    },
+    "errorBlock": {
+      "showDetail": "Показать подробности",
+      "hideDetail": "Скрыть подробности",
+      "retriedNote": "Автоматически повторено {{count}} раз",
+      "repeatedNote": "Произошло {{count}} раз",
+      "diagnostic": {
+        "code": "Код ошибки: {{value}}",
+        "origin": "Источник: {{value}}",
+        "statusCode": "Статус HTTP: {{value}}",
+        "provider": "Провайдер: {{value}}",
+        "model": "Модель: {{value}}",
+        "providerCode": "Код ошибки провайдера: {{value}}",
+        "phase": "Этап: {{value}}",
+        "requestId": "ID запроса: {{value}}",
+        "retryAfter": "Рекомендуемая пауза: {{value}} мс"
+      },
+      "kinds": {
+        "rate_limit": {
+          "title": "Слишком много запросов",
+          "hint": "Подождите немного и отправьте снова."
+        },
+        "quota": {
+          "title": "Квота исчерпана",
+          "hint": "Дождитесь сброса или проверьте тариф и использование.",
+          "action": "Посмотреть квоту"
+        },
+        "network": {
+          "title": "Нет подключения к сети",
+          "hint": "Проверьте сеть или прокси и отправьте снова."
+        },
+        "auth": {
+          "title": "Ключ модели недействителен или истёк",
+          "hint": "Обновите ключ в настройках модели и попробуйте снова.",
+          "action": "Открыть настройки"
+        },
+        "server": {
+          "title": "Сервис испытывает трудности",
+          "hint": "Обычно это проходит за несколько минут — попробуйте чуть позже."
+        },
+        "unknown": {
+          "title": "Этот ответ был прерван",
+          "hint": "Попробуйте отправить снова; если это повторяется, скопируйте подробности и сообщите нам."
+        }
+      }
+    },
+    "contextMenu": {
+      "edit": "Изменить",
+      "copy": "Копировать",
+      "delete": "Удалить"
+    },
+    "selectionContextMenu": {
+      "copy": "Копировать",
+      "addToInput": "Добавить в ввод"
+    },
+    "delete": {
+      "title": "Удалить это сообщение?",
+      "body": "Последующие сообщения сохранятся, но этот текст больше не будет входить в их контекст. Это действие нельзя отменить.",
+      "streamingBody": "Сначала будет остановлен текущий ответ. Последующие сообщения сохранятся, но этот текст больше не будет входить в их контекст. Это действие нельзя отменить.",
+      "confirm": "Удалить",
+      "suppressForOneMinute": "Не спрашивать в течение минуты"
+    },
+    "editButton": "Изменить",
+    "forkButton": "Ответвить в новую сессию",
+    "forkOrigin": {
+      "label": "Ответвлено из исходной сессии",
+      "labelWithPreview": "Ответвлено от сообщения"
+    },
+    "branch": {
+      "prev": "Предыдущая версия",
+      "next": "Следующая версия",
+      "position": "Версия {{current}} из {{total}}"
+    },
+    "edit": {
+      "pendingHint": "Редактирование последнего сообщения — отправьте, чтобы заменить исходное сообщение и ответ",
+      "overwriteDraftTitle": "Перезаписать текущий черновик?",
+      "overwriteDraftBody": "В поле ввода уже есть текст. Редактирование последнего сообщения заменит ваш черновик.",
+      "overwriteDraftConfirm": "Перезаписать и изменить"
+    },
+    "interrupt": {
+      "editTitle": "Прервать этот ход?",
+      "editBody": "Редактирование прошлого сообщения остановит текущий ответ. Уже созданное содержимое останется в исходной ветке.",
+      "switchTitle": "Прервать этот ход?",
+      "switchBody": "Переключение веток остановит текущий ответ. Уже созданное содержимое останется в исходной ветке.",
+      "forkTitle": "Прервать этот ход?",
+      "forkBody": "Ответвление в новую сессию остановит текущий ответ.",
+      "confirm": "Прервать и продолжить",
+      "cancel": "Отмена"
+    },
+    "progressGroup": {
+      "fallbackTitle": "В работе",
+      "genericDone": "Выполнено шагов: {{count}}",
+      "genericRunning": "В процессе",
+      "thinking": "Размышление",
+      "thinkingActivity": "Размышление: {{text}}",
+      "thinkingLabel": "Размышление"
+    },
+    "toolCallGroup": {
+      "completed": "Завершено вызовов инструментов: {{count}}",
+      "inProgress": "Вызовы инструментов: {{completed}}/{{total}}",
+      "thinking": "Шагов размышления: {{count}}"
+    }
+  },
+  "modelSelector": {
+    "defaultBadge": "По умолчанию",
+    "selectModel": "Выбрать модель",
+    "visionBadge": "зрение"
+  },
+  "newSession": {
+    "greetingDefault": "Как дела сегодня?",
+    "greetingTitle": "Привет, {{nickname}}",
+    "subtitle": "Я помогу вам справиться с делами. Чем могу помочь?",
+    "defaultContext": "Общий диалог",
+    "teamNewWorkspaceContext": "Новое рабочее пространство",
+    "projectContext": "Проект · {{name}}",
+    "mascot": {
+      "menuTrigger": "Настройки питомца",
+      "hideMascot": "Скрыть питомца",
+      "showMascot": "Показать питомца",
+      "playOnce": "Проиграть текущую анимацию питомца один раз"
+    },
+    "torch": {
+      "light": "Зажечь факел",
+      "extinguish": "Погасить факел"
+    },
+    "mario": {
+      "hit": "Выбить гриб",
+      "reset": "Вернуть гриб на место"
+    },
+    "hand": {
+      "rest": "Дать руке отдохнуть",
+      "tap": "Заставить руку снова стучать"
+    },
+    "projectSelector": {
+      "placeholder": "Выберите проект",
+      "clear": "Без проекта",
+      "searchPlaceholder": "Поиск проектов",
+      "empty": "Нет подходящего проекта",
+      "newProject": "Новый проект",
+      "openProject": "Открыть локальный проект",
+      "pendingHint": "ожидание",
+      "creating": "Создание…",
+      "preparing": "Подготовка проекта",
+      "triggerTitle": "Выберите проект для этой сессии",
+      "createFailedTitle": "Не удалось создать проект"
+    },
+    "agentSelector": {
+      "clear": "Без агента",
+      "searchPlaceholder": "Поиск команд и агентов",
+      "empty": "Нет подходящих команд или агентов",
+      "loading": "Загрузка…",
+      "error": "Не удалось загрузить список",
+      "invalid": "Эта команда больше недоступна. Выберите другую команду.",
+      "agentInvalid": "Этот агент больше недоступен. Выберите другого.",
+      "retry": "Повторить",
+      "memberCount": "Участников: {{count}}",
+      "groupTeams": "Команды",
+      "groupAgents": "Агенты",
+      "pick": "Сменить агента",
+      "pickTitle": "Выберите команду или отдельного агента для этой задачи",
+      "switchTitle": "Сменить команду или агента для этой сессии"
+    }
+  },
+  "questionPanel": {
+    "keyboardHint": "↑↓ навигация · Space выбор · ←→ переключение · Enter далее",
+    "multiSelectHint": "Множественный выбор",
+    "otherOption": "Другое (свой вариант)",
+    "otherPlaceholder": "Введите ваш ответ…",
+    "nextButton": "Далее",
+    "questionTabLabel": "Вопрос {{number}}",
+    "submitButton": "Отправить",
+    "title": "Metoai ждёт вашего выбора"
+  },
+  "sandboxGrantsBadge": {
+    "revoke": "Отозвать",
+    "revokeAll": "Отозвать все",
+    "title": "Разрешения песочницы для этой сессии",
+    "tooltip": "Разрешения песочницы для этой сессии"
+  },
+  "sendButton": {
+    "sendMessage": "Отправить сообщение",
+    "stopGenerating": "Остановить генерацию"
+  },
+  "session": {
+    "emptyMessageLabel": "(изображение)"
+  },
+  "sessionViewer": {
+    "badge": {
+      "liveUpdate": "Живое обновление",
+      "readOnly": "Просмотр только для чтения"
+    },
+    "emptyState": {
+      "noPath": "Путь к сессии не указан"
+    },
+    "error": {
+      "loadPrefix": "Не удалось загрузить: "
+    },
+    "export": {
+      "defaultTitle": "Сессия Metoai"
+    },
+    "exportButton": {
+      "title": "Экспортировать всю сессию в HTML"
+    },
+    "header": {
+      "subtitle": "Эта сессия создана другим клиентом; приложение только отображает её"
+    },
+    "panelToggleButton": {
+      "titleClose": "Закрыть панель активности",
+      "titleOpen": "Открыть панель активности"
+    }
+  },
+  "skillPromptArea": {
+    "missingBadge": "Не установлен",
+    "placeholder": "Введите промпт… / — навыки/сцены",
+    "removeSkill": "Нажмите, чтобы удалить",
+    "removeSkillMissing": "Навык не установлен, нажмите, чтобы удалить",
+    "skillButtonLabel": "Навыки / Сцены",
+    "skillButtonTitle": "Навыки / Сцены"
+  },
+  "slashPanel": {
+    "compaction": {
+      "label": "Сжать контекст",
+      "description": "Сжать контекст этого диалога (использовано {{percent}}%)",
+      "descriptionUnknown": "Сжать контекст этого диалога",
+      "queued": "В очереди, выполнится после текущего ответа",
+      "compacting": "Сжатие контекста",
+      "errorTitle": "Не удалось сжать контекст",
+      "errorMessage": "Не удалось поставить сжатие контекста в очередь. Попробуйте ещё раз."
+    },
+    "emptyNoMatch": "Совпадений не найдено",
+    "emptyNoMatchHint": "Попробуйте другое слово или просто введите запрос.",
+    "emptyNoSkills": "Нет доступных навыков или сцен",
+    "emptyNoSkillsHint": "Установите навык или сцену из магазина возможностей, чтобы вызывать их здесь.",
+    "header": "Выберите сцену или навык",
+    "resultCount": "{{count}} результатов",
+    "scenesSection": "Сцены",
+    "skillsSection": "Навыки",
+    "sourceLabels": {
+      "agentsProject": "Общий · Проект",
+      "agentsUser": "Общий",
+      "path": "Свой",
+      "project": "Проект",
+      "scene": "Сцена",
+      "user": "Пользователь",
+      "builtin": "Встроенный",
+      "plugin": "Плагин",
+      "market": "Магазин"
+    },
+    "connectorsSection": "Подключено"
+  },
+  "suggestionBubbles": {
+    "sendTooltip": "Нажмите, чтобы отправить эту подсказку"
+  },
+  "textPreview": {
+    "characterUnit": "симв.",
+    "emptyLabel": "Пусто",
+    "lineUnit": "строк"
+  },
+  "thinkingBlock": {
+    "lineCount": "{{count}} строк",
+    "title": "Размышление"
+  },
+  "toolCall": {
+    "error": "Ошибка",
+    "meta": "мета",
+    "metaLabel": "Локальные метаданные, только для интерфейса, не отправляются модели",
+    "audioPreview": "Аудиорезультат MCP"
+  },
+  "toolFormat": {
+    "unknown": "Неизвестно"
+  },
+  "toolLabel": {
+    "alias": {
+      "ask_user_question": "Спросить",
+      "bash": "Выполнить команду",
+      "current_time": "Текущее время",
+      "dir_tree": "Дерево каталогов",
+      "dispatch_workflows": "Запустить рабочие процессы",
+      "doc_to_pdf": "В PDF",
+      "easy_use_vettaApp": "Использовать приложение",
+      "edit": "Изменить",
+      "extract_text_from_img": "Извлечь текст (изображение)",
+      "extract_text_from_pdf": "Извлечь текст (PDF)",
+      "find": "Найти файлы",
+      "followup_task": "Дополнительная задача",
+      "glob": "Сопоставить файлы",
+      "grep": "Поиск",
+      "html_to_pdf": "В PDF",
+      "im_send_attachment": "Отправить вложение",
+      "interrupt_agent": "Прервать агента",
+      "invoke_skill": "Запустить навык",
+      "list_agents": "Список агентов",
+      "ls": "Список",
+      "memory": "Память",
+      "read": "Чтение",
+      "render_pdf_page": "Отрисовать страницу PDF",
+      "send_message": "Отправить сообщение",
+      "shell": "Выполнить команду",
+      "spawn_agent": "Создать агента",
+      "task_output": "Вывод задачи",
+      "task_stop": "Остановить задачу",
+      "todo": "Дела",
+      "tool_search": "Поиск инструментов",
+      "tree": "Дерево каталогов",
+      "wait_agent": "Ожидать агента",
+      "write": "Запись"
+    },
+    "knowledgeBase": {
+      "filterByTags": "Знания · Фильтр по тегам",
+      "listTags": "Знания · Список тегов",
+      "writePage": "Знания · Записать страницу"
+    }
+  },
+  "mcpApp": {
+    "externalAccess": "Это MCP-приложение заявляет доступ к внешним доменам: {{count}}",
+    "permissionsDenied": "Это MCP-приложение запросило разрешения устройства; Metoai не предоставил их",
+    "title": "MCP-приложение"
+  },
+  "usageBar": {
+    "durationLabel": "Заняло {{duration}}",
+    "speedLabel": "Скорость {{speed}} ток/с"
+  },
+  "writeContent": {
+    "label": "Записать содержимое"
+  },
+  "writePage": {
+    "actionCreate": "Создать страницу",
+    "actionUpdate": "Обновить страницу",
+    "originalLocation": "Оригинал: {{path}}"
+  }
+}

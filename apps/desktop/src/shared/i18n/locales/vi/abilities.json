@@ -1,0 +1,537 @@
+{
+  "page": {
+    "title": "Khả năng",
+    "subtitle": "Trang bị thêm cho tác nhân của bạn: kỹ năng, cảnh, MCP, tiện ích và gói"
+  },
+  "banner": {
+    "title": "Khám phá thêm khả năng",
+    "description": "Chọn điều bạn muốn làm — thêm vào và dùng ngay trong cuộc trò chuyện"
+  },
+  "loading": "Đang tải…",
+  "type": {
+    "skill": "Kỹ năng",
+    "scene": "Cảnh",
+    "mcp": "MCP",
+    "plugin": "Tiện ích",
+    "bundle": "Gói"
+  },
+  "scope": {
+    "discover": "Khám phá",
+    "mine": "Của tôi"
+  },
+  "group": {
+    "connectors": "Kết nối",
+    "vettaBuiltin": "Tích hợp sẵn trong Metoai",
+    "uncategorized": "Chưa phân loại"
+  },
+  "search": {
+    "placeholder": "Tìm khả năng"
+  },
+  "status": {
+    "setupRequired": "Cần thiết lập",
+    "disabled": "Đã tắt",
+    "updateAvailable": "Có bản cập nhật",
+    "openSource": "Mã nguồn mở",
+    "sameName": "{{count}} cùng tên"
+  },
+  "card": {
+    "noDescription": "Không có mô tả"
+  },
+  "operation": {
+    "processing": "Đang xử lý…",
+    "checkingSource": "Đang kiểm tra phiên bản trên chợ ứng dụng…",
+    "refreshing": "Đang làm mới trạng thái cục bộ…",
+    "installing": "Đang thêm…",
+    "updating": "Đang cập nhật…",
+    "applyingUpdate": "Đang tải lại phiên bản mới…",
+    "removing": "Đang xóa…",
+    "enabling": "Đang bật…",
+    "disabling": "Đang tắt…",
+    "reloading": "Đang tải lại…",
+    "saving": "Đang lưu…",
+    "applyingSetup": "Đang áp dụng quyền…",
+    "activating": "Đang kích hoạt khả năng…",
+    "preparingRuntime": "Đang chuẩn bị môi trường chạy…",
+    "downloadingRuntime": "Đang tải môi trường chạy…",
+    "verifyingRuntime": "Đang xác minh môi trường chạy…",
+    "installingRuntime": "Đang cài môi trường chạy…",
+    "readyRuntime": "Môi trường chạy đã sẵn sàng",
+    "failedRuntime": "Chuẩn bị môi trường chạy thất bại"
+  },
+  "actions": {
+    "add": "Thêm",
+    "update": "Cập nhật",
+    "finishSetup": "Hoàn tất thiết lập",
+    "connectAccount": "Kết nối tài khoản",
+    "disconnectAccount": "Ngắt kết nối tài khoản",
+    "configure": "Cấu hình thông tin xác thực",
+    "edit": "Sửa cấu hình",
+    "viewDetails": "Xem chi tiết",
+    "remove": "Xóa",
+    "enable": "Bật",
+    "disable": "Tắt",
+    "more": "Thêm thao tác",
+    "refresh": "Làm mới",
+    "loadMore": "Tải thêm (còn {{remaining}})",
+    "reload": "Tải lại",
+    "cancel": "Hủy"
+  },
+  "add": {
+    "trigger": "Thêm khả năng",
+    "title": "Chọn cách thêm",
+    "importSkill": "Nhập tệp kỹ năng",
+    "importSkillHint": "Cài từ tệp zip, tar.gz hoặc tgz trên máy",
+    "importPlugin": "Nhập tệp tiện ích",
+    "importPluginHint": "Cài từ tệp zip trên máy có chứa plugin.json",
+    "addMcp": "Thêm MCP thủ công",
+    "addMcpHint": "Tự cấu hình máy chủ MCP stdio hoặc HTTP"
+  },
+  "empty": {
+    "noMatch": "Không có khả năng phù hợp",
+    "noMatchHint": "Thử từ khóa khác",
+    "discover": "Chưa có gì để khám phá",
+    "mine": "Chưa thêm khả năng nào",
+    "hint": "Làm mới sau, hoặc nhập một khả năng qua \"Thêm khả năng\" ở trên"
+  },
+  "error": {
+    "sourcesFailed": "Không đồng bộ được nguồn GitHub (vẫn dùng được nội dung đã lưu): {{names}}",
+    "sourcesOutdated": "Các nguồn này cần bản Metoai mới hơn mới tải được: {{names}}",
+    "serverFailed": "Không tải được chợ ứng dụng đám mây; các nguồn khác vẫn dùng được",
+    "loadFailed": "Không tải được khả năng",
+    "downloadFailed": "Tải xuống thất bại: {{status}}",
+    "installSourceConflict": "Một khả năng cùng mã đã được cài từ nguồn khác và sẽ không bị ghi đè. Hãy kiểm tra nguồn ở trang chi tiết.",
+    "membersUnavailable": "Các thành phần này không khả dụng và chưa được cài: {{names}}",
+    "partial": "Một số khả năng không tải được: {{error}}",
+    "openMarketplaceSyncFailed": "Không đồng bộ được khả năng mở; đã giữ bản chụp dùng được gần nhất"
+  },
+  "message": {
+    "installed": "Đã cài {{name}}",
+    "installedCount": "Đã cài {{count}} khả năng",
+    "setupRequired": "{{name}} cần thiết lập trước khi được thêm",
+    "uninstalled": "Đã xóa {{name}}",
+    "uninstalledCount": "Đã xóa {{count}} khả năng",
+    "imported": "Đã nhập {{name}}",
+    "updatedAndReloaded": "Đã cập nhật và tải lại {{name}} {{version}}",
+    "reloaded": "Đã tải lại {{name}} {{version}}"
+  },
+  "detail": {
+    "noContent": "Không có mô tả thêm. Thêm vào và dùng ngay trong cuộc trò chuyện.",
+    "notFound": "Không tìm thấy khả năng — có thể nó đã bị gỡ khỏi danh sách hoặc bị xóa.",
+    "source": {
+      "title": "Nguồn",
+      "builtin": "Tích hợp sẵn trong ứng dụng",
+      "local": "Đã thêm từ máy",
+      "server": "Máy chủ khả năng Metoai",
+      "sameNameTitle": "{{count}} khả năng khác có cùng tên",
+      "installConflict": "Một nguồn khác đã chiếm vị trí cài đặt này. Hệ thống sẽ không tự ghi đè; hãy xóa mục đã cài trước hoặc chờ luồng thay thế riêng."
+    },
+    "status": {
+      "available": "Chưa thêm",
+      "setup_required": "Cần thiết lập",
+      "disabled": "Đã tắt",
+      "enabled": "Đã bật",
+      "readonly": "Chỉ đọc"
+    },
+    "primary": {
+      "add": "Thêm khả năng",
+      "update": "Cập nhật khả năng",
+      "setup": "Hoàn tất thiết lập",
+      "enable": "Bật khả năng"
+    },
+    "secondary": {
+      "disable": "Tắt",
+      "configure": "Cấu hình",
+      "remove": "Xóa"
+    },
+    "meta": {
+      "author": "Tác giả",
+      "version": "Phiên bản",
+      "localVersion": "Phiên bản trên máy",
+      "downloads": "Lượt tải",
+      "license": "Giấy phép"
+    },
+    "story": {
+      "vs": "vs",
+      "compareBoth": "So sánh",
+      "stepProgress": "{{current}} / {{total}}",
+      "stepPrevious": "Quay lại",
+      "stepNext": "Tiếp",
+      "replayScene": "Phát hội thoại",
+      "previewImage": "Xem ảnh",
+      "closePreview": "Đóng"
+    }
+  },
+  "plugin": {
+    "currentVersion": "Phiên bản hiện tại",
+    "source": {
+      "label": "Nguồn",
+      "remote": "Cài từ xa",
+      "npm": "Gói npm",
+      "system": "Tích hợp sẵn",
+      "local": "Tệp zip trên máy"
+    },
+    "reloadVersion": "Tải lại lên {{version}}",
+    "permissions": "Quyền",
+    "permissionsSystemHint": "Được cấp tự động cho tiện ích hệ thống, không sửa được",
+    "setupDialog": "Bật và quyền",
+    "setupDialogHint": "Tiện ích đã được cài. Hãy xem lại trạng thái bật, quyền trên ứng dụng và các lệnh có thể chạy, rồi xác nhận để áp dụng.",
+    "updateSetupDialogHint": "Bản mới đã tải về nhưng chưa kích hoạt. Các quyền mới được chọn sẵn; hãy xem lại thay đổi trước khi kích hoạt.",
+    "permissionAdded": "Thêm trong bản cập nhật",
+    "permissionRemoved": "Xóa trong bản cập nhật",
+    "trustNotice": "Mã của tiện ích chạy trực tiếp trong giao diện ứng dụng. Quyền khai báo và kiểm soát các API của ứng dụng; chúng không phải môi trường cách ly an toàn. Chỉ bật những tiện ích bạn tin cậy.",
+    "setupEnable": "Bật tiện ích",
+    "setupEnableHint": "Khi tắt, tiện ích không bao giờ được tải — tab và tính năng của nó sẽ không xuất hiện.",
+    "setupDiscardTitle": "Hủy bỏ thiết lập này?",
+    "setupDiscardMessage": "Đóng bây giờ sẽ để tiện ích ở trạng thái tắt hoặc thiếu quyền, nên tab và một số tính năng của nó sẽ không xuất hiện. Bạn có thể bật và điều chỉnh quyền sau ở trang chi tiết tiện ích.",
+    "setupDiscardConfirm": "Hủy bỏ và đóng",
+    "noPermissions": "Tiện ích này không khai báo quyền nào.",
+    "commands": "Lệnh có thể chạy",
+    "commandsHint": "Tắt sẽ chặn các lệnh gọi từ tiện ích",
+    "contributions": "Có trong tiện ích này",
+    "contributionsHint": "Được cài và xóa cùng với tiện ích",
+    "contributedMcp": "Máy chủ MCP",
+    "contributedSkills": "Kỹ năng",
+    "expandList": "Hiện thêm {{count}}",
+    "collapseList": "Thu gọn"
+  },
+  "mcp": {
+    "title": "Thiết lập kết nối",
+    "secretsLead": "Kết nối này cần các thông tin xác thực sau trước khi dùng được:",
+    "oauth": "Ủy quyền tài khoản",
+    "oauthAuthorized": "Đã ủy quyền",
+    "oauthNotAuthorized": "Chưa ủy quyền",
+    "setupLoginTitle": "Đăng nhập {{name}}",
+    "setupLoginLead": "Quét mã QR bằng ứng dụng {{name}}. Phiên đăng nhập chỉ lưu trên máy này.",
+    "setupLoginPreparing": "Đang khởi động máy chủ và lấy mã QR…",
+    "setupLoginFirstRun": "Lần chạy đầu có thể phải tải các gói phụ thuộc; việc này mất khá lâu.",
+    "setupLoginWaiting": "Đang chờ quét mã…",
+    "setupLoginSuccess": "Đã đăng nhập. Khả năng đã sẵn sàng dùng.",
+    "setupLoginExpired": "Mã QR đã hết hạn.",
+    "setupLoginFailed": "Không lấy được mã QR: {{error}}",
+    "setupLoginRetry": "Lấy lại",
+    "setupLoginManual": "Bạn cũng có thể yêu cầu tác nhân gọi công cụ {{tool}} trong cuộc trò chuyện.",
+    "setupLoginClose": "Đóng",
+    "loginStatusTitle": "Trạng thái đăng nhập",
+    "loginChecking": "Đang kiểm tra phiên Xiaohongshu hiện tại…",
+    "loginAuthenticated": "Đã đăng nhập và sẵn sàng dùng",
+    "loginAuthenticatedAs": "Đăng nhập với tên {{username}}",
+    "loginUnauthenticated": "Chưa đăng nhập. Hãy quét mã QR trước khi dùng khả năng này.",
+    "loginCheckFailed": "Không kiểm tra được trạng thái đăng nhập: {{error}}",
+    "loginCheckRetry": "Kiểm tra lại",
+    "loginAction": "Đăng nhập Xiaohongshu",
+    "loginRequired": "Cần đăng nhập",
+    "connectionConfig": "Cài đặt kết nối",
+    "settings": {
+      "title": "Cài đặt {{name}}",
+      "description": "Quản lý trạng thái đăng nhập và tham số kết nối khi chạy. Lưu không bắt đầu đăng nhập.",
+      "back": "Quay lại chi tiết khả năng",
+      "runtimeTitle": "Kết nối khi chạy",
+      "runtimeDescription": "Các tham số chỉ được truyền cho dịch vụ quản lý trên máy. Dịch vụ sẽ khởi động lại ở lần kiểm tra hoặc lần dùng kế tiếp sau khi thay đổi.",
+      "proxyLabel": "URL proxy",
+      "proxyHint": "Hỗ trợ proxy HTTP, HTTPS hoặc SOCKS5, ví dụ http://127.0.0.1:7890. Để trống nếu kết nối trực tiếp.",
+      "optional": "không bắt buộc",
+      "save": "Lưu cài đặt kết nối",
+      "saving": "Đang lưu…",
+      "clearLogin": "Xóa trạng thái đăng nhập",
+      "confirmClearLogin": "Xác nhận xóa trạng thái đăng nhập",
+      "clearing": "Đang xóa…",
+      "checkedAt": "Kiểm tra lần cuối: {{time}}"
+    }
+  },
+  "bundle": {
+    "install": {
+      "title": "Chọn khả năng để cài",
+      "description": "Chọn thành phần của \"{{name}}\" để cài. Những thành phần đã mới nhất sẽ không được cài lại.",
+      "nothing": "Gói này không có thành phần nào cần cài hay cập nhật.",
+      "confirm": "Cài {{count}}"
+    },
+    "members": "Gồm {{count}} khả năng",
+    "inline": "Kèm sẵn",
+    "missing": "Đã gỡ",
+    "memberInstalled": "Đã cài",
+    "memberNotInstalled": "Chưa cài",
+    "uninstall": {
+      "title": "Gỡ cài gói",
+      "description": "\"{{name}}\" không có tệp riêng — gỡ cài sẽ xóa các thành phần bên dưới. Bỏ chọn những thành phần bạn muốn giữ.",
+      "nothing": "Gói này hiện không có thành phần nào có thể xóa.",
+      "confirm": "Gỡ cài {{count}}"
+    }
+  },
+  "permission": {
+    "detailUnavailable": {
+      "title": "Bảng cấu hình tiện ích bị ẩn",
+      "description": "Tiện ích này chưa được phép hiển thị bảng cấu hình ở đây. Hãy xem lại quyền của nó và bật những quyền bạn cần.",
+      "review": "Kiểm tra quyền tiện ích"
+    },
+    "page": {
+      "open": "Xem lại quyền",
+      "title": "Quyền và truy cập dữ liệu",
+      "back": "Quay lại chi tiết khả năng",
+      "description": "Xem những khả năng của ứng dụng mà tiện ích này khai báo. Tắt một quyền sẽ chặn các lệnh gọi API tương ứng; việc này không cách ly mã tiện ích trong môi trường an toàn.",
+      "toggleLabel": "Bật/tắt quyền {{permission}}",
+      "hostVerified": "Rào chắn API của Metoai",
+      "preview": {
+        "global": "Nội dung của tiện ích có thể xuất hiện ở các khu vực chung và tồn tại qua nhiều trang",
+        "filePreview": "Tiện ích có thể hiển thị trình xem nội dung riêng trong khu vực xem trước tệp",
+        "activityTab": "Tiện ích có thể thêm và hiển thị nội dung trong một tab ở bảng hoạt động bên phải",
+        "inputAction": "Tiện ích có thể thêm nút thao tác vào ô nhập hội thoại",
+        "message": "Nội dung của tiện ích có thể được gắn bên dưới một tin nhắn cụ thể",
+        "toolCall": "Tiện ích có thể hiển thị tiến trình và kết quả gọi công cụ trong một thẻ riêng",
+        "turnCard": "Tiện ích có thể mở rộng thẻ chứa toàn bộ một lượt hội thoại",
+        "workspaceView": "Tiện ích có thể đóng góp một trang xem không gian làm việc với mục riêng trên thanh bên",
+        "shortcuts": "Tiện ích có thể lắng nghe tổ hợp phím đã đăng ký và kích hoạt thao tác của nó",
+        "fileDecorations": "Tiện ích có thể hiển thị dấu trạng thái hoặc loại bên cạnh các mục tệp",
+        "fileContextMenu": "Thao tác của tiện ích có thể xuất hiện trong menu chuột phải của tệp và thư mục",
+        "fileToolbar": "Tiện ích có thể thêm nút thao tác vào thanh công cụ của trình quản lý tệp"
+      },
+      "previewFlow": "Mũi tên cho biết hướng dữ liệu hoặc thao tác mà quyền này cho phép",
+      "scopeTitle": "Phạm vi",
+      "disabledTitle": "Khi tắt",
+      "status": {
+        "configureOnInstall": "Đặt khi cài",
+        "systemGranted": "Hệ thống cấp"
+      },
+      "readOnly": {
+        "install": "Tiện ích này chưa được cài. Đây là các quyền nó yêu cầu; bạn sẽ xác nhận quyền thực tế khi cài.",
+        "system": "Đây là tiện ích hệ thống tích hợp sẵn. Metoai tự quản lý và cấp quyền cho nó, nên không thể tắt riêng từng quyền."
+      },
+      "summary": {
+        "requested": "Được yêu cầu",
+        "highRisk": "Rủi ro cao",
+        "granted": "Đang được cấp",
+        "timing": "Thời điểm cấu hình",
+        "onInstall": "Xác nhận khi cài"
+      },
+      "flow": {
+        "plugin": "Tiện ích này",
+        "data": "Tệp và dữ liệu ứng dụng",
+        "agent": "Phiên và hành vi của tác nhân",
+        "execution": "Thao tác do ứng dụng thực hiện",
+        "external": "Ứng dụng bên ngoài hoặc mạng",
+        "intelligence": "Dịch vụ AI và đa phương tiện"
+      },
+      "scope": {
+        "interface": "Chỉ cho phép hiển thị hoặc tương tác tại vị trí giao diện đã nêu. Quyền này không tự cấp dữ liệu tệp hay phiên.",
+        "data": "Giới hạn ở các loại dữ liệu mà API của ứng dụng cung cấp. Đường dẫn hay bản ghi cụ thể phụ thuộc vào lệnh gọi của tiện ích.",
+        "agent": "Áp dụng cho phiên, câu lệnh, công cụ hoặc trạng thái chạy của tác nhân mà ứng dụng cung cấp.",
+        "execution": "Ứng dụng thực hiện thao tác, còn tiện ích chọn lệnh, trang hoặc hành động cần yêu cầu.",
+        "external": "Có thể rời Metoai để mở một đích hoặc gửi yêu cầu. Tiện ích cung cấp đích đến khi gọi.",
+        "intelligence": "Dùng mô hình hoặc dịch vụ đa phương tiện bạn đã cấu hình, có thể gửi dữ liệu do tiện ích soạn và tiêu tốn hạn mức dịch vụ."
+      },
+      "disabled": {
+        "interface": "Mục, nội dung hoặc tương tác tương ứng sẽ không xuất hiện. Các tính năng khác của tiện ích vẫn chạy bình thường.",
+        "data": "Các lệnh gọi đọc hoặc thay đổi dữ liệu này sẽ thất bại, nên những tính năng phụ thuộc có thể không dùng được.",
+        "agent": "Tiện ích không thể tác động đến phần này trong hành vi của tác nhân, nên các tự động hóa hay cải tiến liên quan có thể ngừng hoạt động.",
+        "execution": "Ứng dụng sẽ chặn thao tác, và các quy trình phụ thuộc vào kết quả có thể không hoàn tất.",
+        "external": "Tiện ích không thể thực hiện truy cập bên ngoài đó. Những tính năng không cần đến nó vẫn dùng được.",
+        "intelligence": "Các tính năng tạo, phân tích và nhà cung cấp dùng dịch vụ AI hoặc đa phương tiện sẽ không dùng được."
+      }
+    },
+    "group": {
+      "interface": {
+        "title": "Giao diện và tương tác",
+        "description": "Nơi tiện ích có thể xuất hiện trong Metoai"
+      },
+      "projectData": {
+        "title": "Dữ liệu dự án và ứng dụng",
+        "description": "Dữ liệu mà tiện ích có thể đọc hoặc thay đổi"
+      },
+      "agent": {
+        "title": "Điều khiển tác nhân",
+        "description": "Cách tiện ích tác động đến phiên và trạng thái chạy của tác nhân"
+      },
+      "execution": {
+        "title": "Thực thi và truy cập bên ngoài",
+        "description": "Thao tác hệ thống và kết nối ra ngoài mà tiện ích có thể yêu cầu"
+      },
+      "intelligence": {
+        "title": "AI và đa phương tiện",
+        "description": "Dịch vụ thông minh mà tiện ích có thể dùng hoặc cung cấp"
+      }
+    },
+    "risk": {
+      "low": "Rủi ro thấp",
+      "medium": "Cần xem xét",
+      "high": "Rủi ro cao"
+    },
+    "description": {
+      "uiSlotGlobal": "Cho phép tiện ích hiển thị nội dung giao diện ở các khu vực chung, có thể vẫn hiển thị qua nhiều trang.",
+      "uiSlotAbilityDetail": "Cho phép tiện ích hiển thị trạng thái cài đặt, thiết lập hoặc chạy trên trang chi tiết khả năng của nó.",
+      "uiSlotFilePreview": "Cho phép tiện ích hiển thị nội dung riêng hoặc trình xem trong khu vực xem trước tệp.",
+      "uiSlotActivityTab": "Cho phép tiện ích thêm một tab có thể chọn ở bảng hoạt động bên phải.",
+      "uiSlotInputAction": "Cho phép tiện ích thêm thao tác có thể bấm gần ô nhập trò chuyện.",
+      "uiSlotMessage": "Cho phép tiện ích thêm nội dung hoặc thao tác riêng bên dưới tin nhắn.",
+      "uiSlotToolCall": "Cho phép tiện ích tùy chỉnh cách hiển thị kết quả gọi công cụ của tác nhân.",
+      "uiSlotTurnCard": "Cho phép tiện ích hiển thị trạng thái hoặc thao tác trong thẻ một lượt hội thoại.",
+      "uiSlotWorkspaceView": "Cho phép tiện ích đóng góp một trang không gian làm việc với mục riêng có thể ghim trên thanh bên.",
+      "uiShortcutsRegister": "Cho phép tiện ích đăng ký phím tắt và chạy thao tác của tiện ích khi được nhấn.",
+      "uiFileExplorerDecorations": "Cho phép tiện ích thêm biểu tượng, nhãn hoặc gợi ý trạng thái vào trình quản lý tệp.",
+      "uiFileExplorerContextMenu": "Cho phép tiện ích thêm thao tác vào menu chuột phải của tệp và thư mục.",
+      "uiFileExplorerToolbar": "Cho phép tiện ích thêm thao tác vào thanh công cụ của trình quản lý tệp.",
+      "workspaceRead": "Xem siêu dữ liệu của không gian làm việc đang mở, thư mục và danh sách tệp mà không đọc trực tiếp nội dung tệp.",
+      "agentSessionRead": "Đọc tin nhắn, trạng thái và ngữ cảnh liên quan của phiên tác nhân hiện tại.",
+      "agentSessionWrite": "Thay đổi trạng thái hoặc nội dung phiên tác nhân hiện tại và có thể ảnh hưởng đến các hội thoại sau.",
+      "agentCommandRun": "Chạy các lệnh tác nhân do tiện ích khai báo và yêu cầu thông qua ứng dụng.",
+      "agentCommandSpawn": "Khởi chạy tiến trình nền có thể chạy mãi cho đến khi tiện ích hoặc ứng dụng dừng lại.",
+      "captureOffscreen": "Tải nội dung trong môi trường trang ẩn và chụp ảnh nội dung đó.",
+      "browserRead": "Tạo phiên trình duyệt do ứng dụng quản lý, truy cập các trang đã được manifest cho phép, và đọc văn bản, cấu trúc cùng ảnh chụp từ những trang đã đăng nhập.",
+      "browserOpen": "Mở một trang web được cho phép trong trình duyệt tích hợp của Metoai mà không đọc hay tương tác với trang.",
+      "browserInteract": "Bấm, nhập, chọn và gửi trên các trang được cho phép, có thể thực hiện thao tác thật dưới tài khoản của bạn.",
+      "browserProfilePersist": "Giữ một hồ sơ trình duyệt riêng và trạng thái đăng nhập của nó cho các phiên sau do tiện ích này sở hữu.",
+      "browserAttach": "Kết nối tới trình duyệt đang mở và có thể truy cập các tab cùng trạng thái đăng nhập của nó.",
+      "browserRuntimeManage": "Cài hoặc sửa môi trường tự động hóa trình duyệt do ứng dụng quản lý.",
+      "agentSystemPromptRead": "Đọc câu lệnh hệ thống quy định hành vi nền của tác nhân.",
+      "agentSystemPromptWrite": "Thêm hoặc thay đổi nội dung do tiện ích quản lý trong câu lệnh hệ thống của tác nhân.",
+      "agentSystemPromptFullControl": "Thay thế hoặc sắp xếp lại toàn bộ câu lệnh hệ thống và có thể thay đổi đáng kể hành vi của tác nhân.",
+      "agentSkillsControl": "Kiểm soát kỹ năng mà tác nhân tải và thời điểm chúng khả dụng.",
+      "agentMcpControl": "Cung cấp dịch vụ và công cụ MCP cho tác nhân do tiện ích quản lý.",
+      "agentToolsControl": "Bật, tắt hoặc điều chỉnh các công cụ hiện có của tác nhân.",
+      "agentToolsRegister": "Đăng ký tên, mô tả và dạng đầu vào của công cụ tác nhân mới.",
+      "agentToolHandlerExecute": "Chạy logic xử lý do tiện ích cung cấp khi tác nhân gọi một công cụ của tiện ích.",
+      "agentHooksRegister": "Đăng ký các trình xử lý có thể quan sát hoặc tác động đến sự kiện vòng đời của Coding Agent.",
+      "agentHookHandlerExecute": "Chạy logic hook do tiện ích cung cấp khi Coding Agent gặp sự kiện khớp.",
+      "agentStateRead": "Đọc trạng thái chạy của tác nhân được lưu cho tiện ích này.",
+      "agentStateWrite": "Cập nhật trạng thái chạy của tác nhân được lưu cho tiện ích này.",
+      "agentContinuationRegister": "Quyết định tác nhân có tự động tiếp tục sau khi một lượt kết thúc hay không.",
+      "agentRuntimeConfigure": "Điều chỉnh cấu hình chạy của tác nhân, có thể ảnh hưởng đến mô hình, công cụ hoặc chính sách thực thi.",
+      "appActionsRegister": "Đăng ký các thao tác ứng dụng có thể gọi từ giao diện hoặc tính năng khác.",
+      "appActionHandlerExecute": "Chạy logic xử lý do tiện ích cung cấp khi một thao tác ứng dụng được kích hoạt.",
+      "aiModelsList": "Xem các mô hình AI bạn đã cấu hình và cho tiện ích sử dụng.",
+      "aiComplete": "Gửi dữ liệu do tiện ích soạn tới mô hình AI đã cấu hình và nhận kết quả tạo ra.",
+      "modelsManage": "Tạo, cập nhật hoặc xóa nhà cung cấp mô hình thuộc không gian tên của tiện ích này.",
+      "fsRead": "Đọc nội dung các tệp do tiện ích chọn qua API tệp của ứng dụng.",
+      "fsWrite": "Tạo, ghi đè, di chuyển hoặc xóa các tệp do tiện ích chọn qua API tệp của ứng dụng.",
+      "networkFetch": "Gửi yêu cầu tới địa chỉ mạng do tiện ích chọn, có thể kèm dữ liệu mà tiện ích đã truy cập.",
+      "storageRead": "Đọc dữ liệu lâu dài riêng của tiện ích này, các tiện ích khác không truy cập trực tiếp được.",
+      "storageWrite": "Ghi dữ liệu lâu dài riêng của tiện ích này để lưu trạng thái hoặc cấu hình.",
+      "mediaGenerate": "Gọi các dịch vụ tạo ảnh, âm thanh hoặc đa phương tiện khác đã cấu hình.",
+      "mediaProviderRegister": "Đăng ký với Metoai một dịch vụ tạo đa phương tiện do tiện ích cung cấp.",
+      "ocrRecognize": "Dùng dịch vụ nhận dạng văn bản đã cấu hình cho những ảnh do tiện ích gửi rõ ràng.",
+      "ocrProviderRegister": "Đăng ký dịch vụ nhận dạng văn bản do tiện ích cung cấp; dịch vụ từ xa có thể tải ảnh lên.",
+      "secretsRead": "Đọc các thông tin bí mật do tiện ích này tự lưu, ví dụ khóa API.",
+      "secretsWrite": "Ghi hoặc xóa thông tin bí mật do tiện ích này tự lưu, ví dụ khóa API.",
+      "settingsRead": "Đọc cài đặt ứng dụng mà hệ thống cung cấp cho tiện ích.",
+      "settingsWrite": "Thay đổi cài đặt ứng dụng mà hệ thống cung cấp cho tiện ích, có thể làm thay đổi hành vi ứng dụng.",
+      "shellOpenExternal": "Mở liên kết bên ngoài do tiện ích chọn bằng trình duyệt hệ thống hoặc ứng dụng mặc định.",
+      "uiSlotNewSessionContext": "Cho phép tiện ích hiển thị một khối bên dưới ô nhập phiên mới, chỉ khi bạn chọn một tác nhân hoặc nhóm của nó, hay nhắc đến một khả năng của nó.",
+      "conversationDraftRead": "Cho phép tiện ích đọc nội dung bạn đã nhập nhưng chưa gửi. Chỉ được cung cấp khi khối ngữ cảnh của tiện ích đó đang hiển thị."
+    },
+    "uiSlotGlobal": "Vị trí giao diện chung",
+    "uiSlotAbilityDetail": "Hiển thị bảng cấu hình chi tiết",
+    "uiSlotFilePreview": "Vị trí xem trước tệp",
+    "uiSlotActivityTab": "Tab bảng hoạt động",
+    "uiSlotInputAction": "Vị trí thao tác trên thanh nhập",
+    "uiSlotMessage": "Vị trí dưới tin nhắn",
+    "uiSlotToolCall": "Vị trí hiển thị gọi công cụ",
+    "uiSlotTurnCard": "Vị trí thẻ lượt hội thoại",
+    "uiSlotWorkspaceView": "Vị trí xem không gian làm việc",
+    "uiShortcutsRegister": "Đăng ký phím tắt",
+    "uiFileExplorerDecorations": "Trang trí trình quản lý tệp",
+    "uiFileExplorerContextMenu": "Mở rộng menu chuột phải của tệp",
+    "uiFileExplorerToolbar": "Mở rộng thanh công cụ trình quản lý tệp",
+    "workspaceRead": "Đọc siêu dữ liệu không gian làm việc và danh sách tệp",
+    "agentSessionRead": "Đọc phiên tác nhân",
+    "agentSessionWrite": "Sửa phiên tác nhân",
+    "agentCommandRun": "Chạy lệnh tác nhân",
+    "agentCommandSpawn": "Chạy tiến trình nền dài hạn",
+    "captureOffscreen": "Chụp trang trong cửa sổ ẩn ngoài màn hình",
+    "browserRead": "Đọc trang trình duyệt",
+    "browserOpen": "Mở trang trong trình duyệt tích hợp",
+    "browserInteract": "Tương tác với trang trình duyệt",
+    "browserProfilePersist": "Giữ hồ sơ đăng nhập trình duyệt",
+    "browserAttach": "Kết nối tới trình duyệt đang mở",
+    "browserRuntimeManage": "Quản lý môi trường chạy trình duyệt",
+    "agentSystemPromptRead": "Đọc câu lệnh hệ thống của tác nhân",
+    "agentSystemPromptWrite": "Sửa câu lệnh hệ thống của tác nhân",
+    "agentSystemPromptFullControl": "Toàn quyền với câu lệnh hệ thống của tác nhân",
+    "agentSkillsControl": "Kiểm soát việc tải kỹ năng của tác nhân",
+    "agentMcpControl": "Cung cấp máy chủ MCP trong phạm vi tiện ích",
+    "agentToolsControl": "Kiểm soát việc tải công cụ của tác nhân",
+    "agentToolsRegister": "Đăng ký công cụ tác nhân",
+    "agentToolHandlerExecute": "Thực thi trình xử lý công cụ của tiện ích",
+    "agentHooksRegister": "Đăng ký hook cho Coding Agent",
+    "agentHookHandlerExecute": "Thực thi trình xử lý hook của tiện ích",
+    "agentStateRead": "Đọc trạng thái tác nhân của tiện ích",
+    "agentStateWrite": "Ghi trạng thái tác nhân của tiện ích",
+    "agentContinuationRegister": "Đăng ký chính sách tự động tiếp tục của tác nhân",
+    "agentRuntimeConfigure": "Cấu hình môi trường chạy của tác nhân",
+    "appActionsRegister": "Đăng ký thao tác ứng dụng",
+    "appActionHandlerExecute": "Thực thi trình xử lý thao tác của tiện ích",
+    "aiModelsList": "Liệt kê mô hình AI khả dụng",
+    "aiComplete": "Hoàn thành văn bản bằng mô hình AI",
+    "modelsManage": "Quản lý nhà cung cấp mô hình của tiện ích",
+    "fsRead": "Đọc tệp",
+    "fsWrite": "Ghi tệp",
+    "networkFetch": "Truy cập mạng",
+    "storageRead": "Đọc dữ liệu riêng của tiện ích",
+    "storageWrite": "Ghi dữ liệu riêng của tiện ích",
+    "mediaGenerate": "Dùng nhà cung cấp tạo đa phương tiện",
+    "mediaProviderRegister": "Cung cấp nhà cung cấp tạo đa phương tiện",
+    "ocrRecognize": "Dùng dịch vụ nhận dạng văn bản",
+    "ocrProviderRegister": "Cung cấp dịch vụ nhận dạng văn bản",
+    "secretsRead": "Đọc thông tin bí mật của riêng mình",
+    "secretsWrite": "Quản lý thông tin bí mật của riêng mình",
+    "settingsRead": "Đọc cài đặt",
+    "settingsWrite": "Sửa cài đặt",
+    "shellOpenExternal": "Mở liên kết bằng trình duyệt hệ thống",
+    "uiSlotNewSessionContext": "Vị trí ngữ cảnh phiên mới",
+    "conversationDraftRead": "Đọc bản nháp trong ô nhập"
+  },
+  "meta": {
+    "title": "Khác",
+    "homepage": "Trang web",
+    "repository": "Kho mã",
+    "docs": "Tài liệu",
+    "license": "Giấy phép"
+  },
+  "sources": {
+    "trigger": "Nguồn",
+    "dialog": {
+      "title": "Nguồn chợ ứng dụng",
+      "description": "Quản lý nguồn chợ ứng dụng trên GitHub. Các nguồn đã bật được tổng hợp trong chợ ứng dụng; nguồn chính thức tích hợp sẵn không thể tắt hay xóa."
+    },
+    "empty": "Chưa cấu hình nguồn nào",
+    "builtinBadge": "Tích hợp sẵn",
+    "lockedHint": "Nguồn chính thức tích hợp sẵn luôn được bật và không thể xóa",
+    "credentialConfigured": "Đã cấu hình thông tin truy cập GitHub",
+    "status": {
+      "disabled": "Đã tắt",
+      "pending": "Chưa đồng bộ",
+      "authRequired": "Cần thông tin truy cập GitHub hoặc thông tin đã hết hạn",
+      "forbidden": "Thông tin truy cập GitHub không đọc được kho này",
+      "notFound": "Không tìm thấy kho, nhánh hoặc manifest của chợ ứng dụng",
+      "rateLimited": "Đã đạt giới hạn truy cập GitHub; hãy thử lại sau",
+      "appOutdated": "Bản Metoai này quá cũ; hãy nâng cấp lên {{version}} trở lên",
+      "ready": "Đã đồng bộ · {{version}}",
+      "failed": "Đồng bộ thất bại; có thể thử lại",
+      "cached": "Đồng bộ thất bại; đang hiển thị nội dung đã lưu"
+    },
+    "actions": {
+      "refresh": "Làm mới nguồn {{name}}",
+      "autoUpdate": "Tự động cập nhật",
+      "add": "Thêm nguồn",
+      "edit": "Sửa nguồn",
+      "remove": "Xóa nguồn",
+      "clearCredential": "Xóa thông tin truy cập GitHub",
+      "configureCredential": "Cấu hình thông tin truy cập GitHub",
+      "confirmRemove": "Xác nhận xóa",
+      "toggle": "Bật nguồn"
+    },
+    "form": {
+      "addTitle": "Thêm nguồn",
+      "editTitle": "Sửa nguồn",
+      "repositoryLabel": "Kho GitHub",
+      "repositoryPlaceholder": "owner/repo hoặc https://github.com/owner/repo",
+      "credentialLabel": "Token truy cập GitHub (không bắt buộc)",
+      "credentialPlaceholder": "Token chi tiết, quyền Contents chỉ đọc",
+      "credentialHint": "Token chỉ được lưu trong kho bảo mật của thiết bị này và không bao giờ được tải lên Metoai.",
+      "nameLabel": "Tên",
+      "namePlaceholder": "Mặc định là tên kho",
+      "refLabel": "Nhánh",
+      "refPlaceholder": "main",
+      "submitAdd": "Thêm và đồng bộ",
+      "submitEdit": "Lưu"
+    },
+    "error": "Thao tác thất bại: {{error}}"
+  }
+}

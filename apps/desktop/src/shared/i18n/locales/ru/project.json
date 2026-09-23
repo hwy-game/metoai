@@ -1,0 +1,222 @@
+{
+  "sidebar": {
+    "nav": {
+      "newSession": "Новая сессия",
+      "automation": "Автоматизация",
+      "batchTasks": "Пакетные задачи",
+      "knowledge": "Знания",
+      "skills": "Возможности",
+      "agents": "Агенты",
+      "scenes": "Сцены",
+      "plugins": "Плагины",
+      "modelSettings": "Настройки моделей",
+      "agentSettings": "Настройки агента",
+      "appearance": "Оформление",
+      "extensions": "Больше возможностей",
+      "more": "Еще",
+      "betaBadge": "BETA",
+      "pin": "Закрепить",
+      "unpin": "Открепить",
+      "pinFull": "До 5 закрепленных пунктов (включая «Новая сессия»)",
+      "reset": "Сбросить порядок",
+      "customize": "Настроить навигацию"
+    },
+    "clawConnected": "Claw подключен",
+    "hide": "Скрыть боковую панель",
+    "empty": {
+      "title": "Проектов пока нет",
+      "description": "Нажмите + выше, чтобы создать проект"
+    },
+    "projects": {
+      "noSessions": "Нет сессий",
+      "collapseSessions": "Свернуть сессии",
+      "expandMore": "Показать еще ({{count}})",
+      "scrollToTop": "Вверх",
+      "scrollToBottom": "Вниз"
+    },
+    "defaultConversation": {
+      "noConversations": "Нет бесед",
+      "emptyTitle": "Бесед пока нет",
+      "emptyDescription": "Начните новый чат, и он появится здесь",
+      "emptyAction": "Начать чат",
+      "emptyClawTitle": "Записей Claw пока нет",
+      "emptyTagTitle": "Нет бесед с этой меткой",
+      "emptyTagDescription": "Добавьте метку беседе из контекстного меню",
+      "emptyClawDescription": "Общайтесь с Claw через WeChat, Feishu и другие каналы, чтобы записи появились здесь"
+    },
+    "teams": {
+      "title": "Команды",
+      "new": "Новая команда",
+      "empty": "Команд пока нет; нажмите, чтобы создать"
+    },
+    "session": {
+      "forkedTooltip": "Ответвлено от другой сессии",
+      "untitledTeam": "Новая беседа команды"
+    },
+    "dialogs": {
+      "deleteSessionTitle": "Удалить сессию",
+      "deleteSessionMessage": "Удалить сессию «{{name}}» безвозвратно? Отменить это действие нельзя.",
+      "deleteBatchTitle": "Удалить пакетный проект",
+      "deleteBatchMessage": "Удалить пакетный проект «{{name}}»? Отменить это действие нельзя.",
+      "deleteConfirm": "Удалить",
+      "removeTitle": "Убрать из списка",
+      "removeMessage": "Убрать «{{name}}» из списка проектов? Файлы на диске останутся.",
+      "removeConfirm": "Убрать",
+      "deleteProjectTitle": "Удалить проект",
+      "deleteProjectMessage": "Удалить «{{name}}» безвозвратно? Папка проекта будет удалена с диска, отменить это действие нельзя.",
+      "clearConversationTitle": "Очистить сессии",
+      "clearConversationMessage": "Будет удалено сессий чата: {{count}}, артефакты сохранятся. Сессии Claw не затрагиваются. Отменить это действие нельзя.",
+      "clearClawTitle": "Очистить записи Claw",
+      "clearClawMessage": "Будет удалено записей Claw: {{count}}, артефакты сохранятся. Отменить это действие нельзя.",
+      "clearConfirm": "Очистить"
+    },
+    "time": {
+      "justNow": "сейчас",
+      "minutes": "{{n}} мин",
+      "hours": "{{n}} ч",
+      "days": "{{n}} дн",
+      "weeks": "{{n}} нед",
+      "months": "{{n}} мес",
+      "years": "{{n}} г"
+    }
+  },
+  "filterTabs": {
+    "all": "Все",
+    "normal": "Обычные",
+    "batch": "Пакетные",
+    "conversation": "Чат",
+    "team": "Команды",
+    "claw": "Claw"
+  },
+  "actions": {
+    "newProject": "Новый проект",
+    "openProject": "Открыть проект",
+    "importProject": "Импорт проекта",
+    "more": "Еще"
+  },
+  "contextMenu": {
+    "openInFinder": "Показать в Finder",
+    "openInExplorer": "Показать в Проводнике",
+    "clearConversation": "Очистить сессии",
+    "clearConversationDisabled": "Сначала остановите запущенную сессию",
+    "clearClaw": "Очистить записи",
+    "clearClawDisabled": "Сначала остановите запущенную сессию Claw",
+    "clawSettings": "Настройки Claw",
+    "archiveProject": "Архивировать проект",
+    "removeFromList": "Убрать из списка",
+    "deleteProject": "Удалить проект",
+    "rename": "Переименовать",
+    "pin": "Закрепить беседу",
+    "unpin": "Открепить",
+    "openArtifactDir": "Открыть папку артефактов",
+    "delete": "Удалить",
+    "tags": {
+      "label": "Метки",
+      "new": "Новая метка…",
+      "manage": "Управление метками…"
+    }
+  },
+  "tagEditor": {
+    "createTitle": "Новая метка",
+    "manageTitle": "Управление метками",
+    "namePlaceholder": "Название метки",
+    "colorLabel": "Цвет метки",
+    "customColor": "Свой цвет",
+    "emptyNameError": "Введите название метки",
+    "cancel": "Отмена",
+    "create": "Создать",
+    "done": "Готово",
+    "newTag": "Новая метка",
+    "remove": "Удалить метку",
+    "empty": "Меток пока нет",
+    "removeHint": "Уберет ее из бесед: {{count}}"
+  },
+  "importDialog": {
+    "failedTitle": "Импорт не выполнен",
+    "failedConfirm": "ОК",
+    "partialTitle": "Импорт выполнен (часть исходных путей отсутствует)",
+    "partialMessage": "Проект «{{name}}» импортирован, но {{count}} исходных путей пакетных задач отсутствуют на этом компьютере:\n\n{{list}}\n\nМетаданные этих задач сохранены; после открытия проекта их можно привязать заново или удалить вручную.",
+    "partialMore": "\n…и еще {{count}}",
+    "doneTitle": "Импорт выполнен",
+    "doneMessage": "Проект «{{name}}» импортирован в рабочую область.",
+    "viewProject": "Открыть проект",
+    "gotIt": "Понятно"
+  },
+  "detail": {
+    "typeBatch": "Пакетная задача",
+    "showInFinder": "Показать в Finder",
+    "showInExplorer": "Показать в Проводнике",
+    "finder": "Finder",
+    "explorer": "Проводник",
+    "export": "Экспорт",
+    "exportTitle": "Экспортировать проект (с историей сессий)",
+    "newSession": "Новая сессия",
+    "closeActivityPanel": "Закрыть панель активности",
+    "openActivityPanel": "Открыть панель активности",
+    "sessionCount": "Сессий: {{count}}",
+    "taskCount": "Задач: {{count}}",
+    "persona": "Персона проекта",
+    "unsavedChanges": "Несохраненные изменения",
+    "saved": "Сохранено",
+    "saveFailed": "Не удалось сохранить",
+    "save": "Сохранить",
+    "editorPlaceholder": "Напишите здесь инструкции проекта в AGENTS.md...",
+    "agentsMdHint": "AGENTS.md задает инструкции для ИИ на уровне проекта; каждая сессия загружает этот файл автоматически.",
+    "quickSave": "Быстрое сохранение"
+  },
+  "exportDialog": {
+    "title": "Экспорт проекта",
+    "message": "Экспортировать проект «{{name}}»?\n\nБудут упакованы все файлы текущей папки проекта, включая историю .vetta/sessions, рабочие папки и состояние пакетных задач. Блокировки файлов (*.lock) исключаются.",
+    "confirm": "Экспортировать",
+    "failedTitle": "Экспорт не выполнен",
+    "failedConfirm": "ОК"
+  },
+  "newProjectDialog": {
+    "title": "Новый проект",
+    "description": "Новая папка проекта будет создана в каталоге рабочей области.",
+    "placeholder": "Введите название проекта",
+    "cancel": "Отмена",
+    "create": "Создать",
+    "emptyError": "Введите название проекта",
+    "invalidError": "Название проекта не может содержать специальные символы",
+    "duplicateError": "Проект с таким названием уже существует"
+  },
+  "update": {
+    "newVersion": "Доступна новая версия {{version}} — нажмите, чтобы скачать в фоне",
+    "downloading": "Загрузка {{version}} ({{pct}}%)",
+    "ready": "Обновление {{version}} готово — нажмите, чтобы перезапустить",
+    "checkFailed": "Не удалось проверить обновления, нажмите, чтобы повторить",
+    "downloadProgress": "Ход загрузки",
+    "bannerReady": "Версия {{version}} готова",
+    "bannerRestart": "Перезапустить",
+    "bannerDismiss": "Скрыть"
+  },
+  "tabPicker": {
+    "moreTabs": "Больше вкладок",
+    "hiddenPanels": "Скрытые панели",
+    "availablePlugins": "Добавить панели плагинов",
+    "hideTab": "Скрыть вкладку",
+    "menu": "Меню вкладки"
+  },
+  "tour": {
+    "sidebar": {
+      "projects": {
+        "title": "Проекты",
+        "description": "Здесь вы управляете рабочими проектами. Разверните проект, чтобы увидеть его сессии, или создайте либо импортируйте проект кнопками выше."
+      },
+      "conversations": {
+        "title": "Беседы",
+        "description": "Здесь находится список бесед по умолчанию. Недавние сессии упорядочены по времени — нажмите на любую, чтобы продолжить."
+      },
+      "skills": {
+        "title": "Возможности",
+        "description": "Откройте страницу «Возможности», чтобы установить навыки и коннекторы, которые дадут Metoai больше знаний."
+      }
+    }
+  },
+  "workspaceView": {
+    "loading": "Загрузка плагинов…",
+    "missing": "Это представление рабочей области больше не существует. Возврат на главный экран.",
+    "failed": "Не удалось отобразить это представление рабочей области. Подробности смотрите в инструментах разработчика."
+  }
+}

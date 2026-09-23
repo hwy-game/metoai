@@ -538,9 +538,7 @@
 					"badge": "语言",
 					"impact": "菜单、设置和按钮文案会立即切换；对话内容不受影响。"
 				}
-			},
-			"languageZh": "中文",
-			"languageEn": "English"
+			}
 		},
 		"plugins": {
 			"ops": {
@@ -1001,6 +999,11 @@
 			"language": "语言",
 			"appearance": "外观模式",
 			"theme": "主题配色"
+		},
+		"metoai": {
+			"title": "登录 MetaToken",
+			"subtitle": "登录后即可使用内置中转站的全部模型；余额、订阅与 API Key 也在这里查看",
+			"optionalHint": "登录可选，点「下一步」继续"
 		},
 		"login": {
 			"title": "登录账号",

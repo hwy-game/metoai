@@ -1,0 +1,86 @@
+{
+  "tabs": {
+    "scene": "Bối cảnh"
+  },
+  "typeNoun": {
+    "scene": "bối cảnh"
+  },
+  "subtitle": "Cài đặt và bật những năng lực bạn cần để Metoai có thêm chuyên môn",
+  "search": {
+    "placeholder": "Tìm kiếm {{noun}}..."
+  },
+  "actions": {
+    "install": "Cài đặt",
+    "use": "Dùng",
+    "update": "Cập nhật",
+    "uninstall": "Gỡ cài đặt"
+  },
+  "loading": "Đang tải...",
+  "card": {
+    "noDescription": "Không có mô tả",
+    "custom": "Tùy chỉnh",
+    "general": "Chung",
+    "readonly": "Chỉ đọc",
+    "updatable": "Có bản cập nhật"
+  },
+  "scene": {
+    "generalReadonly": "Chung · Chỉ đọc",
+    "localReadonly": "Cục bộ · Chỉ đọc",
+    "running": "Đang chạy",
+    "installed": "Đã cài đặt"
+  },
+  "group": {
+    "agentSkill": "Kỹ năng tác nhân chung",
+    "custom": "Tùy chỉnh",
+    "uncategorized": "Chưa phân loại",
+    "enabledCount": "Đã bật {{n}}"
+  },
+  "empty": {
+    "noMatch": "Không có kết quả phù hợp",
+    "noMatchHint": "Hãy thử từ khóa khác",
+    "none": "Không có {{noun}} nào",
+    "noneHint": "Hãy quay lại sau"
+  },
+  "error": {
+    "loadFailed": "Tải thất bại",
+    "partialFallback": "{{error}}. Chỉ hiển thị {{noun}} đã cài đặt"
+  },
+  "import": {
+    "failed": "Nhập thất bại: {{error}}",
+    "unknownError": "Lỗi không rõ"
+  },
+  "tour": {
+    "capabilities": {
+      "banner": {
+        "title": "Mở rộng bằng năng lực",
+        "description": "Trang này liệt kê các kỹ năng và trình kết nối. Chọn điều bạn muốn làm và thêm chỉ với một cú nhấp để dùng trong trò chuyện."
+      },
+      "searchAdd": {
+        "title": "Tìm kiếm và thêm",
+        "description": "Tìm kiếm để nhanh chóng tìm ra năng lực, hoặc dùng Thêm để nhập Kỹ năng / plugin cục bộ hay cấu hình trình kết nối MCP."
+      },
+      "scope": {
+        "title": "Khám phá / Của tôi",
+        "description": "Khám phá xem các năng lực bạn có thể thêm. Của tôi quản lý những gì bạn đã cài — bật, cấu hình hoặc xóa."
+      },
+      "list": {
+        "title": "Thẻ năng lực",
+        "description": "Mỗi thẻ là một năng lực. Xem chi tiết, thêm hoặc bật; bạn sẽ được nhắc khi cần thông tin xác thực."
+      }
+    }
+  },
+  "builtin": {
+    "create-skill": {
+      "name": "Tạo kỹ năng",
+      "description": "Tạo hoặc cập nhật Kỹ năng tác nhân theo đặc tả Metoai: đặt tệp, đăng ký trong skills-manifest.json hoặc cập nhật cấu hình plugin."
+    },
+    "publish-ability": {
+      "name": "Xuất bản năng lực",
+      "description": "Gửi kỹ năng, bối cảnh, máy chủ MCP, plugin hoặc gói năng lực lên cửa hàng Metoai, bao gồm các trường bắt buộc, bản địa hóa và quy trình duyệt."
+    },
+    "vetta-blog": {
+      "name": "Blog Metoai",
+      "description": "Nghiên cứu, thử nghiệm, viết và duyệt các bài blog sản phẩm và kỹ thuật của Metoai dựa trên bằng chứng."
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "tabs": {
+    "scene": "シーン"
+  },
+  "typeNoun": {
+    "scene": "シーン"
+  },
+  "subtitle": "必要な機能をインストールして有効にし、Metoai に専門知識を追加できます",
+  "search": {
+    "placeholder": "{{noun}}を検索..."
+  },
+  "actions": {
+    "install": "インストール",
+    "use": "使用",
+    "update": "更新",
+    "uninstall": "アンインストール"
+  },
+  "loading": "読み込み中...",
+  "card": {
+    "noDescription": "説明なし",
+    "custom": "カスタム",
+    "general": "汎用",
+    "readonly": "読み取り専用",
+    "updatable": "更新があります"
+  },
+  "scene": {
+    "generalReadonly": "汎用 · 読み取り専用",
+    "localReadonly": "ローカル · 読み取り専用",
+    "running": "実行中",
+    "installed": "インストール済み"
+  },
+  "group": {
+    "agentSkill": "汎用エージェントスキル",
+    "custom": "カスタム",
+    "uncategorized": "未分類",
+    "enabledCount": "{{n}} 件有効"
+  },
+  "empty": {
+    "noMatch": "一致する結果がありません",
+    "noMatchHint": "別のキーワードをお試しください",
+    "none": "利用できる{{noun}}がありません",
+    "noneHint": "後でもう一度ご確認ください"
+  },
+  "error": {
+    "loadFailed": "読み込みに失敗しました",
+    "partialFallback": "{{error}}。インストール済みの{{noun}}のみ表示しています"
+  },
+  "import": {
+    "failed": "インポートに失敗しました: {{error}}",
+    "unknownError": "不明なエラー"
+  },
+  "tour": {
+    "capabilities": {
+      "banner": {
+        "title": "機能で拡張",
+        "description": "このページにはスキルとコネクターが一覧表示されます。実現したいことを選び、ワンクリックで追加するとチャットで使えます。"
+      },
+      "searchAdd": {
+        "title": "検索して追加",
+        "description": "検索で機能をすばやく見つけるか、「追加」からローカルのスキル／プラグインをインポートしたり、MCP コネクターを設定できます。"
+      },
+      "scope": {
+        "title": "見つける / マイ",
+        "description": "「見つける」では追加できる機能を閲覧できます。「マイ」ではインストール済みの機能を有効化、設定、削除できます。"
+      },
+      "list": {
+        "title": "機能カード",
+        "description": "各カードが 1 つの機能です。詳細の表示、追加、有効化ができ、認証情報が必要な場合は入力を求められます。"
+      }
+    }
+  },
+  "builtin": {
+    "create-skill": {
+      "name": "スキルを作成",
+      "description": "Metoai の仕様に従ったエージェントスキルを作成または更新します。ファイルを配置し、skills-manifest.json に登録するか、プラグイン設定を更新します。"
+    },
+    "publish-ability": {
+      "name": "機能を公開",
+      "description": "スキル、シーン、MCP サーバー、プラグイン、または機能バンドルを Metoai マーケットプレイスに送信します。必須項目、ローカライズ、レビューの流れをカバーします。"
+    },
+    "vetta-blog": {
+      "name": "Metoai ブログ",
+      "description": "根拠に基づいた Metoai の製品・技術ブログを調査、検証、執筆、レビューします。"
+    }
+  }
+}

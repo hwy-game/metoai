@@ -1,14 +1,15 @@
 import { i18n } from "@shared/i18n";
 import type { PluginOfficialApi } from "@vetta-org/plugin-sdk";
 import { getDefaultStore } from "jotai";
+import { type AppLanguage, isSupportedLanguage, resolveAppLanguageFromLocale } from "@/shared/i18n/config";
 import { cursorStyleAtom, resolvedThemeAtom, themeModeAtom, themeNameAtom } from "../../../shared/store/ui-atoms";
 import { applyTheme, MODE_STORAGE_KEY, type ResolvedMode, THEME_STORAGE_KEY } from "../../../shared/theme/apply";
 import { type CursorStyle, getStoredCursorStyle, setStoredCursorStyle } from "../../../shared/theme/cursor";
 import { DEFAULT_THEME_ID, resolveThemeId, THEME_MAP, THEMES } from "../../../shared/theme/themes";
 import { pluginRendererCapabilityHost } from "./plugin-renderer-capability-host";
 
-function currentLanguage(): "zh" | "en" {
-	return i18n.language?.startsWith("en") ? "en" : "zh";
+function currentLanguage(): AppLanguage {
+	return resolveAppLanguageFromLocale(i18n.language);
 }
 
 export function listOfficialThemeIds(): string[] {
@@ -123,7 +124,14 @@ export async function setOfficialAppearance(input: {
 	};
 }
 
-export async function setOfficialLanguage(language: "zh" | "en"): Promise<unknown> {
+/**
+ * 插件只能落到固定语言码，不能写 "system"——「跟随系统」是用户在设置页的偏好，
+ * 插件代选会让用户的显式选择失效。非法码直接拒绝，不做静默回退。
+ */
+export async function setOfficialLanguage(language: AppLanguage): Promise<unknown> {
+	if (!isSupportedLanguage(language)) {
+		throw new Error(`Unsupported interface language: ${String(language)}`);
+	}
 	await window.vetta.i18n.setLanguage(language);
 	return { type: "set-language", language };
 }

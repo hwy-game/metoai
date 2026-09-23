@@ -1,0 +1,99 @@
+{
+  "tray": {
+    "showWindow": "Afficher la fenêtre",
+    "hideWindow": "Masquer la fenêtre",
+    "quitVetta": "Quitter Metoai",
+    "quit": "Quitter",
+    "hideToTray": "Masquer dans la zone de notification"
+  },
+  "menu": {
+    "app": {
+      "title": "Metoai",
+      "about": "À propos de Metoai",
+      "services": "Services",
+      "hide": "Masquer Metoai",
+      "hideOthers": "Masquer les autres",
+      "unhide": "Tout afficher",
+      "quit": "Quitter Metoai"
+    },
+    "edit": {
+      "title": "Édition",
+      "undo": "Annuler",
+      "redo": "Rétablir",
+      "cut": "Couper",
+      "copy": "Copier",
+      "paste": "Coller",
+      "pasteAndMatchStyle": "Coller et adapter le style",
+      "delete": "Supprimer",
+      "selectAll": "Tout sélectionner"
+    },
+    "view": {
+      "title": "Affichage",
+      "reload": "Recharger",
+      "forceReload": "Forcer le rechargement",
+      "toggleDevTools": "Afficher/masquer les outils de développement",
+      "resetZoom": "Taille réelle",
+      "zoomIn": "Zoom avant",
+      "zoomOut": "Zoom arrière",
+      "toggleFullScreen": "Activer/désactiver le plein écran"
+    },
+    "window": {
+      "title": "Fenêtre",
+      "minimize": "Réduire",
+      "zoom": "Zoom",
+      "front": "Tout ramener au premier plan",
+      "close": "Fermer la fenêtre"
+    }
+  },
+  "notification": {
+    "turnComplete": "Réponse terminée",
+    "turnError": "Échec de la réponse",
+    "questionPending": "Une question attend votre confirmation. Cliquez pour la voir.",
+    "sessionFallback": "Nouvelle session"
+  },
+  "pet": {
+    "openDevTools": "Ouvrir les DevTools de la mascotte"
+  },
+  "mcpOAuth": {
+    "authorizationSuccessful": "Autorisation réussie",
+    "authorizationFailed": "Échec de l'autorisation",
+    "returnToVetta": "Vous pouvez fermer cette fenêtre et revenir à Metoai.",
+    "closeAndRetry": "Vous pouvez fermer cette fenêtre et réessayer dans Metoai.",
+    "missingAuthorizationCode": "Code d'autorisation manquant",
+    "callbackAlreadySettled": "Le rappel OAuth a déjà été traité",
+    "callbackTimedOut": "Délai dépassé en attendant l'autorisation OAuth dans le navigateur",
+    "callbackBindFailed": "Échec de la liaison du serveur de rappel OAuth",
+    "devicePageBindFailed": "Échec de la liaison du serveur de page de code d'appareil",
+    "connectGitHub": "Connecter GitHub",
+    "enterDeviceCode": "Saisissez ce code sur la page GitHub, puis cliquez sur Autoriser.",
+    "copyCode": "Copier le code",
+    "openGitHub": "Ouvrir GitHub pour autoriser",
+    "closeAfterAuthorization": "Vous pouvez fermer cette fenêtre une fois l'autorisation effectuée dans Metoai.",
+    "deviceFlowDisabled": "Échec de la demande de code d'appareil (422). Activez Device Flow dans les paramètres OAuth ou de l'application GitHub : {{details}}"
+  },
+  "updater": {
+    "errors": {
+      "developmentUnsupported": "Les mises à jour automatiques ne sont pas disponibles en mode développement",
+      "configurationUnavailable": "Cette version n'a aucune source de mise à jour configurée",
+      "checkFailed": "Échec de la recherche de mises à jour",
+      "downloadFailed": "Échec du téléchargement de la mise à jour",
+      "installFailed": "Échec de l'installation de la mise à jour"
+    },
+    "forced": {
+      "title": "Mise à jour requise pour continuer",
+      "reasonPolicy": "Cette version nécessite une mise à jour avant de pouvoir continuer.",
+      "reasonMinSupported": "Cette version n'est plus prise en charge. Veuillez mettre à jour pour continuer.",
+      "checking": "Recherche de mises à jour…",
+      "available": "La mise à jour est prête à être téléchargée.",
+      "download": "Télécharger la mise à jour",
+      "downloading": "Téléchargement de la mise à jour ({{progress}} %)",
+      "ready": "La mise à jour a été téléchargée. Redémarrez pour l'utiliser.",
+      "restart": "Redémarrer et installer maintenant",
+      "preparing": "Installation de la mise à jour. L'application va redémarrer sous peu.",
+      "failed": "La mise à jour ne s'est pas terminée. Veuillez réessayer.",
+      "retry": "Réessayer",
+      "releaseNotes": "Nouveautés",
+      "version": "Nouvelle version {{version}}"
+    }
+  }
+}

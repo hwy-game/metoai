@@ -1,0 +1,86 @@
+{
+  "tabs": {
+    "scene": "Escenas"
+  },
+  "typeNoun": {
+    "scene": "escenas"
+  },
+  "subtitle": "Instala y activa las capacidades que necesitas para dar a Metoai más experiencia",
+  "search": {
+    "placeholder": "Buscar {{noun}}..."
+  },
+  "actions": {
+    "install": "Instalar",
+    "use": "Usar",
+    "update": "Actualizar",
+    "uninstall": "Desinstalar"
+  },
+  "loading": "Cargando...",
+  "card": {
+    "noDescription": "Sin descripción",
+    "custom": "Personalizado",
+    "general": "General",
+    "readonly": "Solo lectura",
+    "updatable": "Actualización disponible"
+  },
+  "scene": {
+    "generalReadonly": "General · Solo lectura",
+    "localReadonly": "Local · Solo lectura",
+    "running": "En ejecución",
+    "installed": "Instalado"
+  },
+  "group": {
+    "agentSkill": "Habilidad de agente general",
+    "custom": "Personalizado",
+    "uncategorized": "Sin categoría",
+    "enabledCount": "{{n}} activadas"
+  },
+  "empty": {
+    "noMatch": "No hay resultados coincidentes",
+    "noMatchHint": "Prueba con otra palabra clave",
+    "none": "No hay {{noun}} disponibles",
+    "noneHint": "Vuelve a comprobarlo más tarde"
+  },
+  "error": {
+    "loadFailed": "No se pudo cargar",
+    "partialFallback": "{{error}}. Solo se muestran las {{noun}} instaladas"
+  },
+  "import": {
+    "failed": "No se pudo importar: {{error}}",
+    "unknownError": "Error desconocido"
+  },
+  "tour": {
+    "capabilities": {
+      "banner": {
+        "title": "Amplía con capacidades",
+        "description": "Esta página muestra habilidades y conectores. Elige lo que quieras conseguir y añádelo con un clic para usarlo en el chat."
+      },
+      "searchAdd": {
+        "title": "Buscar y añadir",
+        "description": "Busca para encontrar una capacidad rápidamente, o usa Añadir para importar una habilidad o complemento local o configurar un conector MCP."
+      },
+      "scope": {
+        "title": "Descubrir / Míos",
+        "description": "Descubrir explora las capacidades que puedes añadir. Míos gestiona lo que ya tienes instalado: activa, configura o elimina."
+      },
+      "list": {
+        "title": "Tarjetas de capacidades",
+        "description": "Cada tarjeta es una capacidad. Consulta los detalles y añádela o actívala; se te pedirá lo necesario cuando hagan falta credenciales."
+      }
+    }
+  },
+  "builtin": {
+    "create-skill": {
+      "name": "Crear habilidad",
+      "description": "Crea o actualiza una habilidad de agente que siga la especificación de Metoai: coloca los archivos, regístrala en skills-manifest.json o actualiza la configuración del complemento."
+    },
+    "publish-ability": {
+      "name": "Publicar habilidad",
+      "description": "Envía una habilidad, escena, servidor MCP, complemento o paquete de habilidades al mercado de Metoai, cubriendo los campos obligatorios, la localización y el proceso de revisión."
+    },
+    "vetta-blog": {
+      "name": "Blog de Metoai",
+      "description": "Investiga, prueba, escribe y revisa artículos de blog técnicos y de producto de Metoai respaldados por evidencia."
+    }
+  }
+}

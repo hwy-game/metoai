@@ -47,8 +47,20 @@ ArchitecturesInstallIn64BitMode=x64compatible
 #endif
 
 [Languages]
-Name: "chinesesimplified"; MessagesFile: "compiler:Default.isl,{#SourcePath}\installer.zh-cn.isl"
+; 顺序既是语言选择页的排列顺序，也是系统语言不在列表里时的兜底：Inno 按用户界面语言
+; 匹配 LanguageID，匹配不到才取第一项（实测：zh-CN 系统 + 只列西/法的语言表 → 落到 spanish）。
+; 所以 english 放第一，与应用内「未识别系统语言 → 英文」的默认一致；中文、日文等
+; 被系统语言直接命中的不受影响。
+; 简体中文与印尼语、越南语用仓库自带的 .isl——Inno 官方语言包（compiler:Languages\*.isl）
+; 只覆盖西/法/俄/日，没有这三种；其余语言直接引用官方语言包。
 Name: "english"; MessagesFile: "compiler:Default.isl"
+Name: "chinesesimplified"; MessagesFile: "compiler:Default.isl,{#SourcePath}\installer.zh-cn.isl"
+Name: "spanish"; MessagesFile: "compiler:Default.isl,compiler:Languages\Spanish.isl"
+Name: "french"; MessagesFile: "compiler:Default.isl,compiler:Languages\French.isl"
+Name: "indonesian"; MessagesFile: "compiler:Default.isl,{#SourcePath}\installer.id-id.isl"
+Name: "vietnamese"; MessagesFile: "compiler:Default.isl,{#SourcePath}\installer.vi-vn.isl"
+Name: "russian"; MessagesFile: "compiler:Default.isl,compiler:Languages\Russian.isl"
+Name: "japanese"; MessagesFile: "compiler:Default.isl,compiler:Languages\Japanese.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; Flags: unchecked

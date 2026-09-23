@@ -1,0 +1,23 @@
+{
+  "title": "Центр сообщений",
+  "triggerTitle": "Центр сообщений",
+  "tabs": {
+    "all": "Все",
+    "notifications": "Уведомления"
+  },
+  "empty": {
+    "all": "Нет сообщений",
+    "notifications": "Нет уведомлений"
+  },
+  "notification": {
+    "markAllRead": "Отметить все как прочитанные",
+    "clearRead": "Удалить прочитанные",
+    "delete": "Удалить"
+  },
+  "time": {
+    "justNow": "Только что",
+    "minutesAgo": "{{n}} мин назад",
+    "hoursAgo": "{{n}} ч назад",
+    "daysAgo": "{{n}} дн назад"
+  }
+}

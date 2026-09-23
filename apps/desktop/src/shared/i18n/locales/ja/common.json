@@ -1,0 +1,1067 @@
+{
+  "appName": "Metoai",
+  "actions": {
+    "cancel": "キャンセル",
+    "confirm": "確認",
+    "save": "保存",
+    "delete": "削除",
+    "close": "閉じる",
+    "apply": "適用",
+    "back": "戻る"
+  },
+  "tour": {
+    "next": "次へ",
+    "prev": "戻る",
+    "done": "完了",
+    "progress": "{{current}} / {{total}}"
+  },
+  "appearance": {
+    "languageTitle": "言語",
+    "languageHint": "システム言語が既定です。いつでも変更できます"
+  },
+  "updateRestart": {
+    "title": "更新の準備ができました",
+    "message": "バージョン {{latestVersion}} をダウンロードしました (現在 {{currentVersion}})。今すぐMetoaiを再起動して更新を適用するか、「後で」を選ぶと次回起動時に通知します。",
+    "later": "後で",
+    "install": "今すぐ再起動"
+  },
+  "filePreview": {
+    "showInFolder": "フォルダーで表示",
+    "download": "ダウンロード",
+    "close": "閉じる (Esc)"
+  },
+  "login": {
+    "oauthButton": "認証してサインイン",
+    "waitingTitle": "ブラウザでの認証を待っています",
+    "waitingHint": "自動的にサインインします",
+    "reopen": "リンクを再度開く",
+    "retry": "再度認証",
+    "openFailed": "ブラウザを開けませんでした。もう一度お試しください。",
+    "rejected": "この認証リンクは無効になりました。もう一度サインインしてください。"
+  },
+  "actionApproval": {
+    "reject": "拒否",
+    "confirm": "確認",
+    "processing": "処理中...",
+    "permission": "権限: {{permission}}",
+    "permissionPrefix": "権限: ",
+    "whyConfirm": "AIがこの操作を要求しています。確認した後にのみ実行されます。",
+    "genericTitle": "操作を確認",
+    "genericSummary": "この操作を許可するか確認してください。",
+    "genericImpact": "確認すると実行されます。拒否するとデータを変更せずにリクエストがキャンセルされます。",
+    "showTechnicalDetails": "技術的な詳細を表示",
+    "hideTechnicalDetails": "技術的な詳細を非表示",
+    "unreadableRequest": "このリクエストを完全には解析できませんでした。不明な場合は拒否し、AIに説明を求めてください。",
+    "fields": {
+      "request": "リクエスト",
+      "operation": "操作",
+      "arrayCount": "{{count}} 件",
+      "objectSummary": "{{count}} 項目"
+    }
+  },
+  "manageApproval": {
+    "fallbackTitle": "操作の確認",
+    "fallbackConfirm": "確認",
+    "fallbackBadge": "操作",
+    "rawInput": "リクエスト内容",
+    "yes": "はい",
+    "no": "いいえ",
+    "on": "オン",
+    "off": "オフ",
+    "toggle": {
+      "willBecome": "変更後",
+      "stateOnHint": "オンにすると関連機能が利用可能になります。既存の設定は保持されます。",
+      "stateOffHint": "オフにすると利用が一時停止します。設定は保持されるため、いつでも再びオンにできます。",
+      "editableHint": "確認前に切り替えられます"
+    },
+    "toggleCopy": {
+      "mcp": {
+        "enableTitle": "MCP サーバーをオンにする",
+        "disableTitle": "MCP サーバーをオフにする",
+        "enableSummary": "オンにすると、チャットでこの MCP の機能（Web 閲覧、外部ツールの呼び出しなど）を利用できます。",
+        "disableSummary": "オフにすると、この MCP は一時停止し、チャットで使用できません。設定は削除されません。",
+        "enableConfirm": "オンにする",
+        "disableConfirm": "オフにする",
+        "enableImpact": "この MCP はすぐに利用可能になり、以降のチャットで使用できます。",
+        "disableImpact": "この MCP はすぐに一時停止します。設定は保持され、アンインストールされません。"
+      },
+      "skills": {
+        "enableTitle": "機能をオンにする",
+        "disableTitle": "機能をオフにする",
+        "enableSummary": "オンにすると、AI が必要に応じてこの機能（スキル/シーン）をチャットで利用できます。",
+        "disableSummary": "オフにすると、この機能は使用されません。ファイルはアンインストールされません。",
+        "enableConfirm": "オンにする",
+        "disableConfirm": "オフにする",
+        "enableImpact": "この機能をチャットで利用できるようになります。",
+        "disableImpact": "この機能は一時停止します。設定とファイルは保持されます。"
+      },
+      "plugins": {
+        "enableTitle": "プラグインをオンにする",
+        "disableTitle": "プラグインをオフにする",
+        "enableSummary": "オンにすると、このプラグインの UI と機能が再び有効になります。",
+        "disableSummary": "オフにすると、プラグインは一時停止します。アンインストールはされません。",
+        "enableConfirm": "オンにする",
+        "disableConfirm": "オフにする",
+        "enableImpact": "プラグインの機能がすぐにアプリに適用されます。",
+        "disableImpact": "プラグインの機能がすぐに一時停止します。インストールと設定は保持されます。"
+      },
+      "im": {
+        "enableTitle": "Claw（IM ブリッジ）をオンにする",
+        "disableTitle": "Claw（IM ブリッジ）をオフにする",
+        "enableSummary": "オンにすると、Feishu や WeChat などの外部チャネルから AI とチャットできます。",
+        "disableSummary": "オフにすると、外部 IM チャネルからローカル AI に接続できなくなります。",
+        "enableConfirm": "オンにする",
+        "disableConfirm": "オフにする",
+        "enableImpact": "IM ブリッジは現在の設定で動作し、外部メッセージをチャットに取り込めます。",
+        "disableImpact": "新しい IM メッセージは届かなくなります。既存のセッションは保持されます。"
+      },
+      "webhook": {
+        "enableTitle": "メッセージプッシュをオンにする",
+        "disableTitle": "メッセージプッシュをオフにする",
+        "enableSummary": "オンにすると、この Webhook に通知を送信できます（DingTalk / Feishu ボットなど）。",
+        "disableSummary": "オフにすると、このアドレスへのメッセージプッシュは行われません。URL とシークレットは保持されます。",
+        "enableConfirm": "オンにする",
+        "disableConfirm": "オフにする",
+        "enableImpact": "このチャネルは通知とテストメッセージを受信できます。",
+        "disableImpact": "このチャネルは一時停止します。設定は削除されません。"
+      },
+      "general.notifications": {
+        "enableTitle": "システム通知をオンにする",
+        "disableTitle": "システム通知をオフにする",
+        "enableSummary": "オンにすると、タスク完了や更新などのイベントがシステム通知として表示されます。",
+        "disableSummary": "オフにすると、アプリはシステム通知を表示しません。",
+        "enableConfirm": "オンにする",
+        "disableConfirm": "オフにする",
+        "enableImpact": "該当するイベントがシステム通知として表示されます。",
+        "disableImpact": "システム通知は停止します。アプリ内の状態表示は引き続き確認できます。"
+      }
+    },
+    "fieldWithKey": "{{prefix}}.{{key}}",
+    "fields": {
+      "modelKey": "モデル",
+      "reasoningLevel": "推論レベル",
+      "provider": "プロバイダー",
+      "config": "設定",
+      "serverName": "MCP サーバー",
+      "enabled": "有効",
+      "skillName": "機能名",
+      "abilitySlug": "機能スラッグ",
+      "skill": "スキル",
+      "scene": "シーン",
+      "appId": "App ID",
+      "appSecret": "App Secret",
+      "verificationToken": "Verification Token",
+      "encryptKey": "Encrypt Key",
+      "env": "環境変数（KEY=VALUE）",
+      "resourceType": "種類",
+      "name": "名前",
+      "newName": "新しい名前",
+      "path": "パス",
+      "paths": "ファイルパス",
+      "packageName": "npm パッケージ",
+      "packageSpec": "要求バージョン",
+      "language": "言語",
+      "executionMode": "実行モード",
+      "experimental": "実験的機能",
+      "knowledgeBase": "ナレッジベース設定",
+      "kbId": "ナレッジベース ID",
+      "relPath": "相対パス",
+      "move": "ファイルを移動",
+      "pluginId": "プラグイン ID",
+      "url": "インストール URL",
+      "kind": "プラットフォーム",
+      "webhookUrl": "Webhook URL",
+      "signSecret": "署名シークレット",
+      "id": "ID",
+      "title": "タイトル",
+      "level": "レベル",
+      "text": "メッセージ",
+      "displayName": "表示名",
+      "baseUrl": "Base URL",
+      "api": "API タイプ",
+      "apiKey": "API Key",
+      "models": "モデル",
+      "command": "コマンド",
+      "args": "引数",
+      "cwd": "作業ディレクトリ",
+      "headers": "ヘッダー",
+      "shortcutActionId": "ショートカット操作",
+      "shortcutCombo": "キーの組み合わせ",
+      "quickpanelTrigger": "呼び出しキー",
+      "quickpanelBehavior": "送信後"
+    },
+    "shortcuts": {
+      "ops": {
+        "set-binding": {
+          "title": "ショートカットを変更",
+          "summary": "機能を選び、キー領域をクリックして新しい組み合わせを押します。確認後すぐに適用されます。",
+          "confirm": "ショートカットを保存",
+          "badge": "ショートカット",
+          "impact": "新しい組み合わせでこの機能を呼び出せます。競合する割り当ては保存に失敗します。"
+        },
+        "reset-binding": {
+          "title": "既定のショートカットに戻す",
+          "summary": "この機能のショートカットをシステムの既定値に戻します。",
+          "confirm": "既定に戻す",
+          "badge": "リセット",
+          "impact": "この機能は再び既定のキーの組み合わせを使用します。"
+        },
+        "reset-all-bindings": {
+          "title": "すべてのショートカットを既定に戻す",
+          "summary": "以下の機能のカスタムショートカットを消去し、既定値に戻します。",
+          "confirm": "すべて既定に戻す",
+          "badge": "リセット",
+          "impact": "グローバル機能のショートカットが既定値に戻ります。クイックパネルの呼び出しと送信後は変わりません。",
+          "warningTitle": "グローバル機能のキーのみ",
+          "warning": "クイックパネルの開き方や、送信時にメインウィンドウを開くかどうかは変更されません。"
+        },
+        "set-quick-panel-trigger": {
+          "title": "クイックパネルの呼び出しを変更",
+          "summary": "クイックパネルを開くためにダブルタップするキーを選択します。「無効」の場合、メインウィンドウを使用します。",
+          "confirm": "呼び出し方法を保存",
+          "badge": "ショートカット",
+          "impact": "すぐに適用されます。いつでも変更できます。"
+        },
+        "set-quick-panel-behavior": {
+          "title": "送信後の動作を変更",
+          "summary": "クイックパネルから送信した後、続けてメインウィンドウを開くか、バックグラウンドで実行を続けるかを選びます。",
+          "confirm": "送信後の動作を保存",
+          "badge": "ショートカット",
+          "impact": "以降クイックパネルから開始するチャットにのみ適用されます。"
+        }
+      },
+      "bindingSectionTitle": "機能のショートカット",
+      "bindingSectionDescription": "設定 → ショートカットと同じです。機能を選び、キーの組み合わせを記録します。",
+      "actionField": "機能",
+      "comboField": "キーの組み合わせ",
+      "comboFieldHint": "クリックしてから新しい組み合わせを押して記録します",
+      "resetToDefault": "{{shortcut}} に戻します",
+      "quickPanelTriggerSectionTitle": "クイックパネルの呼び出し",
+      "quickPanelTriggerSectionDescription": "ショートカット設定ページと同じオプションです。",
+      "quickPanelBehaviorSectionTitle": "送信後",
+      "quickPanelBehaviorSectionDescription": "設定ページの「送信後の動作」と同じです。",
+      "quickPanelTriggers": {
+        "none": "無効",
+        "mod": "⌘ / Ctrl をダブルタップ",
+        "alt": "⌥ / Alt をダブルタップ",
+        "shift": "⇧ をダブルタップ"
+      },
+      "quickPanelTriggerHints": {
+        "none": "ダブルタップでの呼び出しをオフにし、必要なときにメインウィンドウを使用します",
+        "mod": "どこでも ⌘（Mac）または Ctrl（Windows）をダブルタップしてパネルを開きます",
+        "alt": "どこでも ⌥ / Alt をダブルタップしてパネルを開きます",
+        "shift": "どこでも ⇧ をダブルタップしてパネルを開きます"
+      },
+      "quickPanelBehaviors": {
+        "foreground": "メインウィンドウを開く",
+        "background": "バックグラウンドで実行"
+      },
+      "quickPanelBehaviorHints": {
+        "foreground": "送信後、新しいチャットでメインウィンドウを開きます",
+        "background": "送信後、パネルを閉じてチャットをバックグラウンドで実行し続けます"
+      }
+    },
+    "models": {
+      "ops": {
+        "set-default": {
+          "title": "既定のチャットモデルを設定",
+          "summary": "新しいチャットで既定で使用するモデルを選びます。確認前に以下で変更できます。",
+          "confirm": "既定に設定",
+          "badge": "既定モデル",
+          "impact": "新しいチャットではこのモデルが優先されます。既存のチャットは現在のモデルを維持します。"
+        },
+        "upsert-provider": {
+          "title": "プロバイダーの作成/更新の確認",
+          "summary": "プロバイダー設定を確認します。シークレット項目はマスクされます。確認すると送信された設定が書き込まれます。",
+          "confirm": "プロバイダーを保存",
+          "badge": "プロバイダー",
+          "impact": "プロバイダー設定はローカルの models.json に書き込まれ、利用可能なモデルに影響します。"
+        },
+        "remove-provider": {
+          "title": "プロバイダーの削除の確認",
+          "summary": "このプロバイダー配下のモデルは利用できなくなり、既定モデルの参照は消去されます。",
+          "confirm": "プロバイダーを削除",
+          "badge": "削除",
+          "impact": "このプロバイダーとそのモデルはローカル設定から削除されます。",
+          "warning": "プロバイダーを削除すると、それに依存する既定モデルの参照も消去されます。"
+        }
+      },
+      "createProviderHint": "新規作成",
+      "updateProviderHint": "既存を更新",
+      "modelsCount": "{{count}} モデル",
+      "defaultSectionTitle": "既定モデル",
+      "defaultSectionDescription": "設定 → モデルと同じです。確認後に有効になります。",
+      "defaultModelHint": "設定済みのモデルから選択"
+    },
+    "mcp": {
+      "ops": {
+        "upsert": {
+          "title": "MCP サーバーの作成/更新の確認",
+          "summary": "MCP サーバー設定を確認します。シークレットヘッダーはマスクされます。",
+          "confirm": "MCP サーバーを保存",
+          "badge": "MCP",
+          "impact": "MCP サーバー設定はローカルの mcp.json に書き込まれ、エージェントツールに影響する場合があります。"
+        },
+        "set-enabled": {
+          "title": "MCP サーバーの有効/無効の確認",
+          "summary": "この MCP サーバーを有効にするかどうかを変更します。",
+          "confirm": "状態変更を確認",
+          "badge": "有効状態",
+          "impact": "MCP サーバーの有効状態がすぐに更新されます。"
+        },
+        "remove": {
+          "title": "MCP サーバーの削除の確認",
+          "summary": "MCP サーバー設定がローカルから削除されます。",
+          "confirm": "サーバーを削除",
+          "badge": "削除",
+          "impact": "この MCP サーバー設定はローカルから削除されます。",
+          "warning": "復元するには MCP サーバーを再設定する必要があります。"
+        }
+      },
+      "headersConfigured": "カスタムヘッダーを含みます（シークレットはマスク）",
+      "envPlaceholder": "1 行に 1 つ KEY=VALUE を入力します。シークレットはご自身で入力してください",
+      "headersPlaceholder": "1 行に 1 つ HeaderName=value を入力します。シークレットはご自身で入力してください"
+    },
+    "skills": {
+      "ops": {
+        "set-enabled": {
+          "title": "機能の有効/無効の確認",
+          "summary": "この機能（スキル/シーン）を有効にするかどうかを変更します。",
+          "confirm": "状態変更を確認",
+          "badge": "機能",
+          "impact": "機能の有効状態がすぐに反映されます。"
+        },
+        "uninstall": {
+          "title": "機能のアンインストールの確認",
+          "summary": "ローカルの機能ファイルが削除されます。この操作は元に戻せません。",
+          "confirm": "アンインストール",
+          "badge": "アンインストール",
+          "impact": "ローカルの機能ファイルはアンインストールされ、簡単には復元できません。",
+          "warning": "機能ファイルが削除されます。この操作は元に戻せません。"
+        },
+        "install-from-market": {
+          "title": "マーケットからの機能インストールの確認",
+          "summary": "この機能（スキルまたはシーン）をマーケットからダウンロードしてインストールします。",
+          "confirm": "インストール",
+          "badge": "インストール",
+          "impact": "機能がダウンロードされ、既定で有効な状態で機能ページに表示されます。"
+        }
+      }
+    },
+    "projects": {
+      "ops": {
+        "create": {
+          "title": "プロジェクトの作成の確認",
+          "summary": "新しいプロジェクトを作成し、サイドバーに追加します。",
+          "confirm": "プロジェクトを作成",
+          "badge": "作成",
+          "impact": "新しいプロジェクトがサイドバーに作成され、ディレクトリが用意されます。"
+        },
+        "open": {
+          "title": "プロジェクトを開くの確認",
+          "summary": "指定したパスのプロジェクトを開きます。",
+          "confirm": "プロジェクトを開く",
+          "badge": "開く",
+          "impact": "プロジェクトのパスが開き、アクティブ一覧に追加されます。"
+        },
+        "rename": {
+          "title": "プロジェクト名の変更の確認",
+          "summary": "プロジェクトの表示名を更新します。",
+          "confirm": "プロジェクト名を変更",
+          "badge": "名前を変更",
+          "impact": "サイドバーの表示名のみが変わり、ディスク上のパスは変更されません。"
+        },
+        "archive": {
+          "title": "プロジェクトのアーカイブの確認",
+          "summary": "プロジェクトをアーカイブ一覧に移動します。セッション履歴は保持されます。",
+          "confirm": "プロジェクトをアーカイブ",
+          "badge": "アーカイブ",
+          "impact": "プロジェクトはアーカイブ一覧に移動し、セッション履歴は保持されます。"
+        },
+        "unarchive": {
+          "title": "プロジェクトのアーカイブ解除の確認",
+          "summary": "プロジェクトをアクティブ一覧に戻します。",
+          "confirm": "アーカイブを解除",
+          "badge": "アーカイブ解除",
+          "impact": "プロジェクトはアクティブ一覧に戻ります。"
+        },
+        "remove": {
+          "title": "プロジェクトの削除の確認",
+          "summary": "ディスク上のファイルを削除せずに、一覧からプロジェクトを削除します。",
+          "confirm": "プロジェクトを削除",
+          "badge": "削除",
+          "impact": "サイドバーの項目のみを削除し、ディスク上のプロジェクトファイルは削除されません。",
+          "warning": "サイドバーの項目のみが削除され、ディスク上のプロジェクトファイルは保持されます。"
+        }
+      },
+      "pathOptional": "任意。省略するとワークスペース配下に名前で作成されます"
+    },
+    "general": {
+      "ops": {
+        "set-notifications": {
+          "title": "通知設定を変更",
+          "summary": "システム通知を許可するかどうかを選びます。",
+          "confirm": "通知を保存",
+          "badge": "通知",
+          "impact": "タスクと更新の通知は新しい設定に従って表示または非表示になります。"
+        },
+        "set-execution-mode": {
+          "title": "既定の権限を変更",
+          "summary": "新しいチャットの既定の権限レベルを選びます。以下で変更できます。",
+          "confirm": "権限を保存",
+          "badge": "権限",
+          "impact": "新しいチャットはこの権限を使用します。既存のチャットは現在のままです。"
+        },
+        "set-workspace": {
+          "title": "既定のワークスペースを変更",
+          "summary": "新しいプロジェクトは既定でこのフォルダ配下に作成されます。",
+          "confirm": "ワークスペースを保存",
+          "badge": "ワークスペース",
+          "impact": "既定のワークスペースパスが更新されます。既存のプロジェクトはそのままです。"
+        }
+      },
+      "notificationsOn": "通知を有効にする",
+      "notificationsOff": "通知を無効にする",
+      "notificationsTarget": "システム通知",
+      "notificationsTargetHint": "タスク完了、更新などの通知",
+      "executionModeSandbox": "セーフモード（サンドボックス）",
+      "executionModeFullAccess": "フルアクセス",
+      "executionModeSandboxHint": "ファイルを変更できる範囲を制限します。日常的な利用ではより安全です。",
+      "executionModeFullAccessHint": "より広範なファイル操作とシステム操作を許可します。高機能ですがリスクも高くなります。"
+    },
+    "agent": {
+      "ops": {
+        "set-experimental": {
+          "title": "実験的機能を変更",
+          "summary": "確認前にこれらの実験的なトグルを調整できます。",
+          "confirm": "実験的機能を保存",
+          "badge": "実験的",
+          "impact": "該当する機能がオンまたはオフになります。実験的機能は不安定な場合があります。"
+        }
+      },
+      "experimentalSectionTitle": "実験的機能",
+      "experimentalSectionDescription": "設定 → エージェントと同じトグルです。確認前に調整できます。",
+      "experimentalFields": {
+        "vettaCli": "Metoai CLI",
+        "vettaCliDesc": "Metoai CLI 経由でターミナルからローカル機能を呼び出せるようにします",
+        "promptPrediction": "入力予測",
+        "promptPredictionDesc": "入力中に続きの候補を提案します。少量のクォータを消費する場合があります",
+        "agentSkills": "エージェントスキル拡張",
+        "agentSkillsDesc": "エージェントが拡張スキル機能を使用できるようにします"
+      }
+    },
+    "knowledge": {
+      "ops": {
+        "create": {
+          "title": "ナレッジベースの作成の確認",
+          "summary": "新しいナレッジベースを作成します。",
+          "confirm": "作成",
+          "badge": "作成",
+          "impact": "新しいナレッジベースが作成されます。"
+        },
+        "rename": {
+          "title": "ナレッジベース名の変更の確認",
+          "summary": "ナレッジベースの名前を更新します。",
+          "confirm": "名前を変更",
+          "badge": "名前を変更",
+          "impact": "ナレッジベースの表示名が更新されます。"
+        },
+        "delete": {
+          "title": "ナレッジベースの削除の確認",
+          "summary": "ナレッジベースと処理済みデータが削除されます。この操作は元に戻せません。",
+          "confirm": "削除",
+          "badge": "削除",
+          "impact": "ナレッジベースと処理済みデータが削除されます。",
+          "warning": "ナレッジベースを削除すると処理済みの成果物も削除されます。この操作は元に戻せません。"
+        },
+        "add-files": {
+          "title": "ナレッジベースへのファイル追加の確認",
+          "summary": "選択したファイルを追加し、処理を開始します。",
+          "confirm": "ファイルを追加",
+          "badge": "ファイルを追加",
+          "impact": "選択したファイルが追加され、処理が開始されます。"
+        },
+        "delete-entry": {
+          "title": "ナレッジ項目の削除の確認",
+          "summary": "指定した項目をナレッジベースから削除します。",
+          "confirm": "項目を削除",
+          "badge": "項目を削除",
+          "impact": "ナレッジベースの項目が削除されます。",
+          "warning": "削除した項目はアプリから復元できません。"
+        },
+        "scan-now": {
+          "title": "ナレッジベースの今すぐスキャンの確認",
+          "summary": "ナレッジベースのスキャンと処理を 1 サイクル実行します。",
+          "confirm": "今すぐスキャン",
+          "badge": "スキャン",
+          "impact": "ナレッジのスキャンと処理が 1 サイクルすぐに開始されます。"
+        },
+        "retry-failed": {
+          "title": "失敗したナレッジタスクの再試行の確認",
+          "summary": "失敗/隔離されたレコードを消去して再処理します。",
+          "confirm": "失敗分を再試行",
+          "badge": "再試行",
+          "impact": "失敗/隔離されたレコードが消去され、再処理されます。"
+        },
+        "set-processing": {
+          "title": "ナレッジ処理設定を変更",
+          "summary": "確認前にこれらのナレッジベースオプションを編集できます。",
+          "confirm": "ナレッジベース設定を保存",
+          "badge": "ナレッジ",
+          "impact": "ナレッジの自動処理は新しい設定に従います。"
+        }
+      },
+      "globalAction": "ナレッジベースの全体操作",
+      "processingSectionTitle": "ナレッジ処理",
+      "processingSectionDescription": "設定 → ナレッジと同じオプションです。このリクエストに含まれる項目のみ表示されます。",
+      "processingFields": {
+        "enabled": "ナレッジ処理を有効にする",
+        "enabledDesc": "オフにすると自動処理が一時停止します。既存のナレッジは削除されません。",
+        "pollIntervalMinutes": "自動処理の間隔",
+        "pollIntervalDesc": "処理が必要なファイルを確認する頻度",
+        "processingModelKey": "処理モデル",
+        "processingModelDesc": "ドキュメントの読み取りと整理に使用するモデル",
+        "processingModelReasoningLevel": "推論レベル",
+        "agentConcurrency": "並列処理ジョブ数",
+        "agentConcurrencyDesc": "並列ジョブを増やすと速くなりますが、リソースを多く使用します",
+        "ocrConcurrency": "並列 OCR ジョブ数",
+        "ocrConcurrencyDesc": "同時に実行する画像テキスト認識ジョブの数",
+        "pollMinutes": "{{count}} 分ごと"
+      }
+    },
+    "appearance": {
+      "ops": {
+        "set-language": {
+          "title": "言語を切り替え",
+          "summary": "UI のテキストが選択した言語に切り替わります。",
+          "confirm": "言語を切り替え",
+          "badge": "言語",
+          "impact": "メニュー、設定、ボタンがすぐに切り替わります。チャットの内容は変わりません。"
+        }
+      }
+    },
+    "plugins": {
+      "ops": {
+        "set-enabled": {
+          "title": "プラグインの有効/無効の確認",
+          "summary": "このプラグインを有効にするかどうかを変更します。",
+          "confirm": "状態変更を確認",
+          "badge": "プラグイン",
+          "impact": "プラグインの有効状態がすぐに更新されます。"
+        },
+        "install-from-url": {
+          "title": "URL からのプラグインインストールの確認",
+          "summary": "指定した URL からプラグインをダウンロードしてインストールします。",
+          "confirm": "インストール",
+          "badge": "インストール",
+          "impact": "URL からプラグインがダウンロードされ、インストールされます。"
+        },
+        "install-from-path": {
+          "title": "ローカルパスからのプラグインインストールの確認",
+          "summary": "ローカルの zip をインストールし、宣言された権限を一度許可して、プラグインを有効にします。",
+          "confirm": "インストールして許可",
+          "badge": "インストール",
+          "impact": "ローカルのプラグインパッケージがインストールされ、宣言された権限が許可されて有効になります。"
+        },
+        "install-from-npm": {
+          "title": "npm からのプラグインインストールの確認",
+          "summary": "解決された npm プラグインパッケージをインストールし、宣言された権限を一度許可して有効にします。",
+          "confirm": "インストールして許可",
+          "badge": "npm install",
+          "impact": "Desktop は、宣言された権限を許可して有効にする前に、パッケージのダイジェスト、プラグイン ID、バージョンを再度検証します。"
+        },
+        "uninstall": {
+          "title": "プラグインのアンインストールの確認",
+          "summary": "ポリシーに従って、プラグインとそのローカルデータが削除されます。",
+          "confirm": "アンインストール",
+          "badge": "アンインストール",
+          "impact": "ポリシーに従ってプラグインがアンインストールされます。",
+          "warning": "ポリシーに従って、プラグインとそのローカルデータが消去される場合があります。"
+        },
+        "reload": {
+          "title": "プラグインの再読み込みの確認",
+          "summary": "このプラグインを再読み込みします。",
+          "confirm": "再読み込み",
+          "badge": "再読み込み",
+          "impact": "プラグインが再読み込みされます。"
+        }
+      }
+    },
+    "im": {
+      "ops": {
+        "set-enabled": {
+          "title": "IM ゲートウェイの有効/無効の確認",
+          "summary": "IM サイドカーゲートウェイを有効にするかどうかを変更します。",
+          "confirm": "状態変更を確認",
+          "badge": "IM",
+          "impact": "IM ゲートウェイの有効状態が更新されます。"
+        },
+        "restart": {
+          "title": "IM ゲートウェイの再起動の確認",
+          "summary": "ローカルの IM サイドカープロセスを再起動します。",
+          "confirm": "再起動",
+          "badge": "再起動",
+          "impact": "ローカルの IM ゲートウェイプロセスが再起動されます。"
+        },
+        "set-agent-model": {
+          "title": "Claw モデルを設定",
+          "summary": "外部 IM（Claw）チャットで使用するモデルを選びます。設定と同じピッカーです。",
+          "confirm": "モデルを保存",
+          "badge": "Claw モデル",
+          "impact": "以降の Feishu/WeChat からのチャットはこのモデルを使用します。空欄にすると既定に従います。"
+        },
+        "set-feishu-config": {
+          "title": "Feishu の認証情報を設定",
+          "summary": "以下に App ID とシークレットを入力します。シークレットはご自身で入力し、AI に渡させないでください。",
+          "confirm": "Feishu 設定を保存",
+          "badge": "Feishu",
+          "impact": "ローカルの Feishu ブリッジ認証情報が更新されます。シークレット欄が空の場合は既存の値が保持されます。"
+        }
+      },
+      "enableTitle": "IM ゲートウェイを有効にする",
+      "disableTitle": "IM ゲートウェイを無効にする",
+      "restartTarget": "ローカルの IM ゲートウェイプロセス",
+      "channelName": "Claw（IM ブリッジ）",
+      "channelHint": "Feishu や WeChat などの外部チャットチャネルを接続します",
+      "feishuTarget": "Feishu アプリ",
+      "feishuHint": "App Secret などのシークレットはご自身で入力してください",
+      "modelKeyPlaceholder": "モデルを選択、またはクリア",
+      "modelSectionTitle": "Claw モデル",
+      "modelSectionDescription": "設定 → Claw と同じです。モデルと推論レベルに対応します。",
+      "modelKeyHint": "空欄にすると専用モデルを解除し、既定に戻ります"
+    },
+    "webhook": {
+      "ops": {
+        "create": {
+          "title": "Webhook の作成の確認",
+          "summary": "Webhook 設定を確認します。署名シークレットはマスクされます。",
+          "confirm": "作成",
+          "badge": "作成",
+          "impact": "新しい Webhook エンドポイント設定が保存されます。"
+        },
+        "update": {
+          "title": "Webhook の更新の確認",
+          "summary": "書き込まれる Webhook の項目を確認します。",
+          "confirm": "更新",
+          "badge": "更新",
+          "impact": "送信された項目について Webhook 設定が更新されます。"
+        },
+        "set-enabled": {
+          "title": "Webhook の有効/無効の確認",
+          "summary": "この Webhook を有効にするかどうかを変更します。",
+          "confirm": "状態変更を確認",
+          "badge": "有効状態",
+          "impact": "Webhook の有効状態が更新されます。"
+        },
+        "delete": {
+          "title": "Webhook の削除の確認",
+          "summary": "Webhook 設定が完全に削除されます。",
+          "confirm": "削除",
+          "badge": "削除",
+          "impact": "Webhook 設定が完全に削除されます。",
+          "warning": "削除した Webhook 設定は復元できません。"
+        },
+        "test": {
+          "title": "Webhook のテストの確認",
+          "summary": "この Webhook にテストメッセージを送信します。",
+          "confirm": "テスト送信",
+          "badge": "テスト",
+          "impact": "この Webhook にテストメッセージが送信されます。"
+        },
+        "send": {
+          "title": "Webhook メッセージの送信の確認",
+          "summary": "Webhook 経由で送信されるメッセージを確認します。",
+          "confirm": "送信",
+          "badge": "送信",
+          "impact": "この Webhook にカスタムメッセージが送信されます。"
+        }
+      },
+      "notFound": "Webhook エンドポイントが見つかりません",
+      "loadFailed": "Webhook の読み込みに失敗しました",
+      "feishu": "Feishu",
+      "dingtalk": "DingTalk",
+      "botSuffix": "ボット"
+    },
+    "downloads": {
+      "ops": {
+        "cancel": {
+          "title": "ダウンロードをキャンセル",
+          "summary": "ファイルのダウンロードを停止します。",
+          "confirm": "ダウンロードをキャンセル",
+          "badge": "ダウンロード",
+          "impact": "ダウンロードはすぐに停止します。状態によっては部分的なファイルが残る場合があります。",
+          "warning": "完全なファイルを取得するには再度ダウンロードする必要があります。"
+        }
+      },
+      "status": "状態",
+      "statuses": {
+        "queued": "待機中",
+        "downloading": "ダウンロード中",
+        "paused": "一時停止",
+        "completed": "完了",
+        "failed": "失敗",
+        "canceled": "キャンセル済み"
+      }
+    },
+    "updater": {
+      "ops": {
+        "check": {
+          "title": "アップデートの確認",
+          "summary": "アプリのアップデートが利用可能かどうかを確認します。",
+          "confirm": "アップデートを確認",
+          "badge": "確認",
+          "impact": "アプリは利用可能なアップデートを確認します。"
+        },
+        "download": {
+          "title": "アップデートのダウンロードの確認",
+          "summary": "利用可能なアップデートパッケージのダウンロードを開始します。",
+          "confirm": "ダウンロード",
+          "badge": "ダウンロード",
+          "impact": "アップデートパッケージのダウンロードが開始されます。"
+        },
+        "install": {
+          "title": "アップデートのインストールの確認",
+          "summary": "ダウンロードしたアップデートをインストールします。アプリの再起動が必要になる場合があります。",
+          "confirm": "インストールして再起動",
+          "badge": "インストール",
+          "impact": "アップデートがインストールされ、アプリが再起動する場合があります。",
+          "warning": "アップデートのインストールには通常アプリの再起動が必要です。作業内容を先に保存してください。"
+        },
+        "dismiss": {
+          "title": "アップデート通知を閉じるの確認",
+          "summary": "現在のアップデート通知を一時的に閉じます。",
+          "confirm": "閉じる",
+          "badge": "閉じる",
+          "impact": "現在のアップデート通知が一時的に閉じられます。"
+        },
+        "cancel": {
+          "title": "アップデートのダウンロードのキャンセルの確認",
+          "summary": "進行中のアップデートのダウンロードをキャンセルします。",
+          "confirm": "ダウンロードをキャンセル",
+          "badge": "キャンセル",
+          "impact": "進行中のアップデートのダウンロードがキャンセルされます。"
+        }
+      },
+      "target": "アプリケーションのアップデート"
+    },
+    "afterActionTitle": "次に起こること",
+    "unknown": "不明",
+    "clearValue": "クリア",
+    "secretPlaceholder": "空欄のままにすると既存のシークレットを保持 / 変更なし"
+  },
+  "navigationApproval": {
+    "title": "ページを開く",
+    "summary": "AI が次のページを開こうとしています。確認するとそのページに切り替わります。",
+    "target": "ページ",
+    "tab": "設定セクション",
+    "section": "場所",
+    "confirm": "開く",
+    "responding": "開いています…",
+    "impact": "アプリはそのページに切り替わります。データは変更されません。",
+    "targets": {
+      "chat": "チャット",
+      "automation": "自動化",
+      "batch-tasks": "バッチタスク",
+      "skills": "機能",
+      "plugins": "プラグイン",
+      "connectors": "コネクタ",
+      "settings": "設定"
+    }
+  },
+  "appearanceApproval": {
+    "pickerTitle": "外観を選択",
+    "themeChangeTitle": "外観の変更を編集",
+    "apply": "外観を適用",
+    "confirmChange": "変更を確認",
+    "submitting": "送信中…"
+  },
+  "schedulerApproval": {
+    "createTitle": "スケジュールタスクの作成の確認",
+    "createDescription": "スケジュールタスクの設定を確認します。確認後、タスクは有効状態に応じて保存され、スケジュールされます。",
+    "updateTitle": "スケジュールタスクの編集",
+    "loadingCurrentTask": "現在のタスク設定を読み込んでいます…",
+    "updateNotFound": "現在のスケジュールタスクが見つからないため、完全な設定を読み込めません。",
+    "updateLoadFailed": "現在のスケジュールタスク設定の読み込みに失敗しました。",
+    "taskId": "タスク ID",
+    "taskNamePlaceholder": "タスク名",
+    "confirmCreate": "作成を確認",
+    "creating": "作成中…",
+    "confirmUpdate": "更新を確認",
+    "updating": "更新中…",
+    "deleteTitle": "スケジュールタスクの削除の確認",
+    "deleteLabel": "タスクを削除",
+    "deleteTargetTask": "削除するタスク",
+    "deleteDescriptionTitle": "削除の影響",
+    "deleteDescription": "スケジュールタスクを削除すると、そのタスクの実行記録もすべて削除されます。この操作は元に戻せません。",
+    "deleteWarning": "タスクが実行中の場合は、削除する前に中止してください。",
+    "confirmDelete": "削除を確認",
+    "deleting": "削除中…",
+    "toggleTitle": "スケジュールタスクの状態変更の確認",
+    "enableTitle": "スケジュールタスクの有効化の確認",
+    "disableTitle": "スケジュールタスクの無効化の確認",
+    "enableLabel": "タスクを有効にする",
+    "disableLabel": "タスクを無効にする",
+    "enableDescription": "有効にすると、スケジュールタスクは Cron 式に従って自動実行されます。",
+    "disableDescription": "無効にすると、スケジュールタスクは自動実行されなくなりますが、設定と履歴は保持されます。",
+    "executionTitle": "スケジュールタスクの実行の確認",
+    "runNowTitle": "スケジュールタスクの即時実行の確認",
+    "abortTitle": "スケジュールタスクの中止の確認",
+    "runNowLabel": "今すぐ実行",
+    "abortLabel": "実行を中止",
+    "runNowDescription": "次回の予定時刻を待たずに、スケジュールタスクをすぐに 1 回実行します。タスクは現在のプロンプトとパラメータで実行されます。",
+    "abortDescription": "現在実行中のスケジュールタスクエージェントを中止します。実行は中断され、生成された出力は保持されます。",
+    "abortWarning": "中止するとエージェントの実行が即座に終了するため、現在の実行状態が不完全になる場合があります。",
+    "operationDescription": "操作の詳細",
+    "executionDescriptionTitle": "次に起こること",
+    "targetTask": "対象タスク",
+    "rawInput": "生のリクエスト",
+    "fallbackAction": "操作",
+    "confirmAction": "{{action}}を確認"
+  },
+  "batchTasksApproval": {
+    "confirmAction": "{{action}}を確認",
+    "fallbackAction": "操作",
+    "unknown": "不明",
+    "unknownShort": "?",
+    "notFound": "見つかりません",
+    "count": "{{count}} 件",
+    "yes": "はい",
+    "no": "いいえ",
+    "afterActionTitle": "次に起こること",
+    "projectLoading": "現在のプロジェクト設定を読み込んでいます…",
+    "projectLoadNotFound": "現在のバッチプロジェクトが見つからないため、完全な設定を読み込めません。",
+    "projectLoadFailed": "現在のバッチプロジェクト設定の読み込みに失敗しました。",
+    "projectFallbackTitle": "バッチプロジェクト操作の確認",
+    "projectCreateLabel": "プロジェクトを作成",
+    "projectUpdateLabel": "プロジェクトを更新",
+    "projectDeleteLabel": "プロジェクトを削除",
+    "projectCreateTitle": "バッチプロジェクトの作成の確認",
+    "projectUpdateTitle": "バッチプロジェクトの更新の確認",
+    "projectDeleteTitle": "バッチプロジェクトの削除の確認",
+    "projectCreateSummary": "バッチプロジェクトの設定を確認します。確認後、ソースフォルダごとに 1 つのサブタスクが作成されます。",
+    "projectUpdateSummary": "書き込むバッチプロジェクトの変更を確認します。確認 UI は現在の設定をマージしており、新しいソースフォルダのみを追加します。",
+    "projectDeleteSummary": "このバッチプロジェクト、すべてのサブタスク、セッション状態、タスク成果物を削除するかどうかを確認します。この操作は元に戻せません。",
+    "projectFullAccessWarning": "タスクはフルアクセスで実行され、選択したフォルダの内外のファイルを読み取りまたは変更する場合があります。プロンプトとフォルダが信頼できることを確認してください。",
+    "newProjectNamePlaceholder": "新しいバッチプロジェクト",
+    "projectNamePlaceholder": "プロジェクト名",
+    "sourceFolders": "ソースフォルダ",
+    "folderList": "フォルダ一覧",
+    "targetProject": "対象プロジェクト",
+    "projectPath": "プロジェクトパス",
+    "existingTasks": "既存のタスク",
+    "includedTasks": "含まれるタスク",
+    "notFoundInCurrentList": "現在の一覧に見つかりません",
+    "projectNotFoundInCurrentList": "プロジェクトが現在の一覧に見つかりません",
+    "taskNotFoundInCurrentList": "タスクが現在の一覧に見つかりません",
+    "projectDeleteWarning": "プロジェクトディレクトリ、すべてのタスク記録、セッション状態、タスク成果物を完全に削除します。タスクが実行中または待機中の場合は操作が拒否されます。",
+    "taskFallbackTitle": "バッチサブタスク操作の確認",
+    "taskId": "タスク ID",
+    "sourceFolder": "ソースフォルダ",
+    "relatedSession": "関連セッション",
+    "resumeDefaultText": "続行",
+    "resumeTextLabel": "元のセッションに送信する追加メッセージ",
+    "lastError": "最後のエラー",
+    "status": {
+      "pending": "待機中",
+      "running": "実行中",
+      "completed": "完了",
+      "failed": "失敗",
+      "paused": "一時停止"
+    },
+    "taskRunLabel": "タスクを実行",
+    "taskRunTitle": "バッチサブタスクの実行の確認",
+    "taskRunSummary": "この待機中のサブタスクのセッションを作成して実行を開始するかどうかを確認します。",
+    "taskRunDescription": "この待機中のタスクのセッションを作成し、実行を開始します。",
+    "taskRetryLabel": "最初から再試行",
+    "taskRetryTitle": "バッチサブタスクの再試行の確認",
+    "taskRetrySummary": "このサブタスクの古い結果を消去して最初から再実行するかどうかを確認します。",
+    "taskRetryDescription": "古い結果を消去し、このタスクを最初から再実行します。",
+    "taskRetryWarning": "古いセッション、状態、タスクディレクトリ内の既存の成果物が削除され、復元できません。",
+    "taskStopLabel": "停止してクリーンアップ",
+    "taskStopTitle": "バッチサブタスクの停止の確認",
+    "taskStopSummary": "このサブタスクを中止または削除し、セッション、状態、成果物をクリーンアップするかどうかを確認します。",
+    "taskStopDescription": "実行中または待機中のタスクを中止し、状態を待機中にリセットします。",
+    "taskStopWarning": "現在のセッション、実行状態、タスクディレクトリ内の既存の成果物が削除されます。",
+    "taskDeleteLabel": "タスクを削除",
+    "taskDeleteTitle": "バッチサブタスクの削除の確認",
+    "taskDeleteSummary": "このサブタスクと関連データをプロジェクトから完全に削除するかどうかを確認します。",
+    "taskDeleteDescription": "このタスクをプロジェクトから完全に削除します。",
+    "taskDeleteWarning": "タスク記録、プロジェクトのサブディレクトリ、セッション状態、成果物が完全に削除されます。",
+    "taskResumeLabel": "タスクを再開",
+    "taskResumeTitle": "バッチサブタスクの再開の確認",
+    "taskResumeSummary": "一時停止中の元のセッションに「続行」を送信し、既存のコンテキストを保持するかどうかを確認します。",
+    "taskResumeDescription": "既存のコンテキストと成果物を保持したまま、一時停止中の元のセッションに「続行」を送信します。",
+    "taskResumeWithTextLabel": "メッセージ付きで再開",
+    "taskResumeWithTextTitle": "メッセージ付きでバッチサブタスクを再開の確認",
+    "taskResumeWithTextSummary": "一時停止中のセッションに送信する追加メッセージを確認します。既存のコンテキストは保持されます。",
+    "taskResumeWithTextDescription": "一時停止中の元のセッションに追加メッセージを送信し、実行を続けます。",
+    "taskDeleteSessionLabel": "タスクセッションを削除",
+    "taskDeleteSessionTitle": "バッチサブタスクセッションの削除の確認",
+    "taskDeleteSessionSummary": "このサブタスクに関連する会話セッションを削除するかどうかを確認します。タスク記録とタスクディレクトリは保持されます。",
+    "taskDeleteSessionDescription": "このタスクに関連する会話セッションを削除します。",
+    "taskDeleteSessionWarning": "セッション履歴は復元できません。タスク記録とタスクディレクトリは削除されません。",
+    "executionFallbackTitle": "バッチ実行制御の確認",
+    "totalTasks": "タスク総数",
+    "estimatedImpact": "推定される影響",
+    "selectedTasks": "選択したタスク",
+    "resetFailedPartialWarning": "現在失敗状態のタスクのみが処理されます。他のタスク ID は無視されます。",
+    "executionDeleteAllLabel": "すべてのタスクを削除",
+    "executionDeleteAllTitle": "すべてのバッチタスクの削除の確認",
+    "executionDeleteAllSummary": "このプロジェクトの実行中以外のサブタスクをすべて削除するかどうかを確認します。実行中のタスクは保持されます。",
+    "executionDeleteAllDescription": "プロジェクト内の実行中以外のタスクをすべて削除します。実行中のタスクは保持されます。",
+    "executionDeleteAllWarning": "待機中のタスクはキューから削除され、その後タスク記録、セッション状態、成果物ディレクトリが完全に削除されます。",
+    "executionStartLabel": "実行を開始",
+    "executionStartTitle": "バッチプロジェクトの実行開始の確認",
+    "executionStartSummary": "このバッチプロジェクトの実行を開始するかどうかを確認します。待機中および一時停止中のタスクが実行フローに入ります。",
+    "executionStartDescription": "すべての待機中タスクをキューに入れ、一時停止中のタスクを再開します。完了または失敗したタスクは再実行されません。",
+    "executionStopLabel": "停止してクリーンアップ",
+    "executionStopTitle": "バッチプロジェクトの実行停止の確認",
+    "executionStopSummary": "このプロジェクトの未完了タスクを停止し、関連するセッション、状態、成果物をクリーンアップするかどうかを確認します。",
+    "executionStopDescription": "完了したタスクは保持したまま、プロジェクト内の未完了タスクをすべて停止します。",
+    "executionStopWarning": "待機中、実行中、失敗、一時停止中のタスクのセッション、状態、成果物ディレクトリがクリーンアップされ、待機中にリセットされます。",
+    "executionResetLabel": "消去して再実行",
+    "executionResetTitle": "バッチプロジェクトの消去と再実行の確認",
+    "executionResetSummary": "このプロジェクトのすべてのタスク状態と成果物を消去し、プロジェクト全体をすぐに再実行するかどうかを確認します。",
+    "executionResetDescription": "プロジェクトの実行状態と成果物をすべて消去し、すべてのタスクをすぐに再実行します。",
+    "executionResetWarning": "完了したタスクを含め、すべてのタスクセッション、状態、成果物ディレクトリが削除されます。この操作は元に戻せません。",
+    "executionResetFailedLabel": "失敗したタスクをリセット",
+    "executionResetFailedTitle": "失敗したバッチタスクのリセットの確認",
+    "executionResetFailedSummary": "選択した失敗タスクをクリーンアップするかどうかを確認します。現在失敗状態のタスクのみが処理されます。",
+    "executionResetFailedDescription": "選択した失敗タスクをクリーンアップします。プロジェクトがまだ実行中の場合はすぐにキューに入り、そうでなければ待機中に戻ります。",
+    "executionResetFailedWarning": "選択した失敗タスクの古いセッション、エラー状態、既存の成果物が削除されます。"
+  },
+  "appShell": {
+    "routeTitles": {
+      "automation": "自動化",
+      "batchTasks": "バッチタスク",
+      "knowledgeAll": "すべてのナレッジベース",
+      "knowledge": "ナレッジベース",
+      "skills": "スキル",
+      "scenes": "シーン",
+      "plugins": "プラグイン",
+      "settings": "設定",
+      "project": "プロジェクト詳細",
+      "chat": "チャット"
+    },
+    "sidebarTrigger": {
+      "open": "サイドバー",
+      "expand": "サイドバーを展開"
+    },
+    "windowControls": {
+      "minimize": "最小化",
+      "maximize": "最大化",
+      "restore": "復元",
+      "close": "閉じる"
+    }
+  },
+  "modelSelect": {
+    "placeholder": "モデルを選択",
+    "searchPlaceholder": "モデルまたはプロバイダーを検索",
+    "clearSearch": "検索をクリア",
+    "noResults": "モデルが見つかりません",
+    "noResultsHint": "別のモデル名、ID、プロバイダーをお試しください",
+    "unset": "未設定",
+    "defaultBadge": "既定",
+    "visionBadge": "ビジョン",
+    "cloudOnly": "クラウド",
+    "reasoningHeader": "推論",
+    "modelHeader": "モデル",
+    "multiplier": "{{value}}×",
+    "free": "無料",
+    "reasoningLevel": {
+      "minimal": "最小",
+      "low": "低",
+      "medium": "中",
+      "high": "高",
+      "xhigh": "超高",
+      "max": "最大",
+      "none": "なし",
+      "off": "オフ"
+    }
+  },
+  "setupWizard": {
+    "skip": "スキップ",
+    "next": "次へ",
+    "back": "戻る",
+    "getStarted": "はじめる",
+    "progress": "{{current}} / {{total}}",
+    "permissions": {
+      "title": "権限を許可",
+      "subtitle": "スクリーンショット、自動化、システム通知を有効にします。後で設定から完了できます",
+      "systemSection": "システム権限",
+      "computerUseTitle": "Metoai Computer Use",
+      "computerUseDesc": "別のヘルパーが最前面のウィンドウをキャプチャするため、独自のアクセシビリティと画面収録の許可が必要です",
+      "optionalHint": "すべての権限は任意です。設定 → 権限でいつでも調整できます"
+    },
+    "languageAppearance": {
+      "title": "言語と外観",
+      "subtitle": "言語は既定でシステムに従います。テーマモードと色を調整できます。設定でいつでも変更できます",
+      "language": "言語",
+      "appearance": "外観",
+      "theme": "カラーテーマ"
+    },
+    "metoai": {
+      "title": "MetaToken にサインイン",
+      "subtitle": "サインインすると内蔵ゲートウェイの全モデルを利用できます。残高・サブスクリプション・API キーもここで確認できます",
+      "optionalHint": "任意 — 「次へ」で続行"
+    },
+    "login": {
+      "title": "サインイン",
+      "subtitle": "クラウド機能とサブスクリプションを利用するにはサインインしてください。スキップして後でサインインできます",
+      "optionalHint": "任意 — 「次へ」で続行",
+      "signedInTitle": "サインイン済み",
+      "signedInDesc": "おかえりなさい、{{name}}さん",
+      "signedInFallback": "ユーザー"
+    },
+    "welcome": {
+      "title": "Metoai へようこそ",
+      "subtitle": "デスクトップ AI コーディングアシスタントの準備ができました。会話から始めましょう",
+      "highlights": {
+        "chat": {
+          "title": "スマートチャット",
+          "desc": "プロジェクトのコンテキストで質問し、コードを編集し、コマンドを実行できます"
+        },
+        "skills": {
+          "title": "スキルとコネクタ",
+          "desc": "機能を拡張し、使い慣れたツールを接続します"
+        },
+        "automation": {
+          "title": "自動化",
+          "desc": "定型的な作業をスケジュールタスクとバッチジョブで自動化します"
+        }
+      }
+    }
+  },
+  "commandMenu": {
+    "placeholder": "プロジェクト、セッション、機能、設定を検索…",
+    "empty": "一致する項目がありません",
+    "emptyHint": "別のキーワードをお試しください",
+    "loading": "セッションを検索中",
+    "title": "コマンドメニュー",
+    "hintNavigate": "↑↓ 移動",
+    "hintSelect": "↵ 開く",
+    "hintClose": "esc 閉じる",
+    "overflow": "他 {{count}} 件",
+    "sessionUnavailable": "このセッションは現在開けません",
+    "searchMarketplace": "機能マーケットを検索",
+    "trigger": "検索",
+    "groups": {
+      "projects": "プロジェクト",
+      "sessions": "セッション",
+      "abilities": "機能",
+      "settings": "設定",
+      "workspaceViews": "プラグインビュー"
+    },
+    "badges": {
+      "skill": "スキル",
+      "scene": "シーン",
+      "plugin": "プラグイン"
+    },
+    "sessionTypes": {
+      "conversation": "チャット",
+      "claw": "Claw",
+      "project": "プロジェクト",
+      "batch": "バッチ"
+    }
+  }
+}

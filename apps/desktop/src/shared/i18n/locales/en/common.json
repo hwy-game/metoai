@@ -538,9 +538,7 @@
 					"badge": "Language",
 					"impact": "Menus, settings, and buttons switch immediately. Chat content is unchanged."
 				}
-			},
-			"languageZh": "Chinese",
-			"languageEn": "English"
+			}
 		},
 		"plugins": {
 			"ops": {
@@ -1001,6 +999,11 @@
 			"language": "Language",
 			"appearance": "Appearance",
 			"theme": "Color theme"
+		},
+		"metoai": {
+			"title": "Sign in to MetaToken",
+			"subtitle": "Sign in to use every model on the built-in gateway; balance, subscription and API keys live here too",
+			"optionalHint": "Optional — tap Next to continue"
 		},
 		"login": {
 			"title": "Sign in",

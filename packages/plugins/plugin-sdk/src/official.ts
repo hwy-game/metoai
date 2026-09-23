@@ -196,6 +196,11 @@ export type PluginOfficialMcpUpsertData =
 			startupTimeout?: number;
 			debug?: boolean;
 	  };
+/**
+ * 宿主界面语言码。与 Desktop `SUPPORTED_LANGUAGES` 一一对应；插件包不能依赖 apps/desktop，
+ * 故在此重复一份字面量并集。新增语言时宿主会先扩这个并集，旧 SDK 类型更窄，不会误报。
+ */
+export type PluginOfficialAppLanguage = "zh" | "en" | "es" | "fr" | "id" | "vi" | "ru" | "ja";
 
 export type PluginOfficialExecutionMode = "inherit" | "sandbox" | "full-access";
 
@@ -677,7 +682,7 @@ export interface PluginOfficialApi {
 			themeId?: string;
 			cursorStyle?: "default" | "stoat";
 		}): Promise<unknown>;
-		setLanguage(language: "zh" | "en"): Promise<unknown>;
+		setLanguage(language: PluginOfficialAppLanguage): Promise<unknown>;
 		listThemeIds(): string[];
 	};
 	/**

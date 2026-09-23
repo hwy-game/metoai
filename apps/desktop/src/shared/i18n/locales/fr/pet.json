@@ -1,0 +1,119 @@
+{
+  "settings": {
+    "pageTitle": "Metoai Vivi",
+    "showPet": "Afficher la mascotte",
+    "showPetDesc": "Lorsque cette option est désactivée, la fenêtre de la mascotte est masquée et le reste au prochain démarrage.",
+    "alwaysOnTop": "Toujours au premier plan",
+    "alwaysOnTopDesc": "Lorsque cette option est activée, la mascotte flotte au-dessus des autres fenêtres ; sinon, elle peut être recouverte comme une fenêtre normale.",
+    "developerDesc": "Sert à distinguer les limites de la fenêtre de la mascotte de la zone d'affichage vidéo réelle.",
+    "debugFrame": "Cadre de débogage",
+    "debugFrameDesc": "Affiche les limites de la fenêtre et de la zone vidéo, ainsi que les tailles réelles de la fenêtre et de la vidéo dans la fenêtre de la mascotte.",
+    "decoration": {
+      "sectionDescription": "Affiche actuellement uniquement les éléments de décoration disponibles ; la logique de décoration réelle pourra être connectée ultérieurement.",
+      "materialMissing": "Élément manquant",
+      "available": "Disponible",
+      "missing": "Manquant",
+      "items": {
+        "monitor": "Écran",
+        "santa": "Costume de Noël",
+        "business": "Tenue professionnelle",
+        "office": "Prière au bureau",
+        "peekingMonitor": "Regarde depuis l'écran",
+        "dragonBoat": "Décoration Fête des bateaux-dragons"
+      }
+    },
+    "bubble": {
+      "sectionDescription": "Choisissez le style de bulle de la mascotte de bureau. Chaque style peut définir son propre arrière-plan, ses dimensions et le placement des décorations.",
+      "styleTitle": "Style de bulle",
+      "styleDescription": "Le style sélectionné est appliqué immédiatement à la fenêtre de la mascotte.",
+      "styles": {
+        "plain": {
+          "label": "Bulle simple",
+          "description": "Bulle de base qui suit le thème de l'application."
+        },
+        "springFestival": {
+          "label": "Bulle Fête du Printemps",
+          "description": "Fond rouge chaleureux avec décorations d'angle de la Fête du Printemps."
+        },
+        "dragonBoat": {
+          "label": "Bulle Fête des bateaux-dragons",
+          "description": "Fond vert avec décorations d'angle de la Fête des bateaux-dragons."
+        },
+        "midAutumn": {
+          "label": "Bulle Fête de la mi-automne",
+          "description": "Fond jaune lunaire avec décorations d'angle de la Fête de la mi-automne."
+        },
+        "qingming": {
+          "label": "Bulle Qingming",
+          "description": "Fond vert clair avec décorations d'angle de Qingming."
+        },
+        "winterSolstice": {
+          "label": "Bulle solstice d'hiver",
+          "description": "Fond bleu glacé avec décorations d'angle du solstice d'hiver."
+        },
+        "aprilFools": {
+          "label": "Bulle poisson d'avril",
+          "description": "Fond violet clair avec décorations d'angle du poisson d'avril."
+        },
+        "childrenDay": {
+          "label": "Bulle Journée des enfants",
+          "description": "Fond jaune vif avec décorations d'angle de la Journée des enfants."
+        },
+        "christmas": {
+          "label": "Bulle Noël",
+          "description": "Fond vert clair avec décorations d'angle de Noël."
+        },
+        "halloween": {
+          "label": "Bulle Halloween",
+          "description": "Fond orange chaleureux avec décorations d'angle d'Halloween."
+        },
+        "laborDay": {
+          "label": "Bulle Fête du Travail",
+          "description": "Fond orange chaleureux avec décorations d'angle de la Fête du Travail."
+        },
+        "nationalDay": {
+          "label": "Bulle Fête nationale",
+          "description": "Fond rouge chaleureux avec décorations d'angle de la Fête nationale."
+        },
+        "songkran": {
+          "label": "Bulle Songkran",
+          "description": "Fond bleu clair avec décorations d'angle de Songkran."
+        },
+        "valentineDay": {
+          "label": "Bulle Saint-Valentin",
+          "description": "Fond rose clair avec décorations d'angle de la Saint-Valentin."
+        }
+      }
+    }
+  },
+  "video": {
+    "missingTitle": "Vidéo de la mascotte",
+    "missingSubtitle": "Non fournie"
+  },
+  "notice": {
+    "lifecycle": {
+      "started": "Je m'en occupe",
+      "completed": "Tout est terminé",
+      "paused": "En pause jusqu'à votre reprise"
+    },
+    "context": {
+      "compacting": "Je vais ranger le contexte"
+    },
+    "tool": {
+      "running": "Exécution d'un outil",
+      "runningWithDescription": "{{description}}",
+      "completed": "Outil terminé"
+    },
+    "retry": {
+      "running": "Nouvelle tentative ({{attempt}}/{{maxAttempts}})"
+    },
+    "background": {
+      "running": "Tâche en arrière-plan en cours",
+      "completed": "Tâche en arrière-plan terminée",
+      "failed": "La tâche en arrière-plan a rencontré un problème"
+    },
+    "error": {
+      "generic": "Cette étape a rencontré un problème"
+    }
+  }
+}

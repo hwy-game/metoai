@@ -1,0 +1,99 @@
+{
+  "tray": {
+    "showWindow": "Hiện cửa sổ",
+    "hideWindow": "Ẩn cửa sổ",
+    "quitVetta": "Thoát Metoai",
+    "quit": "Thoát",
+    "hideToTray": "Ẩn xuống khay hệ thống"
+  },
+  "menu": {
+    "app": {
+      "title": "Metoai",
+      "about": "Giới thiệu Metoai",
+      "services": "Dịch vụ",
+      "hide": "Ẩn Metoai",
+      "hideOthers": "Ẩn các ứng dụng khác",
+      "unhide": "Hiện tất cả",
+      "quit": "Thoát Metoai"
+    },
+    "edit": {
+      "title": "Sửa",
+      "undo": "Hoàn tác",
+      "redo": "Làm lại",
+      "cut": "Cắt",
+      "copy": "Sao chép",
+      "paste": "Dán",
+      "pasteAndMatchStyle": "Dán và khớp kiểu",
+      "delete": "Xóa",
+      "selectAll": "Chọn tất cả"
+    },
+    "view": {
+      "title": "Hiển thị",
+      "reload": "Tải lại",
+      "forceReload": "Buộc tải lại",
+      "toggleDevTools": "Bật/tắt Công cụ nhà phát triển",
+      "resetZoom": "Kích thước thực",
+      "zoomIn": "Phóng to",
+      "zoomOut": "Thu nhỏ",
+      "toggleFullScreen": "Bật/tắt Toàn màn hình"
+    },
+    "window": {
+      "title": "Cửa sổ",
+      "minimize": "Thu nhỏ",
+      "zoom": "Phóng to",
+      "front": "Đưa tất cả lên trước",
+      "close": "Đóng cửa sổ"
+    }
+  },
+  "notification": {
+    "turnComplete": "Đã trả lời xong",
+    "turnError": "Trả lời thất bại",
+    "questionPending": "Có một câu hỏi cần bạn xác nhận. Nhấp để xem.",
+    "sessionFallback": "Phiên mới"
+  },
+  "pet": {
+    "openDevTools": "Mở Công cụ nhà phát triển của Pet"
+  },
+  "mcpOAuth": {
+    "authorizationSuccessful": "Ủy quyền thành công",
+    "authorizationFailed": "Ủy quyền thất bại",
+    "returnToVetta": "Bạn có thể đóng cửa sổ này và quay lại Metoai.",
+    "closeAndRetry": "Bạn có thể đóng cửa sổ này và thử lại trong Metoai.",
+    "missingAuthorizationCode": "Thiếu mã ủy quyền",
+    "callbackAlreadySettled": "Callback OAuth đã được xử lý",
+    "callbackTimedOut": "Hết thời gian chờ ủy quyền OAuth trên trình duyệt",
+    "callbackBindFailed": "Không thể liên kết máy chủ callback OAuth",
+    "devicePageBindFailed": "Không thể liên kết máy chủ trang mã thiết bị",
+    "connectGitHub": "Kết nối GitHub",
+    "enterDeviceCode": "Nhập mã này trên trang GitHub, rồi nhấp Ủy quyền.",
+    "copyCode": "Sao chép mã",
+    "openGitHub": "Mở GitHub để ủy quyền",
+    "closeAfterAuthorization": "Bạn có thể đóng cửa sổ này sau khi đã ủy quyền trong Metoai.",
+    "deviceFlowDisabled": "Yêu cầu mã thiết bị thất bại (422). Hãy bật Device Flow trong cài đặt OAuth hoặc GitHub App: {{details}}"
+  },
+  "updater": {
+    "errors": {
+      "developmentUnsupported": "Không thể cập nhật tự động ở chế độ phát triển",
+      "configurationUnavailable": "Bản dựng này chưa cấu hình nguồn cập nhật",
+      "checkFailed": "Không kiểm tra được bản cập nhật",
+      "downloadFailed": "Không tải được bản cập nhật",
+      "installFailed": "Không cài được bản cập nhật"
+    },
+    "forced": {
+      "title": "Cần cập nhật để tiếp tục",
+      "reasonPolicy": "Phiên bản này cần cập nhật trước khi bạn có thể tiếp tục.",
+      "reasonMinSupported": "Phiên bản này không còn được hỗ trợ. Vui lòng cập nhật để tiếp tục.",
+      "checking": "Đang kiểm tra cập nhật…",
+      "available": "Bản cập nhật đã sẵn sàng để tải.",
+      "download": "Tải bản cập nhật",
+      "downloading": "Đang tải bản cập nhật ({{progress}}%)",
+      "ready": "Bản cập nhật đã được tải. Khởi động lại để bắt đầu dùng.",
+      "restart": "Khởi động lại và cài ngay",
+      "preparing": "Đang cài bản cập nhật. Ứng dụng sẽ khởi động lại ngay.",
+      "failed": "Bản cập nhật chưa hoàn tất. Vui lòng thử lại.",
+      "retry": "Thử lại",
+      "releaseNotes": "Có gì mới",
+      "version": "Phiên bản mới {{version}}"
+    }
+  }
+}

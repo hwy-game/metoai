@@ -1,0 +1,125 @@
+{
+  "page": {
+    "title": "自動化",
+    "subtitle": "AI にスケジュールでタスクを実行させ、手を離しましょう",
+    "newTask": "新規タスク",
+    "newTaskTitle": "新しいスケジュールタスク"
+  },
+  "recommend": {
+    "title": "おすすめ",
+    "use": "テンプレートを使用",
+    "items": {
+      "morningBrief": {
+        "name": "モーニングブリーフィング",
+        "desc": "平日の朝にリポジトリの変更、未コミットの作業、注力項目をまとめます",
+        "schedule": "平日 09:00",
+        "prompt": "現在のワークスペースで朝のブリーフィングアシスタントとして動作してください：\n1. git が利用できる場合は git status と最近のコミットを確認する\n2. 未コミットの変更、未プッシュのブランチ、ブロッカーになりそうな項目をリストする\n3. 今日の明確な注力項目を3つ提案する\n簡潔な構成で日本語で回答してください。ファイルは変更しないでください。"
+      },
+      "dailySummary": {
+        "name": "1日のまとめ",
+        "desc": "夕方に今日の変更を短い作業ログにまとめます",
+        "schedule": "毎日 18:00",
+        "prompt": "このワークスペースの今日の作業サマリーを生成してください：\n1. git log やファイルの変更から実施内容を要約する\n2. 未完了またはフォローアップ項目を指摘する\n3. 明日の実行可能な次のステップを最大3つ提案する\n簡潔な箇条書きを使用してください。コードは変更しないでください。"
+      },
+      "weeklyReview": {
+        "name": "週次レビュー",
+        "desc": "金曜午後に今週のコミットから週報を作成します",
+        "schedule": "金曜 17:00",
+        "prompt": "現在のリポジトリの週次レビューを作成してください：\n1. 今週の主要なコミットと機能の進捗を要約する\n2. リスク、技術的負債、繰り返し発生する問題を記録する\n3. 来週の優先事項を提案する（最大5項目）\n週報にそのまま貼り付けられる形で作成してください。リポジトリのファイルは変更しないでください。"
+      }
+    }
+  },
+  "dialog": {
+    "namePlaceholderEdit": "タスク名",
+    "namePlaceholderNew": "新しいタスク",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "create": "作成"
+  },
+  "form": {
+    "namePlaceholder": "タスク名",
+    "promptPlaceholder": "プロンプトを入力... / でスキル/シーンを呼び出せます",
+    "selectWorkDir": "作業ディレクトリを選択",
+    "conversation": "会話",
+    "modelEmpty": "モデルなし",
+    "modelSelect": "モデルを選択",
+    "defaultTag": "既定",
+    "enabled": "有効",
+    "disabled": "無効",
+    "fullAccess": "フルアクセス",
+    "useSandbox": "サンドボックスを使用",
+    "inherit": "既定に従う（{{mode}}）",
+    "sandbox": "サンドボックス",
+    "sandboxUnavailable": "{{platform}} サンドボックスは利用できません：{{reason}}",
+    "every": "毎",
+    "unitHours": "時間",
+    "unitDays": "日"
+  },
+  "scheduleMode": {
+    "once": "1回",
+    "daily": "毎日",
+    "interval": "間隔"
+  },
+  "schedule": {
+    "once": "{{year}}/{{month}}/{{day}} {{time}} に1回",
+    "daily": "毎日 {{time}}",
+    "weekly": "毎週 {{days}} の {{time}}",
+    "intervalOne": "1時間ごと",
+    "interval": "{{hours}} 時間ごと",
+    "weekdayJoin": ", ",
+    "weekdayNames": [
+      "日",
+      "月",
+      "火",
+      "水",
+      "木",
+      "金",
+      "土"
+    ]
+  },
+  "list": {
+    "running": "実行中",
+    "pending": "待機中",
+    "disabled": "無効",
+    "once": "1回のみ",
+    "runNow": "今すぐ実行",
+    "run": "実行",
+    "sectionTitle": "自動化タスク",
+    "pause": "一時停止",
+    "enable": "有効化",
+    "edit": "編集",
+    "delete": "削除",
+    "success": "成功",
+    "failed": "失敗",
+    "neverRun": "未実行",
+    "justNow": "たった今",
+    "minutesAgo": "{{n}} 分前",
+    "hoursAgo": "{{n}} 時間前",
+    "daysAgo": "{{n}} 日前",
+    "fullAccess": "フルアクセス",
+    "useSandbox": "サンドボックスを使用",
+    "inheritDefault": "既定に従う"
+  },
+  "confirm": {
+    "deleteTitle": "タスク「{{name}}」を削除しますか？",
+    "deleteMsg": "この操作は取り消せません。続行するには確認してください。",
+    "delete": "削除",
+    "cancel": "キャンセル"
+  },
+  "drawer": {
+    "close": "閉じる",
+    "runNow": "今すぐ実行",
+    "pause": "一時停止",
+    "enable": "有効化",
+    "edit": "編集"
+  },
+  "history": {
+    "title": "実行履歴",
+    "refresh": "更新",
+    "empty": "実行記録がありません",
+    "success": "成功",
+    "failed": "失敗",
+    "running": "実行中",
+    "aborted": "中断"
+  }
+}

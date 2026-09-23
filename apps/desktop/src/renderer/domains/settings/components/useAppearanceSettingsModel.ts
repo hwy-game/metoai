@@ -15,7 +15,7 @@ import type { ThemeDef } from "@shared/theme/tokens";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { isAppearanceUiThemeEnabled } from "@/shared/feature-flags";
-import type { LanguagePreference } from "@/shared/i18n/config";
+import { FIXED_LANGUAGE_OPTIONS, type LanguagePreference } from "@/shared/i18n/config";
 import defaultThemePreview from "../assets/default.webp";
 import xianxiaThemePreview from "../assets/xianxia.webp";
 import { SETTINGS_SECTION } from "../registry";
@@ -158,16 +158,6 @@ const MODE_OPTIONS = [
 	labelKey: "themeDark" | "themeLight" | "themeSystem";
 	value: ThemeMode;
 }>;
-
-/** 固定语言名（语种自称，非 UI chrome 文案）；system 项 label 由 i18n 注入。 */
-const FIXED_LANGUAGE_OPTIONS: ReadonlyArray<{
-	value: Exclude<LanguagePreference, "system">;
-	native: string;
-	alt: string;
-}> = [
-	{ value: "zh", native: "中文", alt: "Chinese" },
-	{ value: "en", native: "English", alt: "英文" },
-];
 
 const UI_THEME_OPTIONS = [
 	{

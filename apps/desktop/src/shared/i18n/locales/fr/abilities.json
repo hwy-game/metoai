@@ -1,0 +1,537 @@
+{
+  "page": {
+    "title": "Capacités",
+    "subtitle": "Donnez plus de moyens à votre agent : compétences, scènes, MCP, extensions et packs"
+  },
+  "banner": {
+    "title": "Découvrir d'autres capacités",
+    "description": "Choisissez ce que vous voulez faire — ajoutez-le et utilisez-le directement dans le chat"
+  },
+  "loading": "Chargement…",
+  "type": {
+    "skill": "Compétence",
+    "scene": "Scène",
+    "mcp": "MCP",
+    "plugin": "Extension",
+    "bundle": "Pack"
+  },
+  "scope": {
+    "discover": "Découvrir",
+    "mine": "Les miennes"
+  },
+  "group": {
+    "connectors": "Connexions",
+    "vettaBuiltin": "Intégré à Metoai",
+    "uncategorized": "Sans catégorie"
+  },
+  "search": {
+    "placeholder": "Rechercher des capacités"
+  },
+  "status": {
+    "setupRequired": "Configuration requise",
+    "disabled": "Désactivé",
+    "updateAvailable": "Mise à jour disponible",
+    "openSource": "Open source",
+    "sameName": "{{count}} portant le même nom"
+  },
+  "card": {
+    "noDescription": "Aucune description"
+  },
+  "operation": {
+    "processing": "En cours…",
+    "checkingSource": "Vérification de la version du marché…",
+    "refreshing": "Actualisation de l'état local…",
+    "installing": "Ajout…",
+    "updating": "Mise à jour…",
+    "applyingUpdate": "Rechargement de la nouvelle version…",
+    "removing": "Suppression…",
+    "enabling": "Activation…",
+    "disabling": "Désactivation…",
+    "reloading": "Rechargement…",
+    "saving": "Enregistrement…",
+    "applyingSetup": "Application des autorisations…",
+    "activating": "Activation de la capacité…",
+    "preparingRuntime": "Préparation du runtime…",
+    "downloadingRuntime": "Téléchargement du runtime…",
+    "verifyingRuntime": "Vérification du runtime…",
+    "installingRuntime": "Installation du runtime…",
+    "readyRuntime": "Runtime prêt",
+    "failedRuntime": "Échec de la préparation du runtime"
+  },
+  "actions": {
+    "add": "Ajouter",
+    "update": "Mettre à jour",
+    "finishSetup": "Terminer la configuration",
+    "connectAccount": "Connecter le compte",
+    "disconnectAccount": "Déconnecter le compte",
+    "configure": "Configurer les identifiants",
+    "edit": "Modifier la configuration",
+    "viewDetails": "Voir les détails",
+    "remove": "Supprimer",
+    "enable": "Activer",
+    "disable": "Désactiver",
+    "more": "Plus d'actions",
+    "refresh": "Actualiser",
+    "loadMore": "Charger plus ({{remaining}} restants)",
+    "reload": "Recharger",
+    "cancel": "Annuler"
+  },
+  "add": {
+    "trigger": "Ajouter une capacité",
+    "title": "Choisir le mode d'ajout",
+    "importSkill": "Importer une archive de compétence",
+    "importSkillHint": "Installer depuis une archive zip, tar.gz ou tgz locale",
+    "importPlugin": "Importer une archive d'extension",
+    "importPluginHint": "Installer depuis un zip local contenant plugin.json",
+    "addMcp": "Ajouter un MCP manuellement",
+    "addMcpHint": "Configurer manuellement un serveur MCP stdio ou HTTP"
+  },
+  "empty": {
+    "noMatch": "Aucune capacité correspondante",
+    "noMatchHint": "Essayez un autre mot-clé",
+    "discover": "Rien à découvrir pour l'instant",
+    "mine": "Aucune capacité ajoutée pour l'instant",
+    "hint": "Actualisez plus tard ou importez-en une via « Ajouter une capacité » ci-dessus"
+  },
+  "error": {
+    "sourcesFailed": "Échec de la synchronisation des sources GitHub (le contenu en cache reste disponible) : {{names}}",
+    "sourcesOutdated": "Ces sources nécessitent une version plus récente de Metoai pour se charger : {{names}}",
+    "serverFailed": "Échec du chargement du marché cloud ; les autres sources restent disponibles",
+    "loadFailed": "Échec du chargement des capacités",
+    "downloadFailed": "Échec du téléchargement : {{status}}",
+    "installSourceConflict": "Le même identifiant de capacité est installé depuis une autre source et ne sera pas écrasé. Vérifiez la source sur la page de détails.",
+    "membersUnavailable": "Ces membres sont indisponibles et n'ont pas été installés : {{names}}",
+    "partial": "Certaines capacités n'ont pas pu être chargées : {{error}}",
+    "openMarketplaceSyncFailed": "Les capacités ouvertes n'ont pas pu être synchronisées ; le dernier instantané utilisable a été conservé"
+  },
+  "message": {
+    "installed": "Installation de {{name}}",
+    "installedCount": "{{count}} capacités installées",
+    "setupRequired": "La configuration de {{name}} est requise avant l'ajout",
+    "uninstalled": "Suppression de {{name}}",
+    "uninstalledCount": "{{count}} capacités supprimées",
+    "imported": "Importation de {{name}}",
+    "updatedAndReloaded": "Mise à jour et rechargement de {{name}} {{version}}",
+    "reloaded": "Rechargement de {{name}} {{version}}"
+  },
+  "detail": {
+    "noContent": "Aucune autre description. Ajoutez cette capacité et utilisez-la directement dans le chat.",
+    "notFound": "Capacité introuvable — elle a peut-être été retirée du catalogue ou supprimée.",
+    "source": {
+      "title": "Source",
+      "builtin": "Intégré à l'application",
+      "local": "Ajouté localement",
+      "server": "Serveur de capacités Metoai",
+      "sameNameTitle": "{{count}} autres capacités portent le même nom",
+      "installConflict": "Une autre source occupe déjà cet emplacement d'installation. Il ne sera pas écrasé automatiquement ; supprimez d'abord l'élément installé ou attendez un flux de remplacement explicite."
+    },
+    "status": {
+      "available": "Non ajouté",
+      "setup_required": "Configuration requise",
+      "disabled": "Désactivé",
+      "enabled": "Activé",
+      "readonly": "Lecture seule"
+    },
+    "primary": {
+      "add": "Ajouter la capacité",
+      "update": "Mettre à jour la capacité",
+      "setup": "Terminer la configuration",
+      "enable": "Activer la capacité"
+    },
+    "secondary": {
+      "disable": "Désactiver",
+      "configure": "Configurer",
+      "remove": "Supprimer"
+    },
+    "meta": {
+      "author": "Auteur",
+      "version": "Version",
+      "localVersion": "Version locale",
+      "downloads": "Téléchargements",
+      "license": "Licence"
+    },
+    "story": {
+      "vs": "vs",
+      "compareBoth": "Comparer",
+      "stepProgress": "{{current}} / {{total}}",
+      "stepPrevious": "Retour",
+      "stepNext": "Suivant",
+      "replayScene": "Lire la conversation",
+      "previewImage": "Voir l'image",
+      "closePreview": "Fermer"
+    }
+  },
+  "plugin": {
+    "currentVersion": "Version actuelle",
+    "source": {
+      "label": "Source",
+      "remote": "Installation distante",
+      "npm": "Paquet npm",
+      "system": "Intégré",
+      "local": "Zip local"
+    },
+    "reloadVersion": "Recharger vers {{version}}",
+    "permissions": "Autorisations",
+    "permissionsSystemHint": "Accordées automatiquement aux extensions système, non modifiables",
+    "setupDialog": "Activation et autorisations",
+    "setupDialogHint": "L'extension est installée. Vérifiez son état d'activation, ses autorisations hôte et ses commandes exécutables, puis confirmez pour appliquer.",
+    "updateSetupDialogHint": "La nouvelle version est téléchargée mais pas encore active. Les nouvelles autorisations sont présélectionnées ; vérifiez les changements avant de l'activer.",
+    "permissionAdded": "Ajoutée lors de la mise à jour",
+    "permissionRemoved": "Supprimée lors de la mise à jour",
+    "trustNotice": "Le code de l'extension s'exécute directement dans le renderer de l'application. Les autorisations déclarent et contrôlent les API hôte ; ce n'est pas un bac à sable de sécurité. N'activez que les extensions auxquelles vous faites confiance.",
+    "setupEnable": "Activer l'extension",
+    "setupEnableHint": "Désactivée, l'extension n'est jamais chargée — son onglet et ses fonctionnalités n'apparaîtront pas.",
+    "setupDiscardTitle": "Abandonner cette configuration ?",
+    "setupDiscardMessage": "Si vous fermez maintenant, l'extension restera désactivée ou sans certaines autorisations ; son onglet et certaines fonctionnalités n'apparaîtront pas. Vous pourrez l'activer et ajuster les autorisations plus tard sur la page de détails de l'extension.",
+    "setupDiscardConfirm": "Abandonner et fermer",
+    "noPermissions": "Cette extension ne déclare aucune autorisation.",
+    "commands": "Commandes exécutables",
+    "commandsHint": "La désactivation bloque les appels de l'extension",
+    "contributions": "Inclus dans cette extension",
+    "contributionsHint": "Installés et supprimés avec l'extension",
+    "contributedMcp": "Serveurs MCP",
+    "contributedSkills": "Compétences",
+    "expandList": "Afficher {{count}} de plus",
+    "collapseList": "Afficher moins"
+  },
+  "mcp": {
+    "title": "Configuration de la connexion",
+    "secretsLead": "Cette connexion nécessite les identifiants suivants avant d'être utilisable :",
+    "oauth": "Autorisation du compte",
+    "oauthAuthorized": "Autorisé",
+    "oauthNotAuthorized": "Non autorisé",
+    "setupLoginTitle": "Se connecter à {{name}}",
+    "setupLoginLead": "Scannez le code QR avec l'application {{name}}. La session reste sur cette machine.",
+    "setupLoginPreparing": "Démarrage du serveur et récupération du code QR…",
+    "setupLoginFirstRun": "Le premier lancement peut télécharger ses dépendances d'exécution ; cela peut prendre un moment.",
+    "setupLoginWaiting": "En attente du scan…",
+    "setupLoginSuccess": "Connexion réussie. La capacité est prête à l'emploi.",
+    "setupLoginExpired": "Le code QR a expiré.",
+    "setupLoginFailed": "Impossible de récupérer le code QR : {{error}}",
+    "setupLoginRetry": "Récupérer à nouveau",
+    "setupLoginManual": "Vous pouvez aussi demander à l'agent d'appeler l'outil {{tool}} dans un chat.",
+    "setupLoginClose": "Fermer",
+    "loginStatusTitle": "État de connexion",
+    "loginChecking": "Vérification de la session Xiaohongshu actuelle…",
+    "loginAuthenticated": "Connecté et prêt à l'emploi",
+    "loginAuthenticatedAs": "Connecté en tant que {{username}}",
+    "loginUnauthenticated": "Non connecté. Scannez un code QR avant d'utiliser cette capacité.",
+    "loginCheckFailed": "Impossible de vérifier l'état de connexion : {{error}}",
+    "loginCheckRetry": "Vérifier à nouveau",
+    "loginAction": "Se connecter à Xiaohongshu",
+    "loginRequired": "Connexion requise",
+    "connectionConfig": "Paramètres de connexion",
+    "settings": {
+      "title": "Paramètres de {{name}}",
+      "description": "Gérez l'état de connexion et les paramètres de connexion du runtime. L'enregistrement ne lance pas la connexion.",
+      "back": "Retour aux détails de la capacité",
+      "runtimeTitle": "Connexion au runtime",
+      "runtimeDescription": "Les paramètres sont transmis uniquement au service local géré. Le service redémarre lors de la prochaine vérification ou utilisation après une modification.",
+      "proxyLabel": "URL du proxy",
+      "proxyHint": "Prend en charge les proxys HTTP, HTTPS ou SOCKS5, par exemple http://127.0.0.1:7890. Laissez vide pour une connexion directe.",
+      "optional": "facultatif",
+      "save": "Enregistrer les paramètres de connexion",
+      "saving": "Enregistrement…",
+      "clearLogin": "Effacer l'état de connexion",
+      "confirmClearLogin": "Confirmer l'effacement de l'état de connexion",
+      "clearing": "Effacement…",
+      "checkedAt": "Dernière vérification : {{time}}"
+    }
+  },
+  "bundle": {
+    "install": {
+      "title": "Choisir les capacités à installer",
+      "description": "Choisissez les membres de « {{name}} » à installer. Les membres déjà à jour ne seront pas réinstallés.",
+      "nothing": "Ce pack n'a aucun membre à installer ou à mettre à jour.",
+      "confirm": "Installer {{count}}"
+    },
+    "members": "Contient {{count}} capacités",
+    "inline": "Incorporé",
+    "missing": "Retiré du catalogue",
+    "memberInstalled": "Installé",
+    "memberNotInstalled": "Non installé",
+    "uninstall": {
+      "title": "Désinstaller le pack",
+      "description": "« {{name}} » n'a pas d'artefact propre — la désinstallation supprime les membres ci-dessous. Décochez ceux que vous souhaitez conserver.",
+      "nothing": "Ce pack n'a aucun membre supprimable pour l'instant.",
+      "confirm": "Désinstaller {{count}}"
+    }
+  },
+  "permission": {
+    "detailUnavailable": {
+      "title": "Le panneau de configuration de l'extension est masqué",
+      "description": "Cette extension n'est pas autorisée à afficher son panneau de configuration ici. Vérifiez ses autorisations et activez celles dont vous avez besoin.",
+      "review": "Vérifier les autorisations de l'extension"
+    },
+    "page": {
+      "open": "Vérifier les autorisations",
+      "title": "Autorisations et accès aux données",
+      "back": "Retour aux détails de la capacité",
+      "description": "Voyez quelles capacités hôte cette extension déclare. En désactiver une bloque les appels d'API hôte correspondants ; cela n'isole pas le code de l'extension dans un bac à sable de sécurité.",
+      "toggleLabel": "Activer ou désactiver l'autorisation {{permission}}",
+      "hostVerified": "Garde-fou de l'API hôte Metoai",
+      "preview": {
+        "global": "Le contenu de l'extension peut apparaître dans des zones partagées de l'application qui persistent entre les pages",
+        "filePreview": "L'extension peut afficher un visualiseur de contenu spécialisé dans la zone d'aperçu des fichiers",
+        "activityTab": "L'extension peut ajouter et remplir un onglet dans le panneau d'activité à droite",
+        "inputAction": "L'extension peut ajouter un bouton d'action à la saisie de la conversation",
+        "message": "Le contenu de l'extension peut être attaché sous un message de chat précis",
+        "toolCall": "L'extension peut présenter la progression et les résultats des appels d'outils dans une carte spécialisée",
+        "turnCard": "L'extension peut étendre la carte qui contient un tour de conversation complet",
+        "workspaceView": "L'extension peut fournir une vue d'espace de travail pleine page avec sa propre entrée dans la barre latérale",
+        "shortcuts": "L'extension peut écouter une combinaison de touches enregistrée et déclencher son action",
+        "fileDecorations": "L'extension peut afficher des marqueurs d'état ou de type à côté des entrées de fichiers",
+        "fileContextMenu": "Les actions de l'extension peuvent apparaître dans les menus contextuels des fichiers et dossiers",
+        "fileToolbar": "L'extension peut ajouter des boutons d'action à la barre d'outils de l'explorateur de fichiers"
+      },
+      "previewFlow": "La flèche indique le sens des données ou de l'action que cette autorisation permet",
+      "scopeTitle": "Portée",
+      "disabledTitle": "En cas de désactivation",
+      "status": {
+        "configureOnInstall": "Défini lors de l'installation",
+        "systemGranted": "Accordée par le système"
+      },
+      "readOnly": {
+        "install": "Cette extension n'est pas installée. Voici les autorisations qu'elle demande ; vous confirmerez les autorisations réelles lors de l'installation.",
+        "system": "Il s'agit d'une extension système intégrée. Metoai gère et accorde ses autorisations automatiquement ; elles ne peuvent pas être désactivées individuellement."
+      },
+      "summary": {
+        "requested": "Demandées",
+        "highRisk": "Risque élevé",
+        "granted": "Actuellement accordées",
+        "timing": "Quand configurer",
+        "onInstall": "À confirmer lors de l'installation"
+      },
+      "flow": {
+        "plugin": "Cette extension",
+        "data": "Fichiers et données de l'application",
+        "agent": "Sessions et comportement de l'agent",
+        "execution": "Opération contrôlée par l'hôte",
+        "external": "Application externe ou réseau",
+        "intelligence": "Services IA et multimédias"
+      },
+      "scope": {
+        "interface": "Autorise uniquement l'affichage ou l'interaction dans l'emplacement d'interface indiqué. Cela ne donne pas accès aux fichiers ni aux données de session.",
+        "data": "Limité aux types de données exposés par l'API hôte. Les chemins ou enregistrements exacts dépendent de l'appel de l'extension.",
+        "agent": "S'applique aux sessions d'agent, invites, outils ou états d'exécution exposés par l'hôte.",
+        "execution": "L'hôte exécute l'opération, tandis que l'extension choisit la commande, la page ou l'action à demander.",
+        "external": "Peut quitter Metoai pour ouvrir une cible ou effectuer une requête. L'extension fournit la destination au moment de l'appel.",
+        "intelligence": "Utilise votre modèle ou vos services multimédias configurés, peut envoyer des entrées composées par l'extension et consommer du quota de service."
+      },
+      "disabled": {
+        "interface": "L'entrée, le contenu ou l'interaction correspondants n'apparaîtront pas. Les autres fonctionnalités de l'extension peuvent continuer à fonctionner.",
+        "data": "Les appels de lecture ou de modification de ces données échouent ; les fonctionnalités qui en dépendent peuvent être indisponibles.",
+        "agent": "L'extension ne peut pas agir sur cette partie du comportement de l'agent ; les automatisations ou améliorations associées peuvent cesser de fonctionner.",
+        "execution": "L'hôte bloque l'opération ; les workflows qui dépendent de son résultat peuvent ne pas aboutir.",
+        "external": "L'extension ne peut pas effectuer cet accès externe. Les fonctionnalités qui n'en ont pas besoin restent disponibles.",
+        "intelligence": "Les fonctions de génération, d'analyse et de fournisseur qui utilisent des services IA ou multimédias deviennent indisponibles."
+      }
+    },
+    "group": {
+      "interface": {
+        "title": "Interface et interaction",
+        "description": "Où l'extension peut apparaître dans Metoai"
+      },
+      "projectData": {
+        "title": "Données du projet et de l'application",
+        "description": "Quelles données l'extension peut lire ou modifier"
+      },
+      "agent": {
+        "title": "Contrôle de l'agent",
+        "description": "Comment l'extension peut agir sur les sessions et le runtime de l'agent"
+      },
+      "execution": {
+        "title": "Exécution et accès externe",
+        "description": "Opérations système et connexions externes que l'extension peut demander"
+      },
+      "intelligence": {
+        "title": "IA et multimédia",
+        "description": "Services intelligents que l'extension peut utiliser ou fournir"
+      }
+    },
+    "risk": {
+      "low": "Risque faible",
+      "medium": "À vérifier",
+      "high": "Risque élevé"
+    },
+    "description": {
+      "uiSlotGlobal": "Permet à l'extension d'afficher du contenu d'interface dans des zones partagées de l'application qui peuvent rester visibles entre les pages.",
+      "uiSlotAbilityDetail": "Permet à l'extension d'afficher l'état d'installation, de configuration ou d'exécution sur sa propre page de détails.",
+      "uiSlotFilePreview": "Permet à l'extension d'afficher du contenu personnalisé ou un visualiseur dans la zone d'aperçu des fichiers.",
+      "uiSlotActivityTab": "Permet à l'extension d'ajouter un onglet sélectionnable au panneau d'activité à droite.",
+      "uiSlotInputAction": "Permet à l'extension d'ajouter une action cliquable près de la saisie du chat.",
+      "uiSlotMessage": "Permet à l'extension d'ajouter du contenu ou des actions personnalisés sous les messages du chat.",
+      "uiSlotToolCall": "Permet à l'extension de personnaliser la présentation des résultats d'appels d'outils de l'agent.",
+      "uiSlotTurnCard": "Permet à l'extension d'afficher un état ou des actions dans la carte d'un tour de conversation.",
+      "uiSlotWorkspaceView": "Permet à l'extension de fournir une vue d'espace de travail pleine page avec sa propre entrée épinglable dans la barre latérale.",
+      "uiShortcutsRegister": "Permet à l'extension d'enregistrer des raccourcis clavier et d'exécuter ses actions lorsqu'ils sont utilisés.",
+      "uiFileExplorerDecorations": "Permet à l'extension d'ajouter des icônes, badges ou indicateurs d'état à l'explorateur de fichiers.",
+      "uiFileExplorerContextMenu": "Permet à l'extension d'ajouter des actions aux menus contextuels des fichiers et dossiers.",
+      "uiFileExplorerToolbar": "Permet à l'extension d'ajouter des actions à la barre d'outils de l'explorateur de fichiers.",
+      "workspaceRead": "Consulte les métadonnées des espaces de travail ouverts, des dossiers et des listes de fichiers sans lire directement le contenu des fichiers.",
+      "agentSessionRead": "Lit les messages, l'état et le contexte associé de la session d'agent en cours.",
+      "agentSessionWrite": "Modifie l'état ou le contenu de la session d'agent en cours et peut affecter le comportement des échanges suivants.",
+      "agentCommandRun": "Exécute via l'hôte les commandes d'agent déclarées et demandées par l'extension.",
+      "agentCommandSpawn": "Démarre des processus en arrière-plan qui peuvent continuer jusqu'à ce que l'extension ou l'hôte les arrête.",
+      "captureOffscreen": "Charge du contenu dans un environnement de page masqué et en capture une image.",
+      "browserRead": "Crée des sessions de navigateur gérées par l'hôte, visite les sites approuvés par le manifeste et lit le texte, la structure et les captures d'écran des pages connectées.",
+      "browserOpen": "Ouvre une page web approuvée dans le navigateur intégré de Metoai sans lire la page ni interagir avec elle.",
+      "browserInteract": "Clique, saisit, sélectionne et valide sur les sites approuvés et peut effectuer de vraies actions avec votre compte.",
+      "browserProfilePersist": "Conserve un profil de navigateur isolé et son état de connexion pour les sessions ultérieures de cette extension.",
+      "browserAttach": "Se connecte à un navigateur déjà ouvert et peut accéder à ses onglets et à son état de connexion.",
+      "browserRuntimeManage": "Installe ou répare le runtime d'automatisation du navigateur géré par l'hôte.",
+      "agentSystemPromptRead": "Lit l'invite système qui définit le comportement de base de l'agent.",
+      "agentSystemPromptWrite": "Ajoute ou modifie le contenu géré par l'extension dans l'invite système de l'agent.",
+      "agentSystemPromptFullControl": "Remplace ou réorganise l'intégralité de l'invite système et peut modifier sensiblement le comportement de l'agent.",
+      "agentSkillsControl": "Contrôle les compétences que l'agent charge et leur disponibilité.",
+      "agentMcpControl": "Fournit des services et outils MCP d'agent gérés par l'extension.",
+      "agentToolsControl": "Active, désactive ou ajuste les outils actuellement disponibles pour l'agent.",
+      "agentToolsRegister": "Enregistre de nouveaux noms, descriptions et formats d'entrée d'outils d'agent.",
+      "agentToolHandlerExecute": "Exécute la logique de gestionnaire fournie par l'extension lorsque l'agent appelle un outil de l'extension.",
+      "agentHooksRegister": "Enregistre des gestionnaires pouvant observer ou influencer les événements du cycle de vie du Coding Agent.",
+      "agentHookHandlerExecute": "Exécute la logique de hook fournie par l'extension lorsque le Coding Agent atteint un événement correspondant.",
+      "agentStateRead": "Lit l'état d'exécution de l'agent stocké pour cette extension.",
+      "agentStateWrite": "Met à jour l'état d'exécution de l'agent stocké pour cette extension.",
+      "agentContinuationRegister": "Décide si l'agent poursuit automatiquement après la fin d'un tour.",
+      "agentRuntimeConfigure": "Ajuste la configuration d'exécution de l'agent et peut affecter les modèles, les outils ou la politique d'exécution.",
+      "appActionsRegister": "Enregistre des actions d'application pouvant être appelées depuis l'interface ou d'autres fonctionnalités.",
+      "appActionHandlerExecute": "Exécute la logique de gestionnaire fournie par l'extension lorsqu'une action d'application est déclenchée.",
+      "aiModelsList": "Consulte les modèles IA que vous avez configurés et rendus disponibles aux extensions.",
+      "aiComplete": "Envoie une entrée composée par l'extension à un modèle IA configuré et reçoit la sortie générée.",
+      "modelsManage": "Crée, met à jour ou supprime le fournisseur de modèles associé à l'espace de noms de cette extension.",
+      "fsRead": "Lit le contenu des fichiers sélectionnés par l'extension via l'API de fichiers de l'hôte.",
+      "fsWrite": "Crée, écrase, déplace ou supprime les fichiers sélectionnés par l'extension via l'API de fichiers de l'hôte.",
+      "networkFetch": "Envoie des requêtes vers des adresses réseau choisies par l'extension, éventuellement avec des données auxquelles elle a accédé.",
+      "storageRead": "Lit les données persistantes privées de cette extension, non accessibles directement aux autres extensions.",
+      "storageWrite": "Écrit les données persistantes privées de cette extension pour son état ou sa configuration.",
+      "mediaGenerate": "Appelle les services configurés de génération d'images, d'audio ou d'autres médias.",
+      "mediaProviderRegister": "Enregistre auprès de Metoai un service de génération de médias fourni par l'extension.",
+      "ocrRecognize": "Utilise un service de reconnaissance de texte configuré pour les images soumises explicitement par l'extension.",
+      "ocrProviderRegister": "Enregistre un service de reconnaissance de texte fourni par l'extension ; les services distants peuvent téléverser des images.",
+      "secretsRead": "Lit les secrets stockés par cette extension elle-même, comme les clés d'API.",
+      "secretsWrite": "Écrit ou supprime les secrets stockés par cette extension elle-même, comme les clés d'API.",
+      "settingsRead": "Lit les paramètres de l'application que l'hôte expose aux extensions.",
+      "settingsWrite": "Modifie les paramètres de l'application que l'hôte expose aux extensions et peut changer le comportement de l'application.",
+      "shellOpenExternal": "Ouvre dans le navigateur système ou l'application par défaut un lien externe choisi par l'extension.",
+      "uiSlotNewSessionContext": "Permet à l'extension d'afficher un bloc sous la saisie de nouvelle session, uniquement lorsque vous choisissez l'un de ses agents ou équipes, ou mentionnez l'une de ses capacités.",
+      "conversationDraftRead": "Permet à l'extension de lire ce que vous avez saisi sans l'avoir encore envoyé. Fourni uniquement tant que le bloc de contexte de cette extension est affiché."
+    },
+    "uiSlotGlobal": "Emplacement d'interface global",
+    "uiSlotAbilityDetail": "Afficher le panneau de configuration des détails",
+    "uiSlotFilePreview": "Emplacement d'aperçu des fichiers",
+    "uiSlotActivityTab": "Onglet du panneau d'activité",
+    "uiSlotInputAction": "Emplacement d'action de la barre de saisie",
+    "uiSlotMessage": "Emplacement sous les messages",
+    "uiSlotToolCall": "Emplacement d'affichage des appels d'outils",
+    "uiSlotTurnCard": "Emplacement de carte de tour",
+    "uiSlotWorkspaceView": "Emplacement de vue d'espace de travail",
+    "uiShortcutsRegister": "Enregistrer des raccourcis clavier",
+    "uiFileExplorerDecorations": "Enrichir l'explorateur de fichiers",
+    "uiFileExplorerContextMenu": "Étendre les menus contextuels des fichiers",
+    "uiFileExplorerToolbar": "Étendre la barre d'outils de l'explorateur de fichiers",
+    "workspaceRead": "Lire les métadonnées d'espace de travail et de liste de fichiers",
+    "agentSessionRead": "Lire la session d'agent",
+    "agentSessionWrite": "Modifier la session d'agent",
+    "agentCommandRun": "Exécuter des commandes d'agent",
+    "agentCommandSpawn": "Exécuter des processus d'arrière-plan durables",
+    "captureOffscreen": "Capturer des pages dans des fenêtres masquées hors écran",
+    "browserRead": "Lire des pages de navigateur",
+    "browserOpen": "Ouvrir une page du navigateur intégré",
+    "browserInteract": "Interagir avec des pages de navigateur",
+    "browserProfilePersist": "Conserver les profils de connexion du navigateur",
+    "browserAttach": "Se connecter à un navigateur ouvert",
+    "browserRuntimeManage": "Gérer le runtime du navigateur",
+    "agentSystemPromptRead": "Lire l'invite système de l'agent",
+    "agentSystemPromptWrite": "Modifier l'invite système de l'agent",
+    "agentSystemPromptFullControl": "Contrôle total de l'invite système de l'agent",
+    "agentSkillsControl": "Contrôler le chargement des compétences de l'agent",
+    "agentMcpControl": "Fournir des serveurs MCP propres à l'extension",
+    "agentToolsControl": "Contrôler le chargement des outils de l'agent",
+    "agentToolsRegister": "Enregistrer des outils d'agent",
+    "agentToolHandlerExecute": "Exécuter les gestionnaires d'outils de l'extension",
+    "agentHooksRegister": "Enregistrer des hooks du Coding Agent",
+    "agentHookHandlerExecute": "Exécuter les gestionnaires de hooks de l'extension",
+    "agentStateRead": "Lire l'état d'agent de l'extension",
+    "agentStateWrite": "Écrire l'état d'agent de l'extension",
+    "agentContinuationRegister": "Enregistrer la politique de poursuite automatique de l'agent",
+    "agentRuntimeConfigure": "Configurer le runtime de l'agent",
+    "appActionsRegister": "Enregistrer des actions d'application",
+    "appActionHandlerExecute": "Exécuter les gestionnaires d'actions de l'extension",
+    "aiModelsList": "Lister les modèles IA disponibles",
+    "aiComplete": "Compléter du texte avec des modèles IA",
+    "modelsManage": "Gérer le fournisseur de modèles de l'extension",
+    "fsRead": "Lire des fichiers",
+    "fsWrite": "Écrire des fichiers",
+    "networkFetch": "Accéder au réseau",
+    "storageRead": "Lire les données privées de l'extension",
+    "storageWrite": "Écrire les données privées de l'extension",
+    "mediaGenerate": "Utiliser les fournisseurs de génération de médias",
+    "mediaProviderRegister": "Fournir des fournisseurs de génération de médias",
+    "ocrRecognize": "Utiliser les services de reconnaissance de texte",
+    "ocrProviderRegister": "Fournir des services de reconnaissance de texte",
+    "secretsRead": "Lire ses propres secrets",
+    "secretsWrite": "Gérer ses propres secrets",
+    "settingsRead": "Lire les paramètres",
+    "settingsWrite": "Modifier les paramètres",
+    "shellOpenExternal": "Ouvrir des liens dans le navigateur système",
+    "uiSlotNewSessionContext": "Emplacement de contexte de nouvelle session",
+    "conversationDraftRead": "Lire le brouillon de saisie"
+  },
+  "meta": {
+    "title": "Autre",
+    "homepage": "Site web",
+    "repository": "Dépôt",
+    "docs": "Documentation",
+    "license": "Licence"
+  },
+  "sources": {
+    "trigger": "Sources",
+    "dialog": {
+      "title": "Sources du marché",
+      "description": "Gérez les sources du marché GitHub. Les sources activées sont agrégées dans le marché ; la source officielle intégrée ne peut pas être désactivée ni supprimée."
+    },
+    "empty": "Aucune source configurée pour l'instant",
+    "builtinBadge": "Intégré",
+    "lockedHint": "La source officielle intégrée est toujours activée et ne peut pas être supprimée",
+    "credentialConfigured": "Identifiant d'accès GitHub configuré",
+    "status": {
+      "disabled": "Désactivé",
+      "pending": "Pas encore synchronisé",
+      "authRequired": "Un identifiant GitHub est requis ou a expiré",
+      "forbidden": "L'identifiant GitHub ne peut pas lire ce dépôt",
+      "notFound": "Le dépôt, la branche ou le manifeste du marché est introuvable",
+      "rateLimited": "Limite de requêtes GitHub atteinte ; réessayez plus tard",
+      "appOutdated": "Cette version de Metoai est trop ancienne ; passez à la version {{version}} ou ultérieure",
+      "ready": "Synchronisé · {{version}}",
+      "failed": "Échec de la synchronisation ; nouvelle tentative possible",
+      "cached": "Échec de la synchronisation ; affichage du contenu en cache"
+    },
+    "actions": {
+      "refresh": "Actualiser la source {{name}}",
+      "autoUpdate": "Mise à jour automatique",
+      "add": "Ajouter une source",
+      "edit": "Modifier la source",
+      "remove": "Supprimer la source",
+      "clearCredential": "Effacer l'identifiant d'accès GitHub",
+      "configureCredential": "Configurer l'identifiant d'accès GitHub",
+      "confirmRemove": "Confirmer la suppression",
+      "toggle": "Activer la source"
+    },
+    "form": {
+      "addTitle": "Ajouter une source",
+      "editTitle": "Modifier la source",
+      "repositoryLabel": "Dépôt GitHub",
+      "repositoryPlaceholder": "owner/repo ou https://github.com/owner/repo",
+      "credentialLabel": "Jeton d'accès GitHub (facultatif)",
+      "credentialPlaceholder": "Jeton à granularité fine, Contents en lecture seule",
+      "credentialHint": "Le jeton reste dans le stockage sécurisé de cet appareil et n'est jamais envoyé à Metoai.",
+      "nameLabel": "Nom",
+      "namePlaceholder": "Par défaut, le nom du dépôt",
+      "refLabel": "Branche",
+      "refPlaceholder": "main",
+      "submitAdd": "Ajouter et synchroniser",
+      "submitEdit": "Enregistrer"
+    },
+    "error": "Échec de l'opération : {{error}}"
+  }
+}

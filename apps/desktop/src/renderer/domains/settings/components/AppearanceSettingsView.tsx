@@ -42,7 +42,9 @@ function languageOptionLabel(option: AppearanceLanguageOption): JSX.Element {
 			/>
 			<span className="min-w-0 truncate">
 				<span className="font-medium text-foreground">{option.native}</span>
-				<span className="ml-1.5 text-[11px] font-normal text-muted-foreground">{option.alt}</span>
+				{option.alt === option.native ? null : (
+					<span className="ml-1.5 text-[11px] font-normal text-muted-foreground">{option.alt}</span>
+				)}
 			</span>
 		</span>
 	);

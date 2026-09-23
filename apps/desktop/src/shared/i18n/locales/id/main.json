@@ -1,0 +1,99 @@
+{
+  "tray": {
+    "showWindow": "Tampilkan Jendela",
+    "hideWindow": "Sembunyikan Jendela",
+    "quitVetta": "Keluar dari Metoai",
+    "quit": "Keluar",
+    "hideToTray": "Sembunyikan ke Baki Sistem"
+  },
+  "menu": {
+    "app": {
+      "title": "Metoai",
+      "about": "Tentang Metoai",
+      "services": "Layanan",
+      "hide": "Sembunyikan Metoai",
+      "hideOthers": "Sembunyikan Lainnya",
+      "unhide": "Tampilkan Semua",
+      "quit": "Keluar dari Metoai"
+    },
+    "edit": {
+      "title": "Edit",
+      "undo": "Urungkan",
+      "redo": "Ulangi",
+      "cut": "Potong",
+      "copy": "Salin",
+      "paste": "Tempel",
+      "pasteAndMatchStyle": "Tempel dan Sesuaikan Gaya",
+      "delete": "Hapus",
+      "selectAll": "Pilih Semua"
+    },
+    "view": {
+      "title": "Tampilan",
+      "reload": "Muat Ulang",
+      "forceReload": "Paksa Muat Ulang",
+      "toggleDevTools": "Alihkan Alat Pengembang",
+      "resetZoom": "Ukuran Sebenarnya",
+      "zoomIn": "Perbesar",
+      "zoomOut": "Perkecil",
+      "toggleFullScreen": "Alihkan Layar Penuh"
+    },
+    "window": {
+      "title": "Jendela",
+      "minimize": "Minimalkan",
+      "zoom": "Perbesar",
+      "front": "Bawa Semua ke Depan",
+      "close": "Tutup Jendela"
+    }
+  },
+  "notification": {
+    "turnComplete": "Respons selesai",
+    "turnError": "Respons gagal",
+    "questionPending": "Ada pertanyaan yang perlu konfirmasi Anda. Klik untuk melihat.",
+    "sessionFallback": "Sesi Baru"
+  },
+  "pet": {
+    "openDevTools": "Buka DevTools Pet"
+  },
+  "mcpOAuth": {
+    "authorizationSuccessful": "Otorisasi berhasil",
+    "authorizationFailed": "Otorisasi gagal",
+    "returnToVetta": "Anda dapat menutup jendela ini dan kembali ke Metoai.",
+    "closeAndRetry": "Anda dapat menutup jendela ini dan mencoba lagi di Metoai.",
+    "missingAuthorizationCode": "Kode otorisasi tidak ada",
+    "callbackAlreadySettled": "Callback OAuth sudah diselesaikan",
+    "callbackTimedOut": "Waktu habis menunggu otorisasi OAuth di browser",
+    "callbackBindFailed": "Gagal mengikat server callback OAuth",
+    "devicePageBindFailed": "Gagal mengikat server halaman kode perangkat",
+    "connectGitHub": "Hubungkan GitHub",
+    "enterDeviceCode": "Masukkan kode ini di halaman GitHub, lalu klik Authorize.",
+    "copyCode": "Salin kode",
+    "openGitHub": "Buka GitHub untuk memberi otorisasi",
+    "closeAfterAuthorization": "Anda dapat menutup jendela ini setelah memberi otorisasi di Metoai.",
+    "deviceFlowDisabled": "Permintaan kode perangkat gagal (422). Aktifkan Device Flow di pengaturan OAuth atau GitHub App: {{details}}"
+  },
+  "updater": {
+    "errors": {
+      "developmentUnsupported": "Pembaruan otomatis tidak tersedia dalam mode pengembangan",
+      "configurationUnavailable": "Build ini tidak memiliki sumber pembaruan yang dikonfigurasi",
+      "checkFailed": "Gagal memeriksa pembaruan",
+      "downloadFailed": "Gagal mengunduh pembaruan",
+      "installFailed": "Gagal memasang pembaruan"
+    },
+    "forced": {
+      "title": "Pembaruan diperlukan untuk melanjutkan",
+      "reasonPolicy": "Versi ini memerlukan pembaruan sebelum Anda dapat melanjutkan.",
+      "reasonMinSupported": "Versi ini tidak lagi didukung. Harap perbarui untuk melanjutkan.",
+      "checking": "Memeriksa pembaruan…",
+      "available": "Pembaruan siap diunduh.",
+      "download": "Unduh pembaruan",
+      "downloading": "Mengunduh pembaruan ({{progress}}%)",
+      "ready": "Pembaruan telah diunduh. Mulai ulang untuk menggunakannya.",
+      "restart": "Mulai ulang dan pasang sekarang",
+      "preparing": "Memasang pembaruan. Aplikasi akan segera dimulai ulang.",
+      "failed": "Pembaruan tidak selesai. Harap coba lagi.",
+      "retry": "Coba lagi",
+      "releaseNotes": "Yang baru",
+      "version": "Versi baru {{version}}"
+    }
+  }
+}

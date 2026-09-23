@@ -1,0 +1,86 @@
+{
+  "tabs": {
+    "scene": "Skenario"
+  },
+  "typeNoun": {
+    "scene": "skenario"
+  },
+  "subtitle": "Pasang dan aktifkan kemampuan yang Anda butuhkan agar Metoai lebih ahli",
+  "search": {
+    "placeholder": "Cari {{noun}}..."
+  },
+  "actions": {
+    "install": "Pasang",
+    "use": "Gunakan",
+    "update": "Perbarui",
+    "uninstall": "Copot"
+  },
+  "loading": "Memuat...",
+  "card": {
+    "noDescription": "Tanpa deskripsi",
+    "custom": "Kustom",
+    "general": "Umum",
+    "readonly": "Hanya baca",
+    "updatable": "Pembaruan tersedia"
+  },
+  "scene": {
+    "generalReadonly": "Umum · Hanya baca",
+    "localReadonly": "Lokal · Hanya baca",
+    "running": "Berjalan",
+    "installed": "Terpasang"
+  },
+  "group": {
+    "agentSkill": "Keterampilan Agen Umum",
+    "custom": "Kustom",
+    "uncategorized": "Tanpa kategori",
+    "enabledCount": "{{n}} aktif"
+  },
+  "empty": {
+    "noMatch": "Tidak ada hasil yang cocok",
+    "noMatchHint": "Coba kata kunci lain",
+    "none": "Tidak ada {{noun}} yang tersedia",
+    "noneHint": "Periksa lagi nanti"
+  },
+  "error": {
+    "loadFailed": "Gagal memuat",
+    "partialFallback": "{{error}}. Hanya menampilkan {{noun}} yang terpasang"
+  },
+  "import": {
+    "failed": "Impor gagal: {{error}}",
+    "unknownError": "Kesalahan tidak diketahui"
+  },
+  "tour": {
+    "capabilities": {
+      "banner": {
+        "title": "Perluas dengan kemampuan",
+        "description": "Halaman ini mencantumkan keterampilan dan konektor. Pilih yang ingin Anda capai dan tambahkan dengan sekali klik untuk menggunakannya di obrolan."
+      },
+      "searchAdd": {
+        "title": "Cari dan tambahkan",
+        "description": "Cari untuk menemukan kemampuan dengan cepat, atau gunakan Tambah untuk mengimpor Keterampilan / plugin lokal atau mengonfigurasi konektor MCP."
+      },
+      "scope": {
+        "title": "Jelajahi / Milik Saya",
+        "description": "Jelajahi menampilkan kemampuan yang dapat Anda tambahkan. Milik Saya mengelola yang sudah terpasang — aktifkan, konfigurasikan, atau hapus."
+      },
+      "list": {
+        "title": "Kartu kemampuan",
+        "description": "Setiap kartu adalah satu kemampuan. Lihat detail, tambahkan, atau aktifkan; Anda akan diminta memasukkan kredensial jika diperlukan."
+      }
+    }
+  },
+  "builtin": {
+    "create-skill": {
+      "name": "Buat Keterampilan",
+      "description": "Buat atau perbarui Keterampilan Agen yang mengikuti spesifikasi Metoai: letakkan file, daftarkan di skills-manifest.json, atau perbarui konfigurasi plugin."
+    },
+    "publish-ability": {
+      "name": "Terbitkan Kemampuan",
+      "description": "Kirim keterampilan, skenario, server MCP, plugin, atau bundel kemampuan ke marketplace Metoai, mencakup kolom wajib, pelokalan, dan alur peninjauan."
+    },
+    "vetta-blog": {
+      "name": "Blog Metoai",
+      "description": "Meneliti, menguji, menulis, dan meninjau blog produk serta teknis Metoai yang berbasis bukti."
+    }
+  }
+}

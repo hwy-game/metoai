@@ -3,6 +3,7 @@ import {
 	type PluginAppActionExample,
 	type PluginContext,
 	type PluginJsonSchema,
+	type PluginOfficialAppLanguage,
 } from "@vetta-org/plugin-sdk";
 import { throwEntityNotFound } from "../action-errors";
 import { createVettaActionRegistrar } from "../action-usage";
@@ -17,7 +18,7 @@ type ThemeManageInput =
 			cursorStyle?: "default" | "stoat";
 			approvalUi?: string;
 	  }
-	| { type: "set-language"; language: "zh" | "en"; approvalUi?: string };
+	| { type: "set-language"; language: PluginOfficialAppLanguage; approvalUi?: string };
 
 const querySchema: PluginJsonSchema = {
 	type: "object",
@@ -46,7 +47,7 @@ const manageSchema: PluginJsonSchema = {
 		{
 			properties: {
 				type: { const: "set-language" },
-				language: { enum: ["zh", "en"] },
+				language: { enum: ["zh", "en", "es", "fr", "id", "vi", "ru", "ja"] },
 				approvalUi: { enum: ["appearance.set-language", "generic"] },
 			},
 			required: ["type", "language"],
@@ -63,6 +64,7 @@ const queryExamples: PluginAppActionExample<ThemeQueryInput>[] = [
 const manageExamples: PluginAppActionExample<ThemeManageInput>[] = [
 	{ description: "切换深色默认主题", input: { type: "set", mode: "dark", themeId: "default" } },
 	{ description: "切换界面语言为英文", input: { type: "set-language", language: "en" } },
+	{ description: "切换界面语言为日语", input: { type: "set-language", language: "ja" } },
 ];
 
 export function registerAppearanceActions(ctx: PluginContext): void {
@@ -88,9 +90,9 @@ export function registerAppearanceActions(ctx: PluginContext): void {
 		id: "appearance.theme",
 		publicId: "appearance.theme",
 		title: "设置外观",
-		summary: "对应设置 → 外观：切换显示模式、主题风格、鼠标指针，以及界面语言（zh/en）。",
+		summary: "对应设置 → 外观：切换显示模式、主题风格、鼠标指针，以及界面语言（zh/en/es/fr/id/vi/ru/ja）。",
 		description:
-			'对象参数：{ "type": "set", "mode"?: ..., "themeId"?: ..., "cursorStyle"?: ... } 或 { "type": "set-language", "language": "zh" | "en" }。只读查询请用 appearance.query（help/get）。',
+			'对象参数：{ "type": "set", "mode"?: ..., "themeId"?: ..., "cursorStyle"?: ... } 或 { "type": "set-language", "language": "zh" | "en" | "es" | "fr" | "id" | "vi" | "ru" | "ja" }。只读查询请用 appearance.query（help/get）。',
 		keywords: [
 			"theme",
 			"主题",

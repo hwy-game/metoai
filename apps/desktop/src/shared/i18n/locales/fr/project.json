@@ -1,0 +1,222 @@
+{
+  "sidebar": {
+    "nav": {
+      "newSession": "Nouvelle session",
+      "automation": "Automatisation",
+      "batchTasks": "Tâches par lots",
+      "knowledge": "Connaissances",
+      "skills": "Capacités",
+      "agents": "Agents",
+      "scenes": "Scènes",
+      "plugins": "Extensions",
+      "modelSettings": "Paramètres des modèles",
+      "agentSettings": "Paramètres de l'agent",
+      "appearance": "Apparence",
+      "extensions": "Plus d'options",
+      "more": "Plus",
+      "betaBadge": "BETA",
+      "pin": "Épingler",
+      "unpin": "Désépingler",
+      "pinFull": "Jusqu'à 5 entrées épinglées (Nouvelle session incluse)",
+      "reset": "Réinitialiser l'ordre",
+      "customize": "Personnaliser la navigation"
+    },
+    "clawConnected": "Claw connecté",
+    "hide": "Masquer la barre latérale",
+    "empty": {
+      "title": "Aucun projet pour l'instant",
+      "description": "Cliquez sur + ci-dessus pour créer un projet"
+    },
+    "projects": {
+      "noSessions": "Aucune session",
+      "collapseSessions": "Réduire les sessions",
+      "expandMore": "Afficher plus ({{count}})",
+      "scrollToTop": "Défiler vers le haut",
+      "scrollToBottom": "Défiler vers le bas"
+    },
+    "defaultConversation": {
+      "noConversations": "Aucune conversation",
+      "emptyTitle": "Aucune conversation pour l'instant",
+      "emptyDescription": "Démarrez une nouvelle discussion et elle apparaîtra ici",
+      "emptyAction": "Démarrer une discussion",
+      "emptyClawTitle": "Aucun enregistrement Claw pour l'instant",
+      "emptyTagTitle": "Aucune conversation avec cette étiquette",
+      "emptyTagDescription": "Ajoutez une étiquette à une conversation depuis son menu contextuel",
+      "emptyClawDescription": "Discutez avec Claw via WeChat, Feishu et d'autres canaux pour voir les enregistrements ici"
+    },
+    "teams": {
+      "title": "Équipes",
+      "new": "Nouvelle équipe",
+      "empty": "Aucune équipe pour l'instant ; cliquez pour en créer une"
+    },
+    "session": {
+      "forkedTooltip": "Dérivée d'une autre session",
+      "untitledTeam": "Nouvelle conversation d'équipe"
+    },
+    "dialogs": {
+      "deleteSessionTitle": "Supprimer la session",
+      "deleteSessionMessage": "Supprimer définitivement la session \"{{name}}\" ? Cette action est irréversible.",
+      "deleteBatchTitle": "Supprimer le projet par lots",
+      "deleteBatchMessage": "Supprimer le projet par lots \"{{name}}\" ? Cette action est irréversible.",
+      "deleteConfirm": "Supprimer",
+      "removeTitle": "Retirer de la liste",
+      "removeMessage": "Retirer \"{{name}}\" de la liste des projets ? Les fichiers sur le disque ne seront pas supprimés.",
+      "removeConfirm": "Retirer",
+      "deleteProjectTitle": "Supprimer le projet",
+      "deleteProjectMessage": "Supprimer définitivement \"{{name}}\" ? Le dossier du projet sera supprimé du disque et cette action est irréversible.",
+      "clearConversationTitle": "Effacer les sessions",
+      "clearConversationMessage": "Cela supprimera {{count}} session(s) de conversation dans Chat tout en conservant les artefacts. Les sessions Claw ne sont pas concernées. Cette action est irréversible.",
+      "clearClawTitle": "Effacer les enregistrements Claw",
+      "clearClawMessage": "Cela supprimera {{count}} enregistrement(s) Claw tout en conservant les artefacts. Cette action est irréversible.",
+      "clearConfirm": "Effacer"
+    },
+    "time": {
+      "justNow": "à l'instant",
+      "minutes": "{{n}} min",
+      "hours": "{{n}} h",
+      "days": "{{n}} j",
+      "weeks": "{{n}} sem",
+      "months": "{{n}} mois",
+      "years": "{{n}} an"
+    }
+  },
+  "filterTabs": {
+    "all": "Tout",
+    "normal": "Normal",
+    "batch": "Lots",
+    "conversation": "Chat",
+    "team": "Équipes",
+    "claw": "Claw"
+  },
+  "actions": {
+    "newProject": "Nouveau projet",
+    "openProject": "Ouvrir un projet",
+    "importProject": "Importer un projet",
+    "more": "Plus"
+  },
+  "contextMenu": {
+    "openInFinder": "Afficher dans le Finder",
+    "openInExplorer": "Afficher dans l'Explorateur",
+    "clearConversation": "Effacer les sessions",
+    "clearConversationDisabled": "Arrêtez d'abord la session en cours",
+    "clearClaw": "Effacer les enregistrements",
+    "clearClawDisabled": "Arrêtez d'abord la session Claw en cours",
+    "clawSettings": "Paramètres Claw",
+    "archiveProject": "Archiver le projet",
+    "removeFromList": "Retirer de la liste",
+    "deleteProject": "Supprimer le projet",
+    "rename": "Renommer",
+    "pin": "Épingler la conversation",
+    "unpin": "Désépingler",
+    "openArtifactDir": "Ouvrir le dossier d'artefacts",
+    "delete": "Supprimer",
+    "tags": {
+      "label": "Étiquettes",
+      "new": "Nouvelle étiquette…",
+      "manage": "Gérer les étiquettes…"
+    }
+  },
+  "tagEditor": {
+    "createTitle": "Nouvelle étiquette",
+    "manageTitle": "Gérer les étiquettes",
+    "namePlaceholder": "Nom de l'étiquette",
+    "colorLabel": "Couleur de l'étiquette",
+    "customColor": "Couleur personnalisée",
+    "emptyNameError": "Saisissez un nom d'étiquette",
+    "cancel": "Annuler",
+    "create": "Créer",
+    "done": "Terminé",
+    "newTag": "Nouvelle étiquette",
+    "remove": "Supprimer l'étiquette",
+    "empty": "Aucune étiquette pour l'instant",
+    "removeHint": "La retire de {{count}} conversation(s)"
+  },
+  "importDialog": {
+    "failedTitle": "Échec de l'importation",
+    "failedConfirm": "OK",
+    "partialTitle": "Importation terminée (certains chemins source sont manquants)",
+    "partialMessage": "Le projet \"{{name}}\" a été importé, mais {{count}} chemin(s) source de lot n'existent pas sur cette machine :\n\n{{list}}\n\nLes métadonnées de ces tâches sont conservées ; vous pouvez les relier ou les supprimer manuellement après avoir ouvert le projet.",
+    "partialMore": "\n…et {{count}} de plus",
+    "doneTitle": "Importation terminée",
+    "doneMessage": "Le projet \"{{name}}\" a été importé dans l'espace de travail.",
+    "viewProject": "Voir le projet",
+    "gotIt": "Compris"
+  },
+  "detail": {
+    "typeBatch": "Tâche par lots",
+    "showInFinder": "Afficher dans le Finder",
+    "showInExplorer": "Afficher dans l'Explorateur",
+    "finder": "Finder",
+    "explorer": "Explorateur",
+    "export": "Exporter",
+    "exportTitle": "Exporter le projet (avec l'historique des sessions)",
+    "newSession": "Nouvelle session",
+    "closeActivityPanel": "Fermer le panneau d'activité",
+    "openActivityPanel": "Ouvrir le panneau d'activité",
+    "sessionCount": "{{count}} sessions",
+    "taskCount": "{{count}} tâches",
+    "persona": "Persona du projet",
+    "unsavedChanges": "Modifications non enregistrées",
+    "saved": "Enregistré",
+    "saveFailed": "Échec de l'enregistrement",
+    "save": "Enregistrer",
+    "editorPlaceholder": "Rédigez ici les instructions du projet AGENTS.md...",
+    "agentsMdHint": "AGENTS.md définit les instructions IA au niveau du projet ; chaque session charge ce fichier automatiquement.",
+    "quickSave": "Enregistrement rapide"
+  },
+  "exportDialog": {
+    "title": "Exporter le projet",
+    "message": "Exporter le projet \"{{name}}\" ?\n\nCela empaquettera tous les fichiers du dossier du projet actuel, y compris l'historique .vetta/sessions ainsi que les répertoires de travail et l'état des tâches par lots. Les verrous de fichiers (*.lock) sont exclus.",
+    "confirm": "Exporter",
+    "failedTitle": "Échec de l'exportation",
+    "failedConfirm": "OK"
+  },
+  "newProjectDialog": {
+    "title": "Nouveau projet",
+    "description": "Un nouveau dossier de projet sera créé dans le répertoire de l'espace de travail.",
+    "placeholder": "Saisissez le nom du projet",
+    "cancel": "Annuler",
+    "create": "Créer",
+    "emptyError": "Veuillez saisir un nom de projet",
+    "invalidError": "Le nom du projet ne peut pas contenir de caractères spéciaux",
+    "duplicateError": "Un projet portant ce nom existe déjà"
+  },
+  "update": {
+    "newVersion": "Nouvelle version {{version}} disponible — cliquez pour la télécharger en arrière-plan",
+    "downloading": "Téléchargement de {{version}} ({{pct}} %)",
+    "ready": "La mise à jour {{version}} est prête — cliquez pour redémarrer",
+    "checkFailed": "Échec de la recherche de mise à jour, cliquez pour réessayer",
+    "downloadProgress": "Progression du téléchargement",
+    "bannerReady": "La version {{version}} est prête",
+    "bannerRestart": "Redémarrer",
+    "bannerDismiss": "Ignorer"
+  },
+  "tabPicker": {
+    "moreTabs": "Plus d'onglets",
+    "hiddenPanels": "Panneaux masqués",
+    "availablePlugins": "Ajouter des panneaux d'extension",
+    "hideTab": "Masquer l'onglet",
+    "menu": "Menu de l'onglet"
+  },
+  "tour": {
+    "sidebar": {
+      "projects": {
+        "title": "Projets",
+        "description": "Gérez vos projets de travail ici. Développez un projet pour voir ses sessions, ou utilisez les boutons ci-dessus pour créer ou importer un projet."
+      },
+      "conversations": {
+        "title": "Conversations",
+        "description": "Votre liste de conversations par défaut se trouve ici. Les sessions récentes sont classées par date — cliquez sur l'une d'elles pour continuer."
+      },
+      "skills": {
+        "title": "Capacités",
+        "description": "Ouvrez la page Capacités pour installer des compétences et des connecteurs qui apportent plus d'expertise à Metoai."
+      }
+    }
+  },
+  "workspaceView": {
+    "loading": "Chargement des extensions…",
+    "missing": "Cette vue d'espace de travail n'existe plus. Retour à l'accueil.",
+    "failed": "Cette vue d'espace de travail n'a pas pu s'afficher. Consultez les DevTools pour plus de détails."
+  }
+}

@@ -1,0 +1,1067 @@
+{
+  "appName": "Metoai",
+  "actions": {
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "close": "Fermer",
+    "apply": "Appliquer",
+    "back": "Retour"
+  },
+  "tour": {
+    "next": "Suivant",
+    "prev": "Retour",
+    "done": "Terminé",
+    "progress": "{{current}} / {{total}}"
+  },
+  "appearance": {
+    "languageTitle": "Langue",
+    "languageHint": "Par défaut, la langue de votre système ; modifiable à tout moment"
+  },
+  "updateRestart": {
+    "title": "Mise à jour prête",
+    "message": "La version {{latestVersion}} a été téléchargée (actuelle : {{currentVersion}}). Redémarrez Metoai maintenant pour appliquer la mise à jour, ou choisissez \"Plus tard\" pour être rappelé au prochain lancement.",
+    "later": "Plus tard",
+    "install": "Redémarrer maintenant"
+  },
+  "filePreview": {
+    "showInFolder": "Afficher dans le dossier",
+    "download": "Télécharger",
+    "close": "Fermer (Esc)"
+  },
+  "login": {
+    "oauthButton": "Autoriser et se connecter",
+    "waitingTitle": "En attente de l'autorisation dans le navigateur",
+    "waitingHint": "Vous serez connecté automatiquement",
+    "reopen": "Rouvrir le lien",
+    "retry": "Autoriser à nouveau",
+    "openFailed": "Impossible d'ouvrir votre navigateur. Veuillez réessayer.",
+    "rejected": "Ce lien d'autorisation n'est plus valide. Veuillez vous reconnecter."
+  },
+  "actionApproval": {
+    "reject": "Rejeter",
+    "confirm": "Confirmer",
+    "processing": "Traitement...",
+    "permission": "Autorisation : {{permission}}",
+    "permissionPrefix": "Autorisation : ",
+    "whyConfirm": "L'IA demande cette action. Elle ne s'exécutera qu'après votre confirmation.",
+    "genericTitle": "Confirmer l'action",
+    "genericSummary": "Veuillez confirmer si vous autorisez cette action.",
+    "genericImpact": "Confirmez pour l'exécuter. Rejeter annule la demande sans modifier vos données.",
+    "showTechnicalDetails": "Afficher les détails techniques",
+    "hideTechnicalDetails": "Masquer les détails techniques",
+    "unreadableRequest": "Cette demande n'a pas pu être entièrement analysée. En cas de doute, rejetez-la et demandez des explications à l'IA.",
+    "fields": {
+      "request": "Demande",
+      "operation": "Opération",
+      "arrayCount": "{{count}} éléments",
+      "objectSummary": "{{count}} champs"
+    }
+  },
+  "manageApproval": {
+    "fallbackTitle": "Confirmation de l’action",
+    "fallbackConfirm": "Confirmer",
+    "fallbackBadge": "Action",
+    "rawInput": "Contenu de la requête",
+    "yes": "Oui",
+    "no": "Non",
+    "on": "Activé",
+    "off": "Désactivé",
+    "toggle": {
+      "willBecome": "Deviendra",
+      "stateOnHint": "Une fois activé, les capacités associées sont disponibles. Les réglages existants sont conservés.",
+      "stateOffHint": "Une fois désactivé, l’utilisation est suspendue. Les réglages sont conservés pour une réactivation à tout moment.",
+      "editableHint": "Vous pouvez modifier ce choix avant de confirmer"
+    },
+    "toggleCopy": {
+      "mcp": {
+        "enableTitle": "Activer le serveur MCP",
+        "disableTitle": "Désactiver le serveur MCP",
+        "enableSummary": "Une fois activé, l’IA peut utiliser les capacités de ce MCP dans le chat (naviguer sur le web, appeler des outils externes, etc.).",
+        "disableSummary": "Une fois désactivé, ce MCP est suspendu et ne peut plus être utilisé dans le chat. La configuration n’est pas supprimée.",
+        "enableConfirm": "Activer",
+        "disableConfirm": "Désactiver",
+        "enableImpact": "Ce MCP devient immédiatement disponible pour les prochaines conversations.",
+        "disableImpact": "Ce MCP est suspendu immédiatement. Les réglages sont conservés ; rien n’est désinstallé."
+      },
+      "skills": {
+        "enableTitle": "Activer la compétence",
+        "disableTitle": "Désactiver la compétence",
+        "enableSummary": "Une fois activée, l’IA peut utiliser cette compétence (skill/scène) dans le chat en cas de besoin.",
+        "disableSummary": "Une fois désactivée, cette compétence ne sera plus utilisée. Les fichiers ne sont pas désinstallés.",
+        "enableConfirm": "Activer",
+        "disableConfirm": "Désactiver",
+        "enableImpact": "La compétence devient disponible dans le chat.",
+        "disableImpact": "La compétence est suspendue. La configuration et les fichiers sont conservés."
+      },
+      "plugins": {
+        "enableTitle": "Activer l’extension",
+        "disableTitle": "Désactiver l’extension",
+        "enableSummary": "Une fois activée, l’interface et les capacités de cette extension redeviennent actives.",
+        "disableSummary": "Une fois désactivée, l’extension est suspendue. Elle n’est pas désinstallée.",
+        "enableConfirm": "Activer",
+        "disableConfirm": "Désactiver",
+        "enableImpact": "Les fonctionnalités de l’extension s’appliquent immédiatement à l’application.",
+        "disableImpact": "Les fonctionnalités de l’extension sont suspendues immédiatement. L’installation et les réglages sont conservés."
+      },
+      "im": {
+        "enableTitle": "Activer Claw (passerelle IM)",
+        "disableTitle": "Désactiver Claw (passerelle IM)",
+        "enableSummary": "Une fois activé, vous pouvez discuter avec l’IA via Feishu, WeChat et d’autres canaux externes.",
+        "disableSummary": "Une fois désactivée, les canaux IM externes ne peuvent plus atteindre l’IA locale.",
+        "enableConfirm": "Activer",
+        "disableConfirm": "Désactiver",
+        "enableImpact": "La passerelle IM fonctionne avec les réglages actuels ; les messages externes peuvent entrer dans le chat.",
+        "disableImpact": "Les nouveaux messages IM cessent d’arriver. Les sessions existantes sont conservées."
+      },
+      "webhook": {
+        "enableTitle": "Activer l’envoi de messages",
+        "disableTitle": "Désactiver l’envoi de messages",
+        "enableSummary": "Une fois activé, des notifications peuvent être envoyées à ce webhook (par ex. un bot DingTalk / Feishu).",
+        "disableSummary": "Une fois désactivé, plus aucun message n’est envoyé à cette adresse. L’URL et les secrets sont conservés.",
+        "enableConfirm": "Activer",
+        "disableConfirm": "Désactiver",
+        "enableImpact": "Ce canal peut recevoir des notifications et des messages de test.",
+        "disableImpact": "Ce canal est suspendu. La configuration n’est pas supprimée."
+      },
+      "general.notifications": {
+        "enableTitle": "Activer les notifications système",
+        "disableTitle": "Désactiver les notifications système",
+        "enableSummary": "Une fois activées, la fin des tâches et les mises à jour peuvent s’afficher comme alertes système.",
+        "disableSummary": "Une fois désactivées, l’application n’affichera plus de notifications système.",
+        "enableConfirm": "Activer",
+        "disableConfirm": "Désactiver",
+        "enableImpact": "Les événements correspondants afficheront des notifications système.",
+        "disableImpact": "Les notifications système s’arrêtent. L’état dans l’application reste visible."
+      }
+    },
+    "fieldWithKey": "{{prefix}}.{{key}}",
+    "fields": {
+      "modelKey": "Modèle",
+      "reasoningLevel": "Niveau de raisonnement",
+      "provider": "Fournisseur",
+      "config": "Configuration",
+      "serverName": "Serveur MCP",
+      "enabled": "Activé",
+      "skillName": "Nom de la compétence",
+      "abilitySlug": "Identifiant de la capacité",
+      "skill": "Compétence",
+      "scene": "Scène",
+      "appId": "App ID",
+      "appSecret": "App Secret",
+      "verificationToken": "Jeton de vérification",
+      "encryptKey": "Clé de chiffrement",
+      "env": "Environnement (KEY=VALUE)",
+      "resourceType": "Type",
+      "name": "Nom",
+      "newName": "Nouveau nom",
+      "path": "Chemin",
+      "paths": "Chemins de fichiers",
+      "packageName": "Paquet npm",
+      "packageSpec": "Version demandée",
+      "language": "Langue",
+      "executionMode": "Mode d’exécution",
+      "experimental": "Fonctionnalités expérimentales",
+      "knowledgeBase": "Réglages de la base de connaissances",
+      "kbId": "ID de la base de connaissances",
+      "relPath": "Chemin relatif",
+      "move": "Déplacer les fichiers",
+      "pluginId": "ID de l’extension",
+      "url": "URL d’installation",
+      "kind": "Plateforme",
+      "webhookUrl": "URL du webhook",
+      "signSecret": "Secret de signature",
+      "id": "ID",
+      "title": "Titre",
+      "level": "Niveau",
+      "text": "Message",
+      "displayName": "Nom affiché",
+      "baseUrl": "URL de base",
+      "api": "Type d’API",
+      "apiKey": "Clé API",
+      "models": "Modèles",
+      "command": "Commande",
+      "args": "Arguments",
+      "cwd": "Répertoire de travail",
+      "headers": "En-têtes",
+      "shortcutActionId": "Action de raccourci",
+      "shortcutCombo": "Combinaison de touches",
+      "quickpanelTrigger": "Déclencheur d’ouverture",
+      "quickpanelBehavior": "Après envoi"
+    },
+    "shortcuts": {
+      "ops": {
+        "set-binding": {
+          "title": "Modifier le raccourci",
+          "summary": "Choisissez une fonction, cliquez sur la zone de touches puis appuyez sur une nouvelle combinaison. Elle s’applique dès la confirmation.",
+          "confirm": "Enregistrer le raccourci",
+          "badge": "Raccourci",
+          "impact": "Vous pourrez déclencher cette fonction avec la nouvelle combinaison. Les raccourcis en conflit ne pourront pas être enregistrés."
+        },
+        "reset-binding": {
+          "title": "Rétablir le raccourci par défaut",
+          "summary": "Rétablit le raccourci de cette fonction sur la valeur système par défaut.",
+          "confirm": "Rétablir par défaut",
+          "badge": "Réinitialiser",
+          "impact": "Cette fonction utilisera à nouveau sa combinaison de touches par défaut."
+        },
+        "reset-all-bindings": {
+          "title": "Rétablir tous les raccourcis par défaut",
+          "summary": "Efface les raccourcis personnalisés des fonctions ci-dessous et rétablit les valeurs par défaut.",
+          "confirm": "Tout rétablir par défaut",
+          "badge": "Réinitialiser",
+          "impact": "Les raccourcis globaux des fonctions reviennent aux valeurs par défaut. L’ouverture du panneau rapide et le comportement après envoi restent inchangés.",
+          "warningTitle": "Touches globales des fonctions uniquement",
+          "warning": "Ne modifie pas la façon d’ouvrir le panneau rapide, ni si l’envoi ouvre la fenêtre principale."
+        },
+        "set-quick-panel-trigger": {
+          "title": "Modifier l’ouverture du panneau rapide",
+          "summary": "Choisissez la touche à appuyer deux fois pour ouvrir le panneau rapide. « Désactivé » signifie que vous utiliserez la fenêtre principale.",
+          "confirm": "Enregistrer le mode d’ouverture",
+          "badge": "Raccourci",
+          "impact": "S’applique immédiatement. Vous pouvez la modifier à tout moment."
+        },
+        "set-quick-panel-behavior": {
+          "title": "Modifier le comportement après envoi",
+          "summary": "Après un envoi depuis le panneau rapide, ouvrez la fenêtre principale pour suivre la conversation ou continuez en arrière-plan.",
+          "confirm": "Enregistrer le comportement après envoi",
+          "badge": "Raccourci",
+          "impact": "N’affecte que les conversations lancées ensuite depuis le panneau rapide."
+        }
+      },
+      "bindingSectionTitle": "Raccourcis des fonctions",
+      "bindingSectionDescription": "Identique à Paramètres → Raccourcis. Choisissez une fonction, puis enregistrez une combinaison de touches.",
+      "actionField": "Fonction",
+      "comboField": "Combinaison de touches",
+      "comboFieldHint": "Cliquez, puis appuyez sur la nouvelle combinaison pour l’enregistrer",
+      "resetToDefault": "Sera rétabli sur {{shortcut}}",
+      "quickPanelTriggerSectionTitle": "Ouverture du panneau rapide",
+      "quickPanelTriggerSectionDescription": "Mêmes options que sur la page de réglages des raccourcis.",
+      "quickPanelBehaviorSectionTitle": "Après envoi",
+      "quickPanelBehaviorSectionDescription": "Identique au « comportement après envoi » de la page de réglages.",
+      "quickPanelTriggers": {
+        "none": "Désactivé",
+        "mod": "Double appui sur ⌘ / Ctrl",
+        "alt": "Double appui sur ⌥ / Alt",
+        "shift": "Double appui sur ⇧"
+      },
+      "quickPanelTriggerHints": {
+        "none": "Désactive l’ouverture par double appui ; utilisez la fenêtre principale si besoin",
+        "mod": "Double appui sur ⌘ (Mac) ou Ctrl (Windows) n’importe où pour ouvrir le panneau",
+        "alt": "Double appui sur ⌥ / Alt n’importe où pour ouvrir le panneau",
+        "shift": "Double appui sur ⇧ n’importe où pour ouvrir le panneau"
+      },
+      "quickPanelBehaviors": {
+        "foreground": "Ouvrir la fenêtre principale",
+        "background": "Exécuter en arrière-plan"
+      },
+      "quickPanelBehaviorHints": {
+        "foreground": "Après l’envoi, ouvre la fenêtre principale sur la nouvelle conversation",
+        "background": "Après l’envoi, ferme le panneau et poursuit la conversation en arrière-plan"
+      }
+    },
+    "models": {
+      "ops": {
+        "set-default": {
+          "title": "Définir le modèle de chat par défaut",
+          "summary": "Choisissez le modèle utilisé par défaut pour les nouvelles conversations. Vous pouvez le modifier ci-dessous avant de confirmer.",
+          "confirm": "Définir par défaut",
+          "badge": "Modèle par défaut",
+          "impact": "Les nouvelles conversations privilégieront ce modèle. Les conversations existantes conservent leur modèle actuel."
+        },
+        "upsert-provider": {
+          "title": "Confirmation de création ou de mise à jour du fournisseur",
+          "summary": "Vérifiez la configuration du fournisseur. Les champs secrets sont masqués ; la confirmation enregistre la configuration soumise.",
+          "confirm": "Enregistrer le fournisseur",
+          "badge": "Fournisseur",
+          "impact": "La configuration du fournisseur sera écrite dans le fichier local models.json et affectera les modèles disponibles."
+        },
+        "remove-provider": {
+          "title": "Confirmation de suppression du fournisseur",
+          "summary": "Les modèles de ce fournisseur deviendront indisponibles et les références au modèle par défaut seront effacées.",
+          "confirm": "Supprimer le fournisseur",
+          "badge": "Supprimer",
+          "impact": "Ce fournisseur et ses modèles seront supprimés de la configuration locale.",
+          "warning": "La suppression d’un fournisseur efface aussi les références au modèle par défaut qui en dépendent."
+        }
+      },
+      "createProviderHint": "Créer",
+      "updateProviderHint": "Mettre à jour l’existant",
+      "modelsCount": "{{count}} modèles",
+      "defaultSectionTitle": "Modèle par défaut",
+      "defaultSectionDescription": "Identique à Paramètres → Modèles. Prend effet après confirmation.",
+      "defaultModelHint": "Choisir parmi les modèles configurés"
+    },
+    "mcp": {
+      "ops": {
+        "upsert": {
+          "title": "Confirmation de création ou de mise à jour du serveur MCP",
+          "summary": "Vérifiez la configuration du serveur MCP. Les en-têtes secrets sont masqués.",
+          "confirm": "Enregistrer le serveur MCP",
+          "badge": "MCP",
+          "impact": "La configuration du serveur MCP sera écrite dans le fichier local mcp.json et peut affecter les outils de l’agent."
+        },
+        "set-enabled": {
+          "title": "Confirmation d’activation/désactivation du serveur MCP",
+          "summary": "Modifier l’activation de ce serveur MCP.",
+          "confirm": "Confirmer le changement d’état",
+          "badge": "État d’activation",
+          "impact": "L’état d’activation du serveur MCP sera mis à jour immédiatement."
+        },
+        "remove": {
+          "title": "Confirmation de suppression du serveur MCP",
+          "summary": "La configuration du serveur MCP sera supprimée localement.",
+          "confirm": "Supprimer le serveur",
+          "badge": "Supprimer",
+          "impact": "La configuration de ce serveur MCP sera supprimée localement.",
+          "warning": "Vous devrez reconfigurer le serveur MCP pour le rétablir."
+        }
+      },
+      "headersConfigured": "En-têtes personnalisés inclus (secrets masqués)",
+      "envPlaceholder": "Un KEY=VALUE par ligne ; saisissez vous-même les secrets ici",
+      "headersPlaceholder": "Un HeaderName=value par ligne ; saisissez vous-même les secrets ici"
+    },
+    "skills": {
+      "ops": {
+        "set-enabled": {
+          "title": "Confirmation d’activation/désactivation de la capacité",
+          "summary": "Modifier l’activation de cette capacité (compétence/scène).",
+          "confirm": "Confirmer le changement d’état",
+          "badge": "Capacité",
+          "impact": "L’état d’activation de la capacité prend effet immédiatement."
+        },
+        "uninstall": {
+          "title": "Confirmation de désinstallation de la capacité",
+          "summary": "Les fichiers locaux de la capacité seront supprimés. Cette action est irréversible.",
+          "confirm": "Désinstaller",
+          "badge": "Désinstaller",
+          "impact": "Les fichiers locaux de la capacité seront désinstallés et ne pourront pas être rétablis facilement.",
+          "warning": "Les fichiers de la capacité seront supprimés. Cette action est irréversible."
+        },
+        "install-from-market": {
+          "title": "Confirmation d’installation de la capacité depuis le marché",
+          "summary": "Télécharger et installer cette capacité (compétence ou scène) depuis le marché.",
+          "confirm": "Installer",
+          "badge": "Installer",
+          "impact": "La capacité sera téléchargée et apparaîtra sur la page Capacités, activée par défaut."
+        }
+      }
+    },
+    "projects": {
+      "ops": {
+        "create": {
+          "title": "Confirmation de création du projet",
+          "summary": "Créer un nouveau projet et l’ajouter à la barre latérale.",
+          "confirm": "Créer le projet",
+          "badge": "Créer",
+          "impact": "Un nouveau projet sera créé dans la barre latérale et le répertoire sera vérifié."
+        },
+        "open": {
+          "title": "Confirmation d’ouverture du projet",
+          "summary": "Ouvrir le projet au chemin indiqué.",
+          "confirm": "Ouvrir le projet",
+          "badge": "Ouvrir",
+          "impact": "Le projet sera ouvert à ce chemin et rejoindra la liste active."
+        },
+        "rename": {
+          "title": "Confirmation de renommage du projet",
+          "summary": "Modifier le nom affiché du projet.",
+          "confirm": "Renommer le projet",
+          "badge": "Renommer",
+          "impact": "Seul le nom affiché dans la barre latérale change ; le chemin sur le disque reste inchangé."
+        },
+        "archive": {
+          "title": "Confirmation d’archivage du projet",
+          "summary": "Déplacer le projet vers la liste des archives. L’historique des sessions est conservé.",
+          "confirm": "Archiver le projet",
+          "badge": "Archiver",
+          "impact": "Le projet passe dans la liste des archives ; l’historique des sessions est conservé."
+        },
+        "unarchive": {
+          "title": "Confirmation de désarchivage du projet",
+          "summary": "Rétablir le projet dans la liste active.",
+          "confirm": "Désarchiver le projet",
+          "badge": "Désarchiver",
+          "impact": "Le projet revient dans la liste active."
+        },
+        "remove": {
+          "title": "Confirmation de retrait du projet",
+          "summary": "Retirer le projet de la liste sans supprimer les fichiers sur le disque.",
+          "confirm": "Retirer le projet",
+          "badge": "Retirer",
+          "impact": "Seule l’entrée de la barre latérale est retirée ; les fichiers du projet sur le disque ne sont pas supprimés.",
+          "warning": "Seule l’entrée de la barre latérale est retirée ; les fichiers du projet sur le disque sont conservés."
+        }
+      },
+      "pathOptional": "Facultatif ; laissez vide pour créer dans l’espace de travail sous ce nom"
+    },
+    "general": {
+      "ops": {
+        "set-notifications": {
+          "title": "Modifier les réglages de notification",
+          "summary": "Choisir si les notifications système sont autorisées.",
+          "confirm": "Enregistrer les notifications",
+          "badge": "Notifications",
+          "impact": "Les alertes de tâche et de mise à jour s’afficheront ou non selon le nouveau réglage."
+        },
+        "set-execution-mode": {
+          "title": "Modifier les autorisations par défaut",
+          "summary": "Choisissez le niveau d’autorisation par défaut pour les nouvelles conversations. Vous pouvez le modifier ci-dessous.",
+          "confirm": "Enregistrer les autorisations",
+          "badge": "Autorisations",
+          "impact": "Les nouvelles conversations utiliseront cette autorisation. Les conversations existantes restent inchangées."
+        },
+        "set-workspace": {
+          "title": "Modifier l’espace de travail par défaut",
+          "summary": "Les nouveaux projets seront créés par défaut dans ce dossier.",
+          "confirm": "Enregistrer l’espace de travail",
+          "badge": "Espace de travail",
+          "impact": "Le chemin de l’espace de travail par défaut est mis à jour. Les projets existants restent en place."
+        }
+      },
+      "notificationsOn": "Activer les notifications",
+      "notificationsOff": "Désactiver les notifications",
+      "notificationsTarget": "Notifications système",
+      "notificationsTargetHint": "Fin de tâche, mises à jour et alertes similaires",
+      "executionModeSandbox": "Mode sécurisé (sandbox)",
+      "executionModeFullAccess": "Accès complet",
+      "executionModeSandboxHint": "Limite les emplacements où les fichiers peuvent être modifiés. Plus sûr au quotidien.",
+      "executionModeFullAccessHint": "Autorise des actions plus larges sur les fichiers et le système. Plus puissant, plus risqué."
+    },
+    "agent": {
+      "ops": {
+        "set-experimental": {
+          "title": "Modifier les fonctionnalités expérimentales",
+          "summary": "Vous pouvez ajuster ces options expérimentales avant de confirmer.",
+          "confirm": "Enregistrer les fonctionnalités expérimentales",
+          "badge": "Expérimental",
+          "impact": "Les capacités correspondantes seront activées ou désactivées. Les fonctionnalités expérimentales peuvent être instables."
+        }
+      },
+      "experimentalSectionTitle": "Fonctionnalités expérimentales",
+      "experimentalSectionDescription": "Mêmes options que Paramètres → Agent. Vous pouvez les ajuster avant de confirmer.",
+      "experimentalFields": {
+        "vettaCli": "Metoai CLI",
+        "vettaCliDesc": "Autoriser l’appel des capacités locales depuis le terminal via Metoai CLI",
+        "promptPrediction": "Prédiction de saisie",
+        "promptPredictionDesc": "Suggère une suite de texte possible pendant la saisie ; peut consommer un peu de quota",
+        "agentSkills": "Extensions de compétences de l’agent",
+        "agentSkillsDesc": "Autoriser l’agent à utiliser des capacités de compétence étendues"
+      }
+    },
+    "knowledge": {
+      "ops": {
+        "create": {
+          "title": "Confirmation de création de la base de connaissances",
+          "summary": "Créer une nouvelle base de connaissances.",
+          "confirm": "Créer",
+          "badge": "Créer",
+          "impact": "Une nouvelle base de connaissances sera créée."
+        },
+        "rename": {
+          "title": "Confirmation de renommage de la base de connaissances",
+          "summary": "Modifier le nom de la base de connaissances.",
+          "confirm": "Renommer",
+          "badge": "Renommer",
+          "impact": "Le nom affiché de la base de connaissances sera mis à jour."
+        },
+        "delete": {
+          "title": "Confirmation de suppression de la base de connaissances",
+          "summary": "La base de connaissances et ses données traitées seront supprimées. Cette action est irréversible.",
+          "confirm": "Supprimer",
+          "badge": "Supprimer",
+          "impact": "La base de connaissances et les données traitées seront supprimées.",
+          "warning": "La suppression d’une base de connaissances efface aussi les artefacts traités. Cette action est irréversible."
+        },
+        "add-files": {
+          "title": "Confirmation d’ajout de fichiers à la base de connaissances",
+          "summary": "Ajouter les fichiers sélectionnés et lancer le traitement.",
+          "confirm": "Ajouter des fichiers",
+          "badge": "Ajouter des fichiers",
+          "impact": "Les fichiers sélectionnés seront ajoutés et passeront en traitement."
+        },
+        "delete-entry": {
+          "title": "Confirmation de suppression de l’entrée de connaissance",
+          "summary": "Supprimer l’entrée indiquée de la base de connaissances.",
+          "confirm": "Supprimer l’entrée",
+          "badge": "Supprimer l’entrée",
+          "impact": "L’entrée de la base de connaissances sera supprimée.",
+          "warning": "Les entrées supprimées ne peuvent pas être rétablies depuis l’application."
+        },
+        "scan-now": {
+          "title": "Confirmation d’analyse immédiate de la base de connaissances",
+          "summary": "Lancer un cycle d’analyse et de traitement de la base de connaissances.",
+          "confirm": "Analyser maintenant",
+          "badge": "Analyser",
+          "impact": "Un cycle d’analyse et de traitement des connaissances démarrera immédiatement."
+        },
+        "retry-failed": {
+          "title": "Confirmation de nouvelle tentative des tâches de connaissance en échec",
+          "summary": "Effacer les enregistrements en échec/en quarantaine et relancer le traitement.",
+          "confirm": "Réessayer les échecs",
+          "badge": "Réessayer",
+          "impact": "Les enregistrements en échec/en quarantaine seront effacés et retraités."
+        },
+        "set-processing": {
+          "title": "Modifier les réglages de traitement des connaissances",
+          "summary": "Vous pouvez modifier ces options de la base de connaissances avant de confirmer.",
+          "confirm": "Enregistrer les réglages de la base de connaissances",
+          "badge": "Connaissances",
+          "impact": "Le traitement automatique des connaissances suivra les nouveaux réglages."
+        }
+      },
+      "globalAction": "Action globale de la base de connaissances",
+      "processingSectionTitle": "Traitement des connaissances",
+      "processingSectionDescription": "Mêmes options que Paramètres → Connaissances. Seuls les champs de cette requête sont affichés.",
+      "processingFields": {
+        "enabled": "Activer le traitement des connaissances",
+        "enabledDesc": "Si désactivé, le traitement automatique est suspendu. Les connaissances existantes ne sont pas supprimées.",
+        "pollIntervalMinutes": "Intervalle de traitement automatique",
+        "pollIntervalDesc": "Fréquence de vérification des fichiers à traiter",
+        "processingModelKey": "Modèle de traitement",
+        "processingModelDesc": "Modèle utilisé pour lire et organiser les documents",
+        "processingModelReasoningLevel": "Niveau de raisonnement",
+        "agentConcurrency": "Tâches de traitement parallèles",
+        "agentConcurrencyDesc": "Plus de tâches parallèles accélère le traitement mais consomme plus de ressources",
+        "ocrConcurrency": "Tâches OCR parallèles",
+        "ocrConcurrencyDesc": "Nombre de tâches de reconnaissance de texte sur image exécutées simultanément",
+        "pollMinutes": "Toutes les {{count}} minutes"
+      }
+    },
+    "appearance": {
+      "ops": {
+        "set-language": {
+          "title": "Changer de langue",
+          "summary": "L’interface passera à la langue sélectionnée.",
+          "confirm": "Changer de langue",
+          "badge": "Langue",
+          "impact": "Les menus, réglages et boutons changent immédiatement. Le contenu des conversations reste inchangé."
+        }
+      }
+    },
+    "plugins": {
+      "ops": {
+        "set-enabled": {
+          "title": "Confirmation d’activation/désactivation de l’extension",
+          "summary": "Modifier l’activation de cette extension.",
+          "confirm": "Confirmer le changement d’état",
+          "badge": "Extension",
+          "impact": "L’état d’activation de l’extension sera mis à jour immédiatement."
+        },
+        "install-from-url": {
+          "title": "Confirmation d’installation de l’extension depuis une URL",
+          "summary": "Télécharger et installer l’extension depuis l’URL indiquée.",
+          "confirm": "Installer",
+          "badge": "Installer",
+          "impact": "L’extension sera téléchargée et installée depuis l’URL."
+        },
+        "install-from-path": {
+          "title": "Confirmation d’installation de l’extension depuis un chemin local",
+          "summary": "Installer l’archive zip locale, accorder une fois les autorisations déclarées et activer l’extension.",
+          "confirm": "Installer et autoriser",
+          "badge": "Installer",
+          "impact": "Le paquet local de l’extension sera installé, ses autorisations déclarées accordées et l’extension activée."
+        },
+        "install-from-npm": {
+          "title": "Confirmation d’installation de l’extension depuis npm",
+          "summary": "Installer le paquet npm résolu, accorder une fois ses autorisations déclarées et activer l’extension.",
+          "confirm": "Installer et autoriser",
+          "badge": "npm install",
+          "impact": "L’application vérifiera à nouveau l’empreinte du paquet, l’ID et la version de l’extension avant d’accorder les autorisations déclarées et de l’activer."
+        },
+        "uninstall": {
+          "title": "Confirmation de désinstallation de l’extension",
+          "summary": "L’extension et ses données locales seront supprimées conformément à la politique.",
+          "confirm": "Désinstaller",
+          "badge": "Désinstaller",
+          "impact": "L’extension sera désinstallée conformément à la politique.",
+          "warning": "L’extension et ses données locales peuvent être effacées conformément à la politique."
+        },
+        "reload": {
+          "title": "Confirmation de rechargement de l’extension",
+          "summary": "Recharger cette extension.",
+          "confirm": "Recharger",
+          "badge": "Recharger",
+          "impact": "L’extension sera rechargée."
+        }
+      }
+    },
+    "im": {
+      "ops": {
+        "set-enabled": {
+          "title": "Confirmation d’activation/désactivation de la passerelle IM",
+          "summary": "Modifier l’activation de la passerelle IM sidecar.",
+          "confirm": "Confirmer le changement d’état",
+          "badge": "IM",
+          "impact": "L’état d’activation de la passerelle IM sera mis à jour."
+        },
+        "restart": {
+          "title": "Confirmation de redémarrage de la passerelle IM",
+          "summary": "Redémarrer le processus sidecar IM local.",
+          "confirm": "Redémarrer",
+          "badge": "Redémarrer",
+          "impact": "Le processus local de la passerelle IM sera redémarré."
+        },
+        "set-agent-model": {
+          "title": "Définir le modèle Claw",
+          "summary": "Choisissez le modèle utilisé pour les conversations IM externes (Claw). Même sélecteur que dans les paramètres.",
+          "confirm": "Enregistrer le modèle",
+          "badge": "Modèle Claw",
+          "impact": "Les prochaines conversations depuis Feishu/WeChat utiliseront ce modèle. Laissez vide pour suivre la valeur par défaut."
+        },
+        "set-feishu-config": {
+          "title": "Configurer les identifiants Feishu",
+          "summary": "Saisissez l’App ID et les secrets ci-dessous. Remplissez les secrets vous-même ; ne comptez pas sur l’IA pour les transmettre.",
+          "confirm": "Enregistrer la configuration Feishu",
+          "badge": "Feishu",
+          "impact": "Les identifiants locaux de la passerelle Feishu seront mis à jour. Les champs secrets vides conservent les valeurs existantes."
+        }
+      },
+      "enableTitle": "Activer la passerelle IM",
+      "disableTitle": "Désactiver la passerelle IM",
+      "restartTarget": "Processus local de la passerelle IM",
+      "channelName": "Claw (passerelle IM)",
+      "channelHint": "Connecter des canaux de discussion externes tels que Feishu et WeChat",
+      "feishuTarget": "Application Feishu",
+      "feishuHint": "Saisissez vous-même l’App Secret et les autres secrets ci-dessous",
+      "modelKeyPlaceholder": "Sélectionnez un modèle ou effacez",
+      "modelSectionTitle": "Modèle Claw",
+      "modelSectionDescription": "Identique à Paramètres → Claw. Prend en charge le modèle et le niveau de raisonnement.",
+      "modelKeyHint": "Laissez vide pour supprimer un modèle dédié et revenir à la valeur par défaut"
+    },
+    "webhook": {
+      "ops": {
+        "create": {
+          "title": "Confirmation de création du webhook",
+          "summary": "Vérifiez la configuration du webhook. Les secrets de signature sont masqués.",
+          "confirm": "Créer",
+          "badge": "Créer",
+          "impact": "Une nouvelle configuration de point de terminaison webhook sera enregistrée."
+        },
+        "update": {
+          "title": "Confirmation de mise à jour du webhook",
+          "summary": "Vérifiez les champs du webhook qui seront enregistrés.",
+          "confirm": "Mettre à jour",
+          "badge": "Mettre à jour",
+          "impact": "La configuration du webhook sera mise à jour pour les champs soumis."
+        },
+        "set-enabled": {
+          "title": "Confirmation d’activation/désactivation du webhook",
+          "summary": "Modifier l’activation de ce webhook.",
+          "confirm": "Confirmer le changement d’état",
+          "badge": "État d’activation",
+          "impact": "L’état d’activation du webhook sera mis à jour."
+        },
+        "delete": {
+          "title": "Confirmation de suppression du webhook",
+          "summary": "La configuration du webhook sera définitivement supprimée.",
+          "confirm": "Supprimer",
+          "badge": "Supprimer",
+          "impact": "La configuration du webhook sera définitivement supprimée.",
+          "warning": "La configuration d’un webhook supprimé ne peut pas être récupérée."
+        },
+        "test": {
+          "title": "Confirmation de test du webhook",
+          "summary": "Envoyer un message de test à ce webhook.",
+          "confirm": "Envoyer un test",
+          "badge": "Tester",
+          "impact": "Un message de test sera envoyé à ce webhook."
+        },
+        "send": {
+          "title": "Confirmation d’envoi du message webhook",
+          "summary": "Vérifiez le message qui sera envoyé via le webhook.",
+          "confirm": "Envoyer",
+          "badge": "Envoyer",
+          "impact": "Un message personnalisé sera envoyé à ce webhook."
+        }
+      },
+      "notFound": "Point de terminaison webhook introuvable",
+      "loadFailed": "Échec du chargement des webhooks",
+      "feishu": "Feishu",
+      "dingtalk": "DingTalk",
+      "botSuffix": "bot"
+    },
+    "downloads": {
+      "ops": {
+        "cancel": {
+          "title": "Annuler le téléchargement",
+          "summary": "Le téléchargement du fichier sera arrêté.",
+          "confirm": "Annuler le téléchargement",
+          "badge": "Téléchargement",
+          "impact": "Le téléchargement s’arrête immédiatement. Des fichiers partiels peuvent subsister selon l’état.",
+          "warning": "Vous devrez relancer le téléchargement pour obtenir un fichier complet."
+        }
+      },
+      "status": "État",
+      "statuses": {
+        "queued": "En file d’attente",
+        "downloading": "Téléchargement en cours",
+        "paused": "En pause",
+        "completed": "Terminé",
+        "failed": "Échec",
+        "canceled": "Annulé"
+      }
+    },
+    "updater": {
+      "ops": {
+        "check": {
+          "title": "Confirmation de recherche de mises à jour",
+          "summary": "Vérifier si une mise à jour de l’application est disponible.",
+          "confirm": "Rechercher des mises à jour",
+          "badge": "Vérifier",
+          "impact": "L’application recherchera les mises à jour disponibles."
+        },
+        "download": {
+          "title": "Confirmation de téléchargement de la mise à jour",
+          "summary": "Lancer le téléchargement du paquet de mise à jour disponible.",
+          "confirm": "Télécharger",
+          "badge": "Téléchargement",
+          "impact": "Le téléchargement du paquet de mise à jour va démarrer."
+        },
+        "install": {
+          "title": "Confirmation d’installation de la mise à jour",
+          "summary": "Installer la mise à jour téléchargée. L’application devra peut-être redémarrer.",
+          "confirm": "Installer et redémarrer",
+          "badge": "Installer",
+          "impact": "La mise à jour sera installée et l’application pourra redémarrer.",
+          "warning": "L’installation d’une mise à jour nécessite généralement de redémarrer l’application. Enregistrez votre travail au préalable."
+        },
+        "dismiss": {
+          "title": "Confirmation de fermeture de l’invite de mise à jour",
+          "summary": "Masquer temporairement l’invite de mise à jour actuelle.",
+          "confirm": "Ignorer",
+          "badge": "Ignorer",
+          "impact": "L’invite de mise à jour actuelle sera masquée temporairement."
+        },
+        "cancel": {
+          "title": "Confirmation d’annulation du téléchargement de la mise à jour",
+          "summary": "Annuler le téléchargement de mise à jour en cours.",
+          "confirm": "Annuler le téléchargement",
+          "badge": "Annuler",
+          "impact": "Le téléchargement de mise à jour en cours sera annulé."
+        }
+      },
+      "target": "Mise à jour de l’application"
+    },
+    "afterActionTitle": "Ce qui se passe ensuite",
+    "unknown": "Inconnu",
+    "clearValue": "Effacer",
+    "secretPlaceholder": "Laissez vide pour conserver le secret existant / aucune modification"
+  },
+  "navigationApproval": {
+    "title": "Ouvrir la page",
+    "summary": "L’IA souhaite ouvrir la page suivante. Confirmez pour y basculer.",
+    "target": "Page",
+    "tab": "Section des paramètres",
+    "section": "Emplacement",
+    "confirm": "Ouvrir",
+    "responding": "Ouverture...",
+    "impact": "L’application basculera vers cette page. Vos données ne seront pas modifiées.",
+    "targets": {
+      "chat": "Chat",
+      "automation": "Automatisation",
+      "batch-tasks": "Tâches par lots",
+      "skills": "Capacités",
+      "plugins": "Extensions",
+      "connectors": "Connecteurs",
+      "settings": "Paramètres"
+    }
+  },
+  "appearanceApproval": {
+    "pickerTitle": "Choisir l’apparence",
+    "themeChangeTitle": "Modifier le changement d’apparence",
+    "apply": "Appliquer l’apparence",
+    "confirmChange": "Confirmer la modification",
+    "submitting": "Envoi..."
+  },
+  "schedulerApproval": {
+    "createTitle": "Confirmation de création de la tâche planifiée",
+    "createDescription": "Vérifiez la configuration de la tâche planifiée. Après confirmation, la tâche sera enregistrée et planifiée selon son état d’activation.",
+    "updateTitle": "Modifier la tâche planifiée",
+    "loadingCurrentTask": "Chargement de la configuration actuelle de la tâche...",
+    "updateNotFound": "La tâche planifiée actuelle est introuvable, la configuration complète ne peut pas être chargée.",
+    "updateLoadFailed": "Échec du chargement de la configuration actuelle de la tâche planifiée.",
+    "taskId": "ID de la tâche",
+    "taskNamePlaceholder": "Nom de la tâche",
+    "confirmCreate": "Confirmer la création",
+    "creating": "Création...",
+    "confirmUpdate": "Confirmer la mise à jour",
+    "updating": "Mise à jour...",
+    "deleteTitle": "Confirmation de suppression de la tâche planifiée",
+    "deleteLabel": "Supprimer la tâche",
+    "deleteTargetTask": "Tâche à supprimer",
+    "deleteDescriptionTitle": "Impact de la suppression",
+    "deleteDescription": "La suppression d’une tâche planifiée efface aussi tous ses enregistrements d’exécution. Cette action est irréversible.",
+    "deleteWarning": "Si la tâche est en cours d’exécution, interrompez-la avant de la supprimer.",
+    "confirmDelete": "Confirmer la suppression",
+    "deleting": "Suppression...",
+    "toggleTitle": "Confirmation de changement d’état de la tâche planifiée",
+    "enableTitle": "Confirmation d’activation de la tâche planifiée",
+    "disableTitle": "Confirmation de désactivation de la tâche planifiée",
+    "enableLabel": "Activer la tâche",
+    "disableLabel": "Désactiver la tâche",
+    "enableDescription": "Une fois activée, la tâche planifiée s’exécutera automatiquement selon son expression Cron.",
+    "disableDescription": "Une fois désactivée, la tâche planifiée ne s’exécutera plus automatiquement, mais sa configuration et son historique sont conservés.",
+    "executionTitle": "Confirmation d’exécution de la tâche planifiée",
+    "runNowTitle": "Confirmation d’exécution immédiate de la tâche planifiée",
+    "abortTitle": "Confirmation d’interruption de la tâche planifiée",
+    "runNowLabel": "Exécuter maintenant",
+    "abortLabel": "Interrompre l’exécution",
+    "runNowDescription": "Lancer immédiatement une exécution de la tâche planifiée sans attendre la prochaine échéance. La tâche s’exécutera avec son invite et ses paramètres actuels.",
+    "abortDescription": "Interrompre l’agent de la tâche planifiée en cours. L’exécution sera interrompue et les résultats générés seront conservés.",
+    "abortWarning": "L’interruption met immédiatement fin à l’exécution de l’agent ; l’état d’exécution actuel peut donc être incomplet.",
+    "operationDescription": "Détails de l’opération",
+    "executionDescriptionTitle": "Ce qui se passe ensuite",
+    "targetTask": "Tâche cible",
+    "rawInput": "Requête brute",
+    "fallbackAction": "Action",
+    "confirmAction": "Confirmer {{action}}"
+  },
+  "batchTasksApproval": {
+    "confirmAction": "Confirmer {{action}}",
+    "fallbackAction": "Action",
+    "unknown": "Inconnu",
+    "unknownShort": "?",
+    "notFound": "Introuvable",
+    "count": "{{count}} éléments",
+    "yes": "Oui",
+    "no": "Non",
+    "afterActionTitle": "Ce qui se passe ensuite",
+    "projectLoading": "Chargement de la configuration actuelle du projet...",
+    "projectLoadNotFound": "Le projet par lots actuel est introuvable, la configuration complète ne peut pas être chargée.",
+    "projectLoadFailed": "Échec du chargement de la configuration actuelle du projet par lots.",
+    "projectFallbackTitle": "Confirmation d’opération sur le projet par lots",
+    "projectCreateLabel": "Créer un projet",
+    "projectUpdateLabel": "Mettre à jour le projet",
+    "projectDeleteLabel": "Supprimer le projet",
+    "projectCreateTitle": "Confirmation de création du projet par lots",
+    "projectUpdateTitle": "Confirmation de mise à jour du projet par lots",
+    "projectDeleteTitle": "Confirmation de suppression du projet par lots",
+    "projectCreateSummary": "Vérifiez la configuration du projet par lots. Après confirmation, une sous-tâche sera créée pour chaque dossier source.",
+    "projectUpdateSummary": "Vérifiez les modifications du projet par lots à enregistrer. L’interface de confirmation a fusionné la configuration actuelle et n’ajoutera que les nouveaux dossiers source.",
+    "projectDeleteSummary": "Confirmez la suppression de ce projet par lots, de toutes ses sous-tâches, de l’état des sessions et des artefacts de tâches. Cette action est irréversible.",
+    "projectFullAccessWarning": "Les tâches s’exécuteront avec un accès complet et pourront lire ou modifier des fichiers à l’intérieur et à l’extérieur des dossiers sélectionnés. Vérifiez que l’invite et les dossiers sont dignes de confiance.",
+    "newProjectNamePlaceholder": "Nouveau projet par lots",
+    "projectNamePlaceholder": "Nom du projet",
+    "sourceFolders": "Dossiers source",
+    "folderList": "Liste des dossiers",
+    "targetProject": "Projet cible",
+    "projectPath": "Chemin du projet",
+    "existingTasks": "Tâches existantes",
+    "includedTasks": "Tâches incluses",
+    "notFoundInCurrentList": "Introuvable dans la liste actuelle",
+    "projectNotFoundInCurrentList": "Projet introuvable dans la liste actuelle",
+    "taskNotFoundInCurrentList": "Tâche introuvable dans la liste actuelle",
+    "projectDeleteWarning": "Cela supprime définitivement le répertoire du projet, tous les enregistrements de tâches, l’état des sessions et les artefacts de tâches. L’opération sera refusée si des tâches sont en cours ou en file d’attente.",
+    "taskFallbackTitle": "Confirmation d’opération sur la sous-tâche par lots",
+    "taskId": "ID de la tâche",
+    "sourceFolder": "Dossier source",
+    "relatedSession": "Session associée",
+    "resumeDefaultText": "Continuer",
+    "resumeTextLabel": "Message supplémentaire à envoyer à la session d’origine",
+    "lastError": "Dernière erreur",
+    "status": {
+      "pending": "En attente",
+      "running": "En cours",
+      "completed": "Terminé",
+      "failed": "Échec",
+      "paused": "En pause"
+    },
+    "taskRunLabel": "Exécuter la tâche",
+    "taskRunTitle": "Confirmation d’exécution de la sous-tâche par lots",
+    "taskRunSummary": "Confirmez la création d’une session pour cette sous-tâche en attente et son démarrage.",
+    "taskRunDescription": "Créer une session pour cette tâche en attente et la démarrer.",
+    "taskRetryLabel": "Réessayer depuis le début",
+    "taskRetryTitle": "Confirmation de nouvelle tentative de la sous-tâche par lots",
+    "taskRetrySummary": "Confirmez l’effacement de l’ancien résultat de cette sous-tâche et sa réexécution depuis le début.",
+    "taskRetryDescription": "Effacer les anciens résultats et réexécuter cette tâche depuis le début.",
+    "taskRetryWarning": "Les anciennes sessions, l’état et les artefacts existants du répertoire de la tâche seront supprimés et ne pourront pas être rétablis.",
+    "taskStopLabel": "Arrêter et nettoyer",
+    "taskStopTitle": "Confirmation d’arrêt de la sous-tâche par lots",
+    "taskStopSummary": "Confirmez l’interruption ou la suppression de cette sous-tâche et le nettoyage de sa session, de son état et de ses artefacts.",
+    "taskStopDescription": "Interrompre les tâches en cours ou en file d’attente et remettre leur état en attente.",
+    "taskStopWarning": "La session actuelle, l’état d’exécution et les artefacts existants du répertoire de la tâche seront supprimés.",
+    "taskDeleteLabel": "Supprimer la tâche",
+    "taskDeleteTitle": "Confirmation de suppression de la sous-tâche par lots",
+    "taskDeleteSummary": "Confirmez la suppression définitive de cette sous-tâche et de ses données associées du projet.",
+    "taskDeleteDescription": "Supprimer définitivement cette tâche du projet.",
+    "taskDeleteWarning": "Les enregistrements de tâches, le sous-répertoire du projet, l’état des sessions et les artefacts seront définitivement supprimés.",
+    "taskResumeLabel": "Reprendre la tâche",
+    "taskResumeTitle": "Confirmation de reprise de la sous-tâche par lots",
+    "taskResumeSummary": "Confirmez l’envoi de « Continuer » à la session d’origine en pause, en conservant le contexte existant.",
+    "taskResumeDescription": "Envoyer « Continuer » à la session d’origine en pause en conservant le contexte et les artefacts existants.",
+    "taskResumeWithTextLabel": "Reprendre avec un message",
+    "taskResumeWithTextTitle": "Confirmation de reprise de la sous-tâche par lots avec un message",
+    "taskResumeWithTextSummary": "Confirmez le message supplémentaire à envoyer à la session en pause. Le contexte existant sera conservé.",
+    "taskResumeWithTextDescription": "Envoyer le message supplémentaire à la session d’origine en pause, puis poursuivre l’exécution.",
+    "taskDeleteSessionLabel": "Supprimer la session de la tâche",
+    "taskDeleteSessionTitle": "Confirmation de suppression de la session de la sous-tâche par lots",
+    "taskDeleteSessionSummary": "Confirmez la suppression de la session de conversation associée à cette sous-tâche. Les enregistrements et répertoires de tâches sont conservés.",
+    "taskDeleteSessionDescription": "Supprimer la session de conversation associée à cette tâche.",
+    "taskDeleteSessionWarning": "L’historique de la session ne peut pas être rétabli. Les enregistrements et répertoires de tâches ne seront pas supprimés.",
+    "executionFallbackTitle": "Confirmation de contrôle d’exécution par lots",
+    "totalTasks": "Total des tâches",
+    "estimatedImpact": "Impact estimé",
+    "selectedTasks": "Tâches sélectionnées",
+    "resetFailedPartialWarning": "Seules les tâches actuellement à l’état Échec seront traitées. Les autres ID de tâche seront ignorés.",
+    "executionDeleteAllLabel": "Supprimer toutes les tâches",
+    "executionDeleteAllTitle": "Confirmation de suppression de toutes les tâches par lots",
+    "executionDeleteAllSummary": "Confirmez la suppression de toutes les sous-tâches non en cours de ce projet. Les tâches en cours seront conservées.",
+    "executionDeleteAllDescription": "Supprimer toutes les tâches non en cours du projet. Les tâches en cours seront conservées.",
+    "executionDeleteAllWarning": "Les tâches en file d’attente seront retirées de la file, puis les enregistrements de tâches, l’état des sessions et les répertoires d’artefacts seront définitivement supprimés.",
+    "executionStartLabel": "Démarrer l’exécution",
+    "executionStartTitle": "Confirmation de démarrage du projet par lots",
+    "executionStartSummary": "Confirmez le démarrage de l’exécution de ce projet par lots. Les tâches en attente et en pause entreront dans le flux d’exécution.",
+    "executionStartDescription": "Mettre en file toutes les tâches en attente et reprendre les tâches en pause. Les tâches terminées ou en échec ne seront pas réexécutées.",
+    "executionStopLabel": "Arrêter et nettoyer",
+    "executionStopTitle": "Confirmation d’arrêt de l’exécution du projet par lots",
+    "executionStopSummary": "Confirmez l’arrêt des tâches inachevées de ce projet et le nettoyage des sessions, de l’état et des artefacts associés.",
+    "executionStopDescription": "Arrêter toutes les tâches inachevées du projet tout en conservant les tâches terminées.",
+    "executionStopWarning": "Les sessions, l’état et les répertoires d’artefacts des tâches en file d’attente, en cours, en échec et en pause seront nettoyés et remis en attente.",
+    "executionResetLabel": "Effacer et réexécuter",
+    "executionResetTitle": "Confirmation d’effacement et de réexécution du projet par lots",
+    "executionResetSummary": "Confirmez l’effacement de l’état et des artefacts de toutes les tâches de ce projet et sa réexécution immédiate.",
+    "executionResetDescription": "Effacer tout l’état d’exécution et les artefacts du projet, puis réexécuter immédiatement toutes les tâches.",
+    "executionResetWarning": "Toutes les sessions, l’état et les répertoires d’artefacts des tâches seront supprimés, y compris pour les tâches terminées. Cette action est irréversible.",
+    "executionResetFailedLabel": "Réinitialiser les tâches en échec",
+    "executionResetFailedTitle": "Confirmation de réinitialisation des tâches par lots en échec",
+    "executionResetFailedSummary": "Confirmez le nettoyage des tâches en échec sélectionnées. Seules les tâches actuellement à l’état Échec seront traitées.",
+    "executionResetFailedDescription": "Nettoyer les tâches en échec sélectionnées. Si le projet est encore en cours, elles seront mises en file immédiatement ; sinon, elles repassent en attente.",
+    "executionResetFailedWarning": "Les anciennes sessions, l’état d’erreur et les artefacts existants des tâches en échec sélectionnées seront supprimés."
+  },
+  "appShell": {
+    "routeTitles": {
+      "automation": "Automatisation",
+      "batchTasks": "Tâches par lots",
+      "knowledgeAll": "Toutes les bases de connaissances",
+      "knowledge": "Base de connaissances",
+      "skills": "Compétences",
+      "scenes": "Scènes",
+      "plugins": "Extensions",
+      "settings": "Paramètres",
+      "project": "Détails du projet",
+      "chat": "Chat"
+    },
+    "sidebarTrigger": {
+      "open": "Barre latérale",
+      "expand": "Développer la barre latérale"
+    },
+    "windowControls": {
+      "minimize": "Réduire",
+      "maximize": "Agrandir",
+      "restore": "Restaurer",
+      "close": "Fermer"
+    }
+  },
+  "modelSelect": {
+    "placeholder": "Sélectionner un modèle",
+    "searchPlaceholder": "Rechercher des modèles ou des fournisseurs",
+    "clearSearch": "Effacer la recherche",
+    "noResults": "Aucun modèle trouvé",
+    "noResultsHint": "Essayez un autre nom de modèle, ID ou fournisseur",
+    "unset": "Non défini",
+    "defaultBadge": "Par défaut",
+    "visionBadge": "vision",
+    "cloudOnly": "Cloud",
+    "reasoningHeader": "Raisonnement",
+    "modelHeader": "Modèle",
+    "multiplier": "{{value}}×",
+    "free": "Gratuit",
+    "reasoningLevel": {
+      "minimal": "Minimal",
+      "low": "Faible",
+      "medium": "Moyen",
+      "high": "Élevé",
+      "xhigh": "Très élevé",
+      "max": "Maximal",
+      "none": "Aucun",
+      "off": "Désactivé"
+    }
+  },
+  "setupWizard": {
+    "skip": "Ignorer",
+    "next": "Suivant",
+    "back": "Retour",
+    "getStarted": "Commencer",
+    "progress": "{{current}} / {{total}}",
+    "permissions": {
+      "title": "Accorder les autorisations",
+      "subtitle": "Activez les captures d’écran, l’automatisation et les notifications système. Vous pourrez terminer plus tard dans les paramètres",
+      "systemSection": "Autorisations système",
+      "computerUseTitle": "Metoai Computer Use",
+      "computerUseDesc": "Un assistant distinct capture la fenêtre au premier plan et nécessite ses propres autorisations d’accessibilité et d’enregistrement d’écran",
+      "optionalHint": "Toutes les autorisations sont facultatives. Modifiez-les à tout moment dans Paramètres → Autorisations"
+    },
+    "languageAppearance": {
+      "title": "Langue et apparence",
+      "subtitle": "La langue suit par défaut votre système. Ajustez le mode de thème et les couleurs — modifiables à tout moment dans les paramètres",
+      "language": "Langue",
+      "appearance": "Apparence",
+      "theme": "Thème de couleurs"
+    },
+    "metoai": {
+      "title": "Se connecter à MetaToken",
+      "subtitle": "Connectez-vous pour utiliser tous les modèles de la passerelle intégrée ; solde, abonnement et clés d’API sont aussi ici",
+      "optionalHint": "Facultatif — cliquez sur Suivant pour continuer"
+    },
+    "login": {
+      "title": "Se connecter",
+      "subtitle": "Connectez-vous pour les fonctionnalités cloud et l’abonnement. Vous pouvez ignorer cette étape et vous connecter plus tard",
+      "optionalHint": "Facultatif — cliquez sur Suivant pour continuer",
+      "signedInTitle": "Connecté",
+      "signedInDesc": "Bon retour, {{name}}",
+      "signedInFallback": "Utilisateur"
+    },
+    "welcome": {
+      "title": "Bienvenue dans Metoai",
+      "subtitle": "Votre assistant de codage IA pour ordinateur est prêt. Commencez par une conversation",
+      "highlights": {
+        "chat": {
+          "title": "Chat intelligent",
+          "desc": "Posez des questions, modifiez du code et exécutez des commandes dans le contexte du projet"
+        },
+        "skills": {
+          "title": "Compétences et connecteurs",
+          "desc": "Étendez les capacités et connectez les outils que vous utilisez déjà"
+        },
+        "automation": {
+          "title": "Automatisation",
+          "desc": "Tâches planifiées et traitements par lots pour le travail répétitif"
+        }
+      }
+    }
+  },
+  "commandMenu": {
+    "placeholder": "Rechercher des projets, sessions, capacités, paramètres…",
+    "empty": "Aucun résultat",
+    "emptyHint": "Essayez un autre mot-clé",
+    "loading": "Recherche des sessions",
+    "title": "Menu de commandes",
+    "hintNavigate": "↑↓ Naviguer",
+    "hintSelect": "↵ Ouvrir",
+    "hintClose": "esc Fermer",
+    "overflow": "{{count}} de plus",
+    "sessionUnavailable": "Cette session ne peut pas être ouverte pour le moment",
+    "searchMarketplace": "Rechercher dans le marché des capacités",
+    "trigger": "Rechercher",
+    "groups": {
+      "projects": "Projets",
+      "sessions": "Sessions",
+      "abilities": "Capacités",
+      "settings": "Paramètres",
+      "workspaceViews": "Vues d’extension"
+    },
+    "badges": {
+      "skill": "Compétence",
+      "scene": "Scène",
+      "plugin": "Extension"
+    },
+    "sessionTypes": {
+      "conversation": "Chat",
+      "claw": "Claw",
+      "project": "Projet",
+      "batch": "Lot"
+    }
+  }
+}

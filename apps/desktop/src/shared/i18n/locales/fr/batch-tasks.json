@@ -1,0 +1,139 @@
+{
+  "page": {
+    "title": "Tâches par lots",
+    "subtitle": "Configurez une fois et laissez l'IA traiter plusieurs dossiers automatiquement",
+    "newProject": "Nouveau projet"
+  },
+  "stats": {
+    "total": "Total",
+    "running": "En cours",
+    "completed": "Terminé",
+    "failed": "Échec"
+  },
+  "empty": {
+    "title": "Aucune tâche par lots pour l'instant",
+    "desc": "Créez une tâche par lots et laissez l'IA traiter plusieurs dossiers automatiquement",
+    "action": "Créez votre premier projet"
+  },
+  "time": {
+    "justNow": "à l'instant",
+    "minutes": "{{n}} min",
+    "hours": "{{n}} h",
+    "days": "{{n}} j",
+    "weeks": "{{n}} sem"
+  },
+  "group": {
+    "badge": "Lot"
+  },
+  "dialog": {
+    "editTitle": "Modifier le projet",
+    "newTitle": "Nouveau projet par lots",
+    "namePlaceholderEdit": "Nom du projet",
+    "namePlaceholderNew": "Nouveau projet par lots",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "create": "Créer"
+  },
+  "form": {
+    "namePlaceholder": "Nom du projet",
+    "promptPlaceholder": "Saisissez une invite... tapez / pour invoquer des compétences/scènes",
+    "model": "Modèle",
+    "modelEmpty": "Aucun modèle disponible",
+    "modelSelect": "Sélectionner un modèle",
+    "defaultTag": "Par défaut",
+    "concurrency": "Parallélisme",
+    "timeout": "Délai d'expiration (minutes)",
+    "timeoutHint": "Délai maximal strict pour l'exécution d'une sous-tâche. La reprise après une pause redémarre le minuteur.",
+    "sandbox": "État du bac à sable",
+    "sandboxInherit": "Suivre la valeur globale par défaut ({{mode}})",
+    "fullAccess": "Accès complet",
+    "useSandbox": "Utiliser le bac à sable",
+    "sandboxUnavailable": "Bac à sable {{platform}} indisponible : {{reason}}",
+    "notifyTitle": "Activer les notifications",
+    "notifyDesc": "Envoie une fois vers le webhook configuré après chaque sous-tâche terminée, et un résumé lorsque tout le projet se termine (gérez les webhooks dans Paramètres → Notifications).",
+    "artifact": "Vérification des artefacts",
+    "optional": "Facultatif",
+    "artifactPlaceholder": "Un nom de fichier ou joker par ligne ; laissez vide pour ignorer la vérification",
+    "artifactHint": "Tous les motifs doivent correspondre au premier niveau du répertoire de la sous-tâche pour compter comme un succès. Glob pris en charge : * correspond à n'importe quels caractères, ? à un seul caractère.",
+    "folderLabel": "Liste des dossiers",
+    "folderEmpty": "Aucun dossier",
+    "folderModePicker": "Sélection",
+    "folderModeText": "Texte",
+    "selectFolder": "Sélectionner des dossiers",
+    "folderTextHint": "Si la sélection multi-dossiers est instable sous Linux, collez directement les chemins, un dossier par ligne."
+  },
+  "status": {
+    "waiting": "En attente",
+    "notRun": "Non exécuté",
+    "running": "En cours",
+    "completed": "Terminé",
+    "failed": "Échec",
+    "paused": "En pause"
+  },
+  "list": {
+    "matchCount": "{{filtered}}/{{total}} correspondances",
+    "taskCount": "{{n}} tâches",
+    "completedOf": "{{completed}}/{{total}} terminées",
+    "runningSuffix": " · {{n}} en cours",
+    "pausedSuffix": " · {{n}} en pause",
+    "failedReset": "{{n}} échecs · réinitialiser",
+    "resetFailedHint": "Cliquez pour réinitialiser {{n}} tâches en échec",
+    "searchPlaceholder": "Rechercher des titres de tâches…",
+    "clear": "Effacer",
+    "noMatch": "Aucune tâche ne correspond à \"{{query}}\"",
+    "noTasks": "Aucune tâche",
+    "expandMore": "Afficher plus ({{n}})",
+    "collapse": "Réduire"
+  },
+  "actions": {
+    "stop": "Arrêter",
+    "start": "Démarrer",
+    "reset": "Réinitialiser",
+    "editProject": "Modifier le projet",
+    "deleteProject": "Supprimer le projet",
+    "goToSession": "Ouvrir la session",
+    "cancelWait": "Annuler l'attente",
+    "run": "Exécuter",
+    "resume": "Reprendre",
+    "retry": "Réessayer",
+    "rerun": "Relancer",
+    "delete": "Supprimer",
+    "allDoneOrFailed": "Toutes les tâches sont terminées ou en échec. Cliquez sur le badge \"{{n}} échecs · réinitialiser\" pour réinitialiser et réessayer",
+    "allDone": "Toutes les tâches sont terminées"
+  },
+  "confirm": {
+    "cannotDeleteTitle": "Impossible de supprimer le projet",
+    "cannotDeleteMsg": "Veuillez d'abord l'arrêter.",
+    "ok": "OK",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "deleteProjectTitle": "Supprimer le projet \"{{name}}\" ?",
+    "deleteProjectMsg": "Cette action est irréversible. Veuillez confirmer pour continuer.",
+    "startTitle": "Démarrer l'exécution ?",
+    "startMsg": "Exécutera {{parts}} tâches dans l'ordre selon la concurrence (les autres états ne sont pas modifiés). Continuer ?",
+    "start": "Démarrer",
+    "partNeverExecuted": "{{n}} \"non exécuté\"",
+    "partPaused": "{{n}} \"en pause\"",
+    "partJoin": " et ",
+    "stopTitle": "Arrêter ?",
+    "stopMsg": "Interrompra toutes les tâches en cours ({{running}}) et effacera la session, les artefacts et l'état de toutes les tâches sauf celles \"terminées\" ({{target}}), en les réinitialisant à \"non exécuté\".\n\nConservé : sessions, artefacts et état des tâches terminées.\nLes tâches terminées sont conservées. Cette action est irréversible.",
+    "stop": "Arrêter",
+    "resetFailedTitle": "Réinitialiser les tâches en échec ?",
+    "resetFailedQueueActive": "Effacera la session, les artefacts et l'état de {{n}} tâches en échec, puis les ajoutera à la file d'attente pour continuer. Cette action est irréversible. Continuer ?",
+    "resetFailedIdle": "Effacera la session, les artefacts et l'état de {{n}} tâches en échec et les réinitialisera à \"non exécuté\". Vous pourrez ensuite cliquer sur \"Démarrer\" pour continuer. Cette action est irréversible. Continuer ?",
+    "reset": "Réinitialiser",
+    "resetTitle": "Réinitialiser ?",
+    "resetMsg": "Supprimera les sessions et les fichiers de toutes les tâches (y compris terminées) et relancera les {{n}} tâches. Cette action est irréversible. Continuer ?",
+    "rerunTitle": "Relancer la tâche \"{{name}}\" ?",
+    "retryTitle": "Réessayer la tâche \"{{name}}\" ?",
+    "rerunMsg": "Supprimera la session et les artefacts existants de cette tâche et la relancera. Cette action est irréversible. Continuer ?",
+    "retryMsg": "Supprimera la session et les fichiers de cette tâche et la relancera. Cette action est irréversible. Continuer ?",
+    "rerun": "Relancer",
+    "retry": "Réessayer",
+    "deleteTaskTitle": "Supprimer la tâche ?",
+    "deleteTaskMsg": "Cette action est irréversible. Veuillez confirmer pour continuer."
+  },
+  "error": {
+    "stopFirst": "Veuillez d'abord l'arrêter"
+  }
+}

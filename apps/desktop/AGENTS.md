@@ -182,7 +182,7 @@ src/
 本应用已接入 i18next + react-i18next（背景与架构见 [`docs/adr/0031`](../../docs/adr/0031-desktop-i18n-i18next-semantic-keys-main-owned-language.md)）。**所有面向用户的文案必须走 i18n，禁止硬编码中文字符串**——包括新写的代码和你改到的旧代码里新增的文案。
 
 **catalog 与命名空间**
-- 文案存 `src/shared/i18n/locales/{zh,en}/<ns>.json`，**zh 为准、en 后填**，缺译自动回退 zh（`fallbackLng=zh`，绝不暴露原始 key）。
+- 文案存 `src/shared/i18n/locales/<lang>/<ns>.json`（`zh` / `en` / `es` / `fr` / `id` / `vi` / `ru` / `ja`），**zh 为准、en 与 zh 全量对齐**；新增语言的 key 集合必须与 en 完全一致（`resources.test.ts` 会拦漏 key / 空译 / 丢插值）。缺译按 `FALLBACK_LANGUAGES`（en → zh）回退，绝不暴露原始 key。**新增语言要同步改**：`config.ts` 的 `SUPPORTED_LANGUAGES`、`FIXED_LANGUAGE_OPTIONS`、locale 归一化表，`resources.ts`，以及两个自带文案目录、不走 `resources` 的独立窗口——`renderer/quickpanel/i18n.ts`（内联 `quickpanel` ns）和 `renderer/onboarding/i18n.ts`（只装配 `settings` ns），各自有 `i18n.test.ts` 拦漏装；漏了不会报错，只是那个窗口静默回退、与主窗口语言不一致。语言集合若进入对外动作（如 `appearance.set-language`），`plugin-sdk` 与插件预设里的语言联合类型、JSON Schema enum 也要一起放宽。
 - 按 domain 分 ns：`common`（按钮等基础件）、`main`（主进程原生 UI）、`chat` / `settings` / … 各 domain 一个 ns。
 - key 用**语义点路径**，按组件/特性分组：`t("inputBar.placeholder.defaults")`、`t("newSession.subtitle")`。
 

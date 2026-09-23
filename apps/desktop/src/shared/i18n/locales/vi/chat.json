@@ -1,0 +1,942 @@
+{
+  "activityPanel": {
+    "tabs": {
+      "file": "Tệp",
+      "batchProgress": "Tiến độ",
+      "todo": "Việc cần làm",
+      "backgroundTasks": "Tác vụ nền",
+      "debug": "Gỡ lỗi",
+      "knowledgeHistory": "Lịch sử xử lý",
+      "workflow": "Quy trình"
+    },
+    "backgroundTasks": {
+      "statusRunning": "Đang chạy",
+      "statusCompleted": "Hoàn thành",
+      "statusFailed": "Thất bại",
+      "statusKilled": "Đã dừng",
+      "subagentStatusPending": "Đang chờ",
+      "subagentStatusInterrupted": "Bị ngắt",
+      "durationSec": "{{sec}} giây",
+      "durationMin": "{{min}} phút {{sec}} giây",
+      "durationHour": "{{hr}} giờ {{min}} phút",
+      "empty": "Không có tác vụ nền",
+      "clearFinished": "Xóa mục đã xong ({{count}})",
+      "stop": "Dừng"
+    },
+    "mcpTasks": {
+      "statusWorking": "Đang xử lý",
+      "statusInputRequired": "Đang chờ nhập liệu",
+      "statusCancelled": "Đã hủy"
+    },
+    "subagents": {
+      "usage": "{{tokens}} token · {{cost}}",
+      "errorPermission": "Quyền bị chặn",
+      "errorContext": "Đã đạt giới hạn ngữ cảnh",
+      "errorConnection": "Kết nối bị ngắt",
+      "errorExecution": "Chạy thất bại"
+    },
+    "batchProgress": {
+      "notFound": "Không tìm thấy dự án hàng loạt"
+    },
+    "debug": {
+      "toolCalls": "Lệnh gọi công cụ",
+      "requestHistory": "Lịch sử yêu cầu"
+    },
+    "todo": {
+      "empty": "Không có việc cần làm",
+      "headline": "Đang thực hiện",
+      "allDone": "Hoàn tất",
+      "progress": "Xong {{done}} trên {{total}}",
+      "statusDone": "Xong",
+      "statusInProgress": "Đang thực hiện",
+      "statusPending": "Đang chờ"
+    },
+    "toolCalls": {
+      "filterAll": "Tất cả",
+      "filterSuccess": "Thành công",
+      "filterError": "Thất bại",
+      "noSession": "Không có phiên hoạt động",
+      "searchPlaceholder": "Tìm tên công cụ...",
+      "loading": "Đang tải...",
+      "recordCount": "{{count}} bản ghi",
+      "refresh": "Làm mới",
+      "empty": "Chưa có lệnh gọi công cụ",
+      "noMatch": "Không có kết quả khớp",
+      "args": "Đối số",
+      "result": "Kết quả"
+    },
+    "requestHistory": {
+      "noSession": "Không có phiên hoạt động",
+      "loading": "Đang tải...",
+      "requestCount": "{{count}} yêu cầu",
+      "refresh": "Làm mới",
+      "empty": "Sau khi gửi tin nhắn ở chế độ gỡ lỗi, lịch sử yêu cầu sẽ hiện ở đây",
+      "showInFolder": "Mở trong thư mục"
+    },
+    "schedule": {
+      "statusRunning": "Đang chạy",
+      "statusSuccess": "Thành công",
+      "statusFailed": "Thất bại",
+      "statusAborted": "Đã hủy bỏ",
+      "unnamedTask": "Tác vụ chưa đặt tên",
+      "noTasks": "Dự án này không có tác vụ tự động hóa",
+      "overview": "Tổng quan tự động hóa",
+      "refresh": "Làm mới",
+      "totalTasks": "Tổng số tác vụ",
+      "enabled": "Đã bật",
+      "todayExecutions": "Hôm nay",
+      "taskControl": "Điều khiển tác vụ",
+      "enabledBadge": "Đã bật",
+      "pausedBadge": "Tạm dừng",
+      "run": "Chạy",
+      "pause": "Tạm dừng",
+      "enable": "Bật",
+      "executionRecords": "Bản ghi thực thi",
+      "noRecords": "Không có bản ghi thực thi"
+    },
+    "htmlPreview": {
+      "title": "Xem trước HTML"
+    },
+    "workflow": {
+      "empty": "Không có quy trình",
+      "noTranscript": "Chưa có tin nhắn từ quy trình này",
+      "stop": "Dừng",
+      "statusQueued": "Trong hàng đợi",
+      "statusPending": "Đang khởi động",
+      "statusRunning": "Đang chạy",
+      "statusCompleted": "Hoàn thành",
+      "statusFailed": "Thất bại",
+      "statusInterrupted": "Bị ngắt",
+      "processingTitle": "{{count}} quy trình đang chạy",
+      "doneTitle": "Tất cả quy trình đã kết thúc"
+    }
+  },
+  "fileExplorer": {
+    "clearArtifactsTitle": "Xóa tệp kết quả",
+    "clearArtifactsMessage": "Thao tác này sẽ xóa mọi tệp kết quả trong thư mục làm việc của dự án {{label}} (bản ghi phiên được giữ lại). Không thể hoàn tác.",
+    "clearArtifactsConfirm": "Xóa",
+    "clearArtifactsFailed": "Không xóa được tệp kết quả",
+    "conversationLabel": "\"Hội thoại\"",
+    "moveFailed": "Di chuyển thất bại",
+    "deleteFailed": "Xóa thất bại",
+    "selectProject": "Chọn một dự án để duyệt tệp",
+    "fileList": "Tệp dự án",
+    "clearArtifacts": "Xóa tệp kết quả",
+    "refresh": "Làm mới",
+    "newFile": "Tệp mới",
+    "newFolder": "Thư mục mới",
+    "collapseAll": "Thu gọn tất cả",
+    "newFileInputLabel": "Nhập tên tệp mới",
+    "newFolderInputLabel": "Nhập tên thư mục mới",
+    "createAlreadyExists": "Đã có tệp hoặc thư mục trùng tên",
+    "createFailed": "Không tạo được mục",
+    "invalidName": {
+      "empty": "Tên không được để trống",
+      "dotPath": "Tên không thể là . hoặc ..",
+      "pathSeparator": "Tên không được chứa dấu phân cách đường dẫn",
+      "invalidCharacter": "Tên chứa ký tự không được phép trên Windows",
+      "reservedName": "Tên này bị Windows dành riêng",
+      "trailingCharacter": "Tên không được kết thúc bằng dấu cách hoặc dấu chấm"
+    },
+    "emptyFolder": "Thư mục này trống",
+    "openInFinder": "Hiện trong Finder",
+    "openInExplorer": "Hiện trong Explorer",
+    "copy": "Sao chép",
+    "paste": "Dán",
+    "copyPath": "Sao chép đường dẫn",
+    "copyName": "Sao chép tên",
+    "rename": "Đổi tên",
+    "delete": "Xóa",
+    "confirmDeleteTitle": "Xác nhận xóa",
+    "confirmDeleteFolder": "thư mục",
+    "confirmDeleteFile": "tệp",
+    "confirmDeletePrefix": "Xóa {{type}}",
+    "confirmDeleteSuffix": "?{{folderNote}} Không thể hoàn tác.",
+    "confirmDeleteFolderNote": " Toàn bộ nội dung trong thư mục sẽ bị xóa.",
+    "confirmDeleteMultiplePrefix": "Xóa {{count}} mục này",
+    "confirmDeleteMultipleMore": " và {{count}} mục nữa",
+    "confirmDeleteMultipleSuffix": "? Không thể hoàn tác.",
+    "cancel": "Hủy",
+    "transfer": {
+      "title": "Thêm tệp vào dự án",
+      "pasteCopyTitle": "Dán tệp",
+      "pasteMoveTitle": "Di chuyển tệp",
+      "description": "Đặt {{count}} mục vào “{{destination}}”",
+      "moveWarning": "Di chuyển sẽ xóa các mục đã chuyển thành công khỏi vị trí gốc.",
+      "conflictLabel": "{{count}} mục bị trùng tên",
+      "keepBoth": "Giữ cả hai",
+      "replace": "Thay thế mục hiện có",
+      "skip": "Bỏ qua mục bị trùng",
+      "copy": "Sao chép",
+      "move": "Di chuyển",
+      "cancel": "Hủy",
+      "processing": "Đang xử lý…",
+      "prepareFailed": "Không đọc được tệp đã kéo thả",
+      "commitFailed": "Chuyển tệp thất bại",
+      "failedCount": "{{count}} mục chuyển thất bại"
+    }
+  },
+  "fileEditor": {
+    "loading": "Đang mở tệp…",
+    "edit": "Sửa",
+    "preview": "Xem trước",
+    "save": "Lưu",
+    "saving": "Đang lưu…",
+    "saved": "Đã lưu",
+    "unsaved": "Thay đổi chưa lưu",
+    "conflict": "Một chương trình khác đã thay đổi tệp này. Hãy tải lại hoặc ghi đè rõ ràng lên bản trên đĩa.",
+    "reload": "Tải lại",
+    "overwrite": "Ghi đè",
+    "errorTooLarge": "Không thể sửa tệp lớn hơn 2 MB",
+    "errorPreviewTooLarge": "Tệp này quá lớn để xem trước",
+    "errorNotUtf8": "Tệp này không phải văn bản UTF-8 hợp lệ nên không thể sửa",
+    "errorRead": "Không đọc được tệp này",
+    "errorSave": "Không lưu được tệp này. Hãy thử lại.",
+    "unsupported": "Không hỗ trợ xem trước loại tệp này",
+    "download": "Tải tệp xuống",
+    "showTree": "Hiện cây tệp",
+    "hideTree": "Ẩn cây tệp",
+    "previous": "Trước (←)",
+    "next": "Tiếp (→)",
+    "downloadShort": "Tải xuống",
+    "refresh": "Làm mới",
+    "close": "Đóng"
+  },
+  "appshot": {
+    "errorSelfCapture": "Bỏ qua Appshot: cửa sổ trên cùng chính là Metoai",
+    "errorNoPermission": "Chụp Appshot thất bại: thiếu quyền Ghi màn hình và Trợ năng. Hãy cấp quyền trong Cài đặt › Quyền",
+    "errorHelperFailed": "Chụp Appshot thất bại, vui lòng thử lại"
+  },
+  "askUserQuestion": {
+    "cancelledMessage": "Người dùng đã hủy, chưa trả lời",
+    "defaultQuestionLabel": "Câu hỏi {{number}}"
+  },
+  "mcpElicitation": {
+    "title": "Yêu cầu thông tin MCP",
+    "source": "Từ {{server}}",
+    "urlNotice": "Metoai chỉ mở địa chỉ này trong trình duyệt hệ thống sau khi bạn xác nhận.",
+    "decline": "Từ chối",
+    "openAndContinue": "Mở và tiếp tục",
+    "submit": "Gửi",
+    "required": "(bắt buộc)",
+    "enabled": "Đã bật",
+    "disabled": "Đã tắt",
+    "selectPlaceholder": "Chọn một tùy chọn"
+  },
+  "atPanel": {
+    "emptyDirectory": "Thư mục trống",
+    "enterDirectory": "Nhấn Tab để vào",
+    "goUp": "..",
+    "header": "Tham chiếu tệp",
+    "loading": "Đang tải...",
+    "noResults": "Không tìm thấy kết quả",
+    "searchResults": "{{count}} kết quả"
+  },
+  "backgroundTasksBadge": {
+    "runningTasksTooltip": "{{count}} tác vụ nền đang chạy"
+  },
+  "bashHeader": {
+    "statusCancelled": "Đã hủy: {{short}}",
+    "statusError": "Lệnh thất bại: {{short}}",
+    "statusPending": "Đang chạy: {{short}}",
+    "statusSuccess": "Đã chạy lệnh: {{short}}"
+  },
+  "bashTerminalCard": {
+    "copyCommand": "Sao chép lệnh",
+    "metaDescription": "Siêu dữ liệu cục bộ, chỉ trên giao diện, không gửi tới mô hình"
+  },
+  "browser": {
+    "addressPlaceholder": "Nhập URL rồi nhấn Enter",
+    "back": "Quay lại",
+    "empty": "Nhấp vào liên kết trong hội thoại hoặc nhập URL ở trên",
+    "failed": "Không tải được trang",
+    "forward": "Tiến",
+    "loading": "Đang tải…",
+    "noSession": "Không có phiên hoạt động",
+    "openExternal": "Mở trong trình duyệt hệ thống",
+    "reload": "Tải lại",
+    "retry": "Thử lại",
+    "stop": "Dừng",
+    "tab": "Trình duyệt"
+  },
+  "capability": {
+    "network": "Mạng",
+    "read": "Đọc",
+    "write": "Ghi"
+  },
+  "chatExport": {
+    "defaultSessionName": "Phiên Metoai"
+  },
+  "chatView": {
+    "defaultSessionTitle": "Phiên Metoai",
+    "exportButton": {
+      "title": "Xuất toàn bộ phiên dưới dạng HTML"
+    },
+    "newSessionButton": {
+      "title": "Phiên mới"
+    },
+    "panelButton": {
+      "closed": "Mở bảng hoạt động",
+      "open": "Đóng bảng hoạt động"
+    },
+    "pinButton": {
+      "pinned": "Bỏ ghim cửa sổ",
+      "unpinned": "Ghim cửa sổ (luôn trên cùng)"
+    }
+  },
+  "contextRing": {
+    "tooltip": {
+      "compacting": "Đang nén ngữ cảnh...",
+      "unknown": "Cửa sổ ngữ cảnh {{window}} (chưa rõ mức dùng)",
+      "usage": "Ngữ cảnh đã dùng {{tokens}} token ({{percent}}%, cửa sổ {{window}})"
+    },
+    "details": {
+      "title": "Thành phần ngữ cảnh (lần gọi gần nhất)",
+      "actual": "Đầu vào thực tế",
+      "section": "Phần",
+      "category": "Danh mục",
+      "tokens": "Token",
+      "share": "Tỷ lệ",
+      "unknown": "Không rõ",
+      "back": "Quay lại",
+      "unavailableAfterRestart": "Không có chi tiết thành phần ngữ cảnh nào có thể khôi phục cho phiên này. Hãy gửi thêm tin nhắn để tạo và lưu báo cáo mới.",
+      "items": "{{count}} mục",
+      "unknownItems": "{{count}} không rõ",
+      "owner": {
+        "core": "Hệ thống",
+        "skill": "Kỹ năng",
+        "plugin": "Plugin",
+        "mcp": "MCP",
+        "extension": "Tiện ích mở rộng",
+        "runtime": "Môi trường chạy",
+        "user": "Người dùng",
+        "unknown": "Không xác định nguồn"
+      },
+      "kind": {
+        "instruction": "Chỉ dẫn",
+        "tool_schema": "Lược đồ công cụ",
+        "history": "Lịch sử",
+        "runtime_context": "Ngữ cảnh môi trường chạy",
+        "user_input": "Đầu vào hiện tại"
+      },
+      "group": {
+        "instructions": "Chỉ dẫn cốt lõi",
+        "capabilities": "Tiện ích mở rộng",
+        "tools": "Công cụ",
+        "conversation": "Hội thoại",
+        "runtime": "Ngữ cảnh môi trường chạy"
+      }
+    }
+  },
+  "copyButton": {
+    "copied": "Đã sao chép",
+    "label": "Sao chép"
+  },
+  "dropZone": {
+    "externalRef": "Ảnh được đính kèm tự động; các tệp khác được tham chiếu",
+    "internalRef": "Tham chiếu từ trong dự án",
+    "releaseToRef": "Thả để tham chiếu tệp"
+  },
+  "editDiff": {
+    "anchor": {
+      "badge": "Sửa theo mốc",
+      "delete": "Xóa",
+      "insertAfter": "Chèn sau",
+      "replace": "Thay thế dòng",
+      "replaceRange": "Thay thế đoạn"
+    },
+    "netChangeLabel": "Chênh lệch {{net}}",
+    "newTextEmpty": "Văn bản thay thế trống",
+    "oldTextEmpty": "Văn bản khớp trống"
+  },
+  "executionModeSelector": {
+    "fullAccess": {
+      "label": "Toàn quyền truy cập",
+      "title": "Cho phép toàn quyền truy cập hệ thống hiện tại"
+    },
+    "sandbox": {
+      "label": "Hộp cát",
+      "title": "Chỉ cho phép truy cập hạn chế trong không gian làm việc"
+    },
+    "sandboxUnavailable": "Hộp cát {{platform}} không khả dụng: {{reason}}"
+  },
+  "export": {
+    "shareNavDescription": "đã chia sẻ một phiên",
+    "shareNavDescriptionWithNickname": "{{nickname}} đã chia sẻ một phiên"
+  },
+  "filterByTags": {
+    "hitCount": "Khớp {{count}} trang",
+    "noResults": "Không có trang nào khớp",
+    "noTitle": "(không có tiêu đề)"
+  },
+  "guideBadgeSwiper": {
+    "dismissTooltip": "Không hiện lại",
+    "petFeatureText": "Tính năng thú cưng trên màn hình mới — nhấp để bật trong cài đặt",
+    "quickPanelText": "Metoai đã có Bảng nhanh — nhấp để thiết lập"
+  },
+  "imagePreview": {
+    "altText": "Ảnh đã tải",
+    "imageLabel": "Ảnh",
+    "originalLabel": "Bản gốc",
+    "processedLabel": "Đầu vào mô hình",
+    "showInFolderButton": "Hiện bản gốc trong trình quản lý tệp"
+  },
+  "inputActionBar": {
+    "chip": {
+      "removeTooltip": "Nhấp để xóa"
+    },
+    "knowledgeRetrieval": {
+      "label": "Tìm kiếm tri thức",
+      "tooltip": "Khi bật, lượt này có thể gọi công cụ cơ sở tri thức và ưu tiên trả lời từ cơ sở tri thức của bạn"
+    }
+  },
+  "inputBar": {
+    "error": {
+      "multipleScenes": "Mỗi tin nhắn chỉ chọn được một Cảnh. Hãy bỏ Cảnh thừa rồi thử lại"
+    },
+    "capsule": {
+      "appshotThumbnailAlt": "Ảnh chụp màn hình",
+      "appshotPreview": "Xem trước ảnh chụp màn hình",
+      "appshotIconAlt": "Biểu tượng ứng dụng",
+      "removeDefault": "Nhấp để xóa",
+      "removeImage": "Xóa ảnh",
+      "removeTooltip": "{{path}}\nNhấp để xóa",
+      "activeGroup": "{{count}} plugin",
+      "imageBadge": "Ảnh {{index}}"
+    },
+    "drawer": {
+      "permissionDesc": "Đang chờ xác nhận",
+      "permissionLabel": "Yêu cầu quyền",
+      "queueDelete": "Xóa",
+      "contextCompaction": "Nén ngữ cảnh",
+      "queueDesc": "{{count}} trong hàng đợi",
+      "queueEmpty": "Không có tin nhắn trong hàng đợi",
+      "queueLabel": "Hàng đợi",
+      "queuePaused": "Lượt trước bị ngắt — tin nhắn trong hàng đợi đang tạm giữ",
+      "queuePausedDesc": "Tạm dừng · {{count}} trong hàng đợi",
+      "queueResume": "Tiếp tục gửi",
+      "queueSendNow": "Gửi ngay"
+    },
+    "permission": {
+      "allow": "Cho phép một lần",
+      "allowSession": "Không hỏi lại trong phiên này",
+      "deny": "Từ chối"
+    },
+    "placeholder": {
+      "defaults": [
+        "Hỏi Metoai, dùng / cho kỹ năng, @ để tham chiếu tệp",
+        "Mô tả tác vụ, nhấn ⏎ để gửi",
+        "Dán ảnh chụp màn hình hoặc @ tệp để bắt đầu"
+      ],
+      "noSession": "Chọn hoặc tạo một phiên để bắt đầu",
+      "suggestion": "↵ {{suggestion}}",
+      "thinking": "Metoai đang suy nghĩ…"
+    },
+    "mention": {
+      "trigger": "Nhắc thành viên",
+      "title": "Nhắc thành viên nhóm",
+      "hint": "Trưởng nhóm sẽ đảm nhận khi không nhắc ai.",
+      "empty": "Nhóm này không có thành viên nào để nhắc",
+      "clear": "Xóa tất cả",
+      "selected": "{{count}} thành viên"
+    },
+    "toolbar": {
+      "addImage": "Thêm ảnh",
+      "attachFile": "Đính kèm tham chiếu tệp",
+      "skills": "Kỹ năng / Cảnh"
+    },
+    "speech": {
+      "actions": {
+        "start": "Bắt đầu nhập bằng giọng nói",
+        "stop": "Dừng nhập bằng giọng nói"
+      },
+      "states": {
+        "loading": "Đang tải mô hình giọng nói ngoại tuyến…",
+        "stopping": "Đang hoàn tất nhận dạng giọng nói…"
+      },
+      "errors": {
+        "unsupported": "Nhập bằng giọng nói hiện cần Windows x64",
+        "missing": "Bản cài này thiếu mô hình giọng nói. Hãy cài lại ứng dụng",
+        "integrity": "Mô hình giọng nói đi kèm không đầy đủ. Hãy cài lại ứng dụng",
+        "recognizer": "Không khởi động được nhận dạng giọng nói. Nhấp để thử lại"
+      }
+    },
+    "contextMenu": {
+      "cut": "Cắt",
+      "copy": "Sao chép",
+      "paste": "Dán"
+    },
+    "todo": {
+      "trigger": "Việc cần làm",
+      "allDone": "Hoàn tất",
+      "panelTitle": "Danh sách việc cần làm",
+      "openPanel": "Mở trong bảng",
+      "statusDone": "Xong",
+      "statusInProgress": "Đang thực hiện",
+      "statusPending": "Đang chờ"
+    }
+  },
+  "knowledgeTools": {
+    "empty": "Không có kết quả"
+  },
+  "listTags": {
+    "empty": "Cơ sở tri thức chưa có thẻ nào",
+    "tagCount": "Tổng {{count}} thẻ"
+  },
+  "messageCards": {
+    "layoutList": "Danh sách",
+    "layoutStacked": "Xếp chồng"
+  },
+  "messageList": {
+    "userMessage": {
+      "expand": "Mở rộng tin nhắn",
+      "sceneBadge": "Cảnh",
+      "skillBadge": "Kỹ năng",
+      "settingsAssist": {
+        "mcp": "Hỗ trợ thiết lập MCP",
+        "models": "Hỗ trợ thiết lập mô hình",
+        "knowledge": "Hỗ trợ thiết lập tri thức",
+        "knowledgeBase": "Hỗ trợ cơ sở tri thức",
+        "batchTasks": "Hỗ trợ tác vụ hàng loạt",
+        "automation": "Hỗ trợ tự động hóa",
+        "im": "Hỗ trợ thiết lập Claw",
+        "webhook": "Hỗ trợ thiết lập Webhook",
+        "appearance": "Hỗ trợ thiết lập giao diện",
+        "plugins": "Hỗ trợ thiết lập Plugin",
+        "pet": "Hỗ trợ thiết lập thú cưng",
+        "environment": "Hỗ trợ thiết lập môi trường",
+        "shortcuts": "Hỗ trợ thiết lập phím tắt",
+        "agent": "Hỗ trợ thiết lập tác nhân",
+        "unknown": "Hỗ trợ thiết lập cài đặt"
+      }
+    },
+    "assistantFoldTip": {
+      "collapse": "Thu gọn {{count}} mục",
+      "collapseLabel": "Thu gọn",
+      "expand": "Mở rộng {{count}} mục",
+      "expandLabel": "Mở rộng",
+      "streaming": "Đang xử lý · {{duration}}",
+      "waiting": "Đang chờ · {{duration}}",
+      "work": {
+        "collapse": "Thu gọn {{count}} bước",
+        "collapseZero": "Thu gọn quá trình",
+        "expand": "Mở rộng {{count}} bước",
+        "expandZero": "Mở rộng quá trình"
+      }
+    },
+    "assistantMessage": {
+      "predicting": "Metoai đang dự đoán…",
+      "processing": "Đang xử lý…",
+      "waiting": "Đang chờ mô hình phản hồi"
+    },
+    "duration": {
+      "seconds": "{{seconds}} giây",
+      "minutes": "{{minutes}} phút {{seconds}} giây",
+      "hours": "{{hours}} giờ {{minutes}} phút"
+    },
+    "navigation": {
+      "title": "Câu hỏi",
+      "count": "{{count}}",
+      "open": "Xem câu hỏi",
+      "close": "Đóng danh sách câu hỏi",
+      "searchLabel": "Tìm câu hỏi",
+      "searchPlaceholder": "Tìm câu hỏi",
+      "noResults": "Không có câu hỏi khớp",
+      "jumpTo": "Chuyển đến {{preview}}",
+      "emptyUser": "(Không có văn bản)"
+    },
+    "tokenUsage": {
+      "trigger": "Xem mức dùng token",
+      "sessionTitle": "Token của phiên",
+      "messageTitle": "Token của tin nhắn hiện tại",
+      "scopeLabel": "Phạm vi dùng token",
+      "session": "Tổng của phiên",
+      "message": "Tin nhắn hiện tại",
+      "modelCalls": "{{count}} lần gọi mô hình",
+      "total": "Tổng",
+      "prompt": "Token prompt",
+      "uncachedInput": "Đầu vào",
+      "output": "Đầu ra",
+      "cacheRead": "Trúng bộ nhớ đệm",
+      "cacheWrite": "Ghi bộ nhớ đệm",
+      "cacheHitRate": "Tỷ lệ trúng bộ nhớ đệm",
+      "moreParameters": "Thêm tham số",
+      "readCoverage": "Độ phủ quan sát đọc",
+      "writeCoverage": "Độ phủ quan sát ghi",
+      "readOnlyReporting": "Không báo cáo (chỉ đọc)",
+      "diagnosticCoverage": "Độ phủ chẩn đoán tiền tố",
+      "stableSystemChars": "Ký tự prompt hệ thống ổn định",
+      "volatileSystemChars": "Ký tự prompt hệ thống dễ đổi",
+      "historyMessages": "Tin nhắn lịch sử tiền tố",
+      "toolCount": "Số lượng công cụ",
+      "prefixStatus": "Trạng thái tiền tố ổn định",
+      "changedSegments": "Đoạn đã thay đổi",
+      "changedPromptBlocks": "Khối prompt đã thay đổi",
+      "changedTools": "Công cụ đã thay đổi",
+      "definitionChange": "{{id}} ({{change}})",
+      "changeKinds": {
+        "added": "đã thêm",
+        "removed": "đã xóa",
+        "changed": "nội dung đã thay đổi",
+        "reordered": "đã sắp xếp lại"
+      },
+      "segmentSeparator": ", ",
+      "prefixStatuses": {
+        "initial": "Chẩn đoán đầu tiên",
+        "extended": "Được mở rộng liên tục",
+        "changed": "Tiền tố đã thay đổi",
+        "unknown": "Không có bản lịch sử"
+      },
+      "prefixSegments": {
+        "stableSystem": "Prompt hệ thống ổn định",
+        "volatileSystem": "Prompt hệ thống dễ đổi",
+        "tools": "Định nghĩa công cụ",
+        "messages": "Lịch sử tin nhắn"
+      },
+      "prefixHash": "Dấu vân tay tiền tố yêu cầu",
+      "unavailable": "Không báo cáo"
+    },
+    "compactionBoundary": "Đã nén ngữ cảnh",
+    "modelSwitched": "Đã chuyển sang mô hình {{name}}",
+    "compactionIndicator": "Đang nén ngữ cảnh...",
+    "retryIndicator": "Đang kết nối lại ({{attempt}}/{{maxAttempts}})",
+    "retryReason": "Yêu cầu trước thất bại: {{reason}}",
+    "streamingPhrases": [
+      "Metoai đang trả lời…",
+      "Vui lòng đợi…",
+      "Metoai đang cố gắng hết sức…"
+    ],
+    "copyButton": {
+      "copied": "Đã sao chép",
+      "copy": "Sao chép"
+    },
+    "errorBlock": {
+      "showDetail": "Hiện chi tiết",
+      "hideDetail": "Ẩn chi tiết",
+      "retriedNote": "Đã tự động thử lại {{count}} lần",
+      "repeatedNote": "Đã xảy ra {{count}} lần",
+      "diagnostic": {
+        "code": "Mã lỗi: {{value}}",
+        "origin": "Nguồn gốc: {{value}}",
+        "statusCode": "Trạng thái HTTP: {{value}}",
+        "provider": "Nhà cung cấp: {{value}}",
+        "model": "Mô hình: {{value}}",
+        "providerCode": "Mã lỗi nhà cung cấp: {{value}}",
+        "phase": "Giai đoạn: {{value}}",
+        "requestId": "ID yêu cầu: {{value}}",
+        "retryAfter": "Nên chờ: {{value}} ms"
+      },
+      "kinds": {
+        "rate_limit": {
+          "title": "Quá nhiều yêu cầu",
+          "hint": "Chờ một lát rồi gửi lại."
+        },
+        "quota": {
+          "title": "Bạn đã hết hạn mức",
+          "hint": "Chờ hạn mức đặt lại, hoặc kiểm tra gói và mức sử dụng của bạn.",
+          "action": "Xem hạn mức"
+        },
+        "network": {
+          "title": "Không có kết nối mạng",
+          "hint": "Kiểm tra mạng hoặc proxy rồi gửi lại."
+        },
+        "auth": {
+          "title": "Khóa mô hình không hợp lệ hoặc đã hết hạn",
+          "hint": "Cập nhật khóa trong cài đặt mô hình rồi thử lại.",
+          "action": "Mở cài đặt"
+        },
+        "server": {
+          "title": "Dịch vụ đang gặp sự cố",
+          "hint": "Thường sẽ khôi phục trong vài phút — hãy thử lại sau."
+        },
+        "unknown": {
+          "title": "Phản hồi này bị ngắt",
+          "hint": "Hãy gửi lại; nếu vẫn tiếp diễn, hãy sao chép chi tiết gửi cho chúng tôi."
+        }
+      }
+    },
+    "contextMenu": {
+      "edit": "Sửa",
+      "copy": "Sao chép",
+      "delete": "Xóa"
+    },
+    "selectionContextMenu": {
+      "copy": "Sao chép",
+      "addToInput": "Thêm vào ô nhập"
+    },
+    "delete": {
+      "title": "Xóa tin nhắn này?",
+      "body": "Các tin nhắn sau vẫn được giữ, nhưng ngữ cảnh của chúng sẽ không còn tin nhắn này. Không thể hoàn tác.",
+      "streamingBody": "Phản hồi đang chạy sẽ bị dừng trước. Các tin nhắn sau vẫn được giữ, nhưng ngữ cảnh của chúng sẽ không còn tin nhắn này. Không thể hoàn tác.",
+      "confirm": "Xóa",
+      "suppressForOneMinute": "Không hỏi lại trong một phút"
+    },
+    "editButton": "Sửa",
+    "forkButton": "Tách sang phiên mới",
+    "forkOrigin": {
+      "label": "Tách từ phiên gốc",
+      "labelWithPreview": "Tách từ tin nhắn"
+    },
+    "branch": {
+      "prev": "Bản trước",
+      "next": "Bản sau",
+      "position": "Bản {{current}} / {{total}}"
+    },
+    "edit": {
+      "pendingHint": "Đang sửa tin nhắn cuối — gửi để thay thế tin nhắn gốc và phản hồi",
+      "overwriteDraftTitle": "Ghi đè bản nháp hiện tại?",
+      "overwriteDraftBody": "Ô nhập đã có nội dung. Sửa tin nhắn cuối sẽ thay thế bản nháp của bạn.",
+      "overwriteDraftConfirm": "Ghi đè và sửa"
+    },
+    "interrupt": {
+      "editTitle": "Ngắt lượt này?",
+      "editBody": "Sửa một tin nhắn trước đây sẽ dừng phản hồi đang chạy. Nội dung đã tạo vẫn nằm ở nhánh gốc.",
+      "switchTitle": "Ngắt lượt này?",
+      "switchBody": "Chuyển nhánh sẽ dừng phản hồi đang chạy. Nội dung đã tạo vẫn nằm ở nhánh gốc.",
+      "forkTitle": "Ngắt lượt này?",
+      "forkBody": "Tách sang phiên mới sẽ dừng phản hồi đang chạy.",
+      "confirm": "Ngắt và tiếp tục",
+      "cancel": "Hủy"
+    },
+    "progressGroup": {
+      "fallbackTitle": "Đang xử lý",
+      "genericDone": "Đã xong {{count}} bước",
+      "genericRunning": "Đang thực hiện",
+      "thinking": "Đang suy nghĩ",
+      "thinkingActivity": "Đang suy nghĩ: {{text}}",
+      "thinkingLabel": "Suy nghĩ"
+    },
+    "toolCallGroup": {
+      "completed": "Đã xong {{count}} lệnh gọi công cụ",
+      "inProgress": "{{completed}}/{{total}} lệnh gọi công cụ",
+      "thinking": "{{count}} bước suy nghĩ"
+    }
+  },
+  "modelSelector": {
+    "defaultBadge": "Mặc định",
+    "selectModel": "Chọn mô hình",
+    "visionBadge": "thị giác"
+  },
+  "newSession": {
+    "greetingDefault": "Hôm nay bạn thế nào?",
+    "greetingTitle": "Chào {{nickname}}",
+    "subtitle": "Tôi có thể giúp bạn hoàn thành công việc. Bạn cần tôi làm gì?",
+    "defaultContext": "Trò chuyện chung",
+    "teamNewWorkspaceContext": "Không gian làm việc mới",
+    "projectContext": "Dự án · {{name}}",
+    "mascot": {
+      "menuTrigger": "Cài đặt linh vật",
+      "hideMascot": "Ẩn linh vật",
+      "showMascot": "Hiện linh vật",
+      "playOnce": "Phát một lần hoạt ảnh linh vật hiện tại"
+    },
+    "torch": {
+      "light": "Thắp đuốc",
+      "extinguish": "Tắt đuốc"
+    },
+    "mario": {
+      "hit": "Đẩy nấm ra",
+      "reset": "Đặt nấm về chỗ cũ"
+    },
+    "hand": {
+      "rest": "Cho bàn tay nghỉ",
+      "tap": "Cho bàn tay gõ lại"
+    },
+    "projectSelector": {
+      "placeholder": "Chọn dự án",
+      "clear": "Không có dự án",
+      "searchPlaceholder": "Tìm dự án",
+      "empty": "Không có dự án khớp",
+      "newProject": "Dự án mới",
+      "openProject": "Mở dự án cục bộ",
+      "pendingHint": "đang chờ",
+      "creating": "Đang tạo…",
+      "preparing": "Đang chuẩn bị dự án",
+      "triggerTitle": "Chọn dự án cho phiên này",
+      "createFailedTitle": "Không tạo được dự án"
+    },
+    "agentSelector": {
+      "clear": "Không có tác nhân",
+      "searchPlaceholder": "Tìm nhóm và tác nhân",
+      "empty": "Không có nhóm hoặc tác nhân khớp",
+      "loading": "Đang tải…",
+      "error": "Không tải được danh sách",
+      "invalid": "Nhóm này không còn khả dụng. Hãy chọn nhóm khác.",
+      "agentInvalid": "Tác nhân này không còn khả dụng. Hãy chọn tác nhân khác.",
+      "retry": "Thử lại",
+      "memberCount": "{{count}} thành viên",
+      "groupTeams": "Nhóm",
+      "groupAgents": "Tác nhân",
+      "pick": "Đổi tác nhân",
+      "pickTitle": "Chọn một nhóm hoặc một tác nhân cho tác vụ này",
+      "switchTitle": "Đổi nhóm hoặc tác nhân cho phiên này"
+    }
+  },
+  "questionPanel": {
+    "keyboardHint": "↑↓ Di chuyển · Space chọn · ←→ Chuyển · Enter tiếp",
+    "multiSelectHint": "Chọn nhiều",
+    "otherOption": "Khác (tự nhập)",
+    "otherPlaceholder": "Nhập câu trả lời…",
+    "nextButton": "Tiếp",
+    "questionTabLabel": "Câu hỏi {{number}}",
+    "submitButton": "Gửi",
+    "title": "Metoai cần bạn lựa chọn"
+  },
+  "sandboxGrantsBadge": {
+    "revoke": "Thu hồi",
+    "revokeAll": "Thu hồi tất cả",
+    "title": "Quyền hộp cát cho phiên này",
+    "tooltip": "Quyền hộp cát cho phiên này"
+  },
+  "sendButton": {
+    "sendMessage": "Gửi tin nhắn",
+    "stopGenerating": "Dừng tạo"
+  },
+  "session": {
+    "emptyMessageLabel": "(ảnh)"
+  },
+  "sessionViewer": {
+    "badge": {
+      "liveUpdate": "Cập nhật trực tiếp",
+      "readOnly": "Chế độ chỉ đọc"
+    },
+    "emptyState": {
+      "noPath": "Chưa chỉ định đường dẫn phiên"
+    },
+    "error": {
+      "loadPrefix": "Không tải được: "
+    },
+    "export": {
+      "defaultTitle": "Phiên Metoai"
+    },
+    "exportButton": {
+      "title": "Xuất toàn bộ phiên dưới dạng HTML"
+    },
+    "header": {
+      "subtitle": "Phiên này do ứng dụng khác ghi; ứng dụng máy tính chỉ hiển thị nó"
+    },
+    "panelToggleButton": {
+      "titleClose": "Đóng bảng hoạt động",
+      "titleOpen": "Mở bảng hoạt động"
+    }
+  },
+  "skillPromptArea": {
+    "missingBadge": "Chưa cài đặt",
+    "placeholder": "Nhập câu lệnh… dùng / cho kỹ năng/cảnh",
+    "removeSkill": "Nhấp để xóa",
+    "removeSkillMissing": "Kỹ năng chưa cài đặt, nhấp để xóa",
+    "skillButtonLabel": "Kỹ năng / Cảnh",
+    "skillButtonTitle": "Kỹ năng / Cảnh"
+  },
+  "slashPanel": {
+    "compaction": {
+      "label": "Nén ngữ cảnh",
+      "description": "Nén ngữ cảnh của cuộc trò chuyện này (đã dùng {{percent}}%)",
+      "descriptionUnknown": "Nén ngữ cảnh của cuộc trò chuyện này",
+      "queued": "Đã vào hàng đợi và sẽ chạy sau phản hồi hiện tại",
+      "compacting": "Đang nén ngữ cảnh",
+      "errorTitle": "Không nén được ngữ cảnh",
+      "errorMessage": "Không đưa được thao tác nén ngữ cảnh vào hàng đợi. Hãy thử lại."
+    },
+    "emptyNoMatch": "Không tìm thấy kết quả",
+    "emptyNoMatchHint": "Thử từ khóa khác, hoặc cứ nhập yêu cầu của bạn.",
+    "emptyNoSkills": "Không có kỹ năng hoặc cảnh nào",
+    "emptyNoSkillsHint": "Cài một kỹ năng hoặc cảnh từ chợ năng lực để gọi tại đây.",
+    "header": "Chọn một cảnh hoặc kỹ năng",
+    "resultCount": "{{count}} kết quả",
+    "scenesSection": "Cảnh",
+    "skillsSection": "Kỹ năng",
+    "sourceLabels": {
+      "agentsProject": "Chung · Dự án",
+      "agentsUser": "Chung",
+      "path": "Tùy chỉnh",
+      "project": "Dự án",
+      "scene": "Cảnh",
+      "user": "Người dùng",
+      "builtin": "Tích hợp sẵn",
+      "plugin": "Plugin",
+      "market": "Chợ"
+    },
+    "connectorsSection": "Đã kết nối"
+  },
+  "suggestionBubbles": {
+    "sendTooltip": "Nhấp để gửi gợi ý này"
+  },
+  "textPreview": {
+    "characterUnit": "ký tự",
+    "emptyLabel": "Trống",
+    "lineUnit": "dòng"
+  },
+  "thinkingBlock": {
+    "lineCount": "{{count}} dòng",
+    "title": "Suy nghĩ"
+  },
+  "toolCall": {
+    "error": "Lỗi",
+    "meta": "meta",
+    "metaLabel": "Siêu dữ liệu cục bộ, chỉ trên giao diện, không gửi tới mô hình",
+    "audioPreview": "Kết quả âm thanh MCP"
+  },
+  "toolFormat": {
+    "unknown": "Không rõ"
+  },
+  "toolLabel": {
+    "alias": {
+      "ask_user_question": "Hỏi",
+      "bash": "Chạy lệnh",
+      "current_time": "Thời gian hiện tại",
+      "dir_tree": "Cây thư mục",
+      "dispatch_workflows": "Điều phối quy trình",
+      "doc_to_pdf": "Sang PDF",
+      "easy_use_vettaApp": "Dùng ứng dụng",
+      "edit": "Sửa",
+      "extract_text_from_img": "Trích văn bản (ảnh)",
+      "extract_text_from_pdf": "Trích văn bản (PDF)",
+      "find": "Tìm tệp",
+      "followup_task": "Tác vụ tiếp nối",
+      "glob": "Khớp tệp",
+      "grep": "Tìm kiếm",
+      "html_to_pdf": "Sang PDF",
+      "im_send_attachment": "Gửi tệp đính kèm",
+      "interrupt_agent": "Ngắt tác nhân",
+      "invoke_skill": "Chạy kỹ năng",
+      "list_agents": "Liệt kê tác nhân",
+      "ls": "Liệt kê",
+      "memory": "Bộ nhớ",
+      "read": "Đọc",
+      "render_pdf_page": "Kết xuất trang PDF",
+      "send_message": "Gửi tin nhắn",
+      "shell": "Chạy lệnh",
+      "spawn_agent": "Tạo tác nhân",
+      "task_output": "Đầu ra tác vụ",
+      "task_stop": "Dừng tác vụ",
+      "todo": "Việc cần làm",
+      "tool_search": "Tìm công cụ",
+      "tree": "Cây thư mục",
+      "wait_agent": "Chờ tác nhân",
+      "write": "Ghi"
+    },
+    "knowledgeBase": {
+      "filterByTags": "Tri thức · Lọc theo thẻ",
+      "listTags": "Tri thức · Liệt kê thẻ",
+      "writePage": "Tri thức · Ghi trang"
+    }
+  },
+  "mcpApp": {
+    "externalAccess": "MCP App này khai báo truy cập {{count}} tên miền bên ngoài",
+    "permissionsDenied": "MCP App này đã yêu cầu quyền thiết bị; Metoai chưa cấp",
+    "title": "MCP App"
+  },
+  "usageBar": {
+    "durationLabel": "Mất {{duration}}",
+    "speedLabel": "Tốc độ {{speed}} tok/s"
+  },
+  "writeContent": {
+    "label": "Ghi nội dung"
+  },
+  "writePage": {
+    "actionCreate": "Tạo trang",
+    "actionUpdate": "Cập nhật trang",
+    "originalLocation": "Bản gốc: {{path}}"
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "tray": {
+    "showWindow": "Mostrar ventana",
+    "hideWindow": "Ocultar ventana",
+    "quitVetta": "Salir de Metoai",
+    "quit": "Salir",
+    "hideToTray": "Ocultar en la bandeja"
+  },
+  "menu": {
+    "app": {
+      "title": "Metoai",
+      "about": "Acerca de Metoai",
+      "services": "Servicios",
+      "hide": "Ocultar Metoai",
+      "hideOthers": "Ocultar otros",
+      "unhide": "Mostrar todo",
+      "quit": "Salir de Metoai"
+    },
+    "edit": {
+      "title": "Editar",
+      "undo": "Deshacer",
+      "redo": "Rehacer",
+      "cut": "Cortar",
+      "copy": "Copiar",
+      "paste": "Pegar",
+      "pasteAndMatchStyle": "Pegar y ajustar el estilo",
+      "delete": "Eliminar",
+      "selectAll": "Seleccionar todo"
+    },
+    "view": {
+      "title": "Ver",
+      "reload": "Recargar",
+      "forceReload": "Forzar recarga",
+      "toggleDevTools": "Alternar herramientas de desarrollo",
+      "resetZoom": "Tamaño real",
+      "zoomIn": "Acercar",
+      "zoomOut": "Alejar",
+      "toggleFullScreen": "Alternar pantalla completa"
+    },
+    "window": {
+      "title": "Ventana",
+      "minimize": "Minimizar",
+      "zoom": "Zoom",
+      "front": "Traer todo al frente",
+      "close": "Cerrar ventana"
+    }
+  },
+  "notification": {
+    "turnComplete": "Respuesta completada",
+    "turnError": "La respuesta falló",
+    "questionPending": "Una pregunta necesita tu confirmación. Haz clic para verla.",
+    "sessionFallback": "Nueva sesión"
+  },
+  "pet": {
+    "openDevTools": "Abrir DevTools de la mascota"
+  },
+  "mcpOAuth": {
+    "authorizationSuccessful": "Autorización correcta",
+    "authorizationFailed": "Autorización fallida",
+    "returnToVetta": "Puedes cerrar esta ventana y volver a Metoai.",
+    "closeAndRetry": "Puedes cerrar esta ventana e intentarlo de nuevo en Metoai.",
+    "missingAuthorizationCode": "Falta el código de autorización",
+    "callbackAlreadySettled": "La devolución de llamada de OAuth ya se completó",
+    "callbackTimedOut": "Se agotó el tiempo de espera de la autorización de OAuth en el navegador",
+    "callbackBindFailed": "No se pudo iniciar el servidor de devolución de llamada de OAuth",
+    "devicePageBindFailed": "No se pudo iniciar el servidor de la página de código de dispositivo",
+    "connectGitHub": "Conectar GitHub",
+    "enterDeviceCode": "Introduce este código en la página de GitHub y haz clic en Autorizar.",
+    "copyCode": "Copiar código",
+    "openGitHub": "Abrir GitHub para autorizar",
+    "closeAfterAuthorization": "Puedes cerrar esta ventana una vez que hayas autorizado en Metoai.",
+    "deviceFlowDisabled": "Falló la solicitud del código de dispositivo (422). Habilita Device Flow en los ajustes de OAuth o de la app de GitHub: {{details}}"
+  },
+  "updater": {
+    "errors": {
+      "developmentUnsupported": "Las actualizaciones automáticas no están disponibles en modo de desarrollo",
+      "configurationUnavailable": "Esta compilación no tiene configurada una fuente de actualizaciones",
+      "checkFailed": "No se pudieron buscar actualizaciones",
+      "downloadFailed": "No se pudo descargar la actualización",
+      "installFailed": "No se pudo instalar la actualización"
+    },
+    "forced": {
+      "title": "Se requiere una actualización para continuar",
+      "reasonPolicy": "Esta versión requiere una actualización antes de que puedas continuar.",
+      "reasonMinSupported": "Esta versión ya no es compatible. Actualiza para continuar.",
+      "checking": "Buscando actualizaciones…",
+      "available": "La actualización está lista para descargarse.",
+      "download": "Descargar actualización",
+      "downloading": "Descargando la actualización ({{progress}}%)",
+      "ready": "La actualización se ha descargado. Reinicia para empezar a usarla.",
+      "restart": "Reiniciar e instalar ahora",
+      "preparing": "Instalando la actualización. La aplicación se reiniciará en breve.",
+      "failed": "La actualización no se completó. Inténtalo de nuevo.",
+      "retry": "Reintentar",
+      "releaseNotes": "Novedades",
+      "version": "Nueva versión {{version}}"
+    }
+  }
+}

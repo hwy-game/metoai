@@ -1,0 +1,125 @@
+{
+  "page": {
+    "title": "Tự động hóa",
+    "subtitle": "Để AI chạy tác vụ theo lịch và rảnh tay hơn",
+    "newTask": "Tác vụ mới",
+    "newTaskTitle": "Tác vụ theo lịch mới"
+  },
+  "recommend": {
+    "title": "Đề xuất",
+    "use": "Dùng mẫu",
+    "items": {
+      "morningBrief": {
+        "name": "Điểm tin buổi sáng",
+        "desc": "Tóm tắt buổi sáng ngày thường về thay đổi trong kho mã, việc chưa commit và các việc cần tập trung",
+        "schedule": "Ngày thường 09:00",
+        "prompt": "Hãy làm trợ lý điểm tin buổi sáng cho tôi trong không gian làm việc hiện tại:\n1. Kiểm tra git status và các commit gần đây nếu có git\n2. Liệt kê thay đổi chưa commit, nhánh chưa push hoặc trở ngại có thể gặp\n3. Đề xuất 3 việc cần tập trung rõ ràng cho hôm nay\nTrả lời bằng tiếng Anh với cấu trúc ngắn gọn. Không sửa tệp nào."
+      },
+      "dailySummary": {
+        "name": "Tổng kết cuối ngày",
+        "desc": "Điểm lại buổi tối các thay đổi hôm nay thành một nhật ký công việc ngắn",
+        "schedule": "Hàng ngày 18:00",
+        "prompt": "Tạo bản tóm tắt công việc hôm nay cho không gian làm việc này:\n1. Tóm tắt những gì đã làm dựa trên git log / thay đổi tệp\n2. Nêu rõ việc còn dang dở hoặc cần làm tiếp\n3. Đề xuất tối đa 3 bước tiếp theo cho ngày mai\nDùng gạch đầu dòng ngắn gọn. Không sửa mã."
+      },
+      "weeklyReview": {
+        "name": "Điểm lại tuần",
+        "desc": "Báo cáo tuần vào chiều thứ Sáu từ các commit trong tuần",
+        "schedule": "Thứ Sáu 17:00",
+        "prompt": "Tạo bản điểm lại tuần cho kho hiện tại:\n1. Tóm tắt các commit chính và tiến độ tính năng trong tuần\n2. Ghi lại rủi ro, nợ kỹ thuật hoặc vấn đề lặp lại\n3. Đề xuất ưu tiên cho tuần sau (tối đa 5 mục)\nViết sẵn để dán vào báo cáo tuần. Không sửa tệp trong kho."
+      }
+    }
+  },
+  "dialog": {
+    "namePlaceholderEdit": "Tên tác vụ",
+    "namePlaceholderNew": "Tác vụ mới",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "create": "Tạo"
+  },
+  "form": {
+    "namePlaceholder": "Tên tác vụ",
+    "promptPlaceholder": "Nhập câu lệnh... gõ / để gọi kỹ năng/cảnh",
+    "selectWorkDir": "Chọn thư mục làm việc",
+    "conversation": "Hội thoại",
+    "modelEmpty": "Không có mô hình",
+    "modelSelect": "Chọn mô hình",
+    "defaultTag": "Mặc định",
+    "enabled": "Đã bật",
+    "disabled": "Đã tắt",
+    "fullAccess": "Toàn quyền truy cập",
+    "useSandbox": "Dùng sandbox",
+    "inherit": "Theo mặc định ({{mode}})",
+    "sandbox": "sandbox",
+    "sandboxUnavailable": "Sandbox trên {{platform}} không khả dụng: {{reason}}",
+    "every": "Mỗi",
+    "unitHours": "giờ",
+    "unitDays": "ngày"
+  },
+  "scheduleMode": {
+    "once": "Một lần",
+    "daily": "Hàng ngày",
+    "interval": "Khoảng thời gian"
+  },
+  "schedule": {
+    "once": "{{month}}/{{day}}/{{year}} {{time}}, một lần",
+    "daily": "Hàng ngày lúc {{time}}",
+    "weekly": "Hàng tuần vào {{days}} lúc {{time}}",
+    "intervalOne": "Mỗi giờ",
+    "interval": "Mỗi {{hours}} giờ",
+    "weekdayJoin": ", ",
+    "weekdayNames": [
+      "CN",
+      "T2",
+      "T3",
+      "T4",
+      "T5",
+      "T6",
+      "T7"
+    ]
+  },
+  "list": {
+    "running": "Đang chạy",
+    "pending": "Đang chờ",
+    "disabled": "Đã tắt",
+    "once": "Một lần",
+    "runNow": "Chạy ngay",
+    "run": "Chạy",
+    "sectionTitle": "Tác vụ tự động hóa",
+    "pause": "Tạm dừng",
+    "enable": "Bật",
+    "edit": "Sửa",
+    "delete": "Xóa",
+    "success": "Thành công",
+    "failed": "Thất bại",
+    "neverRun": "Chưa chạy lần nào",
+    "justNow": "vừa xong",
+    "minutesAgo": "{{n}} phút trước",
+    "hoursAgo": "{{n}} giờ trước",
+    "daysAgo": "{{n}} ngày trước",
+    "fullAccess": "Toàn quyền truy cập",
+    "useSandbox": "Dùng sandbox",
+    "inheritDefault": "Theo mặc định"
+  },
+  "confirm": {
+    "deleteTitle": "Xóa tác vụ \"{{name}}\"?",
+    "deleteMsg": "Không thể hoàn tác. Vui lòng xác nhận để tiếp tục.",
+    "delete": "Xóa",
+    "cancel": "Hủy"
+  },
+  "drawer": {
+    "close": "Đóng",
+    "runNow": "Chạy ngay",
+    "pause": "Tạm dừng",
+    "enable": "Bật",
+    "edit": "Sửa"
+  },
+  "history": {
+    "title": "Lịch sử chạy",
+    "refresh": "Làm mới",
+    "empty": "Không có bản ghi chạy",
+    "success": "Thành công",
+    "failed": "Thất bại",
+    "running": "Đang chạy",
+    "aborted": "Đã hủy bỏ"
+  }
+}

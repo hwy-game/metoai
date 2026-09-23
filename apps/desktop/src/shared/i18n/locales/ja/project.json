@@ -1,0 +1,222 @@
+{
+  "sidebar": {
+    "nav": {
+      "newSession": "新しいセッション",
+      "automation": "自動化",
+      "batchTasks": "バッチタスク",
+      "knowledge": "ナレッジ",
+      "skills": "機能",
+      "agents": "エージェント",
+      "scenes": "シーン",
+      "plugins": "プラグイン",
+      "modelSettings": "モデル設定",
+      "agentSettings": "エージェント設定",
+      "appearance": "外観",
+      "extensions": "その他のオプション",
+      "more": "その他",
+      "betaBadge": "BETA",
+      "pin": "ピン留め",
+      "unpin": "ピン留めを解除",
+      "pinFull": "最大 5 件までピン留めできます（新しいセッションを含む）",
+      "reset": "順序をリセット",
+      "customize": "ナビゲーションをカスタマイズ"
+    },
+    "clawConnected": "Claw 接続済み",
+    "hide": "サイドバーを非表示",
+    "empty": {
+      "title": "プロジェクトがまだありません",
+      "description": "上の + をクリックしてプロジェクトを作成"
+    },
+    "projects": {
+      "noSessions": "セッションなし",
+      "collapseSessions": "セッションを折りたたむ",
+      "expandMore": "さらに表示（{{count}}）",
+      "scrollToTop": "先頭へスクロール",
+      "scrollToBottom": "末尾へスクロール"
+    },
+    "defaultConversation": {
+      "noConversations": "会話なし",
+      "emptyTitle": "会話がまだありません",
+      "emptyDescription": "新しいチャットを開始するとここに表示されます",
+      "emptyAction": "チャットを開始",
+      "emptyClawTitle": "Claw の記録がまだありません",
+      "emptyTagTitle": "このタグの会話はありません",
+      "emptyTagDescription": "会話のコンテキストメニューからタグを付けられます",
+      "emptyClawDescription": "WeChat、Feishu などのチャネルで Claw とチャットすると、ここに記録が表示されます"
+    },
+    "teams": {
+      "title": "チーム",
+      "new": "新しいチーム",
+      "empty": "チームがまだありません。クリックして作成"
+    },
+    "session": {
+      "forkedTooltip": "別のセッションからフォーク",
+      "untitledTeam": "新しいチーム会話"
+    },
+    "dialogs": {
+      "deleteSessionTitle": "セッションを削除",
+      "deleteSessionMessage": "セッション「{{name}}」を完全に削除しますか？この操作は元に戻せません。",
+      "deleteBatchTitle": "バッチプロジェクトを削除",
+      "deleteBatchMessage": "バッチプロジェクト「{{name}}」を削除しますか？この操作は元に戻せません。",
+      "deleteConfirm": "削除",
+      "removeTitle": "リストから削除",
+      "removeMessage": "「{{name}}」をプロジェクトリストから削除しますか？ディスク上のファイルは削除されません。",
+      "removeConfirm": "削除",
+      "deleteProjectTitle": "プロジェクトを削除",
+      "deleteProjectMessage": "「{{name}}」を完全に削除しますか？ディスク上のプロジェクトフォルダーが削除され、元に戻せません。",
+      "clearConversationTitle": "セッションを消去",
+      "clearConversationMessage": "チャット配下の {{count}} 件の会話セッションを削除します（成果物は保持されます）。Claw セッションは影響を受けません。この操作は元に戻せません。",
+      "clearClawTitle": "Claw の記録を消去",
+      "clearClawMessage": "{{count}} 件の Claw 記録を削除します（成果物は保持されます）。この操作は元に戻せません。",
+      "clearConfirm": "消去"
+    },
+    "time": {
+      "justNow": "今",
+      "minutes": "{{n}}分",
+      "hours": "{{n}}時間",
+      "days": "{{n}}日",
+      "weeks": "{{n}}週",
+      "months": "{{n}}か月",
+      "years": "{{n}}年"
+    }
+  },
+  "filterTabs": {
+    "all": "すべて",
+    "normal": "通常",
+    "batch": "バッチ",
+    "conversation": "チャット",
+    "team": "チーム",
+    "claw": "Claw"
+  },
+  "actions": {
+    "newProject": "新しいプロジェクト",
+    "openProject": "プロジェクトを開く",
+    "importProject": "プロジェクトをインポート",
+    "more": "その他"
+  },
+  "contextMenu": {
+    "openInFinder": "Finder で表示",
+    "openInExplorer": "エクスプローラーで表示",
+    "clearConversation": "セッションを消去",
+    "clearConversationDisabled": "先に実行中のセッションを停止してください",
+    "clearClaw": "記録を消去",
+    "clearClawDisabled": "先に実行中の Claw セッションを停止してください",
+    "clawSettings": "Claw 設定",
+    "archiveProject": "プロジェクトをアーカイブ",
+    "removeFromList": "リストから削除",
+    "deleteProject": "プロジェクトを削除",
+    "rename": "名前を変更",
+    "pin": "会話をピン留め",
+    "unpin": "ピン留めを解除",
+    "openArtifactDir": "成果物フォルダーを開く",
+    "delete": "削除",
+    "tags": {
+      "label": "タグ",
+      "new": "新しいタグ…",
+      "manage": "タグを管理…"
+    }
+  },
+  "tagEditor": {
+    "createTitle": "新しいタグ",
+    "manageTitle": "タグを管理",
+    "namePlaceholder": "タグ名",
+    "colorLabel": "タグの色",
+    "customColor": "カスタム色",
+    "emptyNameError": "タグ名を入力してください",
+    "cancel": "キャンセル",
+    "create": "作成",
+    "done": "完了",
+    "newTag": "新しいタグ",
+    "remove": "タグを削除",
+    "empty": "タグがまだありません",
+    "removeHint": "{{count}} 件の会話から削除します"
+  },
+  "importDialog": {
+    "failedTitle": "インポートに失敗しました",
+    "failedConfirm": "OK",
+    "partialTitle": "インポート完了（一部のソースパスが見つかりません）",
+    "partialMessage": "プロジェクト「{{name}}」をインポートしましたが、{{count}} 件のバッチソースパスがこのマシンに存在しません：\n\n{{list}}\n\nこれらのタスクのメタデータは保持されています。プロジェクトを開いた後で、手動で再リンクまたは削除できます。",
+    "partialMore": "\n…ほか {{count}} 件",
+    "doneTitle": "インポート完了",
+    "doneMessage": "プロジェクト「{{name}}」をワークスペースにインポートしました。",
+    "viewProject": "プロジェクトを表示",
+    "gotIt": "了解"
+  },
+  "detail": {
+    "typeBatch": "バッチタスク",
+    "showInFinder": "Finder で表示",
+    "showInExplorer": "エクスプローラーで表示",
+    "finder": "Finder",
+    "explorer": "エクスプローラー",
+    "export": "エクスポート",
+    "exportTitle": "プロジェクトをエクスポート（セッション履歴を含む）",
+    "newSession": "新しいセッション",
+    "closeActivityPanel": "アクティビティパネルを閉じる",
+    "openActivityPanel": "アクティビティパネルを開く",
+    "sessionCount": "{{count}} セッション",
+    "taskCount": "{{count}} タスク",
+    "persona": "プロジェクトペルソナ",
+    "unsavedChanges": "未保存の変更",
+    "saved": "保存しました",
+    "saveFailed": "保存に失敗しました",
+    "save": "保存",
+    "editorPlaceholder": "ここに AGENTS.md のプロジェクト指示を入力してください...",
+    "agentsMdHint": "AGENTS.md はプロジェクトレベルの AI 指示を定義します。すべてのセッションがこのファイルを自動的に読み込みます。",
+    "quickSave": "クイック保存"
+  },
+  "exportDialog": {
+    "title": "プロジェクトをエクスポート",
+    "message": "プロジェクト「{{name}}」をエクスポートしますか？\n\n現在のプロジェクトディレクトリ配下のすべてのファイル（.vetta/sessions の履歴、バッチタスクの作業ディレクトリと状態を含む）をパッケージ化します。ファイルロック（*.lock）は除外されます。",
+    "confirm": "エクスポート",
+    "failedTitle": "エクスポートに失敗しました",
+    "failedConfirm": "OK"
+  },
+  "newProjectDialog": {
+    "title": "新しいプロジェクト",
+    "description": "ワークスペースディレクトリに新しいプロジェクトフォルダーが作成されます。",
+    "placeholder": "プロジェクト名を入力",
+    "cancel": "キャンセル",
+    "create": "作成",
+    "emptyError": "プロジェクト名を入力してください",
+    "invalidError": "プロジェクト名に特殊文字は使用できません",
+    "duplicateError": "同じ名前のプロジェクトがすでに存在します"
+  },
+  "update": {
+    "newVersion": "新バージョン {{version}} が利用可能です — クリックするとバックグラウンドでダウンロードします",
+    "downloading": "{{version}} をダウンロード中（{{pct}}%）",
+    "ready": "更新 {{version}} の準備ができました — クリックして再起動",
+    "checkFailed": "更新の確認に失敗しました。クリックして再試行",
+    "downloadProgress": "ダウンロードの進行状況",
+    "bannerReady": "バージョン {{version}} の準備ができました",
+    "bannerRestart": "再起動",
+    "bannerDismiss": "閉じる"
+  },
+  "tabPicker": {
+    "moreTabs": "その他のタブ",
+    "hiddenPanels": "非表示のパネル",
+    "availablePlugins": "プラグインパネルを追加",
+    "hideTab": "タブを非表示",
+    "menu": "タブメニュー"
+  },
+  "tour": {
+    "sidebar": {
+      "projects": {
+        "title": "プロジェクト",
+        "description": "ここで作業プロジェクトを管理します。プロジェクトを展開するとセッションが表示され、上のボタンでプロジェクトの作成やインポートができます。"
+      },
+      "conversations": {
+        "title": "会話",
+        "description": "既定の会話リストがここに表示されます。最近のセッションは時間順に並び、クリックすると続行できます。"
+      },
+      "skills": {
+        "title": "機能",
+        "description": "機能ページを開いてスキルとコネクタをインストールすると、Metoai の専門性が高まります。"
+      }
+    }
+  },
+  "workspaceView": {
+    "loading": "プラグインを読み込み中…",
+    "missing": "このワークスペースビューは存在しません。ホームに戻ります。",
+    "failed": "このワークスペースビューの描画に失敗しました。詳細は DevTools を確認してください。"
+  }
+}

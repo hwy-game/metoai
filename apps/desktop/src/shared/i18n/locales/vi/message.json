@@ -1,0 +1,23 @@
+{
+  "title": "Trung tâm tin nhắn",
+  "triggerTitle": "Trung tâm tin nhắn",
+  "tabs": {
+    "all": "Tất cả",
+    "notifications": "Thông báo"
+  },
+  "empty": {
+    "all": "Không có tin nhắn",
+    "notifications": "Không có thông báo"
+  },
+  "notification": {
+    "markAllRead": "Đánh dấu tất cả đã đọc",
+    "clearRead": "Xóa mục đã đọc",
+    "delete": "Xóa"
+  },
+  "time": {
+    "justNow": "Vừa xong",
+    "minutesAgo": "{{n}} phút trước",
+    "hoursAgo": "{{n}} giờ trước",
+    "daysAgo": "{{n}} ngày trước"
+  }
+}

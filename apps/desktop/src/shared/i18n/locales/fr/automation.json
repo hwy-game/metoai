@@ -1,0 +1,125 @@
+{
+  "page": {
+    "title": "Automatisation",
+    "subtitle": "Laissez l'IA exécuter des tâches planifiées et libérez-vous du temps",
+    "newTask": "Nouvelle tâche",
+    "newTaskTitle": "Nouvelle tâche planifiée"
+  },
+  "recommend": {
+    "title": "Recommandé",
+    "use": "Utiliser le modèle",
+    "items": {
+      "morningBrief": {
+        "name": "Briefing matinal",
+        "desc": "Résumé matinal en semaine des modifications du dépôt, du travail non validé et des points à traiter",
+        "schedule": "En semaine à 09:00",
+        "prompt": "Agis comme mon assistant de briefing matinal dans l'espace de travail actuel :\n1. Inspecte git status et les commits récents si git est disponible\n2. Liste les modifications non validées, les branches non poussées ou les blocages probables\n3. Propose 3 points d'attention clairs pour aujourd'hui\nRéponds en français avec une structure concise. Ne modifie aucun fichier."
+      },
+      "dailySummary": {
+        "name": "Bilan quotidien",
+        "desc": "Revue du soir des changements du jour sous forme de court journal de travail",
+        "schedule": "Tous les jours à 18:00",
+        "prompt": "Génère le résumé du travail d'aujourd'hui pour cet espace de travail :\n1. Résume ce qui a été fait à partir de git log / des modifications de fichiers\n2. Signale les éléments inachevés ou à suivre\n3. Propose jusqu'à 3 prochaines étapes concrètes pour demain\nUtilise des puces concises. Ne modifie pas le code."
+      },
+      "weeklyReview": {
+        "name": "Revue hebdomadaire",
+        "desc": "Rapport hebdomadaire du vendredi après-midi à partir des commits de la semaine",
+        "schedule": "Le vendredi à 17:00",
+        "prompt": "Produis une revue hebdomadaire pour le dépôt actuel :\n1. Résume les commits majeurs et l'avancement des fonctionnalités cette semaine\n2. Relève les risques, la dette technique ou les problèmes récurrents\n3. Recommande les priorités de la semaine prochaine (jusqu'à 5 éléments)\nRédige-la prête à coller dans un rapport hebdomadaire. Ne modifie pas les fichiers du dépôt."
+      }
+    }
+  },
+  "dialog": {
+    "namePlaceholderEdit": "Nom de la tâche",
+    "namePlaceholderNew": "Nouvelle tâche",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "create": "Créer"
+  },
+  "form": {
+    "namePlaceholder": "Nom de la tâche",
+    "promptPlaceholder": "Saisissez une invite... tapez / pour invoquer des compétences/scènes",
+    "selectWorkDir": "Sélectionner le répertoire de travail",
+    "conversation": "Conversation",
+    "modelEmpty": "Aucun modèle",
+    "modelSelect": "Sélectionner un modèle",
+    "defaultTag": "Par défaut",
+    "enabled": "Activé",
+    "disabled": "Désactivé",
+    "fullAccess": "Accès complet",
+    "useSandbox": "Utiliser le bac à sable",
+    "inherit": "Suivre la valeur par défaut ({{mode}})",
+    "sandbox": "bac à sable",
+    "sandboxUnavailable": "Bac à sable {{platform}} indisponible : {{reason}}",
+    "every": "Toutes les",
+    "unitHours": "heures",
+    "unitDays": "jours"
+  },
+  "scheduleMode": {
+    "once": "Une fois",
+    "daily": "Tous les jours",
+    "interval": "Intervalle"
+  },
+  "schedule": {
+    "once": "{{month}}/{{day}}/{{year}} {{time}}, une fois",
+    "daily": "Tous les jours à {{time}}",
+    "weekly": "Chaque semaine le {{days}} à {{time}}",
+    "intervalOne": "Toutes les heures",
+    "interval": "Toutes les {{hours}} heures",
+    "weekdayJoin": ", ",
+    "weekdayNames": [
+      "dim.",
+      "lun.",
+      "mar.",
+      "mer.",
+      "jeu.",
+      "ven.",
+      "sam."
+    ]
+  },
+  "list": {
+    "running": "En cours",
+    "pending": "En attente",
+    "disabled": "Désactivé",
+    "once": "Ponctuelle",
+    "runNow": "Exécuter maintenant",
+    "run": "Exécuter",
+    "sectionTitle": "Tâches automatisées",
+    "pause": "Suspendre",
+    "enable": "Activer",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "success": "Réussi",
+    "failed": "Échec",
+    "neverRun": "Jamais exécutée",
+    "justNow": "à l'instant",
+    "minutesAgo": "il y a {{n}} min",
+    "hoursAgo": "il y a {{n}} h",
+    "daysAgo": "il y a {{n}} j",
+    "fullAccess": "Accès complet",
+    "useSandbox": "Utiliser le bac à sable",
+    "inheritDefault": "Suivre la valeur par défaut"
+  },
+  "confirm": {
+    "deleteTitle": "Supprimer la tâche « {{name}} » ?",
+    "deleteMsg": "Cette action est irréversible. Veuillez confirmer pour continuer.",
+    "delete": "Supprimer",
+    "cancel": "Annuler"
+  },
+  "drawer": {
+    "close": "Fermer",
+    "runNow": "Exécuter maintenant",
+    "pause": "Suspendre",
+    "enable": "Activer",
+    "edit": "Modifier"
+  },
+  "history": {
+    "title": "Historique d'exécution",
+    "refresh": "Actualiser",
+    "empty": "Aucun enregistrement d'exécution",
+    "success": "Réussi",
+    "failed": "Échec",
+    "running": "En cours",
+    "aborted": "Interrompu"
+  }
+}
