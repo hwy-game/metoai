@@ -20,6 +20,7 @@ const PROVIDER_SYMBOLS = [
 	"zai",
 	"zhipu",
 	"metaai",
+	"metoai",
 	"opencode",
 ] as const;
 

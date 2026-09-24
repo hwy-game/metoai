@@ -1,5 +1,5 @@
 /**
- * MetaToken 控制台的 preload 契约。
+ * MetoAi 控制台的 preload 契约。
  *
  * 所有调用都返回 `MetoAiIpcResult`：失败是**值**而不是异常，因为 `Error` 实例
  * 过不了结构化克隆，异常穿过进程边界后 `code` / `status` 会丢，渲染层就没法区分
@@ -33,7 +33,7 @@ export interface DesktopMetoAiApi {
 	overview(): Promise<MetoAiIpcResult<MetoAiAccountOverview>>;
 	/** 公开站点配置（`/api/status`）：币种与站点显示信息。 */
 	siteConfig(): Promise<MetoAiIpcResult<MetoAiSiteConfig>>;
-	/** 在系统浏览器打开 MetaToken 授权页；成功后进入「等待授权」状态。 */
+	/** 在系统浏览器打开 MetoAi 授权页；成功后进入「等待授权」状态。 */
 	authorize(): Promise<MetoAiIpcResult<MetoAiAuthorizeResult>>;
 	/** 重新打开当前授权页（复用同一个 state）；没有进行中的授权时重新发起。 */
 	reopenAuthorize(): Promise<MetoAiIpcResult<void>>;
@@ -56,6 +56,6 @@ export interface DesktopMetoAiApi {
 	/** 换取完整 key（`sk-` 前缀已补好）。站点对该接口有独立限流，按需调用。 */
 	key(id: number): Promise<MetoAiIpcResult<string>>;
 
-	/** 确保 MetaToken 已接进模型配置（复用或签发 Key 并写盘）。幂等。 */
+	/** 确保 MetoAi 已接进模型配置（复用或签发 Key 并写盘）。幂等。 */
 	ensureModels(): Promise<MetoAiIpcResult<MetoAiModelAccessResult>>;
 }

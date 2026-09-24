@@ -1,8 +1,8 @@
 // @vitest-environment jsdom
 /**
- * 首启向导的引导顺序，以及其中的 MetaToken 登录步。
+ * 首启向导的引导顺序，以及其中的 MetoAi 登录步。
  *
- * 用户看到的第一屏必须是「语言与外观」，点「下一步」才是 MetaToken 登录页
+ * 用户看到的第一屏必须是「语言与外观」，点「下一步」才是 MetoAi 登录页
  * （登录页与官网授权页都按当前界面语言呈现，先选语言更合理）。这里用真实 i18n
  * 与真实向导装配走一遍常见流程：选语言 → 登录页（账号授权 / 填 Key）→ 欢迎页，
  * 并确认结束向导后不会立刻被全屏登录引导屏再盖一次。
@@ -22,7 +22,7 @@ import { SETUP_WIZARD_OPEN_EVENT } from "../storage";
 import { SetupWizard } from "./SetupWizard";
 import { MetoAiGate } from "@domains/metoai/MetoAiGate";
 
-/** 与发布形态一致：lite 构建没有云登录步，MetaToken 步就是向导里的登录入口。 */
+/** 与发布形态一致：lite 构建没有云登录步，MetoAi 步就是向导里的登录入口。 */
 vi.mock("@/shared/feature-flags", () => ({ isCloudBuildEnabled: () => false }));
 
 /** 语言与外观两步各有自己的测试；这里只关心步骤顺序，不把主题引擎与主进程拖进来。 */
@@ -116,29 +116,29 @@ beforeEach(async () => {
 	store.set(localModelsConfigAtom, { providers: {} });
 });
 
-describe("首启向导的 MetaToken 登录步", () => {
-	it("第一屏是「语言与外观」，下一页才是 MetaToken 登录页", async () => {
+describe("首启向导的 MetoAi 登录步", () => {
+	it("第一屏是「语言与外观」，下一页才是 MetoAi 登录页", async () => {
 		setupApi();
 		renderWizard();
 
 		expect(screen.getByRole("heading", { name: "语言与外观" })).toBeTruthy();
-		expect(screen.queryByRole("heading", { name: "登录 MetaToken" })).toBeNull();
+		expect(screen.queryByRole("heading", { name: "登录 MetoAi" })).toBeNull();
 
 		await userEvent.click(screen.getByRole("button", { name: "下一步" }));
 
-		expect(await screen.findByRole("heading", { name: "登录 MetaToken" })).toBeTruthy();
+		expect(await screen.findByRole("heading", { name: "登录 MetoAi" })).toBeTruthy();
 		expect(screen.getByText("登录可选，点「下一步」继续")).toBeTruthy();
 		expect(screen.getByRole("button", { name: "在浏览器中授权登录" })).toBeTruthy();
 		expect(screen.queryByRole("heading", { name: "语言与外观" })).toBeNull();
 	});
 
-	it("登录页顶部用 MetaToken 自己的品牌标识", async () => {
+	it("登录页顶部用 MetoAi 自己的品牌标识", async () => {
 		setupApi();
 		renderWizard();
 		await userEvent.click(screen.getByRole("button", { name: "下一步" }));
 
-		// 以前这里渲染的是 provider 图标位（Meta 的商标），不是 MetaToken 的品牌标识。
-		const logo = await screen.findByRole("img", { name: "MetaToken" });
+		// 以前这里渲染的是 provider 图标位（Meta 的商标），不是 MetoAi 的品牌标识。
+		const logo = await screen.findByRole("img", { name: "MetoAi" });
 		expect(logo.getAttribute("src")).toBe("./metoai-logo.png");
 	});
 
@@ -233,13 +233,13 @@ describe("首启向导的 MetaToken 登录步", () => {
 
 		// 向导在语言页时引导屏已经挂在下面：同一时刻两处登录面都存在。
 		await userEvent.click(screen.getByRole("button", { name: "下一步" }));
-		expect(screen.getAllByRole("heading", { name: "登录 MetaToken" })).toHaveLength(2);
+		expect(screen.getAllByRole("heading", { name: "登录 MetoAi" })).toHaveLength(2);
 
 		// 不登录直接走完向导：结束向导就等于已经给过登录机会，引导屏必须跟着收起。
 		await userEvent.click(screen.getByRole("button", { name: "下一步" }));
 		await userEvent.click(await screen.findByRole("button", { name: "开始使用" }));
 
-		expect(screen.queryByRole("heading", { name: "登录 MetaToken" })).toBeNull();
+		expect(screen.queryByRole("heading", { name: "登录 MetoAi" })).toBeNull();
 	});
 
 	it("登录后按「上一步」退回登录页时不会被立刻弹回下一步", async () => {
@@ -260,7 +260,7 @@ describe("首启向导的 MetaToken 登录步", () => {
 		// 「上一步」是用户的明确意图：已经接入不等于要自动跳过这一步，否则按钮等于失效。
 		await userEvent.click(screen.getByRole("button", { name: "上一步" }));
 
-		expect(screen.getByRole("heading", { name: "登录 MetaToken" })).toBeTruthy();
+		expect(screen.getByRole("heading", { name: "登录 MetoAi" })).toBeTruthy();
 		expect(screen.queryByRole("heading", { name: "欢迎使用 Metoai" })).toBeNull();
 	});
 
@@ -272,14 +272,14 @@ describe("首启向导的 MetaToken 登录步", () => {
 				<MetoAiGate />
 			</MetoAiSessionProvider>,
 		);
-		expect(screen.queryByRole("heading", { name: "登录 MetaToken" })).toBeNull();
+		expect(screen.queryByRole("heading", { name: "登录 MetoAi" })).toBeNull();
 
 		// 登出时 useMetoAiSession 会调用它：标记清掉后引导屏要立刻回来，不用重启应用。
 		await act(async () => {
 			clearMetoAiGateSkipped();
 		});
 
-		expect(await screen.findByRole("heading", { name: "登录 MetaToken" })).toBeTruthy();
+		expect(await screen.findByRole("heading", { name: "登录 MetoAi" })).toBeTruthy();
 	});
 
 	it("关掉向导后再从设置里打开，向导仍能正常渲染", async () => {

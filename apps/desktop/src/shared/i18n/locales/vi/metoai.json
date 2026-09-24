@@ -1,10 +1,10 @@
 {
-  "title": "Tài khoản MetaToken",
+  "title": "Tài khoản MetoAi",
   "preset": {
-    "displayName": "MetaToken"
+    "displayName": "MetoAi"
   },
   "gate": {
-    "title": "Đăng nhập MetaToken",
+    "title": "Đăng nhập MetoAi",
     "subtitle": "Đăng nhập để dùng mọi mô hình trên relay tích hợp. Số dư, gói đăng ký và khóa được hiển thị ở đây; việc nạp tiền, gói và mã đổi thưởng được xử lý trên trang web.",
     "keyLabel": "Khóa API",
     "keyPlaceholder": "sk-... dán Khóa API của bạn",
@@ -12,7 +12,7 @@
     "save": "Lưu & Vào",
     "saving": "Đang xác minh…",
     "skip": "Bỏ qua lúc này",
-    "success": "Đã cấu hình MetaToken. Danh sách mô hình đã cập nhật.",
+    "success": "Đã cấu hình MetoAi. Danh sách mô hình đã cập nhật.",
     "secureNote": "Khóa của bạn được lưu cục bộ và mã hóa. Không bao giờ được tải lên.",
     "errorInvalidKey": "Khóa không hợp lệ. Vui lòng kiểm tra và thử lại.",
     "errorNetwork": "Yêu cầu mạng thất bại. Kiểm tra kết nối và thử lại.",
@@ -22,13 +22,13 @@
     "loginInstead": "Đăng nhập bằng ủy quyền trình duyệt thay thế"
   },
   "authorize": {
-    "hint": "Nút bên dưới mở trang ủy quyền MetaToken trong trình duyệt hệ thống, nơi bạn đăng nhập và chấp thuận quyền truy cập. Ứng dụng không bao giờ thu thập hay lưu mật khẩu của bạn.",
+    "hint": "Nút bên dưới mở trang ủy quyền MetoAi trong trình duyệt hệ thống, nơi bạn đăng nhập và chấp thuận quyền truy cập. Ứng dụng không bao giờ thu thập hay lưu mật khẩu của bạn.",
     "submit": "Ủy quyền trong trình duyệt",
     "waitingTitle": "Đang chờ ủy quyền trên trình duyệt",
     "waitingHint": "Hoàn tất đăng nhập và chấp thuận quyền truy cập trong trình duyệt; cửa sổ này sẽ tự đăng nhập khi bạn làm xong.",
     "reopen": "Mở lại trang ủy quyền",
     "cancel": "Hủy",
-    "openSite": "Mở trang web MetaToken",
+    "openSite": "Mở trang web MetoAi",
     "secureNote": "Ủy quyền chỉ thêm một phiên mà bạn có thể thu hồi trên trang web bất cứ lúc nào.",
     "errorOpen": "Không mở được trình duyệt. Vui lòng thử lại, hoặc dùng Khóa API thay thế.",
     "errorStateMismatch": "Không thể xác minh callback ủy quyền này (có thể đến từ liên kết đã hết hạn hoặc tab cũ). Vui lòng ủy quyền lại.",
@@ -37,19 +37,19 @@
     "errorAccessDenied": "Ủy quyền đã bị hủy. Không có tài khoản nào được đăng nhập.",
     "errorExchange": "Không thể đổi ủy quyền lấy thông tin xác thực. Vui lòng ủy quyền lại.",
     "errorSession": "Phiên đăng nhập của bạn không còn hợp lệ. Vui lòng ủy quyền lại.",
-    "errorSessionLimit": "Bạn đã đạt số phiên đăng nhập tối đa. Hãy thu hồi một phiên trên trang web MetaToken rồi thử lại."
+    "errorSessionLimit": "Bạn đã đạt số phiên đăng nhập tối đa. Hãy thu hồi một phiên trên trang web MetoAi rồi thử lại."
   },
   "signIn": {
-    "title": "Đăng nhập MetaToken",
+    "title": "Đăng nhập MetoAi",
     "subtitle": "Sau khi ủy quyền trong trình duyệt, số dư, gói đăng ký và khóa API của bạn sẽ hiện ở đây."
   },
   "menu": {
-    "login": "Đăng nhập MetaToken",
+    "login": "Đăng nhập MetoAi",
     "opening": "Đang mở trang ủy quyền…",
     "waiting": "Trang ủy quyền đã mở trong trình duyệt. Bạn sẽ được đăng nhập tự động khi hoàn tất.",
     "reopen": "Mở lại trang ủy quyền",
     "cancel": "Hủy ủy quyền",
-    "logout": "Đăng xuất khỏi MetaToken",
+    "logout": "Đăng xuất khỏi MetoAi",
     "signingOut": "Đang đăng xuất…"
   },
   "account": {
@@ -61,7 +61,7 @@
     "requests": "Số yêu cầu",
     "refresh": "Làm mới",
     "modelAccess": "Quyền truy cập mô hình",
-    "modelAccessHint": "Kết nối MetaToken với cấu hình mô hình để dùng các mô hình của nó trong trò chuyện.",
+    "modelAccessHint": "Kết nối MetoAi với cấu hình mô hình để dùng các mô hình của nó trong trò chuyện.",
     "modelAccessAction": "Kết nối",
     "modelAccessReady": "Đã kết nối. Hãy chọn mô hình của nó trong trò chuyện.",
     "modelAccessSyncing": "Đang kết nối…",
@@ -73,7 +73,7 @@
   },
   "keys": {
     "title": "Khóa API",
-    "description": "Dùng các khóa này để gọi MetaToken từ ứng dụng khác.",
+    "description": "Dùng các khóa này để gọi MetoAi từ ứng dụng khác.",
     "empty": "Chưa có khóa nào. Hãy tạo một khóa để dùng ở nơi khác.",
     "create": "Khóa mới",
     "name": "Tên",
@@ -111,7 +111,7 @@
     "errorToggle": "Cập nhật trạng thái khóa thất bại. Vui lòng thử lại sau."
   },
   "subscription": {
-    "description": "Gói hiện tại và mức sử dụng hạn mức của bạn. Việc mua, gia hạn và hủy được thực hiện trên trang web MetaToken.",
+    "description": "Gói hiện tại và mức sử dụng hạn mức của bạn. Việc mua, gia hạn và hủy được thực hiện trên trang web MetoAi.",
     "manage": "Quản lý trên trang web",
     "empty": "Không có gói đăng ký nào đang hoạt động.",
     "unknownPlan": "Gói đăng ký",
@@ -129,7 +129,7 @@
     }
   },
   "webActions": {
-    "description": "Việc nạp tiền, gói, mã đổi thưởng và chi tiết tài khoản được xử lý trên trang web MetaToken; trình duyệt đã đăng nhập sẵn sau khi ủy quyền.",
+    "description": "Việc nạp tiền, gói, mã đổi thưởng và chi tiết tài khoản được xử lý trên trang web MetoAi; trình duyệt đã đăng nhập sẵn sau khi ủy quyền.",
     "open": "Mở trang web",
     "topUp": "Nạp tiền",
     "topUpHint": "Thêm tiền vào số dư của bạn trên trang web.",

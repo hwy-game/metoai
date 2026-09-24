@@ -1001,7 +1001,7 @@
       "theme": "Thème de couleurs"
     },
     "metoai": {
-      "title": "Se connecter à MetaToken",
+      "title": "Se connecter à MetoAi",
       "subtitle": "Connectez-vous pour utiliser tous les modèles de la passerelle intégrée ; solde, abonnement et clés d’API sont aussi ici",
       "optionalHint": "Facultatif — cliquez sur Suivant pour continuer"
     },

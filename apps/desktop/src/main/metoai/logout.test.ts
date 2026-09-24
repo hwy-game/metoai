@@ -2,7 +2,7 @@
  * 退出登录：会话与本地模型凭据一起清掉，站点上的 Key 不动。
  *
  * 覆盖用户从设置页点「退出登录」之后主进程真正发生的事：撤销服务端会话、删除本地会话
- * 记录、把 `models.json` 里 MetaToken 预设的 Key 从凭据库移除（模型条目与 baseUrl 保留），
+ * 记录、把 `models.json` 里 MetoAi 预设的 Key 从凭据库移除（模型条目与 baseUrl 保留），
  * 并且登录后的后台预热不会把 Key 写回来。
  *
  * 只替掉宿主边界：electron、日志、打开浏览器、模型配置宿主与 fetch。会话落盘、模型配置
@@ -84,8 +84,8 @@ beforeEach(() => {
 			[METOAI_PRESET_ID]: {
 				source: "template",
 				templateId: METOAI_PRESET_ID,
-				displayName: "MetaToken",
-				icon: "metaai",
+				displayName: "MetoAi",
+				icon: "Metoai",
 				api: "openai-completions",
 				baseUrl: METOAI_BASE_URL,
 				credentialRef: "metoai-cred",
@@ -121,7 +121,7 @@ afterEach(() => {
 	rmSync(home, { recursive: true, force: true });
 });
 
-describe("MetaToken 退出登录", () => {
+describe("MetoAi 退出登录", () => {
 	it("撤销服务端会话并清掉本地 Key，模型条目与站点上的 Key 都保留", async () => {
 		signIn();
 

@@ -20,7 +20,7 @@ describe("getSetupWizardSteps", () => {
 		flags.mac = true;
 	});
 
-	it("MetaToken 登录步紧跟「语言与外观」", () => {
+	it("MetoAi 登录步紧跟「语言与外观」", () => {
 		expect(getSetupWizardSteps()).toEqual(["languageAppearance", "metoai", "permissions", "login", "welcome"]);
 	});
 
@@ -33,12 +33,12 @@ describe("getSetupWizardSteps", () => {
 		]);
 	});
 
-	it("lite 构建（无云服务）不引导云登录，但保留 MetaToken 步", () => {
+	it("lite 构建（无云服务）不引导云登录，但保留 MetoAi 步", () => {
 		flags.cloud = false;
 		expect(getSetupWizardSteps()).toEqual(["languageAppearance", "metoai", "permissions", "welcome"]);
 	});
 
-	it("已接入 MetaToken（有 Key 或已登录）时不再引导登录", () => {
+	it("已接入 MetoAi（有 Key 或已登录）时不再引导登录", () => {
 		expect(getSetupWizardSteps({ isMetoAiReady: true })).toEqual([
 			"languageAppearance",
 			"permissions",

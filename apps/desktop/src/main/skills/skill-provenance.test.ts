@@ -53,11 +53,11 @@ describe("plugin skill provenance", () => {
 		if (!source) return;
 
 		expect(
-			resolvePluginSkillPresentation(source, "vetta-ui-design", (raw) => raw.replace("%skill.name%", "Vetta 设计")),
+			resolvePluginSkillPresentation(source, "vetta-ui-design", (raw) => raw.replace("%skill.name%", "Metoai 设计")),
 		).toEqual({
 			defaultVisibility: "visible",
 			surfaces: { abilityCatalog: "visible", commandPalette: "hidden" },
-			displayName: "Vetta 设计",
+			displayName: "Metoai 设计",
 		});
 	});
 });

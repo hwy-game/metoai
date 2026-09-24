@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 /**
- * MetaToken 个人中心：从设置页进入后的常见流程。
+ * MetoAi 个人中心：从设置页进入后的常见流程。
  *
  * 覆盖未登录 → 浏览器授权 → 看到余额 / 订阅 / Key，订阅段与官网入口的展示，
  * 以及新建 Key、删除前确认这些用户真正会走一遍的操作；数据全部走
@@ -148,7 +148,7 @@ beforeEach(() => {
 	store.set(confirmDialogAtom, null);
 });
 
-describe("MetaToken 个人中心", () => {
+describe("MetoAi 个人中心", () => {
 	it("未登录时先授权，登录成功后看到余额、订阅与 Key", async () => {
 		const api = setupApi();
 		renderSettings();
@@ -202,7 +202,7 @@ describe("MetaToken 个人中心", () => {
 		).toBeTruthy();
 
 		await userEvent.click(screen.getByRole("button", { name: "subscription.manage" }));
-		expect(openExternal).toHaveBeenCalledWith("https://api.metotoken.ai/subscriptions");
+		expect(openExternal).toHaveBeenCalledWith("https://www.metotoken.ai/subscriptions");
 	});
 
 	it("充值、订阅、兑换码、账户资料与用量明细都跳官网对应页面", async () => {
@@ -213,11 +213,11 @@ describe("MetaToken 个人中心", () => {
 		for (const button of buttons) await userEvent.click(button);
 
 		expect(openExternal.mock.calls.map((call) => call[0])).toEqual([
-			"https://api.metotoken.ai/wallet",
-			"https://api.metotoken.ai/subscriptions",
-			"https://api.metotoken.ai/redemption-codes",
-			"https://api.metotoken.ai/profile",
-			"https://api.metotoken.ai/account-usage",
+			"https://www.metotoken.ai/wallet",
+			"https://www.metotoken.ai/subscriptions",
+			"https://www.metotoken.ai/redemption-codes",
+			"https://www.metotoken.ai/profile",
+			"https://www.metotoken.ai/account-usage",
 		]);
 	});
 

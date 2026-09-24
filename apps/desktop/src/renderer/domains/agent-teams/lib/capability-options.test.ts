@@ -117,7 +117,7 @@ describe("agent capability options", () => {
 					type: "skill",
 					presentation: {
 						defaultVisibility: "visible",
-						displayName: "Vetta 设计",
+						displayName: "Metoai 设计",
 						displayDescription: "设计产品界面",
 					},
 				},
@@ -129,7 +129,7 @@ describe("agent capability options", () => {
 
 		expect(option).toMatchObject({
 			id: "vetta-ui-design",
-			title: "Vetta 设计",
+			title: "Metoai 设计",
 			description: "设计产品界面",
 			visibleInAgentConfiguration: true,
 		});

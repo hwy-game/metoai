@@ -1,6 +1,6 @@
 /**
- * 登录后把 MetaToken 接进模型配置：确保账号下有一把可用 Key，并把它写成
- * `models.json` 里的 MetaToken 预设服务商。
+ * 登录后把 MetoAi 接进模型配置：确保账号下有一把可用 Key，并把它写成
+ * `models.json` 里的 MetoAi 预设服务商。
  *
  * 这是「登录即用」的关键一步：用户不需要自己去站点复制 Key 再粘回来。
  * 写盘走 `ModelSettingsService.replaceConfig`（与设置页同一条链路），因此凭据
@@ -83,7 +83,7 @@ async function runEnsureModelAccess(): Promise<MetoAiModelAccessResult> {
 		const probe = await refreshPresetModels(METOAI_PRESET_ID, existingKey);
 		if (!probe.error && probe.models.length > 0) return { ok: true, created: false };
 		if (!isInvalidKey(probe.error)) return failureFromPresetError(probe.error);
-		log.info("stored MetaToken key is no longer accepted; issuing a new one");
+		log.info("stored MetoAi key is no longer accepted; issuing a new one");
 	}
 
 	const token = await obtainTokenKey();
@@ -115,7 +115,7 @@ async function runEnsureModelAccess(): Promise<MetoAiModelAccessResult> {
 		},
 	};
 	await service.replaceConfig(next);
-	log.info(`MetaToken model access ready (createdToken=${token.created})`);
+	log.info(`MetoAi model access ready (createdToken=${token.created})`);
 	return { ok: true, created: token.created };
 }
 
@@ -143,5 +143,5 @@ export async function releaseModelAccess(): Promise<void> {
 		...latest,
 		providers: { ...latest.providers, [METOAI_PRESET_ID]: released },
 	});
-	log.info("released the local MetaToken model credential");
+	log.info("released the local MetoAi model credential");
 }

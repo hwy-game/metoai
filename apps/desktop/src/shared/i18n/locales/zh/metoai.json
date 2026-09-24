@@ -1,10 +1,10 @@
 {
-  "title": "MetaToken 账户",
+  "title": "MetoAi 账户",
   "preset": {
-    "displayName": "MetaToken"
+    "displayName": "MetoAi"
   },
   "gate": {
-    "title": "登录 MetaToken",
+    "title": "登录 MetoAi",
     "subtitle": "登录后即可使用内置中转站的全部模型；余额、订阅与 Key 在这里查看，充值、订阅与兑换码在官网办理。",
     "keyLabel": "API Key",
     "keyPlaceholder": "sk-... 粘贴你的 API Key",
@@ -12,7 +12,7 @@
     "save": "保存并进入",
     "saving": "验证中…",
     "skip": "跳过，稍后再说",
-    "success": "已配置 MetaToken，模型列表已更新。",
+    "success": "已配置 MetoAi，模型列表已更新。",
     "secureNote": "Key 仅保存在本机，加密存储，不会上传。",
     "errorInvalidKey": "Key 无效，请检查后重试。",
     "errorNetwork": "网络请求失败，请检查网络后重试。",
@@ -22,13 +22,13 @@
     "loginInstead": "改用账号授权登录"
   },
   "authorize": {
-    "hint": "点击下方按钮会在系统浏览器打开 MetaToken 授权页，在网页上完成登录并同意授权。客户端不会收集或保存你的密码。",
+    "hint": "点击下方按钮会在系统浏览器打开 MetoAi 授权页，在网页上完成登录并同意授权。客户端不会收集或保存你的密码。",
     "submit": "在浏览器中授权登录",
     "waitingTitle": "等待浏览器授权",
     "waitingHint": "请在浏览器里完成登录并同意授权，完成后本窗口会自动登录。",
     "reopen": "重新打开授权页",
     "cancel": "取消",
-    "openSite": "打开 MetaToken 官网",
+    "openSite": "打开 MetoAi 官网",
     "secureNote": "授权只会在官网新增一条可随时撤销的登录会话。",
     "errorOpen": "浏览器打开失败，请重试，或改用 API Key 登录。",
     "errorStateMismatch": "这次授权回调无法验证（可能来自过期链接或旧标签页），请重新发起授权。",
@@ -37,19 +37,19 @@
     "errorAccessDenied": "授权已取消，没有登录任何账号。",
     "errorExchange": "换取登录凭据失败，请重新发起授权。",
     "errorSession": "登录会话已失效，请重新发起授权。",
-    "errorSessionLimit": "登录会话数量已达上限，请先在 MetaToken 官网撤销一个会话后重试。"
+    "errorSessionLimit": "登录会话数量已达上限，请先在 MetoAi 官网撤销一个会话后重试。"
   },
   "signIn": {
-    "title": "登录 MetaToken 账号",
+    "title": "登录 MetoAi 账号",
     "subtitle": "通过浏览器授权登录后，可以在这里查看余额、订阅与 API Key。"
   },
   "menu": {
-    "login": "登录 MetaToken",
+    "login": "登录 MetoAi",
     "opening": "正在打开授权页…",
     "waiting": "授权页已在浏览器打开，完成后会自动登录。",
     "reopen": "重新打开授权页",
     "cancel": "取消授权",
-    "logout": "退出 MetaToken",
+    "logout": "退出 MetoAi",
     "signingOut": "退出中…"
   },
   "account": {
@@ -61,7 +61,7 @@
     "requests": "请求数",
     "refresh": "刷新",
     "modelAccess": "模型接入",
-    "modelAccessHint": "把 MetaToken 接入模型配置，聊天里就能直接选用它的模型。",
+    "modelAccessHint": "把 MetoAi 接入模型配置，聊天里就能直接选用它的模型。",
     "modelAccessAction": "接入模型",
     "modelAccessReady": "已接入，可直接在聊天里使用。",
     "modelAccessSyncing": "正在接入…",
@@ -73,7 +73,7 @@
   },
   "keys": {
     "title": "API Key",
-    "description": "这些 Key 用于在其它客户端调用 MetaToken。",
+    "description": "这些 Key 用于在其它客户端调用 MetoAi。",
     "empty": "还没有 Key，新建一个就能在别处使用。",
     "create": "新建 Key",
     "name": "名称",
@@ -111,7 +111,7 @@
     "errorToggle": "更新 Key 状态失败，请稍后重试。"
   },
   "subscription": {
-    "description": "当前套餐与额度用量；购买、续费与取消都在 MetaToken 官网办理。",
+    "description": "当前套餐与额度用量；购买、续费与取消都在 MetoAi 官网办理。",
     "manage": "去官网管理订阅",
     "empty": "当前没有生效的订阅。",
     "unknownPlan": "订阅套餐",
@@ -129,7 +129,7 @@
     }
   },
   "webActions": {
-    "description": "充值、订阅、兑换码与账户资料都在 MetaToken 官网办理；授权登录后浏览器里已经是登录状态。",
+    "description": "充值、订阅、兑换码与账户资料都在 MetoAi 官网办理；授权登录后浏览器里已经是登录状态。",
     "open": "打开官网",
     "topUp": "充值",
     "topUpHint": "在官网为账户余额充值。",

@@ -779,7 +779,7 @@ const builderConfig = {
 	files: ["**/*", ...extraResources.map(({ from }) => `!${from}/**/*`)],
 	protocols: {
 		name: "Metoai",
-		// metoai：MetaToken 授权回调（客户端 `METOAI_CALLBACK_URL`）；vetta：云服务登录
+		// metoai：MetoAi 授权回调（客户端 `METOAI_CALLBACK_URL`）；vetta：云服务登录
 		// （`vetta://oauth/callback`）与远程配对仍在用，且云端回调白名单不在本仓库，
 		// 不能单方面去掉。
 		schemes: ["metoai", "vetta"],

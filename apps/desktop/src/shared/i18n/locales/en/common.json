@@ -1001,7 +1001,7 @@
 			"theme": "Color theme"
 		},
 		"metoai": {
-			"title": "Sign in to MetaToken",
+			"title": "Sign in to MetoAi",
 			"subtitle": "Sign in to use every model on the built-in gateway; balance, subscription and API keys live here too",
 			"optionalHint": "Optional — tap Next to continue"
 		},

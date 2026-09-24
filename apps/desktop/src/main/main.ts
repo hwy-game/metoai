@@ -113,7 +113,7 @@ import {
 fixPath();
 
 const PROTOCOL = "vetta";
-// MetaToken 授权回调用自己的 scheme（`metoai://metotoken/callback`）；云服务登录
+// MetoAi 授权回调用自己的 scheme（`metoai://metotoken/callback`）；云服务登录
 // （`vetta://oauth/callback`）与远程配对（`vetta://pair`）仍在用 `vetta`——云端
 // 回调白名单在服务端，客户端不能单方面改。安装包同时注册两个 scheme。
 const METOAI_PROTOCOL = "metoai";
@@ -326,7 +326,7 @@ function handleProtocolUrl(rawUrl: string): void {
 	try {
 		const parsed = new URL(rawUrl);
 		// OAuth 回调（vetta://oauth/callback）由 cloud 模块处理；lite 构建没有 cloud 模块。
-		// MetaToken 授权回调（metoai://metotoken/callback）与构建开关无关，必须始终转交。
+		// MetoAi 授权回调（metoai://metotoken/callback）与构建开关无关，必须始终转交。
 		cloudMain?.handleProtocolUrl(parsed);
 		handleMetoAiProtocolUrl(parsed);
 	} catch {
@@ -662,7 +662,7 @@ if (!gotSingleLock) {
 			cloudMain = startCloudMain({ receiveProtocolUrl });
 		}
 
-		// MetaToken 授权在开发模式没有可用的自定义 scheme，回调从本机 loopback 进来：
+		// MetoAi 授权在开发模式没有可用的自定义 scheme，回调从本机 loopback 进来：
 		// 归一化成 `metoai://metotoken/callback?…` 后走与打包版相同的深链入口。
 		// 不放在 cloud 模块里——lite 构建同样需要这条回调。
 		registerLoopbackHandler(METOAI_LOOPBACK_PATH, (search) =>

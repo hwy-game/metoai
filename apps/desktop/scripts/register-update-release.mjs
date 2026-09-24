@@ -16,7 +16,7 @@ import { resolveReleaseInfo } from "./resolve-release-info.mjs";
 const projectRoot = join(import.meta.dirname, "..");
 const updaterMetadataPattern = /^latest(?:-[a-z0-9_-]+)?\.ya?ml$/i;
 
-export const DEFAULT_BASE_URL = "https://api.metotoken.ai";
+export const DEFAULT_BASE_URL = "https://www.metotoken.ai";
 export const DEFAULT_TIMEOUT_MS = 15000;
 export const RELEASE_PATH = "/api/metoai/desktop/releases";
 export const CHANNELS = Object.freeze(["stable", "beta"]);

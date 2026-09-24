@@ -1001,7 +1001,7 @@
 			"theme": "主题配色"
 		},
 		"metoai": {
-			"title": "登录 MetaToken",
+			"title": "登录 MetoAi",
 			"subtitle": "登录后即可使用内置中转站的全部模型；余额、订阅与 API Key 也在这里查看",
 			"optionalHint": "登录可选，点「下一步」继续"
 		},

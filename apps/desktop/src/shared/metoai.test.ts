@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 const ENV_KEY = "VETTA_METOAI_SITE_URL";
-const PRODUCTION_SITE = "https://api.metotoken.ai";
+const PRODUCTION_SITE = "https://www.metotoken.ai";
 
 /** 常量在模块加载时求值，所以每个用例都要清模块缓存后再 import。 */
 async function loadMetoAi(override?: string): Promise<typeof import("./metoai")> {

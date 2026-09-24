@@ -1,5 +1,5 @@
 /**
- * MetaToken 个人中心 · 账号与余额（展示层）。
+ * MetoAi 个人中心 · 账号与余额（展示层）。
  *
  * 只渲染传入的 view model：余额与用量已经是格式化好的文本（币种规则在主进程按
  * `/api/status` 推出，见 `domains/metoai/hooks/useMetoAiAccount.ts`）。
@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 import type { MetoAiUser } from "@/shared/metoai-types";
 
 export interface MetoAiModelAccessState {
-	/** 模型配置里已有 MetaToken 的 Key。 */
+	/** 模型配置里已有 MetoAi 的 Key。 */
 	connected: boolean;
 	busy: boolean;
 	/** 最近一次接入的结果文案；null 表示本次会话还没有动作。 */

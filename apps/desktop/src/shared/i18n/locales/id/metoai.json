@@ -1,10 +1,10 @@
 {
-  "title": "Akun MetaToken",
+  "title": "Akun MetoAi",
   "preset": {
-    "displayName": "MetaToken"
+    "displayName": "MetoAi"
   },
   "gate": {
-    "title": "Masuk ke MetaToken",
+    "title": "Masuk ke MetoAi",
     "subtitle": "Masuk untuk menggunakan semua model di relay bawaan. Saldo, langganan, dan kunci ditampilkan di sini; isi ulang, paket, dan kode penukaran ditangani di situs web.",
     "keyLabel": "Kunci API",
     "keyPlaceholder": "sk-... tempel Kunci API Anda",
@@ -12,7 +12,7 @@
     "save": "Simpan & Masuk",
     "saving": "Memverifikasi…",
     "skip": "Lewati dulu",
-    "success": "MetaToken dikonfigurasi. Daftar model diperbarui.",
+    "success": "MetoAi dikonfigurasi. Daftar model diperbarui.",
     "secureNote": "Kunci Anda disimpan secara lokal dan terenkripsi. Kunci tidak pernah diunggah.",
     "errorInvalidKey": "Kunci tidak valid. Harap periksa dan coba lagi.",
     "errorNetwork": "Permintaan jaringan gagal. Periksa koneksi Anda dan coba lagi.",
@@ -22,13 +22,13 @@
     "loginInstead": "Masuk dengan otorisasi browser saja"
   },
   "authorize": {
-    "hint": "Tombol di bawah membuka halaman otorisasi MetaToken di browser sistem Anda, tempat Anda masuk dan menyetujui akses. Klien tidak pernah mengumpulkan atau menyimpan kata sandi Anda.",
+    "hint": "Tombol di bawah membuka halaman otorisasi MetoAi di browser sistem Anda, tempat Anda masuk dan menyetujui akses. Klien tidak pernah mengumpulkan atau menyimpan kata sandi Anda.",
     "submit": "Otorisasi di browser",
     "waitingTitle": "Menunggu otorisasi browser",
     "waitingHint": "Selesaikan proses masuk dan setujui akses di browser; jendela ini akan masuk secara otomatis setelahnya.",
     "reopen": "Buka lagi halaman otorisasi",
     "cancel": "Batal",
-    "openSite": "Buka situs web MetaToken",
+    "openSite": "Buka situs web MetoAi",
     "secureNote": "Otorisasi hanya menambahkan satu sesi yang dapat Anda cabut di situs web kapan saja.",
     "errorOpen": "Tidak dapat membuka browser Anda. Harap coba lagi, atau gunakan Kunci API saja.",
     "errorStateMismatch": "Callback otorisasi ini tidak dapat diverifikasi (mungkin berasal dari tautan kedaluwarsa atau tab lama). Harap beri otorisasi lagi.",
@@ -37,19 +37,19 @@
     "errorAccessDenied": "Otorisasi dibatalkan. Tidak ada akun yang masuk.",
     "errorExchange": "Tidak dapat menukar otorisasi dengan kredensial. Harap beri otorisasi lagi.",
     "errorSession": "Sesi masuk Anda tidak lagi valid. Harap beri otorisasi lagi.",
-    "errorSessionLimit": "Anda telah mencapai jumlah maksimum sesi masuk. Cabut salah satunya di situs web MetaToken dan coba lagi."
+    "errorSessionLimit": "Anda telah mencapai jumlah maksimum sesi masuk. Cabut salah satunya di situs web MetoAi dan coba lagi."
   },
   "signIn": {
-    "title": "Masuk ke MetaToken",
+    "title": "Masuk ke MetoAi",
     "subtitle": "Setelah memberi otorisasi di browser, saldo, langganan, dan kunci API Anda muncul di sini."
   },
   "menu": {
-    "login": "Masuk ke MetaToken",
+    "login": "Masuk ke MetoAi",
     "opening": "Membuka halaman otorisasi…",
     "waiting": "Halaman otorisasi terbuka di browser Anda. Anda akan masuk secara otomatis setelah selesai.",
     "reopen": "Buka lagi halaman otorisasi",
     "cancel": "Batalkan otorisasi",
-    "logout": "Keluar dari MetaToken",
+    "logout": "Keluar dari MetoAi",
     "signingOut": "Keluar…"
   },
   "account": {
@@ -61,7 +61,7 @@
     "requests": "Permintaan",
     "refresh": "Segarkan",
     "modelAccess": "Akses model",
-    "modelAccessHint": "Hubungkan MetaToken ke konfigurasi model Anda untuk menggunakan modelnya di obrolan.",
+    "modelAccessHint": "Hubungkan MetoAi ke konfigurasi model Anda untuk menggunakan modelnya di obrolan.",
     "modelAccessAction": "Hubungkan",
     "modelAccessReady": "Terhubung. Pilih modelnya di obrolan.",
     "modelAccessSyncing": "Menghubungkan…",
@@ -73,7 +73,7 @@
   },
   "keys": {
     "title": "Kunci API",
-    "description": "Gunakan kunci ini untuk memanggil MetaToken dari klien lain.",
+    "description": "Gunakan kunci ini untuk memanggil MetoAi dari klien lain.",
     "empty": "Belum ada kunci. Buat satu untuk menggunakannya di tempat lain.",
     "create": "Kunci baru",
     "name": "Nama",
@@ -111,7 +111,7 @@
     "errorToggle": "Gagal memperbarui status kunci. Harap coba lagi nanti."
   },
   "subscription": {
-    "description": "Paket dan penggunaan kuota Anda saat ini. Pembelian, perpanjangan, dan pembatalan dilakukan di situs web MetaToken.",
+    "description": "Paket dan penggunaan kuota Anda saat ini. Pembelian, perpanjangan, dan pembatalan dilakukan di situs web MetoAi.",
     "manage": "Kelola di situs web",
     "empty": "Tidak ada langganan aktif.",
     "unknownPlan": "Paket langganan",
@@ -129,7 +129,7 @@
     }
   },
   "webActions": {
-    "description": "Isi ulang, paket, kode penukaran, dan detail akun ditangani di situs web MetaToken; browser sudah masuk setelah otorisasi.",
+    "description": "Isi ulang, paket, kode penukaran, dan detail akun ditangani di situs web MetoAi; browser sudah masuk setelah otorisasi.",
     "open": "Buka situs web",
     "topUp": "Isi ulang",
     "topUpHint": "Tambahkan dana ke saldo Anda di situs web.",

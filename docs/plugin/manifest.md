@@ -359,7 +359,7 @@ revision 读取；不要依次调用多次 `writeFile()` 冒充多文件事务�
 
 | role | agent | 名称 | 擅长什么 |
 | --- | --- | --- | --- |
-| `designer` | `vetta-ui-design/designer` | 设计师 | 在 Vetta 设计画布上产出界面：App 页面、落地页、幻灯片与海报 |
+| `designer` | `vetta-ui-design/designer` | 设计师 | 在 Metoai 设计画布上产出界面：App 页面、落地页、幻灯片与海报 |
 
 这两个插件是**预置插件**，用户可以禁用但不会卸载。禁用时槽位按 `optional` 规则降级——用 `role` 引用它们的团队会少一名队员，重新启用后原样回来。
 

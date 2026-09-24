@@ -1001,7 +1001,7 @@
       "theme": "Tema de color"
     },
     "metoai": {
-      "title": "Inicia sesión en MetaToken",
+      "title": "Inicia sesión en MetoAi",
       "subtitle": "Inicia sesión para usar todos los modelos de la pasarela integrada; el saldo, la suscripción y las claves de API también están aquí",
       "optionalHint": "Opcional — pulsa Siguiente para continuar"
     },

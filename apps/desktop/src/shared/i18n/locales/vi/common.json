@@ -1001,7 +1001,7 @@
       "theme": "Chủ đề màu"
     },
     "metoai": {
-      "title": "Đăng nhập MetaToken",
+      "title": "Đăng nhập MetoAi",
       "subtitle": "Đăng nhập để dùng toàn bộ mô hình trên gateway tích hợp; số dư, gói đăng ký và khóa API cũng ở đây",
       "optionalHint": "Tùy chọn — nhấn Tiếp để tiếp tục"
     },

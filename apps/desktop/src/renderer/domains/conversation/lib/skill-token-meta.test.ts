@@ -23,10 +23,10 @@ describe("buildSkillTokenMetaMap", () => {
 
 	it("展示名只改变 token 文案，不改变稳定键", () => {
 		const map = buildSkillTokenMetaMap(
-			[{ ...publishAbility, presentation: { displayName: "Vetta 设计" } }],
+			[{ ...publishAbility, presentation: { displayName: "Metoai 设计" } }],
 			new Map(),
 		);
-		expect(map.get("skill:publish-ability")?.label).toBe("Vetta 设计");
+		expect(map.get("skill:publish-ability")?.label).toBe("Metoai 设计");
 	});
 
 	it("内置 skill 的图标走 renderer 静态资源", () => {

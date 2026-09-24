@@ -81,10 +81,10 @@ describe("installSkillFromMarketSlug", () => {
 			version: "1.2.3",
 			updated: false,
 		});
-		expect(fetchMock).toHaveBeenNthCalledWith(1, "https://api.metotoken.ai/api/abilities/skill/demo/info", {
+		expect(fetchMock).toHaveBeenNthCalledWith(1, "https://www.metotoken.ai/api/abilities/skill/demo/info", {
 			headers: { Accept: "application/json" },
 		});
-		expect(fetchMock).toHaveBeenNthCalledWith(2, "https://api.metotoken.ai/api/abilities/skill/demo/download", {
+		expect(fetchMock).toHaveBeenNthCalledWith(2, "https://www.metotoken.ai/api/abilities/skill/demo/download", {
 			headers: { Accept: "application/octet-stream" },
 		});
 	});
@@ -107,7 +107,7 @@ describe("MetoToken 市场（匿名）", () => {
 		const { installSkillFromMarketSlug } = await import("./skill-market-install.js");
 		await expect(installSkillFromMarketSlug("skill", "demo")).resolves.toMatchObject({ name: "demo", type: "skill" });
 		expect(fetchMock).toHaveBeenCalledTimes(2);
-		expect(fetchMock).toHaveBeenNthCalledWith(1, "https://api.metotoken.ai/api/abilities/skill/demo/info", {
+		expect(fetchMock).toHaveBeenNthCalledWith(1, "https://www.metotoken.ai/api/abilities/skill/demo/info", {
 			headers: { Accept: "application/json" },
 		});
 	});

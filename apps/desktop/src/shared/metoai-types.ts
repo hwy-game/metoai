@@ -1,5 +1,5 @@
 /**
- * MetaToken 控制台接口（`<site>/api/*`）的线上契约。
+ * MetoAi 控制台接口（`<site>/api/*`）的线上契约。
  *
  * 线上契约字段一律保持服务端原始 snake_case 形状：这套接口与项目下的 metotoken 站点
  * 是同一份后端，保持同名同形才能在两侧对照排查；主进程只负责拆信封
@@ -174,7 +174,7 @@ export interface MetoAiCurrencyConfig {
 	isTokenDisplay: boolean;
 }
 
-/** 「登录即用」的准备结果：是否已把 MetaToken 接进模型配置。 */
+/** 「登录即用」的准备结果：是否已把 MetoAi 接进模型配置。 */
 export interface MetoAiModelAccessResult {
 	ok: boolean;
 	/** 本次是否新建了令牌（false 表示复用了已有 Key 或已有配置）。 */

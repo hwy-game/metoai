@@ -1,10 +1,10 @@
 {
-  "title": "Cuenta de MetaToken",
+  "title": "Cuenta de MetoAi",
   "preset": {
-    "displayName": "MetaToken"
+    "displayName": "MetoAi"
   },
   "gate": {
-    "title": "Inicia sesión en MetaToken",
+    "title": "Inicia sesión en MetoAi",
     "subtitle": "Inicia sesión para usar todos los modelos del relay integrado. El saldo, la suscripción y las claves se muestran aquí; las recargas, los planes y los códigos de canje se gestionan en el sitio web.",
     "keyLabel": "Clave de API",
     "keyPlaceholder": "sk-... pega tu clave de API",
@@ -12,7 +12,7 @@
     "save": "Guardar y entrar",
     "saving": "Verificando…",
     "skip": "Omitir por ahora",
-    "success": "MetaToken configurado. Lista de modelos actualizada.",
+    "success": "MetoAi configurado. Lista de modelos actualizada.",
     "secureNote": "Tu clave se guarda localmente y cifrada. Nunca se sube.",
     "errorInvalidKey": "Clave no válida. Compruébala e inténtalo de nuevo.",
     "errorNetwork": "Falló la solicitud de red. Comprueba tu conexión e inténtalo de nuevo.",
@@ -22,13 +22,13 @@
     "loginInstead": "Iniciar sesión con autorización del navegador en su lugar"
   },
   "authorize": {
-    "hint": "El botón de abajo abre la página de autorización de MetaToken en el navegador del sistema, donde inicias sesión y apruebas el acceso. El cliente nunca recopila ni almacena tu contraseña.",
+    "hint": "El botón de abajo abre la página de autorización de MetoAi en el navegador del sistema, donde inicias sesión y apruebas el acceso. El cliente nunca recopila ni almacena tu contraseña.",
     "submit": "Autorizar en el navegador",
     "waitingTitle": "Esperando la autorización del navegador",
     "waitingHint": "Termina de iniciar sesión y aprueba el acceso en el navegador; esta ventana iniciará sesión automáticamente cuando lo hagas.",
     "reopen": "Abrir de nuevo la página de autorización",
     "cancel": "Cancelar",
-    "openSite": "Abrir el sitio web de MetaToken",
+    "openSite": "Abrir el sitio web de MetoAi",
     "secureNote": "Autorizar solo añade una sesión que puedes revocar en el sitio web cuando quieras.",
     "errorOpen": "No se pudo abrir tu navegador. Inténtalo de nuevo o usa una clave de API en su lugar.",
     "errorStateMismatch": "No se pudo verificar esta devolución de llamada de autorización (puede venir de un enlace caducado o de una pestaña antigua). Vuelve a autorizar.",
@@ -37,19 +37,19 @@
     "errorAccessDenied": "Se canceló la autorización. No se inició sesión en ninguna cuenta.",
     "errorExchange": "No se pudo canjear la autorización por credenciales. Vuelve a autorizar.",
     "errorSession": "Tu sesión ya no es válida. Vuelve a autorizar.",
-    "errorSessionLimit": "Has alcanzado el número máximo de sesiones iniciadas. Revoca una en el sitio web de MetaToken e inténtalo de nuevo."
+    "errorSessionLimit": "Has alcanzado el número máximo de sesiones iniciadas. Revoca una en el sitio web de MetoAi e inténtalo de nuevo."
   },
   "signIn": {
-    "title": "Inicia sesión en MetaToken",
+    "title": "Inicia sesión en MetoAi",
     "subtitle": "Después de autorizar en tu navegador, tu saldo, tu suscripción y tus claves de API aparecerán aquí."
   },
   "menu": {
-    "login": "Inicia sesión en MetaToken",
+    "login": "Inicia sesión en MetoAi",
     "opening": "Abriendo la página de autorización…",
     "waiting": "La página de autorización está abierta en tu navegador. Se iniciará sesión automáticamente cuando se complete.",
     "reopen": "Abrir de nuevo la página de autorización",
     "cancel": "Cancelar la autorización",
-    "logout": "Cerrar sesión en MetaToken",
+    "logout": "Cerrar sesión en MetoAi",
     "signingOut": "Cerrando sesión…"
   },
   "account": {
@@ -61,7 +61,7 @@
     "requests": "Solicitudes",
     "refresh": "Actualizar",
     "modelAccess": "Acceso a modelos",
-    "modelAccessHint": "Conecta MetaToken a tu configuración de modelos para usar sus modelos en el chat.",
+    "modelAccessHint": "Conecta MetoAi a tu configuración de modelos para usar sus modelos en el chat.",
     "modelAccessAction": "Conectar",
     "modelAccessReady": "Conectado. Elige sus modelos en el chat.",
     "modelAccessSyncing": "Conectando…",
@@ -73,7 +73,7 @@
   },
   "keys": {
     "title": "Claves de API",
-    "description": "Usa estas claves para llamar a MetaToken desde otros clientes.",
+    "description": "Usa estas claves para llamar a MetoAi desde otros clientes.",
     "empty": "Aún no hay claves. Crea una para usarla en otro lugar.",
     "create": "Nueva clave",
     "name": "Nombre",
@@ -111,7 +111,7 @@
     "errorToggle": "No se pudo actualizar el estado de la clave. Inténtalo de nuevo más tarde."
   },
   "subscription": {
-    "description": "Tu plan actual y el uso de la cuota. La compra, la renovación y la cancelación se hacen en el sitio web de MetaToken.",
+    "description": "Tu plan actual y el uso de la cuota. La compra, la renovación y la cancelación se hacen en el sitio web de MetoAi.",
     "manage": "Gestionar en el sitio web",
     "empty": "No hay ninguna suscripción activa.",
     "unknownPlan": "Plan de suscripción",
@@ -129,7 +129,7 @@
     }
   },
   "webActions": {
-    "description": "Las recargas, los planes, los códigos de canje y los datos de la cuenta se gestionan en el sitio web de MetaToken; el navegador ya tiene la sesión iniciada después de autorizar.",
+    "description": "Las recargas, los planes, los códigos de canje y los datos de la cuenta se gestionan en el sitio web de MetoAi; el navegador ya tiene la sesión iniciada después de autorizar.",
     "open": "Abrir el sitio web",
     "topUp": "Recargar",
     "topUpHint": "Añade fondos a tu saldo en el sitio web.",

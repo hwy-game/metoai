@@ -6,7 +6,7 @@ export type SettingsTabLabelKey =
 	| "tabAppearance"
 	| "tabContext"
 	| "tabModels"
-	| "tabMetaToken"
+	| "tabMetoAi"
 	| "tabIm"
 	| "tabWebhook"
 	| "tabArchive"
@@ -53,8 +53,8 @@ export const SETTINGS_TABS: readonly SettingsTabRegistration[] = [
 	{ key: "appearance", label: "外观", labelKey: "tabAppearance", icon: "icon-[mdi--palette-outline]" },
 	{ key: "context", label: "Agent配置", labelKey: "tabContext", icon: "icon-[mdi--robot-outline]" },
 	{ key: "models", label: "模型配置", labelKey: "tabModels", icon: "icon-[mdi--brain]" },
-	// MetaToken 中转站的个人中心：登录、余额、Key 与充值。
-	{ key: "metoai", label: "MetaToken", labelKey: "tabMetaToken", icon: "icon-[mdi--wallet-outline]" },
+	// MetoAi 中转站的个人中心：登录、余额、Key 与充值。
+	{ key: "metoai", label: "MetoAi", labelKey: "tabMetoAi", icon: "icon-[mdi--wallet-outline]" },
 	{
 		key: "sshHosts",
 		label: "SSH 主机",

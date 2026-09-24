@@ -2192,7 +2192,7 @@
   "sshPromptSubmit": "继续连接",
   "sshPromptAccept": "确认并连接",
   "sshPromptReject": "取消连接",
-  "tabMetaToken": "MetaToken",
+  "tabMetoAi": "MetoAi",
   "section_metoai-account": "账号与余额",
   "section_metoai-keys": "API Key",
   "section_metoai-subscription": "订阅",

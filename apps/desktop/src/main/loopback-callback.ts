@@ -13,9 +13,9 @@
  * 所以开发模式改走标准的 loopback 回调：主进程在 127.0.0.1 上监听一个临时
  * 端口，回调地址指向 `http://127.0.0.1:<port><path>`。打包后仍旧走自定义 scheme 深链。
  *
- * 服务本身不认识任何业务，只维护「路径 → 处理器」注册表（云登录与 MetaToken
+ * 服务本身不认识任何业务，只维护「路径 → 处理器」注册表（云登录与 MetoAi
  * 授权各占一条路径）。放在 `main/` 根目录而不是 `cloud/` 下，是因为 lite 构建
- * （VETTA_CLOUD_ENABLED=false）会把整个 cloud chunk 裁掉，而 MetaToken 授权
+ * （VETTA_CLOUD_ENABLED=false）会把整个 cloud chunk 裁掉，而 MetoAi 授权
  * 在 lite 构建里同样需要 loopback。
  */
 

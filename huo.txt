@@ -4,3 +4,12 @@ bun run verify:ui:status           # 看是否在跑、端口、日志路径、p
 bun run verify:ui:pw -- snapshot   # 抓当前页面结构
 bun run verify:ui:stop             # 关掉
 bun run verify:ui:start:fresh      # 想重看首次引导屏就 stop 后再起一个全新的
+
+
+
+\apps\desktop
+bun run dist:opensource
+
+
+请求metotoken的地址配置位置：
+metoai/apps/desktop/src/shared/metoai.ts
