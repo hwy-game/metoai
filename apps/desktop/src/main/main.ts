@@ -7,6 +7,7 @@ import { getVettaHomePath, VETTA_HOME_ENV } from "@vetta/action-rpc";
 import { app, type BrowserWindow, dialog, ipcMain, nativeImage, nativeTheme, protocol, session, shell } from "electron";
 import { APP_RUNTIME_NAME } from "../shared/app-identity.js";
 import { isCloudBuildEnabled } from "../shared/feature-flags.js";
+import { DEFAULT_THEME_MODE, WINDOW_SURFACE_COLORS } from "../shared/theme-defaults.js";
 import { stopAllOpenMarketplaceMcpRuntimes } from "./abilities/open-marketplace/open-marketplace-mcp-runtime-host.js";
 import { ActionApprovalBroker } from "./app-actions/approval-broker.js";
 import { createAppActionSystem } from "./app-actions/index.js";
@@ -426,6 +427,10 @@ if (!gotSingleLock) {
 			argv: process.argv,
 		});
 
+		// 首启的默认明暗与渲染层取同一份（浅色）：原生控件、菜单与窗口底色先按默认值绘制，
+		// 渲染层挂载后通过 vetta:theme:set 校正为用户存过的模式。
+		nativeTheme.themeSource = DEFAULT_THEME_MODE;
+
 		// 在创建任何窗口/托盘菜单之前同步定语言：读 desktop-config.language
 		//（system | zh | en；缺省 = system）。托盘菜单与系统通知据此取文案（ADR-0031）。
 		initAppLanguage();
@@ -551,7 +556,7 @@ if (!gotSingleLock) {
 			const mainWindow = getMainWindow();
 			if (mainWindow) {
 				if (!isMac) {
-					mainWindow.setBackgroundColor(nativeTheme.shouldUseDarkColors ? "#161616" : "#f5f5f7");
+					mainWindow.setBackgroundColor(WINDOW_SURFACE_COLORS[nativeTheme.shouldUseDarkColors ? "dark" : "light"]);
 				}
 				mainWindow.webContents.send("vetta:theme:native-changed", {
 					shouldUseDarkColors: nativeTheme.shouldUseDarkColors,

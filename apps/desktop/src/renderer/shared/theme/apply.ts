@@ -1,21 +1,12 @@
 import type { ThemeColorOverrides } from "@vetta-org/theme-sdk/appearance";
+import { DEFAULT_RESOLVED_MODE, DEFAULT_THEME_MODE, type ResolvedMode, type ThemeMode } from "@/shared/theme-defaults";
 import { DEFAULT_THEME_ID, getTheme, resolveThemeId } from "./themes";
 import { TOKEN_CSS_VAR, type TokenSet } from "./tokens";
 
-export type ThemeMode = "light" | "dark" | "auto";
-export type ResolvedMode = "light" | "dark";
+export { DEFAULT_RESOLVED_MODE, DEFAULT_THEME_MODE, type ResolvedMode, type ThemeMode };
 
 export const MODE_STORAGE_KEY = "vetta-theme";
 export const THEME_STORAGE_KEY = "vetta-color-theme";
-
-/** 首次启动（本地没有存过模式）时的默认明暗：浅色。 */
-/** 首次启动（本地没有存过模式）时的默认明暗：浅色。 */
-export const DEFAULT_THEME_MODE = "light" satisfies ThemeMode;
-/**
- * 首帧尚未解析前的兜底明暗，必须与 {@link DEFAULT_THEME_MODE} 一致。
- * 默认模式若改成 auto，这里会因类型不匹配报错，届时需要显式决定兜底值。
- */
-export const DEFAULT_RESOLVED_MODE: ResolvedMode = DEFAULT_THEME_MODE;
 
 let activeThemeColorOverrides: ThemeColorOverrides | undefined;
 

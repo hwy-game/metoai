@@ -1,6 +1,7 @@
 import { join } from "node:path";
-import { app, BrowserWindow, nativeTheme } from "electron";
+import { app, BrowserWindow } from "electron";
 import { isSpeechInputBuildEnabled } from "../shared/feature-flags.js";
+import { DEFAULT_RESOLVED_MODE, WINDOW_SURFACE_COLORS } from "../shared/theme-defaults.js";
 import { setAppMonitorWindowVisible } from "./app-monitor/app-monitor-service.js";
 import { type RendererConsoleLevel, shouldPersistRendererConsoleMessage } from "./logger/renderer-console-policy.js";
 import { getAppLogger } from "./logger.js";
@@ -67,7 +68,9 @@ export function createWindow(): BrowserWindow {
 		trafficLightPosition: isMac ? { x: 16, y: 20 } : undefined,
 		vibrancy: isMac ? "sidebar" : undefined,
 		visualEffectState: isMac ? "active" : undefined,
-		backgroundColor: isMac ? "#00000000" : nativeTheme.shouldUseDarkColors ? "#161616" : "#f5f5f7",
+		// 窗口底色按应用自身的默认明暗（浅色）绘制，不跟随系统深色：页面着色前先画浅色底，
+		// 否则系统深色时首启会先露出深色再跳到浅色页面。
+		backgroundColor: isMac ? "#00000000" : WINDOW_SURFACE_COLORS[DEFAULT_RESOLVED_MODE],
 		webPreferences: {
 			contextIsolation: true,
 			nodeIntegration: false,
