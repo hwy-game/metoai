@@ -736,9 +736,9 @@ export async function fetchMetoaiDesktopMessages(params?: {
 	const qs = new URLSearchParams();
 	qs.set("p", String(params?.p ?? 1));
 	qs.set("page_size", String(params?.page_size ?? 20));
-	const data = await marketRequest<Partial<MetoaiDesktopMessagePage> | null>(
-		`/metoai/desktop/messages?${qs.toString()}`,
-	);
+	// 公开路径是 /api/desktop/messages；/api/metoai/desktop/messages 是管理端路由组（带 RootAuth），
+	// 打到那里只会拿到 401。
+	const data = await marketRequest<Partial<MetoaiDesktopMessagePage> | null>(`/desktop/messages?${qs.toString()}`);
 	return {
 		list: (Array.isArray(data?.list) ? data.list : []).map(normalizeMetoaiDesktopMessage),
 		total: typeof data?.total === "number" ? data.total : 0,

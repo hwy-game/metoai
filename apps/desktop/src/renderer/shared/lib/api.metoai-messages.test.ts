@@ -26,7 +26,7 @@ describe("MetoToken 官方消息 API", () => {
 
 		await fetchMetoaiDesktopMessages({ p: 2, page_size: 5 });
 
-		expect(fetchMock).toHaveBeenCalledWith(`${METOAI_API_BASE}/metoai/desktop/messages?p=2&page_size=5`);
+		expect(fetchMock).toHaveBeenCalledWith(`${METOAI_API_BASE}/desktop/messages?p=2&page_size=5`);
 		expect(fetchMock.mock.calls[0]?.[1]).toBeUndefined();
 	});
 
@@ -35,7 +35,7 @@ describe("MetoToken 官方消息 API", () => {
 
 		await fetchMetoaiDesktopMessages();
 
-		expect(fetchMock).toHaveBeenCalledWith(`${METOAI_API_BASE}/metoai/desktop/messages?p=1&page_size=20`);
+		expect(fetchMock).toHaveBeenCalledWith(`${METOAI_API_BASE}/desktop/messages?p=1&page_size=20`);
 	});
 
 	it("归一未知级别与非字符串字段，缺 list 时给出空数组", async () => {
