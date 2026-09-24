@@ -13,6 +13,7 @@ import qwenIcon from "@lobehub/icons-static-svg/icons/qwen-color.svg?url";
 import xiaomiMimoIcon from "@lobehub/icons-static-svg/icons/xiaomimimo.svg?url";
 import zaiIcon from "@lobehub/icons-static-svg/icons/zai.svg?url";
 import zhipuIcon from "@lobehub/icons-static-svg/icons/zhipu-color.svg?url";
+import metoaiIcon from "./metoai.png?url";
 
 type ProviderIconAppearance = "color" | "monochrome";
 
@@ -36,6 +37,7 @@ const PROVIDER_ICON_ASSETS = {
 	zai: { src: zaiIcon, appearance: "monochrome" },
 	zhipu: { src: zhipuIcon, appearance: "color" },
 	metaai: { src: metaaiIcon, appearance: "color" },
+	metoai: { src: metoaiIcon, appearance: "color" },
 	opencode: { src: opencodeIcon, appearance: "monochrome" },
 } as const satisfies Record<string, ProviderIconAsset>;
 

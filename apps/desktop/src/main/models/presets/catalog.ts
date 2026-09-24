@@ -23,6 +23,17 @@ const NON_CHAT =
 	/embedding|embed|whisper|tts|audio|realtime|-live-|moderation|dall-e|image|transcribe|rerank|vision-ocr|veo-|lyria|imagen|deep-research|computer-use|-character|livetranslate/i;
 
 export const PRESET_PROVIDERS: readonly PresetProviderDef[] = [
+	// MetaToken 是本产品的官方服务商，固定排在第一，方便用户开箱即用。
+	{
+		id: METOAI_PRESET_ID,
+		displayName: METOAI_DISPLAY_NAME,
+		icon: METOAI_ICON,
+		api: "openai-completions",
+		baseUrl: METOAI_BASE_URL,
+		fetcher: "openai-compatible",
+		// 聚合中转站:模型全量透传,不做过滤,保留用户可用的全部模型。
+		isChatModel: () => true,
+	},
 	{
 		id: "claude",
 		displayName: "Claude",
@@ -88,16 +99,6 @@ export const PRESET_PROVIDERS: readonly PresetProviderDef[] = [
 		// DashScope 一个接口里混着通义万相、语音、第三方模型,只留通义千问自家的对话模型;
 		// ocr / asr / mt 是专用接口的模型,当普通对话用会直接报参数错。
 		isChatModel: (id) => /^(qwen|qwq|qvq)/.test(id) && !/-ocr|-asr|-mt-/.test(id) && !NON_CHAT.test(id),
-	},
-	{
-		id: METOAI_PRESET_ID,
-		displayName: METOAI_DISPLAY_NAME,
-		icon: METOAI_ICON,
-		api: "openai-completions",
-		baseUrl: METOAI_BASE_URL,
-		fetcher: "openai-compatible",
-		// 聚合中转站:模型全量透传,不做过滤,保留用户可用的全部模型。
-		isChatModel: () => true,
 	},
 	{
 		id: "gemini",

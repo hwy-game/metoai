@@ -1,5 +1,5 @@
 /**
- * MetaToken 中转站相关的共享常量。
+ * MetoAi 中转站相关的共享常量。
  * 主进程(catalog.ts 预设目录)与渲染层(引导屏/能力市场)共用,避免两处各写一份。
  *
  * 站点地址可用 `VETTA_METOAI_SITE_URL` 覆盖(构建期开关,见 .env.example)：
@@ -10,19 +10,19 @@
 export const METOAI_PRESET_ID = "metoai";
 
 /** 线上站点。未设 `VETTA_METOAI_SITE_URL` 时的默认值。 */
-const METOAI_DEFAULT_SITE_URL = "https://api.metotoken.ai";
+const METOAI_DEFAULT_SITE_URL = "https://www.metotoken.ai";
 
 /** 覆盖值去掉尾部斜杠,避免拼出 `//api` 这种前缀。 */
 export const METOAI_SITE_URL =
 	(process.env.VETTA_METOAI_SITE_URL ?? "").trim().replace(/\/+$/, "") || METOAI_DEFAULT_SITE_URL;
 
 export const METOAI_BASE_URL = `${METOAI_SITE_URL}/v1`;
-export const METOAI_DISPLAY_NAME = "MetaToken";
-export const METOAI_ICON = "metaai";
+export const METOAI_DISPLAY_NAME = "MetoAi";
+export const METOAI_ICON = "metoai";
 /**
  * 品牌标识（renderer 资产，相对 renderer 根目录，见 `src/renderer/public/`）。
- * 引导屏与首启向导的登录页共用；`METOAI_ICON` 是 provider 图标位，指向 Meta 的商标，
- * 不能拿它当 MetaToken 的品牌标识。
+ * 引导屏与首启向导的登录页共用；`METOAI_ICON` 是 provider 图标位，指向 theme-ui 里注册的
+ * 同一枚透明品牌标（`provider-icon/metoai.png`，就是由这张图方形居中裁出来的）。
  */
 export const METOAI_LOGO_SRC = "./metoai-logo.png";
 /**
