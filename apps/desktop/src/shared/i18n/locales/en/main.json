@@ -107,6 +107,15 @@
 			"retry": "Retry",
 			"releaseNotes": "What's new",
 			"version": "New version {{version}}"
+		},
+		"manual": {
+			"title": "An update is available",
+			"reason": "A new version has been published, but this build has no package it can install automatically. Please download and install it manually.",
+			"status": "Choose \"Go to download page\" to open it in your browser, then install the package manually.",
+			"statusNoUrl": "No downloadable package is available yet. Try again later or contact your administrator.",
+			"openDownloadPage": "Go to download page",
+			"recheck": "Check again",
+			"dismiss": "Dismiss"
 		}
 	},
 	"terminal": {

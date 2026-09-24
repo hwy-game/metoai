@@ -44,6 +44,11 @@ interface UpdateSourceResolution {
 	source: ResolvedUpdateSource | null;
 	/** 选不出通道时给用户看的原因；「服务端说没有更新」时留空。 */
 	error?: string;
+	/**
+	 * 没有任何应用内安装通道时，仍然可以引导用户去手动下载的地址。有值时 `runCheck`
+	 * 会照常提示（可关闭），只是主操作变成「前往下载页」而不是静默收口。
+	 */
+	manualUrl?: string;
 }
 
 export type UpdaterPhase = "idle" | "checking" | "available" | "downloading" | "ready" | "installing" | "error";
@@ -51,8 +56,18 @@ export type UpdaterPhase = "idle" | "checking" | "available" | "downloading" | "
 export interface UpdaterState {
 	phase: UpdaterPhase;
 	currentVersion: string;
-	/** 是否存在一条「真的能装到的新版本」。覆盖层只认这个信号，不再看 phase。 */
+	/** 是否存在「服务端登记了比本机更高的版本」。覆盖层只认这个信号，不再看 phase。 */
 	hasUpdate?: boolean;
+	/**
+	 * 是否存在应用内安装通道。false 时 `hasUpdate` 仍可为 true：覆盖层照常提示，
+	 * 但主操作变成「前往下载页」，且强制会被降级为可关闭——拿不到应用内安装包时
+	 * 锁死界面等于把用户挡在门外。
+	 */
+	installable?: boolean;
+	/** 没有应用内安装通道时的下载地址（服务端登记值优先，其次产品官网）。 */
+	manualDownloadUrl?: string;
+	/** 用户已忽略提示的版本。与 `latestVersion` 相同则不再提示；换了版本会重新提示。 */
+	dismissedVersion?: string;
 	latestVersion?: string;
 	releaseNote?: string;
 	/** 0..1 */
@@ -101,6 +116,11 @@ export interface UpdaterServiceOptions {
 	 * electron-updater 的 feed；注入后是否使用还要看引擎能否接管下载好的安装包。
 	 */
 	downloadPackage?: UpdatePackageDownloader;
+	/**
+	 * 服务端既没登记 `download_url`、feed 也交付不了时的兜底下载页（产品官网）。
+	 * 有它才能保证「后台登记了新版本」一定给用户一条出路；没有时覆盖层退化成「重新检查」。
+	 */
+	fallbackDownloadUrl?: string;
 }
 
 export class UpdaterService {
@@ -126,6 +146,7 @@ export class UpdaterService {
 	private readonly systemEvents: UpdaterSystemEvents | undefined;
 	private readonly policyProvider: (() => Promise<UpdatePolicy | null>) | undefined;
 	private readonly downloadPackage: UpdatePackageDownloader | undefined;
+	private readonly fallbackDownloadUrl: string | undefined;
 
 	constructor(
 		private readonly engine: UpdateEngine,
@@ -147,6 +168,7 @@ export class UpdaterService {
 		this.systemEvents = options.systemEvents;
 		this.policyProvider = options.policyProvider;
 		this.downloadPackage = options.downloadPackage;
+		this.fallbackDownloadUrl = options.fallbackDownloadUrl;
 	}
 
 	setMainWindow(win: BrowserWindow): void {
@@ -212,20 +234,49 @@ export class UpdaterService {
 			return this.getState();
 		}
 
+		// 采用夹取后的服务端建议间隔：既对齐策略，也不会比默认更激进。这一段必须在
+		// 「有没有更新」的判断之前——管理台调小间隔的目的就是让「刚发布的新版本」更快被
+		// 发现，而还没看到新版本的客户端恰恰全都走下面的早退分支。
+		// clampCheckInterval 返回秒，而 periodicCheckIntervalMs 是毫秒：漏掉换算会让间隔
+		// 缩短 1000 倍（默认 2 小时变 7.2 秒），变成对更新服务端的高频轮询。
+		this.periodicCheckIntervalMs = clampCheckInterval(policy.checkIntervalSeconds) * 1_000;
+		this.setState({ policyCheckedAt: new Date().toISOString() });
+		// 若已有待触发的周期定时器，用新间隔重新对齐；关闭周期重查时不主动开启。
+		if (this.periodicCheckTimer) this.schedulePeriodicCheck();
+
 		// 只有「服务端登记的版本高于本机」才继续；否则这次检查就是「没有更新」。
 		const latestVersion = policy.hasUpdate ? policy.latestVersion : undefined;
 		if (!latestVersion || compareVersions(latestVersion, this.state.currentVersion) <= 0) {
 			this.resetToIdle();
 			return this.getState();
 		}
-		// 采用夹取后的服务端建议间隔：既对齐策略，也不会比默认更激进。
-		this.periodicCheckIntervalMs = clampCheckInterval(policy.checkIntervalSeconds);
-		this.setState({ policyCheckedAt: new Date().toISOString() });
-		// 若已有待触发的周期定时器，用新间隔重新对齐；关闭周期重查时不主动开启。
-		if (this.periodicCheckTimer) this.schedulePeriodicCheck();
 
 		const resolution = await this.resolveUpdateSource(policy, latestVersion);
 		if (!resolution.source) {
+			// 没有应用内安装通道，但有一条能引导用户手动下载的地址：仍然提示，只是把主操作
+			// 换成「前往下载页」。强制在这里降级为可关闭——用户拿不到应用内安装包时锁死界面
+			// 等于把人挡在门外，那正是改造前「永远装不上的强制提示」的成因。
+			if (resolution.manualUrl) {
+				console.warn(`[updater] no in-app package for ${latestVersion}; prompting a manual download`);
+				this.pendingUpdate = null;
+				this.cancelScheduledAutoDownload();
+				this.setState({
+					phase: "available",
+					hasUpdate: true,
+					installable: false,
+					manualDownloadUrl: resolution.manualUrl,
+					forced: false,
+					forceReason: "",
+					latestVersion,
+					releaseNote: policy.releaseNote,
+					assetFileName: undefined,
+					totalBytes: undefined,
+					progress: undefined,
+					downloadedBytes: undefined,
+					error: undefined,
+				});
+				return this.getState();
+			}
 			console.warn(`[updater] no deliverable package for ${latestVersion}; keeping the user unblocked`);
 			this.resetToIdle(resolution.error);
 			return this.getState();
@@ -236,6 +287,8 @@ export class UpdaterService {
 		this.setState({
 			phase: "available",
 			hasUpdate: true,
+			installable: true,
+			manualDownloadUrl: undefined,
 			forced: policy.forced,
 			forceReason: policy.reason,
 			// 界面上的版本号与更新说明一律取服务端登记值：它是唯一事实源，
@@ -262,11 +315,21 @@ export class UpdaterService {
 			return null;
 		}
 	}
+	/**
+	 * 手动下载兜底地址：服务端登记的 `download_url`（已过下载白名单校验）优先，
+	 * 否则退回构建期注入的产品官网。两者都没有时返回 undefined。
+	 */
+	private resolveManualUrl(policy: UpdatePolicy): string | undefined {
+		if (policy.downloadUrl) return policy.downloadUrl;
+		const site = this.fallbackDownloadUrl?.trim();
+		return site && site.length > 0 ? site : undefined;
+	}
 
 	/**
 	 * 选一条真能把 `latestVersion` 装到本机的通道：优先服务端登记的可下载包
 	 * （还要求引擎能接管下载好的安装包），否则回落 electron-updater feed，并要求
-	 * feed 给出的版本不低于策略版本。两者都不可用 → `source` 为 `null`。
+	 * feed 给出的版本不低于策略版本。两者都不可用 → `source` 为 `null`，此时仍会带上
+	 * `manualUrl`（能引导用户手动下载的地址），让调用方照常提示而不是静默收口。
 	 */
 	private async resolveUpdateSource(policy: UpdatePolicy, latestVersion: string): Promise<UpdateSourceResolution> {
 		const adopt = this.engine.adoptDownloadedPackage?.bind(this.engine);
@@ -297,10 +360,18 @@ export class UpdaterService {
 			result = await this.engine.checkForUpdates();
 		} catch (error) {
 			console.error("[updater] update feed check failed", error);
-			return { source: null };
+			return { source: null, manualUrl: this.resolveManualUrl(policy) };
 		}
-		if (!result) return { source: null, error: this.translate("updater.errors.configurationUnavailable") };
-		if (!result.hasUpdate || compareVersions(result.info.version, latestVersion) < 0) return { source: null };
+		if (!result) {
+			return {
+				source: null,
+				error: this.translate("updater.errors.configurationUnavailable"),
+				manualUrl: this.resolveManualUrl(policy),
+			};
+		}
+		if (!result.hasUpdate || compareVersions(result.info.version, latestVersion) < 0) {
+			return { source: null, manualUrl: this.resolveManualUrl(policy) };
+		}
 
 		return {
 			source: {
@@ -323,6 +394,8 @@ export class UpdaterService {
 		this.setState({
 			phase: "idle",
 			hasUpdate: false,
+			installable: undefined,
+			manualDownloadUrl: undefined,
 			forced: false,
 			forceReason: "",
 			latestVersion: undefined,
@@ -467,9 +540,22 @@ export class UpdaterService {
 		}
 	}
 
+	/**
+	 * 用户点「忽略」：记住被忽略的版本，提示不再出现（服务端换了版本会重新出现）。
+	 * 强制更新期间不可忽略——用户必须先完成更新。
+	 *
+	 * `ready` 阶段额外 emit 一次：横幅自己按版本记忆忽略状态，这里只是把最新快照
+	 * 重新推给监听者。
+	 */
 	dismissReady(): void {
 		// 强制更新期间提示不可关闭：用户必须先完成更新。
 		if (this.state.forced) return;
+		// 记到状态里而不是只留在渲染层：覆盖层按「已忽略的版本 ≠ 最新版本」决定是否显示，
+		// 因此重查命中同一版本时不会又把提示弹回来。`setState` 自己就会 emit，不必再推一次。
+		if (this.state.latestVersion) {
+			this.setState({ dismissedVersion: this.state.latestVersion });
+			return;
+		}
 		if (this.state.phase === "ready") this.emit();
 	}
 
@@ -487,6 +573,8 @@ export class UpdaterService {
 		this.setState({
 			phase: "idle",
 			hasUpdate: false,
+			installable: undefined,
+			manualDownloadUrl: undefined,
 			latestVersion: undefined,
 			releaseNote: undefined,
 			progress: undefined,

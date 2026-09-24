@@ -1,9 +1,10 @@
 // @vitest-environment jsdom
 /**
- * 强制更新覆盖层是最后一道锁：策略要求强制更新时，用户必须先完成更新才能继续用。
- * 这里锁住它的三条边界——该出现时必须出现、Esc 与点击遮罩都不能关掉它、不该出现时绝不出现。
- * 出现条件只有 `forced && hasUpdate`：服务端说强制但没有任何可交付的更新时不能锁住用户，
- * 后台重查的 `checking` 期间 hasUpdate 仍为真，覆盖层也不能跟着闪。
+ * 更新提示覆盖层是最后一道锁：策略要求强制更新时，用户必须先完成更新才能继续用。
+ * 这里锁住它的边界——该出现时必须出现、Esc 与点击遮罩都不能关掉它、不该出现时绝不出现，
+ * 以及「服务端登记了更高版本、但本机没有应用内安装通道」时改成可忽略的「前往下载页」提示。
+ * 强制更新的出现条件是 `forced && hasUpdate`：服务端说强制但没有任何可交付的更新时不能锁住
+ * 用户，后台重查的 `checking` 期间 hasUpdate 仍为真，覆盖层也不能跟着闪。
  */
 import type { UpdaterState } from "@preload/api";
 import { useShortcutScope } from "@shared/shortcuts";
@@ -38,6 +39,40 @@ function renderOverlay(state: UpdaterState): void {
 			<UpdateRequiredOverlay />
 		</Provider>,
 	);
+}
+
+/**
+ * 服务端登记了更高版本、但本机没有任何应用内安装通道：主操作是「前往下载页」，提示可忽略。
+ */
+function manualState(overrides: Partial<UpdaterState> = {}): UpdaterState {
+	return {
+		phase: "available",
+		currentVersion: "0.5.21",
+		hasUpdate: true,
+		installable: false,
+		manualDownloadUrl: "https://metoai.example.com/download",
+		latestVersion: "0.6.0",
+		releaseNote: "Release notes",
+		forced: false,
+		forceReason: "",
+		...overrides,
+	};
+}
+
+/** 覆盖层的出口都要走 preload 桥，测试里替换成可断言的桩。 */
+function stubVettaApi(): {
+	openExternal: ReturnType<typeof vi.fn>;
+	check: ReturnType<typeof vi.fn>;
+	dismiss: ReturnType<typeof vi.fn>;
+} {
+	const openExternal = vi.fn(async () => {});
+	const check = vi.fn(async () => ({}));
+	const dismiss = vi.fn(async () => {});
+	(window as unknown as { vetta: unknown }).vetta = {
+		shell: { openExternal },
+		updater: { check, dismiss },
+	};
+	return { openExternal, check, dismiss };
 }
 
 describe("UpdateRequiredOverlay", () => {
@@ -147,5 +182,46 @@ describe("UpdateRequiredOverlay", () => {
 
 		expect(screen.getByTestId("update-required-overlay")).toBeTruthy();
 		expect(screen.getByTestId("update-required-status").textContent).toBe("updater.forced.checking");
+	});
+
+	// 后台登记了更高版本、但本机没有应用内安装通道：照常提示，主操作换成「前往下载页」，
+	// 并且可忽略——「登记了就一定让用户看见」，同时不能把人锁在门外。
+	it("没有应用内安装通道时提示前往下载页，并允许忽略", async () => {
+		const vetta = stubVettaApi();
+		renderOverlay(manualState());
+
+		expect(screen.getByTestId("update-required-overlay")).toBeTruthy();
+		expect(screen.getByText("updater.manual.title")).toBeTruthy();
+		expect(screen.getByText("updater.manual.reason")).toBeTruthy();
+		expect(screen.getByTestId("update-required-status").textContent).toBe("updater.manual.status");
+
+		await userEvent.click(screen.getByTestId("update-required-action"));
+		expect(vetta.openExternal).toHaveBeenCalledWith("https://metoai.example.com/download");
+
+		await userEvent.click(screen.getByTestId("update-required-dismiss"));
+		expect(vetta.dismiss).toHaveBeenCalledTimes(1);
+	});
+
+	it("没有下载页时退化成「重新检查」而不是死路", async () => {
+		const vetta = stubVettaApi();
+		renderOverlay(manualState({ manualDownloadUrl: undefined }));
+
+		expect(screen.getByTestId("update-required-status").textContent).toBe("updater.manual.statusNoUrl");
+
+		await userEvent.click(screen.getByTestId("update-required-action"));
+		expect(vetta.check).toHaveBeenCalledTimes(1);
+		expect(vetta.openExternal).not.toHaveBeenCalled();
+	});
+
+	it("忽略过的版本不再提示", () => {
+		renderOverlay(manualState({ dismissedVersion: "0.6.0" }));
+
+		expect(screen.queryByTestId("update-required-overlay")).toBeNull();
+	});
+
+	it("服务端换了版本后重新提示", () => {
+		renderOverlay(manualState({ dismissedVersion: "0.5.99" }));
+
+		expect(screen.getByTestId("update-required-overlay")).toBeTruthy();
 	});
 });

@@ -150,9 +150,9 @@ function availablePolicy(overrides: Partial<UpdatePolicy> = {}): UpdatePolicy {
 	};
 }
 
-/** 服务端说「没有可交付的更新」。 */
-function noUpdatePolicy(): UpdatePolicy {
-	return { hasUpdate: false, forced: false, reason: "", checkIntervalSeconds: 7_200 };
+/** 服务端说「没有可交付的更新」；`overrides` 用于覆盖检查间隔等字段。 */
+function noUpdatePolicy(overrides: Partial<UpdatePolicy> = {}): UpdatePolicy {
+	return { hasUpdate: false, forced: false, reason: "", checkIntervalSeconds: 7_200, ...overrides };
 }
 
 /** 记录请求参数、按需回报进度，并返回一个不存在的落盘路径（服务端安装包由服务层删除）。 */
@@ -321,6 +321,53 @@ describe("UpdaterService", () => {
 				error: undefined,
 			});
 			expect(warn).toHaveBeenCalled();
+		});
+
+		it("prompts a manual download when the server version has no in-app package", async () => {
+			// 服务端登记了更高版本、但本机没有任何应用内安装通道：仍然提示（可关闭），主操作
+			// 换成「前往下载页」——「后台登记了就一定让用户看见」是这里的口径。
+			const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+			const engine = createUpToDateEngine();
+			const service = new UpdaterService(engine, "0.5.21", true, translate, {
+				autoDownloadDelayMs: 10_000_000,
+				periodicCheckIntervalMs: 0,
+				fallbackDownloadUrl: "https://metoai.example.com/download",
+				policyProvider: async () => availablePolicy({ forced: true, reason: "policy" }),
+			});
+
+			await service.check();
+
+			expect(service.getState()).toMatchObject({
+				phase: "available",
+				hasUpdate: true,
+				installable: false,
+				manualDownloadUrl: "https://metoai.example.com/download",
+				latestVersion: "0.6.0",
+				// 拿不到应用内安装包时强制降级为可关闭：否则用户被锁在门外，正是改造前的故障。
+				forced: false,
+				forceReason: "",
+			});
+			expect(warn).toHaveBeenCalled();
+		});
+
+		it("prefers the registered download_url over the fallback download page", async () => {
+			const engine = createUpToDateEngine();
+			const service = new UpdaterService(engine, "0.5.21", true, translate, {
+				autoDownloadDelayMs: 10_000_000,
+				periodicCheckIntervalMs: 0,
+				fallbackDownloadUrl: "https://metoai.example.com/download",
+				policyProvider: async () =>
+					availablePolicy({ downloadUrl: "https://releases.openvetta.com/Metoai-0.6.0.exe" }),
+			});
+
+			await service.check();
+
+			expect(service.getState()).toMatchObject({
+				phase: "available",
+				installable: false,
+				manualDownloadUrl: "https://releases.openvetta.com/Metoai-0.6.0.exe",
+				forced: false,
+			});
 		});
 
 		it("keeps the forced state visible while a re-check is in flight", async () => {
@@ -653,9 +700,11 @@ describe("UpdaterService", () => {
 	});
 
 	describe("background re-checks", () => {
-		it("keeps checking on a schedule while the app stays open", async () => {
+		it("re-checks on the server-provided schedule even while the client is up to date", async () => {
 			const engine = createUpToDateEngine();
-			const provider = vi.fn(async () => noUpdatePolicy());
+			// 服务端把间隔定为 30 分钟：它必须覆盖构造参数里的 1 分钟，否则管理台调小间隔
+			// 对「已经是最新版」的客户端完全无效，而这类客户端正是要等新版本的那批。
+			const provider = vi.fn(async () => noUpdatePolicy({ checkIntervalSeconds: 1_800 }));
 			const service = new UpdaterService(engine, "0.5.21", true, translate, {
 				periodicCheckIntervalMs: 60_000,
 				policyProvider: provider,
@@ -666,13 +715,16 @@ describe("UpdaterService", () => {
 			expect(provider).toHaveBeenCalledTimes(1);
 
 			await vi.advanceTimersByTimeAsync(60_000);
+			expect(provider).toHaveBeenCalledTimes(1);
+
+			await vi.advanceTimersByTimeAsync(1_740_000);
 			expect(provider).toHaveBeenCalledTimes(2);
 
-			await vi.advanceTimersByTimeAsync(60_000);
+			await vi.advanceTimersByTimeAsync(1_800_000);
 			expect(provider).toHaveBeenCalledTimes(3);
 
 			service.dispose();
-			await vi.advanceTimersByTimeAsync(60_000);
+			await vi.advanceTimersByTimeAsync(1_800_000);
 			expect(provider).toHaveBeenCalledTimes(3);
 		});
 
@@ -697,7 +749,7 @@ describe("UpdaterService", () => {
 
 		it("checks again after the machine wakes from sleep", async () => {
 			const engine = createUpToDateEngine();
-			const provider = vi.fn(async () => noUpdatePolicy());
+			const provider = vi.fn(async () => noUpdatePolicy({ checkIntervalSeconds: 1_800 }));
 			const resume = createResumeEvents();
 			const service = new UpdaterService(engine, "0.5.21", true, translate, {
 				periodicCheckIntervalMs: 600_000,
@@ -721,8 +773,8 @@ describe("UpdaterService", () => {
 			await vi.advanceTimersByTimeAsync(0);
 			expect(provider).toHaveBeenCalledTimes(2);
 
-			// 唤醒补查后周期重新对齐，补查之后的一个完整间隔才再查一次。
-			await vi.advanceTimersByTimeAsync(599_000);
+			// 唤醒补查后周期重新对齐到服务端间隔，补查之后的一个完整间隔才再查一次。
+			await vi.advanceTimersByTimeAsync(1_799_000);
 			expect(provider).toHaveBeenCalledTimes(2);
 			await vi.advanceTimersByTimeAsync(1_000);
 			expect(provider).toHaveBeenCalledTimes(3);
@@ -803,7 +855,8 @@ describe("UpdaterService", () => {
 
 			service.dismissReady();
 
-			expect(service.getState()).toEqual(before);
+			// 忽略会把「被忽略的版本」记进状态：覆盖层据此不再显示，服务端换版本后才重新显示。
+			expect(service.getState()).toEqual({ ...before, dismissedVersion: before.latestVersion });
 			expect(sends.map((send) => send.channel)).toEqual(["vetta:updater:state"]);
 			expect(sends[0]?.state.phase).toBe("ready");
 		});

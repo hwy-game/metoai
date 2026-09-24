@@ -27,12 +27,16 @@ function UpdateReleaseNotes({ content }: { readonly content: string }): JSX.Elem
 }
 
 /**
- * 阻塞式强制更新覆盖层：没有关闭按钮，Esc 与点击遮罩都不关闭。
- * 用户能做的只有「继续更新」——下载、重启安装，或失败后重试。
+ * 更新提示覆盖层。强制更新时没有关闭按钮，Esc 与点击遮罩都不关闭，用户能做的只有
+ * 「继续更新」——下载、重启安装，或失败后重试。服务端登记了更高版本、但本机没有
+ * 应用内安装通道时，主操作换成「前往下载页」，并额外给出「忽略」。
  */
 function UpdateRequiredOverlayView({
 	actionLabel,
+	dismissable,
+	dismissLabel,
 	onAction,
+	onDismiss,
 	phase,
 	progress,
 	reason,
@@ -94,11 +98,18 @@ function UpdateRequiredOverlayView({
 					{statusText}
 				</p>
 
-				{actionLabel && onAction && (
-					<div className="mt-4 flex justify-end">
-						<Button variant="primary" size="sm" onClick={onAction} data-testid="update-required-action">
-							{actionLabel}
-						</Button>
+				{((actionLabel && onAction) || dismissable) && (
+					<div className="mt-4 flex justify-end gap-2">
+						{dismissable && (
+							<Button variant="ghost" size="sm" onClick={onDismiss} data-testid="update-required-dismiss">
+								{dismissLabel}
+							</Button>
+						)}
+						{actionLabel && onAction && (
+							<Button variant="primary" size="sm" onClick={onAction} data-testid="update-required-action">
+								{actionLabel}
+							</Button>
+						)}
 					</div>
 				)}
 			</div>

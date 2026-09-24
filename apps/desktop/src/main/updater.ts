@@ -40,6 +40,16 @@ function resolveUpdateDownloadDir(): string {
 	return join(app.getPath("userData"), "update-downloads");
 }
 
+/**
+ * 服务端既没登记 `download_url`、feed 也交付不了时，覆盖层「前往下载页」的落地地址。
+ * 用构建期注入的产品官网（`VETTA_SITE_URL`，见 vite.main.config.ts 的 VETTA_* 内联），
+ * 这样「后台登记了新版本」时用户总有一条出路，而不是什么都不显示。
+ */
+function resolveFallbackDownloadUrl(): string | undefined {
+	const site = process.env.VETTA_SITE_URL?.trim();
+	return site && site.length > 0 ? site : undefined;
+}
+
 // electron-updater 是 CommonJS 包；主进程产物为 ESM 且将它 externalize，
 // 因此必须从默认导出解构，不能保留 ESM 命名导入。
 const { autoUpdater } = electronUpdater;
@@ -139,6 +149,7 @@ const systemEvents = {
 };
 export const updaterService = new UpdaterService(updaterEngine, currentVersion, app.isPackaged, mainT, {
 	systemEvents,
+	fallbackDownloadUrl: resolveFallbackDownloadUrl(),
 	policyProvider: () => {
 		// 开发态不打网络：直接当作「没有可交付的更新」，行为与改造前一致。
 		if (!app.isPackaged) return Promise.resolve(null);

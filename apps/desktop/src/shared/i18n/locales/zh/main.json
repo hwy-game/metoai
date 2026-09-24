@@ -107,6 +107,15 @@
 			"retry": "重试",
 			"releaseNotes": "更新说明",
 			"version": "新版本 {{version}}"
+		},
+		"manual": {
+			"title": "有可用更新",
+			"reason": "服务端已发布新版本，但当前构建没有可自动安装的安装包，请前往下载页手动安装。",
+			"status": "点「前往下载页」用系统浏览器打开下载页，下载后手动安装即可。",
+			"statusNoUrl": "暂时没有可下载的安装包，请稍后再试或联系管理员。",
+			"openDownloadPage": "前往下载页",
+			"recheck": "重新检查",
+			"dismiss": "忽略"
 		}
 	},
 	"terminal": {

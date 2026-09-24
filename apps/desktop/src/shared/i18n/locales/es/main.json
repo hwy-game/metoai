@@ -94,6 +94,15 @@
       "retry": "Reintentar",
       "releaseNotes": "Novedades",
       "version": "Nueva versión {{version}}"
+    },
+    "manual": {
+      "title": "Hay una actualización disponible",
+      "reason": "Se ha publicado una versión nueva, pero esta compilación no tiene un paquete que pueda instalar automáticamente. Descárgala e instálala manualmente.",
+      "status": "Elige «Ir a la página de descarga» para abrirla en el navegador y luego instala el paquete manualmente.",
+      "statusNoUrl": "Todavía no hay ningún paquete descargable. Inténtalo más tarde o contacta con tu administrador.",
+      "openDownloadPage": "Ir a la página de descarga",
+      "recheck": "Comprobar de nuevo",
+      "dismiss": "Descartar"
     }
   },
   "pluginPackage": {

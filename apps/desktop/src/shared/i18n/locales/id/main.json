@@ -94,6 +94,15 @@
       "retry": "Coba lagi",
       "releaseNotes": "Yang baru",
       "version": "Versi baru {{version}}"
+    },
+    "manual": {
+      "title": "Ada pembaruan tersedia",
+      "reason": "Versi baru telah diterbitkan, tetapi build ini tidak memiliki paket yang dapat dipasang otomatis. Silakan unduh dan pasang secara manual.",
+      "status": "Pilih \"Buka halaman unduhan\" untuk membukanya di peramban, lalu pasang paketnya secara manual.",
+      "statusNoUrl": "Belum ada paket yang dapat diunduh. Coba lagi nanti atau hubungi administrator Anda.",
+      "openDownloadPage": "Buka halaman unduhan",
+      "recheck": "Periksa lagi",
+      "dismiss": "Abaikan"
     }
   },
   "pluginPackage": {

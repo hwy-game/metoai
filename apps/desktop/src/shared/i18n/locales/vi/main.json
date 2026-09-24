@@ -94,6 +94,15 @@
       "retry": "Thử lại",
       "releaseNotes": "Có gì mới",
       "version": "Phiên bản mới {{version}}"
+    },
+    "manual": {
+      "title": "Có bản cập nhật mới",
+      "reason": "Đã phát hành phiên bản mới, nhưng bản dựng này không có gói cài đặt tự động. Vui lòng tải xuống và cài đặt thủ công.",
+      "status": "Chọn \"Mở trang tải xuống\" để mở trong trình duyệt, sau đó cài đặt gói thủ công.",
+      "statusNoUrl": "Chưa có gói nào có thể tải xuống. Hãy thử lại sau hoặc liên hệ quản trị viên.",
+      "openDownloadPage": "Mở trang tải xuống",
+      "recheck": "Kiểm tra lại",
+      "dismiss": "Bỏ qua"
     }
   },
   "pluginPackage": {

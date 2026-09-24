@@ -94,6 +94,15 @@
       "retry": "Réessayer",
       "releaseNotes": "Nouveautés",
       "version": "Nouvelle version {{version}}"
+    },
+    "manual": {
+      "title": "Une mise à jour est disponible",
+      "reason": "Une nouvelle version a été publiée, mais cette compilation n'a pas de paquet à installer automatiquement. Veuillez la télécharger et l'installer manuellement.",
+      "status": "Choisissez « Aller à la page de téléchargement » pour l'ouvrir dans votre navigateur, puis installez le paquet manuellement.",
+      "statusNoUrl": "Aucun paquet téléchargeable n'est disponible pour le moment. Réessayez plus tard ou contactez votre administrateur.",
+      "openDownloadPage": "Aller à la page de téléchargement",
+      "recheck": "Vérifier à nouveau",
+      "dismiss": "Ignorer"
     }
   },
   "pluginPackage": {

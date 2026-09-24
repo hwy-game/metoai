@@ -16,29 +16,39 @@ export interface UpdateRequiredOverlayModel {
 	readonly statusText: string;
 	readonly actionLabel?: string;
 	readonly onAction?: () => void;
+	/** 非强制提示才给「忽略」；强制更新必须先完成更新。 */
+	readonly dismissable: boolean;
+	readonly dismissLabel: string;
+	readonly onDismiss: () => void;
 }
 
 /**
- * 强制更新覆盖层的状态：服务端策略要求强制更新时，用户必须先完成更新才能继续使用，
- * 因此覆盖层没有关闭按钮、Esc 与遮罩点击都不生效。
+ * 更新提示覆盖层的状态。出现条件有两条：
  *
- * 出现条件只有一条：`forced && hasUpdate`。`hasUpdate` 由主进程在「确认存在一条真的
- * 能装到的更新」时才置位（服务端登记的版本高于本机，并且要么有可下载的安装包、
- * 要么 feed 真的能交付这个版本）。用这个信号而不是 `phase !== "idle"`，是因为后者
- * 在每次重查的 `checking` 期间会把上一次的 `forced` 重新当成「有待更新」，
- * 表现为弹窗随检查节奏反复出现又消失。
+ * 1. **强制更新**（`forced && hasUpdate`）：用户必须先完成更新才能继续使用，因此没有
+ *    关闭按钮、Esc 与遮罩点击都不生效；
+ * 2. **服务端登记了更高版本、但本机没有应用内安装通道**（`hasUpdate && !installable`）：
+ *    照常提示，但主操作换成「前往下载页」，并且可以忽略——后台登记了新版本就一定让用户
+ *    看见，同时不能因为拿不到安装包就把人锁在门外。
+ *
+ * 用 `hasUpdate` 而不是 `phase !== "idle"`，是因为后者在每次重查的 `checking` 期间会把
+ * 上一次的 `forced` 重新当成「有待更新」，表现为弹窗随检查节奏反复出现又消失。
+ * `dismissedVersion` 由主进程维护：忽略过的版本不再提示，服务端换了版本会重新提示。
  */
 export function useUpdateRequiredOverlayModel(): UpdateRequiredOverlayModel | null {
 	const { t } = useTranslation("main");
 	const state = useAtomValue(updaterStateAtom);
 
-	const active = state.forced === true && state.hasUpdate === true;
+	const forced = state.forced === true;
+	// 没有应用内安装通道：只能引导用户去下载页手动安装。
+	const manual = state.hasUpdate === true && state.installable === false;
+	const active = state.hasUpdate === true && (forced || manual) && state.dismissedVersion !== state.latestVersion;
 
-	// 阻塞式覆盖层：不注册任何关闭绑定，并独占 modal 作用域的键盘（Esc 不生效）。
+	// 只有阻塞式覆盖层才独占 modal 作用域的键盘（Esc 不生效）；可忽略的提示不抢键盘。
 	useShortcutScope({
 		id: "modal:update-required",
 		kind: "modal",
-		active,
+		active: active && forced,
 		exclusive: true,
 		bindings: [],
 	});
@@ -47,6 +57,9 @@ export function useUpdateRequiredOverlayModel(): UpdateRequiredOverlayModel | nu
 
 	const progress = state.progress ?? 0;
 	const statusText = (() => {
+		if (manual) {
+			return state.manualDownloadUrl ? t("updater.manual.status") : t("updater.manual.statusNoUrl");
+		}
 		switch (state.phase) {
 			case "idle":
 			case "checking":
@@ -65,6 +78,18 @@ export function useUpdateRequiredOverlayModel(): UpdateRequiredOverlayModel | nu
 	})();
 
 	const action = (() => {
+		if (manual) {
+			const url = state.manualDownloadUrl;
+			if (url) {
+				return {
+					label: t("updater.manual.openDownloadPage"),
+					run: () => void window.vetta.shell.openExternal(url),
+				};
+			}
+			// 连下载页都没有（服务端没登记 download_url、构建也没注入官网）：至少让用户能
+			// 再查一次——后台补上产物后就会走到真正的下载通道。
+			return { label: t("updater.manual.recheck"), run: () => void window.vetta.updater.check() };
+		}
 		if (state.phase === "available") {
 			return { label: t("updater.forced.download"), run: () => void window.vetta.updater.download() };
 		}
@@ -79,9 +104,10 @@ export function useUpdateRequiredOverlayModel(): UpdateRequiredOverlayModel | nu
 	})();
 
 	return {
-		title: t("updater.forced.title"),
-		reason:
-			state.forceReason === "min_supported"
+		title: manual ? t("updater.manual.title") : t("updater.forced.title"),
+		reason: manual
+			? t("updater.manual.reason")
+			: state.forceReason === "min_supported"
 				? t("updater.forced.reasonMinSupported")
 				: t("updater.forced.reasonPolicy"),
 		versionLabel: state.latestVersion ? t("updater.forced.version", { version: state.latestVersion }) : undefined,
@@ -92,5 +118,8 @@ export function useUpdateRequiredOverlayModel(): UpdateRequiredOverlayModel | nu
 		statusText,
 		actionLabel: action?.label,
 		onAction: action?.run,
+		dismissable: !forced,
+		dismissLabel: t("updater.manual.dismiss"),
+		onDismiss: () => void window.vetta.updater.dismiss(),
 	};
 }

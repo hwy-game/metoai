@@ -6,7 +6,7 @@
 
 ## 背景
 
-MetaToken 托管 metoai 的版本策略（契约与数据模型见 `metotoken/docs/desktop-update-policy.md`）：管理台登记版本、`policy`（`optional` / `forced`）、`min_supported_version`、`release_note`、`download_url` / `file_name` / `size_bytes` / `sha256` 与灰度比例；客户端匿名请求 `GET /api/desktop/update/check`，拿到 `{ has_update, forced, reason, check_interval_seconds, latest }`。
+MetoAi 托管 metoai 的版本策略（契约与数据模型见 `metotoken/docs/desktop-update-policy.md`）：管理台登记版本、`policy`（`optional` / `forced`）、`min_supported_version`、`release_note`、`download_url` / `file_name` / `size_bytes` / `sha256` 与灰度比例；客户端匿名请求 `GET /api/desktop/update/check`，拿到 `{ has_update, forced, reason, check_interval_seconds, latest }`。
 
 响应里的 `latest` 描述了「最新版是谁、更新说明是什么、安装包在哪、校验值多少」，文档也把它写成客户端的输入，容易被读成「客户端据此提示、下载并校验」。实际实现里客户端从未消费这些字段：
 
@@ -20,16 +20,16 @@ MetaToken 托管 metoai 的版本策略（契约与数据模型见 `metotoken/do
 ## 决策
 
 1. 客户端消费的更新策略面冻结为三个字段：`forced`、`reason`、`check_interval_seconds`。契约里的其余字段是登记与运维事实，当前不由客户端消费；要新增消费方必须同时更新本 ADR 与 `metotoken/docs/desktop-update-policy.md`。
-2. 安装包的版本、来源、校验与安装仍归 electron-updater feed，MetaToken 不承载 feed（不维护 `latest.yml`、blockmap 与多段 Range 代理）。「有没有可下载的新版本」以 feed 为准，策略只能把这次更新从「可选」升级为「强制」。
+2. 安装包的版本、来源、校验与安装仍归 electron-updater feed，MetoAi 不承载 feed（不维护 `latest.yml`、blockmap 与多段 Range 代理）。「有没有可下载的新版本」以 feed 为准，策略只能把这次更新从「可选」升级为「强制」。
 3. `download_url` 继续只做白名单校验（`https:` + 已知 host），不通过就丢弃；它当前不是下载输入，因此校验失败不影响 `forced` 与 `has_update`。
-4. 强制更新必须 fail-open。MetaToken 不可达、超时、响应不合法、`code != 0`，或策略与 feed 不一致（`forced` 为真但 feed 没有更高的可下载版本）时，一律按「没有强制策略」继续运行。覆盖层只在 `state.forced === true && state.phase !== "idle"` 时出现（`apps/desktop/src/renderer/shared/components/useUpdateRequiredOverlayModel.ts:33`），因此策略与 feed 不一致的净效果是**静默不弹窗**：既不锁死用户，也不给出一条永远装不上的强制提示。
+4. 强制更新必须 fail-open。MetoAi 不可达、超时、响应不合法、`code != 0`，或策略与 feed 不一致（`forced` 为真但 feed 没有更高的可下载版本）时，一律按「没有强制策略」继续运行。覆盖层只在 `state.forced === true && state.phase !== "idle"` 时出现（`apps/desktop/src/renderer/shared/components/useUpdateRequiredOverlayModel.ts:33`），因此策略与 feed 不一致的净效果是**静默不弹窗**：既不锁死用户，也不给出一条永远装不上的强制提示。
 5. 为了让管理台登记的版本与 feed 实际交付的版本不脱节，登记动作走 `apps/desktop/scripts/register-update-release.mjs`（按 `(channel, version, platform, arch)` 幂等 upsert），不手抄校验值。该脚本目前是 opt-in，接入发布流水线属于待办，不在本决策范围内。
 6. 开发态不注入策略来源：`app.isPackaged` 为假时 `policyProvider` 直接返回 `null`（`apps/desktop/src/main/updater.ts:134`），因此强制更新链路只能在打包产物上验证。
 
 ## 备选方案
 
-- **让客户端消费 `latest` 元数据（提示 + 下载 + 校验）**：界面文案、版本号、下载地址与校验值全部以 MetaToken 为源，能一次性消除这处落差。代价是客户端要重做 electron-updater 已经承担的工作：断点续传、差分下载、安装包校验与安装触发，还要处理「策略指向更高版本而 feed 落后」的中间态；并且必须同时引入元数据签名（Ed25519）与下载代理，否则匿名接口就成了可被篡改的更新通道。这是后续可选方向，不是当前契约。
-- **让 MetaToken 直接做 electron-updater 的 feed**：客户端改动最小，但要为每个平台维护 `latest.yml`、blockmap 与多段 Range；差分下载在跳转链上失效时，用户侧表现为「更新永远失败」。已在 `metotoken/docs/desktop-update-policy.md` 中否决。
+- **让客户端消费 `latest` 元数据（提示 + 下载 + 校验）**：界面文案、版本号、下载地址与校验值全部以 MetoAi 为源，能一次性消除这处落差。代价是客户端要重做 electron-updater 已经承担的工作：断点续传、差分下载、安装包校验与安装触发，还要处理「策略指向更高版本而 feed 落后」的中间态；并且必须同时引入元数据签名（Ed25519）与下载代理，否则匿名接口就成了可被篡改的更新通道。这是后续可选方向，不是当前契约。
+- **让 MetoAi 直接做 electron-updater 的 feed**：客户端改动最小，但要为每个平台维护 `latest.yml`、blockmap 与多段 Range；差分下载在跳转链上失效时，用户侧表现为「更新永远失败」。已在 `metotoken/docs/desktop-update-policy.md` 中否决。
 - **只改文档、不改实现**（本决策采纳）：承认现状并写清楚。成本最低、零回归风险，代价是管理台里的版本说明与下载地址目前只是运维记录。
 - **删掉契约中未被消费的字段**：契约会更诚实，但会丢掉灰度发布与版本核对所需的事实，而且删除已上线接口的字段属于破坏性变更。
 
