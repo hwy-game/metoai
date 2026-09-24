@@ -130,3 +130,9 @@ export const sandboxPermissionDrawerAtom = atom<SandboxPermissionDrawerState | n
  * ——全局快捷键与侧栏顶部的入口按钮，而面板本身挂在 RootGlobalOverlays 下。
  */
 export const commandMenuOpenAtom = atom<boolean>(false);
+
+/**
+ * 消息中心（侧栏底栏铃铛）的开合。放 atom 而非组件内部 state：唤起点有两个
+ * ——铃铛按钮与 urgent 官方消息的启动自动打开，后者由 useMetoaiMessageInit 触发。
+ */
+export const messageCenterOpenAtom = atom<boolean>(false);

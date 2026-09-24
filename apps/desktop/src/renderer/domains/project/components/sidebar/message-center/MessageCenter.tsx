@@ -15,7 +15,9 @@ export function MessageCenter(): JSX.Element {
 			<MessageCenterDialog
 				activeTab={model.activeTab}
 				chatUnread={model.chatUnread}
+				list={model.list}
 				notifUnread={model.notifUnread}
+				officialUnread={model.officialUnread}
 				open={model.open}
 				pendingCount={model.pendingCount}
 				onClose={model.close}

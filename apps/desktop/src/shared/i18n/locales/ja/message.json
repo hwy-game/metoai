@@ -3,11 +3,13 @@
   "triggerTitle": "メッセージセンター",
   "tabs": {
     "all": "すべて",
-    "notifications": "通知"
+    "notifications": "通知",
+    "official": "公式"
   },
   "empty": {
     "all": "メッセージはありません",
-    "notifications": "通知はありません"
+    "notifications": "通知はありません",
+    "official": "公式メッセージはありません"
   },
   "notification": {
     "markAllRead": "すべて既読にする",

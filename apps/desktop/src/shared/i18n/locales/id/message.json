@@ -3,11 +3,13 @@
   "triggerTitle": "Pusat Pesan",
   "tabs": {
     "all": "Semua",
-    "notifications": "Notifikasi"
+    "notifications": "Notifikasi",
+    "official": "Resmi"
   },
   "empty": {
     "all": "Tidak ada pesan",
-    "notifications": "Tidak ada notifikasi"
+    "notifications": "Tidak ada notifikasi",
+    "official": "Tidak ada pesan resmi"
   },
   "notification": {
     "markAllRead": "Tandai semua dibaca",

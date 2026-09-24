@@ -60,6 +60,7 @@ export { MessageCenterToolbarButton } from "./MessageCenterToolbarButton";
 export type { MessageCenterTriggerViewProps } from "./MessageCenterTriggerView";
 export { MessageCenterTriggerView } from "./MessageCenterTriggerView";
 export type {
+	NotificationMessageItemLevel,
 	NotificationMessageListItemView,
 	NotificationMessageListViewProps,
 } from "./NotificationMessageListView";

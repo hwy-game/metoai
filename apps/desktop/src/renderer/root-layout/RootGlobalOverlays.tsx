@@ -70,7 +70,7 @@ export function RootGlobalOverlays(): JSX.Element {
 			<ThemedKnowledgeDropOverlay />
 			<ThemedToaster />
 			{/*
-			 * MetaToken 首次接入引导：必须排在 SetupWizard 之前——两者都是 z-[100] 全屏层，
+			 * MetoAi 首次接入引导：必须排在 SetupWizard 之前——两者都是 z-[100] 全屏层，
 			 * DOM 靠后的向导才能盖住它，用户才会先看到「语言与外观」而不是登录页。
 			 * 向导里的登录步结束后会写「跳过」标记，这里便不再弹出。
 			 */}

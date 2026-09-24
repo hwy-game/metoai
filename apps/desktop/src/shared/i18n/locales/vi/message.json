@@ -3,11 +3,13 @@
   "triggerTitle": "Trung tâm tin nhắn",
   "tabs": {
     "all": "Tất cả",
-    "notifications": "Thông báo"
+    "notifications": "Thông báo",
+    "official": "Chính thức"
   },
   "empty": {
     "all": "Không có tin nhắn",
-    "notifications": "Không có thông báo"
+    "notifications": "Không có thông báo",
+    "official": "Không có tin nhắn chính thức"
   },
   "notification": {
     "markAllRead": "Đánh dấu tất cả đã đọc",

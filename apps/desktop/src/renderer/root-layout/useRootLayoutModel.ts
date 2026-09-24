@@ -12,6 +12,7 @@ import { FILE_EDITOR_SAVE_EVENT } from "@/shared/shortcuts";
 import { loadNewSessionPage } from "../domains/conversation/components/loadNewSessionPage";
 import { useAppInit } from "../domains/conversation/hooks/useAppInit";
 import { useSessionManager } from "../domains/conversation/hooks/useSessionManager";
+import { useMetoaiMessageInit } from "../domains/message/hooks/useMetoaiMessageInit";
 import { useNotificationInit } from "../domains/message/hooks/useNotificationInit";
 import { useProjectActions } from "../domains/project/hooks/useProjects";
 import { useModelCatalogSync } from "../shared/hooks/useModelCatalogSync";
@@ -105,6 +106,7 @@ export function useRootLayoutModel(): RootLayoutModel {
 
 	// 云会话生命周期已上移到 App 根部的 <CloudAuthBoot />（lite 构建不挂载）
 	useAppInit();
+	useMetoaiMessageInit();
 	useNotificationInit();
 	useUpdaterInit();
 	// 模型目录保鲜：focus / 切回可见时按 TTL 重拉，服务端增删模型无需重启应用。

@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 import type { JSX } from "react";
 import { cn } from "@vetta-org/ui";
 
-export type MessageCenterTabId = "all" | "notifications" | "flowing" | "chat";
+export type MessageCenterTabId = "all" | "notifications" | "official" | "flowing" | "chat";
 
 export interface MessageCenterTabItem {
 	value: MessageCenterTabId;
@@ -16,6 +16,8 @@ export interface MessageCenterTabsProps {
 	activeTab: MessageCenterTabId;
 	chatUnread: number;
 	notifUnread: number;
+	/** 官方消息（宿主侧公开数据源）的未读数；宿主不给就恒为 0。 */
+	officialUnread?: number;
 	pendingCount: number;
 	onSelect: (tab: MessageCenterTabId) => void;
 	spring?: { type: "spring"; stiffness: number; damping: number };
@@ -28,6 +30,7 @@ export function MessageCenterTabs({
 	activeTab,
 	chatUnread,
 	notifUnread,
+	officialUnread = 0,
 	pendingCount,
 	onSelect,
 	spring = DEFAULT_SPRING,
@@ -43,7 +46,9 @@ export function MessageCenterTabs({
 							? chatUnread
 							: value === "notifications"
 								? notifUnread
-								: 0;
+								: value === "official"
+									? officialUnread
+									: 0;
 
 				return (
 					<button

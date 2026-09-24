@@ -3,11 +3,13 @@
   "triggerTitle": "Centro de mensajes",
   "tabs": {
     "all": "Todos",
-    "notifications": "Notificaciones"
+    "notifications": "Notificaciones",
+    "official": "Oficial"
   },
   "empty": {
     "all": "No hay mensajes",
-    "notifications": "No hay notificaciones"
+    "notifications": "No hay notificaciones",
+    "official": "No hay mensajes oficiales"
   },
   "notification": {
     "markAllRead": "Marcar todo como leído",

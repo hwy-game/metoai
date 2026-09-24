@@ -688,3 +688,61 @@ export async function clearReadNotifications(token: string): Promise<void> {
 		headers: authHeaders(token),
 	});
 }
+
+// ─── MetoToken 官方消息（桌面端公告） ───
+
+/** 服务端只发这三种级别；未知值在边界归一为 normal。 */
+export type MetoaiDesktopMessageLevel = "normal" | "important" | "urgent";
+
+export interface MetoaiDesktopMessageVO {
+	id: number;
+	title: string;
+	body: string;
+	level: MetoaiDesktopMessageLevel;
+	/** 未定发布时间时为 null：列表按发布时间倒序，null 排最后。 */
+	published_at: string | null;
+}
+
+export interface MetoaiDesktopMessagePage {
+	list: MetoaiDesktopMessageVO[];
+	total: number;
+	page: number;
+	page_size: number;
+}
+
+function normalizeMetoaiDesktopMessageLevel(level: unknown): MetoaiDesktopMessageLevel {
+	return level === "important" || level === "urgent" ? level : "normal";
+}
+
+function normalizeMetoaiDesktopMessage(raw: unknown): MetoaiDesktopMessageVO {
+	const source = (raw ?? {}) as Partial<MetoaiDesktopMessageVO>;
+	return {
+		id: typeof source.id === "number" ? source.id : 0,
+		title: typeof source.title === "string" ? source.title : "",
+		body: typeof source.body === "string" ? source.body : "",
+		level: normalizeMetoaiDesktopMessageLevel(source.level),
+		published_at: typeof source.published_at === "string" ? source.published_at : null,
+	};
+}
+
+/**
+ * 官方消息是 metotoken 维护的公开公告：与能力市场同源同 envelope，**同样刻意不带凭据**，
+ * 因此未登录、未接 MetoAi 的用户也能在消息中心看到它。
+ */
+export async function fetchMetoaiDesktopMessages(params?: {
+	p?: number;
+	page_size?: number;
+}): Promise<MetoaiDesktopMessagePage> {
+	const qs = new URLSearchParams();
+	qs.set("p", String(params?.p ?? 1));
+	qs.set("page_size", String(params?.page_size ?? 20));
+	const data = await marketRequest<Partial<MetoaiDesktopMessagePage> | null>(
+		`/metoai/desktop/messages?${qs.toString()}`,
+	);
+	return {
+		list: (Array.isArray(data?.list) ? data.list : []).map(normalizeMetoaiDesktopMessage),
+		total: typeof data?.total === "number" ? data.total : 0,
+		page: typeof data?.page === "number" ? data.page : (params?.p ?? 1),
+		page_size: typeof data?.page_size === "number" ? data.page_size : (params?.page_size ?? 20),
+	};
+}

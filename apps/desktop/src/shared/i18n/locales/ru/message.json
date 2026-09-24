@@ -3,11 +3,13 @@
   "triggerTitle": "Центр сообщений",
   "tabs": {
     "all": "Все",
-    "notifications": "Уведомления"
+    "notifications": "Уведомления",
+    "official": "Официальные"
   },
   "empty": {
     "all": "Нет сообщений",
-    "notifications": "Нет уведомлений"
+    "notifications": "Нет уведомлений",
+    "official": "Нет официальных сообщений"
   },
   "notification": {
     "markAllRead": "Отметить все как прочитанные",

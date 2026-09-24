@@ -16,6 +16,7 @@ export * from "./file-atoms";
 export * from "./file-preview-atoms";
 export * from "./knowledge-base-atoms";
 export * from "./mcp-task-atoms";
+export * from "./message-center-atoms";
 export * from "./metoai-atoms";
 export * from "./model-catalog";
 export * from "./notification-atoms";
