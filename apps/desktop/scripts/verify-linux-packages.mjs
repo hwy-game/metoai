@@ -13,6 +13,9 @@ const defaultReleaseDir = join(packageDir, "release");
 // prepare-pack 把交给 electron-builder 的配置写在这里。载荷路径必须按同一份配置推导：
 // 产品名（安装目录）与可执行文件名一旦变化，写死的品牌名就会指向不存在的路径。
 const defaultBuilderConfigPath = join(tmpdir(), "vetta-desktop-build", "electron-builder.json");
+// 发布流程把构建和验收拆到两个 runner：验收 job 读不到构建机临时目录里的 staged 配置，
+// 只能读构建时随 checkpoint 归档进 release/ 的载荷配置投影（只含载荷推导需要的字段）。
+const defaultPayloadConfigPath = join(defaultReleaseDir, "linux-payload-config.json");
 
 function requireValue(value, label) {
 	if (typeof value !== "string" || value.trim().length === 0) {
@@ -84,21 +87,30 @@ export function verifyLinuxPackageInspection({ expectedVersion, requiredPayloadP
 	verifyPayload("RPM", rpm.paths, requiredPayloadPaths);
 }
 
-export async function readLinuxPayloadPaths(builderConfigPath = defaultBuilderConfigPath) {
-	let raw;
-	try {
-		raw = await readFile(builderConfigPath, "utf8");
-	} catch (error) {
-		throw new Error(
-			`[verify-linux-packages] cannot read the staged electron-builder config ${builderConfigPath}: ${error.message}`,
-		);
+export async function readLinuxPayloadPaths(
+	builderConfigPath = defaultBuilderConfigPath,
+	payloadConfigPath = defaultPayloadConfigPath,
+) {
+	// 按顺序尝试：本地直接跑校验时用 prepare-pack 的 staged 配置，发布验收 job 用 checkpoint 里的投影。
+	const attemptedPaths = [];
+	for (const candidatePath of new Set([builderConfigPath, payloadConfigPath])) {
+		let raw;
+		try {
+			raw = await readFile(candidatePath, "utf8");
+		} catch (error) {
+			attemptedPaths.push(`${candidatePath}: ${error.message}`);
+			continue;
+		}
+		const builderConfig = JSON.parse(raw);
+		return resolveLinuxPayloadPaths({
+			productName: builderConfig?.productName,
+			executableName: builderConfig?.executableName,
+			linuxExecutableName: builderConfig?.linux?.executableName,
+		});
 	}
-	const builderConfig = JSON.parse(raw);
-	return resolveLinuxPayloadPaths({
-		productName: builderConfig?.productName,
-		executableName: builderConfig?.executableName,
-		linuxExecutableName: builderConfig?.linux?.executableName,
-	});
+	throw new Error(
+		`[verify-linux-packages] cannot read the staged electron-builder config; tried:\n${attemptedPaths.join("\n")}`,
+	);
 }
 
 async function findExactlyOnePackage(releaseDir, extension) {

@@ -432,6 +432,26 @@ jobs:
           VETTA_UPDATE_GITHUB_REPO: ${{ github.event.repository.name }}
         run: bun run ${{ matrix.command }}
 
+      # 验收 job 跑在全新 runner 上，读不到构建机临时目录里的 staged electron-builder 配置，
+      # 但 deb/rpm 载荷路径必须按同一份配置推导。这里把推导需要的字段投影进 release/，
+      # 随 checkpoint 一起带到验收 job；只投影这三个字段，避免 publish/凭据字段进入发布产物。
+      # 构建没产出 staged 配置说明打包流程本身出了问题，所以这一步不做容错。
+      - name: Project Linux payload config into the checkpoint
+        if: matrix.platform == 'linux'
+        shell: bash
+        run: |
+          node --input-type=module -e '
+            import { readFileSync, writeFileSync } from "node:fs";
+            import { join } from "node:path";
+            import { tmpdir } from "node:os";
+            const staged = join(tmpdir(), "vetta-desktop-build", "electron-builder.json");
+            const config = JSON.parse(readFileSync(staged, "utf8"));
+            writeFileSync("apps/desktop/release/linux-payload-config.json", JSON.stringify({
+              productName: config.productName,
+              executableName: config.executableName,
+              linux: { executableName: config.linux?.executableName },
+            }));
+          '
       # Archive before verification so an E2E/install failure never discards a signed build.
       # tar preserves executable modes and macOS bundle symlinks across artifact transfer.
       - name: Archive build checkpoint
