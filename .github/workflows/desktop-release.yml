@@ -458,7 +458,9 @@ jobs:
         shell: bash
         run: |
           echo "${VETTA_REQUIRE_MAC_SIGNATURE:-0}" > apps/desktop/release/require-mac-signature.txt
-          (cd "${RUNNER_TEMP}" && tar --exclude=builder-debug.yml --exclude=builder-effective-config.yaml -cf release-build.tar -C "${GITHUB_WORKSPACE}/apps/desktop" release)
+          # 与 Restore build checkpoint 同理：-C 的路径要用正斜杠形式，Windows 上的 tar 才认。
+          WORKSPACE="$(cygpath -m "${GITHUB_WORKSPACE}" 2>/dev/null || printf '%s' "${GITHUB_WORKSPACE}")"
+          (cd "${RUNNER_TEMP}" && tar --exclude=builder-debug.yml --exclude=builder-effective-config.yaml -cf release-build.tar -C "${WORKSPACE}/apps/desktop" release)
 
       - name: Upload build checkpoint
         uses: actions/upload-artifact@v4
@@ -518,7 +520,12 @@ jobs:
           BUILD_VERSION: ${{ needs.prepare.outputs.build-version }}
         run: |
           rm -rf apps/desktop/release
-          (cd "${RUNNER_TEMP}/release-checkpoint" && tar -xf release-build.tar -C "${GITHUB_WORKSPACE}/apps/desktop")
+          # Git Bash 的 GNU tar 在 Windows 上不认 `D:\a\...` 这类反斜杠路径：解包时把它原样
+          # 交给 -C 会以 "Cannot open: No such file or directory"（退出码 2）失败。这里用
+          # cygpath 换成正斜杠形式；Linux / macOS 上没有 cygpath，原路径本来就合格。没有写成
+          # ${VAR//\\//}，因为脚本经 `bash -c` 传递时 Windows 的命令行引号会把反斜杠吃掉。
+          WORKSPACE="$(cygpath -m "${GITHUB_WORKSPACE}" 2>/dev/null || printf '%s' "${GITHUB_WORKSPACE}")"
+          (cd "${RUNNER_TEMP}/release-checkpoint" && tar -xf release-build.tar -C "${WORKSPACE}/apps/desktop")
           SIGNATURE="$(cat apps/desktop/release/require-mac-signature.txt)"
           case "${SIGNATURE}" in 0|1) ;; *) echo "Invalid signature requirement" >&2; exit 1 ;; esac
           echo "VETTA_REQUIRE_MAC_SIGNATURE=${SIGNATURE}" >> "${GITHUB_ENV}"

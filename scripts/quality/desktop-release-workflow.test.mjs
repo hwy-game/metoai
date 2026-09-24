@@ -107,6 +107,19 @@ describe("Desktop release workflow contracts", () => {
 		expect(verifySteps.findIndex((step) => step.name === "Restore build checkpoint")).toBeLessThan(
 			verifySteps.findIndex((step) => step.name === "Verify platform updater artifacts"),
 		);
+		// Windows 上 Git Bash 的 GNU tar 不认 `D:\a\...` 这类反斜杠路径：解包时把
+		// ${GITHUB_WORKSPACE} 原样交给 -C 会以 "Cannot open: No such file or directory"
+		// 退出码 2 失败（创建检查点那一步恰好能过，只看构建结果发现不了）。两步都必须先把
+		// 路径换成正斜杠；脚本里也不能出现字面反斜杠——脚本经 `bash -c` 传递时 Windows 的
+		// 命令行引号会把它们吃掉，所以统一用 cygpath，而不是 ${VAR//\\//}。
+		for (const step of [
+			buildSteps.find((candidate) => candidate.name === "Archive build checkpoint"),
+			verifySteps.find((candidate) => candidate.name === "Restore build checkpoint"),
+		]) {
+			expect(step.run).toMatch(/-C "\$\{WORKSPACE\}\/apps\/desktop"/);
+			expect(step.run).not.toMatch(/-C "\$\{GITHUB_WORKSPACE\}/);
+			expect(step.run).toContain("cygpath -m");
+		}
 		for (const target of ["publish-r2", "publish-github"]) {
 			// publish 等的是 release-gate：由它汇总各平台产出的 updater 元数据，并把
 			// built-platforms 交给 publish 里的 feed 校验；gate 自己 needs [prepare, build, verify]，
