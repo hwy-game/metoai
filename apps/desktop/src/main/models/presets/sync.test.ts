@@ -3,7 +3,9 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 const mocks = vi.hoisted(() => ({
 	atomicWriteJSON: vi.fn(),
 	fetch: vi.fn(),
+	getConfig: vi.fn(),
 	readFile: vi.fn(),
+	replaceConfig: vi.fn(),
 	send: vi.fn(),
 }));
 
@@ -21,8 +23,8 @@ vi.mock("../../logger.js", () => ({
 }));
 vi.mock("../model-settings-host.js", () => ({
 	getDesktopModelSettingsService: () => ({
-		getConfig: async () => ({ providers: {} }),
-		replaceConfig: vi.fn(),
+		getConfig: mocks.getConfig,
+		replaceConfig: mocks.replaceConfig,
 	}),
 }));
 vi.mock("./models-dev-snapshot.generated.js", () => ({
@@ -43,6 +45,7 @@ describe("preset catalog background refresh", () => {
 		vi.resetModules();
 		vi.clearAllMocks();
 		mocks.readFile.mockRejectedValue(Object.assign(new Error("missing cache"), { code: "ENOENT" }));
+		mocks.getConfig.mockResolvedValue({ providers: {} });
 	});
 
 	it("在线刷新失败并继续使用随包快照时不广播伪更新", async () => {
@@ -83,5 +86,51 @@ describe("preset catalog background refresh", () => {
 		expect(mocks.fetch).toHaveBeenCalledTimes(1);
 		expect(mocks.send).toHaveBeenCalledOnce();
 		expect(mocks.send).toHaveBeenCalledWith("vetta:models:presets-updated");
+	});
+
+	it("把已采纳预设的模板字段收敛回目录值", async () => {
+		mocks.fetch.mockRejectedValue(new Error("offline"));
+		mocks.getConfig.mockResolvedValue({
+			providers: {
+				// 没有 key：确认收敛不受「有没有填 key」影响（早退之前就要跑）。
+				metoai: {
+					source: "template",
+					templateId: "metoai",
+					displayName: "旧名字",
+					icon: "metaai",
+					api: "openai-completions",
+					baseUrl: "https://old.example",
+					models: [],
+				},
+				// 用户自己加的，不该被动。
+				custom: {
+					source: "custom",
+					displayName: "我的",
+					icon: "metaai",
+					api: "openai-completions",
+					baseUrl: "https://mine.example",
+					models: [],
+				},
+			},
+		});
+		const { syncAdoptedPresets } = await import("./sync.js");
+
+		await syncAdoptedPresets();
+
+		expect(mocks.replaceConfig).toHaveBeenCalledOnce();
+		const written = mocks.replaceConfig.mock.calls[0]?.[0] as {
+			providers: Record<string, Record<string, unknown>>;
+		};
+		expect(written.providers.metoai).toMatchObject({
+			api: "openai-responses",
+			baseUrl: "https://www.metotoken.ai/v1",
+			displayName: "MetoAi",
+			icon: "metoai",
+		});
+		expect(written.providers.custom).toMatchObject({
+			api: "openai-completions",
+			baseUrl: "https://mine.example",
+			displayName: "我的",
+		});
 	});
 });

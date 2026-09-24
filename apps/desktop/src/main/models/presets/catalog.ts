@@ -28,7 +28,9 @@ export const PRESET_PROVIDERS: readonly PresetProviderDef[] = [
 		id: METOAI_PRESET_ID,
 		displayName: METOAI_DISPLAY_NAME,
 		icon: METOAI_ICON,
-		api: "openai-completions",
+		// 聚合中转站同样走 Responses API：部分模型（如带 function tools + reasoning_effort 的
+		// gpt-6-luna）在 /v1/chat/completions 上会被上游直接拒绝，要求改用 /v1/responses。
+		api: "openai-responses",
 		baseUrl: METOAI_BASE_URL,
 		fetcher: "openai-compatible",
 		// 聚合中转站:模型全量透传,不做过滤,保留用户可用的全部模型。

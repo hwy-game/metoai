@@ -82,7 +82,7 @@ export function useMetoAiSignInModel(): MetoAiSignInModel {
 						templateId: METOAI_PRESET_ID,
 						displayName: METOAI_DISPLAY_NAME,
 						icon: METOAI_ICON,
-						api: "openai-completions",
+						api: "openai-responses",
 						baseUrl: METOAI_BASE_URL,
 						apiKey: trimmed,
 						models: fetched.models,

@@ -242,6 +242,40 @@ function adoptedPresetIds(config: ModelsConfig): string[] {
 }
 
 /**
+ * 把模板自有的字段收敛回目录值。
+ *
+ * `models.json` 里由预设采纳而来的条目会把这些字段落盘，而目录是它们唯一的事实源：
+ * 目录改了协议（例如聚合中转站从 chat/completions 换成 Responses API）时，已经登录过
+ * 的旧配置不会自己更新，不收敛就会一直用旧协议。只动模板自有的四个字段——用户自己的
+ * key、模型清单与同步时间都不碰。
+ */
+function reconcileTemplateFields(config: ModelsConfig): boolean {
+	let changed = false;
+	for (const [id, provider] of Object.entries(config.providers)) {
+		if (provider.source !== "template") continue;
+		const def = getPresetProvider(provider.templateId ?? id);
+		if (!def) continue;
+		if (
+			provider.api === def.api &&
+			provider.baseUrl === def.baseUrl &&
+			provider.displayName === def.displayName &&
+			provider.icon === def.icon
+		) {
+			continue;
+		}
+		config.providers[id] = {
+			...provider,
+			api: def.api,
+			baseUrl: def.baseUrl,
+			displayName: def.displayName,
+			icon: def.icon,
+		};
+		changed = true;
+	}
+	return changed;
+}
+
+/**
  * 后台同步所有已启用的预设服务商的模型列表并写回 models.json。
  * 单个失败静默跳过(保留本地快照),不影响其它服务商。
  */
@@ -250,6 +284,8 @@ export async function syncAdoptedPresets(): Promise<void> {
 	await ensureCatalog();
 	const service = getDesktopModelSettingsService();
 	const config = await service.getConfig();
+	// 先收敛模板字段：这一步与「有没有填 key」无关，必须早于下面按 key 的早退。
+	if (reconcileTemplateFields(config)) await service.replaceConfig(config);
 	const ids = adoptedPresetIds(config);
 	if (ids.length === 0) return;
 
