@@ -18,6 +18,14 @@ import { createStore, Provider } from "jotai";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { MessageCenter } from "./MessageCenter";
 
+const { fetchMessagesMock } = vi.hoisted(() => ({ fetchMessagesMock: vi.fn() }));
+
+// 打开消息中心会刷新官方消息（真实实现会打网络），这里替换掉接口本体。
+vi.mock("@shared/lib/api", async (importOriginal) => ({
+	...(await importOriginal<typeof import("@shared/lib/api")>()),
+	fetchMetoaiDesktopMessages: fetchMessagesMock,
+}));
+
 vi.mock("react-i18next", () => ({ useTranslation: () => ({ t: (key: string) => key }) }));
 
 // motion 的 layout 动画需要 ResizeObserver；jsdom 没有实现。
@@ -80,6 +88,9 @@ function renderMessageCenter(): void {
 
 beforeEach(() => {
 	localStorage.clear();
+	fetchMessagesMock.mockReset();
+	// 默认返回渲染前写进 atom 的那批消息，让只关心列表/已读行为的用例不受刷新影响。
+	fetchMessagesMock.mockResolvedValue({ list: OFFICIAL_MESSAGES, total: 3, page: 1, page_size: 20 });
 });
 
 describe("MessageCenter", () => {
@@ -163,5 +174,40 @@ describe("MessageCenter", () => {
 		expect(stored.readOfficialIds?.sort()).toEqual([12, 13, 14]);
 		// 官方消息未读清零，站内信未读 2 保持不变。
 		expect(screen.getByTitle("triggerTitle").textContent).toContain("2");
+	});
+
+	it("用户点开铃铛时重新拉取官方消息，刚发布的公告直接出现在列表里", async () => {
+		fetchMessagesMock.mockResolvedValue({
+			list: [
+				...OFFICIAL_MESSAGES,
+				{
+					id: 15,
+					title: "刚发布的公告",
+					body: "正文",
+					level: "normal",
+					published_at: "2026-09-25T10:00:00Z",
+				},
+			],
+			total: 4,
+			page: 1,
+			page_size: 20,
+		});
+		const store = createStore();
+		store.set(metoaiMessagesAtom, OFFICIAL_MESSAGES);
+		store.set(notificationsAtom, NOTIFICATIONS);
+		store.set(notificationUnreadAtom, 2);
+		render(
+			<Provider store={store}>
+				<MessageCenter />
+			</Provider>,
+		);
+
+		// 关闭状态下不该有请求。
+		expect(fetchMessagesMock).not.toHaveBeenCalled();
+
+		await userEvent.click(screen.getByTitle("triggerTitle"));
+
+		await waitFor(() => expect(screen.getByText("刚发布的公告")).toBeTruthy());
+		expect(fetchMessagesMock).toHaveBeenCalledTimes(1);
 	});
 });

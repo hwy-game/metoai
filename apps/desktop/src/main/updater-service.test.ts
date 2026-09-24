@@ -103,23 +103,58 @@ function createAvailableEngine(): FakeUpdateEngine {
 	return engine;
 }
 
-function createResumeEvents(): {
-	events: { onResume(listener: () => void): () => void };
+/**
+ * 系统事件替身：服务只依赖「订阅返回退订函数」这一个语义，这里用 Set 记录监听者。
+ * 事件源本身（Electron 的 powerMonitor / 窗口焦点）由宿主接，不在单测范围内。
+ */
+function createEventSource(): {
+	subscribe: (listener: () => void) => () => void;
 	emit: () => void;
 	listenerCount: () => number;
 } {
 	const listeners = new Set<() => void>();
 	return {
+		subscribe: (listener) => {
+			listeners.add(listener);
+			return () => listeners.delete(listener);
+		},
 		emit: () => {
 			for (const listener of listeners) listener();
 		},
-		events: {
-			onResume: (listener) => {
-				listeners.add(listener);
-				return () => listeners.delete(listener);
-			},
-		},
 		listenerCount: () => listeners.size,
+	};
+}
+
+function createResumeEvents(): {
+	events: { onResume(listener: () => void): () => void };
+	emit: () => void;
+	listenerCount: () => number;
+} {
+	const source = createEventSource();
+	return {
+		emit: source.emit,
+		listenerCount: source.listenerCount,
+		events: { onResume: source.subscribe },
+	};
+}
+
+/** 只关心「回到前台」时的替身：唤醒订阅是服务要求的必填项，这里给一个不影响断言的空实现。 */
+function createForegroundEvents(): {
+	events: {
+		onResume(listener: () => void): () => void;
+		onForeground(listener: () => void): () => void;
+	};
+	emit: () => void;
+	listenerCount: () => number;
+} {
+	const source = createEventSource();
+	return {
+		emit: source.emit,
+		listenerCount: source.listenerCount,
+		events: {
+			onResume: () => () => {},
+			onForeground: source.subscribe,
+		},
 	};
 }
 
@@ -781,6 +816,91 @@ describe("UpdaterService", () => {
 
 			service.dispose();
 			expect(resume.listenerCount()).toBe(0);
+		});
+
+		it("checks again when the app comes back to the foreground", async () => {
+			const engine = createUpToDateEngine();
+			const provider = vi.fn(async () => noUpdatePolicy({ checkIntervalSeconds: 1_800 }));
+			const foreground = createForegroundEvents();
+			const service = new UpdaterService(engine, "0.5.21", true, translate, {
+				periodicCheckIntervalMs: 600_000,
+				backgroundCheckMinGapMs: 60_000,
+				systemEvents: foreground.events,
+				policyProvider: provider,
+			});
+
+			await service.onAppReady();
+			await vi.advanceTimersByTimeAsync(0);
+			expect(provider).toHaveBeenCalledTimes(1);
+
+			// 与上一次检查间隔太近的「回到前台」不该重复请求更新源：切窗口会连发焦点事件。
+			await vi.advanceTimersByTimeAsync(30_000);
+			foreground.emit();
+			await vi.advanceTimersByTimeAsync(0);
+			expect(provider).toHaveBeenCalledTimes(1);
+
+			await vi.advanceTimersByTimeAsync(60_000);
+			foreground.emit();
+			await vi.advanceTimersByTimeAsync(0);
+			expect(provider).toHaveBeenCalledTimes(2);
+
+			// 补查后周期重新对齐到服务端间隔，与唤醒补查的语义一致。
+			await vi.advanceTimersByTimeAsync(1_799_000);
+			expect(provider).toHaveBeenCalledTimes(2);
+			await vi.advanceTimersByTimeAsync(1_000);
+			expect(provider).toHaveBeenCalledTimes(3);
+
+			service.dispose();
+			expect(foreground.listenerCount()).toBe(0);
+		});
+
+		it("keeps the minimum gap short enough for foreground signals to matter", async () => {
+			const engine = createUpToDateEngine();
+			const provider = vi.fn(async () => noUpdatePolicy({ checkIntervalSeconds: 1_800 }));
+			const foreground = createForegroundEvents();
+			const service = new UpdaterService(engine, "0.5.21", true, translate, {
+				periodicCheckIntervalMs: 600_000,
+				systemEvents: foreground.events,
+				policyProvider: provider,
+			});
+
+			await service.onAppReady();
+			await vi.advanceTimersByTimeAsync(0);
+			expect(provider).toHaveBeenCalledTimes(1);
+
+			// 默认间隔必须是分钟级：前台信号只在用户在场时出现，等到下一次机会的代价太高。
+			await vi.advanceTimersByTimeAsync(4 * 60_000);
+			foreground.emit();
+			await vi.advanceTimersByTimeAsync(0);
+			expect(provider).toHaveBeenCalledTimes(1);
+
+			await vi.advanceTimersByTimeAsync(60_000);
+			foreground.emit();
+			await vi.advanceTimersByTimeAsync(0);
+			expect(provider).toHaveBeenCalledTimes(2);
+
+			service.dispose();
+		});
+
+		it("subscribes and unsubscribes both system event sources", async () => {
+			const engine = createUpToDateEngine();
+			const provider = vi.fn(async () => noUpdatePolicy());
+			const resume = createResumeEvents();
+			const foreground = createForegroundEvents();
+			const service = new UpdaterService(engine, "0.5.21", true, translate, {
+				periodicCheckIntervalMs: 600_000,
+				systemEvents: { onResume: resume.events.onResume, onForeground: foreground.events.onForeground },
+				policyProvider: provider,
+			});
+			await service.onAppReady();
+
+			expect(resume.listenerCount()).toBe(1);
+			expect(foreground.listenerCount()).toBe(1);
+
+			service.dispose();
+
+			expect(resume.listenerCount()).toBe(0);
+			expect(foreground.listenerCount()).toBe(0);
 		});
 
 		it("syncs opportunistically when the user opens the settings menu", async () => {

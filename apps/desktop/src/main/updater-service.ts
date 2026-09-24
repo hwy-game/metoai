@@ -19,10 +19,13 @@ const DEFAULT_DOWNLOAD_STALL_TIMEOUT_MS = 120_000;
 // 再逐个校验签名），停滞超时会误判为下载失败，这里换用一个只防死锁的长兜底。
 const DEFAULT_STAGING_TIMEOUT_MS = 600_000;
 // 只在启动时检查一次，长期不退出应用的用户就长期收不到更新提示，
-// 因此进程内还需要一条周期性重查，外加睡眠唤醒与用户打开设置菜单时的机会性补查。
+// 因此进程内还需要一条周期性重查，外加睡眠唤醒、应用回到前台与用户打开设置菜单时的机会性补查。
 const DEFAULT_PERIODIC_CHECK_INTERVAL_MS = 2 * 60 * 60 * 1_000;
-// 机会性补查的触发源都可能连发（合盖再开、反复开合菜单），与上一次检查间隔太近就跳过。
-const DEFAULT_BACKGROUND_CHECK_MIN_GAP_MS = 30 * 60 * 1_000;
+// 机会性补查的触发源都可能连发（合盖再开、反复开合菜单、来回切窗口），与上一次检查间隔太近就跳过。
+// 间隔不能设得太长：唤醒、回到前台、打开设置菜单这些信号只在「用户此刻在场」时出现，
+// 等不到下一个窗口就白白浪费了这次机会。周期性重查另由服务端的 `check_interval_seconds`
+// 控制，不受这里影响。
+const DEFAULT_BACKGROUND_CHECK_MIN_GAP_MS = 5 * 60 * 1_000;
 
 /**
  * 本次可交付的更新来源：服务端登记了 `download_url` 且引擎能接管下载好的安装包时走
@@ -93,6 +96,11 @@ export type UpdaterTranslate = (key: string, options?: Record<string, unknown>) 
 export interface UpdaterSystemEvents {
 	/** 订阅「系统从睡眠/休眠唤醒」，返回取消订阅函数。 */
 	onResume(listener: () => void): () => void;
+	/**
+	 * 订阅「应用回到前台」，返回取消订阅函数。可选：判定方式由宿主决定（见 updater.ts
+	 * 基于 browser-window-focus/blur 的离开时长闸门），没有宿主信号时只剩唤醒与周期性重查。
+	 */
+	onForeground?(listener: () => void): () => void;
 }
 
 export interface UpdaterServiceOptions {
@@ -183,10 +191,20 @@ export class UpdaterService {
 	async onAppReady(): Promise<void> {
 		if (!this.isPackaged) return;
 		await this.engine.onAppReady?.();
-		this.disposeSystemEvents =
-			this.systemEvents?.onResume(() => {
-				void this.syncInBackground();
-			}) ?? null;
+		// 唤醒与回到前台都是「用户此刻大概率在看应用」的信号，走同一条机会性补查路径；
+		// 两者统一在一个闭包里退订，dispose() 不需要知道有几个订阅。
+		const disposers: Array<() => void> = [];
+		const onResume = this.systemEvents?.onResume(() => {
+			void this.syncInBackground();
+		});
+		if (onResume) disposers.push(onResume);
+		const onForeground = this.systemEvents?.onForeground?.(() => {
+			void this.syncInBackground();
+		});
+		if (onForeground) disposers.push(onForeground);
+		this.disposeSystemEvents = () => {
+			for (const dispose of disposers) dispose();
+		};
 		void this.check();
 		this.schedulePeriodicCheck();
 	}
@@ -595,7 +613,7 @@ export class UpdaterService {
 	}
 
 	/**
-	 * 机会性补查：系统唤醒、用户打开设置菜单等「此刻用户大概率在看应用」的时机调用。
+	 * 机会性补查：系统唤醒、应用回到前台、用户打开设置菜单等「此刻用户大概率在看应用」的时机。
 	 * 触发源可能连发，因此与上一次检查间隔不足时直接跳过；补查后重新对齐周期，
 	 * 避免刚查完又被积压的定时器再查一次。
 	 */

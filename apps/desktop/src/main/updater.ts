@@ -7,6 +7,7 @@ import { getVettaHomePath } from "@vetta/action-rpc";
 import { app, autoUpdater as nativeAutoUpdater, powerMonitor } from "electron";
 import electronUpdater from "electron-updater";
 
+import { createForegroundGate } from "./app-foreground.js";
 import { mainT } from "./i18n/index.js";
 import {
 	InnoWindowsUpdateController,
@@ -141,10 +142,28 @@ const updaterEngine = new ElectronUpdaterEngine(autoUpdater, innoWindowsUpdate, 
 });
 // powerMonitor 只能在 app ready 之后订阅，因此这里只传订阅函数，
 // 由 UpdaterService.onAppReady() 在合适的时机调用。
+//
+// 「应用回到前台」用 Electron 的 browser-window-focus/blur 近似：这两个是 app 级事件，
+// 任何窗口获得或失去焦点都会触发，所以先过一个离开时长闸门再通知监听者。
+const FOREGROUND_MIN_AWAY_MS = 30_000;
+const foregroundGate = createForegroundGate({ minAwayMs: FOREGROUND_MIN_AWAY_MS });
+const foregroundListeners = new Set<() => void>();
+app.on("browser-window-blur", () => foregroundGate.noteBlur());
+app.on("browser-window-focus", () => {
+	if (!foregroundGate.shouldFireOnFocus()) return;
+	for (const listener of foregroundListeners) listener();
+});
+
 const systemEvents = {
 	onResume: (listener: () => void) => {
 		powerMonitor.on("resume", listener);
 		return () => powerMonitor.off("resume", listener);
+	},
+	onForeground: (listener: () => void) => {
+		foregroundListeners.add(listener);
+		return () => {
+			foregroundListeners.delete(listener);
+		};
 	},
 };
 export const updaterService = new UpdaterService(updaterEngine, currentVersion, app.isPackaged, mainT, {

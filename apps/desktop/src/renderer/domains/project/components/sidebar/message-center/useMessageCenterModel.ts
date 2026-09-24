@@ -1,3 +1,4 @@
+import { useMetoaiMessageRefresh } from "@domains/message/hooks/useMetoaiMessageRefresh";
 import {
 	clearReadNotifications,
 	deleteNotification,
@@ -15,7 +16,7 @@ import {
 	notificationUnreadAtom,
 } from "@shared/store/atoms";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { formatRelativeTime } from "./formatRelativeTime";
 import {
@@ -82,6 +83,11 @@ export function useMessageCenterModel(): MessageCenterModel {
 	const officialMessages = useAtomValue(metoaiMessagesAtom);
 	const [localState, setLocalState] = useAtom(messageCenterLocalStateAtom);
 
+	// 用户点开铃铛时补一次：官方公告随时可能新增，打开时就该看到最新的，而不是上次拉取的结果。
+	const refreshOfficialMessages = useMetoaiMessageRefresh();
+	useEffect(() => {
+		if (open) refreshOfficialMessages();
+	}, [open, refreshOfficialMessages]);
 	const formatTime = useCallback((timestamp: number) => formatRelativeTime(timestamp, t), [t]);
 
 	const officialItems = useMemo(
