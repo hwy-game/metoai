@@ -167,7 +167,7 @@ describe("buildInstalledAbilityEntries", () => {
 				type: "skill",
 				presentation: {
 					defaultVisibility: "visible",
-					displayName: "Metoai 设计",
+					displayName: "MetoAI 设计",
 					displayDescription: "设计产品界面",
 				},
 			},
@@ -177,7 +177,7 @@ describe("buildInstalledAbilityEntries", () => {
 		expect(entries).toHaveLength(1);
 		expect(entries[0]).toMatchObject({
 			id: "ability:skill:vetta-ui-design",
-			title: "Metoai 设计",
+			title: "MetoAI 设计",
 			subtitle: "设计产品界面",
 		});
 	});

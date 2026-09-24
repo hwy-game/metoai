@@ -3,7 +3,8 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { URL } from "node:url";
-import { getVettaHomePath, VETTA_HOME_ENV } from "@vetta/action-rpc";
+import { getVettaHomePath, setVettaHomeMigrationWarningHandler, VETTA_HOME_ENV } from "@vetta/action-rpc";
+import { CONFIG_DIR_NAME } from "@vetta/coding-agent/config";
 import { app, type BrowserWindow, dialog, ipcMain, nativeImage, nativeTheme, protocol, session, shell } from "electron";
 import { APP_RUNTIME_NAME } from "../shared/app-identity.js";
 import { isCloudBuildEnabled } from "../shared/feature-flags.js";
@@ -113,7 +114,7 @@ import {
 fixPath();
 
 const PROTOCOL = "vetta";
-// MetoAi 授权回调用自己的 scheme（`metoai://metotoken/callback`）；云服务登录
+// MetoAI 授权回调用自己的 scheme（`metoai://metotoken/callback`）；云服务登录
 // （`vetta://oauth/callback`）与远程配对（`vetta://pair`）仍在用 `vetta`——云端
 // 回调白名单在服务端，客户端不能单方面改。安装包同时注册两个 scheme。
 const METOAI_PROTOCOL = "metoai";
@@ -209,6 +210,8 @@ const rendererCdp = configureRendererCdp({
 	devServerUrl: process.env.VETTA_DESKTOP_DEV_URL,
 	portValue: process.env.VETTA_DEBUG_CDP_PORT,
 });
+// 主目录迁移失败的告警走主进程日志，避免只落在 stdout 上没人看见。
+setVettaHomeMigrationWarningHandler((message, error) => mainLog.warn(message, error));
 process.env[VETTA_HOME_ENV] = getVettaHomePath();
 
 if (isCliMode) {
@@ -326,7 +329,7 @@ function handleProtocolUrl(rawUrl: string): void {
 	try {
 		const parsed = new URL(rawUrl);
 		// OAuth 回调（vetta://oauth/callback）由 cloud 模块处理；lite 构建没有 cloud 模块。
-		// MetoAi 授权回调（metoai://metotoken/callback）与构建开关无关，必须始终转交。
+		// MetoAI 授权回调（metoai://metotoken/callback）与构建开关无关，必须始终转交。
 		cloudMain?.handleProtocolUrl(parsed);
 		handleMetoAiProtocolUrl(parsed);
 	} catch {
@@ -529,7 +532,7 @@ if (!gotSingleLock) {
 		if (!app.isPackaged) {
 			const appVersion = getAppVersion();
 			app.setAboutPanelOptions({
-				applicationName: "Vetta",
+				applicationName: "MetoAI",
 				applicationVersion: appVersion,
 				version: "",
 			});
@@ -662,7 +665,7 @@ if (!gotSingleLock) {
 			cloudMain = startCloudMain({ receiveProtocolUrl });
 		}
 
-		// MetoAi 授权在开发模式没有可用的自定义 scheme，回调从本机 loopback 进来：
+		// MetoAI 授权在开发模式没有可用的自定义 scheme，回调从本机 loopback 进来：
 		// 归一化成 `metoai://metotoken/callback?…` 后走与打包版相同的深链入口。
 		// 不放在 cloud 模块里——lite 构建同样需要这条回调。
 		registerLoopbackHandler(METOAI_LOOPBACK_PATH, (search) =>
@@ -674,17 +677,17 @@ if (!gotSingleLock) {
 		}
 
 		// 默认「对话」项目目录：保证一直存在。
-		// 顺带把 in-tree session 目录（<cwd>/.vetta/sessions）也建好，
+		// 顺带把 in-tree session 目录（<cwd>/.metoai/sessions）也建好，
 		// 让默认项目走与批量项目一致的会话布局，避免设备相关的编码路径。
 		try {
-			await mkdir(join(getVettaHomePath(), "conversation", ".vetta", "sessions"), { recursive: true });
+			await mkdir(join(getVettaHomePath(), "conversation", CONFIG_DIR_NAME, "sessions"), { recursive: true });
 		} catch (err) {
 			mainLog.error("failed to ensure default conversation dir", err);
 		}
 		// im-gateway 独立 cwd（ADR-0005）：跟桌面「对话」物理分家。先把空目录建好，
 		// 这样 sidecar 启动前 desktop 的 Claw tab 也能正常 listSessions（拿到空列表）。
 		try {
-			await mkdir(join(getVettaHomePath(), "im-gateway", "conversation", ".vetta", "sessions"), {
+			await mkdir(join(getVettaHomePath(), "im-gateway", "conversation", CONFIG_DIR_NAME, "sessions"), {
 				recursive: true,
 			});
 		} catch (err) {

@@ -12,7 +12,7 @@ import {
 
 test("Linux unpacked E2E uses the built AppImage as the updater runtime image", async () => {
 	const packageRoot = await mkdtemp(join(tmpdir(), "vetta-packaged-e2e-"));
-	const appImage = join(packageRoot, "release", "Metoai-1.2.3.AppImage");
+	const appImage = join(packageRoot, "release", "MetoAI-1.2.3.AppImage");
 	await mkdir(join(packageRoot, "release"), { recursive: true });
 	await writeFile(appImage, "appimage");
 
@@ -37,7 +37,7 @@ test("Linux packaged E2E rejects unsafe or missing AppImage paths", async () => 
 
 		// 只按版本号定位：别的版本的 AppImage 不会被当成这次构建的产物。
 		await mkdir(join(packageRoot, "release"), { recursive: true });
-		await writeFile(join(packageRoot, "release", "Metoai-1.2.2.AppImage"), "stale");
+		await writeFile(join(packageRoot, "release", "MetoAI-1.2.2.AppImage"), "stale");
 		assert.throws(
 			() => resolvePackagedE2eAppImagePath(packageRoot, "1.2.3"),
 			/AppImage not found/,
@@ -50,7 +50,7 @@ test("Linux packaged E2E rejects unsafe or missing AppImage paths", async () => 
 test("Linux packaged E2E stages an isolated AppImage before updater tests", async () => {
 	const packageRoot = await mkdtemp(join(tmpdir(), "vetta-packaged-e2e-"));
 	const temporaryRoot = await mkdtemp(join(tmpdir(), "vetta-packaged-e2e-stage-"));
-	const releaseAppImage = join(packageRoot, "release", "Metoai-1.2.3.AppImage");
+	const releaseAppImage = join(packageRoot, "release", "MetoAI-1.2.3.AppImage");
 	await mkdir(join(packageRoot, "release"), { recursive: true });
 	await writeFile(releaseAppImage, "release-appimage");
 
@@ -72,10 +72,10 @@ test("Linux packaged E2E stages an isolated AppImage before updater tests", asyn
 test("Windows packaged E2E drives the versioned Electron binary instead of the detached launcher", async () => {
 	const packageRoot = await mkdtemp(join(tmpdir(), "vetta-packaged-e2e-"));
 	const unpackedRoot = join(packageRoot, "release", "win-unpacked");
-	const versionedBinary = join(unpackedRoot, "versions", "1.2.3", "Metoai.exe");
+	const versionedBinary = join(unpackedRoot, "versions", "1.2.3", "MetoAI.exe");
 	await mkdir(join(unpackedRoot, "versions", "1.2.3"), { recursive: true });
 	await Promise.all([
-		writeFile(join(unpackedRoot, "Metoai.exe"), "launcher"),
+		writeFile(join(unpackedRoot, "MetoAI.exe"), "launcher"),
 		writeFile(join(unpackedRoot, "current.json"), '{"version":"1.2.3"}\n'),
 		writeFile(versionedBinary, "electron"),
 	]);

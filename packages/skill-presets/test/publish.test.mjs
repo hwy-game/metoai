@@ -7,7 +7,7 @@
 
 import { spawn } from "node:child_process";
 import { createServer } from "node:http";
-import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -188,7 +188,7 @@ describe("publish.mjs", () => {
 		expect(received).toHaveLength(0);
 	});
 
-	it("从 ~/.vetta/auth.json 读登录态", async () => {
+	it("从 ~/.metoai/auth.json 读登录态", async () => {
 		// 环境变量是联调口子，正常路径是客户端下沉的凭据文件
 		writeFileSync(join(workdir, "auth.json"), JSON.stringify({ baseUrl, token: "file-token" }));
 
@@ -200,6 +200,26 @@ describe("publish.mjs", () => {
 
 		expect(result.code).toBe(0);
 		expect(received[0].authorization).toBe("Bearer file-token");
+	});
+
+	it("没有 VETTA_HOME 时回退到旧主目录的凭据", async () => {
+		// 外部进程不一定拿到 VETTA_HOME；品牌改名后主目录是 ~/.metoai，旧目录只在
+		// 新目录没有凭据时才顶上——否则登录着的用户会被报「未登录」。
+		const home = mkdtempSync(join(tmpdir(), "publish-home-"));
+		mkdirSync(join(home, ".vetta"), { recursive: true });
+		writeFileSync(join(home, ".vetta", "auth.json"), JSON.stringify({ baseUrl, token: "legacy-token" }));
+
+		const result = await runScript(["--input", writePayload(validPayload())], {
+			VETTA_API_TOKEN: "",
+			VETTA_API_BASE_URL: "",
+			VETTA_HOME: "",
+			HOME: home,
+			USERPROFILE: home,
+		});
+
+		expect(result.code).toBe(0);
+		expect(received[0].authorization).toBe("Bearer legacy-token");
+		rmSync(home, { recursive: true, force: true });
 	});
 
 	it("入参不是合法 JSON 时报错而不是崩栈", async () => {

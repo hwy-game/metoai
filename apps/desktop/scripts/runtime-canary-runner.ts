@@ -759,13 +759,21 @@ function processingStates(
 }
 
 async function listKnowledgeSessionPaths(knowledgeRoot: string): Promise<string[]> {
-	const sessionDirectory = join(knowledgeRoot, "processing_records", ".vetta", "sessions");
-	if (!existsSync(sessionDirectory)) return [];
-	const entries = await readdir(sessionDirectory, { withFileTypes: true });
-	return entries
-		.filter((entry) => entry.isFile() && entry.name.endsWith(".jsonl"))
-		.map((entry) => join(sessionDirectory, entry.name))
-		.sort();
+	// 知识库处理记录要同时兼容新旧两个配置目录：写入方已经用 .metoai，旧项目里可能还留着 .vetta。
+	const directories = [".metoai", ".vetta"].map((name) =>
+		join(knowledgeRoot, "processing_records", name, "sessions"),
+	);
+	const paths: string[] = [];
+	for (const sessionDirectory of directories) {
+		if (!existsSync(sessionDirectory)) continue;
+		const entries = await readdir(sessionDirectory, { withFileTypes: true });
+		paths.push(
+			...entries
+				.filter((entry) => entry.isFile() && entry.name.endsWith(".jsonl"))
+				.map((entry) => join(sessionDirectory, entry.name)),
+		);
+	}
+	return paths.sort();
 }
 
 function resolveProcessingRecordFormat(paths: readonly string[]): RuntimeCanaryProcessingRecordFormat {

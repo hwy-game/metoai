@@ -21,7 +21,7 @@
   },
   "group": {
     "connectors": "Koneksi",
-    "vettaBuiltin": "Bawaan Metoai",
+    "vettaBuiltin": "Bawaan MetoAI",
     "uncategorized": "Tanpa kategori"
   },
   "search": {
@@ -96,7 +96,7 @@
   },
   "error": {
     "sourcesFailed": "Sumber GitHub gagal disinkronkan (konten cache tetap tersedia): {{names}}",
-    "sourcesOutdated": "Sumber ini memerlukan Metoai versi lebih baru sebelum dapat dimuat: {{names}}",
+    "sourcesOutdated": "Sumber ini memerlukan MetoAI versi lebih baru sebelum dapat dimuat: {{names}}",
     "serverFailed": "Marketplace cloud gagal dimuat; sumber lain tetap tersedia",
     "loadFailed": "Gagal memuat kemampuan",
     "downloadFailed": "Unduhan gagal: {{status}}",
@@ -122,7 +122,7 @@
       "title": "Sumber",
       "builtin": "Bawaan aplikasi",
       "local": "Ditambahkan secara lokal",
-      "server": "Server kemampuan Metoai",
+      "server": "Server kemampuan MetoAI",
       "sameNameTitle": "{{count}} kemampuan lain memiliki nama yang sama",
       "installConflict": "Sumber lain sudah menempati lokasi pemasangan ini. Lokasi tersebut tidak akan ditimpa secara otomatis; hapus item yang terpasang lebih dahulu atau tunggu alur penggantian eksplisit."
     },
@@ -271,7 +271,7 @@
       "back": "Kembali ke detail kemampuan",
       "description": "Lihat kemampuan host yang dideklarasikan plugin ini. Menonaktifkan salah satunya akan memblokir panggilan API host terkait; ini tidak mengisolasi kode plugin dalam sandbox keamanan.",
       "toggleLabel": "Alihkan izin {{permission}}",
-      "hostVerified": "Pagar pengaman API host Metoai",
+      "hostVerified": "Pagar pengaman API host MetoAI",
       "preview": {
         "global": "Konten plugin dapat muncul di area aplikasi bersama yang tetap ada di berbagai halaman",
         "filePreview": "Plugin dapat menampilkan penampil konten khusus di area pratinjau file",
@@ -296,7 +296,7 @@
       },
       "readOnly": {
         "install": "Plugin ini belum terpasang. Berikut izin yang dimintanya; Anda akan mengonfirmasi pemberian izin sebenarnya saat pemasangan.",
-        "system": "Ini plugin sistem bawaan. Metoai mengelola dan memberikan izinnya secara otomatis, sehingga tidak dapat dinonaktifkan satu per satu."
+        "system": "Ini plugin sistem bawaan. MetoAI mengelola dan memberikan izinnya secara otomatis, sehingga tidak dapat dinonaktifkan satu per satu."
       },
       "summary": {
         "requested": "Diminta",
@@ -318,7 +318,7 @@
         "data": "Terbatas pada jenis data yang disediakan API host. Path atau rekaman persisnya bergantung pada panggilan plugin.",
         "agent": "Berlaku untuk sesi Agen, prompt, tool, atau status runtime yang disediakan host.",
         "execution": "Host yang menjalankan operasi, sedangkan plugin memilih perintah, halaman, atau tindakan yang diminta.",
-        "external": "Dapat keluar dari Metoai untuk membuka target atau membuat permintaan. Plugin menentukan tujuannya saat pemanggilan.",
+        "external": "Dapat keluar dari MetoAI untuk membuka target atau membuat permintaan. Plugin menentukan tujuannya saat pemanggilan.",
         "intelligence": "Menggunakan model atau layanan media yang Anda konfigurasikan, dapat mengirim input yang disusun plugin, dan dapat memakai kuota layanan."
       },
       "disabled": {
@@ -333,7 +333,7 @@
     "group": {
       "interface": {
         "title": "Antarmuka dan interaksi",
-        "description": "Di mana plugin dapat muncul di dalam Metoai"
+        "description": "Di mana plugin dapat muncul di dalam MetoAI"
       },
       "projectData": {
         "title": "Data proyek dan aplikasi",
@@ -378,7 +378,7 @@
       "agentCommandSpawn": "Menjalankan proses latar belakang yang dapat terus berjalan sampai plugin atau host menghentikannya.",
       "captureOffscreen": "Memuat konten di lingkungan halaman tersembunyi dan mengambil gambar dari konten tersebut.",
       "browserRead": "Membuat sesi browser yang dikelola host, mengunjungi situs yang disetujui manifes, serta membaca teks, struktur, dan tangkapan layar dari halaman yang sudah masuk.",
-      "browserOpen": "Membuka halaman web yang disetujui di browser bawaan Metoai tanpa membaca atau berinteraksi dengan halaman tersebut.",
+      "browserOpen": "Membuka halaman web yang disetujui di browser bawaan MetoAI tanpa membaca atau berinteraksi dengan halaman tersebut.",
       "browserInteract": "Mengklik, mengetik, memilih, dan mengirim di situs yang disetujui serta dapat melakukan tindakan nyata atas nama akun Anda.",
       "browserProfilePersist": "Menyimpan profil browser terisolasi beserta status masuknya untuk sesi berikutnya milik plugin ini.",
       "browserAttach": "Terhubung ke browser yang sudah terbuka dan dapat mengakses tab serta status masuknya.",
@@ -408,7 +408,7 @@
       "storageRead": "Membaca data persisten yang bersifat privat untuk plugin ini dan tidak tersedia langsung bagi plugin lain.",
       "storageWrite": "Menulis data persisten privat plugin ini untuk status atau konfigurasi.",
       "mediaGenerate": "Memanggil layanan pembuatan gambar, audio, atau media lain yang dikonfigurasikan.",
-      "mediaProviderRegister": "Mendaftarkan layanan pembuatan media dari plugin ke Metoai.",
+      "mediaProviderRegister": "Mendaftarkan layanan pembuatan media dari plugin ke MetoAI.",
       "ocrRecognize": "Menggunakan layanan pengenalan teks yang dikonfigurasikan untuk gambar yang dikirim plugin secara eksplisit.",
       "ocrProviderRegister": "Mendaftarkan layanan pengenalan teks dari plugin; layanan jarak jauh dapat mengunggah gambar.",
       "secretsRead": "Membaca rahasia yang disimpan plugin ini sendiri, seperti kunci API.",
@@ -506,7 +506,7 @@
       "forbidden": "Kredensial GitHub tidak dapat membaca repositori ini",
       "notFound": "Repositori, cabang, atau manifes marketplace tidak ditemukan",
       "rateLimited": "Batas laju GitHub tercapai; coba lagi nanti",
-      "appOutdated": "Versi Metoai ini terlalu lama; tingkatkan ke {{version}} atau yang lebih baru",
+      "appOutdated": "Versi MetoAI ini terlalu lama; tingkatkan ke {{version}} atau yang lebih baru",
       "ready": "Tersinkron · {{version}}",
       "failed": "Sinkronisasi gagal; dapat dicoba lagi",
       "cached": "Sinkronisasi gagal; menampilkan konten cache"
@@ -529,7 +529,7 @@
       "repositoryPlaceholder": "owner/repo atau https://github.com/owner/repo",
       "credentialLabel": "Token akses GitHub (opsional)",
       "credentialPlaceholder": "Token terperinci, Contents hanya baca",
-      "credentialHint": "Token disimpan di penyimpanan aman perangkat ini dan tidak pernah diunggah ke Metoai.",
+      "credentialHint": "Token disimpan di penyimpanan aman perangkat ini dan tidak pernah diunggah ke MetoAI.",
       "nameLabel": "Nama",
       "namePlaceholder": "Default: nama repositori",
       "refLabel": "Cabang",

@@ -15,7 +15,7 @@ describe("prepareSkillsForSurface", () => {
 				presentation: {
 					defaultVisibility: "hidden",
 					surfaces: { skillPicker: "visible", commandPalette: "hidden" },
-					displayName: "Metoai 设计",
+					displayName: "MetoAI 设计",
 				},
 			},
 		];
@@ -23,7 +23,7 @@ describe("prepareSkillsForSurface", () => {
 		expect(prepareSkillsForSurface(skills, "commandPalette").map((skill) => skill.name)).toEqual(["native"]);
 		expect(prepareSkillsForSurface(skills, "skillPicker")).toEqual([
 			expect.objectContaining({ name: "native", alias: "native" }),
-			expect.objectContaining({ name: "design", alias: "Metoai 设计" }),
+			expect.objectContaining({ name: "design", alias: "MetoAI 设计" }),
 		]);
 	});
 });

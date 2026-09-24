@@ -27,7 +27,7 @@ async function main() {
 
 	const credentials = loadCredentials();
 	if (!credentials) {
-		fail("未登录：读不到 ~/.vetta/auth.json。请先在 Vetta 客户端登录后重试。");
+		fail("未登录：读不到 ~/.metoai/auth.json。请先在 Vetta 客户端登录后重试。");
 	}
 
 	let response;

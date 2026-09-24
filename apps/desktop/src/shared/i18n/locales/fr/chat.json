@@ -269,7 +269,7 @@
     "close": "Fermer"
   },
   "appshot": {
-    "errorSelfCapture": "Capture ignorée : la fenêtre au premier plan est Metoai lui-même",
+    "errorSelfCapture": "Capture ignorée : la fenêtre au premier plan est MetoAI lui-même",
     "errorNoPermission": "Échec de la capture : les autorisations Enregistrement de l'écran et Accessibilité sont manquantes. Accordez-les dans Paramètres › Autorisations",
     "errorHelperFailed": "Échec de la capture, veuillez réessayer"
   },
@@ -280,7 +280,7 @@
   "mcpElicitation": {
     "title": "Demande d'informations MCP",
     "source": "De {{server}}",
-    "urlNotice": "Metoai ouvre cette adresse dans votre navigateur système uniquement après votre confirmation.",
+    "urlNotice": "MetoAI ouvre cette adresse dans votre navigateur système uniquement après votre confirmation.",
     "decline": "Refuser",
     "openAndContinue": "Ouvrir et continuer",
     "submit": "Envoyer",
@@ -331,10 +331,10 @@
     "write": "Écriture"
   },
   "chatExport": {
-    "defaultSessionName": "Session Metoai"
+    "defaultSessionName": "Session MetoAI"
   },
   "chatView": {
-    "defaultSessionTitle": "Session Metoai",
+    "defaultSessionTitle": "Session MetoAI",
     "exportButton": {
       "title": "Exporter la session complète en HTML"
     },
@@ -449,7 +449,7 @@
   "guideBadgeSwiper": {
     "dismissTooltip": "Ne plus afficher",
     "petFeatureText": "Nouvelle mascotte de bureau — cliquez pour l'activer dans les paramètres",
-    "quickPanelText": "Metoai dispose désormais d'un panneau rapide — cliquez pour le configurer"
+    "quickPanelText": "MetoAI dispose désormais d'un panneau rapide — cliquez pour le configurer"
   },
   "imagePreview": {
     "altText": "Image chargée",
@@ -504,13 +504,13 @@
     },
     "placeholder": {
       "defaults": [
-        "Demandez à Metoai, utilisez / pour les compétences, @ pour référencer des fichiers",
+        "Demandez à MetoAI, utilisez / pour les compétences, @ pour référencer des fichiers",
         "Décrivez la tâche, appuyez sur ⏎ pour envoyer",
         "Collez une capture d'écran ou @ un fichier pour commencer"
       ],
       "noSession": "Sélectionnez ou créez une session pour commencer",
       "suggestion": "↵ {{suggestion}}",
-      "thinking": "Metoai réfléchit…"
+      "thinking": "MetoAI réfléchit…"
     },
     "mention": {
       "trigger": "Mentionner des membres",
@@ -603,7 +603,7 @@
       }
     },
     "assistantMessage": {
-      "predicting": "Metoai génère…",
+      "predicting": "MetoAI génère…",
       "processing": "Traitement…",
       "waiting": "En attente de la réponse du modèle"
     },
@@ -680,9 +680,9 @@
     "retryIndicator": "Reconnexion ({{attempt}}/{{maxAttempts}})",
     "retryReason": "Échec de la dernière requête : {{reason}}",
     "streamingPhrases": [
-      "Metoai répond…",
+      "MetoAI répond…",
       "Un instant…",
-      "Metoai travaille d'arrache-pied…"
+      "MetoAI travaille d'arrache-pied…"
     ],
     "copyButton": {
       "copied": "Copié",
@@ -852,7 +852,7 @@
     "nextButton": "Suivant",
     "questionTabLabel": "Question {{number}}",
     "submitButton": "Envoyer",
-    "title": "Metoai attend votre choix"
+    "title": "MetoAI attend votre choix"
   },
   "sandboxGrantsBadge": {
     "revoke": "Révoquer",
@@ -879,7 +879,7 @@
       "loadPrefix": "Échec du chargement : "
     },
     "export": {
-      "defaultTitle": "Session Metoai"
+      "defaultTitle": "Session MetoAI"
     },
     "exportButton": {
       "title": "Exporter la session complète en HTML"
@@ -996,7 +996,7 @@
   },
   "mcpApp": {
     "externalAccess": "Cette application MCP déclare accéder à {{count}} domaine(s) externe(s)",
-    "permissionsDenied": "Cette application MCP a demandé des autorisations d'appareil ; Metoai ne les a pas accordées",
+    "permissionsDenied": "Cette application MCP a demandé des autorisations d'appareil ; MetoAI ne les a pas accordées",
     "title": "Application MCP"
   },
   "usageBar": {
@@ -1075,7 +1075,7 @@
       "sendFeedback": "Envoyer les commentaires",
       "sendFeedbackWithComments": "Envoyer les commentaires ({{count}})",
       "stepCommentPlaceholder": "Comment cette étape doit-elle changer…",
-      "subtitle": "Metoai commence à travailler à partir de ce plan dès que vous l'approuvez. Rien n'est modifié avant cela.",
+      "subtitle": "MetoAI commence à travailler à partir de ce plan dès que vous l'approuvez. Rien n'est modifié avant cela.",
       "title": "Un plan attend votre approbation"
     },
     "switchFailed": "Impossible de changer de mode plan",

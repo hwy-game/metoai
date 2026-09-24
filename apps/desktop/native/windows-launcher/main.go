@@ -9,7 +9,7 @@ import (
 	"regexp"
 )
 
-const executableName = "Metoai.exe"
+const executableName = "MetoAI.exe"
 
 var versionPattern = regexp.MustCompile(`^[0-9A-Za-z][0-9A-Za-z.+-]{0,63}$`)
 
@@ -110,7 +110,7 @@ func main() {
 		return
 	}
 	installRoot := filepath.Dir(launcherPath)
-	localRoot := filepath.Join(localAppData, "Metoai")
+	localRoot := filepath.Join(localAppData, "MetoAI")
 	target := resolveLaunchTarget(installRoot, localRoot)
 	if target == "" {
 		return

@@ -1,5 +1,5 @@
 {
-  "appName": "Metoai",
+  "appName": "MetoAI",
   "actions": {
     "cancel": "Hủy",
     "confirm": "Xác nhận",
@@ -21,7 +21,7 @@
   },
   "updateRestart": {
     "title": "Bản cập nhật sẵn sàng",
-    "message": "Đã tải phiên bản {{latestVersion}} (hiện tại {{currentVersion}}). Khởi động lại Metoai ngay để áp dụng bản cập nhật, hoặc chọn \"Để sau\" để được nhắc ở lần mở tiếp theo.",
+    "message": "Đã tải phiên bản {{latestVersion}} (hiện tại {{currentVersion}}). Khởi động lại MetoAI ngay để áp dụng bản cập nhật, hoặc chọn \"Để sau\" để được nhắc ở lần mở tiếp theo.",
     "later": "Để sau",
     "install": "Khởi động lại ngay"
   },
@@ -442,8 +442,8 @@
       "experimentalSectionTitle": "Tính năng thử nghiệm",
       "experimentalSectionDescription": "Cùng tùy chọn như Cài đặt → Tác nhân. Bạn có thể điều chỉnh trước khi xác nhận.",
       "experimentalFields": {
-        "vettaCli": "Metoai CLI",
-        "vettaCliDesc": "Cho phép gọi các khả năng cục bộ từ terminal qua Metoai CLI",
+        "vettaCli": "MetoAI CLI",
+        "vettaCliDesc": "Cho phép gọi các khả năng cục bộ từ terminal qua MetoAI CLI",
         "promptPrediction": "Dự đoán nhập liệu",
         "promptPredictionDesc": "Gợi ý văn bản tiếp theo khi bạn nhập; có thể dùng một chút hạn mức",
         "agentSkills": "Tiện ích mở rộng kỹ năng của tác nhân",
@@ -989,7 +989,7 @@
       "title": "Cấp quyền",
       "subtitle": "Bật chụp màn hình, tự động hóa và thông báo hệ thống. Bạn có thể hoàn tất sau trong Cài đặt",
       "systemSection": "Quyền hệ thống",
-      "computerUseTitle": "Metoai Computer Use",
+      "computerUseTitle": "MetoAI Computer Use",
       "computerUseDesc": "Một trợ giúp riêng chụp cửa sổ trên cùng và cần quyền Trợ năng và Ghi màn hình riêng",
       "optionalHint": "Mọi quyền đều tùy chọn. Điều chỉnh bất cứ lúc nào trong Cài đặt → Quyền"
     },
@@ -1001,7 +1001,7 @@
       "theme": "Chủ đề màu"
     },
     "metoai": {
-      "title": "Đăng nhập MetoAi",
+      "title": "Đăng nhập MetoAI",
       "subtitle": "Đăng nhập để dùng toàn bộ mô hình trên gateway tích hợp; số dư, gói đăng ký và khóa API cũng ở đây",
       "optionalHint": "Tùy chọn — nhấn Tiếp để tiếp tục"
     },
@@ -1014,7 +1014,7 @@
       "signedInFallback": "Người dùng"
     },
     "welcome": {
-      "title": "Chào mừng đến với Metoai",
+      "title": "Chào mừng đến với MetoAI",
       "subtitle": "Trợ lý lập trình AI trên máy tính của bạn đã sẵn sàng. Hãy bắt đầu bằng một cuộc trò chuyện",
       "highlights": {
         "chat": {

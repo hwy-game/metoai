@@ -3,7 +3,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { getVettaHomePath } from "@vetta/action-rpc";
+import { DEFAULT_CONFIG_DIR_NAME, getVettaHomePath } from "@vetta/action-rpc";
 import { app, autoUpdater as nativeAutoUpdater, powerMonitor } from "electron";
 import electronUpdater from "electron-updater";
 
@@ -202,8 +202,9 @@ function upgradeE2eStatePaths(): string[] {
 		process.env.VETTA_E2E_UPGRADE_STATE?.trim(),
 		join(getVettaHomePath(), "desktop-upgrade-e2e.json"),
 		// ShipIt can relaunch without the test environment. Keep one fallback marker
-		// under the runner user's normal Vetta home so the second process can find it.
-		join(homedir(), ".vetta", "desktop-upgrade-e2e.json"),
+		// under the runner user's default home (same directory name as getVettaHomePath)
+		// so the second process can find it even when VETTA_CONFIG_DIR isolates the run.
+		join(homedir(), DEFAULT_CONFIG_DIR_NAME, "desktop-upgrade-e2e.json"),
 	].filter((path, index, paths): path is string => Boolean(path) && paths.indexOf(path) === index);
 }
 

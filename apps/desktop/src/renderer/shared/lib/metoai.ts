@@ -1,5 +1,5 @@
 /**
- * MetoAi 渲染层的纯逻辑：IPC 结果解包与金额展示。
+ * MetoAI 渲染层的纯逻辑：IPC 结果解包与金额展示。
  *
  * 换算规则本身（`quotaPerUnit` / `exchangeRate` / 符号）由主进程从 `/api/status`
  * 推出后经 `MetoAiCurrencyConfig` 下发，这里只负责套用它做展示，不再自行判断

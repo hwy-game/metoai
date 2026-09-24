@@ -12,10 +12,13 @@ const APPROVAL_UI_INPUT_KEY = "approvalUi";
 const DEV_AUTO_APPROVE_ACTIONS_ENV = "VETTA_DEV_AUTO_APPROVE_ACTIONS";
 const log = getAppLogger("action-runtime");
 
+/** 开发实例的配置目录名（含品牌改名前的旧名，避免正在运行的旧开发实例失去开发语义）。 */
+const DEVELOPMENT_CONFIG_DIR_NAMES = [".metoai-dev", ".vetta-dev"];
+
 function isDevelopmentConfigDir(value: string | undefined): boolean {
 	if (!value) return false;
 	const normalized = value.trim().replaceAll("\\", "/").replace(/\/+$/u, "");
-	return normalized === ".vetta-dev" || normalized.endsWith("/.vetta-dev");
+	return DEVELOPMENT_CONFIG_DIR_NAMES.some((name) => normalized === name || normalized.endsWith(`/${name}`));
 }
 
 /** Explicit development-only approval bypass for local action iteration. */

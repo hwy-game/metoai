@@ -18,20 +18,20 @@ interface ActionCliResponse {
 	};
 }
 
-const HELP_TEXT = `Metoai action command line interface
+const HELP_TEXT = `MetoAI action command line interface
 
 Usage:
-  Metoai.exe action search [query] [--domain <domain>]
-  Metoai.exe action describe <action-id>
-  Metoai.exe action run <action-id> [json-input]
-  Metoai.exe action -h
-  Metoai.exe action --help
+  MetoAI.exe action search [query] [--domain <domain>]
+  MetoAI.exe action describe <action-id>
+  MetoAI.exe action run <action-id> [json-input]
+  MetoAI.exe action -h
+  MetoAI.exe action --help
 
 Description:
-  Operate the running Metoai Desktop app through its local action RPC.
+  Operate the running MetoAI Desktop app through its local action RPC.
   The GUI must already be running. Do not guess action ids or parameters
   from memory; discover them at runtime.
-  Built-in actions operate Metoai Desktop itself; plugin-provided actions
+  Built-in actions operate MetoAI Desktop itself; plugin-provided actions
   may own other resources, as declared in their usage. Developing a website,
   creating a React project, installing framework plugins, or implementing
   application cron jobs belongs to that project's tools, not App Actions.
@@ -54,10 +54,10 @@ Capability areas (high-level only; live catalog comes from search):
   batch-tasks, scheduler, knowledge, plugins, im, webhook, downloads, updater
 
 Examples:
-  Metoai.exe action search ""
-  Metoai.exe action search "model"
-  Metoai.exe action describe models.query
-  Metoai.exe action run models.query "{\\"operation\\":\\"help\\"}"
+  MetoAI.exe action search ""
+  MetoAI.exe action search "model"
+  MetoAI.exe action describe models.query
+  MetoAI.exe action run models.query "{\\"operation\\":\\"help\\"}"
 
 JSON input:
   In PowerShell and POSIX shells, wrap the JSON argument in single quotes.

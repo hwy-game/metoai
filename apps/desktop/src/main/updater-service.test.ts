@@ -9,9 +9,9 @@ import type { UpdatePolicy } from "./update-policy.js";
 import type { UpdateEngine, UpdateEngineCheckResult, UpdateEngineDownload } from "./updater-engine.js";
 import { UpdaterService, type UpdaterState } from "./updater-service.js";
 
-const PACKAGE_URL = "https://releases.openvetta.com/desktop/stable/Metoai-0.6.0.exe";
+const PACKAGE_URL = "https://releases.openvetta.com/desktop/stable/MetoAI-0.6.0.exe";
 const PACKAGE_SHA256 = "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08";
-const PACKAGE_FILE_NAME = "Metoai-0.6.0.exe";
+const PACKAGE_FILE_NAME = "MetoAI-0.6.0.exe";
 
 class FakeUpdateEngine implements UpdateEngine {
 	checkResult: UpdateEngineCheckResult | null = null;
@@ -199,7 +199,7 @@ function createPackageDownloader(sizeBytes: number): {
 		[];
 	const downloader: UpdatePackageDownloader = async (source, options) => {
 		calls.push({ source, options });
-		const fileName = source.fileName ?? "Metoai-update.exe";
+		const fileName = source.fileName ?? "MetoAI-update.exe";
 		options.onProgress?.({ percent: 50, transferred: sizeBytes / 2, total: sizeBytes });
 		options.onProgress?.({ percent: 100, transferred: sizeBytes, total: sizeBytes });
 		return {
@@ -266,7 +266,7 @@ describe("UpdaterService", () => {
 			const engine = createAvailableEngine();
 			engine.checkResult = {
 				hasUpdate: true,
-				info: { version: "0.7.0", releaseNote: "feed notes", assetFileName: "Metoai-0.7.0.exe", totalBytes: 2_000 },
+				info: { version: "0.7.0", releaseNote: "feed notes", assetFileName: "MetoAI-0.7.0.exe", totalBytes: 2_000 },
 			};
 			const service = new UpdaterService(engine, "0.5.21", true, translate, {
 				autoDownloadDelayMs: 10_000_000,
@@ -282,7 +282,7 @@ describe("UpdaterService", () => {
 				currentVersion: "0.5.21",
 				latestVersion: "0.6.0",
 				releaseNote: "服务端更新说明",
-				assetFileName: "Metoai-0.7.0.exe",
+				assetFileName: "MetoAI-0.7.0.exe",
 			});
 		});
 
@@ -392,7 +392,7 @@ describe("UpdaterService", () => {
 				periodicCheckIntervalMs: 0,
 				fallbackDownloadUrl: "https://metoai.example.com/download",
 				policyProvider: async () =>
-					availablePolicy({ downloadUrl: "https://releases.openvetta.com/Metoai-0.6.0.exe" }),
+					availablePolicy({ downloadUrl: "https://releases.openvetta.com/MetoAI-0.6.0.exe" }),
 			});
 
 			await service.check();
@@ -400,7 +400,7 @@ describe("UpdaterService", () => {
 			expect(service.getState()).toMatchObject({
 				phase: "available",
 				installable: false,
-				manualDownloadUrl: "https://releases.openvetta.com/Metoai-0.6.0.exe",
+				manualDownloadUrl: "https://releases.openvetta.com/MetoAI-0.6.0.exe",
 				forced: false,
 			});
 		});
@@ -694,7 +694,7 @@ describe("UpdaterService", () => {
 			expect(engine.cancelCalls).toBe(0);
 			expect(service.getState().phase).toBe("downloading");
 
-			engine.completeDownload(["/Applications/Metoai.app"]);
+			engine.completeDownload(["/Applications/MetoAI.app"]);
 			await downloadPromise;
 			expect(service.getState().phase).toBe("ready");
 		});

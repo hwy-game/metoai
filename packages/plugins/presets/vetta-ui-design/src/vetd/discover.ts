@@ -78,7 +78,7 @@ export async function findVetdFiles(fs: PluginFsApi, cwd: string): Promise<strin
 
 /**
  * 根目录下允许与设计稿共存、仍算「纯设计项目」的元文件。宿主的递归列举跳过
- * 隐藏项（`.git`、`.vetta` 等）和 node_modules/dist 之类，但设计包（`x.vetd/`）
+ * 隐藏项（`.git`、`.metoai` 等）和 node_modules/dist 之类，但设计包（`x.vetd/`）
  * 不是隐藏目录，其内容会被列出来，判定时单独豁免；这里只需要放过人和
  * Agent 顺手留下的说明文件。
  */

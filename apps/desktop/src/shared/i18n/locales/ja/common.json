@@ -1,5 +1,5 @@
 {
-  "appName": "Metoai",
+  "appName": "MetoAI",
   "actions": {
     "cancel": "キャンセル",
     "confirm": "確認",
@@ -21,7 +21,7 @@
   },
   "updateRestart": {
     "title": "更新の準備ができました",
-    "message": "バージョン {{latestVersion}} をダウンロードしました (現在 {{currentVersion}})。今すぐMetoaiを再起動して更新を適用するか、「後で」を選ぶと次回起動時に通知します。",
+    "message": "バージョン {{latestVersion}} をダウンロードしました (現在 {{currentVersion}})。今すぐMetoAIを再起動して更新を適用するか、「後で」を選ぶと次回起動時に通知します。",
     "later": "後で",
     "install": "今すぐ再起動"
   },
@@ -442,8 +442,8 @@
       "experimentalSectionTitle": "実験的機能",
       "experimentalSectionDescription": "設定 → エージェントと同じトグルです。確認前に調整できます。",
       "experimentalFields": {
-        "vettaCli": "Metoai CLI",
-        "vettaCliDesc": "Metoai CLI 経由でターミナルからローカル機能を呼び出せるようにします",
+        "vettaCli": "MetoAI CLI",
+        "vettaCliDesc": "MetoAI CLI 経由でターミナルからローカル機能を呼び出せるようにします",
         "promptPrediction": "入力予測",
         "promptPredictionDesc": "入力中に続きの候補を提案します。少量のクォータを消費する場合があります",
         "agentSkills": "エージェントスキル拡張",
@@ -989,7 +989,7 @@
       "title": "権限を許可",
       "subtitle": "スクリーンショット、自動化、システム通知を有効にします。後で設定から完了できます",
       "systemSection": "システム権限",
-      "computerUseTitle": "Metoai Computer Use",
+      "computerUseTitle": "MetoAI Computer Use",
       "computerUseDesc": "別のヘルパーが最前面のウィンドウをキャプチャするため、独自のアクセシビリティと画面収録の許可が必要です",
       "optionalHint": "すべての権限は任意です。設定 → 権限でいつでも調整できます"
     },
@@ -1001,7 +1001,7 @@
       "theme": "カラーテーマ"
     },
     "metoai": {
-      "title": "MetoAi にサインイン",
+      "title": "MetoAI にサインイン",
       "subtitle": "サインインすると内蔵ゲートウェイの全モデルを利用できます。残高・サブスクリプション・API キーもここで確認できます",
       "optionalHint": "任意 — 「次へ」で続行"
     },
@@ -1014,7 +1014,7 @@
       "signedInFallback": "ユーザー"
     },
     "welcome": {
-      "title": "Metoai へようこそ",
+      "title": "MetoAI へようこそ",
       "subtitle": "デスクトップ AI コーディングアシスタントの準備ができました。会話から始めましょう",
       "highlights": {
         "chat": {

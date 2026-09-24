@@ -1,5 +1,5 @@
 /**
- * MetoAi 个人中心的状态。
+ * MetoAI 个人中心的状态。
  *
  * 只放「跨组件共享的快照」，不放动作——动作在 `domains/metoai/hooks/` 里，
  * 由连接层组合出 view model（见 apps/desktop/AGENTS.md §2）。

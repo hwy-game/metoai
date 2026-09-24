@@ -5,7 +5,7 @@
   "typeNoun": {
     "scene": "escenas"
   },
-  "subtitle": "Instala y activa las capacidades que necesitas para dar a Metoai más experiencia",
+  "subtitle": "Instala y activa las capacidades que necesitas para dar a MetoAI más experiencia",
   "search": {
     "placeholder": "Buscar {{noun}}..."
   },
@@ -72,16 +72,16 @@
   "builtin": {
     "create-skill": {
       "name": "Crear habilidad",
-      "description": "Crea o actualiza una habilidad de agente que siga la especificación de Metoai: coloca los archivos, regístrala en skills-manifest.json o actualiza la configuración del complemento."
+      "description": "Crea o actualiza una habilidad de agente que siga la especificación de MetoAI: coloca los archivos, regístrala en skills-manifest.json o actualiza la configuración del complemento."
     },
     "publish-ability": {
       "name": "Publicar habilidad",
-      "description": "Envía una habilidad, escena, servidor MCP, complemento o paquete de habilidades al mercado de Metoai, cubriendo los campos obligatorios, la localización y el proceso de revisión."
+      "description": "Envía una habilidad, escena, servidor MCP, complemento o paquete de habilidades al mercado de MetoAI, cubriendo los campos obligatorios, la localización y el proceso de revisión."
     },
     "vetta-blog": {},
     "install-ability": {
       "name": "Instalar habilidad",
-      "description": "Instala complementos, habilidades/escenas y servidores MCP en el Metoai de este equipo, y recarga al instante cuando una actualización de complemento deja una versión pendiente."
+      "description": "Instala complementos, habilidades/escenas y servidores MCP en el MetoAI de este equipo, y recarga al instante cuando una actualización de complemento deja una versión pendiente."
     }
   }
 }

@@ -11,7 +11,9 @@ import { normalizeRemotePath } from "@vetta/ssh-transport";
  * 路径比较也不能用 `node:path`：本机可能是 Windows，而远端路径永远是 POSIX 的。
  * `resolve()` 会把它们拼成反斜杠形式，前缀判断随即失效。
  */
-const PROTECTED_SUBDIRECTORIES = [".vetta/skills", ".agents/skills"];
+// `.metoai` 是当前项目内配置目录，`.vetta` 是品牌改名前的名字：两者都必须只读，
+// 否则旧仓库里的技能可以被远端命令改写。
+const PROTECTED_SUBDIRECTORIES = [".metoai/skills", ".vetta/skills", ".agents/skills"];
 
 export function createSshPathPolicies(remoteCwd: string): {
 	editPathPolicy: EditPathPolicy;

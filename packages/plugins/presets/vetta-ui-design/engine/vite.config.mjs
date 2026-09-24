@@ -1,4 +1,5 @@
-// Vetta Design Engine — shared vite template (materialized to ~/.vetta/design-engine/<version>/).
+// Vetta Design Engine — shared vite template (materialized to the host data root,
+// `<dataRoot>/plugin-data/vetta-ui-design/design-engine/<version>/`, where `<dataRoot>` is `~/.metoai`).
 // The design bundle dir (x.vetd/) is mounted via the VETD_SRC env var; the engine itself
 // never contains user content. See ADR-0053.
 import { readdirSync, watch } from "node:fs";

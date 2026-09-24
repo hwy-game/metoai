@@ -1,5 +1,5 @@
 /**
- * MetoAi 桌面授权（Authorization Code + PKCE S256）的纯逻辑测试。
+ * MetoAI 桌面授权（Authorization Code + PKCE S256）的纯逻辑测试。
  *
  * 这里不碰真网络：授权页地址从被 mock 的 `openExternalUrl` 里取，回调校验直接喂 URL，
  * 换码用 `vi.stubGlobal("fetch")` 顶掉全局 fetch 后断言请求体与响应映射。
@@ -69,7 +69,7 @@ afterEach(() => {
 	vi.unstubAllGlobals();
 });
 
-describe("MetoAi 桌面授权", () => {
+describe("MetoAI 桌面授权", () => {
 	it("按 RFC 7636 生成 S256 challenge，verifier 满足长度与字符集要求", () => {
 		// RFC 7636 附录 B 的官方测试向量。
 		expect(codeChallengeOf("dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk")).toBe(
@@ -198,7 +198,7 @@ describe("MetoAi 桌面授权", () => {
 	});
 });
 
-describe("MetoAi 换码", () => {
+describe("MetoAI 换码", () => {
 	it("把 PKCE 三要素 POST 到桌面换码端点", async () => {
 		const fetchMock = vi.fn(async () =>
 			jsonResponse(200, { success: true, data: { access_token: "access-1", refresh_token: "refresh-1" } }),

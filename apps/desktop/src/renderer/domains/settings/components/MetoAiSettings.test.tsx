@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 /**
- * MetoAi 个人中心：从设置页进入后的常见流程。
+ * MetoAI 个人中心：从设置页进入后的常见流程。
  *
  * 覆盖未登录 → 浏览器授权 → 看到余额 / 订阅 / Key，订阅段与官网入口的展示，
  * 以及新建 Key、删除前确认这些用户真正会走一遍的操作；数据全部走
@@ -148,7 +148,7 @@ beforeEach(() => {
 	store.set(confirmDialogAtom, null);
 });
 
-describe("MetoAi 个人中心", () => {
+describe("MetoAI 个人中心", () => {
 	it("未登录时先授权，登录成功后看到余额、订阅与 Key", async () => {
 		const api = setupApi();
 		renderSettings();

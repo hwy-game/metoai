@@ -39,7 +39,7 @@ describe("PluginContributionsSection", () => {
 									skills: {
 										"public-skill": {
 											defaultVisibility: "visible",
-											displayName: "Metoai 设计",
+											displayName: "MetoAI 设计",
 										},
 									},
 								},
@@ -62,7 +62,7 @@ describe("PluginContributionsSection", () => {
 			/>,
 		);
 
-		expect(screen.getByText("Metoai 设计")).toBeTruthy();
+		expect(screen.getByText("MetoAI 设计")).toBeTruthy();
 		expect(screen.queryByText("internal-skill")).toBeNull();
 	});
 

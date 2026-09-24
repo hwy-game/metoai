@@ -269,7 +269,7 @@
     "close": "Закрыть"
   },
   "appshot": {
-    "errorSelfCapture": "Снимок пропущен: активное окно — сам Metoai",
+    "errorSelfCapture": "Снимок пропущен: активное окно — сам MetoAI",
     "errorNoPermission": "Не удалось сделать снимок: отсутствуют разрешения на запись экрана и универсальный доступ. Выдайте их в разделе Настройки › Разрешения",
     "errorHelperFailed": "Не удалось сделать снимок, попробуйте ещё раз"
   },
@@ -280,7 +280,7 @@
   "mcpElicitation": {
     "title": "Запрос информации MCP",
     "source": "От {{server}}",
-    "urlNotice": "Metoai откроет этот адрес в системном браузере только после вашего подтверждения.",
+    "urlNotice": "MetoAI откроет этот адрес в системном браузере только после вашего подтверждения.",
     "decline": "Отклонить",
     "openAndContinue": "Открыть и продолжить",
     "submit": "Отправить",
@@ -331,10 +331,10 @@
     "write": "Запись"
   },
   "chatExport": {
-    "defaultSessionName": "Сессия Metoai"
+    "defaultSessionName": "Сессия MetoAI"
   },
   "chatView": {
-    "defaultSessionTitle": "Сессия Metoai",
+    "defaultSessionTitle": "Сессия MetoAI",
     "exportButton": {
       "title": "Экспортировать всю сессию в HTML"
     },
@@ -449,7 +449,7 @@
   "guideBadgeSwiper": {
     "dismissTooltip": "Больше не показывать",
     "petFeatureText": "Новая функция: питомец на рабочем столе — нажмите, чтобы включить в настройках",
-    "quickPanelText": "В Metoai появилась быстрая панель — нажмите, чтобы настроить"
+    "quickPanelText": "В MetoAI появилась быстрая панель — нажмите, чтобы настроить"
   },
   "imagePreview": {
     "altText": "Загруженное изображение",
@@ -504,13 +504,13 @@
     },
     "placeholder": {
       "defaults": [
-        "Спросите Metoai, / — навыки, @ — ссылки на файлы",
+        "Спросите MetoAI, / — навыки, @ — ссылки на файлы",
         "Опишите задачу, нажмите ⏎ для отправки",
         "Вставьте скриншот или укажите файл через @"
       ],
       "noSession": "Выберите или создайте сессию, чтобы начать",
       "suggestion": "↵ {{suggestion}}",
-      "thinking": "Metoai думает…"
+      "thinking": "MetoAI думает…"
     },
     "mention": {
       "trigger": "Упомянуть участников",
@@ -603,7 +603,7 @@
       }
     },
     "assistantMessage": {
-      "predicting": "Metoai предсказывает…",
+      "predicting": "MetoAI предсказывает…",
       "processing": "Обработка…",
       "waiting": "Ожидание ответа модели"
     },
@@ -680,9 +680,9 @@
     "retryIndicator": "Переподключение ({{attempt}}/{{maxAttempts}})",
     "retryReason": "Последний запрос не удался: {{reason}}",
     "streamingPhrases": [
-      "Metoai отвечает…",
+      "MetoAI отвечает…",
       "Пожалуйста, подождите…",
-      "Metoai усердно работает…"
+      "MetoAI усердно работает…"
     ],
     "copyButton": {
       "copied": "Скопировано",
@@ -852,7 +852,7 @@
     "nextButton": "Далее",
     "questionTabLabel": "Вопрос {{number}}",
     "submitButton": "Отправить",
-    "title": "Metoai ждёт вашего выбора"
+    "title": "MetoAI ждёт вашего выбора"
   },
   "sandboxGrantsBadge": {
     "revoke": "Отозвать",
@@ -879,7 +879,7 @@
       "loadPrefix": "Не удалось загрузить: "
     },
     "export": {
-      "defaultTitle": "Сессия Metoai"
+      "defaultTitle": "Сессия MetoAI"
     },
     "exportButton": {
       "title": "Экспортировать всю сессию в HTML"
@@ -996,7 +996,7 @@
   },
   "mcpApp": {
     "externalAccess": "Это MCP-приложение заявляет доступ к внешним доменам: {{count}}",
-    "permissionsDenied": "Это MCP-приложение запросило разрешения устройства; Metoai не предоставил их",
+    "permissionsDenied": "Это MCP-приложение запросило разрешения устройства; MetoAI не предоставил их",
     "title": "MCP-приложение"
   },
   "usageBar": {
@@ -1075,7 +1075,7 @@
       "sendFeedback": "Отправить отзыв",
       "sendFeedbackWithComments": "Отправить отзыв ({{count}})",
       "stepCommentPlaceholder": "Как изменить этот шаг…",
-      "subtitle": "Metoai начнёт работать по этому плану после вашего одобрения. До этого ничего не изменяется.",
+      "subtitle": "MetoAI начнёт работать по этому плану после вашего одобрения. До этого ничего не изменяется.",
       "title": "План ожидает вашего одобрения"
     },
     "switchFailed": "Не удалось переключить режим планирования",

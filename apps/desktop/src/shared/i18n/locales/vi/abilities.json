@@ -21,7 +21,7 @@
   },
   "group": {
     "connectors": "Kết nối",
-    "vettaBuiltin": "Tích hợp sẵn trong Metoai",
+    "vettaBuiltin": "Tích hợp sẵn trong MetoAI",
     "uncategorized": "Chưa phân loại"
   },
   "search": {
@@ -96,7 +96,7 @@
   },
   "error": {
     "sourcesFailed": "Không đồng bộ được nguồn GitHub (vẫn dùng được nội dung đã lưu): {{names}}",
-    "sourcesOutdated": "Các nguồn này cần bản Metoai mới hơn mới tải được: {{names}}",
+    "sourcesOutdated": "Các nguồn này cần bản MetoAI mới hơn mới tải được: {{names}}",
     "serverFailed": "Không tải được chợ ứng dụng đám mây; các nguồn khác vẫn dùng được",
     "loadFailed": "Không tải được khả năng",
     "downloadFailed": "Tải xuống thất bại: {{status}}",
@@ -122,7 +122,7 @@
       "title": "Nguồn",
       "builtin": "Tích hợp sẵn trong ứng dụng",
       "local": "Đã thêm từ máy",
-      "server": "Máy chủ khả năng Metoai",
+      "server": "Máy chủ khả năng MetoAI",
       "sameNameTitle": "{{count}} khả năng khác có cùng tên",
       "installConflict": "Một nguồn khác đã chiếm vị trí cài đặt này. Hệ thống sẽ không tự ghi đè; hãy xóa mục đã cài trước hoặc chờ luồng thay thế riêng."
     },
@@ -271,7 +271,7 @@
       "back": "Quay lại chi tiết khả năng",
       "description": "Xem những khả năng của ứng dụng mà tiện ích này khai báo. Tắt một quyền sẽ chặn các lệnh gọi API tương ứng; việc này không cách ly mã tiện ích trong môi trường an toàn.",
       "toggleLabel": "Bật/tắt quyền {{permission}}",
-      "hostVerified": "Rào chắn API của Metoai",
+      "hostVerified": "Rào chắn API của MetoAI",
       "preview": {
         "global": "Nội dung của tiện ích có thể xuất hiện ở các khu vực chung và tồn tại qua nhiều trang",
         "filePreview": "Tiện ích có thể hiển thị trình xem nội dung riêng trong khu vực xem trước tệp",
@@ -296,7 +296,7 @@
       },
       "readOnly": {
         "install": "Tiện ích này chưa được cài. Đây là các quyền nó yêu cầu; bạn sẽ xác nhận quyền thực tế khi cài.",
-        "system": "Đây là tiện ích hệ thống tích hợp sẵn. Metoai tự quản lý và cấp quyền cho nó, nên không thể tắt riêng từng quyền."
+        "system": "Đây là tiện ích hệ thống tích hợp sẵn. MetoAI tự quản lý và cấp quyền cho nó, nên không thể tắt riêng từng quyền."
       },
       "summary": {
         "requested": "Được yêu cầu",
@@ -318,7 +318,7 @@
         "data": "Giới hạn ở các loại dữ liệu mà API của ứng dụng cung cấp. Đường dẫn hay bản ghi cụ thể phụ thuộc vào lệnh gọi của tiện ích.",
         "agent": "Áp dụng cho phiên, câu lệnh, công cụ hoặc trạng thái chạy của tác nhân mà ứng dụng cung cấp.",
         "execution": "Ứng dụng thực hiện thao tác, còn tiện ích chọn lệnh, trang hoặc hành động cần yêu cầu.",
-        "external": "Có thể rời Metoai để mở một đích hoặc gửi yêu cầu. Tiện ích cung cấp đích đến khi gọi.",
+        "external": "Có thể rời MetoAI để mở một đích hoặc gửi yêu cầu. Tiện ích cung cấp đích đến khi gọi.",
         "intelligence": "Dùng mô hình hoặc dịch vụ đa phương tiện bạn đã cấu hình, có thể gửi dữ liệu do tiện ích soạn và tiêu tốn hạn mức dịch vụ."
       },
       "disabled": {
@@ -333,7 +333,7 @@
     "group": {
       "interface": {
         "title": "Giao diện và tương tác",
-        "description": "Nơi tiện ích có thể xuất hiện trong Metoai"
+        "description": "Nơi tiện ích có thể xuất hiện trong MetoAI"
       },
       "projectData": {
         "title": "Dữ liệu dự án và ứng dụng",
@@ -378,7 +378,7 @@
       "agentCommandSpawn": "Khởi chạy tiến trình nền có thể chạy mãi cho đến khi tiện ích hoặc ứng dụng dừng lại.",
       "captureOffscreen": "Tải nội dung trong môi trường trang ẩn và chụp ảnh nội dung đó.",
       "browserRead": "Tạo phiên trình duyệt do ứng dụng quản lý, truy cập các trang đã được manifest cho phép, và đọc văn bản, cấu trúc cùng ảnh chụp từ những trang đã đăng nhập.",
-      "browserOpen": "Mở một trang web được cho phép trong trình duyệt tích hợp của Metoai mà không đọc hay tương tác với trang.",
+      "browserOpen": "Mở một trang web được cho phép trong trình duyệt tích hợp của MetoAI mà không đọc hay tương tác với trang.",
       "browserInteract": "Bấm, nhập, chọn và gửi trên các trang được cho phép, có thể thực hiện thao tác thật dưới tài khoản của bạn.",
       "browserProfilePersist": "Giữ một hồ sơ trình duyệt riêng và trạng thái đăng nhập của nó cho các phiên sau do tiện ích này sở hữu.",
       "browserAttach": "Kết nối tới trình duyệt đang mở và có thể truy cập các tab cùng trạng thái đăng nhập của nó.",
@@ -408,7 +408,7 @@
       "storageRead": "Đọc dữ liệu lâu dài riêng của tiện ích này, các tiện ích khác không truy cập trực tiếp được.",
       "storageWrite": "Ghi dữ liệu lâu dài riêng của tiện ích này để lưu trạng thái hoặc cấu hình.",
       "mediaGenerate": "Gọi các dịch vụ tạo ảnh, âm thanh hoặc đa phương tiện khác đã cấu hình.",
-      "mediaProviderRegister": "Đăng ký với Metoai một dịch vụ tạo đa phương tiện do tiện ích cung cấp.",
+      "mediaProviderRegister": "Đăng ký với MetoAI một dịch vụ tạo đa phương tiện do tiện ích cung cấp.",
       "ocrRecognize": "Dùng dịch vụ nhận dạng văn bản đã cấu hình cho những ảnh do tiện ích gửi rõ ràng.",
       "ocrProviderRegister": "Đăng ký dịch vụ nhận dạng văn bản do tiện ích cung cấp; dịch vụ từ xa có thể tải ảnh lên.",
       "secretsRead": "Đọc các thông tin bí mật do tiện ích này tự lưu, ví dụ khóa API.",
@@ -506,7 +506,7 @@
       "forbidden": "Thông tin truy cập GitHub không đọc được kho này",
       "notFound": "Không tìm thấy kho, nhánh hoặc manifest của chợ ứng dụng",
       "rateLimited": "Đã đạt giới hạn truy cập GitHub; hãy thử lại sau",
-      "appOutdated": "Bản Metoai này quá cũ; hãy nâng cấp lên {{version}} trở lên",
+      "appOutdated": "Bản MetoAI này quá cũ; hãy nâng cấp lên {{version}} trở lên",
       "ready": "Đã đồng bộ · {{version}}",
       "failed": "Đồng bộ thất bại; có thể thử lại",
       "cached": "Đồng bộ thất bại; đang hiển thị nội dung đã lưu"
@@ -529,7 +529,7 @@
       "repositoryPlaceholder": "owner/repo hoặc https://github.com/owner/repo",
       "credentialLabel": "Token truy cập GitHub (không bắt buộc)",
       "credentialPlaceholder": "Token chi tiết, quyền Contents chỉ đọc",
-      "credentialHint": "Token chỉ được lưu trong kho bảo mật của thiết bị này và không bao giờ được tải lên Metoai.",
+      "credentialHint": "Token chỉ được lưu trong kho bảo mật của thiết bị này và không bao giờ được tải lên MetoAI.",
       "nameLabel": "Tên",
       "namePlaceholder": "Mặc định là tên kho",
       "refLabel": "Nhánh",

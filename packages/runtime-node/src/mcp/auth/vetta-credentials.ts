@@ -1,9 +1,10 @@
 /**
  * 读取 Vetta 客户端下沉的登录态。
  *
- * 桌面端登录、刷新、登出时都会把当前 access token 写进 `~/.vetta/auth.json`
- * （见 desktop-app 的 credential-store），这是宿主与外部进程之间唯一的凭据契约：
- * 不去翻客户端的 settings.json，免得把「客户端配置文件的内部结构」变成外部契约。
+ * 桌面端登录、刷新、登出时都会把当前 access token 写进 `<数据根>/auth.json`
+ * （品牌改名后数据根是 `~/.metoai`，见 desktop-app 的 credential-store），这是宿主与外部
+ * 进程之间唯一的凭据契约：不去翻客户端的 settings.json，免得把「客户端配置文件的内部结构」
+ * 变成外部契约。
  *
  * 每次调用都重读文件而不做缓存：token 会轮换，缓存住就等于把过期凭据钉死在
  * 连接上——这正是内建 MCP 从静态 header 改为按请求解析的原因。
@@ -22,9 +23,9 @@ export interface VettaCredentials {
 
 export const VETTA_API_PREFIX = "/api/v1";
 
-/** 凭据文件路径：`~/.vetta/auth.json`，显式运行时目录或 VETTA_HOME 可覆盖根目录。 */
+/** 凭据文件路径：`<数据根>/auth.json`（默认 `~/.metoai/auth.json`），显式运行时目录或 VETTA_HOME 可覆盖根目录。 */
 export function vettaCredentialsPath(vettaHome?: string): string {
-	const home = vettaHome?.trim() || process.env.VETTA_HOME?.trim() || join(homedir(), ".vetta");
+	const home = vettaHome?.trim() || process.env.VETTA_HOME?.trim() || join(homedir(), ".metoai");
 	return join(home, "auth.json");
 }
 

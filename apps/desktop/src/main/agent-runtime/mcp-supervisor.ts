@@ -1,6 +1,6 @@
 import { basename } from "node:path";
 import { pathToFileURL } from "node:url";
-import { CONFIG_DIR_NAME, VERSION } from "@vetta/coding-agent/config";
+import { CONFIG_DIR_NAME, LEGACY_CONFIG_DIR_NAME, VERSION } from "@vetta/coding-agent/config";
 import type { McpServerConfig } from "@vetta/runtime-mcp";
 import {
 	EMPTY_MCP_CONFIG_SOURCE,
@@ -78,6 +78,7 @@ export function createDesktopMcpSupervisor(options: DesktopMcpSupervisorOptions)
 		agentDir: options.agentDir,
 		clientVersion: VERSION,
 		projectConfigDirectoryName: CONFIG_DIR_NAME,
+		legacyProjectConfigDirectoryName: LEGACY_CONFIG_DIR_NAME,
 		debug: options.debug,
 		enabled: true,
 		configSource: options.dynamicOnly ? EMPTY_MCP_CONFIG_SOURCE : undefined,

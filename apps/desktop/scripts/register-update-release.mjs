@@ -59,7 +59,7 @@ export const HELP_TEXT = `[register-release] 把已打好的桌面端安装包�
 示例：
   node apps/desktop/scripts/register-update-release.mjs --dry-run --dir release
   METOTOKEN_ADMIN_TOKEN=... node apps/desktop/scripts/register-update-release.mjs \\
-    --file release/Metoai-0.5.58-win-x64.exe --channel stable --version 0.5.58`;
+    --file release/MetoAI-0.5.58-win-x64.exe --channel stable --version 0.5.58`;
 
 function requireEnum(value, allowed, label) {
 	if (!allowed.includes(value)) {

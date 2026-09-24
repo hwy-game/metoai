@@ -74,9 +74,11 @@ async function runner(request: Record<string, unknown>): Promise<Record<string, 
 beforeEach(async () => {
 	if (!existsSync(RUNNER)) throw new Error("runner 未构建");
 	vi.resetModules();
-	// runner-host 把 runner 物化到 `<home>/.vetta/...`，用临时 home 隔离真实目录。
+	// runner-host 把 runner 物化到 `<数据根>/plugin-data/...`，用临时 home 隔离真实目录。
+	// Windows 的 `os.homedir()` 看 USERPROFILE、POSIX 看 HOME，两个都要指过去。
 	home = await mkdtemp(join(tmpdir(), "vetd-peek-home-"));
 	process.env.HOME = home;
+	process.env.USERPROFILE = home;
 	reloads = 0;
 
 	design = await mkdtemp(join(tmpdir(), "vetd-peek-design-"));

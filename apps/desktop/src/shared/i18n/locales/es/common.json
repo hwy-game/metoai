@@ -1,5 +1,5 @@
 {
-  "appName": "Metoai",
+  "appName": "MetoAI",
   "actions": {
     "cancel": "Cancelar",
     "confirm": "Confirmar",
@@ -21,7 +21,7 @@
   },
   "updateRestart": {
     "title": "Actualización lista",
-    "message": "Se descargó la versión {{latestVersion}} (actual: {{currentVersion}}). Reinicia Metoai ahora para aplicar la actualización o elige \"Más tarde\" para que se te recuerde en el próximo inicio.",
+    "message": "Se descargó la versión {{latestVersion}} (actual: {{currentVersion}}). Reinicia MetoAI ahora para aplicar la actualización o elige \"Más tarde\" para que se te recuerde en el próximo inicio.",
     "later": "Más tarde",
     "install": "Reiniciar ahora"
   },
@@ -442,8 +442,8 @@
       "experimentalSectionTitle": "Funciones experimentales",
       "experimentalSectionDescription": "Las mismas opciones que en Ajustes → Agente. Puedes ajustarlas antes de confirmar.",
       "experimentalFields": {
-        "vettaCli": "Metoai CLI",
-        "vettaCliDesc": "Permitir llamar a capacidades locales desde la terminal mediante Metoai CLI",
+        "vettaCli": "MetoAI CLI",
+        "vettaCliDesc": "Permitir llamar a capacidades locales desde la terminal mediante MetoAI CLI",
         "promptPrediction": "Predicción de entrada",
         "promptPredictionDesc": "Sugiere posibles textos de continuación mientras escribes; puede consumir algo de cuota",
         "agentSkills": "Extensiones de habilidades del agente",
@@ -989,7 +989,7 @@
       "title": "Conceder permisos",
       "subtitle": "Activa capturas de pantalla, automatización y notificaciones del sistema. Puedes terminar esto más tarde en Ajustes",
       "systemSection": "Permisos del sistema",
-      "computerUseTitle": "Metoai Computer Use",
+      "computerUseTitle": "MetoAI Computer Use",
       "computerUseDesc": "Un asistente aparte captura la ventana en primer plano y necesita sus propios permisos de Accesibilidad y Grabación de pantalla",
       "optionalHint": "Todos los permisos son opcionales. Ajústalos cuando quieras en Ajustes → Permisos"
     },
@@ -1001,7 +1001,7 @@
       "theme": "Tema de color"
     },
     "metoai": {
-      "title": "Inicia sesión en MetoAi",
+      "title": "Inicia sesión en MetoAI",
       "subtitle": "Inicia sesión para usar todos los modelos de la pasarela integrada; el saldo, la suscripción y las claves de API también están aquí",
       "optionalHint": "Opcional — pulsa Siguiente para continuar"
     },
@@ -1014,7 +1014,7 @@
       "signedInFallback": "Usuario"
     },
     "welcome": {
-      "title": "Te damos la bienvenida a Metoai",
+      "title": "Te damos la bienvenida a MetoAI",
       "subtitle": "Tu asistente de programación con IA de escritorio está listo. Empieza con una conversación",
       "highlights": {
         "chat": {

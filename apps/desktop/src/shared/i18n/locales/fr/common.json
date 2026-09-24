@@ -1,5 +1,5 @@
 {
-  "appName": "Metoai",
+  "appName": "MetoAI",
   "actions": {
     "cancel": "Annuler",
     "confirm": "Confirmer",
@@ -21,7 +21,7 @@
   },
   "updateRestart": {
     "title": "Mise à jour prête",
-    "message": "La version {{latestVersion}} a été téléchargée (actuelle : {{currentVersion}}). Redémarrez Metoai maintenant pour appliquer la mise à jour, ou choisissez \"Plus tard\" pour être rappelé au prochain lancement.",
+    "message": "La version {{latestVersion}} a été téléchargée (actuelle : {{currentVersion}}). Redémarrez MetoAI maintenant pour appliquer la mise à jour, ou choisissez \"Plus tard\" pour être rappelé au prochain lancement.",
     "later": "Plus tard",
     "install": "Redémarrer maintenant"
   },
@@ -442,8 +442,8 @@
       "experimentalSectionTitle": "Fonctionnalités expérimentales",
       "experimentalSectionDescription": "Mêmes options que Paramètres → Agent. Vous pouvez les ajuster avant de confirmer.",
       "experimentalFields": {
-        "vettaCli": "Metoai CLI",
-        "vettaCliDesc": "Autoriser l’appel des capacités locales depuis le terminal via Metoai CLI",
+        "vettaCli": "MetoAI CLI",
+        "vettaCliDesc": "Autoriser l’appel des capacités locales depuis le terminal via MetoAI CLI",
         "promptPrediction": "Prédiction de saisie",
         "promptPredictionDesc": "Suggère une suite de texte possible pendant la saisie ; peut consommer un peu de quota",
         "agentSkills": "Extensions de compétences de l’agent",
@@ -989,7 +989,7 @@
       "title": "Accorder les autorisations",
       "subtitle": "Activez les captures d’écran, l’automatisation et les notifications système. Vous pourrez terminer plus tard dans les paramètres",
       "systemSection": "Autorisations système",
-      "computerUseTitle": "Metoai Computer Use",
+      "computerUseTitle": "MetoAI Computer Use",
       "computerUseDesc": "Un assistant distinct capture la fenêtre au premier plan et nécessite ses propres autorisations d’accessibilité et d’enregistrement d’écran",
       "optionalHint": "Toutes les autorisations sont facultatives. Modifiez-les à tout moment dans Paramètres → Autorisations"
     },
@@ -1001,7 +1001,7 @@
       "theme": "Thème de couleurs"
     },
     "metoai": {
-      "title": "Se connecter à MetoAi",
+      "title": "Se connecter à MetoAI",
       "subtitle": "Connectez-vous pour utiliser tous les modèles de la passerelle intégrée ; solde, abonnement et clés d’API sont aussi ici",
       "optionalHint": "Facultatif — cliquez sur Suivant pour continuer"
     },
@@ -1014,7 +1014,7 @@
       "signedInFallback": "Utilisateur"
     },
     "welcome": {
-      "title": "Bienvenue dans Metoai",
+      "title": "Bienvenue dans MetoAI",
       "subtitle": "Votre assistant de codage IA pour ordinateur est prêt. Commencez par une conversation",
       "highlights": {
         "chat": {

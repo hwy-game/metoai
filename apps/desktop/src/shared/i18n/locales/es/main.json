@@ -2,19 +2,19 @@
   "tray": {
     "showWindow": "Mostrar ventana",
     "hideWindow": "Ocultar ventana",
-    "quitVetta": "Salir de Metoai",
+    "quitVetta": "Salir de MetoAI",
     "quit": "Salir",
     "hideToTray": "Ocultar en la bandeja"
   },
   "menu": {
     "app": {
-      "title": "Metoai",
-      "about": "Acerca de Metoai",
+      "title": "MetoAI",
+      "about": "Acerca de MetoAI",
       "services": "Servicios",
-      "hide": "Ocultar Metoai",
+      "hide": "Ocultar MetoAI",
       "hideOthers": "Ocultar otros",
       "unhide": "Mostrar todo",
-      "quit": "Salir de Metoai"
+      "quit": "Salir de MetoAI"
     },
     "edit": {
       "title": "Editar",
@@ -57,8 +57,8 @@
   "mcpOAuth": {
     "authorizationSuccessful": "Autorización correcta",
     "authorizationFailed": "Autorización fallida",
-    "returnToVetta": "Puedes cerrar esta ventana y volver a Metoai.",
-    "closeAndRetry": "Puedes cerrar esta ventana e intentarlo de nuevo en Metoai.",
+    "returnToVetta": "Puedes cerrar esta ventana y volver a MetoAI.",
+    "closeAndRetry": "Puedes cerrar esta ventana e intentarlo de nuevo en MetoAI.",
     "missingAuthorizationCode": "Falta el código de autorización",
     "callbackAlreadySettled": "La devolución de llamada de OAuth ya se completó",
     "callbackTimedOut": "Se agotó el tiempo de espera de la autorización de OAuth en el navegador",
@@ -68,7 +68,7 @@
     "enterDeviceCode": "Introduce este código en la página de GitHub y haz clic en Autorizar.",
     "copyCode": "Copiar código",
     "openGitHub": "Abrir GitHub para autorizar",
-    "closeAfterAuthorization": "Puedes cerrar esta ventana una vez que hayas autorizado en Metoai.",
+    "closeAfterAuthorization": "Puedes cerrar esta ventana una vez que hayas autorizado en MetoAI.",
     "deviceFlowDisabled": "Falló la solicitud del código de dispositivo (422). Habilita Device Flow en los ajustes de OAuth o de la app de GitHub: {{details}}"
   },
   "updater": {
@@ -106,9 +106,9 @@
     }
   },
   "pluginPackage": {
-    "confirmTitle": "Instalar complemento de Metoai",
+    "confirmTitle": "Instalar complemento de MetoAI",
     "confirmMessage": "¿Instalar y habilitar {{name}} {{version}}?",
-    "confirmDetail": "Archivo: {{file}}\nID del complemento: {{id}}\nVersión: {{version}}\n\nPermisos que se otorgarán:\n{{permissions}}\n\nComandos que se habilitarán:\n{{commands}}\n\nEl código del complemento se ejecuta dentro de Metoai. Instala solo archivos de fuentes en las que confíes.",
+    "confirmDetail": "Archivo: {{file}}\nID del complemento: {{id}}\nVersión: {{version}}\n\nPermisos que se otorgarán:\n{{permissions}}\n\nComandos que se habilitarán:\n{{commands}}\n\nEl código del complemento se ejecuta dentro de MetoAI. Instala solo archivos de fuentes en las que confíes.",
     "none": "Ninguno",
     "install": "Instalar y habilitar",
     "cancel": "Cancelar",
@@ -116,7 +116,7 @@
     "installedTitle": "Complemento instalado",
     "installedMessage": "{{name}} {{version}} está instalado y habilitado.",
     "failedTitle": "Error al instalar el complemento",
-    "failedMessage": "{{file}} no es un paquete de complemento de Metoai válido o no es compatible con esta versión."
+    "failedMessage": "{{file}} no es un paquete de complemento de MetoAI válido o no es compatible con esta versión."
   },
   "terminal": {
     "remoteOutputDropped": "[salida remota demasiado rápida; se omitieron {{bytes}} bytes]"

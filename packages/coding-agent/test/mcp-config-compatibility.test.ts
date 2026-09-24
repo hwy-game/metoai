@@ -20,7 +20,7 @@ describe("MCP config compatibility", () => {
 		expect(loader.loadMerged()).toEqual({ mcpServers: {} });
 		expect(loader.getConfigPaths()).toEqual({
 			global: join(fixture.agentDir, "mcp.json"),
-			project: join(fixture.projectRoot, ".vetta", "mcp.json"),
+			project: join(fixture.projectRoot, ".metoai", "mcp.json"),
 		});
 	});
 
@@ -37,7 +37,7 @@ describe("MCP config compatibility", () => {
 					},
 				},
 			});
-			await writeJson(join(fixture.projectRoot, ".vetta", "mcp.json"), {
+			await writeJson(join(fixture.projectRoot, ".metoai", "mcp.json"), {
 				mcpServers: {
 					shared: {
 						command: "project",

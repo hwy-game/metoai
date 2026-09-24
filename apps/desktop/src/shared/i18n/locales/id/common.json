@@ -1,5 +1,5 @@
 {
-  "appName": "Metoai",
+  "appName": "MetoAI",
   "actions": {
     "cancel": "Batal",
     "confirm": "Konfirmasi",
@@ -21,7 +21,7 @@
   },
   "updateRestart": {
     "title": "Pembaruan Siap",
-    "message": "Versi {{latestVersion}} telah diunduh (saat ini {{currentVersion}}). Mulai ulang Metoai sekarang untuk menerapkan pembaruan, atau pilih \"Nanti\" agar diingatkan saat aplikasi dijalankan lagi.",
+    "message": "Versi {{latestVersion}} telah diunduh (saat ini {{currentVersion}}). Mulai ulang MetoAI sekarang untuk menerapkan pembaruan, atau pilih \"Nanti\" agar diingatkan saat aplikasi dijalankan lagi.",
     "later": "Nanti",
     "install": "Mulai Ulang Sekarang"
   },
@@ -442,8 +442,8 @@
       "experimentalSectionTitle": "Fitur eksperimental",
       "experimentalSectionDescription": "Tombol yang sama seperti Pengaturan → Agen. Anda dapat menyesuaikannya sebelum mengonfirmasi.",
       "experimentalFields": {
-        "vettaCli": "Metoai CLI",
-        "vettaCliDesc": "Izinkan pemanggilan kemampuan lokal dari terminal melalui Metoai CLI",
+        "vettaCli": "MetoAI CLI",
+        "vettaCliDesc": "Izinkan pemanggilan kemampuan lokal dari terminal melalui MetoAI CLI",
         "promptPrediction": "Prediksi masukan",
         "promptPredictionDesc": "Menyarankan teks lanjutan saat Anda mengetik; mungkin memakai sedikit kuota",
         "agentSkills": "Ekstensi keterampilan agen",
@@ -989,7 +989,7 @@
       "title": "Berikan izin",
       "subtitle": "Aktifkan tangkapan layar, otomatisasi, dan notifikasi sistem. Anda dapat menyelesaikannya nanti di Pengaturan",
       "systemSection": "Izin sistem",
-      "computerUseTitle": "Metoai Computer Use",
+      "computerUseTitle": "MetoAI Computer Use",
       "computerUseDesc": "Penolong terpisah menangkap jendela terdepan dan memerlukan izin Aksesibilitas serta Perekaman Layar tersendiri",
       "optionalHint": "Semua izin bersifat opsional. Sesuaikan kapan saja di Pengaturan → Izin"
     },
@@ -1001,7 +1001,7 @@
       "theme": "Tema warna"
     },
     "metoai": {
-      "title": "Masuk ke MetoAi",
+      "title": "Masuk ke MetoAI",
       "subtitle": "Masuk untuk memakai semua model di gateway bawaan; saldo, langganan, dan kunci API juga ada di sini",
       "optionalHint": "Opsional — ketuk Berikutnya untuk melanjutkan"
     },
@@ -1014,7 +1014,7 @@
       "signedInFallback": "Pengguna"
     },
     "welcome": {
-      "title": "Selamat datang di Metoai",
+      "title": "Selamat datang di MetoAI",
       "subtitle": "Asisten coding AI desktop Anda sudah siap. Mulai dengan percakapan",
       "highlights": {
         "chat": {

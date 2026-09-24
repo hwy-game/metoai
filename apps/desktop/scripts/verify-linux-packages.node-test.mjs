@@ -14,11 +14,11 @@ import {
 } from "./verify-linux-packages.mjs";
 
 // 与 fork 的构建配置一致：productName 决定安装目录，executableName 决定可执行文件名。
-const payloadPaths = resolveLinuxPayloadPaths({ productName: "Metoai", executableName: "Metoai" });
+const payloadPaths = resolveLinuxPayloadPaths({ productName: "MetoAI", executableName: "MetoAI" });
 const paths = [
 	...payloadPaths,
-	"/usr/share/applications/Metoai.desktop",
-	"/usr/share/icons/hicolor/512x512/apps/Metoai.png",
+	"/usr/share/applications/MetoAI.desktop",
+	"/usr/share/icons/hicolor/512x512/apps/MetoAI.png",
 ];
 
 // 与构建 workflow 写下的载荷配置投影路径一致：它随 checkpoint 进入验收 job 的 release/。
@@ -54,13 +54,13 @@ test("Linux package inspection rejects wrong identities and incomplete payloads"
 				deb: { name: "vetta", version: "1.2.3", arch: "amd64", paths },
 				rpm: { name: "vetta", version: "1.2.3", arch: "x86_64", paths: paths.slice(1) },
 			}),
-		/RPM package is missing \/opt\/Metoai\/Metoai/,
+		/RPM package is missing \/opt\/MetoAI\/MetoAI/,
 	);
 });
 
 test("package command output parsers normalize Debian and RPM metadata", () => {
 	assert.deepEqual(
-		parseDebFields("Package: vetta\nVersion: 1.2.3\nArchitecture: amd64\nDescription: Metoai\n"),
+		parseDebFields("Package: vetta\nVersion: 1.2.3\nArchitecture: amd64\nDescription: MetoAI\n"),
 		{ name: "vetta", version: "1.2.3", arch: "amd64" },
 	);
 	assert.deepEqual(parseRpmFields("vetta\n1.2.3\nx86_64\n"), {
@@ -70,10 +70,10 @@ test("package command output parsers normalize Debian and RPM metadata", () => {
 	});
 	assert.deepEqual(
 		parseDebContents(
-			"-rwxr-xr-x root/root 123 2026-01-01 00:00 ./opt/Metoai/Metoai\n" +
-				"lrwxrwxrwx root/root 0 2026-01-01 00:00 ./usr/bin/vetta -> /opt/Metoai/Metoai\n",
+			"-rwxr-xr-x root/root 123 2026-01-01 00:00 ./opt/MetoAI/MetoAI\n" +
+				"lrwxrwxrwx root/root 0 2026-01-01 00:00 ./usr/bin/vetta -> /opt/MetoAI/MetoAI\n",
 		),
-		["/opt/Metoai/Metoai", "/usr/bin/vetta"],
+		["/opt/MetoAI/MetoAI", "/usr/bin/vetta"],
 	);
 });
 
@@ -83,20 +83,20 @@ test("Linux payload paths follow the staged electron-builder product identity", 
 		const builderConfigPath = join(stageDir, "electron-builder.json");
 		await writeFile(
 			builderConfigPath,
-			JSON.stringify({ productName: "Metoai", executableName: "Metoai", linux: { target: ["deb"] } }),
+			JSON.stringify({ productName: "MetoAI", executableName: "MetoAI", linux: { target: ["deb"] } }),
 		);
 		assert.deepEqual(await readLinuxPayloadPaths(builderConfigPath), [
-			"/opt/Metoai/Metoai",
-			"/opt/Metoai/resources/package-type",
+			"/opt/MetoAI/MetoAI",
+			"/opt/MetoAI/resources/package-type",
 		]);
 
 		await writeFile(
 			builderConfigPath,
-			JSON.stringify({ productName: "Metoai", executableName: "Metoai", linux: { executableName: "Metoai" } }),
+			JSON.stringify({ productName: "MetoAI", executableName: "MetoAI", linux: { executableName: "MetoAI" } }),
 		);
 		assert.deepEqual(await readLinuxPayloadPaths(builderConfigPath), [
-			"/opt/Metoai/Metoai",
-			"/opt/Metoai/resources/package-type",
+			"/opt/MetoAI/MetoAI",
+			"/opt/MetoAI/resources/package-type",
 		]);
 
 		await rm(builderConfigPath);
@@ -112,11 +112,11 @@ test("Linux payload paths follow the staged electron-builder product identity", 
 
 test("Linux payload paths reject identities that electron-builder would sanitize", () => {
 	assert.throws(
-		() => resolveLinuxPayloadPaths({ productName: "Metoai Desktop", executableName: "Metoai" }),
-		/productName Metoai Desktop is not a plain path segment/,
+		() => resolveLinuxPayloadPaths({ productName: "MetoAI Desktop", executableName: "MetoAI" }),
+		/productName MetoAI Desktop is not a plain path segment/,
 	);
 	assert.throws(
-		() => resolveLinuxPayloadPaths({ productName: "Metoai", executableName: "" }),
+		() => resolveLinuxPayloadPaths({ productName: "MetoAI", executableName: "" }),
 		/missing executableName/,
 	);
 });
@@ -140,12 +140,12 @@ test("Linux payload paths fall back to the checkpoint payload projection", async
 		await mkdir(dirname(payloadProjectionPath), { recursive: true });
 		await writeFile(
 			payloadProjectionPath,
-			JSON.stringify({ productName: "Metoai", executableName: "Metoai", linux: { executableName: "Metoai" } }),
+			JSON.stringify({ productName: "MetoAI", executableName: "MetoAI", linux: { executableName: "MetoAI" } }),
 		);
 		// 只传缺失的 staged 路径：投影路径必须由默认值补上。
 		assert.deepEqual(await readLinuxPayloadPaths(join(stageDir, "electron-builder.json")), [
-			"/opt/Metoai/Metoai",
-			"/opt/Metoai/resources/package-type",
+			"/opt/MetoAI/MetoAI",
+			"/opt/MetoAI/resources/package-type",
 		]);
 	} finally {
 		if (previousProjection === null) await rm(payloadProjectionPath, { force: true });

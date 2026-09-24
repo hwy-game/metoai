@@ -2,19 +2,19 @@
   "tray": {
     "showWindow": "Afficher la fenêtre",
     "hideWindow": "Masquer la fenêtre",
-    "quitVetta": "Quitter Metoai",
+    "quitVetta": "Quitter MetoAI",
     "quit": "Quitter",
     "hideToTray": "Masquer dans la zone de notification"
   },
   "menu": {
     "app": {
-      "title": "Metoai",
-      "about": "À propos de Metoai",
+      "title": "MetoAI",
+      "about": "À propos de MetoAI",
       "services": "Services",
-      "hide": "Masquer Metoai",
+      "hide": "Masquer MetoAI",
       "hideOthers": "Masquer les autres",
       "unhide": "Tout afficher",
-      "quit": "Quitter Metoai"
+      "quit": "Quitter MetoAI"
     },
     "edit": {
       "title": "Édition",
@@ -57,8 +57,8 @@
   "mcpOAuth": {
     "authorizationSuccessful": "Autorisation réussie",
     "authorizationFailed": "Échec de l'autorisation",
-    "returnToVetta": "Vous pouvez fermer cette fenêtre et revenir à Metoai.",
-    "closeAndRetry": "Vous pouvez fermer cette fenêtre et réessayer dans Metoai.",
+    "returnToVetta": "Vous pouvez fermer cette fenêtre et revenir à MetoAI.",
+    "closeAndRetry": "Vous pouvez fermer cette fenêtre et réessayer dans MetoAI.",
     "missingAuthorizationCode": "Code d'autorisation manquant",
     "callbackAlreadySettled": "Le rappel OAuth a déjà été traité",
     "callbackTimedOut": "Délai dépassé en attendant l'autorisation OAuth dans le navigateur",
@@ -68,7 +68,7 @@
     "enterDeviceCode": "Saisissez ce code sur la page GitHub, puis cliquez sur Autoriser.",
     "copyCode": "Copier le code",
     "openGitHub": "Ouvrir GitHub pour autoriser",
-    "closeAfterAuthorization": "Vous pouvez fermer cette fenêtre une fois l'autorisation effectuée dans Metoai.",
+    "closeAfterAuthorization": "Vous pouvez fermer cette fenêtre une fois l'autorisation effectuée dans MetoAI.",
     "deviceFlowDisabled": "Échec de la demande de code d'appareil (422). Activez Device Flow dans les paramètres OAuth ou de l'application GitHub : {{details}}"
   },
   "updater": {
@@ -106,9 +106,9 @@
     }
   },
   "pluginPackage": {
-    "confirmTitle": "Installer l'extension Metoai",
+    "confirmTitle": "Installer l'extension MetoAI",
     "confirmMessage": "Installer et activer {{name}} {{version}} ?",
-    "confirmDetail": "Fichier : {{file}}\nID de l'extension : {{id}}\nVersion : {{version}}\n\nAutorisations à accorder :\n{{permissions}}\n\nCommandes à activer :\n{{commands}}\n\nLe code de l'extension s'exécute dans Metoai. N'installez des fichiers qu'à partir de sources fiables.",
+    "confirmDetail": "Fichier : {{file}}\nID de l'extension : {{id}}\nVersion : {{version}}\n\nAutorisations à accorder :\n{{permissions}}\n\nCommandes à activer :\n{{commands}}\n\nLe code de l'extension s'exécute dans MetoAI. N'installez des fichiers qu'à partir de sources fiables.",
     "none": "Aucune",
     "install": "Installer et activer",
     "cancel": "Annuler",
@@ -116,7 +116,7 @@
     "installedTitle": "Extension installée",
     "installedMessage": "{{name}} {{version}} est installée et activée.",
     "failedTitle": "Échec de l'installation de l'extension",
-    "failedMessage": "{{file}} n'est pas un paquet d'extension Metoai valide ou est incompatible avec cette version."
+    "failedMessage": "{{file}} n'est pas un paquet d'extension MetoAI valide ou est incompatible avec cette version."
   },
   "terminal": {
     "remoteOutputDropped": "[sortie distante trop rapide ; {{bytes}} octets omis]"

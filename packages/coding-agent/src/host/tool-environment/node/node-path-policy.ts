@@ -1,7 +1,7 @@
 import { homedir } from "node:os";
 import { join, resolve } from "node:path";
 import { createNodePathBoundaryClassifier } from "@vetta/runtime-node/coding";
-import { CONFIG_DIR_NAME } from "../../../identity.js";
+import { CONFIG_DIR_NAME, LEGACY_CONFIG_DIR_NAME } from "../../../identity.js";
 import type { CodingAgentPathPolicyBoundaries } from "../../../tool-policy/path/path-policy-boundaries.js";
 import { getAgentDir, getKnowledgeDir, getSceneDir, getUserSkillsDir } from "../../node-config.js";
 
@@ -17,6 +17,8 @@ export function createCodingAgentNodePathPolicy(cwd: string): CodingAgentNodePat
 		resolve(getUserSkillsDir()),
 		resolve(getSceneDir()),
 		resolve(cwd, CONFIG_DIR_NAME, "skills"),
+		// 品牌改名前的项目技能目录同样受保护，否则旧目录里的技能可以被命令改写。
+		resolve(cwd, LEGACY_CONFIG_DIR_NAME, "skills"),
 	];
 	return {
 		protectedCommandDirectories,

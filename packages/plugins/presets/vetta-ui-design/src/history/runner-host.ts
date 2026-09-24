@@ -2,13 +2,14 @@
  * 把历史 runner 物化到磁盘并执行（ADR-0069）。
  *
  * 为什么要物化：runner 只存在于插件 bundle 里，而它必须由 node 执行，node 只认磁盘
- * 路径；插件的 `fs.write` 又是项目作用域的，写不到 `~/.vetta`。引擎模板是同一个问题
+ * 路径；插件的 `fs.write` 又是项目作用域的，写不到 `~/.metoai`。引擎模板是同一个问题
  * 同一个解（见 engine-manager），区别只有一个——引擎模板几十 KB，一个 env 变量塞得下，
  * runner 压缩后仍有上百 KB，而 Windows 单个环境变量上限 32767 字符。所以分块写。
  */
 import type { PluginContext } from "@vetta-org/plugin-sdk";
 import { machineLocalPath, machineOf } from "./machine";
 import { transferPayload } from "../shared/payload-transfer";
+import { RESOLVE_HOST_DATA_ROOT_SCRIPT } from "../shared/host-data-root";
 
 /*
  * runner 源码 ~380KB，改为首次执行历史命令时动态 import（?raw 独立成 chunk）。
@@ -65,21 +66,21 @@ async function gzipBase64(text: string): Promise<string> {
 }
 
 // 按机器缓存：远程项目的 runner 物化在远端，本机那份用不上，反之亦然。
-const homeByMachine = new Map<string, string>();
+const dataRootByMachine = new Map<string, string>();
 
-async function resolveHome(ctx: PluginContext, cwd: string): Promise<string> {
+async function resolveDataRoot(ctx: PluginContext, cwd: string): Promise<string> {
 	const machine = machineOf(cwd);
-	const cached = homeByMachine.get(machine);
+	const cached = dataRootByMachine.get(machine);
 	if (cached) return cached;
-	const result = await ctx.command.run("node", ["-p", "require('os').homedir()"], { cwd });
-	const home = result.stdout.trim();
-	if (result.exitCode !== 0 || !home) {
+	const result = await ctx.command.run("node", ["-e", RESOLVE_HOST_DATA_ROOT_SCRIPT], { cwd });
+	const dataRoot = result.stdout.trim();
+	if (result.exitCode !== 0 || !dataRoot) {
 		// 远端没装 node 时也走这里。说清是哪台机器，否则看起来像本机坏了。
 		const where = machine === "local" ? "this computer" : machine;
 		throw new Error(`history needs node on ${where}: ${result.stderr || result.stdout}`);
 	}
-	homeByMachine.set(machine, home);
-	return home;
+	dataRootByMachine.set(machine, dataRoot);
+	return dataRoot;
 }
 
 const runnerByMachine = new Map<string, Promise<string>>();
@@ -99,9 +100,9 @@ export function ensureRunner(ctx: PluginContext, cwd: string): Promise<string> {
 }
 
 async function materialize(ctx: PluginContext, cwd: string): Promise<string> {
-	const [home, runnerSource] = await Promise.all([resolveHome(ctx, cwd), loadRunnerSource()]);
+	const [dataRoot, runnerSource] = await Promise.all([resolveDataRoot(ctx, cwd), loadRunnerSource()]);
 	const hash = sourceHash(runnerSource);
-	const dir = `${home}/.vetta/plugin-data/vetta-ui-design/history-runner/${hash}`;
+	const dir = `${dataRoot}/plugin-data/vetta-ui-design/history-runner/${hash}`;
 	const file = `${dir}/runner.mjs`;
 	const probe = await ctx.command.run("node", ["-e", PROBE_SCRIPT], { cwd, env: { VETD_RUNNER_FILE: file } });
 	if (probe.stdout.trim() === "yes") return file;

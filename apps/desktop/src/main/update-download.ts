@@ -78,7 +78,7 @@ export function resolvePackageFileName(source: Pick<UpdatePackageSource, "versio
 	for (const candidate of [source.fileName, fileNameFromUrl(source.url)]) {
 		if (candidate !== undefined && SAFE_FILE_NAME_PATTERN.test(candidate)) return candidate;
 	}
-	return `Metoai-${source.version}-update`;
+	return `MetoAI-${source.version}-update`;
 }
 
 /**

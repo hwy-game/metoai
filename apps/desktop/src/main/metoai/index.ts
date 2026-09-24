@@ -1,5 +1,5 @@
 /**
- * MetoAi 领域门面：IPC 层只依赖这里，不直接碰 `api.ts` / `session.ts` 的细节。
+ * MetoAI 领域门面：IPC 层只依赖这里，不直接碰 `api.ts` / `session.ts` 的细节。
  *
  * 登录只有两条路：系统浏览器授权（`authorize.ts`）与手动填 API Key（渲染层直连
  * 模型配置，不经过本模块）。授权成功后会在后台自动准备模型访问（签发/复用 Key
@@ -78,7 +78,7 @@ export function session(): MetoAiSessionSnapshot {
 	return getSessionSnapshot();
 }
 
-/** 在系统浏览器打开 MetoAi 授权页；结果由回调与 `session-changed` 事件决定。 */
+/** 在系统浏览器打开 MetoAI 授权页；结果由回调与 `session-changed` 事件决定。 */
 export function authorize(): Promise<MetoAiAuthorizeResult> {
 	return startAuthorize();
 }
@@ -131,7 +131,7 @@ async function completeAuthorization(parsed: URL): Promise<void> {
 	// 广播 `state-mismatch` 会让渲染层把「等待授权」切回 idle 并弹一条用户无法理解的错误。
 	// 注意：有过期 state 时仍照常广播——用户确实需要知道要重新发起授权。
 	if (!hasPendingAuthorize()) {
-		log.debug("ignoring MetoAi authorization callback: no pending authorize");
+		log.debug("ignoring MetoAI authorization callback: no pending authorize");
 		return;
 	}
 

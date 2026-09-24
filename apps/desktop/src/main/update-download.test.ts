@@ -20,7 +20,7 @@ import {
 const fetchMock = vi.fn<(input: string | URL | Request, init?: RequestInit) => Promise<Response>>();
 const destinationDirs: string[] = [];
 
-const PACKAGE_FILE_NAME = "Metoai-0.6.0-win-x64.exe";
+const PACKAGE_FILE_NAME = "MetoAI-0.6.0-win-x64.exe";
 const PACKAGE_URL = `https://dl.example.com/${PACKAGE_FILE_NAME}`;
 
 function createDestinationDir(): string {
@@ -199,8 +199,8 @@ describe("resolvePackageFileName", () => {
 	it("file_name 与 URL 末段都不合法时退回固定名字", () => {
 		expect(
 			resolvePackageFileName({ version: "0.6.0", url: "https://dl.example.com/安装包.exe", fileName: "../evil" }),
-		).toBe("Metoai-0.6.0-update");
-		expect(resolvePackageFileName({ version: "0.6.0", url: "not a url", fileName: "" })).toBe("Metoai-0.6.0-update");
+		).toBe("MetoAI-0.6.0-update");
+		expect(resolvePackageFileName({ version: "0.6.0", url: "not a url", fileName: "" })).toBe("MetoAI-0.6.0-update");
 	});
 });
 

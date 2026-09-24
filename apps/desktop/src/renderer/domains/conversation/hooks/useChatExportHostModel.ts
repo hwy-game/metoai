@@ -12,7 +12,7 @@ function nextPaint(): Promise<void> {
 
 function safeFileName(value: string): string {
 	const normalized = value.trim().replace(/[<>:"/\\|?*\u0000-\u001f]/g, "_");
-	return `${normalized || "Metoai 会话"}.html`;
+	return `${normalized || "MetoAI 会话"}.html`;
 }
 
 export interface ChatExportHostModel {

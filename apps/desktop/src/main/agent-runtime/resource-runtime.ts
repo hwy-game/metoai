@@ -19,7 +19,11 @@ import {
 	type SessionResourceRuntimeOptions,
 } from "@vetta/coding-agent/resources";
 import { createSettingsRuntimeFromStorage, type SettingsRuntime } from "@vetta/coding-agent/settings";
-import { createProjectResourceAccess, resolveProjectSettingsPath } from "@vetta/runtime-desktop";
+import {
+	createProjectResourceAccess,
+	resolveLegacyProjectSettingsPath,
+	resolveProjectSettingsPath,
+} from "@vetta/runtime-desktop";
 import {
 	createNodeCommandExecutor,
 	createNodeResourcePackageHost,
@@ -52,10 +56,13 @@ interface CreateDesktopSessionResourceRuntimeOptions
 
 export function createDesktopSettingsRuntime(cwd: string, agentDir: string): SettingsRuntime {
 	return createSettingsRuntimeFromStorage(
-		new NodeScopedTextStorage({
-			global: join(agentDir, "settings.json"),
-			project: resolveProjectSettingsPath(cwd, agentDir),
-		}),
+		new NodeScopedTextStorage(
+			{
+				global: join(agentDir, "settings.json"),
+				project: resolveProjectSettingsPath(cwd, agentDir),
+			},
+			{ project: resolveLegacyProjectSettingsPath(cwd) },
+		),
 		{
 			clearOnShrink: process.env.PI_CLEAR_ON_SHRINK === "1",
 			showHardwareCursor: process.env.PI_HARDWARE_CURSOR === "1",

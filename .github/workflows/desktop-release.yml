@@ -567,19 +567,19 @@ jobs:
           docker run --rm --volume "${PWD}/release:/release:ro" ubuntu:24.04 bash -euo pipefail -c '
             apt-get update
             apt-get install --yes /release/*.deb
-            binary="$(find /opt -mindepth 2 -maxdepth 2 -type f -name Metoai -print -quit)"
-            test -n "${binary}" || { echo "no Metoai executable installed under /opt" >&2; ls -l /opt >&2; exit 1; }
+            binary="$(find /opt -mindepth 2 -maxdepth 2 -type f -name MetoAI -print -quit)"
+            test -n "${binary}" || { echo "no MetoAI executable installed under /opt" >&2; ls -l /opt >&2; exit 1; }
             app_dir="$(dirname "${binary}")"
-            test -x "${app_dir}/Metoai"
+            test -x "${app_dir}/MetoAI"
             test "$(cat "${app_dir}/resources/package-type")" = "deb"
             find /usr/share/applications -maxdepth 1 -type f -iname "*metoai*.desktop" -print -quit | grep -q . || { echo "no desktop entry installed" >&2; ls -l /usr/share/applications >&2; exit 1; }
           '
           docker run --rm --volume "${PWD}/release:/release:ro" fedora:latest bash -euo pipefail -c '
             dnf install --assumeyes --nogpgcheck /release/*.rpm
-            binary="$(find /opt -mindepth 2 -maxdepth 2 -type f -name Metoai -print -quit)"
-            test -n "${binary}" || { echo "no Metoai executable installed under /opt" >&2; ls -l /opt >&2; exit 1; }
+            binary="$(find /opt -mindepth 2 -maxdepth 2 -type f -name MetoAI -print -quit)"
+            test -n "${binary}" || { echo "no MetoAI executable installed under /opt" >&2; ls -l /opt >&2; exit 1; }
             app_dir="$(dirname "${binary}")"
-            test -x "${app_dir}/Metoai"
+            test -x "${app_dir}/MetoAI"
             test "$(cat "${app_dir}/resources/package-type")" = "rpm"
             find /usr/share/applications -maxdepth 1 -type f -iname "*metoai*.desktop" -print -quit | grep -q . || { echo "no desktop entry installed" >&2; ls -l /usr/share/applications >&2; exit 1; }
           '
@@ -826,9 +826,11 @@ jobs:
               exit 1
             fi
             echo "Resuming draft release ${TAG}"
-            gh release edit "${TAG}" --notes-file "${NOTES_FILE}"
+            # 复用已存在的 draft 时也要把标题写回：否则会沿用别人（或上一次运行）留下的旧标题，
+            # 线上就出现过 Release 标题变成提交信息的情况。
+            gh release edit "${TAG}" --notes-file "${NOTES_FILE}" --title "MetoAI ${VERSION}"
           else
-            gh release create "${TAG}" --draft --notes-file "${NOTES_FILE}" --title "Metoai ${VERSION}" --target "${GITHUB_SHA}"
+            gh release create "${TAG}" --draft --notes-file "${NOTES_FILE}" --title "MetoAI ${VERSION}" --target "${GITHUB_SHA}"
           fi
           find apps/desktop/release -maxdepth 1 -type f -print0 \
             | xargs -0 gh release upload "${TAG}" --clobber

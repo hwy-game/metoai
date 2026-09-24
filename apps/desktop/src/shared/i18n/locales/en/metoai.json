@@ -1,10 +1,10 @@
 {
-  "title": "MetoAi account",
+  "title": "MetoAI account",
   "preset": {
-    "displayName": "MetoAi"
+    "displayName": "MetoAI"
   },
   "gate": {
-    "title": "Sign in to MetoAi",
+    "title": "Sign in to MetoAI",
     "subtitle": "Sign in to use every model on the built-in relay. Balance, subscription and keys are shown here; top-ups, plans and redemption codes are handled on the website.",
     "keyLabel": "API Key",
     "keyPlaceholder": "sk-... paste your API Key",
@@ -12,7 +12,7 @@
     "save": "Save & Enter",
     "saving": "Verifying…",
     "skip": "Skip for now",
-    "success": "MetoAi configured. Model list updated.",
+    "success": "MetoAI configured. Model list updated.",
     "secureNote": "Your key is stored locally and encrypted. It is never uploaded.",
     "errorInvalidKey": "Invalid key. Please check and try again.",
     "errorNetwork": "Network request failed. Check your connection and try again.",
@@ -22,13 +22,13 @@
     "loginInstead": "Sign in with browser authorization instead"
   },
   "authorize": {
-    "hint": "The button below opens the MetoAi authorization page in your system browser, where you sign in and approve access. The client never collects or stores your password.",
+    "hint": "The button below opens the MetoAI authorization page in your system browser, where you sign in and approve access. The client never collects or stores your password.",
     "submit": "Authorize in browser",
     "waitingTitle": "Waiting for browser authorization",
     "waitingHint": "Finish signing in and approve access in the browser; this window signs in automatically once you do.",
     "reopen": "Open the authorization page again",
     "cancel": "Cancel",
-    "openSite": "Open the MetoAi website",
+    "openSite": "Open the MetoAI website",
     "secureNote": "Authorizing only adds one session you can revoke on the website at any time.",
     "errorOpen": "Couldn't open your browser. Please try again, or use an API Key instead.",
     "errorStateMismatch": "This authorization callback could not be verified (it may come from an expired link or an old tab). Please authorize again.",
@@ -37,19 +37,19 @@
     "errorAccessDenied": "Authorization was cancelled. No account was signed in.",
     "errorExchange": "Couldn't exchange the authorization for credentials. Please authorize again.",
     "errorSession": "Your sign-in session is no longer valid. Please authorize again.",
-    "errorSessionLimit": "You have reached the maximum number of sign-in sessions. Revoke one on the MetoAi website and try again."
+    "errorSessionLimit": "You have reached the maximum number of sign-in sessions. Revoke one on the MetoAI website and try again."
   },
   "signIn": {
-    "title": "Sign in to MetoAi",
+    "title": "Sign in to MetoAI",
     "subtitle": "After authorizing in your browser, your balance, subscription and API keys show up here."
   },
   "menu": {
-    "login": "Sign in to MetoAi",
+    "login": "Sign in to MetoAI",
     "opening": "Opening authorization page…",
     "waiting": "The authorization page is open in your browser. You will be signed in automatically when it is complete.",
     "reopen": "Open authorization page again",
     "cancel": "Cancel authorization",
-    "logout": "Sign out of MetoAi",
+    "logout": "Sign out of MetoAI",
     "signingOut": "Signing out…"
   },
   "account": {
@@ -61,7 +61,7 @@
     "requests": "Requests",
     "refresh": "Refresh",
     "modelAccess": "Model access",
-    "modelAccessHint": "Connect MetoAi to your model configuration to use its models in chat.",
+    "modelAccessHint": "Connect MetoAI to your model configuration to use its models in chat.",
     "modelAccessAction": "Connect",
     "modelAccessReady": "Connected. Pick its models in chat.",
     "modelAccessSyncing": "Connecting…",
@@ -73,7 +73,7 @@
   },
   "keys": {
     "title": "API Keys",
-    "description": "Use these keys to call MetoAi from other clients.",
+    "description": "Use these keys to call MetoAI from other clients.",
     "empty": "No keys yet. Create one to use it elsewhere.",
     "create": "New key",
     "name": "Name",
@@ -111,7 +111,7 @@
     "errorToggle": "Failed to update the key status. Please try again later."
   },
   "subscription": {
-    "description": "Your current plan and quota usage. Buying, renewing and cancelling happen on the MetoAi website.",
+    "description": "Your current plan and quota usage. Buying, renewing and cancelling happen on the MetoAI website.",
     "manage": "Manage on the website",
     "empty": "No active subscription.",
     "unknownPlan": "Subscription plan",
@@ -129,7 +129,7 @@
     }
   },
   "webActions": {
-    "description": "Top-ups, plans, redemption codes and account details are handled on the MetoAi website; the browser is already signed in after authorization.",
+    "description": "Top-ups, plans, redemption codes and account details are handled on the MetoAI website; the browser is already signed in after authorization.",
     "open": "Open website",
     "topUp": "Top up",
     "topUpHint": "Add funds to your balance on the website.",

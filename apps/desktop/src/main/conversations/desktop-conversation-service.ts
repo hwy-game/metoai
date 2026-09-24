@@ -320,7 +320,7 @@ export class DesktopConversationService {
 		if (!header) {
 			throw new DesktopConversationError(
 				"INVALID_SESSION_PATH",
-				"Session file has no valid Metoai session header.",
+				"Session file has no valid MetoAI session header.",
 				{
 					sessionPath: absolutePath,
 				},

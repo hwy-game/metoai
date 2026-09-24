@@ -29,16 +29,16 @@ export interface PdfCliResponse {
 	};
 }
 
-const HELP_TEXT = `Metoai PDF command line interface
+const HELP_TEXT = `MetoAI PDF command line interface
 
 Usage:
-  Metoai.exe --html-to-pdf <input.html> --output <output.pdf> [options]
-  Metoai.exe pdf html-to-pdf <input.html> --output <output.pdf> [options]
-  Metoai.exe pdf -h
-  Metoai.exe pdf --help
+  MetoAI.exe --html-to-pdf <input.html> --output <output.pdf> [options]
+  MetoAI.exe pdf html-to-pdf <input.html> --output <output.pdf> [options]
+  MetoAI.exe pdf -h
+  MetoAI.exe pdf --help
 
 Description:
-  Convert an HTML file to PDF using Metoai Desktop's bundled Electron Chromium
+  Convert an HTML file to PDF using MetoAI Desktop's bundled Electron Chromium
   renderer. This does not require Google Chrome or Microsoft Edge to be
   installed on the user machine.
 

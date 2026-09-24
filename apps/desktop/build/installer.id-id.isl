@@ -1,6 +1,6 @@
-; *** Metoai installer messages - Bahasa Indonesia (id-id) ***
+; *** MetoAI installer messages - Bahasa Indonesia (id-id) ***
 ; Based on the Inno Setup 6 English message set (Default.isl 6.5.0).
-; Only the messages shown by Metoai's installer are translated here; all other
+; Only the messages shown by MetoAI's installer are translated here; all other
 ; messages fall back to English from Default.isl.
 ; Do not add a period to messages that don't have one: Inno Setup appends the
 ; period automatically, so a second one would be displayed.

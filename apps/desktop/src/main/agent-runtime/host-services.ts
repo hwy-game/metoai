@@ -10,7 +10,7 @@ import {
 	createCodingAgentModelRuntime,
 	SettingsRuntime,
 } from "@vetta/coding-agent/host-services";
-import { resolveProjectSettingsPath } from "@vetta/runtime-desktop";
+import { resolveLegacyProjectSettingsPath, resolveProjectSettingsPath } from "@vetta/runtime-desktop";
 import {
 	NodeScopedTextStorage,
 	NodeTransactionalTextStorage,
@@ -68,10 +68,13 @@ export function syncSharedModelRuntimeCredentials(
 
 export function readDesktopMcpDebug(cwd: string, agentDir: string): boolean {
 	return SettingsRuntime.fromStorage(
-		new NodeScopedTextStorage({
-			global: join(agentDir, "settings.json"),
-			project: resolveProjectSettingsPath(cwd, agentDir),
-		}),
+		new NodeScopedTextStorage(
+			{
+				global: join(agentDir, "settings.json"),
+				project: resolveProjectSettingsPath(cwd, agentDir),
+			},
+			{ project: resolveLegacyProjectSettingsPath(cwd) },
+		),
 	).getMcpDebug();
 }
 

@@ -269,7 +269,7 @@
     "close": "Đóng"
   },
   "appshot": {
-    "errorSelfCapture": "Bỏ qua Appshot: cửa sổ trên cùng chính là Metoai",
+    "errorSelfCapture": "Bỏ qua Appshot: cửa sổ trên cùng chính là MetoAI",
     "errorNoPermission": "Chụp Appshot thất bại: thiếu quyền Ghi màn hình và Trợ năng. Hãy cấp quyền trong Cài đặt › Quyền",
     "errorHelperFailed": "Chụp Appshot thất bại, vui lòng thử lại"
   },
@@ -280,7 +280,7 @@
   "mcpElicitation": {
     "title": "Yêu cầu thông tin MCP",
     "source": "Từ {{server}}",
-    "urlNotice": "Metoai chỉ mở địa chỉ này trong trình duyệt hệ thống sau khi bạn xác nhận.",
+    "urlNotice": "MetoAI chỉ mở địa chỉ này trong trình duyệt hệ thống sau khi bạn xác nhận.",
     "decline": "Từ chối",
     "openAndContinue": "Mở và tiếp tục",
     "submit": "Gửi",
@@ -331,10 +331,10 @@
     "write": "Ghi"
   },
   "chatExport": {
-    "defaultSessionName": "Phiên Metoai"
+    "defaultSessionName": "Phiên MetoAI"
   },
   "chatView": {
-    "defaultSessionTitle": "Phiên Metoai",
+    "defaultSessionTitle": "Phiên MetoAI",
     "exportButton": {
       "title": "Xuất toàn bộ phiên dưới dạng HTML"
     },
@@ -449,7 +449,7 @@
   "guideBadgeSwiper": {
     "dismissTooltip": "Không hiện lại",
     "petFeatureText": "Tính năng thú cưng trên màn hình mới — nhấp để bật trong cài đặt",
-    "quickPanelText": "Metoai đã có Bảng nhanh — nhấp để thiết lập"
+    "quickPanelText": "MetoAI đã có Bảng nhanh — nhấp để thiết lập"
   },
   "imagePreview": {
     "altText": "Ảnh đã tải",
@@ -504,13 +504,13 @@
     },
     "placeholder": {
       "defaults": [
-        "Hỏi Metoai, dùng / cho kỹ năng, @ để tham chiếu tệp",
+        "Hỏi MetoAI, dùng / cho kỹ năng, @ để tham chiếu tệp",
         "Mô tả tác vụ, nhấn ⏎ để gửi",
         "Dán ảnh chụp màn hình hoặc @ tệp để bắt đầu"
       ],
       "noSession": "Chọn hoặc tạo một phiên để bắt đầu",
       "suggestion": "↵ {{suggestion}}",
-      "thinking": "Metoai đang suy nghĩ…"
+      "thinking": "MetoAI đang suy nghĩ…"
     },
     "mention": {
       "trigger": "Nhắc thành viên",
@@ -603,7 +603,7 @@
       }
     },
     "assistantMessage": {
-      "predicting": "Metoai đang dự đoán…",
+      "predicting": "MetoAI đang dự đoán…",
       "processing": "Đang xử lý…",
       "waiting": "Đang chờ mô hình phản hồi"
     },
@@ -680,9 +680,9 @@
     "retryIndicator": "Đang kết nối lại ({{attempt}}/{{maxAttempts}})",
     "retryReason": "Yêu cầu trước thất bại: {{reason}}",
     "streamingPhrases": [
-      "Metoai đang trả lời…",
+      "MetoAI đang trả lời…",
       "Vui lòng đợi…",
-      "Metoai đang cố gắng hết sức…"
+      "MetoAI đang cố gắng hết sức…"
     ],
     "copyButton": {
       "copied": "Đã sao chép",
@@ -852,7 +852,7 @@
     "nextButton": "Tiếp",
     "questionTabLabel": "Câu hỏi {{number}}",
     "submitButton": "Gửi",
-    "title": "Metoai cần bạn lựa chọn"
+    "title": "MetoAI cần bạn lựa chọn"
   },
   "sandboxGrantsBadge": {
     "revoke": "Thu hồi",
@@ -879,7 +879,7 @@
       "loadPrefix": "Không tải được: "
     },
     "export": {
-      "defaultTitle": "Phiên Metoai"
+      "defaultTitle": "Phiên MetoAI"
     },
     "exportButton": {
       "title": "Xuất toàn bộ phiên dưới dạng HTML"
@@ -996,7 +996,7 @@
   },
   "mcpApp": {
     "externalAccess": "MCP App này khai báo truy cập {{count}} tên miền bên ngoài",
-    "permissionsDenied": "MCP App này đã yêu cầu quyền thiết bị; Metoai chưa cấp",
+    "permissionsDenied": "MCP App này đã yêu cầu quyền thiết bị; MetoAI chưa cấp",
     "title": "MCP App"
   },
   "usageBar": {
@@ -1075,7 +1075,7 @@
       "sendFeedback": "Gửi phản hồi",
       "sendFeedbackWithComments": "Gửi phản hồi ({{count}})",
       "stepCommentPlaceholder": "Bước này nên thay đổi thế nào…",
-      "subtitle": "Metoai sẽ bắt đầu làm theo kế hoạch này sau khi bạn phê duyệt. Trước đó sẽ không có gì bị thay đổi.",
+      "subtitle": "MetoAI sẽ bắt đầu làm theo kế hoạch này sau khi bạn phê duyệt. Trước đó sẽ không có gì bị thay đổi.",
       "title": "Có một kế hoạch đang chờ bạn phê duyệt"
     },
     "switchFailed": "Không chuyển được chế độ kế hoạch",

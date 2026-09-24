@@ -242,7 +242,7 @@ describe("buildSkillAbilities", () => {
 						type: "skill",
 						presentation: {
 							defaultVisibility: "visible",
-							displayName: "Metoai 设计",
+							displayName: "MetoAI 设计",
 							displayDescription: "设计产品界面",
 						},
 					},
@@ -253,7 +253,7 @@ describe("buildSkillAbilities", () => {
 		expect(items).toHaveLength(1);
 		expect(items[0]).toMatchObject({
 			slug: "vetta-ui-design",
-			title: "Metoai 设计",
+			title: "MetoAI 设计",
 			description: "设计产品界面",
 		});
 	});

@@ -1,5 +1,5 @@
 /**
- * MetoAi 控制台的 IPC 桥。
+ * MetoAI 控制台的 IPC 桥。
  *
  * 只做「校验入参 → 调 `main/metoai` → 归一化结果」；业务规则、协议形状与错误
  * 分类都在 `main/metoai/` 里。错误作为值返回（`MetoAiIpcResult`），因为 `Error`

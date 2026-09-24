@@ -81,8 +81,8 @@ describe("ElectronUpdaterEngine", () => {
 		const order: string[] = [];
 		const updateInfo: UpdateInfo = {
 			version: "1.2.3",
-			files: [{ url: "Metoai-1.2.3-win-x64.exe", sha512: "hash", size: 42 }],
-			path: "Metoai-1.2.3-win-x64.exe",
+			files: [{ url: "MetoAI-1.2.3-win-x64.exe", sha512: "hash", size: 42 }],
+			path: "MetoAI-1.2.3-win-x64.exe",
 			sha512: "installer",
 			releaseDate: new Date().toISOString(),
 		};
@@ -94,7 +94,7 @@ describe("ElectronUpdaterEngine", () => {
 			downloadedUpdateHelper: null,
 		} as unknown as AppUpdater;
 		const innoUpdate = {
-			select: vi.fn().mockReturnValue({ assetFileName: "Metoai-1.2.3-win-x64.exe", totalBytes: 42 }),
+			select: vi.fn().mockReturnValue({ assetFileName: "MetoAI-1.2.3-win-x64.exe", totalBytes: 42 }),
 			prepareDownloadedInstaller: vi.fn(),
 			activate: vi.fn(() => {
 				order.push("activate");
@@ -134,7 +134,7 @@ describe("ElectronUpdaterEngine", () => {
 		const updater = {
 			on: vi.fn(),
 			off: vi.fn(),
-			downloadUpdate: vi.fn().mockResolvedValue(["/tmp/Metoai.zip"]),
+			downloadUpdate: vi.fn().mockResolvedValue(["/tmp/MetoAI.zip"]),
 		} as unknown as AppUpdater;
 		const engine = new ElectronUpdaterEngine(updater, undefined, nativeMacUpdateEvents);
 		const onStaging = vi.fn();
@@ -155,7 +155,7 @@ describe("ElectronUpdaterEngine", () => {
 		expect(completed).toBe(false);
 		updateDownloadedListener?.();
 
-		await expect(download.promise).resolves.toEqual(["/tmp/Metoai.zip"]);
+		await expect(download.promise).resolves.toEqual(["/tmp/MetoAI.zip"]);
 		expect(completed).toBe(true);
 	});
 
@@ -173,7 +173,7 @@ describe("ElectronUpdaterEngine", () => {
 		const updater = {
 			on: vi.fn(),
 			off: vi.fn(),
-			downloadUpdate: vi.fn().mockResolvedValue(["/tmp/Metoai.zip"]),
+			downloadUpdate: vi.fn().mockResolvedValue(["/tmp/MetoAI.zip"]),
 		} as unknown as AppUpdater;
 		const engine = new ElectronUpdaterEngine(updater, undefined, nativeMacUpdateEvents);
 		const download = engine.downloadUpdate(vi.fn());
@@ -186,22 +186,22 @@ describe("ElectronUpdaterEngine", () => {
 	it("passes provider-resolved asset URLs to the Inno updater", async () => {
 		const updateInfo: UpdateInfo = {
 			version: "1.2.3",
-			files: [{ url: "Metoai-1.2.3-win-x64.exe", sha512: "hash", size: 42 }],
-			path: "Metoai-1.2.3-win-x64.exe",
+			files: [{ url: "MetoAI-1.2.3-win-x64.exe", sha512: "hash", size: 42 }],
+			path: "MetoAI-1.2.3-win-x64.exe",
 			sha512: "installer",
 			releaseDate: new Date().toISOString(),
 		};
 		const resolvedFiles: Array<ResolvedUpdateFileInfo> = [
 			{
-				url: new URL("https://releases.example.com/Metoai-1.2.3-win-x64.exe"),
+				url: new URL("https://releases.example.com/MetoAI-1.2.3-win-x64.exe"),
 				info: updateInfo.files[0],
 			},
 		];
 		const select = vi.fn().mockReturnValue({
-			assetFileName: "Metoai-1.2.3-win-x64.exe",
+			assetFileName: "MetoAI-1.2.3-win-x64.exe",
 			totalBytes: 42,
 		});
-		const prepareDownloadedInstaller = vi.fn().mockResolvedValue(["C:\\staged\\Metoai.exe"]);
+		const prepareDownloadedInstaller = vi.fn().mockResolvedValue(["C:\\staged\\MetoAI.exe"]);
 		const activate = vi.fn();
 		const updater = {
 			on: vi.fn(),
@@ -210,7 +210,7 @@ describe("ElectronUpdaterEngine", () => {
 				isUpdateAvailable: true,
 				updateInfo,
 			}),
-			downloadUpdate: vi.fn().mockResolvedValue(["C:\\pending\\Metoai-1.2.3-win-x64.exe"]),
+			downloadUpdate: vi.fn().mockResolvedValue(["C:\\pending\\MetoAI-1.2.3-win-x64.exe"]),
 			updateInfoAndProvider: {
 				provider: {
 					resolveFiles: vi.fn().mockReturnValue(resolvedFiles),
@@ -230,15 +230,15 @@ describe("ElectronUpdaterEngine", () => {
 			info: {
 				version: "1.2.3",
 				releaseNote: undefined,
-				assetFileName: "Metoai-1.2.3-win-x64.exe",
+				assetFileName: "MetoAI-1.2.3-win-x64.exe",
 				totalBytes: 42,
 			},
 		});
 		expect(select).toHaveBeenCalledWith(updateInfo, resolvedFiles);
 
-		await expect(engine.downloadUpdate(vi.fn()).promise).resolves.toEqual(["C:\\staged\\Metoai.exe"]);
+		await expect(engine.downloadUpdate(vi.fn()).promise).resolves.toEqual(["C:\\staged\\MetoAI.exe"]);
 		expect(prepareDownloadedInstaller).toHaveBeenCalledWith(
-			"C:\\pending\\Metoai-1.2.3-win-x64.exe",
+			"C:\\pending\\MetoAI-1.2.3-win-x64.exe",
 			expect.any(Function),
 			expect.any(AbortSignal),
 		);
@@ -249,8 +249,8 @@ describe("ElectronUpdaterEngine", () => {
 	it("reports Inno preparation failures instead of launching the installer UI", async () => {
 		const updateInfo: UpdateInfo = {
 			version: "1.2.3",
-			files: [{ url: "Metoai-1.2.3-win-x64.exe", sha512: "hash", size: 42 }],
-			path: "Metoai-1.2.3-win-x64.exe",
+			files: [{ url: "MetoAI-1.2.3-win-x64.exe", sha512: "hash", size: 42 }],
+			path: "MetoAI-1.2.3-win-x64.exe",
 			sha512: "installer",
 			releaseDate: new Date().toISOString(),
 		};
@@ -263,12 +263,12 @@ describe("ElectronUpdaterEngine", () => {
 				isUpdateAvailable: true,
 				updateInfo,
 			}),
-			downloadUpdate: vi.fn().mockResolvedValue(["C:\\pending\\Metoai-1.2.3-win-x64.exe"]),
+			downloadUpdate: vi.fn().mockResolvedValue(["C:\\pending\\MetoAI-1.2.3-win-x64.exe"]),
 			updateInfoAndProvider: {
 				provider: {
 					resolveFiles: vi.fn().mockReturnValue([
 						{
-							url: new URL("https://releases.example.com/Metoai-1.2.3-win-x64.exe"),
+							url: new URL("https://releases.example.com/MetoAI-1.2.3-win-x64.exe"),
 							info: updateInfo.files[0],
 						},
 					]),
@@ -278,7 +278,7 @@ describe("ElectronUpdaterEngine", () => {
 		} as unknown as AppUpdater;
 		const innoUpdate = {
 			select: vi.fn().mockReturnValue({
-				assetFileName: "Metoai-1.2.3-win-x64.exe",
+				assetFileName: "MetoAI-1.2.3-win-x64.exe",
 				totalBytes: 42,
 			}),
 			prepareDownloadedInstaller: vi.fn().mockRejectedValue(new Error("incomplete Inno version")),
@@ -295,14 +295,14 @@ describe("ElectronUpdaterEngine", () => {
 		const root = await mkdtemp(join(tmpdir(), "vetta-updater-engine-"));
 		temporaryRoots.push(root);
 		const cacheDir = join(root, "cache");
-		const installerPath = join(cacheDir, "pending", "Metoai-1.2.3-win-x64.exe");
+		const installerPath = join(cacheDir, "pending", "MetoAI-1.2.3-win-x64.exe");
 		await mkdir(join(cacheDir, "pending"), { recursive: true });
 		await writeFile(installerPath, "new installer");
 		await writeFile(join(cacheDir, CURRENT_APP_INSTALLER_FILE_NAME), "old installer");
 		const updateInfo: UpdateInfo = {
 			version: "1.2.3",
-			files: [{ url: "Metoai-1.2.3-win-x64.exe", sha512: "hash", size: 42 }],
-			path: "Metoai-1.2.3-win-x64.exe",
+			files: [{ url: "MetoAI-1.2.3-win-x64.exe", sha512: "hash", size: 42 }],
+			path: "MetoAI-1.2.3-win-x64.exe",
 			sha512: "installer",
 			releaseDate: new Date().toISOString(),
 		};
@@ -322,7 +322,7 @@ describe("ElectronUpdaterEngine", () => {
 				provider: {
 					resolveFiles: vi.fn().mockReturnValue([
 						{
-							url: new URL("https://releases.example.com/Metoai-1.2.3-win-x64.exe"),
+							url: new URL("https://releases.example.com/MetoAI-1.2.3-win-x64.exe"),
 							info: updateInfo.files[0],
 						},
 					]),
@@ -332,7 +332,7 @@ describe("ElectronUpdaterEngine", () => {
 		} as unknown as AppUpdater;
 		const innoUpdate = {
 			select: vi.fn().mockReturnValue({
-				assetFileName: "Metoai-1.2.3-win-x64.exe",
+				assetFileName: "MetoAI-1.2.3-win-x64.exe",
 				totalBytes: 42,
 			}),
 			prepareDownloadedInstaller,
@@ -352,8 +352,8 @@ describe("ElectronUpdaterEngine", () => {
 		const innoUpdate = { selectDownloadedPackage: vi.fn() } as unknown as InnoWindowsUpdateController;
 		const pkg = {
 			version: "1.2.3",
-			path: "C:\\downloads\\Metoai-1.2.3-win-x64.exe",
-			fileName: "Metoai-1.2.3-win-x64.exe",
+			path: "C:\\downloads\\MetoAI-1.2.3-win-x64.exe",
+			fileName: "MetoAI-1.2.3-win-x64.exe",
 			sizeBytes: 42,
 		};
 
@@ -367,9 +367,9 @@ describe("ElectronUpdaterEngine", () => {
 
 	it("把服务端下载好的安装包登记给 Inno 并转发安装准备的进度", async () => {
 		const updater = { on: vi.fn(), off: vi.fn() } as unknown as AppUpdater;
-		const preparedPaths = ["C:\\Metoai\\versions\\1.2.3\\Metoai.exe"];
+		const preparedPaths = ["C:\\MetoAI\\versions\\1.2.3\\MetoAI.exe"];
 		const selectDownloadedPackage = vi.fn().mockReturnValue({
-			assetFileName: "Metoai-1.2.3-win-x64.exe",
+			assetFileName: "MetoAI-1.2.3-win-x64.exe",
 			totalBytes: 42,
 		});
 		const prepareDownloadedInstaller = vi.fn(
@@ -386,8 +386,8 @@ describe("ElectronUpdaterEngine", () => {
 		const engine = new ElectronUpdaterEngine(updater, innoUpdate);
 		const pkg = {
 			version: "1.2.3",
-			path: "C:\\downloads\\Metoai-1.2.3-win-x64.exe",
-			fileName: "Metoai-1.2.3-win-x64.exe",
+			path: "C:\\downloads\\MetoAI-1.2.3-win-x64.exe",
+			fileName: "MetoAI-1.2.3-win-x64.exe",
 			sizeBytes: 42,
 		};
 		const onProgress = vi.fn();
@@ -406,10 +406,10 @@ describe("ElectronUpdaterEngine", () => {
 		const activate = vi.fn();
 		const innoUpdate = {
 			selectDownloadedPackage: vi.fn().mockReturnValue({
-				assetFileName: "Metoai-1.2.3-win-x64.exe",
+				assetFileName: "MetoAI-1.2.3-win-x64.exe",
 				totalBytes: 42,
 			}),
-			prepareDownloadedInstaller: vi.fn().mockResolvedValue(["C:\\Metoai\\versions\\1.2.3\\Metoai.exe"]),
+			prepareDownloadedInstaller: vi.fn().mockResolvedValue(["C:\\MetoAI\\versions\\1.2.3\\MetoAI.exe"]),
 			activate,
 		} as unknown as InnoWindowsUpdateController;
 		const engine = new ElectronUpdaterEngine(updater, innoUpdate);
@@ -422,8 +422,8 @@ describe("ElectronUpdaterEngine", () => {
 		await engine.adoptDownloadedPackage(
 			{
 				version: "1.2.3",
-				path: "C:\\downloads\\Metoai-1.2.3-win-x64.exe",
-				fileName: "Metoai-1.2.3-win-x64.exe",
+				path: "C:\\downloads\\MetoAI-1.2.3-win-x64.exe",
+				fileName: "MetoAI-1.2.3-win-x64.exe",
 				sizeBytes: 42,
 			},
 			vi.fn(),

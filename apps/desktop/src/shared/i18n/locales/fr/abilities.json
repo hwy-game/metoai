@@ -21,7 +21,7 @@
   },
   "group": {
     "connectors": "Connexions",
-    "vettaBuiltin": "Intégré à Metoai",
+    "vettaBuiltin": "Intégré à MetoAI",
     "uncategorized": "Sans catégorie"
   },
   "search": {
@@ -96,7 +96,7 @@
   },
   "error": {
     "sourcesFailed": "Échec de la synchronisation des sources GitHub (le contenu en cache reste disponible) : {{names}}",
-    "sourcesOutdated": "Ces sources nécessitent une version plus récente de Metoai pour se charger : {{names}}",
+    "sourcesOutdated": "Ces sources nécessitent une version plus récente de MetoAI pour se charger : {{names}}",
     "serverFailed": "Échec du chargement du marché cloud ; les autres sources restent disponibles",
     "loadFailed": "Échec du chargement des capacités",
     "downloadFailed": "Échec du téléchargement : {{status}}",
@@ -122,7 +122,7 @@
       "title": "Source",
       "builtin": "Intégré à l'application",
       "local": "Ajouté localement",
-      "server": "Serveur de capacités Metoai",
+      "server": "Serveur de capacités MetoAI",
       "sameNameTitle": "{{count}} autres capacités portent le même nom",
       "installConflict": "Une autre source occupe déjà cet emplacement d'installation. Il ne sera pas écrasé automatiquement ; supprimez d'abord l'élément installé ou attendez un flux de remplacement explicite."
     },
@@ -271,7 +271,7 @@
       "back": "Retour aux détails de la capacité",
       "description": "Voyez quelles capacités hôte cette extension déclare. En désactiver une bloque les appels d'API hôte correspondants ; cela n'isole pas le code de l'extension dans un bac à sable de sécurité.",
       "toggleLabel": "Activer ou désactiver l'autorisation {{permission}}",
-      "hostVerified": "Garde-fou de l'API hôte Metoai",
+      "hostVerified": "Garde-fou de l'API hôte MetoAI",
       "preview": {
         "global": "Le contenu de l'extension peut apparaître dans des zones partagées de l'application qui persistent entre les pages",
         "filePreview": "L'extension peut afficher un visualiseur de contenu spécialisé dans la zone d'aperçu des fichiers",
@@ -296,7 +296,7 @@
       },
       "readOnly": {
         "install": "Cette extension n'est pas installée. Voici les autorisations qu'elle demande ; vous confirmerez les autorisations réelles lors de l'installation.",
-        "system": "Il s'agit d'une extension système intégrée. Metoai gère et accorde ses autorisations automatiquement ; elles ne peuvent pas être désactivées individuellement."
+        "system": "Il s'agit d'une extension système intégrée. MetoAI gère et accorde ses autorisations automatiquement ; elles ne peuvent pas être désactivées individuellement."
       },
       "summary": {
         "requested": "Demandées",
@@ -318,7 +318,7 @@
         "data": "Limité aux types de données exposés par l'API hôte. Les chemins ou enregistrements exacts dépendent de l'appel de l'extension.",
         "agent": "S'applique aux sessions d'agent, invites, outils ou états d'exécution exposés par l'hôte.",
         "execution": "L'hôte exécute l'opération, tandis que l'extension choisit la commande, la page ou l'action à demander.",
-        "external": "Peut quitter Metoai pour ouvrir une cible ou effectuer une requête. L'extension fournit la destination au moment de l'appel.",
+        "external": "Peut quitter MetoAI pour ouvrir une cible ou effectuer une requête. L'extension fournit la destination au moment de l'appel.",
         "intelligence": "Utilise votre modèle ou vos services multimédias configurés, peut envoyer des entrées composées par l'extension et consommer du quota de service."
       },
       "disabled": {
@@ -333,7 +333,7 @@
     "group": {
       "interface": {
         "title": "Interface et interaction",
-        "description": "Où l'extension peut apparaître dans Metoai"
+        "description": "Où l'extension peut apparaître dans MetoAI"
       },
       "projectData": {
         "title": "Données du projet et de l'application",
@@ -378,7 +378,7 @@
       "agentCommandSpawn": "Démarre des processus en arrière-plan qui peuvent continuer jusqu'à ce que l'extension ou l'hôte les arrête.",
       "captureOffscreen": "Charge du contenu dans un environnement de page masqué et en capture une image.",
       "browserRead": "Crée des sessions de navigateur gérées par l'hôte, visite les sites approuvés par le manifeste et lit le texte, la structure et les captures d'écran des pages connectées.",
-      "browserOpen": "Ouvre une page web approuvée dans le navigateur intégré de Metoai sans lire la page ni interagir avec elle.",
+      "browserOpen": "Ouvre une page web approuvée dans le navigateur intégré de MetoAI sans lire la page ni interagir avec elle.",
       "browserInteract": "Clique, saisit, sélectionne et valide sur les sites approuvés et peut effectuer de vraies actions avec votre compte.",
       "browserProfilePersist": "Conserve un profil de navigateur isolé et son état de connexion pour les sessions ultérieures de cette extension.",
       "browserAttach": "Se connecte à un navigateur déjà ouvert et peut accéder à ses onglets et à son état de connexion.",
@@ -408,7 +408,7 @@
       "storageRead": "Lit les données persistantes privées de cette extension, non accessibles directement aux autres extensions.",
       "storageWrite": "Écrit les données persistantes privées de cette extension pour son état ou sa configuration.",
       "mediaGenerate": "Appelle les services configurés de génération d'images, d'audio ou d'autres médias.",
-      "mediaProviderRegister": "Enregistre auprès de Metoai un service de génération de médias fourni par l'extension.",
+      "mediaProviderRegister": "Enregistre auprès de MetoAI un service de génération de médias fourni par l'extension.",
       "ocrRecognize": "Utilise un service de reconnaissance de texte configuré pour les images soumises explicitement par l'extension.",
       "ocrProviderRegister": "Enregistre un service de reconnaissance de texte fourni par l'extension ; les services distants peuvent téléverser des images.",
       "secretsRead": "Lit les secrets stockés par cette extension elle-même, comme les clés d'API.",
@@ -506,7 +506,7 @@
       "forbidden": "L'identifiant GitHub ne peut pas lire ce dépôt",
       "notFound": "Le dépôt, la branche ou le manifeste du marché est introuvable",
       "rateLimited": "Limite de requêtes GitHub atteinte ; réessayez plus tard",
-      "appOutdated": "Cette version de Metoai est trop ancienne ; passez à la version {{version}} ou ultérieure",
+      "appOutdated": "Cette version de MetoAI est trop ancienne ; passez à la version {{version}} ou ultérieure",
       "ready": "Synchronisé · {{version}}",
       "failed": "Échec de la synchronisation ; nouvelle tentative possible",
       "cached": "Échec de la synchronisation ; affichage du contenu en cache"
@@ -529,7 +529,7 @@
       "repositoryPlaceholder": "owner/repo ou https://github.com/owner/repo",
       "credentialLabel": "Jeton d'accès GitHub (facultatif)",
       "credentialPlaceholder": "Jeton à granularité fine, Contents en lecture seule",
-      "credentialHint": "Le jeton reste dans le stockage sécurisé de cet appareil et n'est jamais envoyé à Metoai.",
+      "credentialHint": "Le jeton reste dans le stockage sécurisé de cet appareil et n'est jamais envoyé à MetoAI.",
       "nameLabel": "Nom",
       "namePlaceholder": "Par défaut, le nom du dépôt",
       "refLabel": "Branche",

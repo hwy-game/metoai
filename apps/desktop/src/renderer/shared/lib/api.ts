@@ -727,7 +727,7 @@ function normalizeMetoaiDesktopMessage(raw: unknown): MetoaiDesktopMessageVO {
 
 /**
  * 官方消息是 metotoken 维护的公开公告：与能力市场同源同 envelope，**同样刻意不带凭据**，
- * 因此未登录、未接 MetoAi 的用户也能在消息中心看到它。
+ * 因此未登录、未接 MetoAI 的用户也能在消息中心看到它。
  */
 export async function fetchMetoaiDesktopMessages(params?: {
 	p?: number;

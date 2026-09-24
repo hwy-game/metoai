@@ -99,7 +99,7 @@ export class DesktopMcpAppBridge {
 						...(this.options.surface.capabilities.serverTools ? { serverTools: {} } : {}),
 						serverResources: {},
 					},
-					hostInfo: { name: "Metoai Desktop", version: "1" },
+					hostInfo: { name: "MetoAI Desktop", version: "1" },
 					hostContext: {
 						displayMode: "inline",
 						availableDisplayModes: ["inline"],

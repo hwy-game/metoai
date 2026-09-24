@@ -2,19 +2,19 @@
   "tray": {
     "showWindow": "Tampilkan Jendela",
     "hideWindow": "Sembunyikan Jendela",
-    "quitVetta": "Keluar dari Metoai",
+    "quitVetta": "Keluar dari MetoAI",
     "quit": "Keluar",
     "hideToTray": "Sembunyikan ke Baki Sistem"
   },
   "menu": {
     "app": {
-      "title": "Metoai",
-      "about": "Tentang Metoai",
+      "title": "MetoAI",
+      "about": "Tentang MetoAI",
       "services": "Layanan",
-      "hide": "Sembunyikan Metoai",
+      "hide": "Sembunyikan MetoAI",
       "hideOthers": "Sembunyikan Lainnya",
       "unhide": "Tampilkan Semua",
-      "quit": "Keluar dari Metoai"
+      "quit": "Keluar dari MetoAI"
     },
     "edit": {
       "title": "Edit",
@@ -57,8 +57,8 @@
   "mcpOAuth": {
     "authorizationSuccessful": "Otorisasi berhasil",
     "authorizationFailed": "Otorisasi gagal",
-    "returnToVetta": "Anda dapat menutup jendela ini dan kembali ke Metoai.",
-    "closeAndRetry": "Anda dapat menutup jendela ini dan mencoba lagi di Metoai.",
+    "returnToVetta": "Anda dapat menutup jendela ini dan kembali ke MetoAI.",
+    "closeAndRetry": "Anda dapat menutup jendela ini dan mencoba lagi di MetoAI.",
     "missingAuthorizationCode": "Kode otorisasi tidak ada",
     "callbackAlreadySettled": "Callback OAuth sudah diselesaikan",
     "callbackTimedOut": "Waktu habis menunggu otorisasi OAuth di browser",
@@ -68,7 +68,7 @@
     "enterDeviceCode": "Masukkan kode ini di halaman GitHub, lalu klik Authorize.",
     "copyCode": "Salin kode",
     "openGitHub": "Buka GitHub untuk memberi otorisasi",
-    "closeAfterAuthorization": "Anda dapat menutup jendela ini setelah memberi otorisasi di Metoai.",
+    "closeAfterAuthorization": "Anda dapat menutup jendela ini setelah memberi otorisasi di MetoAI.",
     "deviceFlowDisabled": "Permintaan kode perangkat gagal (422). Aktifkan Device Flow di pengaturan OAuth atau GitHub App: {{details}}"
   },
   "updater": {
@@ -106,9 +106,9 @@
     }
   },
   "pluginPackage": {
-    "confirmTitle": "Pasang Plugin Metoai",
+    "confirmTitle": "Pasang Plugin MetoAI",
     "confirmMessage": "Pasang dan aktifkan {{name}} {{version}}?",
-    "confirmDetail": "Berkas: {{file}}\nID Plugin: {{id}}\nVersi: {{version}}\n\nIzin yang akan diberikan:\n{{permissions}}\n\nPerintah yang akan diaktifkan:\n{{commands}}\n\nKode plugin berjalan di dalam Metoai. Pasang berkas hanya dari sumber yang Anda percayai.",
+    "confirmDetail": "Berkas: {{file}}\nID Plugin: {{id}}\nVersi: {{version}}\n\nIzin yang akan diberikan:\n{{permissions}}\n\nPerintah yang akan diaktifkan:\n{{commands}}\n\nKode plugin berjalan di dalam MetoAI. Pasang berkas hanya dari sumber yang Anda percayai.",
     "none": "Tidak ada",
     "install": "Pasang dan Aktifkan",
     "cancel": "Batal",
@@ -116,7 +116,7 @@
     "installedTitle": "Plugin Terpasang",
     "installedMessage": "{{name}} {{version}} telah dipasang dan diaktifkan.",
     "failedTitle": "Pemasangan Plugin Gagal",
-    "failedMessage": "{{file}} bukan paket plugin Metoai yang valid atau tidak kompatibel dengan versi ini."
+    "failedMessage": "{{file}} bukan paket plugin MetoAI yang valid atau tidak kompatibel dengan versi ini."
   },
   "terminal": {
     "remoteOutputDropped": "[keluaran jarak jauh terlalu cepat; {{bytes}} byte dihilangkan]"

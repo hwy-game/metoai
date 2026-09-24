@@ -4,9 +4,9 @@ import { resolveUpdateFeedBase, verifyUpdateFeed } from "./verify-update-feed.mj
 
 const version = "0.5.46";
 const metadata = {
-	"latest.yml": `version: ${version}\npath: Metoai-Setup-${version}.exe\nfiles:\n  - url: Metoai-Setup-${version}.exe\n`,
-	"latest-mac.yml": `version: ${version}\nfiles:\n  - url: Metoai-${version}.zip\n    sha512: test\n`,
-	"latest-linux.yml": `version: ${version}\npath: Metoai-${version}.AppImage\nfiles:\n  - url: Metoai-${version}.AppImage\n`,
+	"latest.yml": `version: ${version}\npath: MetoAI-Setup-${version}.exe\nfiles:\n  - url: MetoAI-Setup-${version}.exe\n`,
+	"latest-mac.yml": `version: ${version}\nfiles:\n  - url: MetoAI-${version}.zip\n    sha512: test\n`,
+	"latest-linux.yml": `version: ${version}\npath: MetoAI-${version}.AppImage\nfiles:\n  - url: MetoAI-${version}.AppImage\n`,
 };
 
 function createFetch() {

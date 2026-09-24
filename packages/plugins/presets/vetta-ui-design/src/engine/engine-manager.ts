@@ -1,7 +1,7 @@
 /**
  * Shared design-engine lifecycle (ADR-0053/0054):
  *
- * 1. Migrate the legacy ~/.vetta/design-engine directory into this plugin's
+ * 1. Migrate the legacy `<dataRoot>/design-engine` directory into this plugin's
  *    data namespace, then materialize the engine template there via `node -e`.
  * 2. One-time `npm ci` through ctx.command.spawn against the materialized
  *    package-lock.json (the managed runtime env points npm at the configured
@@ -20,6 +20,7 @@ import { sanitizeDesignName } from "../vetd/scaffold";
 import { ENGINE_FILES, engineFilesHash } from "./engine-files";
 import { ENGINE_VERSION } from "./engine-version";
 import { machineLocalPath, machineOf, qualifyLike, routeOf } from "../history/machine";
+import { RESOLVE_HOST_DATA_ROOT_SCRIPT } from "../shared/host-data-root";
 import { base64FromText, transferPayload } from "../shared/payload-transfer";
 
 export type EngineProgress =
@@ -102,32 +103,33 @@ const PRUNE_SCRIPT = [
 
 // 引擎物化在设计稿所在的那台机器上，所以这些缓存都按机器分；同一会话里在本地与
 // 远程项目之间切换时，两边各有一份，不会互相串。
-const homeByMachine = new Map<string, string>();
+const dataRootByMachine = new Map<string, string>();
 const migrationByMachine = new Map<string, Promise<void>>();
 const ensureByMachine = new Map<string, Promise<string>>();
 const servers = new Map<string, EngineServer>();
 
-function engineBaseDir(home: string): string {
-	return `${home}/.vetta/plugin-data/vetta-ui-design/design-engine`;
+function engineBaseDir(dataRoot: string): string {
+	return `${dataRoot}/plugin-data/vetta-ui-design/design-engine`;
 }
 
-function legacyEngineBaseDir(home: string): string {
-	return `${home}/.vetta/design-engine`;
+/** ADR-0053 时代的引擎位置；主目录整体改名后它就在同一个数据根下，只是不在 plugin-data 里。 */
+function legacyEngineBaseDir(dataRoot: string): string {
+	return `${dataRoot}/design-engine`;
 }
 
-async function resolveHome(ctx: PluginContext, route: string): Promise<string> {
+async function resolveDataRoot(ctx: PluginContext, route: string): Promise<string> {
 	const machine = machineOf(route);
-	const cached = homeByMachine.get(machine);
+	const cached = dataRootByMachine.get(machine);
 	if (cached) return cached;
-	const result = await ctx.command.run("node", ["-p", "require('os').homedir()"], { cwd: routeOf(route) });
-	const home = result.stdout.trim();
-	if (result.exitCode !== 0 || !home) {
+	const result = await ctx.command.run("node", ["-e", RESOLVE_HOST_DATA_ROOT_SCRIPT], { cwd: routeOf(route) });
+	const dataRoot = result.stdout.trim();
+	if (result.exitCode !== 0 || !dataRoot) {
 		// 远端没装 node 时也走这里；说清是哪台机器，否则看起来像本机坏了。
 		const where = machine === "local" ? "this computer" : machine;
 		throw new Error(`the design engine needs node on ${where}: ${result.stderr || result.stdout}`);
 	}
-	homeByMachine.set(machine, home);
-	return home;
+	dataRootByMachine.set(machine, dataRoot);
+	return dataRoot;
 }
 
 /**
@@ -135,26 +137,26 @@ async function resolveHome(ctx: PluginContext, route: string): Promise<string> {
  * 两者必须同机。返回的路径带着归属，好让后续命令继续被分流到同一台。
  */
 export async function engineRootDir(ctx: PluginContext, route: string): Promise<string> {
-	const home = await resolveHome(ctx, route);
+	const dataRoot = await resolveDataRoot(ctx, route);
 	const machine = machineOf(route);
 	let migration = migrationByMachine.get(machine);
 	if (!migration) {
-		migration = migrateLegacyEngine(ctx, home, route).catch((error: unknown) => {
+		migration = migrateLegacyEngine(ctx, dataRoot, route).catch((error: unknown) => {
 			migrationByMachine.delete(machine);
 			throw error;
 		});
 		migrationByMachine.set(machine, migration);
 	}
 	await migration;
-	return qualifyLike(route, `${engineBaseDir(home)}/${ENGINE_VERSION}`);
+	return qualifyLike(route, `${engineBaseDir(dataRoot)}/${ENGINE_VERSION}`);
 }
 
-export async function migrateLegacyEngine(ctx: PluginContext, home: string, route: string): Promise<void> {
+export async function migrateLegacyEngine(ctx: PluginContext, dataRoot: string, route: string): Promise<void> {
 	const result = await ctx.command.run("node", ["-e", MIGRATE_SCRIPT], {
 		cwd: routeOf(route),
 		env: {
-			VETD_ENGINE_LEGACY: legacyEngineBaseDir(home),
-			VETD_ENGINE_BASE: engineBaseDir(home),
+			VETD_ENGINE_LEGACY: legacyEngineBaseDir(dataRoot),
+			VETD_ENGINE_BASE: engineBaseDir(dataRoot),
 		},
 		timeoutMs: 30_000,
 	});
@@ -294,11 +296,11 @@ async function ensureDesignPackageFile(ctx: PluginContext, designDir: string): P
 }
 
 async function pruneOldEngines(ctx: PluginContext, route: string): Promise<void> {
-	const home = await resolveHome(ctx, route);
+	const dataRoot = await resolveDataRoot(ctx, route);
 	await ctx.command.run("node", ["-e", PRUNE_SCRIPT], {
 		cwd: routeOf(route),
 		env: {
-			VETD_ENGINE_BASE: engineBaseDir(home),
+			VETD_ENGINE_BASE: engineBaseDir(dataRoot),
 			VETD_ENGINE_KEEP: ENGINE_VERSION,
 		},
 		timeoutMs: 30_000,

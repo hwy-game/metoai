@@ -5,7 +5,7 @@
   "typeNoun": {
     "scene": "scènes"
   },
-  "subtitle": "Installez et activez les capacités dont vous avez besoin pour donner plus d'expertise à Metoai",
+  "subtitle": "Installez et activez les capacités dont vous avez besoin pour donner plus d'expertise à MetoAI",
   "search": {
     "placeholder": "Rechercher {{noun}}..."
   },
@@ -72,16 +72,16 @@
   "builtin": {
     "create-skill": {
       "name": "Créer une compétence",
-      "description": "Créez ou mettez à jour une compétence d'agent conforme à la spécification Metoai : placez les fichiers, enregistrez-la dans skills-manifest.json ou mettez à jour la configuration de l'extension."
+      "description": "Créez ou mettez à jour une compétence d'agent conforme à la spécification MetoAI : placez les fichiers, enregistrez-la dans skills-manifest.json ou mettez à jour la configuration de l'extension."
     },
     "publish-ability": {
       "name": "Publier une capacité",
-      "description": "Soumettez une compétence, une scène, un serveur MCP, une extension ou un lot de capacités à la place de marché Metoai, en couvrant les champs obligatoires, la localisation et le processus de validation."
+      "description": "Soumettez une compétence, une scène, un serveur MCP, une extension ou un lot de capacités à la place de marché MetoAI, en couvrant les champs obligatoires, la localisation et le processus de validation."
     },
     "vetta-blog": {},
     "install-ability": {
       "name": "Installer une capacité",
-      "description": "Installez des extensions, des compétences/scènes et des serveurs MCP dans le Metoai de cette machine, en rechargeant immédiatement lorsqu'une mise à jour d'extension laisse une version en attente."
+      "description": "Installez des extensions, des compétences/scènes et des serveurs MCP dans le MetoAI de cette machine, en rechargeant immédiatement lorsqu'une mise à jour d'extension laisse une version en attente."
     }
   }
 }

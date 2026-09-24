@@ -68,16 +68,16 @@ export interface OcrCliResponse {
 	};
 }
 
-const HELP_TEXT = `Metoai OCR command line interface
+const HELP_TEXT = `MetoAI OCR command line interface
 
 Usage:
-  Metoai.exe --ocr-pdf <input.pdf>   --output <output.json> [pdf options]
-  Metoai.exe --ocr-img <input.image> --output <output.json> [img options]
-  Metoai.exe ocr pdf <input.pdf>     --output <output.json> [pdf options]
-  Metoai.exe ocr img <input.image>   --output <output.json> [img options]
+  MetoAI.exe --ocr-pdf <input.pdf>   --output <output.json> [pdf options]
+  MetoAI.exe --ocr-img <input.image> --output <output.json> [img options]
+  MetoAI.exe ocr pdf <input.pdf>     --output <output.json> [pdf options]
+  MetoAI.exe ocr img <input.image>   --output <output.json> [img options]
 
 Description:
-  Run local OCR on a multi-page PDF using Metoai Desktop's bundled Electron
+  Run local OCR on a multi-page PDF using MetoAI Desktop's bundled Electron
   renderer plus an in-process Tesseract.js pipeline. No network calls.
 
   By default, pages with an embedded text layer are extracted directly

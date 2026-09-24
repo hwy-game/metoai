@@ -1,6 +1,6 @@
 # Apple 证书申请与 macOS 签名/公证手册
 
-面向 Metoai 桌面端 macOS 发版：从零申请公司主体的 Apple 开发者账号，拿到 **Developer ID Application** 证书与公证凭据，注入构建，直到用户双击 DMG 不再看到「已损坏」。
+面向 MetoAI 桌面端 macOS 发版：从零申请公司主体的 Apple 开发者账号，拿到 **Developer ID Application** 证书与公证凭据，注入构建，直到用户双击 DMG 不再看到「已损坏」。
 
 构建侧开关在 `apps/desktop/scripts/mac-signing-config.mjs` 的 `resolveMacSigningConfig()`，产物选项在 `apps/desktop/scripts/prepare-pack.js`。**凭据齐全就签名+公证；一个都不设则退回 ad-hoc 签名（不再报错，用户看到「未知开发者」）；`VETTA_MAC_ADHOC_SIGN=0` 才产出完全未签名的包**，不需要改代码。三种模式的差异见第 4 节，决策背景见 [ADR-0122](../adr/0122-macos-adhoc-signed-release-builds.md)。
 
@@ -13,7 +13,7 @@
 | 产物 | 用途 | 来源 |
 |---|---|---|
 | Apple Developer Program 会员资格（Organization） | 前提，$99/年 | developer.apple.com |
-| **Developer ID Application** 证书 + 私钥（`.p12`） | 给 `Metoai.app` 签名 | 开发者后台创建，本机钥匙串导出 |
+| **Developer ID Application** 证书 + 私钥（`.p12`） | 给 `MetoAI.app` 签名 | 开发者后台创建，本机钥匙串导出 |
 | **Team ID**（10 位，如 `A1B2C3D4E5`） | 公证时指定团队 | 开发者后台 Membership 页 |
 | App Store Connect **API Key**（`.p8`）或 **App 专用密码** | 提交公证 | App Store Connect / appleid.apple.com |
 
@@ -71,7 +71,7 @@ Apple 用邓白氏（D-U-N-S）编号核验公司法人存在，个人账号不�
 2. 菜单 → 证书助理 → **从证书颁发机构请求证书**
 3. 填写：
    - 用户电子邮件地址：注册用的公司邮箱
-   - 常用名称：随便写，如 `Metoai Developer ID`
+   - 常用名称：随便写，如 `MetoAI Developer ID`
    - CA 电子邮件地址：**留空**
    - 请求方式：勾选 **存储到磁盘**，并勾选 **让我指定密钥对信息**
 4. 下一步，密钥大小 **2048 位**，算法 **RSA**
@@ -218,14 +218,14 @@ macOS 在 matrix 里是 `dist:mac:arm64` 与 `dist:mac:x64` 两个任务（内�
 想产出完全未签名的包（例如排查签名相关问题时）设 `VETTA_MAC_ADHOC_SIGN=0`，此时走 `identity: null`；它与凭据齐全时的 `VETTA_SKIP_NOTARIZE=1` 一样只适合本地闭环。
 ## 5. 验证
 
-拿到 `apps/desktop/release/Metoai-<version>.dmg` 后逐条跑：
+拿到 `apps/desktop/release/MetoAI-<version>.dmg` 后逐条跑：
 
 ```bash
 # 1. 挂载 DMG
-hdiutil attach release/Metoai-*.dmg
+hdiutil attach release/MetoAI-*.dmg
 
 # 2. 公证票据已钉进 app
-xcrun stapler validate /Volumes/Metoai*/Metoai.app
+xcrun stapler validate /Volumes/MetoAI*/MetoAI.app
 # 期望：The validate action worked!
 #
 # 注意校验对象是 app 不是 DMG：electron-builder 的顺序是「签 app → 公证 app →
@@ -235,20 +235,20 @@ xcrun stapler validate /Volumes/Metoai*/Metoai.app
 # app 已钉票据，装好后离线启动不受影响。
 
 # 3. 检查 app 签名
-codesign -dv --verbose=4 /Volumes/Metoai*/Metoai.app
+codesign -dv --verbose=4 /Volumes/MetoAI*/MetoAI.app
 # 期望：Authority=Developer ID Application: <公司名> (<TeamID>)
 #       flags 里含 runtime（= hardened runtime 生效）
 #       TeamIdentifier=<TeamID>，不是 not set
 
 # 4. 深度校验所有嵌套二进制
-codesign --verify --deep --strict --verbose=2 /Volumes/Metoai*/Metoai.app
+codesign --verify --deep --strict --verbose=2 /Volumes/MetoAI*/MetoAI.app
 # 期望：valid on disk / satisfies its Designated Requirement
 
 # 5. Gatekeeper 放行
-spctl -a -vvv -t install /Volumes/Metoai*/Metoai.app
+spctl -a -vvv -t install /Volumes/MetoAI*/MetoAI.app
 # 期望：accepted，source=Notarized Developer ID
 
-hdiutil detach /Volumes/Metoai*
+hdiutil detach /Volumes/MetoAI*
 ```
 
 ad-hoc 或未签名产物**不要**照第 2、5 条期望通过：没有公证票据，`spctl` 不会给出 `accepted`，`codesign -dv` 显示的是 `Signature=adhoc` / `TeamIdentifier=not set`。这类产物只需确认能启动（右键 → 打开）且功能正常。
@@ -267,7 +267,7 @@ ad-hoc 或未签名产物**不要**照第 2、5 条期望通过：没有公证�
 
 **公证返回 `Invalid`，`xcrun notarytool log <submissionId>` 显示 `The binary is not signed with a valid Developer ID certificate`**
 
-产物里有没签到的嵌套 Mach-O 二进制。Metoai 在 `Contents/Resources/` 下带了 `im-gateway`、`cli-host`、`vendor/node`、`vendor/python`、`appshot` 等一堆可执行文件，日志会指出具体是哪个路径。查看完整日志：
+产物里有没签到的嵌套 Mach-O 二进制。MetoAI 在 `Contents/Resources/` 下带了 `im-gateway`、`cli-host`、`vendor/node`、`vendor/python`、`appshot` 等一堆可执行文件，日志会指出具体是哪个路径。查看完整日志：
 
 ```bash
 xcrun notarytool log <submissionId> \
@@ -287,7 +287,7 @@ xcrun notarytool log <submissionId> \
 **公证通过但用户仍报「已损坏」**
 
 - 先确认用户下载的是**新版本**——已发布的旧 DMG 不会追溯获得票据
-- 让用户跑 `xattr -l /Applications/Metoai.app`，若只有 `com.apple.quarantine` 而 app 是公证过的，通常是下载过程被网络中间设备改写导致签名失效，换直链或换网络重下
+- 让用户跑 `xattr -l /Applications/MetoAI.app`，若只有 `com.apple.quarantine` 而 app 是公证过的，通常是下载过程被网络中间设备改写导致签名失效，换直链或换网络重下
 
 **`Team ID` 填错**
 
@@ -303,7 +303,7 @@ Developer ID Application 证书有效期 5 年。**已公证的历史产物不�
 
 **ad-hoc 包点「仍要打开」后仍然打不开**
 
-ad-hoc 签名不含 Team ID，也没有公证票据，Gatekeeper 可能直接拒绝。先让用户执行 `xattr -dr com.apple.quarantine /Applications/Metoai.app`（或跑 DMG 里的修复助手）再试；仍然失败说明产物本身有问题，回到构建日志确认签名步骤。
+ad-hoc 签名不含 Team ID，也没有公证票据，Gatekeeper 可能直接拒绝。先让用户执行 `xattr -dr com.apple.quarantine /Applications/MetoAI.app`（或跑 DMG 里的修复助手）再试；仍然失败说明产物本身有问题，回到构建日志确认签名步骤。
 
 **ad-hoc 包的自动更新一直失败**
 

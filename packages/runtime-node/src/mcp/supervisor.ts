@@ -24,6 +24,8 @@ export interface NodeMcpSupervisorOptions {
 	readonly agentDir: string;
 	readonly clientVersion: string;
 	readonly projectConfigDirectoryName?: string;
+	/** 品牌改名前的项目级配置目录名，只在读取项目 MCP 配置时回退。 */
+	readonly legacyProjectConfigDirectoryName?: string;
 	readonly clientName?: string;
 	readonly oauthClientName?: string;
 	readonly debug?: boolean;
@@ -47,7 +49,10 @@ export function createNodeMcpSupervisor(options: NodeMcpSupervisorOptions): Node
 		options.configSource ??
 		new FileMcpConfigSource({
 			globalConfigPath: join(options.agentDir, "mcp.json"),
-			projectConfigPath: join(options.projectRoot, options.projectConfigDirectoryName ?? ".vetta", "mcp.json"),
+			projectConfigPath: join(options.projectRoot, options.projectConfigDirectoryName ?? ".metoai", "mcp.json"),
+			legacyProjectConfigPath: options.legacyProjectConfigDirectoryName
+				? join(options.projectRoot, options.legacyProjectConfigDirectoryName, "mcp.json")
+				: undefined,
 			projectRoot: options.projectRoot,
 		});
 	const oauthStore = new FileMcpOAuthStateStore({ authDirectory: join(options.agentDir, "mcp-auth") });

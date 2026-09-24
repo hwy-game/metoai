@@ -17,9 +17,9 @@ async function createLayout(root, version) {
 	const versionDir = join(root, "versions", version);
 	await mkdir(join(versionDir, "resources"), { recursive: true });
 	await Promise.all([
-		writeFile(join(root, "Metoai.exe"), "launcher"),
+		writeFile(join(root, "MetoAI.exe"), "launcher"),
 		writeFile(join(root, "current.json"), `${JSON.stringify({ version })}\n`),
-		writeFile(join(versionDir, "Metoai.exe"), "application"),
+		writeFile(join(versionDir, "MetoAI.exe"), "application"),
 		writeFile(join(versionDir, "resources", "app.asar"), "archive"),
 	]);
 }
@@ -27,17 +27,17 @@ async function createLayout(root, version) {
 test("Windows supplemental artifacts are located by extension and version", () => {
 	assert.deepEqual(
 		findWindowsSupplementalArtifacts(
-			["Metoai-1.2.3-win-x64.msi", "Metoai-1.2.3-win-x64.zip", "Metoai-1.2.2-win-x64.msi", "latest.yml"],
+			["MetoAI-1.2.3-win-x64.msi", "MetoAI-1.2.3-win-x64.zip", "MetoAI-1.2.2-win-x64.msi", "latest.yml"],
 			"1.2.3",
 		),
-		["Metoai-1.2.3-win-x64.msi", "Metoai-1.2.3-win-x64.zip"],
+		["MetoAI-1.2.3-win-x64.msi", "MetoAI-1.2.3-win-x64.zip"],
 	);
 });
 
 test("Windows package inspection accepts the versioned launcher layout at any extraction depth", async () => {
 	const root = await mkdtemp(join(tmpdir(), "vetta-windows-package-layout-"));
 	try {
-		const layoutRoot = join(root, "Program Files", "Metoai");
+		const layoutRoot = join(root, "Program Files", "MetoAI");
 		await createLayout(layoutRoot, "1.2.3");
 		assert.equal(await verifyExtractedWindowsLayout(root, "1.2.3"), layoutRoot);
 	} finally {
@@ -118,9 +118,9 @@ test("Windows MSI log diagnostics surface why msiexec aborted", () => {
 	const summary = summarizeMsiLog(
 		[
 			"MSI (s) (20:A0) [16:28:31:810]: Note: 1: 2262 2: DigitalSignature 3: -2147287038",
-			"MSI (s) (20:A0) [16:28:34:713]: Product: Metoai -- Error 1304. Error writing to file: C:\\vmsi1\\m\\vetta\\versions\\0.5.58\\resources\\system-plugins\\vetta-ui-design\\dist\\assets\\_virtual_mf.js.  Verify that you have access to that directory.",
+			"MSI (s) (20:A0) [16:28:34:713]: Product: MetoAI -- Error 1304. Error writing to file: C:\\vmsi1\\m\\vetta\\versions\\0.5.58\\resources\\system-plugins\\vetta-ui-design\\dist\\assets\\_virtual_mf.js.  Verify that you have access to that directory.",
 			"Action ended 16:28:34: InstallFinalize. Return value 3.",
-			"MSI (s) (20:A0) [16:28:34:912]: Windows Installer 已安装产品。产品名称: Metoai。安装成功或错误状态: 1603。",
+			"MSI (s) (20:A0) [16:28:34:912]: Windows Installer 已安装产品。产品名称: MetoAI。安装成功或错误状态: 1603。",
 			"MSI (s) (20:A0) [16:28:34:929]: MainEngineThread is returning 1603",
 		].join("\r\n"),
 	);
@@ -131,7 +131,7 @@ test("Windows MSI log diagnostics surface why msiexec aborted", () => {
 });
 
 test("Windows MSI log decoding handles the UTF-16LE log msiexec writes", () => {
-	const text = "MSI (s) (20:A0) [16:28:34:713]: Error 1304. Error writing to file: C:\\vmsi1\\m\\vetta\\Metoai.exe\r\n";
+	const text = "MSI (s) (20:A0) [16:28:34:713]: Error 1304. Error writing to file: C:\\vmsi1\\m\\vetta\\MetoAI.exe\r\n";
 	const bytes = Buffer.concat([Buffer.from([0xff, 0xfe]), Buffer.from(text, "utf16le")]);
 	assert.equal(decodeMsiLog(bytes), text);
 	assert.equal(summarizeMsiLog(decodeMsiLog(bytes)).length, 1);

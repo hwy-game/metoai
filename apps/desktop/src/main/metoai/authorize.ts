@@ -1,7 +1,7 @@
 /**
- * MetoAi 桌面授权登录（Authorization Code + PKCE S256）。
+ * MetoAI 桌面授权登录（Authorization Code + PKCE S256）。
  *
- * 客户端不收集 MetoAi 的用户名与密码：把用户送到系统浏览器的授权页，站点
+ * 客户端不收集 MetoAI 的用户名与密码：把用户送到系统浏览器的授权页，站点
  * 授权后回调本进程，主进程再用一次性 code + code_verifier 换取会话。token 因此
  * 不进浏览器历史与 Referer；PKCE 挡掉「同机其它程序截获 code 再换 token」。
  *
@@ -98,7 +98,7 @@ export async function startAuthorize(): Promise<MetoAiAuthorizeResult> {
 	pendingStates.clear();
 	pendingStates.set(state, entry);
 
-	log.info("opening MetoAi desktop authorization page");
+	log.info("opening MetoAI desktop authorization page");
 	await openExternalUrl(authorizeUrlFor(state, entry));
 	return { status: "started" };
 }
@@ -157,13 +157,13 @@ export function consumeAuthorizeCallback(url: URL): AuthorizeCallbackOutcome {
 	const state = url.searchParams.get("state") ?? "";
 	const entry = state ? pendingStates.get(state) : undefined;
 	if (!entry) {
-		log.warn("拒绝 MetoAi 授权回调：state 不匹配（可能来自过期链接、旧标签页或非本次授权）");
+		log.warn("拒绝 MetoAI 授权回调：state 不匹配（可能来自过期链接、旧标签页或非本次授权）");
 		return { status: "rejected", reason: "state-mismatch" };
 	}
 	pendingStates.delete(state);
 
 	if (Date.now() - entry.createdAt > STATE_TTL_MS) {
-		log.warn("拒绝 MetoAi 授权回调：state 已过期");
+		log.warn("拒绝 MetoAI 授权回调：state 已过期");
 		return { status: "rejected", reason: "state-expired" };
 	}
 	if (url.searchParams.get("error")) return { status: "rejected", reason: "access-denied" };

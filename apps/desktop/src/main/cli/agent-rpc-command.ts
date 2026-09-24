@@ -4,15 +4,15 @@ import { app } from "electron";
 // ---------------------------------------------------------------------------
 // Coding-agent RPC CLI mode
 // ---------------------------------------------------------------------------
-// When the parent process spawns Metoai.app with `--agent-rpc` (followed by
+// When the parent process spawns MetoAI.app with `--agent-rpc` (followed by
 // the coding-agent CLI args), main.ts short-circuits into this command:
 // we forward everything after `--agent-rpc` to `@vetta/cli-host`'s runtime
 // host. The host owns one production Runtime; scenario flags only select
 // Coding Agent capabilities such as the IM host bridge.
 //
-// Production-only motivation: a packaged Metoai.app does not ship a
+// Production-only motivation: a packaged MetoAI.app does not ship a
 // standalone `vetta` CLI on PATH, so im-gateway cannot spawn coding-agent
-// as a subprocess by name. Reusing Metoai.app's own executable avoids
+// as a subprocess by name. Reusing MetoAI.app's own executable avoids
 // shipping a second binary.
 
 const AGENT_RPC_FLAG = "--agent-rpc";

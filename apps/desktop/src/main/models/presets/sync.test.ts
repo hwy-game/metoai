@@ -124,7 +124,7 @@ describe("preset catalog background refresh", () => {
 		expect(written.providers.metoai).toMatchObject({
 			api: "openai-responses",
 			baseUrl: "https://www.metotoken.ai/v1",
-			displayName: "MetoAi",
+			displayName: "MetoAI",
 			icon: "metoai",
 		});
 		expect(written.providers.custom).toMatchObject({

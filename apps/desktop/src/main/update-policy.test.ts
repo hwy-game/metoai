@@ -37,8 +37,8 @@ function latestRelease(overrides: Record<string, unknown> = {}): Record<string, 
 		policy: "optional",
 		min_supported_version: "0.5.0",
 		release_note: "修复若干问题",
-		download_url: "https://releases.openvetta.com/desktop/stable/Metoai-0.6.0.exe",
-		file_name: "Metoai-0.6.0.exe",
+		download_url: "https://releases.openvetta.com/desktop/stable/MetoAI-0.6.0.exe",
+		file_name: "MetoAI-0.6.0.exe",
 		size_bytes: 1_024,
 		sha256: SHA256,
 		published_at: "2026-05-01T00:00:00Z",
@@ -85,8 +85,8 @@ describe("decideUpdatePolicy", () => {
 			checkIntervalSeconds: 3_600,
 			latestVersion: "0.6.0",
 			releaseNote: "修复若干问题",
-			downloadUrl: "https://releases.openvetta.com/desktop/stable/Metoai-0.6.0.exe",
-			fileName: "Metoai-0.6.0.exe",
+			downloadUrl: "https://releases.openvetta.com/desktop/stable/MetoAI-0.6.0.exe",
+			fileName: "MetoAI-0.6.0.exe",
 			sha256: SHA256,
 			sizeBytes: 1_024,
 			publishedAt: "2026-05-01T00:00:00Z",
@@ -159,7 +159,7 @@ describe("decideUpdatePolicy", () => {
 			CURRENT_VERSION,
 		);
 
-		expect(policy).toMatchObject({ fileName: "Metoai-0.6.0.exe", sha256: SHA256 });
+		expect(policy).toMatchObject({ fileName: "MetoAI-0.6.0.exe", sha256: SHA256 });
 	});
 
 	it("drops a malformed checksum instead of failing the whole policy", () => {
@@ -245,8 +245,8 @@ describe("isAllowedDownloadUrl", () => {
 		["not a url", false],
 		["", false],
 		[undefined, false],
-		["https://releases.openvetta.com/desktop/stable/Metoai-0.6.0.exe", true],
-		["https://github.com/openvetta/metoai/releases/download/v0.6.0/Metoai-0.6.0.exe", true],
+		["https://releases.openvetta.com/desktop/stable/MetoAI-0.6.0.exe", true],
+		["https://github.com/openvetta/metoai/releases/download/v0.6.0/MetoAI-0.6.0.exe", true],
 		["https://objects.githubusercontent.com/github-production-release-asset/x", true],
 		["https://release-assets.githubusercontent.com/github-production-release-asset/x", true],
 	])("treats %s as allowed=%s", (input, expected) => {

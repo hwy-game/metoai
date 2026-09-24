@@ -14,7 +14,7 @@ const QUICK_PANEL_NS = "quickpanel";
 export const quickPanelResources = {
 	zh: {
 		[QUICK_PANEL_NS]: {
-			placeholder: "向 Metoai 提问…",
+			placeholder: "向 MetoAI 提问…",
 			recentTitle: "最近会话",
 			emptyTitle: "暂无最近会话",
 			emptyHint: "在上方输入即可开始新对话",
@@ -35,7 +35,7 @@ export const quickPanelResources = {
 	},
 	en: {
 		[QUICK_PANEL_NS]: {
-			placeholder: "Ask Metoai…",
+			placeholder: "Ask MetoAI…",
 			recentTitle: "Recent",
 			emptyTitle: "No recent conversations",
 			emptyHint: "Type above to start a new chat",
@@ -56,7 +56,7 @@ export const quickPanelResources = {
 	},
 	es: {
 		[QUICK_PANEL_NS]: {
-			placeholder: "Pregunta a Metoai…",
+			placeholder: "Pregunta a MetoAI…",
 			recentTitle: "Recientes",
 			emptyTitle: "Sin conversaciones recientes",
 			emptyHint: "Escribe arriba para iniciar un chat",
@@ -77,7 +77,7 @@ export const quickPanelResources = {
 	},
 	fr: {
 		[QUICK_PANEL_NS]: {
-			placeholder: "Demandez à Metoai…",
+			placeholder: "Demandez à MetoAI…",
 			recentTitle: "Récents",
 			emptyTitle: "Aucune conversation récente",
 			emptyHint: "Saisissez du texte ci-dessus pour démarrer",
@@ -98,7 +98,7 @@ export const quickPanelResources = {
 	},
 	id: {
 		[QUICK_PANEL_NS]: {
-			placeholder: "Tanya Metoai…",
+			placeholder: "Tanya MetoAI…",
 			recentTitle: "Terbaru",
 			emptyTitle: "Belum ada percakapan terbaru",
 			emptyHint: "Ketik di atas untuk memulai obrolan baru",
@@ -119,7 +119,7 @@ export const quickPanelResources = {
 	},
 	vi: {
 		[QUICK_PANEL_NS]: {
-			placeholder: "Hỏi Metoai…",
+			placeholder: "Hỏi MetoAI…",
 			recentTitle: "Gần đây",
 			emptyTitle: "Chưa có hội thoại gần đây",
 			emptyHint: "Nhập ở trên để bắt đầu cuộc trò chuyện mới",
@@ -140,7 +140,7 @@ export const quickPanelResources = {
 	},
 	ru: {
 		[QUICK_PANEL_NS]: {
-			placeholder: "Спросите Metoai…",
+			placeholder: "Спросите MetoAI…",
 			recentTitle: "Недавние",
 			emptyTitle: "Нет недавних сессий",
 			emptyHint: "Введите запрос выше, чтобы начать новый чат",
@@ -161,7 +161,7 @@ export const quickPanelResources = {
 	},
 	ja: {
 		[QUICK_PANEL_NS]: {
-			placeholder: "Metoai に質問…",
+			placeholder: "MetoAI に質問…",
 			recentTitle: "最近",
 			emptyTitle: "最近のセッションはありません",
 			emptyHint: "上に入力すると新しい会話を開始できます",

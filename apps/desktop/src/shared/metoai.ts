@@ -1,5 +1,5 @@
 /**
- * MetoAi 中转站相关的共享常量。
+ * MetoAI 中转站相关的共享常量。
  * 主进程(catalog.ts 预设目录)与渲染层(引导屏/能力市场)共用,避免两处各写一份。
  *
  * 站点地址可用 `VETTA_METOAI_SITE_URL` 覆盖(构建期开关,见 .env.example)：
@@ -17,7 +17,7 @@ export const METOAI_SITE_URL =
 	(process.env.VETTA_METOAI_SITE_URL ?? "").trim().replace(/\/+$/, "") || METOAI_DEFAULT_SITE_URL;
 
 export const METOAI_BASE_URL = `${METOAI_SITE_URL}/v1`;
-export const METOAI_DISPLAY_NAME = "MetoAi";
+export const METOAI_DISPLAY_NAME = "MetoAI";
 export const METOAI_ICON = "metoai";
 /**
  * 品牌标识（renderer 资产，相对 renderer 根目录，见 `src/renderer/public/`）。

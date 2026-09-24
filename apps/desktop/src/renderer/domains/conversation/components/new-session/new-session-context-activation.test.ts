@@ -7,7 +7,7 @@ import { resolveNewSessionContexts } from "./new-session-context-activation";
 function contribution(overrides: Partial<RegisteredNewSessionContext> = {}): RegisteredNewSessionContext {
 	return {
 		pluginId: "vetta-ui-design",
-		pluginName: "Metoai 设计",
+		pluginName: "MetoAI 设计",
 		contextId: "vetta-ui-design:design-resources",
 		label: "设计资源",
 		activateWhen: { agents: ["designer"] },

@@ -46,8 +46,8 @@ async function isValidLayoutRoot(root, expectedVersion) {
 		const manifest = JSON.parse(await readFile(join(root, "current.json"), "utf8"));
 		if (manifest?.version !== expectedVersion) return false;
 		await Promise.all([
-			assertNonEmptyFile(join(root, "Metoai.exe")),
-			assertNonEmptyFile(join(root, "versions", expectedVersion, "Metoai.exe")),
+			assertNonEmptyFile(join(root, "MetoAI.exe")),
+			assertNonEmptyFile(join(root, "versions", expectedVersion, "MetoAI.exe")),
 			assertNonEmptyFile(join(root, "versions", expectedVersion, "resources", "app.asar")),
 		]);
 		return true;

@@ -5,11 +5,15 @@ export {
 	getActionRpcEndpointFilePath,
 	getVettaConfigDirName,
 	getVettaHomePath,
+	LEGACY_CONFIG_DIR_NAME,
 	readActionRpcEndpoint,
+	resetVettaHomePathCache,
+	setVettaHomeMigrationWarningHandler,
 	VETTA_CONFIG_DIR_ENV,
 	VETTA_HOME_ENV,
 } from "./endpoint-file.js";
 export { ActionRpcError } from "./errors.js";
+export { type HomeDirectoryMigrationOptions, migrateLegacyHomeDirectory } from "./home-directory-migration.js";
 export { parseActionRpcRequest, parseDebugRpcRequest, parseLocalRpcRequest } from "./protocol.js";
 export type {
 	ActionRpcServerHandle,

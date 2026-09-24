@@ -1,6 +1,6 @@
 {
   "settings": {
-    "pageTitle": "Metoai Vivi",
+    "pageTitle": "MetoAI Vivi",
     "showPet": "Afficher la mascotte",
     "showPetDesc": "Lorsque cette option est désactivée, la fenêtre de la mascotte est masquée et le reste au prochain démarrage.",
     "alwaysOnTop": "Toujours au premier plan",

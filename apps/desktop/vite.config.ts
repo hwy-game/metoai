@@ -98,7 +98,7 @@ export default defineConfig(({ mode }) => {
 			"process.env.VETTA_CLOUD_ENABLED": JSON.stringify(
 				(process.env.VETTA_CLOUD_ENABLED ?? env.VETTA_CLOUD_ENABLED) === "true" ? "true" : "false",
 			),
-			// MetoAi 站点地址：默认空 => 走 src/shared/metoai.ts 里的线上默认值。构建期开关，见 .env.example。
+			// MetoAI 站点地址：默认空 => 走 src/shared/metoai.ts 里的线上默认值。构建期开关，见 .env.example。
 			"process.env.VETTA_METOAI_SITE_URL": JSON.stringify(readValue(env, "VETTA_METOAI_SITE_URL") ?? ""),
 			[`process.env.${SPEECH_INPUT_ENABLED_ENV}`]: JSON.stringify(String(speechInputBuildConfig.enabled)),
 			"process.env.VETTA_SENTRY_ENABLED": JSON.stringify(

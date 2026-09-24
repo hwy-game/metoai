@@ -55,7 +55,7 @@ function canConnect(port) {
 export function resolveDevLaunchEnvironment(environment = process.env, homeDirectory = homedir()) {
 	const verificationEnabled = environment.VETTA_UI_VERIFICATION === "1";
 	const configDir =
-		environment.VETTA_CONFIG_DIR?.trim() || (verificationEnabled ? ".vetta-ui-verify" : ".vetta-dev");
+		environment.VETTA_CONFIG_DIR?.trim() || (verificationEnabled ? ".metoai-ui-verify" : ".metoai-dev");
 	const configuredUserDataDir = environment.VETTA_DESKTOP_USER_DATA_DIR?.trim();
 	const userDataDir = configuredUserDataDir
 		? resolve(configuredUserDataDir)

@@ -25,8 +25,8 @@ function metadata(version, fileName) {
 async function createReleaseDir({ arm64Version = "1.2.3", x64Version = "1.2.3" } = {}) {
 	const releaseDir = await mkdtemp(join(tmpdir(), "vetta-mac-merge-test-"));
 	temporaryRoots.push(releaseDir);
-	await writeFile(join(releaseDir, "latest-mac-arm64.yml"), metadata(arm64Version, "Metoai-1.2.3-arm64-mac.zip"));
-	await writeFile(join(releaseDir, "latest-mac-x64.yml"), metadata(x64Version, "Metoai-1.2.3-mac.zip"));
+	await writeFile(join(releaseDir, "latest-mac-arm64.yml"), metadata(arm64Version, "MetoAI-1.2.3-arm64-mac.zip"));
+	await writeFile(join(releaseDir, "latest-mac-x64.yml"), metadata(x64Version, "MetoAI-1.2.3-mac.zip"));
 	return releaseDir;
 }
 
@@ -38,9 +38,9 @@ test("merges per-architecture metadata into a single latest-mac.yml", async () =
 	assert.equal(merged.version, "1.2.3");
 	assert.deepEqual(
 		merged.files.map((file) => file.url),
-		["Metoai-1.2.3-mac.zip", "Metoai-1.2.3-arm64-mac.zip"],
+		["MetoAI-1.2.3-mac.zip", "MetoAI-1.2.3-arm64-mac.zip"],
 	);
-	assert.equal(merged.path, "Metoai-1.2.3-mac.zip");
+	assert.equal(merged.path, "MetoAI-1.2.3-mac.zip");
 	const written = parse(await readFile(join(releaseDir, "latest-mac.yml"), "utf8"));
 	assert.equal(written.files.length, 2);
 	const remaining = await readdir(releaseDir);

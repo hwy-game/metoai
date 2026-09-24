@@ -97,7 +97,7 @@ esac
 
 # ── 凭据 ──────────────────────────────────────────────────────────────────────
 
-LOCAL_UPDATE_DIR="${VETTA_LOCAL_UPDATE_DIR:-${HOME}/.vetta/local-updates}"
+LOCAL_UPDATE_DIR="${VETTA_LOCAL_UPDATE_DIR:-${HOME}/.metoai/local-updates}"
 LOCAL_UPDATE_PORT="${VETTA_LOCAL_UPDATE_PORT:-8080}"
 
 [[ -f "${SIGNING_ENV}" ]] || die "找不到签名凭据 ${SIGNING_ENV}（见 docs/deploy/apple-code-signing.md）"
@@ -262,9 +262,9 @@ if [[ "${CHANNEL}" == "local" ]]; then
 	echo "  1. 起分发服务（另开一个终端，必须保持运行）："
 	echo "       bun run --cwd apps/desktop serve:updates:local"
 	echo "  2. 首次：装 release/ 里的 DMG 到 /Applications，然后播种差分基线："
-	echo "       cp release/Metoai-${VERSION}-arm64-mac.zip ~/Library/Caches/metoai-updater/update.zip"
+	echo "       cp release/MetoAI-${VERSION}-arm64-mac.zip ~/Library/Caches/metoai-updater/update.zip"
 	echo "  3. 再构建一个更高版本，从终端启动旧版验证更新："
-	echo "       /Applications/Metoai.app/Contents/MacOS/Metoai"
+	echo "       /Applications/MetoAI.app/Contents/MacOS/MetoAI"
 	echo "  详见 docs/desktop/macos-auto-update.md 第 7 节"
 	exit 0
 fi
@@ -276,6 +276,6 @@ step "完成：${VERSION} 已发布到 ${CHANNEL}"
 echo
 echo "下一步："
 echo "  1. 装 release/ 里的 DMG 到 /Applications"
-echo "  2. 从终端启动看日志：/Applications/Metoai.app/Contents/MacOS/Metoai"
+echo "  2. 从终端启动看日志：/Applications/MetoAI.app/Contents/MacOS/MetoAI"
 echo "  3. 发布更高版本后验证更新闭环，重点看进度停在 90% 到 ready 之间的耗时"
 echo "  详见 docs/desktop/macos-auto-update.md 第 7 节"

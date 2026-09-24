@@ -269,7 +269,7 @@
     "close": "Tutup"
   },
   "appshot": {
-    "errorSelfCapture": "Appshot dilewati: jendela terdepan adalah Metoai sendiri",
+    "errorSelfCapture": "Appshot dilewati: jendela terdepan adalah MetoAI sendiri",
     "errorNoPermission": "Pengambilan Appshot gagal: izin Perekaman Layar dan Aksesibilitas belum diberikan. Berikan izin di Pengaturan › Izin",
     "errorHelperFailed": "Pengambilan Appshot gagal, silakan coba lagi"
   },
@@ -280,7 +280,7 @@
   "mcpElicitation": {
     "title": "Permintaan informasi MCP",
     "source": "Dari {{server}}",
-    "urlNotice": "Metoai membuka alamat ini di peramban sistem Anda hanya setelah Anda mengonfirmasi.",
+    "urlNotice": "MetoAI membuka alamat ini di peramban sistem Anda hanya setelah Anda mengonfirmasi.",
     "decline": "Tolak",
     "openAndContinue": "Buka dan lanjutkan",
     "submit": "Kirim",
@@ -331,10 +331,10 @@
     "write": "Tulis"
   },
   "chatExport": {
-    "defaultSessionName": "Sesi Metoai"
+    "defaultSessionName": "Sesi MetoAI"
   },
   "chatView": {
-    "defaultSessionTitle": "Sesi Metoai",
+    "defaultSessionTitle": "Sesi MetoAI",
     "exportButton": {
       "title": "Ekspor sesi lengkap sebagai HTML"
     },
@@ -449,7 +449,7 @@
   "guideBadgeSwiper": {
     "dismissTooltip": "Jangan tampilkan lagi",
     "petFeatureText": "Fitur hewan peliharaan desktop baru — klik untuk mengaktifkan di pengaturan",
-    "quickPanelText": "Metoai kini memiliki Panel Cepat — klik untuk mengaturnya"
+    "quickPanelText": "MetoAI kini memiliki Panel Cepat — klik untuk mengaturnya"
   },
   "imagePreview": {
     "altText": "Gambar yang dimuat",
@@ -504,13 +504,13 @@
     },
     "placeholder": {
       "defaults": [
-        "Tanya Metoai, gunakan / untuk keterampilan, @ untuk merujuk berkas",
+        "Tanya MetoAI, gunakan / untuk keterampilan, @ untuk merujuk berkas",
         "Jelaskan tugas, tekan ⏎ untuk mengirim",
         "Tempel tangkapan layar atau @ berkas untuk memulai"
       ],
       "noSession": "Pilih atau buat sesi untuk memulai",
       "suggestion": "↵ {{suggestion}}",
-      "thinking": "Metoai sedang berpikir…"
+      "thinking": "MetoAI sedang berpikir…"
     },
     "mention": {
       "trigger": "Sebut anggota",
@@ -603,7 +603,7 @@
       }
     },
     "assistantMessage": {
-      "predicting": "Metoai sedang memprediksi…",
+      "predicting": "MetoAI sedang memprediksi…",
       "processing": "Memproses…",
       "waiting": "Menunggu respons model"
     },
@@ -680,9 +680,9 @@
     "retryIndicator": "Menghubungkan ulang ({{attempt}}/{{maxAttempts}})",
     "retryReason": "Permintaan terakhir gagal: {{reason}}",
     "streamingPhrases": [
-      "Metoai sedang membalas…",
+      "MetoAI sedang membalas…",
       "Mohon tunggu sebentar…",
-      "Metoai sedang bekerja keras…"
+      "MetoAI sedang bekerja keras…"
     ],
     "copyButton": {
       "copied": "Tersalin",
@@ -852,7 +852,7 @@
     "nextButton": "Berikutnya",
     "questionTabLabel": "Pertanyaan {{number}}",
     "submitButton": "Kirim",
-    "title": "Metoai membutuhkan pilihan Anda"
+    "title": "MetoAI membutuhkan pilihan Anda"
   },
   "sandboxGrantsBadge": {
     "revoke": "Cabut",
@@ -879,7 +879,7 @@
       "loadPrefix": "Gagal memuat: "
     },
     "export": {
-      "defaultTitle": "Sesi Metoai"
+      "defaultTitle": "Sesi MetoAI"
     },
     "exportButton": {
       "title": "Ekspor sesi lengkap sebagai HTML"
@@ -996,7 +996,7 @@
   },
   "mcpApp": {
     "externalAccess": "MCP App ini menyatakan akses ke {{count}} domain eksternal",
-    "permissionsDenied": "MCP App ini meminta izin perangkat; Metoai belum memberikannya",
+    "permissionsDenied": "MCP App ini meminta izin perangkat; MetoAI belum memberikannya",
     "title": "MCP App"
   },
   "usageBar": {
@@ -1075,7 +1075,7 @@
       "sendFeedback": "Kirim umpan balik",
       "sendFeedbackWithComments": "Kirim umpan balik ({{count}})",
       "stepCommentPlaceholder": "Bagaimana langkah ini harus diubah…",
-      "subtitle": "Metoai mulai bekerja dari rencana ini setelah Anda menyetujuinya. Tidak ada yang diubah sebelum itu.",
+      "subtitle": "MetoAI mulai bekerja dari rencana ini setelah Anda menyetujuinya. Tidak ada yang diubah sebelum itu.",
       "title": "Ada rencana yang menunggu persetujuan Anda"
     },
     "switchFailed": "Tidak dapat beralih mode rencana",

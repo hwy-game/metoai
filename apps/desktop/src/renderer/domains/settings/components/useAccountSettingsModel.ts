@@ -58,7 +58,7 @@ export function useAccountSettingsModel(): AccountSettingsModel {
 			? {
 					color: subscription.badge_color || "var(--primary)",
 					text: subscription.badge_text,
-					title: subscription.tier_name || "Metoai Go",
+					title: subscription.tier_name || "MetoAI Go",
 				}
 			: undefined;
 

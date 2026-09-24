@@ -9,6 +9,8 @@ export interface FileMcpConfigSourceOptions {
 	readonly globalConfigPath: string;
 	readonly projectConfigPath: string;
 	readonly projectRoot: string;
+	/** 品牌改名前的项目级配置路径，只在 `projectConfigPath` 不存在时作为读取回退。 */
+	readonly legacyProjectConfigPath?: string;
 	readonly environment?: Readonly<Record<string, string | undefined>>;
 }
 
@@ -25,7 +27,7 @@ export class FileMcpConfigSource implements McpConfigSource {
 	}
 
 	loadProject(): McpConfig | null {
-		return this.loadConfigFromPath(this.options.projectConfigPath);
+		return this.loadConfigFromPath(this.effectiveProjectConfigPath());
 	}
 
 	loadMerged(): McpConfig {
@@ -42,7 +44,7 @@ export class FileMcpConfigSource implements McpConfigSource {
 
 	getMergedSignature(): string {
 		const parts: string[] = [];
-		for (const path of [this.options.globalConfigPath, this.options.projectConfigPath]) {
+		for (const path of [this.options.globalConfigPath, this.effectiveProjectConfigPath()]) {
 			if (!existsSync(path)) {
 				parts.push(`${path}:missing`);
 				continue;
@@ -61,6 +63,14 @@ export class FileMcpConfigSource implements McpConfigSource {
 
 	getConfigPaths(): { readonly global: string; readonly project: string } {
 		return { global: this.options.globalConfigPath, project: this.options.projectConfigPath };
+	}
+
+	/** 写入/首选路径不存在时才回退到旧目录，绝不因此改写旧文件。 */
+	private effectiveProjectConfigPath(): string {
+		const primary = this.options.projectConfigPath;
+		if (existsSync(primary)) return primary;
+		const legacy = this.options.legacyProjectConfigPath;
+		return legacy && existsSync(legacy) ? legacy : primary;
 	}
 
 	private loadConfigFromPath(path: string): McpConfig | null {

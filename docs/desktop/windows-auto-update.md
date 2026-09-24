@@ -1,6 +1,6 @@
 # Windows 自动更新、R2 发版与排障
 
-本文记录 Metoai Desktop Windows 自动更新从服务端发版迁移到 R2/GitHub Releases 的最终方案、实现细节、完整验证流程，以及开发期间遇到的问题。它是当前 Windows 更新链路的维护手册。
+本文记录 MetoAI Desktop Windows 自动更新从服务端发版迁移到 R2/GitHub Releases 的最终方案、实现细节、完整验证流程，以及开发期间遇到的问题。它是当前 Windows 更新链路的维护手册。
 
 ## 1. 当前结论
 
@@ -22,7 +22,7 @@ Windows 只需要发布一个 EXE 安装包及其 blockmap，不需要为了自�
 
 ### 2.1 已实现
 
-- 更新目标源不与 Metoai 平台绑定。
+- 更新目标源不与 MetoAI 平台绑定。
 - R2 与 GitHub Releases 使用相同的客户端更新状态机。
 - Windows 安装与后台更新统一使用 Inno Setup EXE。
 - 后台更新不显示安装向导，不修改卸载注册信息，也不强制关闭正在运行的旧版本。
@@ -55,12 +55,12 @@ R2 推荐对象布局：
 desktop/
   stable/
     latest.yml
-    Metoai-<version>-win-x64.exe
-    Metoai-<version>-win-x64.exe.blockmap
+    MetoAI-<version>-win-x64.exe
+    MetoAI-<version>-win-x64.exe.blockmap
   test/
     latest.yml
-    Metoai-<version>-win-x64.exe
-    Metoai-<version>-win-x64.exe.blockmap
+    MetoAI-<version>-win-x64.exe
+    MetoAI-<version>-win-x64.exe.blockmap
 ```
 
 `stable` 和 `test` 必须同时在客户端 URL、R2 前缀和 Cloudflare 路由上保持一致，不能只改其中一个。
@@ -72,11 +72,11 @@ desktop/
 默认安装目录：
 
 ```text
-%LOCALAPPDATA%\Programs\Metoai\
-  Metoai.exe                         # Go 稳定启动器
+%LOCALAPPDATA%\Programs\MetoAI\
+  MetoAI.exe                         # Go 稳定启动器
   current.json                      # 安装包内置版本指针
   versions\<bundled-version>\       # 随安装包携带的 Electron 应用
-    Metoai.exe
+    MetoAI.exe
     resources\app.asar
 ```
 
@@ -85,7 +85,7 @@ desktop/
 ### 4.2 后台更新目录
 
 ```text
-%LOCALAPPDATA%\Metoai\
+%LOCALAPPDATA%\MetoAI\
   current.json                      # 后台更新的活动版本指针
   versions\<version>\               # 后台准备的新版本
   installer\<version-pid-time>\     # Inno 临时进度与失败日志
@@ -115,6 +115,17 @@ desktop/
 
 这两个动作都不能删除。缺少当前安装包基线时，客户端即使拿到了 blockmap，也可能退化为接近全量下载。
 
+### 4.4 品牌改名（Metoai → MetoAI）的目录迁移
+
+0.5.65 把安装身份从 `Metoai` 改成 `MetoAI`：安装目录变成 `%LOCALAPPDATA%\Programs\MetoAI`，稳定启动器变成 `MetoAI.exe`，后台更新暂存根变成 `%LOCALAPPDATA%\MetoAI`，安装包变成 `MetoAI-<version>-win-x64.exe`，开始菜单与桌面快捷方式也换到 `MetoAI`。`AppId`、`appId`、`vetta://` 协议与用户数据目录保持不变，因此既有安装仍被识别为同一个应用，用户数据与登录态不受影响。
+
+改名会改变自动更新查找新版本可执行文件的路径，所以 `installer.iss` 同时做了两件事：
+
+- **旧身份清理**：正常安装时 `[InstallDelete]` 清掉旧快捷方式与开始菜单文件夹，`RemoveLegacyBrandDirectories()` 删掉 `Programs\Metoai`、`Programs\Vetta` 两个旧安装目录，以及 `%LOCALAPPDATA%\Metoai`、`%LOCALAPPDATA%\Vetta` 两个旧暂存根，避免出现两份并存安装。删不掉（例如旧版本仍在运行）只记日志，不阻断安装。
+- **旧客户端兼容垫片**：0.5.64 及更早的客户端写死了 `versions\<版本>\<旧名>.exe`，下载安装新版之后按那个名字找可执行文件，找不到就判定更新失败。`LinkLegacyLauncherNames()` 在后台更新时为新版本目录补 `Metoai.exe` 与 `Vetta.exe` 两个同名硬链接，硬链接失败退化为复制。
+
+代价与 0.5.61 那次改名相同：从旧版升级的用户，首次自动更新仍会落在旧的暂存根里，要跑一次完整安装包才会切到 `Programs\MetoAI`；在那之前旧快捷方式由旧启动器解析旧暂存根的版本指针，而该指针的 `pending` 标记由新版本写在新暂存根上，因此从旧快捷方式启动可能先回退到旧版本一次。
+
 ## 5. 完整客户端流程
 
 ```text
@@ -125,8 +136,8 @@ desktop/
   -> 20 秒后自动下载（也可手动触发）
   -> electron-updater 校验并差分重建完整 EXE
   -> 提升 EXE 为下一次差分基线
-  -> Inno 静默展开到 %LOCALAPPDATA%\Metoai\versions\<new>
-  -> 校验 Metoai.exe、resources/app.asar、.install-complete
+  -> Inno 静默展开到 %LOCALAPPDATA%\MetoAI\versions\<new>
+  -> 校验 MetoAI.exe、resources/app.asar、.install-complete
   -> 状态变为 ready，提示更新并重启
   -> 写 current.json（pending=true）
   -> 直接启动新版本 EXE，退出旧版本
@@ -160,8 +171,8 @@ Windows 自定义流程把进度划分为：
 
 点击“更新并重启”不会再次运行安装程序。此时完整版本目录已经准备好，激活动作只做三件事：
 
-1. 原子写入 `%LOCALAPPDATA%\Metoai\current.json`，记录新旧版本并设 `pending=true`。
-2. 使用 `app.relaunch({ execPath: <new Metoai.exe> })` 启动新版本。
+1. 原子写入 `%LOCALAPPDATA%\MetoAI\current.json`，记录新旧版本并设 `pending=true`。
+2. 使用 `app.relaunch({ execPath: <new MetoAI.exe> })` 启动新版本。
 3. 退出旧版本。
 
 如果新版本在健康确认前退出，用户下次从桌面快捷方式启动时，稳定启动器读取到 pending 并回退上一版本。
@@ -169,7 +180,7 @@ Windows 自定义流程把进度划分为：
 ### 5.4 旧版本清理
 
 - 新版本健康后只保留当前版本和 `previousVersion`。
-- 更早的 `%LOCALAPPDATA%\Metoai\versions\*` 会被物理删除。
+- 更早的 `%LOCALAPPDATA%\MetoAI\versions\*` 会被物理删除。
 - 手动重新安装会删除后台活动指针，优先回到安装包内置版本；遗留的后台版本目录可能要到下一次成功更新后才被清理。
 - 正常卸载会删除后台版本目录、安装临时目录和活动指针。
 - `%LOCALAPPDATA%\metoai-updater` 当前不在 Inno 的卸载清理列表中，卸载后可能残留一个安装包缓存；这是已知清理边界。
@@ -305,7 +316,7 @@ bun run --cwd apps/desktop publish:updates:r2
 
 1. 在临时目录以后台模式运行刚构建的 Inno EXE。
 2. 对照 `.files.json` 验证文件数量和每个文件大小。
-3. 验证 `Metoai.exe`、`resources/app.asar` 和 `.install-complete`。
+3. 验证 `MetoAI.exe`、`resources/app.asar` 和 `.install-complete`。
 4. 解析 `latest*.yml`，只选择清单实际引用的产物。
 5. 对大文件使用 16 MiB multipart、4 路并发上传。
 6. 通过公开更新域名 HEAD 验证安装包和 blockmap。
@@ -323,7 +334,7 @@ bun run --cwd apps/desktop publish:updates:r2
 ### 7.5 客户端验证
 
 1. 安装并启动一个更低版本的 test 构建。
-2. 确认进程实际路径是该版本的 `Metoai.exe`。
+2. 确认进程实际路径是该版本的 `MetoAI.exe`。
 3. 上传更高版本后，在旧客户端点击检查更新，或等待启动检查。
 4. 观察网络阶段、Inno 本地准备阶段以及 ready 弹窗。
 5. 点击更新并重启。
@@ -333,16 +344,16 @@ bun run --cwd apps/desktop publish:updates:r2
 PowerShell 检查示例：
 
 ```powershell
-Get-Content "$env:LOCALAPPDATA\Metoai\current.json"
-Get-ChildItem "$env:LOCALAPPDATA\Metoai\versions"
-Get-CimInstance Win32_Process -Filter "Name = 'Metoai.exe'" |
+Get-Content "$env:LOCALAPPDATA\MetoAI\current.json"
+Get-ChildItem "$env:LOCALAPPDATA\MetoAI\versions"
+Get-CimInstance Win32_Process -Filter "Name = 'MetoAI.exe'" |
   Select-Object ProcessId, ExecutablePath
 ```
 
 成功标准：
 
 - `current.json.version` 是新版本且 `pending=false`。
-- 运行进程来自 `%LOCALAPPDATA%\Metoai\versions\<new>\Metoai.exe`。
+- 运行进程来自 `%LOCALAPPDATA%\MetoAI\versions\<new>\MetoAI.exe`。
 - 版本目录只保留新版本和上一版本。
 - 主进程日志出现 `differential cache baseline promoted` 和 `downloaded Windows version is ready`。
 - 下一次小版本更新的实际下载量显著小于完整 EXE。
@@ -367,8 +378,8 @@ CDN 命中可减少 R2 Class B 读取；回源未命中仍会产生 R2 操作。
 差分下载要求自定义域名对 EXE 支持标准字节范围请求。应返回 `206 Partial Content` 和正确的 `Content-Range`。
 
 ```powershell
-curl.exe -I "https://releases.openvetta.com/desktop/test/Metoai-<version>-win-x64.exe"
-curl.exe -r 0-1023 -o NUL -D - "https://releases.openvetta.com/desktop/test/Metoai-<version>-win-x64.exe"
+curl.exe -I "https://releases.openvetta.com/desktop/test/MetoAI-<version>-win-x64.exe"
+curl.exe -r 0-1023 -o NUL -D - "https://releases.openvetta.com/desktop/test/MetoAI-<version>-win-x64.exe"
 ```
 
 第二条响应应为 206。当前 `generic` provider 设置了 `useMultipleRangeRequest=true`：electron-updater 先把相邻变化块合并为下载区间，再把最多 1000 个差分任务中的远程区间放进一个 multipart Range 请求，避免跨地域链路逐个串行请求。
@@ -376,7 +387,7 @@ curl.exe -r 0-1023 -o NUL -D - "https://releases.openvetta.com/desktop/test/Meto
 还必须验证多区间响应：
 
 ```powershell
-curl.exe -H "Range: bytes=0-9,100-109" -o NUL -D - "https://releases.openvetta.com/desktop/test/Metoai-<version>-win-x64.exe"
+curl.exe -H "Range: bytes=0-9,100-109" -o NUL -D - "https://releases.openvetta.com/desktop/test/MetoAI-<version>-win-x64.exe"
 ```
 
 响应必须是 `206 Partial Content`，且 `Content-Type` 包含 `multipart/byteranges; boundary=...`。只支持单区间 206 不足以启用 multipart Range。
@@ -472,9 +483,9 @@ const { autoUpdater } = electronUpdater;
 
 **原因**：这是旧的“覆盖/卸载当前安装目录”模型与正在运行的文件、旧 NSIS/Inno 安装状态冲突的典型表现，不是 R2 下载问题。
 
-**修复**：后台更新不再卸载或覆盖当前安装目录，而是写入 `%LOCALAPPDATA%\Metoai\versions\<new>`；后台 Inno 设置 `Uninstallable=no`、不创建卸载注册项。
+**修复**：后台更新不再卸载或覆盖当前安装目录，而是写入 `%LOCALAPPDATA%\MetoAI\versions\<new>`；后台 Inno 设置 `Uninstallable=no`、不创建卸载注册项。
 
-如果手动执行修复安装仍遇到该提示，应完全退出 Metoai（包括托盘和子进程）后重试。不要把手动修复安装当作正常自动更新步骤。
+如果手动执行修复安装仍遇到该提示，应完全退出 MetoAI（包括托盘和子进程）后重试。不要把手动修复安装当作正常自动更新步骤。
 
 ### 10.5 下载停在 90% 或 95%
 
@@ -492,7 +503,7 @@ const { autoUpdater } = electronUpdater;
 
 ready 弹窗只会在以下三项同时存在后出现：
 
-- `<version>\Metoai.exe`
+- `<version>\MetoAI.exe`
 - `<version>\resources\app.asar`
 - `<version>\.install-complete`
 
@@ -511,8 +522,8 @@ ready 弹窗只会在以下三项同时存在后出现：
 
 先区分三个阶段：
 
-1. `%LOCALAPPDATA%\Metoai\current.json` 没有写成新版本：激活动作没有完成，检查主进程的 `install failed`。
-2. 指针已更新但没有新版本进程：检查新版本 `Metoai.exe` 是否存在、启动日志和缺失模块错误。
+1. `%LOCALAPPDATA%\MetoAI\current.json` 没有写成新版本：激活动作没有完成，检查主进程的 `install failed`。
+2. 指针已更新但没有新版本进程：检查新版本 `MetoAI.exe` 是否存在、启动日志和缺失模块错误。
 3. 新版本进程存在但没有窗口：按下一节检查启动器的隐藏窗口问题。
 
 如果用户在后台准备期间主动关闭应用，这是允许的边界情况。detached Inno 可能继续完成版本目录，但本次进程不会再弹 ready 对话框或写活动指针；重新启动旧版本并再次检查/下载时，客户端会复用已经完整的目标版本目录。
@@ -632,7 +643,7 @@ install failed
 ### 12.2 Inno 失败日志
 
 ```text
-%LOCALAPPDATA%\Metoai\installer\<version-pid-time>\install.log
+%LOCALAPPDATA%\MetoAI\installer\<version-pid-time>\install.log
 ```
 
 成功时工作目录会异步删除；失败时刻意保留。重点检查：
@@ -646,7 +657,7 @@ install failed
 
 1. 记录客户端版本、`latest.yml` 版本和更新源 URL。
 2. 记录 `current.json`，不要先手工修改。
-3. 检查正在运行的 `Metoai.exe`/安装器路径。
+3. 检查正在运行的 `MetoAI.exe`/安装器路径。
 4. 检查版本目录是否完整。
 5. 查看主进程日志中最后一个 updater 阶段。
 6. 如果 Inno 失败，保存对应 `install.log`。

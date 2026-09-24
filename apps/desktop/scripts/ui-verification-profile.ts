@@ -96,12 +96,12 @@ export function resolveProfileLayout(
   const profileRuntimeDir = join(runtimeRoot, options.profile);
 
   if (options.profile === "dev") {
-    const vettaHome = join(homeDirectory, ".vetta-dev");
+    const vettaHome = join(homeDirectory, ".metoai-dev");
     return {
       profile: options.profile,
       workspaceId: options.workspaceId,
       sessionName: `vetta-dev-${options.workspaceId}`,
-      configDir: ".vetta-dev",
+      configDir: ".metoai-dev",
       vettaHome,
       userDataDir: join(vettaHome, "electron-user-data"),
       endpointFile: join(vettaHome, "action-server.json"),

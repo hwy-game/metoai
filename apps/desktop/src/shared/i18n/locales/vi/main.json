@@ -2,19 +2,19 @@
   "tray": {
     "showWindow": "Hiện cửa sổ",
     "hideWindow": "Ẩn cửa sổ",
-    "quitVetta": "Thoát Metoai",
+    "quitVetta": "Thoát MetoAI",
     "quit": "Thoát",
     "hideToTray": "Ẩn xuống khay hệ thống"
   },
   "menu": {
     "app": {
-      "title": "Metoai",
-      "about": "Giới thiệu Metoai",
+      "title": "MetoAI",
+      "about": "Giới thiệu MetoAI",
       "services": "Dịch vụ",
-      "hide": "Ẩn Metoai",
+      "hide": "Ẩn MetoAI",
       "hideOthers": "Ẩn các ứng dụng khác",
       "unhide": "Hiện tất cả",
-      "quit": "Thoát Metoai"
+      "quit": "Thoát MetoAI"
     },
     "edit": {
       "title": "Sửa",
@@ -57,8 +57,8 @@
   "mcpOAuth": {
     "authorizationSuccessful": "Ủy quyền thành công",
     "authorizationFailed": "Ủy quyền thất bại",
-    "returnToVetta": "Bạn có thể đóng cửa sổ này và quay lại Metoai.",
-    "closeAndRetry": "Bạn có thể đóng cửa sổ này và thử lại trong Metoai.",
+    "returnToVetta": "Bạn có thể đóng cửa sổ này và quay lại MetoAI.",
+    "closeAndRetry": "Bạn có thể đóng cửa sổ này và thử lại trong MetoAI.",
     "missingAuthorizationCode": "Thiếu mã ủy quyền",
     "callbackAlreadySettled": "Callback OAuth đã được xử lý",
     "callbackTimedOut": "Hết thời gian chờ ủy quyền OAuth trên trình duyệt",
@@ -68,7 +68,7 @@
     "enterDeviceCode": "Nhập mã này trên trang GitHub, rồi nhấp Ủy quyền.",
     "copyCode": "Sao chép mã",
     "openGitHub": "Mở GitHub để ủy quyền",
-    "closeAfterAuthorization": "Bạn có thể đóng cửa sổ này sau khi đã ủy quyền trong Metoai.",
+    "closeAfterAuthorization": "Bạn có thể đóng cửa sổ này sau khi đã ủy quyền trong MetoAI.",
     "deviceFlowDisabled": "Yêu cầu mã thiết bị thất bại (422). Hãy bật Device Flow trong cài đặt OAuth hoặc GitHub App: {{details}}"
   },
   "updater": {
@@ -106,9 +106,9 @@
     }
   },
   "pluginPackage": {
-    "confirmTitle": "Cài đặt tiện ích Metoai",
+    "confirmTitle": "Cài đặt tiện ích MetoAI",
     "confirmMessage": "Cài đặt và bật {{name}} {{version}}?",
-    "confirmDetail": "Tệp: {{file}}\nID tiện ích: {{id}}\nPhiên bản: {{version}}\n\nQuyền sẽ cấp:\n{{permissions}}\n\nLệnh sẽ bật:\n{{commands}}\n\nMã tiện ích chạy bên trong Metoai. Chỉ cài tệp từ nguồn bạn tin cậy.",
+    "confirmDetail": "Tệp: {{file}}\nID tiện ích: {{id}}\nPhiên bản: {{version}}\n\nQuyền sẽ cấp:\n{{permissions}}\n\nLệnh sẽ bật:\n{{commands}}\n\nMã tiện ích chạy bên trong MetoAI. Chỉ cài tệp từ nguồn bạn tin cậy.",
     "none": "Không có",
     "install": "Cài đặt và bật",
     "cancel": "Hủy",
@@ -116,7 +116,7 @@
     "installedTitle": "Đã cài đặt tiện ích",
     "installedMessage": "{{name}} {{version}} đã được cài đặt và bật.",
     "failedTitle": "Cài đặt tiện ích thất bại",
-    "failedMessage": "{{file}} không phải là gói tiện ích Metoai hợp lệ hoặc không tương thích với phiên bản này."
+    "failedMessage": "{{file}} không phải là gói tiện ích MetoAI hợp lệ hoặc không tương thích với phiên bản này."
   },
   "terminal": {
     "remoteOutputDropped": "[đầu ra từ xa quá nhanh; đã lược bớt {{bytes}} byte]"

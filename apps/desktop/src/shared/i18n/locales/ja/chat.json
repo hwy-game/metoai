@@ -269,7 +269,7 @@
     "close": "閉じる"
   },
   "appshot": {
-    "errorSelfCapture": "Appshotをスキップしました: 最前面のウィンドウはMetoai自身です",
+    "errorSelfCapture": "Appshotをスキップしました: 最前面のウィンドウはMetoAI自身です",
     "errorNoPermission": "Appshotのキャプチャに失敗しました: 画面収録とアクセシビリティの権限がありません。設定 › 権限で許可してください",
     "errorHelperFailed": "Appshotのキャプチャに失敗しました。もう一度お試しください"
   },
@@ -280,7 +280,7 @@
   "mcpElicitation": {
     "title": "MCP情報リクエスト",
     "source": "{{server}} より",
-    "urlNotice": "Metoaiがこのアドレスをシステムブラウザで開くのは、確認した後のみです。",
+    "urlNotice": "MetoAIがこのアドレスをシステムブラウザで開くのは、確認した後のみです。",
     "decline": "拒否",
     "openAndContinue": "開いて続行",
     "submit": "送信",
@@ -331,10 +331,10 @@
     "write": "書き込み"
   },
   "chatExport": {
-    "defaultSessionName": "Metoaiセッション"
+    "defaultSessionName": "MetoAIセッション"
   },
   "chatView": {
-    "defaultSessionTitle": "Metoaiセッション",
+    "defaultSessionTitle": "MetoAIセッション",
     "exportButton": {
       "title": "セッション全体をHTMLでエクスポート"
     },
@@ -449,7 +449,7 @@
   "guideBadgeSwiper": {
     "dismissTooltip": "今後表示しない",
     "petFeatureText": "新しいデスクトップペット機能 — クリックして設定で有効化",
-    "quickPanelText": "Metoaiにクイックパネルが登場 — クリックして設定"
+    "quickPanelText": "MetoAIにクイックパネルが登場 — クリックして設定"
   },
   "imagePreview": {
     "altText": "読み込まれた画像",
@@ -504,13 +504,13 @@
     },
     "placeholder": {
       "defaults": [
-        "Metoaiに質問、/ でスキル、@ でファイルを参照",
+        "MetoAIに質問、/ でスキル、@ でファイルを参照",
         "タスクを説明し、⏎ で送信",
         "スクリーンショットを貼り付けるか @ でファイルを参照して開始"
       ],
       "noSession": "セッションを選択または作成して開始",
       "suggestion": "↵ {{suggestion}}",
-      "thinking": "Metoaiが考えています…"
+      "thinking": "MetoAIが考えています…"
     },
     "mention": {
       "trigger": "メンバーをメンション",
@@ -603,7 +603,7 @@
       }
     },
     "assistantMessage": {
-      "predicting": "Metoaiが予測しています…",
+      "predicting": "MetoAIが予測しています…",
       "processing": "処理中…",
       "waiting": "モデルの応答を待っています"
     },
@@ -680,9 +680,9 @@
     "retryIndicator": "再接続中 ({{attempt}}/{{maxAttempts}})",
     "retryReason": "前回のリクエストが失敗しました: {{reason}}",
     "streamingPhrases": [
-      "Metoaiが返信しています…",
+      "MetoAIが返信しています…",
       "少々お待ちください…",
-      "Metoaiが一生懸命作業しています…"
+      "MetoAIが一生懸命作業しています…"
     ],
     "copyButton": {
       "copied": "コピーしました",
@@ -852,7 +852,7 @@
     "nextButton": "次へ",
     "questionTabLabel": "質問 {{number}}",
     "submitButton": "送信",
-    "title": "Metoaiが選択を求めています"
+    "title": "MetoAIが選択を求めています"
   },
   "sandboxGrantsBadge": {
     "revoke": "取り消す",
@@ -879,7 +879,7 @@
       "loadPrefix": "読み込みに失敗しました: "
     },
     "export": {
-      "defaultTitle": "Metoaiセッション"
+      "defaultTitle": "MetoAIセッション"
     },
     "exportButton": {
       "title": "セッション全体をHTMLでエクスポート"
@@ -996,7 +996,7 @@
   },
   "mcpApp": {
     "externalAccess": "このMCP Appは {{count}} 件の外部ドメインへのアクセスを宣言しています",
-    "permissionsDenied": "このMCP Appはデバイス権限を要求しましたが、Metoaiは許可していません",
+    "permissionsDenied": "このMCP Appはデバイス権限を要求しましたが、MetoAIは許可していません",
     "title": "MCP App"
   },
   "usageBar": {
@@ -1075,7 +1075,7 @@
       "sendFeedback": "フィードバックを送信",
       "sendFeedbackWithComments": "フィードバックを送信（{{count}}）",
       "stepCommentPlaceholder": "このステップをどう変更しますか…",
-      "subtitle": "承認すると Metoai はこのプランに沿って作業を開始します。それまでは何も変更されません。",
+      "subtitle": "承認すると MetoAI はこのプランに沿って作業を開始します。それまでは何も変更されません。",
       "title": "承認待ちのプランがあります"
     },
     "switchFailed": "プランモードを切り替えられませんでした",

@@ -1,4 +1,4 @@
-import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
@@ -100,6 +100,30 @@ describe("FileMcpConfigSource", () => {
 
 		expect(first).not.toBe(missing);
 		expect(source.getMergedSignature()).not.toBe(first);
+	});
+
+	it("只在当前项目配置缺失时读取品牌改名前的旧配置", async () => {
+		const fixture = await createFixture();
+		const projectRoot = join(fixture.root, "project");
+		const projectConfigPath = join(projectRoot, ".metoai", "mcp.json");
+		const legacyProjectConfigPath = join(projectRoot, ".vetta", "mcp.json");
+		await writeJson(legacyProjectConfigPath, { mcpServers: { legacy: { command: "legacy-server" } } });
+		const source = new FileMcpConfigSource({
+			globalConfigPath: fixture.globalConfigPath,
+			projectConfigPath,
+			legacyProjectConfigPath,
+			projectRoot,
+		});
+
+		expect(source.loadProject()).toEqual({ mcpServers: { legacy: { command: "legacy-server" } } });
+
+		await writeJson(projectConfigPath, { mcpServers: { current: { command: "current-server" } } });
+
+		expect(source.loadProject()).toEqual({ mcpServers: { current: { command: "current-server" } } });
+		// 旧文件只被读取，不被改写。
+		expect(JSON.parse(await readFile(legacyProjectConfigPath, "utf8"))).toEqual({
+			mcpServers: { legacy: { command: "legacy-server" } },
+		});
 	});
 
 	async function createFixture() {

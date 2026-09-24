@@ -1,5 +1,5 @@
 /**
- * MetoAi 接入模型：账号授权登录与 API Key 直填两条路的状态与动作。
+ * MetoAI 接入模型：账号授权登录与 API Key 直填两条路的状态与动作。
  *
  * 全屏引导屏（MetoAiGate）与首启向导的登录步（MetoAiLoginStep）共用这里，
  * 「拉取 /models → 校验 → 落盘 → 刷新目录」这条链路只有一份实现。
@@ -23,7 +23,7 @@ import { useMetoAiSessionModel } from "./useMetoAiSession";
 export interface MetoAiSignInModel {
 	/** null = 模型配置尚未加载；false = 未接入；true = 已接入（登录面可以收起）。 */
 	configured: boolean | null;
-	/** 已有 MetoAi 会话：登录面同样可以收起，不必等 Key 落盘。 */
+	/** 已有 MetoAI 会话：登录面同样可以收起，不必等 Key 落盘。 */
 	authenticated: boolean;
 	mode: "account" | "key";
 	toggleMode: () => void;

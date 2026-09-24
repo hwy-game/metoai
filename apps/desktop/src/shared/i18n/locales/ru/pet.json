@@ -1,6 +1,6 @@
 {
   "settings": {
-    "pageTitle": "Metoai Vivi",
+    "pageTitle": "MetoAI Vivi",
     "showPet": "Показывать питомца",
     "showPetDesc": "Если выключено, окно питомца скрыто и останется скрытым при следующем запуске.",
     "alwaysOnTop": "Поверх всех окон",

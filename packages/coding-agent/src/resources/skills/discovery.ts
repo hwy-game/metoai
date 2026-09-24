@@ -1,4 +1,5 @@
 import ignore from "ignore";
+import { CONFIG_DIR_NAME, PROJECT_CONFIG_DIR_NAMES } from "../../identity.js";
 import type { ResourceDiagnostic } from "../contracts/diagnostics.js";
 import type { ResourceAccessPort } from "../contracts/resource-access.js";
 import { parseFrontmatter } from "../shared/frontmatter.js";
@@ -15,7 +16,6 @@ import type {
 const MAX_NAME_LENGTH = 64;
 const MAX_DESCRIPTION_LENGTH = 1024;
 const IGNORE_FILE_NAMES = [".gitignore", ".ignore", ".fdignore"];
-const PROJECT_CONFIG_DIRECTORY = ".vetta";
 type IgnoreMatcher = ReturnType<typeof ignore>;
 
 function provenanceForSource(source: string): SkillProvenance {
@@ -259,10 +259,8 @@ function resolveSkillPath(access: ResourceAccessPort, input: string, cwd: string
 export async function loadSkills(options: LoadSkillsOptions): Promise<LoadSkillsResult> {
 	const access = options.resourceAccess;
 	const cwd = access.paths.resolve(options.cwd);
-	const agentDir =
-		options.agentDir ?? access.paths.join(access.paths.homeDirectory(), PROJECT_CONFIG_DIRECTORY, "agent");
-	const sceneDir =
-		options.sceneDir ?? access.paths.join(access.paths.homeDirectory(), PROJECT_CONFIG_DIRECTORY, "scene");
+	const agentDir = options.agentDir ?? access.paths.join(access.paths.homeDirectory(), CONFIG_DIR_NAME, "agent");
+	const sceneDir = options.sceneDir ?? access.paths.join(access.paths.homeDirectory(), CONFIG_DIR_NAME, "scene");
 	const includeDefaults = options.includeDefaults ?? true;
 	const includeAgentSkills = options.includeAgentSkills ?? true;
 	const skillMap = new Map<string, Skill>();
@@ -300,10 +298,13 @@ export async function loadSkills(options: LoadSkillsOptions): Promise<LoadSkills
 	};
 
 	const userSkillsDir = access.paths.join(agentDir, "skills");
-	const projectSkillsDir = access.paths.resolve(cwd, PROJECT_CONFIG_DIRECTORY, "skills");
+	// 项目技能目录按读取优先级排列：`.metoai/skills` 在前，品牌改名前的 `.vetta/skills` 回退在后。
+	const projectSkillsDirs = PROJECT_CONFIG_DIR_NAMES.map((dirName) => access.paths.resolve(cwd, dirName, "skills"));
 	if (includeDefaults) {
 		await addSkills(await loadSkillsFromDirInternal(access, userSkillsDir, "user", true, options.signal));
-		await addSkills(await loadSkillsFromDirInternal(access, projectSkillsDir, "project", true, options.signal));
+		for (const projectSkillsDir of projectSkillsDirs) {
+			await addSkills(await loadSkillsFromDirInternal(access, projectSkillsDir, "project", true, options.signal));
+		}
 		await addSkills(await loadScenesFromDir(access, sceneDir, options.signal));
 	}
 
@@ -318,7 +319,7 @@ export async function loadSkills(options: LoadSkillsOptions): Promise<LoadSkills
 	const getSource = (path: string): "user" | "project" | "path" => {
 		if (!includeDefaults) {
 			if (isUnderPath(path, userSkillsDir)) return "user";
-			if (isUnderPath(path, projectSkillsDir)) return "project";
+			if (projectSkillsDirs.some((projectSkillsDir) => isUnderPath(path, projectSkillsDir))) return "project";
 		}
 		return "path";
 	};

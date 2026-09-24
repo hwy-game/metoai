@@ -14,6 +14,7 @@ import {
 	getSceneDir,
 	getUserSkillsDir,
 	getVettaHomePath,
+	LEGACY_CONFIG_DIR_NAME,
 } from "@vetta/coding-agent/config";
 import { CODING_AGENT_READ_TOOL_OPTIONS } from "@vetta/coding-agent/host";
 import { SettingsRuntime } from "@vetta/coding-agent/settings";
@@ -31,7 +32,7 @@ import {
 import { NodeScopedTextStorage } from "@vetta/runtime-node/host";
 import { createSshCodingToolEnvironment, createSshPathPolicies } from "@vetta/runtime-ssh";
 import { parseProjectLocation } from "@vetta/ssh-transport";
-import { resolveProjectSettingsPath } from "./project-settings-path.js";
+import { resolveLegacyProjectSettingsPath, resolveProjectSettingsPath } from "./project-settings-path.js";
 import { resolveDesktopSshConnection } from "./ssh-connection-resolver.js";
 
 /**
@@ -143,16 +144,21 @@ function createDesktopNodeToolHost(cwd: string, configuredAgentDir?: string) {
 	const settingsPath = join(agentDir, "settings.json");
 	const toolsDirectory = join(agentDir, "bin");
 	const settings = SettingsRuntime.fromStorage(
-		new NodeScopedTextStorage({
-			global: settingsPath,
-			project: resolveProjectSettingsPath(cwd, agentDir),
-		}),
+		new NodeScopedTextStorage(
+			{
+				global: settingsPath,
+				project: resolveProjectSettingsPath(cwd, agentDir),
+			},
+			{ project: resolveLegacyProjectSettingsPath(cwd) },
+		),
 	);
 	const protectedCommandDirectories = [
 		resolve(agentDir, "skills"),
 		resolve(getUserSkillsDir()),
 		resolve(getSceneDir()),
 		resolve(cwd, CONFIG_DIR_NAME, "skills"),
+		// 品牌改名前的项目技能目录同样受保护，否则旧目录里的技能可以被命令改写。
+		resolve(cwd, LEGACY_CONFIG_DIR_NAME, "skills"),
 	];
 	const pathClassifier = createNodePathBoundaryClassifier({
 		readOnlyDirectories: [

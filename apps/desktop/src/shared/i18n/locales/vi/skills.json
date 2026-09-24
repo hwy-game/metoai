@@ -5,7 +5,7 @@
   "typeNoun": {
     "scene": "bối cảnh"
   },
-  "subtitle": "Cài đặt và bật những năng lực bạn cần để Metoai có thêm chuyên môn",
+  "subtitle": "Cài đặt và bật những năng lực bạn cần để MetoAI có thêm chuyên môn",
   "search": {
     "placeholder": "Tìm kiếm {{noun}}..."
   },
@@ -72,16 +72,16 @@
   "builtin": {
     "create-skill": {
       "name": "Tạo kỹ năng",
-      "description": "Tạo hoặc cập nhật Kỹ năng tác nhân theo đặc tả Metoai: đặt tệp, đăng ký trong skills-manifest.json hoặc cập nhật cấu hình plugin."
+      "description": "Tạo hoặc cập nhật Kỹ năng tác nhân theo đặc tả MetoAI: đặt tệp, đăng ký trong skills-manifest.json hoặc cập nhật cấu hình plugin."
     },
     "publish-ability": {
       "name": "Xuất bản năng lực",
-      "description": "Gửi kỹ năng, bối cảnh, máy chủ MCP, plugin hoặc gói năng lực lên cửa hàng Metoai, bao gồm các trường bắt buộc, bản địa hóa và quy trình duyệt."
+      "description": "Gửi kỹ năng, bối cảnh, máy chủ MCP, plugin hoặc gói năng lực lên cửa hàng MetoAI, bao gồm các trường bắt buộc, bản địa hóa và quy trình duyệt."
     },
     "vetta-blog": {},
     "install-ability": {
       "name": "Cài đặt năng lực",
-      "description": "Cài tiện ích, Kỹ năng/bối cảnh và máy chủ MCP vào Metoai trên máy này, tải lại ngay khi bản nâng cấp tiện ích còn phiên bản chờ áp dụng."
+      "description": "Cài tiện ích, Kỹ năng/bối cảnh và máy chủ MCP vào MetoAI trên máy này, tải lại ngay khi bản nâng cấp tiện ích còn phiên bản chờ áp dụng."
     }
   }
 }

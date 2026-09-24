@@ -1,9 +1,9 @@
-// 把 native/appshot/main.swift 编译打包成 `Metoai Computer Use.app`（swiftc 单文件
+// 把 native/appshot/main.swift 编译打包成 `MetoAI Computer Use.app`（swiftc 单文件
 // 编译到 Contents/MacOS/、写 Info.plist、拷贝主 app icns、ad-hoc 签名）。
 //
 // 独立 .app bundle（独立 CFBundleIdentifier）使其在 macOS TCC（辅助功能/屏幕
-// 录制）里是与主 Metoai app 分离的授权主体，系统设置权限列表显示为
-// "Metoai Computer Use"。
+// 录制）里是与主 MetoAI app 分离的授权主体，系统设置权限列表显示为
+// "MetoAI Computer Use"。
 //
 // darwin-only：非 macOS host 直接跳过（appshot 功能本身仅 macOS 提供）。
 // 幂等：产物已存在且可执行文件 mtime 晚于源码时跳过编译，加速 dev 启动与迭代构建。
@@ -21,7 +21,7 @@ const projectRoot = join(import.meta.dirname, "..");
 const sourcePath = join(projectRoot, "native", "appshot", "main.swift");
 const iconSourcePath = join(projectRoot, "build", "icon.icns");
 
-const APP_NAME = "Metoai Computer Use";
+const APP_NAME = "MetoAI Computer Use";
 const BUNDLE_ID = "com.vetta.desktop.computer-use";
 
 function resolveOutDir() {
@@ -56,7 +56,7 @@ function infoPlistContents() {
 	<key>LSMinimumSystemVersion</key>
 	<string>13.0</string>
 	<key>NSScreenCaptureUsageDescription</key>
-	<string>Metoai Computer Use needs to record your screen to capture the active window for the assistant.</string>
+	<string>MetoAI Computer Use needs to record your screen to capture the active window for the assistant.</string>
 </dict>
 </plist>
 `;

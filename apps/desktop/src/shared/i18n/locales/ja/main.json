@@ -2,19 +2,19 @@
   "tray": {
     "showWindow": "ウィンドウを表示",
     "hideWindow": "ウィンドウを隠す",
-    "quitVetta": "Metoai を終了",
+    "quitVetta": "MetoAI を終了",
     "quit": "終了",
     "hideToTray": "トレイに隠す"
   },
   "menu": {
     "app": {
-      "title": "Metoai",
-      "about": "Metoai について",
+      "title": "MetoAI",
+      "about": "MetoAI について",
       "services": "サービス",
-      "hide": "Metoai を隠す",
+      "hide": "MetoAI を隠す",
       "hideOthers": "ほかを隠す",
       "unhide": "すべてを表示",
-      "quit": "Metoai を終了"
+      "quit": "MetoAI を終了"
     },
     "edit": {
       "title": "編集",
@@ -57,8 +57,8 @@
   "mcpOAuth": {
     "authorizationSuccessful": "認証に成功しました",
     "authorizationFailed": "認証に失敗しました",
-    "returnToVetta": "このウインドウを閉じて Metoai に戻れます。",
-    "closeAndRetry": "このウインドウを閉じて Metoai で再試行できます。",
+    "returnToVetta": "このウインドウを閉じて MetoAI に戻れます。",
+    "closeAndRetry": "このウインドウを閉じて MetoAI で再試行できます。",
     "missingAuthorizationCode": "認証コードがありません",
     "callbackAlreadySettled": "OAuth コールバックは処理済みです",
     "callbackTimedOut": "ブラウザでの OAuth 認証待ちがタイムアウトしました",
@@ -68,7 +68,7 @@
     "enterDeviceCode": "GitHub のページでこのコードを入力し、「承認」をクリックしてください。",
     "copyCode": "コードをコピー",
     "openGitHub": "GitHub を開いて認証",
-    "closeAfterAuthorization": "Metoai で認証を完了したら、このウインドウを閉じてかまいません。",
+    "closeAfterAuthorization": "MetoAI で認証を完了したら、このウインドウを閉じてかまいません。",
     "deviceFlowDisabled": "デバイスコードのリクエストに失敗しました（422）。OAuth または GitHub App の設定で Device Flow を有効にしてください：{{details}}"
   },
   "updater": {
@@ -106,9 +106,9 @@
     }
   },
   "pluginPackage": {
-    "confirmTitle": "Metoai プラグインをインストール",
+    "confirmTitle": "MetoAI プラグインをインストール",
     "confirmMessage": "{{name}} {{version}} をインストールして有効にしますか？",
-    "confirmDetail": "ファイル：{{file}}\nプラグイン ID：{{id}}\nバージョン：{{version}}\n\n付与する権限：\n{{permissions}}\n\n有効にするコマンド：\n{{commands}}\n\nプラグインのコードは Metoai 内で実行されます。信頼できる提供元のファイルのみインストールしてください。",
+    "confirmDetail": "ファイル：{{file}}\nプラグイン ID：{{id}}\nバージョン：{{version}}\n\n付与する権限：\n{{permissions}}\n\n有効にするコマンド：\n{{commands}}\n\nプラグインのコードは MetoAI 内で実行されます。信頼できる提供元のファイルのみインストールしてください。",
     "none": "なし",
     "install": "インストールして有効化",
     "cancel": "キャンセル",
@@ -116,7 +116,7 @@
     "installedTitle": "プラグインをインストールしました",
     "installedMessage": "{{name}} {{version}} をインストールして有効にしました。",
     "failedTitle": "プラグインのインストールに失敗しました",
-    "failedMessage": "{{file}} は有効な Metoai プラグインパッケージではないか、このバージョンと互換性がありません。"
+    "failedMessage": "{{file}} は有効な MetoAI プラグインパッケージではないか、このバージョンと互換性がありません。"
   },
   "terminal": {
     "remoteOutputDropped": "[リモート出力が速すぎます。{{bytes}} バイトを省略]"

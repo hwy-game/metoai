@@ -40,7 +40,7 @@ function resolveCodingAgentPackageDir(): string {
  * Build the {@link CodingAgentSpec} that the im-gateway sidecar uses to
  * spawn one coding-agent subprocess per IM session.
  *
- * Production: Metoai.app's executable. macOS/Linux use `--agent-rpc`, which
+ * Production: MetoAI.app's executable. macOS/Linux use `--agent-rpc`, which
  * main.ts detects before window/UI bring-up. Windows runs the staged
  * coding-agent CLI under `ELECTRON_RUN_AS_NODE=1`, because GUI Electron
  * mode closes stdio too early for the RPC handshake.

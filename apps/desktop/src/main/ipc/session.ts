@@ -3,6 +3,7 @@ import { type Dirent, type FSWatcher, watch } from "node:fs";
 import { mkdir, readdir, rm } from "node:fs/promises";
 import { basename, join, resolve } from "node:path";
 import { codingAgentSessionShardPath } from "@vetta/coding-agent/bootstrap";
+import { PROJECT_CONFIG_DIR_NAMES } from "@vetta/coding-agent/config";
 import type {
 	CodingAgentQuestionFunctionRequest,
 	CodingAgentQuestionResult,
@@ -1389,7 +1390,7 @@ export function registerSessionIpc(webContents: WebContents): () => void {
 		}
 		await Promise.all(
 			entries
-				.filter((entry) => entry.name !== ".vetta")
+				.filter((entry) => !PROJECT_CONFIG_DIR_NAMES.includes(entry.name))
 				.map(async (entry) => {
 					const full = join(targetCwd, entry.name);
 					if (entry.isDirectory() && isSessionArtifactDirName(entry.name)) {

@@ -53,8 +53,8 @@ export const SETTINGS_TABS: readonly SettingsTabRegistration[] = [
 	{ key: "appearance", label: "外观", labelKey: "tabAppearance", icon: "icon-[mdi--palette-outline]" },
 	{ key: "context", label: "Agent配置", labelKey: "tabContext", icon: "icon-[mdi--robot-outline]" },
 	{ key: "models", label: "模型配置", labelKey: "tabModels", icon: "icon-[mdi--brain]" },
-	// MetoAi 中转站的个人中心：登录、余额、Key 与充值。
-	{ key: "metoai", label: "MetoAi", labelKey: "tabMetoAi", icon: "icon-[mdi--wallet-outline]" },
+	// MetoAI 中转站的个人中心：登录、余额、Key 与充值。
+	{ key: "metoai", label: "MetoAI", labelKey: "tabMetoAi", icon: "icon-[mdi--wallet-outline]" },
 	{
 		key: "sshHosts",
 		label: "SSH 主机",
@@ -81,7 +81,7 @@ export const SETTINGS_TABS: readonly SettingsTabRegistration[] = [
 		labelKey: "tabKnowledge",
 		icon: "icon-[mdi--database-outline]",
 	},
-	{ key: "pet", label: "Metoai Vivi", labelKey: "tabPet", icon: "icon-[mdi--paw-outline]" },
+	{ key: "pet", label: "MetoAI Vivi", labelKey: "tabPet", icon: "icon-[mdi--paw-outline]" },
 	{
 		key: "permissions",
 		label: "权限管理",

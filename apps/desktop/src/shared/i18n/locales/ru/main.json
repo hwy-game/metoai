@@ -2,19 +2,19 @@
   "tray": {
     "showWindow": "Показать окно",
     "hideWindow": "Скрыть окно",
-    "quitVetta": "Выйти из Metoai",
+    "quitVetta": "Выйти из MetoAI",
     "quit": "Выход",
     "hideToTray": "Скрыть в трей"
   },
   "menu": {
     "app": {
-      "title": "Metoai",
-      "about": "О Metoai",
+      "title": "MetoAI",
+      "about": "О MetoAI",
       "services": "Службы",
-      "hide": "Скрыть Metoai",
+      "hide": "Скрыть MetoAI",
       "hideOthers": "Скрыть остальные",
       "unhide": "Показать все",
-      "quit": "Выйти из Metoai"
+      "quit": "Выйти из MetoAI"
     },
     "edit": {
       "title": "Правка",
@@ -57,8 +57,8 @@
   "mcpOAuth": {
     "authorizationSuccessful": "Авторизация выполнена",
     "authorizationFailed": "Авторизация не выполнена",
-    "returnToVetta": "Можно закрыть это окно и вернуться в Metoai.",
-    "closeAndRetry": "Можно закрыть это окно и повторить попытку в Metoai.",
+    "returnToVetta": "Можно закрыть это окно и вернуться в MetoAI.",
+    "closeAndRetry": "Можно закрыть это окно и повторить попытку в MetoAI.",
     "missingAuthorizationCode": "Отсутствует код авторизации",
     "callbackAlreadySettled": "Обратный вызов OAuth уже обработан",
     "callbackTimedOut": "Истекло время ожидания авторизации OAuth в браузере",
@@ -68,7 +68,7 @@
     "enterDeviceCode": "Введите этот код на странице GitHub и нажмите «Авторизовать».",
     "copyCode": "Копировать код",
     "openGitHub": "Открыть GitHub для авторизации",
-    "closeAfterAuthorization": "Это окно можно закрыть после авторизации в Metoai.",
+    "closeAfterAuthorization": "Это окно можно закрыть после авторизации в MetoAI.",
     "deviceFlowDisabled": "Запрос кода устройства не выполнен (422). Включите Device Flow в настройках OAuth или приложения GitHub: {{details}}"
   },
   "updater": {
@@ -106,9 +106,9 @@
     }
   },
   "pluginPackage": {
-    "confirmTitle": "Установить плагин Metoai",
+    "confirmTitle": "Установить плагин MetoAI",
     "confirmMessage": "Установить и включить {{name}} {{version}}?",
-    "confirmDetail": "Файл: {{file}}\nID плагина: {{id}}\nВерсия: {{version}}\n\nРазрешения для выдачи:\n{{permissions}}\n\nКоманды для включения:\n{{commands}}\n\nКод плагина выполняется внутри Metoai. Устанавливайте файлы только из доверенных источников.",
+    "confirmDetail": "Файл: {{file}}\nID плагина: {{id}}\nВерсия: {{version}}\n\nРазрешения для выдачи:\n{{permissions}}\n\nКоманды для включения:\n{{commands}}\n\nКод плагина выполняется внутри MetoAI. Устанавливайте файлы только из доверенных источников.",
     "none": "Нет",
     "install": "Установить и включить",
     "cancel": "Отмена",
@@ -116,7 +116,7 @@
     "installedTitle": "Плагин установлен",
     "installedMessage": "{{name}} {{version}} установлен и включён.",
     "failedTitle": "Не удалось установить плагин",
-    "failedMessage": "{{file}} не является допустимым пакетом плагина Metoai или несовместим с этой версией."
+    "failedMessage": "{{file}} не является допустимым пакетом плагина MetoAI или несовместим с этой версией."
   },
   "terminal": {
     "remoteOutputDropped": "[вывод с удалённого хоста слишком быстрый; пропущено байт: {{bytes}}]"

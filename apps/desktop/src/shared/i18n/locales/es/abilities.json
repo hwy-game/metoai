@@ -21,7 +21,7 @@
   },
   "group": {
     "connectors": "Conexiones",
-    "vettaBuiltin": "Integrado en Metoai",
+    "vettaBuiltin": "Integrado en MetoAI",
     "uncategorized": "Sin categoría"
   },
   "search": {
@@ -96,7 +96,7 @@
   },
   "error": {
     "sourcesFailed": "No se pudieron sincronizar las fuentes de GitHub (el contenido en caché sigue disponible): {{names}}",
-    "sourcesOutdated": "Estas fuentes necesitan una versión más reciente de Metoai para cargarse: {{names}}",
+    "sourcesOutdated": "Estas fuentes necesitan una versión más reciente de MetoAI para cargarse: {{names}}",
     "serverFailed": "No se pudo cargar el mercado en la nube; las demás fuentes siguen disponibles",
     "loadFailed": "No se pudieron cargar las habilidades",
     "downloadFailed": "Error de descarga: {{status}}",
@@ -122,7 +122,7 @@
       "title": "Fuente",
       "builtin": "Integrado en la aplicación",
       "local": "Agregado localmente",
-      "server": "Servidor de habilidades de Metoai",
+      "server": "Servidor de habilidades de MetoAI",
       "sameNameTitle": "Otras {{count}} habilidades tienen el mismo nombre",
       "installConflict": "Otra fuente ya ocupa esta ubicación de instalación. No se sobrescribirá automáticamente; elimina primero el elemento instalado o espera un flujo de reemplazo explícito."
     },
@@ -271,7 +271,7 @@
       "back": "Volver a los detalles de la habilidad",
       "description": "Consulta qué capacidades del host declara este complemento. Desactivar una bloquea las llamadas correspondientes a la API del host; no aísla el código del complemento en un entorno de seguridad.",
       "toggleLabel": "Activar o desactivar el permiso {{permission}}",
-      "hostVerified": "Protección de la API del host de Metoai",
+      "hostVerified": "Protección de la API del host de MetoAI",
       "preview": {
         "global": "El contenido del complemento puede aparecer en áreas compartidas de la aplicación que persisten entre páginas",
         "filePreview": "El complemento puede mostrar un visor de contenido especializado en el área de vista previa de archivos",
@@ -296,7 +296,7 @@
       },
       "readOnly": {
         "install": "Este complemento no está instalado. Estos son los permisos que solicita; confirmarás los otorgamientos reales durante la instalación.",
-        "system": "Este es un complemento de sistema integrado. Metoai gestiona y otorga sus permisos automáticamente, por lo que no se pueden desactivar de forma individual."
+        "system": "Este es un complemento de sistema integrado. MetoAI gestiona y otorga sus permisos automáticamente, por lo que no se pueden desactivar de forma individual."
       },
       "summary": {
         "requested": "Solicitados",
@@ -318,7 +318,7 @@
         "data": "Limitado a los tipos de datos que expone la API del host. Las rutas o los registros exactos dependen de la llamada del complemento.",
         "agent": "Se aplica a las sesiones del agente, los prompts, las herramientas o el estado del entorno que expone el host.",
         "execution": "El host realiza la operación, mientras que el complemento elige el comando, la página o la acción que solicita.",
-        "external": "Puede salir de Metoai para abrir un destino o hacer una solicitud. El complemento indica el destino en el momento de la llamada.",
+        "external": "Puede salir de MetoAI para abrir un destino o hacer una solicitud. El complemento indica el destino en el momento de la llamada.",
         "intelligence": "Usa los modelos o servicios multimedia que hayas configurado; puede enviar entradas compuestas por el complemento y consumir cuota del servicio."
       },
       "disabled": {
@@ -333,7 +333,7 @@
     "group": {
       "interface": {
         "title": "Interfaz e interacción",
-        "description": "Dónde puede aparecer el complemento dentro de Metoai"
+        "description": "Dónde puede aparecer el complemento dentro de MetoAI"
       },
       "projectData": {
         "title": "Datos del proyecto y de la aplicación",
@@ -378,7 +378,7 @@
       "agentCommandSpawn": "Inicia procesos en segundo plano que pueden seguir ejecutándose hasta que el complemento o el host los detenga.",
       "captureOffscreen": "Carga contenido en una página oculta y captura una imagen de ella.",
       "browserRead": "Crea sesiones de navegador gestionadas por el host, visita sitios aprobados en el manifiesto y lee texto, estructura y capturas de páginas con sesión iniciada.",
-      "browserOpen": "Abre una página web aprobada en el navegador integrado de Metoai sin leer la página ni interactuar con ella.",
+      "browserOpen": "Abre una página web aprobada en el navegador integrado de MetoAI sin leer la página ni interactuar con ella.",
       "browserInteract": "Hace clic, escribe, selecciona y envía en sitios aprobados, y puede realizar acciones reales con tu cuenta.",
       "browserProfilePersist": "Conserva un perfil de navegador aislado y su estado de sesión para futuras sesiones de este complemento.",
       "browserAttach": "Se conecta a un navegador ya abierto y puede acceder a sus pestañas y a su estado de sesión.",
@@ -408,7 +408,7 @@
       "storageRead": "Lee datos persistentes privados de este complemento, no disponibles directamente para otros complementos.",
       "storageWrite": "Escribe datos persistentes privados de este complemento para su estado o configuración.",
       "mediaGenerate": "Llama a los servicios configurados de generación de imágenes, audio u otros medios.",
-      "mediaProviderRegister": "Registra en Metoai un servicio de generación de medios proporcionado por el complemento.",
+      "mediaProviderRegister": "Registra en MetoAI un servicio de generación de medios proporcionado por el complemento.",
       "ocrRecognize": "Usa un servicio configurado de reconocimiento de texto para las imágenes que el complemento envía explícitamente.",
       "ocrProviderRegister": "Registra un servicio de reconocimiento de texto proporcionado por el complemento; los servicios remotos pueden subir imágenes.",
       "secretsRead": "Lee secretos que este complemento guardó por sí mismo, como claves de API.",
@@ -506,7 +506,7 @@
       "forbidden": "La credencial de GitHub no puede leer este repositorio",
       "notFound": "No se encontró el repositorio, la rama ni el manifiesto del mercado",
       "rateLimited": "Se alcanzó el límite de solicitudes de GitHub; inténtalo más tarde",
-      "appOutdated": "Esta versión de Metoai es demasiado antigua; actualiza a {{version}} o posterior",
+      "appOutdated": "Esta versión de MetoAI es demasiado antigua; actualiza a {{version}} o posterior",
       "ready": "Sincronizada · {{version}}",
       "failed": "Error de sincronización; puedes reintentar",
       "cached": "Error de sincronización; se muestra el contenido en caché"
@@ -529,7 +529,7 @@
       "repositoryPlaceholder": "owner/repo o https://github.com/owner/repo",
       "credentialLabel": "Token de acceso a GitHub (opcional)",
       "credentialPlaceholder": "Token de grano fino, Contents en solo lectura",
-      "credentialHint": "El token permanece en el almacenamiento seguro de este dispositivo y nunca se sube a Metoai.",
+      "credentialHint": "El token permanece en el almacenamiento seguro de este dispositivo y nunca se sube a MetoAI.",
       "nameLabel": "Nombre",
       "namePlaceholder": "De forma predeterminada, el nombre del repositorio",
       "refLabel": "Rama",

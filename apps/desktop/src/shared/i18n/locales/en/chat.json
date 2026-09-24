@@ -269,7 +269,7 @@
 		"close": "Close"
 	},
 	"appshot": {
-		"errorSelfCapture": "Appshot skipped: the frontmost window is Metoai itself",
+		"errorSelfCapture": "Appshot skipped: the frontmost window is MetoAI itself",
 		"errorNoPermission": "Appshot capture failed: Screen Recording and Accessibility permissions are missing. Grant them in Settings › Permissions",
 		"errorHelperFailed": "Appshot capture failed, please try again"
 	},
@@ -280,7 +280,7 @@
 	"mcpElicitation": {
 		"title": "MCP information request",
 		"source": "From {{server}}",
-		"urlNotice": "Metoai opens this address in your system browser only after you confirm.",
+		"urlNotice": "MetoAI opens this address in your system browser only after you confirm.",
 		"decline": "Decline",
 		"openAndContinue": "Open and continue",
 		"submit": "Submit",
@@ -372,10 +372,10 @@
 		"write": "Write"
 	},
 	"chatExport": {
-		"defaultSessionName": "Metoai Session"
+		"defaultSessionName": "MetoAI Session"
 	},
 	"chatView": {
-		"defaultSessionTitle": "Metoai Session",
+		"defaultSessionTitle": "MetoAI Session",
 		"bottomPanelButton": {
 			"closed": "Open bottom panel",
 			"open": "Close bottom panel"
@@ -490,7 +490,7 @@
 	"guideBadgeSwiper": {
 		"dismissTooltip": "Don't show again",
 		"petFeatureText": "New desktop pet feature — click to enable in settings",
-		"quickPanelText": "Metoai now has a Quick Panel — click to set it up"
+		"quickPanelText": "MetoAI now has a Quick Panel — click to set it up"
 	},
 	"imagePreview": {
 		"altText": "Loaded image",
@@ -545,13 +545,13 @@
 		},
 		"placeholder": {
 			"defaults": [
-				"Ask Metoai, use / for skills, @ to reference files",
+				"Ask MetoAI, use / for skills, @ to reference files",
 				"Describe the task, press ⏎ to send",
 				"Paste a screenshot or @ a file to get started"
 			],
 			"noSession": "Select or create a session to start",
 			"suggestion": "↵ {{suggestion}}",
-			"thinking": "Metoai is thinking…"
+			"thinking": "MetoAI is thinking…"
 		},
 		"mention": {
 			"trigger": "Mention members",
@@ -644,7 +644,7 @@
 			}
 		},
 		"assistantMessage": {
-			"predicting": "Metoai is predicting…",
+			"predicting": "MetoAI is predicting…",
 			"processing": "Processing…",
 			"waiting": "Waiting for model response"
 		},
@@ -721,9 +721,9 @@
 		"retryIndicator": "Reconnecting ({{attempt}}/{{maxAttempts}})",
 		"retryReason": "Last request failed: {{reason}}",
 		"streamingPhrases": [
-			"Metoai is replying…",
+			"MetoAI is replying…",
 			"Please hold on…",
-			"Metoai is working hard…"
+			"MetoAI is working hard…"
 		],
 		"copyButton": {
 			"copied": "Copied",
@@ -906,7 +906,7 @@
 			"sendFeedback": "Send feedback",
 			"sendFeedbackWithComments": "Send feedback ({{count}})",
 			"stepCommentPlaceholder": "How should this step change…",
-			"subtitle": "Metoai starts working from this plan once you approve it. Nothing is changed before that.",
+			"subtitle": "MetoAI starts working from this plan once you approve it. Nothing is changed before that.",
 			"title": "A plan is waiting for your approval"
 		},
 		"switchFailed": "Couldn't switch plan mode",
@@ -926,7 +926,7 @@
 		"nextButton": "Next",
 		"questionTabLabel": "Question {{number}}",
 		"submitButton": "Submit",
-		"title": "Metoai needs your choice"
+		"title": "MetoAI needs your choice"
 	},
 	"sandboxGrantsBadge": {
 		"revoke": "Revoke",
@@ -967,7 +967,7 @@
 			"loadPrefix": "Failed to load: "
 		},
 		"export": {
-			"defaultTitle": "Metoai Session"
+			"defaultTitle": "MetoAI Session"
 		},
 		"exportButton": {
 			"title": "Export full session as HTML"
@@ -1084,7 +1084,7 @@
 	},
 	"mcpApp": {
 		"externalAccess": "This MCP App declares access to {{count}} external domain(s)",
-		"permissionsDenied": "This MCP App requested device permissions; Metoai has not granted them",
+		"permissionsDenied": "This MCP App requested device permissions; MetoAI has not granted them",
 		"title": "MCP App"
 	},
 	"usageBar": {

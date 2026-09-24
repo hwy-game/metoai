@@ -269,7 +269,7 @@
     "close": "Cerrar"
   },
   "appshot": {
-    "errorSelfCapture": "Appshot omitido: la ventana en primer plano es Metoai",
+    "errorSelfCapture": "Appshot omitido: la ventana en primer plano es MetoAI",
     "errorNoPermission": "Falló la captura de Appshot: faltan los permisos de Grabación de pantalla y Accesibilidad. Concédelos en Ajustes › Permisos",
     "errorHelperFailed": "Falló la captura de Appshot, inténtalo de nuevo"
   },
@@ -280,7 +280,7 @@
   "mcpElicitation": {
     "title": "Solicitud de información de MCP",
     "source": "De {{server}}",
-    "urlNotice": "Metoai abrirá esta dirección en tu navegador del sistema solo después de que lo confirmes.",
+    "urlNotice": "MetoAI abrirá esta dirección en tu navegador del sistema solo después de que lo confirmes.",
     "decline": "Rechazar",
     "openAndContinue": "Abrir y continuar",
     "submit": "Enviar",
@@ -331,10 +331,10 @@
     "write": "Escritura"
   },
   "chatExport": {
-    "defaultSessionName": "Sesión de Metoai"
+    "defaultSessionName": "Sesión de MetoAI"
   },
   "chatView": {
-    "defaultSessionTitle": "Sesión de Metoai",
+    "defaultSessionTitle": "Sesión de MetoAI",
     "exportButton": {
       "title": "Exportar toda la sesión como HTML"
     },
@@ -449,7 +449,7 @@
   "guideBadgeSwiper": {
     "dismissTooltip": "No volver a mostrar",
     "petFeatureText": "Nueva función de mascota de escritorio: haz clic para activarla en los ajustes",
-    "quickPanelText": "Metoai ahora tiene un Panel rápido: haz clic para configurarlo"
+    "quickPanelText": "MetoAI ahora tiene un Panel rápido: haz clic para configurarlo"
   },
   "imagePreview": {
     "altText": "Imagen cargada",
@@ -504,13 +504,13 @@
     },
     "placeholder": {
       "defaults": [
-        "Pregúntale a Metoai, usa / para habilidades y @ para referenciar archivos",
+        "Pregúntale a MetoAI, usa / para habilidades y @ para referenciar archivos",
         "Describe la tarea y pulsa ⏎ para enviar",
         "Pega una captura o usa @ en un archivo para empezar"
       ],
       "noSession": "Selecciona o crea una sesión para empezar",
       "suggestion": "↵ {{suggestion}}",
-      "thinking": "Metoai está pensando…"
+      "thinking": "MetoAI está pensando…"
     },
     "mention": {
       "trigger": "Mencionar miembros",
@@ -603,7 +603,7 @@
       }
     },
     "assistantMessage": {
-      "predicting": "Metoai está prediciendo…",
+      "predicting": "MetoAI está prediciendo…",
       "processing": "Procesando…",
       "waiting": "Esperando la respuesta del modelo"
     },
@@ -680,9 +680,9 @@
     "retryIndicator": "Reconectando ({{attempt}}/{{maxAttempts}})",
     "retryReason": "La última solicitud falló: {{reason}}",
     "streamingPhrases": [
-      "Metoai está respondiendo…",
+      "MetoAI está respondiendo…",
       "Un momento…",
-      "Metoai está trabajando duro…"
+      "MetoAI está trabajando duro…"
     ],
     "copyButton": {
       "copied": "Copiado",
@@ -852,7 +852,7 @@
     "nextButton": "Siguiente",
     "questionTabLabel": "Pregunta {{number}}",
     "submitButton": "Enviar",
-    "title": "Metoai necesita que elijas"
+    "title": "MetoAI necesita que elijas"
   },
   "sandboxGrantsBadge": {
     "revoke": "Revocar",
@@ -879,7 +879,7 @@
       "loadPrefix": "No se pudo cargar: "
     },
     "export": {
-      "defaultTitle": "Sesión de Metoai"
+      "defaultTitle": "Sesión de MetoAI"
     },
     "exportButton": {
       "title": "Exportar toda la sesión como HTML"
@@ -996,7 +996,7 @@
   },
   "mcpApp": {
     "externalAccess": "Esta app MCP declara acceso a {{count}} dominio(s) externo(s)",
-    "permissionsDenied": "Esta app MCP solicitó permisos del dispositivo; Metoai no los ha concedido",
+    "permissionsDenied": "Esta app MCP solicitó permisos del dispositivo; MetoAI no los ha concedido",
     "title": "App MCP"
   },
   "usageBar": {
@@ -1075,7 +1075,7 @@
       "sendFeedback": "Enviar comentarios",
       "sendFeedbackWithComments": "Enviar comentarios ({{count}})",
       "stepCommentPlaceholder": "¿Cómo debería cambiar este paso…",
-      "subtitle": "Metoai empieza a trabajar a partir de este plan en cuanto lo apruebes. Hasta entonces no se cambia nada.",
+      "subtitle": "MetoAI empieza a trabajar a partir de este plan en cuanto lo apruebes. Hasta entonces no se cambia nada.",
       "title": "Hay un plan esperando tu aprobación"
     },
     "switchFailed": "No se pudo cambiar el modo plan",

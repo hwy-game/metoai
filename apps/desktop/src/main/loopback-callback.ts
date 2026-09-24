@@ -4,7 +4,7 @@
  * 自定义 scheme 在开发模式的 macOS/Linux 上根本走不通：dev 跑的是
  * node_modules 里的 Electron.app（bundle id com.github.Electron，Info.plist
  * 没有 CFBundleURLTypes），LaunchServices 只会把自定义 scheme 派发给声明过该
- * scheme 的 bundle——也就是安装版 /Applications/Metoai.app。结果是门户回调
+ * scheme 的 bundle——也就是安装版 /Applications/MetoAI.app。结果是门户回调
  * 拉起了另一个已安装的应用，开发中的实例永远收不到回调。
  * `app.setAsDefaultProtocolClient` 也救不了：macOS 上它只是把 scheme 的默认
  * handler 指向当前 bundle id，且系统拉起 bundle 时不会带上 dist/main/index.js
@@ -13,9 +13,9 @@
  * 所以开发模式改走标准的 loopback 回调：主进程在 127.0.0.1 上监听一个临时
  * 端口，回调地址指向 `http://127.0.0.1:<port><path>`。打包后仍旧走自定义 scheme 深链。
  *
- * 服务本身不认识任何业务，只维护「路径 → 处理器」注册表（云登录与 MetoAi
+ * 服务本身不认识任何业务，只维护「路径 → 处理器」注册表（云登录与 MetoAI
  * 授权各占一条路径）。放在 `main/` 根目录而不是 `cloud/` 下，是因为 lite 构建
- * （VETTA_CLOUD_ENABLED=false）会把整个 cloud chunk 裁掉，而 MetoAi 授权
+ * （VETTA_CLOUD_ENABLED=false）会把整个 cloud chunk 裁掉，而 MetoAI 授权
  * 在 lite 构建里同样需要 loopback。
  */
 
@@ -29,7 +29,7 @@ const log = getAppLogger("auth");
 export type LoopbackCallbackHandler = (search: URLSearchParams) => void;
 
 /** dev-only 页面，仅在开发者本机浏览器一闪而过，不进 i18n。 */
-const RESPONSE_HTML = `<!doctype html><meta charset="utf-8"><title>Metoai</title><body style="font:16px system-ui;padding:48px">Authorized. You can close this window.</body>`;
+const RESPONSE_HTML = `<!doctype html><meta charset="utf-8"><title>MetoAI</title><body style="font:16px system-ui;padding:48px">Authorized. You can close this window.</body>`;
 
 const handlers = new Map<string, LoopbackCallbackHandler>();
 let origin: string | null = null;

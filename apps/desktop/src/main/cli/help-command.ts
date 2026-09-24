@@ -5,16 +5,16 @@ export interface HelpCliCommand {
 }
 
 const HELP_TEXT = `Usage:
-  Metoai.exe [options]
-  Metoai.exe action <subcommand> [options]
-  Metoai.exe pdf <subcommand> [options]
-  Metoai.exe ocr <subcommand> [options]
+  MetoAI.exe [options]
+  MetoAI.exe action <subcommand> [options]
+  MetoAI.exe pdf <subcommand> [options]
+  MetoAI.exe ocr <subcommand> [options]
 
 Options:
   -h, --help            Show this help text.
-  --html-to-pdf         Convert HTML to PDF. See: Metoai.exe pdf --help
-  --ocr-pdf             Run OCR on a PDF. See: Metoai.exe ocr --help
-  --ocr-img             Run OCR on an image. See: Metoai.exe ocr --help
+  --html-to-pdf         Convert HTML to PDF. See: MetoAI.exe pdf --help
+  --ocr-pdf             Run OCR on a PDF. See: MetoAI.exe ocr --help
+  --ocr-img             Run OCR on an image. See: MetoAI.exe ocr --help
   --agent-rpc           Start agent RPC sidecar mode.
 
 Commands:

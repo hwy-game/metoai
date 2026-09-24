@@ -5,7 +5,7 @@
  * 复制两份的话，哪天客户端换了凭据落盘位置，就会出现「能查分类但传不上去」这种半死状态。
  */
 
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 
@@ -28,8 +28,11 @@ export function apiUrl(baseUrl, path) {
 /**
  * 读取登录态。
  *
- * `~/.vetta/auth.json` 是客户端为外部进程下沉的凭据契约，登录、刷新、登出都会同步
- * 它。每次执行都重读，所以 token 轮换后脚本天然拿到新的。
+ * `~/.metoai/auth.json`（品牌改名前的 `~/.vetta/auth.json`）是客户端为外部进程下沉的
+ * 凭据契约，登录、刷新、登出都会同步它。每次执行都重读，所以 token 轮换后脚本天然拿到新的。
+ *
+ * `VETTA_HOME` 没被带进来时（外部进程、旧宿主）按主目录名自己判一次：新目录下没有
+ * `auth.json` 就回退旧目录，否则用户明明登录着也会被报「未登录」。
  */
 export function loadCredentials() {
 	const envToken = process.env.VETTA_API_TOKEN?.trim();
@@ -38,7 +41,7 @@ export function loadCredentials() {
 		return { baseUrl: normalizeBaseUrl(envBase), token: envToken };
 	}
 
-	const home = process.env.VETTA_HOME?.trim() || join(homedir(), ".vetta");
+	const home = process.env.VETTA_HOME?.trim() || resolveHomeDir();
 	let parsed;
 	try {
 		parsed = JSON.parse(readFileSync(join(home, "auth.json"), "utf8"));
@@ -52,4 +55,12 @@ export function loadCredentials() {
 	if (!token || !baseUrl) return null;
 
 	return { baseUrl: normalizeBaseUrl(baseUrl), token };
+}
+
+/** 品牌改名后的主目录，新目录里没有凭据时回退旧目录。 */
+function resolveHomeDir() {
+	const next = join(homedir(), ".metoai");
+	if (existsSync(join(next, "auth.json"))) return next;
+	const legacy = join(homedir(), ".vetta");
+	return existsSync(join(legacy, "auth.json")) ? legacy : next;
 }

@@ -68,7 +68,7 @@ export function resolveImGatewayBinary(): ResolvedBinary {
 	if (!existsSync(fullPath)) {
 		throw new Error(
 			`im-gateway sidecar binary not found at ${fullPath}. ` +
-				`Run 'make cross-build' in apps/im-gateway, or rebuild Metoai.app.`,
+				`Run 'make cross-build' in apps/im-gateway, or rebuild MetoAI.app.`,
 		);
 	}
 

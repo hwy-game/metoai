@@ -3,18 +3,18 @@ import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { app } from "electron";
 
-const APP_BUNDLE_NAME = "Metoai Computer Use.app";
-const EXECUTABLE_NAME = "Metoai Computer Use";
+const APP_BUNDLE_NAME = "MetoAI Computer Use.app";
+const EXECUTABLE_NAME = "MetoAI Computer Use";
 
 /**
- * Resolve the absolute path to the `Metoai Computer Use.app` bundle (macOS only).
+ * Resolve the absolute path to the `MetoAI Computer Use.app` bundle (macOS only).
  *
  * In packaged builds the bundle lives under
- *   <Resources>/appshot/Metoai Computer Use.app
+ *   <Resources>/appshot/MetoAI Computer Use.app
  * (staged by scripts/prepare-pack.js via extraResources).
  *
  * In dev mode (`!app.isPackaged`) we fall back to
- *   <apps/desktop>/resources/appshot/bin/Metoai Computer Use.app
+ *   <apps/desktop>/resources/appshot/bin/MetoAI Computer Use.app
  * which scripts/build-appshot-helper.js compiles as part of `bun run dev`.
  * We resolve relative to `process.cwd()`, which is `apps/desktop`
  * when running via `bun run dev` (same trick as im-host/binary-resolver.ts;
@@ -28,7 +28,7 @@ export function resolveHelperAppBundlePath(): string {
 
 /**
  * Resolve the absolute path to the helper's Mach-O executable inside
- * `Metoai Computer Use.app`.
+ * `MetoAI Computer Use.app`.
  *
  * Throws if the resolved path does not exist on disk so the caller can
  * surface a precise error instead of failing later in spawn.
@@ -39,7 +39,7 @@ export function resolveAppshotHelperBinary(): string {
 	if (!existsSync(fullPath)) {
 		throw new Error(
 			`appshot helper binary not found at ${fullPath}. ` +
-				`Run 'node scripts/build-appshot-helper.js' in apps/desktop, or rebuild Metoai.app.`,
+				`Run 'node scripts/build-appshot-helper.js' in apps/desktop, or rebuild MetoAI.app.`,
 		);
 	}
 

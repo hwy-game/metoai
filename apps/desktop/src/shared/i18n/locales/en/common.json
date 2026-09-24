@@ -1,5 +1,5 @@
 {
-	"appName": "Metoai",
+	"appName": "MetoAI",
 	"actions": {
 		"cancel": "Cancel",
 		"confirm": "Confirm",
@@ -21,7 +21,7 @@
 	},
 	"updateRestart": {
 		"title": "Update Ready",
-		"message": "Version {{latestVersion}} has been downloaded (current {{currentVersion}}). Restart Metoai now to apply the update, or choose \"Later\" to be reminded next launch.",
+		"message": "Version {{latestVersion}} has been downloaded (current {{currentVersion}}). Restart MetoAI now to apply the update, or choose \"Later\" to be reminded next launch.",
 		"later": "Later",
 		"install": "Restart Now"
 	},
@@ -442,8 +442,8 @@
 			"experimentalSectionTitle": "Experimental features",
 			"experimentalSectionDescription": "Same toggles as Settings → Agent. You can adjust them before confirming.",
 			"experimentalFields": {
-				"vettaCli": "Metoai CLI",
-				"vettaCliDesc": "Allow calling local capabilities from the terminal via Metoai CLI",
+				"vettaCli": "MetoAI CLI",
+				"vettaCliDesc": "Allow calling local capabilities from the terminal via MetoAI CLI",
 				"promptPrediction": "Input prediction",
 				"promptPredictionDesc": "Suggest possible follow-up text while typing; may use a little quota",
 				"agentSkills": "Agent skill extensions",
@@ -989,7 +989,7 @@
 			"title": "Grant permissions",
 			"subtitle": "Enable screenshots, automation, and system notifications. You can finish this later in Settings",
 			"systemSection": "System permissions",
-			"computerUseTitle": "Metoai Computer Use",
+			"computerUseTitle": "MetoAI Computer Use",
 			"computerUseDesc": "A separate helper captures the frontmost window and needs its own Accessibility and Screen Recording grants",
 			"optionalHint": "All permissions are optional. Adjust anytime in Settings → Permissions"
 		},
@@ -1001,7 +1001,7 @@
 			"theme": "Color theme"
 		},
 		"metoai": {
-			"title": "Sign in to MetoAi",
+			"title": "Sign in to MetoAI",
 			"subtitle": "Sign in to use every model on the built-in gateway; balance, subscription and API keys live here too",
 			"optionalHint": "Optional — tap Next to continue"
 		},
@@ -1014,7 +1014,7 @@
 			"signedInFallback": "User"
 		},
 		"welcome": {
-			"title": "Welcome to Metoai",
+			"title": "Welcome to MetoAI",
 			"subtitle": "Your desktop AI coding assistant is ready. Start with a conversation",
 			"highlights": {
 				"chat": {

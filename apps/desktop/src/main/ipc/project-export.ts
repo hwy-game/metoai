@@ -323,7 +323,7 @@ async function handleExport(projectDir: string): Promise<ExportProjectResult> {
 	const saveResult = await dialog.showSaveDialog({
 		title: "导出项目",
 		defaultPath: `${projectName}.vetta.zip`,
-		filters: [{ name: "Metoai Project Export", extensions: ["zip"] }],
+		filters: [{ name: "MetoAI Project Export", extensions: ["zip"] }],
 	});
 	if (saveResult.canceled || !saveResult.filePath) {
 		return { saved: false };
@@ -353,7 +353,7 @@ async function handleImport(): Promise<ImportProjectResult | null> {
 	const open = await dialog.showOpenDialog({
 		title: "导入项目",
 		properties: ["openFile"],
-		filters: [{ name: "Metoai Project Export", extensions: ["zip"] }],
+		filters: [{ name: "MetoAI Project Export", extensions: ["zip"] }],
 	});
 	if (open.canceled || open.filePaths.length === 0) return null;
 	const zipPath = open.filePaths[0];

@@ -1,4 +1,4 @@
-import { CONFIG_DIR_NAME } from "../../identity.js";
+import { CONFIG_DIR_NAME, LEGACY_CONFIG_DIR_NAME } from "../../identity.js";
 import type { ResourcePathPort } from "../contracts/resource-access.js";
 import type {
 	ResourcePackageDigestPort,
@@ -6,7 +6,7 @@ import type {
 	ResourceScope,
 } from "../contracts/resource-source.js";
 import type { GitSource } from "./git-source.js";
-import { type NpmResourceSource, parseResourceSource } from "./source-spec.js";
+import { type NpmResourceSource, type ParsedResourceSource, parseResourceSource } from "./source-spec.js";
 
 export interface ResourcePackageLocationsOptions {
 	readonly cwd: string;
@@ -71,6 +71,20 @@ export class ResourcePackageLocations {
 		if (scope === "temporary") return undefined;
 		if (scope === "project") return this.paths.join(this.cwd, CONFIG_DIR_NAME, "git");
 		return this.paths.join(this.agentDir, "git");
+	}
+	/**
+	 * 品牌改名前的项目级安装路径，只用于读取回退：`.metoai/…` 不存在时仍然能看到旧目录里
+	 * 已经装好的包。写入、安装与更新一律用当前目录，绝不改动项目里的 `.vetta/`。
+	 */
+	legacyProjectPath(source: ParsedResourceSource, scope: ResourceScope): string | undefined {
+		if (scope !== "project") return undefined;
+		if (source.type === "npm") {
+			return this.paths.join(this.cwd, LEGACY_CONFIG_DIR_NAME, "npm", "node_modules", source.name);
+		}
+		if (source.type === "git") {
+			return this.paths.join(this.cwd, LEGACY_CONFIG_DIR_NAME, "git", source.host, source.path);
+		}
+		return this.resolvePathFromBase(source.path, this.paths.join(this.cwd, LEGACY_CONFIG_DIR_NAME));
 	}
 
 	temporaryDir(prefix: string, suffix?: string): string {

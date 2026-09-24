@@ -283,7 +283,7 @@ describe("Desktop release workflow contracts", () => {
 		expect(workflow).toContain("ubuntu:24.04");
 		expect(workflow).toContain("fedora:latest");
 		expect(workflow).toContain("dnf install --assumeyes --nogpgcheck");
-		expect(workflow).toContain(`test -x "\${app_dir}/Metoai"`);
+		expect(workflow).toContain(`test -x "\${app_dir}/MetoAI"`);
 		expect(workflow).toContain(`test "$(cat "\${app_dir}/resources/package-type")" = "deb"`);
 		expect(workflow).toContain(`test "$(cat "\${app_dir}/resources/package-type")" = "rpm"`);
 		expect(workflow).toContain("apps/desktop/release/*.AppImage");
@@ -300,8 +300,8 @@ describe("Desktop release workflow contracts", () => {
 			// 脚本体由外层单引号包裹，内部再出现单引号会提前闭合它并让外层 shell 吃掉
 			// 反斜杠（`-printf '%h\n'` 实际变成 `-printf %hn`），探测会静默失败。
 			expect(script).not.toContain("'");
-			expect(script).toContain("find /opt -mindepth 2 -maxdepth 2 -type f -name Metoai -print -quit");
-			expect(script).toContain(`test -n "\${binary}" || { echo "no Metoai executable installed under /opt"`);
+			expect(script).toContain("find /opt -mindepth 2 -maxdepth 2 -type f -name MetoAI -print -quit");
+			expect(script).toContain(`test -n "\${binary}" || { echo "no MetoAI executable installed under /opt"`);
 			expect(script).toContain('|| { echo "no desktop entry installed"');
 		}
 	});

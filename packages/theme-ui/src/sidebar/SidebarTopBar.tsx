@@ -1,4 +1,4 @@
-import type { JSX, ReactNode } from "react";
+﻿import type { JSX, ReactNode } from "react";
 import { cn } from "@vetta-org/ui";
 import { isMac } from "../utils/platform";
 
@@ -58,7 +58,7 @@ export function SidebarTopBar({
 			) : (
 				<div className={cn("flex min-w-0 shrink items-center gap-2 overflow-hidden", classNames?.brand)}>
 					{brandIcon}
-					<span className="truncate text-[13px] font-semibold text-foreground">Metoai</span>
+					<span className="truncate text-[13px] font-semibold text-foreground">MetoAI</span>
 					{brandTrailing}
 				</div>
 			)}
