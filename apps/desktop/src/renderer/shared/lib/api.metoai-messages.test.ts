@@ -21,12 +21,12 @@ function respond(data: unknown): void {
 }
 
 describe("MetoToken 官方消息 API", () => {
-	it("走公开 API base，按 p / page_size 分页，且不带任何凭据", async () => {
+	it("走公开 API base，按 p / page_size / lang 分页，且不带任何凭据", async () => {
 		respond({ list: [], total: 0, page: 2, page_size: 5 });
 
-		await fetchMetoaiDesktopMessages({ p: 2, page_size: 5 });
+		await fetchMetoaiDesktopMessages({ p: 2, page_size: 5, lang: "zh" });
 
-		expect(fetchMock).toHaveBeenCalledWith(`${METOAI_API_BASE}/desktop/messages?p=2&page_size=5`);
+		expect(fetchMock).toHaveBeenCalledWith(`${METOAI_API_BASE}/desktop/messages?p=2&page_size=5&lang=zh`);
 		expect(fetchMock.mock.calls[0]?.[1]).toBeUndefined();
 	});
 
@@ -40,13 +40,29 @@ describe("MetoToken 官方消息 API", () => {
 
 	it("归一未知级别与非字符串字段，缺 list 时给出空数组", async () => {
 		respond({
-			list: [{ id: 12, title: "标题", body: "**Markdown** 正文", level: "URGENT", published_at: null }],
+			list: [
+				{
+					id: 12,
+					title: "标题",
+					body: "**Markdown** 正文",
+					translations: { zh: { title: "中文标题", body: "中文正文" } },
+					level: "URGENT",
+					published_at: null,
+				},
+			],
 		});
 
 		const page = await fetchMetoaiDesktopMessages();
 
 		expect(page.list).toEqual([
-			{ id: 12, title: "标题", body: "**Markdown** 正文", level: "normal", published_at: null },
+			{
+				id: 12,
+				title: "标题",
+				body: "**Markdown** 正文",
+				translations: { zh: { title: "中文标题", body: "中文正文" } },
+				level: "normal",
+				published_at: null,
+			},
 		]);
 		expect(page.page).toBe(1);
 		expect(page.page_size).toBe(20);

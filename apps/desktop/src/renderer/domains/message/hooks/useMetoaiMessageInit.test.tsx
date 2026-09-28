@@ -11,7 +11,7 @@
 import type { ReactNode } from "react";
 import type { MetoaiDesktopMessageVO } from "@shared/lib/api";
 import { MESSAGE_CENTER_STORAGE_KEY } from "@shared/lib/message-center-storage";
-import { messageCenterLocalStateAtom, messageCenterOpenAtom, metoaiMessagesAtom } from "@shared/store/atoms";
+import { languageAtom, messageCenterLocalStateAtom, messageCenterOpenAtom, metoaiMessagesAtom } from "@shared/store/atoms";
 import { renderHook, waitFor } from "@testing-library/react";
 import { createStore, Provider as JotaiProvider } from "jotai";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -102,6 +102,19 @@ describe("useMetoaiMessageInit", () => {
 		await waitFor(() => expect(store.get(metoaiMessagesAtom)).toHaveLength(1));
 		expect(fetchMessagesMock).toHaveBeenCalledTimes(1);
 		expect(store.get(messageCenterOpenAtom)).toBe(false);
+	});
+
+	it("界面语言变化后以新语言重新获取官方消息", async () => {
+		respond([urgentMessage({ level: "normal" })]);
+		respond([urgentMessage({ level: "normal", title: "中文公告" })]);
+		const store = createStore();
+
+		mount(store);
+		await waitFor(() => expect(fetchMessagesMock).toHaveBeenCalledTimes(1));
+		store.set(languageAtom, "zh");
+
+		await waitFor(() => expect(fetchMessagesMock).toHaveBeenCalledTimes(2));
+		expect(fetchMessagesMock.mock.calls[1]?.[0]).toMatchObject({ lang: "zh" });
 	});
 
 	it("拉取失败时静默降级：不抛错、不打开消息中心、列表保持空", async () => {

@@ -694,12 +694,17 @@ export async function clearReadNotifications(token: string): Promise<void> {
 /** 服务端只发这三种级别；未知值在边界归一为 normal。 */
 export type MetoaiDesktopMessageLevel = "normal" | "important" | "urgent";
 
+export interface MetoaiDesktopMessageTranslation {
+	title: string;
+	body: string;
+}
+
 export interface MetoaiDesktopMessageVO {
 	id: number;
 	title: string;
 	body: string;
+	translations?: Record<string, MetoaiDesktopMessageTranslation>;
 	level: MetoaiDesktopMessageLevel;
-	/** 未定发布时间时为 null：列表按发布时间倒序，null 排最后。 */
 	published_at: string | null;
 }
 
@@ -716,10 +721,13 @@ function normalizeMetoaiDesktopMessageLevel(level: unknown): MetoaiDesktopMessag
 
 function normalizeMetoaiDesktopMessage(raw: unknown): MetoaiDesktopMessageVO {
 	const source = (raw ?? {}) as Partial<MetoaiDesktopMessageVO>;
+	const translations =
+		source.translations && typeof source.translations === "object" ? source.translations : undefined;
 	return {
 		id: typeof source.id === "number" ? source.id : 0,
 		title: typeof source.title === "string" ? source.title : "",
 		body: typeof source.body === "string" ? source.body : "",
+		translations,
 		level: normalizeMetoaiDesktopMessageLevel(source.level),
 		published_at: typeof source.published_at === "string" ? source.published_at : null,
 	};
@@ -732,12 +740,12 @@ function normalizeMetoaiDesktopMessage(raw: unknown): MetoaiDesktopMessageVO {
 export async function fetchMetoaiDesktopMessages(params?: {
 	p?: number;
 	page_size?: number;
+	lang?: string;
 }): Promise<MetoaiDesktopMessagePage> {
 	const qs = new URLSearchParams();
 	qs.set("p", String(params?.p ?? 1));
 	qs.set("page_size", String(params?.page_size ?? 20));
-	// 公开路径是 /api/desktop/messages；/api/metoai/desktop/messages 是管理端路由组（带 RootAuth），
-	// 打到那里只会拿到 401。
+	if (params?.lang) qs.set("lang", params.lang);
 	const data = await marketRequest<Partial<MetoaiDesktopMessagePage> | null>(`/desktop/messages?${qs.toString()}`);
 	return {
 		list: (Array.isArray(data?.list) ? data.list : []).map(normalizeMetoaiDesktopMessage),
