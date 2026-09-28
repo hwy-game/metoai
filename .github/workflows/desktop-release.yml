@@ -559,30 +559,43 @@ jobs:
       # 容器脚本整体由外层单引号包裹，脚本内部只能再用双引号：内层单引号会提前闭合
       # 外层引号，外层 shell 随即吃掉反斜杠（-printf '%h\n' 会变成 -printf %hn），
       # 检查会在没有任何输出的情况下失败。
+      #
+      # 探测整体最多重试三次：安全镜像偶发「索引里还有、pool 里已被替换」的 404（例如
+      # libexpat1 的某个小版本），apt 会以 100 退出，让一次与产物无关的镜像抖动作废整轮
+      # 发布。真正的产物问题会让三次探测全部失败，结论不变。
       - name: Verify native Linux package installation
         if: matrix.platform == 'linux'
         working-directory: apps/desktop
         shell: bash
         run: |
-          docker run --rm --volume "${PWD}/release:/release:ro" ubuntu:24.04 bash -euo pipefail -c '
-            apt-get update
-            apt-get install --yes /release/*.deb
-            binary="$(find /opt -mindepth 2 -maxdepth 2 -type f -name MetoAI -print -quit)"
-            test -n "${binary}" || { echo "no MetoAI executable installed under /opt" >&2; ls -l /opt >&2; exit 1; }
-            app_dir="$(dirname "${binary}")"
-            test -x "${app_dir}/MetoAI"
-            test "$(cat "${app_dir}/resources/package-type")" = "deb"
-            find /usr/share/applications -maxdepth 1 -type f -iname "*metoai*.desktop" -print -quit | grep -q . || { echo "no desktop entry installed" >&2; ls -l /usr/share/applications >&2; exit 1; }
-          '
-          docker run --rm --volume "${PWD}/release:/release:ro" fedora:latest bash -euo pipefail -c '
-            dnf install --assumeyes --nogpgcheck /release/*.rpm
-            binary="$(find /opt -mindepth 2 -maxdepth 2 -type f -name MetoAI -print -quit)"
-            test -n "${binary}" || { echo "no MetoAI executable installed under /opt" >&2; ls -l /opt >&2; exit 1; }
-            app_dir="$(dirname "${binary}")"
-            test -x "${app_dir}/MetoAI"
-            test "$(cat "${app_dir}/resources/package-type")" = "rpm"
-            find /usr/share/applications -maxdepth 1 -type f -iname "*metoai*.desktop" -print -quit | grep -q . || { echo "no desktop entry installed" >&2; ls -l /usr/share/applications >&2; exit 1; }
-          '
+          probe_linux_packages() {
+            docker run --rm --volume "${PWD}/release:/release:ro" ubuntu:24.04 bash -euo pipefail -c '
+              apt-get update
+              apt-get install --yes /release/*.deb
+              binary="$(find /opt -mindepth 2 -maxdepth 2 -type f -name MetoAI -print -quit)"
+              test -n "${binary}" || { echo "no MetoAI executable installed under /opt" >&2; ls -l /opt >&2; exit 1; }
+              app_dir="$(dirname "${binary}")"
+              test -x "${app_dir}/MetoAI"
+              test "$(cat "${app_dir}/resources/package-type")" = "deb"
+              find /usr/share/applications -maxdepth 1 -type f -iname "*metoai*.desktop" -print -quit | grep -q . || { echo "no desktop entry installed" >&2; ls -l /usr/share/applications >&2; exit 1; }
+            '
+            docker run --rm --volume "${PWD}/release:/release:ro" fedora:latest bash -euo pipefail -c '
+              dnf install --assumeyes --nogpgcheck /release/*.rpm
+              binary="$(find /opt -mindepth 2 -maxdepth 2 -type f -name MetoAI -print -quit)"
+              test -n "${binary}" || { echo "no MetoAI executable installed under /opt" >&2; ls -l /opt >&2; exit 1; }
+              app_dir="$(dirname "${binary}")"
+              test -x "${app_dir}/MetoAI"
+              test "$(cat "${app_dir}/resources/package-type")" = "rpm"
+              find /usr/share/applications -maxdepth 1 -type f -iname "*metoai*.desktop" -print -quit | grep -q . || { echo "no desktop entry installed" >&2; ls -l /usr/share/applications >&2; exit 1; }
+            '
+          }
+          for attempt in 1 2 3; do
+            if probe_linux_packages; then exit 0; fi
+            echo "Linux package probe failed (attempt ${attempt}/3); a stale package mirror can cause this, retrying." >&2
+            sleep 20
+          done
+          echo "Linux package probe failed after 3 attempts." >&2
+          exit 1
 
       - name: Run packaged app and updater E2E
         working-directory: apps/desktop
