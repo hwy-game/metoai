@@ -20,7 +20,7 @@ tag `v0.5.61` 的 desktop-release 运行（run id 35839501131 与 35833627465）
 2. **ad-hoc 必须配 `hardenedRuntime: false`**。hardened runtime 默认启用 library validation，会拒绝 Team ID 不同的预签名 Electron framework，应用会启动即失败；`identity: "-"` 下 entitlements 不再生效，因此也不写 entitlements。
 3. **签名模式成为单一事实源**：`resolveMacSigningConfig()` 返回 `{ mode: "signed" | "adhoc" | "unsigned" }`（`signed` 另带 `notarize` / `teamId`），构建侧一律按 `mode` 分支。`VETTA_MAC_ADHOC_SIGN=0` 显式退回完全未签名；凭据只配一半仍然报错。
 4. **DMG 保留「修复已损坏.app」作兜底**：ad-hoc 消除了「已损坏」，但未公证的包仍可能被 Gatekeeper 拦下，摘掉 `com.apple.quarantine` 依然有效。只有 `signed` 模式回到两图标版式。
-5. **tag 构建不再因缺凭据硬失败**，改为把警告写进日志与 `GITHUB_STEP_SUMMARY`。收紧开关改为仓库 / Environment 变量 `MACOS_REQUIRE_SIGNATURE`（步骤内变量名仍叫 `REQUIRE_RELEASE_SIGNATURE`），维护者配好真证书后可以把它设成 `true` 重新收紧。
+5. **GitHub Actions 打包不再强制 macOS 签名或公证**：macOS job 清空 runner 上的签名变量，固定使用 ad-hoc 模式，并把 `VETTA_REQUIRE_MAC_SIGNATURE` 设为 `0`；工作流仍验证版本、hash、blockmap 和产物布局。需要正式 Developer ID 签名的场景改由独立的签名流程负责，不阻塞 GitHub 多平台打包。
 6. **mac 降级为尽力而为平台**：matrix 的两条 mac 条目带 `bestEffort: true`，job 上 `continue-on-error: ${{ matrix.bestEffort == true }}`，mac 失败显示为红色 job 但不再让整轮发布作废。
 7. **新增 `release-gate` job 做确定性放行**：它不看 job 成败，只看产物是否存在——windows 的 `release/latest.yml`、linux 的 `release/latest-linux.yml` 缺失就让 gate 失败（publish 随之被跳过，与改造前一致），任一 `latest-mac-*.yml` 存在才把 `macos` 计入 `built-platforms`。两个 publish job 改为 `needs: [prepare, quality, release-gate]`。
 8. **feed 校验按实际产出平台收口**：`verify-update-feed.mjs` 新增 `VETTA_UPDATE_FEED_PLATFORMS`，publish 从 `release-gate.outputs.built-platforms` 传入。这不是放宽校验——列出的平台仍逐个校验元数据版本与产物可达性，只是不再把「mac 缺席」当成失败。
@@ -37,6 +37,6 @@ tag `v0.5.61` 的 desktop-release 运行（run id 35839501131 与 35833627465）
 - 没有 Apple 凭据也能发出一轮包含 mac 产物的发布，Windows / Linux 不再被 mac 拖累。
 - mac 用户多一次放行操作（右键→打开或系统设置），这是 ad-hoc 签名的固有代价。
 - **mac 自动更新不可用**：ad-hoc 签名每次构建都不同，Squirrel.Mac 要求前后版本使用同一 Developer ID 身份才会接受更新，只能手动下载安装包。
-- ad-hoc 包无法公证，`spctl` 不会给出 `accepted`；`verify:updates:mac` 在未设 `VETTA_REQUIRE_MAC_SIGNATURE=1` 时会跳过签名校验，构建侧不再断言签名与公证。
+- GitHub Actions 的 macOS 包固定跳过签名/公证检测；`verify:updates:mac` 仍检查元数据、文件大小、SHA-512 和 blockmap。
 - feed 里的 mac 条目可以合法缺失：`merge-mac-update-metadata.mjs` 在没有 `latest-mac-*.yml` 时打印 info 并正常退出，`publish-update-artifacts-r2.mjs` 也不要求 mac 产物。
-- 配好真证书后应把 `MACOS_REQUIRE_SIGNATURE=true` 打开，并考虑把 `VETTA_MAC_ADHOC_SIGN` 的默认值翻转为 `0`，让 ad-hoc 变成显式选择。
+- Apple 凭据仍可用于独立的正式签名流程；GitHub 打包默认不读取这些凭据，也不会因缺少凭据失败。

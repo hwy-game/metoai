@@ -20,7 +20,6 @@ export const ABILITY_TYPE_ICON: Record<AbilityType, string> = {
 	bundle: "icon-[solar--box-minimalistic-linear]",
 };
 
-/** type → i18n key（abilities ns）。 */
 export const ABILITY_TYPE_LABEL_KEY = {
 	skill: "type.skill",
 	scene: "type.scene",
@@ -28,7 +27,6 @@ export const ABILITY_TYPE_LABEL_KEY = {
 	plugin: "type.plugin",
 	bundle: "type.bundle",
 } as const satisfies Record<AbilityType, string>;
-
 /** 图标取值四态里可以直接当 <img src> 用的那两种。 */
 export function isRenderableImageIcon(icon: string | undefined): boolean {
 	if (!icon) return false;

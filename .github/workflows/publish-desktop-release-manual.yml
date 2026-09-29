@@ -1,13 +1,11 @@
 # 手工发布辅助工作流。
 #
-# 背景：desktop-release 在「本次要发布」时会要求 macOS 构建必须带签名与公证凭据
-# （desktop-release.yml 里的 REQUIRE_RELEASE_SIGNATURE），因此没有 Apple 凭据的
-# fork 无法用它发布 Windows / Linux 产物。这个工作流只做发布动作本身：把一次已经
-# 构建成功的 desktop-release 运行里指定平台的产物，按 apps/desktop/package.json
-# 的版本号建或更新 GitHub Release。
+# 背景：desktop-release 已经统一跳过 macOS 签名检测并验证产物完整性。
+# 这个工作流只做发布动作本身：把一次已经构建成功的 desktop-release 运行里指定平台的产物，
+# 按 apps/desktop/package.json 的版本号建或更新 GitHub Release。
 #
-# 它不构建、不改动 desktop-release 的任何检查，也不替代那条链路；有签名凭据时仍应
-# 走 desktop-release。发布说明与版本号都取自当前 ref，因此必须用与产物相同的提交
+# 它不构建、不改动 desktop-release 的任何检查，也不替代那条链路；发布说明与版本号都取自当前 ref，
+# 因此必须用与产物相同的提交（通常是 main 上对应的提交）来触发。
 # （通常是 main 上对应的提交）来触发。
 name: publish-desktop-release-manual
 

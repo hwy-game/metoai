@@ -99,6 +99,7 @@ export function useAgentCenterModel(copy: AgentLibraryCopy) {
 		blueprints: resources.blueprints,
 		plugins: resources.plugins,
 		capabilities: resources.capabilities as readonly AgentCapabilityOption[],
+		cloudExperts: resources.cloudExperts,
 		agents: library.libraryAgents,
 		agentsById: roster.agentsById,
 		teams: roster.teams,

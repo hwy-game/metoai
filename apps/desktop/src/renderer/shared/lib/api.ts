@@ -293,9 +293,10 @@ export async function fetchUsageSeries(token: string, days: 7 | 30 | 90 | 365 = 
 	});
 }
 
-// ─── Market Abilities（ADR-0049：Skill / Scene / MCP / Plugin / Bundle 统一为 Ability） ───
+// ─── Market Abilities（ADR-0049：Skill / Scene / MCP / Plugin / Bundle / Expert 统一为 Ability） ───
 
 export type AbilityType = "skill" | "scene" | "mcp" | "plugin" | "bundle";
+export type MarketAbilityType = AbilityType | "expert";
 /** bundle 不允许嵌套，成员集合恒为一层。 */
 export type AbilityMemberType = Exclude<AbilityType, "bundle">;
 
@@ -458,6 +459,7 @@ export interface AbilityDetailLocale {
  * MarketAbility 顶层的 name/description 等由服务端从这里投影而来，读哪个都一致。
  */
 export interface AbilityDetail {
+	subcategory?: string;
 	name?: string;
 	description?: string;
 	license?: string;
@@ -478,7 +480,7 @@ export interface AbilityDetail {
 export interface MarketAbility {
 	/** 机器标识，与 type 联合唯一。 */
 	slug: string;
-	type: AbilityType;
+	type: MarketAbilityType;
 	name: string;
 	description: string;
 	license: string;

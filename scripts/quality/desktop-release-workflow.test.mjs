@@ -238,12 +238,13 @@ describe("Desktop release workflow contracts", () => {
 		expect(gateJob).toContain("Required release platforms produced no updater metadata");
 	});
 
-	// 缺凭据不再让 tag 构建整轮失败；维护者配好真证书后可以用仓库变量重新收紧。
-	it("lets maintainers re-tighten macOS signing through a repository variable", () => {
-		expect(workflow).toContain("REQUIRE_RELEASE_SIGNATURE: $" + "{{ vars.MACOS_REQUIRE_SIGNATURE }}");
-		expect(workflow).not.toContain("REQUIRE_RELEASE_SIGNATURE: $" + "{{ needs.prepare.outputs.should-publish");
-		expect(workflow).toContain("the macOS artifacts are ad-hoc signed");
-		expect(workflow).toContain("GITHUB_STEP_SUMMARY");
+	it("skips macOS signature checks in GitHub packaging", () => {
+		expect(workflow).toContain("Configure macOS packaging without signature checks");
+		expect(workflow).toContain('echo "VETTA_REQUIRE_MAC_SIGNATURE=0"');
+		expect(workflow).toContain('echo "VETTA_MAC_ADHOC_SIGN=1"');
+		expect(workflow).toContain('echo "CSC_LINK="');
+		expect(workflow).not.toContain("VETTA_REQUIRE_MAC_SIGNATURE=1");
+		expect(workflow).not.toContain("A stable macOS release requires Developer ID signing");
 	});
 
 	it("runs packaged boot and updater E2E on every release platform", () => {
@@ -368,7 +369,6 @@ describe("Desktop release workflow contracts", () => {
 		expect(workflow).toContain("environment: $" + "{{");
 		expect(workflow).toContain("'desktop-production' }}");
 		expect(workflow).toContain("OUTPUT_BUILD_VERSION");
-		expect(workflow).toContain("REQUIRE_RELEASE_SIGNATURE");
 		expect(workflow).toContain("needs.prepare.outputs.should-publish == 'true'");
 		expect(workflow).toContain('--target "' + "$" + '{GITHUB_SHA}"');
 	});
@@ -390,7 +390,7 @@ describe("Desktop release workflow contracts", () => {
 		expect(workflow).not.toContain("vetta-mac");
 	});
 
-	it("allows enough wall clock for signing and notarizing both macOS architectures", () => {
+	it("allows enough wall clock for two-architecture macOS packaging", () => {
 		const buildJob = workflow.slice(workflow.indexOf("\n  build:"), workflow.indexOf("\n  publish-r2:"));
 		const timeout = Number(buildJob.match(/timeout-minutes: (\d+)/)?.[1]);
 		expect(timeout).toBeGreaterThanOrEqual(120);
@@ -408,7 +408,7 @@ describe("Desktop release workflow contracts", () => {
 		expect(workflow).toContain("node scripts/release/release-notes.mjs --check");
 		expect(workflow).toContain('--notes-file "' + "$" + '{NOTES_FILE}"');
 		expect(workflow).not.toContain("--generate-notes");
-		// 正文缺失要在质量阶段就失败，而不是等平台矩阵签名公证跑完。
+		// 正文缺失要在质量阶段就失败，而不是等平台矩阵打包完成。
 		const qualityJob = workflow.slice(workflow.indexOf("\n  quality:"), workflow.indexOf("\n  build:"));
 		expect(qualityJob).toContain("node scripts/release/release-notes.mjs --check");
 	});

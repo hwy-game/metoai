@@ -23,6 +23,8 @@ DefaultGroupName=MetoAI
 ; 改名只做一半。旧安装目录、旧暂存根与旧快捷方式由 [Code] 的
 ; RemoveLegacyBrandDirectories() 在安装成功后清理。
 UsePreviousAppDir=no
+; Keep English as the initial choice on every Windows system; users can still choose another language.
+LanguageDetectionMethod=none
 OutputDir={#OutputDir}
 OutputBaseFilename=MetoAI-{#AppVersion}-win-{#Arch}
 SetupIconFile={#SourceDir}\versions\{#AppVersion}\resources\build\icon.ico
@@ -48,10 +50,9 @@ ArchitecturesInstallIn64BitMode=x64compatible
 #endif
 
 [Languages]
-; 顺序既是语言选择页的排列顺序，也是系统语言不在列表里时的兜底：Inno 按用户界面语言
-; 匹配 LanguageID，匹配不到才取第一项（实测：zh-CN 系统 + 只列西/法的语言表 → 落到 spanish）。
-; 所以 english 放第一，与应用内「未识别系统语言 → 英文」的默认一致；中文、日文等
-; 被系统语言直接命中的不受影响。
+; The first entry is the default when language detection is disabled below.
+; Keep english first so the installer opens in English on every system; the language page still
+; lets users choose Chinese, Japanese, or any other included language.
 ; 简体中文与印尼语、越南语用仓库自带的 .isl——Inno 官方语言包（compiler:Languages\*.isl）
 ; 只覆盖西/法/俄/日，没有这三种；其余语言直接引用官方语言包。
 Name: "english"; MessagesFile: "compiler:Default.isl"

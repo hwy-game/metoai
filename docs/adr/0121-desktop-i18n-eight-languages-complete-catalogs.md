@@ -21,7 +21,7 @@ ADR-0031 定的框架（i18next + 语义 key + main 持有语言 SoT + 静态打
 - **新增 `resources.test.ts` 作为机械门禁**：逐语言逐 ns 断言 key 集合与 en 相同、非空译（en 本就留空的 key 除外）、`{{placeholder}}` 多重集相同。漏 key 是这类改动唯一的系统性风险，靠人工核对 4620 × 6 条不可行。
 - **两个独立窗口的文案目录一并补全**：`renderer/quickpanel/i18n.ts`（内联 `quickpanel` ns）与 `renderer/onboarding/i18n.ts`（只装配 `settings` ns）各有自己的 i18next 实例，不走 `resources`。它们此前只装 `zh` / `en`，新语言会静默回退到中文——面板、引导窗与主窗口语言不一致，且不报任何错。两处改为按 `SUPPORTED_LANGUAGES` 全量装配（快捷面板补齐 6 种语言的内联词条），并各自加 `i18n.test.ts` 断言覆盖全部语言。
 - **进入对外动作的语言集合同步放宽**：`appearance.set-language` 此前只接受 `"zh" | "en"`，授权卡片还用 `language === "zh" ? 中文 : English` 二选一显示语言名，选到别的语言会显示成「English」。现在 `plugin-sdk` 的语言联合类型与预设的 JSON Schema enum 都放宽到 8 种，卡片改为从 `FIXED_LANGUAGE_OPTIONS` 取语言自称；随之删掉 `manageApproval.appearance.languageZh` / `languageEn` 两个死 key。`system` 只在设置页与首启向导里作为偏好存在，插件动作只接受固定语言。
-- **Windows 安装向导的语言集合同步到 8 种**：`apps/desktop/build/installer.iss` 的 `[Languages]` 从「简体中文 + English」扩到 8 项。这一层与应用内 i18n 没有代码关系（走的是 Inno Setup 自己的语言机制），但同样用户可见，不能只扩应用。西班牙语、法语、俄语、日语直接引用 Inno 官方语言包（`compiler:Languages\*.isl`，Inno Setup 6.7.3 自带 29 种）；简体中文、印尼语、越南语官方没有，用仓库自带的 `installer.zh-cn.isl` / `installer.id-id.isl` / `installer.vi-vn.isl`，三者定义同一组 79 条键（3 条 `[LangOptions]` + 73 条 `[Messages]` + 3 条 `[CustomMessages]`），未定义的条目由 Inno 回退到 `Default.isl` 的英文。**同时把 `english` 提到 `[Languages]` 第一项**：Inno 按用户界面语言匹配 `LanguageID`，匹配不到才取第一项（实测：zh-CN 系统 + 只列西/法的语言表会落到第一项）。此前第一项是简体中文，界面语言不属于这 8 种的用户会被中文向导迎接，与应用内「未识别语言 → 英文」的默认不一致。
+- **Windows 安装向导的语言集合同步到 8 种**：`apps/desktop/build/installer.iss` 的 `[Languages]` 从「简体中文 + English」扩到 8 项。这一层与应用内 i18n 没有代码关系（走的是 Inno Setup 自己的语言机制），但同样用户可见，不能只扩应用。西班牙语、法语、俄语、日语直接引用 Inno 官方语言包（`compiler:Languages\\*.isl`，Inno Setup 6.7.3 自带 29 种）；简体中文、印尼语、越南语官方没有，用仓库自带的 `installer.zh-cn.isl` / `installer.id-id.isl` / `installer.vi-vn.isl`，三者定义同一组 79 条键（3 条 `[LangOptions]` + 73 条 `[Messages]` + 3 条 `[CustomMessages]`），未定义的条目由 Inno 回退到 `Default.isl` 的英文。`english` 保持为 `[Languages]` 第一项，并设置 `LanguageDetectionMethod=none`，所以安装向导首次打开时固定使用英文，不再根据 Windows 界面语言自动切换；用户仍可在语言选择页切换到其他语言。
 
 ## 关键取舍
 
@@ -40,4 +40,4 @@ ADR-0031 定的框架（i18next + 语义 key + main 持有语言 SoT + 静态打
 - `appearance.set-language` 现在能切到全部 8 种语言，授权卡片显示语言自称而非「中文 / English」二选一；`manageApproval.appearance.languageZh` / `languageEn` 已从 8 个 `common.json` 中删除。
 - Windows 安装与卸载向导支持 8 种语言；安装时选择的语言会写进卸载信息，卸载程序沿用同一个语言。
 - 安装包语言文件与应用 catalog 是两套独立机制：应用加语言时，如果该语言不在 Inno 官方语言包里，还要在 `apps/desktop/build/` 另外补一份 `.isl`，否则安装向导会少一项——应用内一切正常，只有安装包缺语言。
-- 系统语言不在安装包语言列表里时（如德语、韩语、葡萄牙语）落到英文（第一项），不再落到简体中文。
+- Windows 安装向导首次打开固定使用英文，不根据 Windows 系统语言自动切换；用户仍可在语言选择页选择 8 种支持语言中的任意一种。

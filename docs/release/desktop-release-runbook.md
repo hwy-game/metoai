@@ -137,7 +137,7 @@ APPLE_API_ISSUER
 APPLE_TEAM_ID
 ```
 
-所有会发布的构建都要求 macOS 签名和公证。缺少凭据时应让 job 失败；只有不发布的手动构建允许未签名。
+GitHub Actions 的 macOS 打包固定使用 ad-hoc 模式，不读取或要求 Apple 签名/公证凭据，也不执行签名检测；仍会校验产物完整性。需要正式公证包时使用独立签名流程。
 
 ## 正式发布操作
 
@@ -145,7 +145,7 @@ APPLE_TEAM_ID
 
 1. 更新 `apps/desktop/package.json` 版本。
 2. 完成对应版本的发布说明 `.github/release-notes/v<version>.md`，它会作为 GitHub Release 的正文；缺失时 quality job 直接失败（`node scripts/release/release-notes.mjs --check`）。
-3. 确认 `desktop-production` 的 server、更新源、R2、签名和可选遥测配置完整。
+3. 确认 `desktop-production` 的 server、更新源、R2 和可选遥测配置完整。
 4. 合并目标 commit。
 5. 创建并推送完全匹配的 tag：
 
@@ -259,9 +259,9 @@ R2 的 `latest*.yml` 不能先于安装包公开。版本化安装包和旧版 b
 
 先检查 metadata 引用的每一个安装包和 blockmap 是否可公开读取，再检查 SHA-512、文件大小、缓存头和 URL path。不要只检查 `latest.yml` 的 HTTP 200。
 
-### macOS 发布 job 没有上传
+### macOS 发布 job 不检测签名
 
-发布型 job 缺少签名/公证凭据会主动失败，这是保护 stable/test feed 的门禁，不应通过关闭 `VETTA_REQUIRE_MAC_SIGNATURE` 绕过。
+GitHub Actions 的 macOS 打包固定使用 ad-hoc 模式，并将 `VETTA_REQUIRE_MAC_SIGNATURE` 设为 `0`；不会读取或要求 Apple 签名/公证凭据。仍会校验版本、文件大小、SHA-512、blockmap 和产物布局。需要正式公证包时，应使用独立的签名流程。
 
 ### 手动运行没有发布
 

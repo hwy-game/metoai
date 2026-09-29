@@ -254,7 +254,7 @@ https://releases.openvetta.com/desktop/stable
 electron-builder 会随各平台产物生成更新清单：
 
 - Windows x64：`latest.yml`、Inno Setup 安装包与 blockmap，以及供手动分发的 MSI、ZIP。应用自动更新只使用 Inno 静默安装到新版本目录，重启时由稳定启动器切换版本；MSI/ZIP 不进入 updater metadata。
-- macOS：`latest-mac.yml`、ZIP/DMG 与 blockmap。签名并公证后由 Squirrel.Mac 原位替换应用；客户端会等到原生 `update-downloaded` 事件后才显示“可重启”，不会把“ZIP 下载完成”误当成“更新已可安装”。
+- macOS：`latest-mac.yml`、ZIP/DMG 与 blockmap。正式 Developer ID 签名包由 Squirrel.Mac 原位替换应用；GitHub Actions 的 ad-hoc 包仅用于构建与完整性验证，不作为正式自动更新基线。客户端会等到原生 `update-downloaded` 事件后才显示“可重启”，不会把“ZIP 下载完成”误当成“更新已可安装”。
 - Linux x64：`latest-linux.yml`、AppImage、DEB、RPM 与 AppImage blockmap。客户端根据当前安装包写入的 `package-type` 选择同格式更新；arm64 暂未进入发布矩阵。
 
 ### 发布到 R2
@@ -265,7 +265,7 @@ electron-builder 会随各平台产物生成更新清单：
 bun run publish:updates:r2
 ```
 
-发布前会按当前目录中的平台清单执行门禁：Windows 在 Windows 上校验 Inno 版本，并分别解包 MSI/ZIP 检查启动器、`current.json` 与版本目录；macOS 校验 `latest-mac.yml`、ZIP、大小、SHA-512 和 blockmap；Linux 普通校验命令兼容只生成 AppImage 的开发/PR 构建，正式发布命令还要求清单同时引用 AppImage、DEB 和 RPM，并检查两个原生包的名称、版本、架构、可执行文件、desktop entry、图标与 `package-type`。在 macOS 正式签名构建中还应设置 `VETTA_REQUIRE_MAC_SIGNATURE=1`，此时会解压 ZIP 并执行 `codesign`、`spctl` 与 `stapler` 校验。也可以单独执行：
+发布前会按当前目录中的平台清单执行门禁：Windows 在 Windows 上校验 Inno 版本，并分别解包 MSI/ZIP 检查启动器、`current.json` 与版本目录；macOS 校验 `latest-mac.yml`、ZIP、大小、SHA-512、blockmap 和产物布局；GitHub Actions 的 macOS 包固定跳过签名、公证与 Gatekeeper 检测；Linux 普通校验命令兼容只生成 AppImage 的开发/PR 构建，正式发布命令还要求清单同时引用 AppImage、DEB 和 RPM，并检查两个原生包的名称、版本、架构、可执行文件、desktop entry、图标与 `package-type`。正式签名流程可显式设置 `VETTA_REQUIRE_MAC_SIGNATURE=1` 后额外校验签名与公证。也可以单独执行：
 
 ```bash
 bun run verify:updates:windows
@@ -302,6 +302,6 @@ bun run dist:opensource
 
 Windows 的 Inno Setup 安装包是自定义产物，应由仓库的 release workflow（或 `gh release upload`）连同 `latest.yml`、blockmap、MSI 和 ZIP 上传。各操作系统仍应在对应系统的 CI runner 上构建；它们可以共同上传到同一个 GitHub Release。
 
-工作流的 `workflow_dispatch` 默认只执行三平台构建、校验并保留临时 Artifact；选择 `channel=test` 会发布到隔离的 `desktop-test` R2，选择 `channel=stable` 会在 `desktop-production` Environment 审批后进入与匹配 tag 相同的 R2/GitHub 发布 Job。生产 tag 仍必须是 `v<package-version>`；其它 `v*` tag 经轻量 scope Job 判定后跳过打包。所有会发布的构建都要求 macOS 签名与公证。GitHub Release 已经公开后不允许 CI 用 `--clobber` 修改，只能恢复尚未公开的 draft。
+工作流的 `workflow_dispatch` 默认只执行三平台构建、校验并保留临时 Artifact；选择 `channel=test` 会发布到隔离的 `desktop-test` R2，选择 `channel=stable` 会在 `desktop-production` Environment 审批后进入与匹配 tag 相同的 R2/GitHub 发布 Job。生产 tag 仍必须是 `v<package-version>`；其它 `v*` tag 经轻量 scope Job 判定后跳过打包。GitHub Actions 的 macOS 包固定使用 ad-hoc 模式并跳过签名检测，Windows/Linux 与 macOS 的元数据、hash、blockmap 和布局校验仍然执行。GitHub Release 已经公开后不允许 CI 用 `--clobber` 修改，只能恢复尚未公开的 draft。
 
 打包时会从本包 `CHANGELOG.md` 提取与当前版本完全匹配的 `## [version]` 区段作为更新说明。正式发布必须先完成 Changelog 定版；找不到版本区段的本地 QA 构建只告警并省略更新说明。

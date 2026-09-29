@@ -206,7 +206,7 @@ jobs:
         run: go test ./...
 
       # 发布说明就是 GitHub Release 的正文。放在这里失败，而不是等四个平台
-      # 签名公证跑完两小时后才发现没有正文可发。
+      # 发布说明就是 GitHub Release 的正文。放在这里失败，而不是等平台打包完成后才发现没有正文。
       - name: Verify release notes exist
         run: node scripts/release/release-notes.mjs --check
 
@@ -239,8 +239,8 @@ jobs:
     # 缺失会被 release-gate 拦下）。只有两条 mac matrix 条目带 bestEffort。
     continue-on-error: ${{ matrix.bestEffort == true }}
     runs-on: ${{ matrix.runner }}
-    # macOS 发布构建要对内置 node/python 运行时和各个 sidecar 二进制逐个签名再上传
-    # 公证，比未签名构建多出 10~30 分钟，托管 runner 上还要叠加 packaged E2E。
+    # GitHub macOS packaging intentionally skips Apple signing/notarization; integrity checks and
+    # packaged E2E still run. Keep the generous timeout for two-architecture packaging.
     timeout-minutes: 120
     environment: ${{ needs.prepare.outputs.channel == 'test' && 'desktop-test' || 'desktop-production' }}
     strategy:
@@ -255,8 +255,7 @@ jobs:
           # arm64 与 x64 必须分两次构建：内置的 node/python 运行时按
           # VETTA_VENDOR_PLATFORM 单架构落盘，一次构建出不了两套。两次都会写同名的
           # latest-mac.yml，因此各自重命名后上传，由发布任务合并回单一元数据。
-          # 两个架构各自使用匹配的 GitHub-hosted runner：签名与公证凭据来自 CI Secret，
-          # notarytool 只需要网络，不依赖任何一台固定的签名机。
+          # 两个架构各自使用匹配的 GitHub-hosted runner；常规打包不读取 Apple 签名凭据。
           - platform: macos-arm64
             runner: macos-15
             command: dist:mac:arm64
@@ -302,96 +301,32 @@ jobs:
           sudo apt-get update
           sudo apt-get install --no-install-recommends -y build-essential libcap-dev meson ninja-build pkg-config xz-utils rpm
 
-      - name: Configure macOS signing and notarization
+      - name: Configure macOS packaging without signature checks
         if: matrix.macArch != ''
         shell: bash
-        env:
-          # 一律加 SECRET_ 前缀：runner 环境可能自带同名的 APPLE_* 变量（自持签名机
-          # 场景），未配置的 Secret 会展开成空串并把它们盖掉。
-          SECRET_MACOS_CERTIFICATE_P12_BASE64: ${{ secrets.MACOS_CERTIFICATE_P12_BASE64 }}
-          SECRET_MACOS_CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
-          SECRET_APPLE_API_KEY_P8_BASE64: ${{ secrets.APPLE_API_KEY_P8_BASE64 }}
-          SECRET_APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
-          SECRET_APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
-          SECRET_APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-          # 缺凭据时是否硬失败由仓库 / Environment 变量决定：默认不失败（走 ad-hoc 签名），
-          # 配好真证书后把 MACOS_REQUIRE_SIGNATURE 设为 true 即可重新收紧。
-          REQUIRE_RELEASE_SIGNATURE: ${{ vars.MACOS_REQUIRE_SIGNATURE }}
         run: |
-          # 托管 runner 上凭据全部来自下面的 CI Secret。这个分支只在 runner 自身环境
-          # 已经提供凭据时生效（自持签名机把它们放在 runner 目录的 .env 里）。
-          if [[ -n "${CSC_LINK:-}${CSC_NAME:-}" && -n "${APPLE_TEAM_ID:-}" ]]; then
-            HAS_API_KEY=0
-            HAS_APPLE_ID=0
-            [[ -n "${APPLE_API_KEY:-}" && -n "${APPLE_API_KEY_ID:-}" && -n "${APPLE_API_ISSUER:-}" ]] && HAS_API_KEY=1
-            [[ -n "${APPLE_ID:-}" && -n "${APPLE_APP_SPECIFIC_PASSWORD:-}" ]] && HAS_APPLE_ID=1
-            if [[ "${HAS_API_KEY}" -eq 0 && "${HAS_APPLE_ID}" -eq 0 ]]; then
-              echo "Runner-provided macOS signing configuration is missing notarization credentials." >&2
-              exit 1
-            fi
-            echo "VETTA_REQUIRE_MAC_SIGNATURE=1" >> "${GITHUB_ENV}"
-            echo "Using macOS signing credentials provided by the runner environment."
-            exit 0
-          fi
-
-          REQUIRED=(
-            SECRET_MACOS_CERTIFICATE_P12_BASE64
-            SECRET_MACOS_CERTIFICATE_PASSWORD
-            SECRET_APPLE_API_KEY_P8_BASE64
-            SECRET_APPLE_API_KEY_ID
-            SECRET_APPLE_API_ISSUER
-            SECRET_APPLE_TEAM_ID
-          )
-          PROVIDED=0
-          MISSING=()
-          for NAME in "${REQUIRED[@]}"; do
-            if [[ -n "${!NAME}" ]]; then
-              PROVIDED=$((PROVIDED + 1))
-            else
-              MISSING+=("${NAME}")
-            fi
-          done
-          if [[ "${PROVIDED}" -eq 0 ]]; then
-            # 缺凭据不再让整轮发布作废：mac 走 ad-hoc 签名，用户看到的是「未知开发者」而不是
-            # 「已损坏」，见 docs/adr/0122-macos-adhoc-signed-release-builds.md。只有显式要求
-            # 签名（仓库 / Environment 变量 MACOS_REQUIRE_SIGNATURE=true）时才硬失败。
-            if [[ "${REQUIRE_RELEASE_SIGNATURE}" == "true" ]]; then
-              echo "A published macOS build requires signing and notarization credentials." >&2
-              exit 1
-            fi
-            echo "::warning::No macOS signing credentials configured; the macOS artifacts are ad-hoc signed."
-            # 警告必须写进 Step Summary：没人会去翻一百多分钟的构建日志。
-            {
-              echo "### macOS 产物为 ad-hoc 签名"
-              echo ""
-              echo "本次运行没有配置 Apple 签名凭据，macOS 产物为 ad-hoc 签名：用户首次打开需要"
-              echo "右键→打开，或到「系统设置 → 隐私与安全性 → 仍要打开」放行；mac 自动更新不可用。"
-              echo ""
-              echo '要恢复「凭据缺失即失败」，把仓库或 Environment 变量 MACOS_REQUIRE_SIGNATURE 设为 true。'
-            } >> "${GITHUB_STEP_SUMMARY}"
-            exit 0
-          fi
-          if [[ "${#MISSING[@]}" -ne 0 ]]; then
-            echo "Incomplete macOS signing configuration: ${MISSING[*]}" >&2
-            exit 1
-          fi
-
-          CERTIFICATE_PATH="${RUNNER_TEMP}/vetta-developer-id.p12"
-          API_KEY_PATH="${RUNNER_TEMP}/AuthKey_${SECRET_APPLE_API_KEY_ID}.p8"
-          PAYLOAD="${SECRET_MACOS_CERTIFICATE_P12_BASE64}" OUTPUT_PATH="${CERTIFICATE_PATH}" \
-            node -e 'require("node:fs").writeFileSync(process.env.OUTPUT_PATH, Buffer.from(process.env.PAYLOAD, "base64"))'
-          PAYLOAD="${SECRET_APPLE_API_KEY_P8_BASE64}" OUTPUT_PATH="${API_KEY_PATH}" \
-            node -e 'require("node:fs").writeFileSync(process.env.OUTPUT_PATH, Buffer.from(process.env.PAYLOAD, "base64"))'
-          chmod 600 "${CERTIFICATE_PATH}" "${API_KEY_PATH}"
+          # GitHub packaging intentionally uses ad-hoc signing and skips Apple
+          # signing/notarization checks. Clear runner-provided credentials so
+          # mac-signing-config cannot silently switch back to signed mode.
           {
-            echo "CSC_LINK=${CERTIFICATE_PATH}"
-            echo "CSC_KEY_PASSWORD=${SECRET_MACOS_CERTIFICATE_PASSWORD}"
-            echo "APPLE_API_KEY=${API_KEY_PATH}"
-            echo "APPLE_API_KEY_ID=${SECRET_APPLE_API_KEY_ID}"
-            echo "APPLE_API_ISSUER=${SECRET_APPLE_API_ISSUER}"
-            echo "APPLE_TEAM_ID=${SECRET_APPLE_TEAM_ID}"
-            echo "VETTA_REQUIRE_MAC_SIGNATURE=1"
+            echo "VETTA_REQUIRE_MAC_SIGNATURE=0"
+            echo "VETTA_MAC_ADHOC_SIGN=1"
+            echo "VETTA_SKIP_NOTARIZE="
+            echo "CSC_LINK="
+            echo "CSC_NAME="
+            echo "CSC_KEY_PASSWORD="
+            echo "APPLE_TEAM_ID="
+            echo "APPLE_ID="
+            echo "APPLE_APP_SPECIFIC_PASSWORD="
+            echo "APPLE_API_KEY="
+            echo "APPLE_API_KEY_ID="
+            echo "APPLE_API_ISSUER="
           } >> "${GITHUB_ENV}"
+          {
+            echo "### macOS package signature checks skipped"
+            echo ""
+            echo "The GitHub package uses ad-hoc signing; Apple signing and notarization are not required or verified."
+          } >> "${GITHUB_STEP_SUMMARY}"
 
       # release/ 不在版本控制里，actions/checkout 清不掉。复用工作目录的 runner 上
       # 残留的旧版本 latest*.yml 会让合并与发布脚本读到多个版本直接失败。
@@ -452,7 +387,7 @@ jobs:
               linux: { executableName: config.linux?.executableName },
             }));
           '
-      # Archive before verification so an E2E/install failure never discards a signed build.
+      # Archive before verification so an E2E/install failure never discards the build.
       # tar preserves executable modes and macOS bundle symlinks across artifact transfer.
       - name: Archive build checkpoint
         shell: bash

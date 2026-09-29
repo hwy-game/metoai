@@ -189,11 +189,11 @@ The update source is build configuration and is independent of the operating sys
 - **Cloudflare R2 upload credentials**: `VETTA_R2_ACCOUNT_ID`, `VETTA_R2_ACCESS_KEY_ID`, `VETTA_R2_SECRET_ACCESS_KEY`
 - **macOS signing and notarization**: `CSC_LINK`, `CSC_KEY_PASSWORD`, `APPLE_ID`, `APPLE_TEAM_ID`, `APPLE_API_*`
   CI variants: `MACOS_CERTIFICATE_P12_BASE64`, `MACOS_CERTIFICATE_PASSWORD`, `APPLE_API_KEY_P8_BASE64`, `APPLE_API_KEY_ID`, `APPLE_API_ISSUER`
-  Set none of them and you get an unsigned package; to sign, all of them are required. See [apple-code-signing.md](../deploy/apple-code-signing.md)
+  The regular GitHub Actions desktop package does not read these variables; it produces ad-hoc packages and skips signature checks. A separate formal release flow needs the complete configuration. See [apple-code-signing.md](../deploy/apple-code-signing.md)
 - **Sentry source-map upload**: `VETTA_SENTRY_AUTH_TOKEN`
 - **Langfuse**: `LANGFUSE_SECRET_KEY`
 
-`VETTA_REQUIRE_MAC_SIGNATURE=1` is only used by the macOS CI artifact verification step; it is not client configuration.
+`VETTA_REQUIRE_MAC_SIGNATURE=0` is fixed for GitHub macOS packaging and only controls artifact verification; it is not client configuration.
 
 ---
 
