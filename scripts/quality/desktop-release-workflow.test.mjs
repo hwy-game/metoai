@@ -242,7 +242,10 @@ describe("Desktop release workflow contracts", () => {
 		expect(workflow).toContain("Configure macOS packaging without signature checks");
 		expect(workflow).toContain('echo "VETTA_REQUIRE_MAC_SIGNATURE=0"');
 		expect(workflow).toContain('echo "VETTA_MAC_ADHOC_SIGN=1"');
-		expect(workflow).toContain('echo "CSC_LINK="');
+		expect(workflow).toContain("unset VETTA_SKIP_NOTARIZE CSC_LINK CSC_NAME CSC_KEY_PASSWORD");
+		const buildJob = workflow.slice(workflow.indexOf("\n  build:"), workflow.indexOf("\n  publish-r2:"));
+		expect(buildJob).toContain("unset VETTA_SKIP_NOTARIZE CSC_LINK CSC_NAME CSC_KEY_PASSWORD");
+		expect(workflow).not.toContain('echo "CSC_LINK="');
 		expect(workflow).not.toContain("VETTA_REQUIRE_MAC_SIGNATURE=1");
 		expect(workflow).not.toContain("A stable macOS release requires Developer ID signing");
 	});

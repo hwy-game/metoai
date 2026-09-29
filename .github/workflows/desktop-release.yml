@@ -306,21 +306,13 @@ jobs:
         shell: bash
         run: |
           # GitHub packaging intentionally uses ad-hoc signing and skips Apple
-          # signing/notarization checks. Clear runner-provided credentials so
-          # mac-signing-config cannot silently switch back to signed mode.
+          # signing/notarization checks. Remove runner-provided signing variables
+          # from the current process; do not write empty CSC_LINK values to GITHUB_ENV,
+          # because electron-builder treats an empty value as a certificate path.
+          unset VETTA_SKIP_NOTARIZE CSC_LINK CSC_NAME CSC_KEY_PASSWORD APPLE_TEAM_ID APPLE_ID APPLE_APP_SPECIFIC_PASSWORD APPLE_API_KEY APPLE_API_KEY_ID APPLE_API_ISSUER
           {
             echo "VETTA_REQUIRE_MAC_SIGNATURE=0"
             echo "VETTA_MAC_ADHOC_SIGN=1"
-            echo "VETTA_SKIP_NOTARIZE="
-            echo "CSC_LINK="
-            echo "CSC_NAME="
-            echo "CSC_KEY_PASSWORD="
-            echo "APPLE_TEAM_ID="
-            echo "APPLE_ID="
-            echo "APPLE_APP_SPECIFIC_PASSWORD="
-            echo "APPLE_API_KEY="
-            echo "APPLE_API_KEY_ID="
-            echo "APPLE_API_ISSUER="
           } >> "${GITHUB_ENV}"
           {
             echo "### macOS package signature checks skipped"
@@ -365,7 +357,11 @@ jobs:
           # fork 不配任何值就得到开源版。空 optional 键不会写入 GITHUB_ENV。
           VETTA_UPDATE_GITHUB_OWNER: ${{ github.repository_owner }}
           VETTA_UPDATE_GITHUB_REPO: ${{ github.event.repository.name }}
-        run: bun run ${{ matrix.command }}
+        run: |
+          if [[ -n "${{ matrix.macArch }}" ]]; then
+            unset VETTA_SKIP_NOTARIZE CSC_LINK CSC_NAME CSC_KEY_PASSWORD APPLE_TEAM_ID APPLE_ID APPLE_APP_SPECIFIC_PASSWORD APPLE_API_KEY APPLE_API_KEY_ID APPLE_API_ISSUER
+          fi
+          bun run ${{ matrix.command }}
 
       # 验收 job 跑在全新 runner 上，读不到构建机临时目录里的 staged electron-builder 配置，
       # 但 deb/rpm 载荷路径必须按同一份配置推导。这里把推导需要的字段投影进 release/，
