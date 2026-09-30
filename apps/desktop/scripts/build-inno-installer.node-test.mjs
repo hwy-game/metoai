@@ -6,10 +6,10 @@ import test from "node:test";
 import { writeAppUpdateConfig, writeInnoVerificationManifest } from "./build-inno-installer.mjs";
 import { resolveUpdatePublishConfig } from "./resolve-update-publish-config.mjs";
 
-test("defaults the installer to English regardless of the Windows UI language", async () => {
+test("defaults the installer to English regardless of the Windows UI language or previous install", async () => {
 	const installer = await readFile(join(import.meta.dirname, "../build/installer.iss"), "utf8");
 	assert.match(installer, /^LanguageDetectionMethod=none$/m);
-
+	assert.match(installer, /^UsePreviousLanguage=no$/m);
 	const languagesSectionStart = installer.indexOf("[Languages]");
 	const tasksSectionStart = installer.indexOf("[Tasks]", languagesSectionStart);
 	assert.notEqual(languagesSectionStart, -1);

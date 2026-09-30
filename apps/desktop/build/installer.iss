@@ -23,6 +23,7 @@ DefaultGroupName=MetoAI
 ; 改名只做一半。旧安装目录、旧暂存根与旧快捷方式由 [Code] 的
 ; RemoveLegacyBrandDirectories() 在安装成功后清理。
 UsePreviousAppDir=no
+UsePreviousLanguage=no
 ; Keep English as the initial choice on every Windows system; users can still choose another language.
 LanguageDetectionMethod=none
 OutputDir={#OutputDir}
