@@ -37,6 +37,12 @@ describe("coding tool description routing", () => {
 		expect(READ_TOOL_DESCRIPTION).not.toContain("invoke_skill");
 	});
 
+	it("keeps OCR and PDF descriptions product-neutral", () => {
+		for (const description of [EXTRACT_TEXT_FROM_PDF_TOOL_DESCRIPTION, EXTRACT_TEXT_FROM_IMAGE_TOOL_DESCRIPTION]) {
+			expect(description).not.toMatch(/\b(?:Vetta|Meto\s*AI)\b/i);
+		}
+	});
+
 	it("routes image OCR behind direct visual reading", () => {
 		expect(EXTRACT_TEXT_FROM_IMAGE_TOOL_DESCRIPTION).toContain("machine-extracted text");
 		expect(EXTRACT_TEXT_FROM_IMAGE_TOOL_DESCRIPTION).toContain("use `read` first");

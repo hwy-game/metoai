@@ -1,8 +1,8 @@
-export const EXTRACT_TEXT_FROM_IMAGE_TOOL_DESCRIPTION = `Extract text from an image (PNG / JPG / WebP / BMP / GIF) using Vetta Desktop's local PP-OCRv5 runner.
+export const EXTRACT_TEXT_FROM_IMAGE_TOOL_DESCRIPTION = `Extract text from an image (PNG / JPG / WebP / BMP / GIF) using the desktop application's local PP-OCRv5 runner.
 
 Runs entirely locally — no network calls. Designed for screenshots, scanned single pages, photographed documents.
 
-This tool calls the Vetta Desktop executable in command-line OCR mode. Vetta Desktop must be installed, or VETTA_DESKTOP_EXE must point to the desktop executable.
+This tool calls the desktop application executable in command-line OCR mode. The desktop application must be installed, or a configured executable path must point to the executable.
 
 Input
   - input: path to an image file. Supported extensions: .png .jpg .jpeg .webp .bmp .gif

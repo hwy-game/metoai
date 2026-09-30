@@ -69,6 +69,20 @@ describe("Coding Agent invoke_skill Tool", () => {
 			details: { skillName: "pdf", skillLocation: "C:/skills/pdf/SKILL.md" },
 		});
 	});
+	it("resolves a neutral model-visible alias to the internal skill", async () => {
+		const skill = { ...createSkill(), name: "vetta-ui-design", alias: "application-ui-design" };
+		const runtime = createInvokeSkillToolRegistration({
+			getSkills: () => [skill],
+			readBody: () => "Follow the design workflow.",
+		}).tool;
+
+		const result = await executeRuntime(runtime, { name: "application-ui-design" });
+		expect(result.content[0]).toMatchObject({
+			type: "text",
+			text: expect.stringContaining('<skill name="vetta-ui-design" location="C:/skills/pdf/SKILL.md">'),
+		});
+		expect(result.details).toEqual({ skillName: "vetta-ui-design", skillLocation: "C:/skills/pdf/SKILL.md" });
+	});
 });
 
 async function executeRuntime<TInput extends object>(tool: RuntimeToolDefinition<TInput>, input: TInput) {

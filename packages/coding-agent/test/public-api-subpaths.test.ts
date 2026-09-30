@@ -108,6 +108,7 @@ describe("coding-agent public subpaths", () => {
 		expect(createCodingAgentTurnExecutor).toBeTypeOf("function");
 		expect(createCodingAgentSession).toBeTypeOf("function");
 		expect(VETTA_CLI_GUIDANCE).toContain("vetta action search");
+		expect(VETTA_CLI_GUIDANCE.replace(/`[^`]*`/g, "")).not.toMatch(/\bVetta\b|\bMeto\s*AI\b/i);
 	});
 
 	it("publishes the explicit package export targets", () => {
