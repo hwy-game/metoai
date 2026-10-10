@@ -153,7 +153,7 @@
     "pairing": {
       "create": "生成二维码",
       "cancel": "刷新",
-      "qrAlt": "Vetta 手机配对二维码",
+      "qrAlt": "MetoAI 手机配对二维码",
       "generating": "正在准备二维码…",
       "empty": "二维码不可用",
       "createFailed": "二维码生成失败，请重试。",

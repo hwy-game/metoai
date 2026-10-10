@@ -153,7 +153,7 @@
     "pairing": {
       "create": "Generate QR code",
       "cancel": "Refresh",
-      "qrAlt": "Vetta phone pairing QR code",
+      "qrAlt": "MetoAI phone pairing QR code",
       "generating": "Preparing QR code…",
       "empty": "QR code unavailable",
       "createFailed": "Could not generate a QR code. Try again.",
