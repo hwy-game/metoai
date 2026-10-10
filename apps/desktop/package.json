@@ -1,8 +1,8 @@
 {
 	"name": "@vetta/desktop",
 	"version": "0.5.68",
-	"description": "Vetta Desktop App",
-	"author": "Vetta",
+	"description": "MetoAI Desktop App",
+	"author": "MetoAI",
 	"type": "module",
 	"private": true,
 	"main": "dist/main/index.js",
