@@ -2,8 +2,7 @@
 // renderer/shared），所以这里用相对路径直接读词条文件。
 
 import { describe, expect, it } from "vitest";
-import enSettings from "../../../../shared/i18n/locales/en/settings.json";
-import zhSettings from "../../../../shared/i18n/locales/zh/settings.json";
+import { resources, SUPPORTED_LANGUAGES } from "../../../../shared/i18n/resources";
 import { IM_CHANNELS } from "./im-channel-catalog";
 import { getImChannelGuide, IM_CHANNEL_GUIDES } from "./im-channel-guides";
 
@@ -46,8 +45,8 @@ describe("IM_CHANNEL_GUIDES", () => {
 		}
 	});
 
-	it.each(["zh", "en"] as const)("%s 文案覆盖全部 key", (locale) => {
-		const bundle = (locale === "zh" ? zhSettings : enSettings) as unknown as Record<string, unknown>;
+	it.each([...SUPPORTED_LANGUAGES])("%s 文案覆盖全部 key", (locale) => {
+		const bundle = resources[locale].settings as unknown as Record<string, unknown>;
 		for (const transport of Object.keys(IM_CHANNEL_GUIDES) as (keyof typeof IM_CHANNEL_GUIDES)[]) {
 			for (const key of keysOf(transport)) {
 				const value = lookup(bundle, key);

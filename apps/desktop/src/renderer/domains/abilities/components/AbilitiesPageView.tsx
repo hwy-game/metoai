@@ -19,6 +19,7 @@ import { AbilitiesBanner } from "./AbilitiesBanner";
 import { AbilityCard } from "./AbilityCard";
 import { AbilityFilterPopover, countActiveAbilityFilters } from "./AbilityFilterPopover";
 import { AbilityMcpDialogs } from "./AbilityMcpDialogs";
+import { AbilityModuleTabs } from "./AbilityModuleTabs";
 import { AddAbilityMenu } from "./AddAbilityMenu";
 import { MarketplaceSourcesDialog } from "./MarketplaceSourcesDialog";
 
@@ -146,6 +147,8 @@ export function AbilitiesPageView({
 							</div>
 						</div>
 					</div>
+
+					<AbilityModuleTabs modules={model.moduleCounts} value={model.module} onChange={model.setModule} />
 
 					{model.errors.length > 0 && (
 						<div className="flex items-start gap-2 rounded-lg bg-muted/60 px-3 py-2 text-[12px] text-muted-foreground/70">

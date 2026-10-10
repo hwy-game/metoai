@@ -24,7 +24,7 @@ import { createCodingAgentAuthRuntime } from "../../auth/index.js";
 import { createCodingAgentMemoryRolloverRuntime } from "../../composition/memory-runtime.js";
 import { createCodingAgentHtmlExportRuntime } from "../../export-html/index.js";
 import { CODING_AGENT_ASK_USER_QUESTION_FUNCTION } from "../../features/ask-user-question/contracts.js";
-import { CONFIG_DIR_NAME, DEFAULT_SERVER_URL, ENV_SERVER_URL } from "../../identity.js";
+import { CONFIG_DIR_NAME, DEFAULT_SERVER_URL, ENV_SERVER_URL, LEGACY_CONFIG_DIR_NAME } from "../../identity.js";
 import { createCodingAgentMcpRuntimeToolSource } from "../../mcp/runtime/tool-source.js";
 import { detectWorkspaceFacts, probeWorkspaceSignals } from "../../model-context/workspace-facts.js";
 import { createCodingAgentModelRuntime } from "../../models/index.js";
@@ -174,7 +174,7 @@ async function createCodingAgentSdkSessionComposition(
 							description: template.description,
 							content: template.content,
 							source: "sdk",
-							filePath: template.filePath ?? join(cwd, ".vetta", "sdk-prompts", `${template.name}.md`),
+							filePath: template.filePath ?? join(cwd, CONFIG_DIR_NAME, "sdk-prompts", `${template.name}.md`),
 						})),
 					],
 				})
@@ -403,6 +403,7 @@ function createSdkMcpSupervisor(options: {
 		agentDir: options.agentDir,
 		clientVersion: VERSION,
 		projectConfigDirectoryName: CONFIG_DIR_NAME,
+		legacyProjectConfigDirectoryName: LEGACY_CONFIG_DIR_NAME,
 		debug: options.debug,
 		enabled: true,
 		configSource: options.dynamicOnly ? EMPTY_MCP_CONFIG_SOURCE : undefined,

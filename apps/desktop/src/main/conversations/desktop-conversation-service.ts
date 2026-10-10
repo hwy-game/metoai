@@ -323,9 +323,13 @@ export class DesktopConversationService {
 		}
 		const header = await readDesktopSessionHeader(absolutePath);
 		if (!header) {
-			throw new DesktopConversationError("INVALID_SESSION_PATH", "Session file has no valid Vetta session header.", {
-				sessionPath: absolutePath,
-			});
+			throw new DesktopConversationError(
+				"INVALID_SESSION_PATH",
+				"Session file has no valid MetoAI session header.",
+				{
+					sessionPath: absolutePath,
+				},
+			);
 		}
 		return this.createSession(
 			{

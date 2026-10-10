@@ -4,9 +4,10 @@ import {
 	type EventBus,
 	type LoadExtensionsResult,
 } from "../../extensions/index.js";
-import { CONFIG_DIR_NAME } from "../../identity.js";
+import { PROJECT_CONFIG_DIR_NAMES } from "../../identity.js";
 import type { Theme } from "../../theme/index.js";
 import type { ResourceDiagnostic } from "../contracts/diagnostics.js";
+import type { ResourcePathPort } from "../contracts/resource-access.js";
 import type {
 	ResourceExtensionPaths,
 	SessionResourceRuntime,
@@ -22,6 +23,10 @@ import { loadPromptResources } from "./prompt-resource-state.js";
 import { mergeResourcePaths, ResourceMetadataIndex, resolveResourcePath } from "./resource-state.js";
 import { computeSkillsFingerprint, loadSkillResources } from "./skill-resource-state.js";
 import { loadThemeResources } from "./theme-resources.js";
+
+function isPathInside(paths: ResourcePathPort, path: string, baseDir: string): boolean {
+	return path === baseDir || path.startsWith(`${baseDir}${paths.separator}`);
+}
 
 export function createSessionResourceRuntime(options: SessionResourceRuntimeOptions): SessionResourceRuntime {
 	return new DefaultSessionResourceRuntime(options);
@@ -303,7 +308,7 @@ class DefaultSessionResourceRuntime implements SessionResourceRuntime {
 			? resourcePaths
 			: this.merge(
 					[
-						pathPort.resolve(this.options.cwd, CONFIG_DIR_NAME, "skills"),
+						...PROJECT_CONFIG_DIR_NAMES.map((dirName) => pathPort.resolve(this.options.cwd, dirName, "skills")),
 						pathPort.join(this.options.agentDir, "skills"),
 					],
 					resourcePaths,
@@ -337,9 +342,12 @@ class DefaultSessionResourceRuntime implements SessionResourceRuntime {
 		const projectSettings = this.options.settings.getProjectSettings();
 		const globalSettings = this.options.settings.getGlobalSettings();
 		const pathPort = this.options.resourceAccess.paths;
-		const projectBaseDir = pathPort.resolve(this.options.cwd, CONFIG_DIR_NAME);
+		const projectBaseDirs = PROJECT_CONFIG_DIR_NAMES.map((dirName) => pathPort.resolve(this.options.cwd, dirName));
 		return skills.filter((skill) => {
 			if (skill.source === "project") {
+				// 技能可能来自新目录或改名前的旧目录，覆盖规则要按它实际所在的根目录求相对路径。
+				const projectBaseDir =
+					projectBaseDirs.find((baseDir) => isPathInside(pathPort, skill.filePath, baseDir)) ?? projectBaseDirs[0];
 				return isResourceEnabledByOverrides(pathPort, skill.filePath, projectSettings.skills ?? [], projectBaseDir);
 			}
 			if (skill.source === "user") {

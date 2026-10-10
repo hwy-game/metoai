@@ -1,0 +1,221 @@
+{
+  "page": {
+    "title": "Automatisation",
+    "subtitle": "Laissez l'IA exécuter des tâches planifiées et libérez-vous du temps",
+    "create": "Créer",
+    "searchPlaceholder": "Rechercher des automatisations"
+  },
+  "recommend": {
+    "title": "Recommandé",
+    "items": {
+      "morningBrief": {
+        "name": "Briefing matinal",
+        "desc": "Résumé matinal en semaine des modifications du dépôt, du travail non validé et des points à traiter",
+        "schedule": "En semaine à 09:00",
+        "prompt": "Agis comme mon assistant de briefing matinal dans l'espace de travail actuel :\n1. Inspecte git status et les commits récents si git est disponible\n2. Liste les modifications non validées, les branches non poussées ou les blocages probables\n3. Propose 3 points d'attention clairs pour aujourd'hui\nRéponds en français avec une structure concise. Ne modifie aucun fichier."
+      },
+      "dailySummary": {
+        "name": "Bilan quotidien",
+        "desc": "Revue du soir des changements du jour sous forme de court journal de travail",
+        "schedule": "Tous les jours à 18:00",
+        "prompt": "Génère le résumé du travail d'aujourd'hui pour cet espace de travail :\n1. Résume ce qui a été fait à partir de git log / des modifications de fichiers\n2. Signale les éléments inachevés ou à suivre\n3. Propose jusqu'à 3 prochaines étapes concrètes pour demain\nUtilise des puces concises. Ne modifie pas le code."
+      },
+      "weeklyReview": {
+        "name": "Revue hebdomadaire",
+        "desc": "Rapport hebdomadaire du vendredi après-midi à partir des commits de la semaine",
+        "schedule": "Le vendredi à 17:00",
+        "prompt": "Produis une revue hebdomadaire pour le dépôt actuel :\n1. Résume les commits majeurs et l'avancement des fonctionnalités cette semaine\n2. Relève les risques, la dette technique ou les problèmes récurrents\n3. Recommande les priorités de la semaine prochaine (jusqu'à 5 éléments)\nRédige-la prête à coller dans un rapport hebdomadaire. Ne modifie pas les fichiers du dépôt."
+      }
+    }
+  },
+  "dialog": {},
+  "form": {
+    "namePlaceholder": "Nom de la tâche",
+    "promptPlaceholder": "Saisissez une invite... tapez / pour invoquer des compétences/scènes",
+    "name": "Titre de la tâche",
+    "runTarget": "Exécuter dans",
+    "runMode": {
+      "new-session": "Nouvelle session à chaque fois",
+      "same-session": "Même session"
+    },
+    "project": "Projet",
+    "projectNone": "Aucun (conversation)",
+    "session": "Session",
+    "sessionHint": "Chaque exécution se poursuit dans cette session, son contexte s'enrichit donc progressivement",
+    "sessionNew": "Démarrer une nouvelle session",
+    "sessionMissing": "La session liée n'existe plus",
+    "model": "Modèle",
+    "modelFollowDefault": "Suivre le modèle par défaut",
+    "repeat": "Répéter",
+    "time": "Heure",
+    "atMinutePrefix": "À la minute",
+    "atMinuteSuffix": "de chaque heure",
+    "monthlyShortMonthHint": "Les mois sans la date choisie (par ex. le 30 février) sont ignorés ; choisissez « Dernier jour » pour exécuter en fin de mois",
+    "cronExpression": "Expression cron",
+    "cronHint": "minute heure jour mois jour de la semaine, en heure locale ; modifiez directement l'expression et elle reste synchronisée avec les sélecteurs",
+    "cronAny": "Indifférent",
+    "cronTextOnly": "Cette partie utilise une syntaxe que les sélecteurs ne peuvent pas afficher ; modifiez directement l'expression",
+    "cronField": {
+      "minute": "Min",
+      "hour": "Heure",
+      "day": "Jour",
+      "month": "Mois",
+      "weekday": "Jour de la semaine"
+    },
+    "notify": "Notification webhook",
+    "notifyEndpoints": "Notifier",
+    "notifyGoSettings": "Aucun webhook pour l'instant — ajoutez-en un dans les paramètres",
+    "notifyEndpointDisabled": "Ce webhook est désactivé et n'enverra rien",
+    "notifyWhen": "Envoyer quand",
+    "notifyWhenOption": {
+      "always": "Toujours",
+      "success": "Uniquement en cas de réussite",
+      "failure": "Uniquement en cas d'échec"
+    },
+    "notifyTemplate": "Message",
+    "notifyTemplateDefault": "{{name}} {{status}} ({{duration}})\n\n{{reply}}",
+    "variables": {
+      "name": "Tâche",
+      "status": "Statut",
+      "startedAt": "Début",
+      "duration": "Durée",
+      "reply": "Réponse",
+      "error": "Erreur"
+    },
+    "enabledLabel": "Activé",
+    "intervalPrefix": "Toutes les",
+    "intervalSuffix": "minutes",
+    "intervalHint": "Compté à partir de l'enregistrement ; modifier l'intervalle relance le décompte",
+    "sectionDetails": "Détails",
+    "sectionFrequency": "Fréquence",
+    "sectionNotify": "Notification",
+    "intervalLabel": "Intervalle",
+    "minuteLabel": "Minute",
+    "weekdays": "Jours de la semaine",
+    "monthDays": "Jours"
+  },
+  "scheduleMode": {
+    "once": "Une fois",
+    "daily": "Tous les jours",
+    "interval": "Intervalle",
+    "hourly": "Toutes les heures",
+    "weekly": "Chaque semaine",
+    "monthly": "Chaque mois",
+    "custom": "Personnalisé"
+  },
+  "schedule": {
+    "once": "Une fois le {{date}} à {{time}}",
+    "daily": "Tous les jours à {{time}}",
+    "weekly": "Chaque semaine le {{days}} à {{time}}",
+    "weekdayJoin": ", ",
+    "weekdayNames": [
+      "dim.",
+      "lun.",
+      "mar.",
+      "mer.",
+      "jeu.",
+      "ven.",
+      "sam."
+    ],
+    "hourly": "Toutes les heures à la minute :{{minute}}",
+    "monthly": "Chaque mois le {{days}} à {{time}}",
+    "monthDay": "jour {{day}}",
+    "lastDay": "Dernier jour",
+    "custom": "Personnalisé",
+    "intervalMinutes": "Toutes les {{minutes}} min",
+    "intervalHours": "Toutes les {{hours}} h"
+  },
+  "list": {
+    "running": "En cours",
+    "pending": "En attente",
+    "disabled": "Désactivé",
+    "runNow": "Exécuter maintenant",
+    "run": "Exécuter",
+    "sectionTitle": "Tâches automatisées",
+    "pause": "Suspendre",
+    "enable": "Activer",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "success": "Réussi",
+    "failed": "Échec",
+    "neverRun": "Jamais exécutée",
+    "justNow": "à l'instant",
+    "minutesAgo": "il y a {{n}} min",
+    "hoursAgo": "il y a {{n}} h",
+    "daysAgo": "il y a {{n}} j",
+    "suspended": "En pause",
+    "target": "{{mode}} · {{project}}",
+    "filter": {
+      "all": "Tout",
+      "enabled": "Actives",
+      "paused": "En pause",
+      "done": "Terminées"
+    },
+    "emptySearch": "Aucune automatisation correspondante",
+    "emptyFilter": "Rien ici pour l'instant",
+    "done": "Terminée",
+    "nextRun": "prochaine exécution {{when}}",
+    "inMinutes": "dans {{n}} min",
+    "inHours": "dans {{n}} h",
+    "inDays": "dans {{n}} jours"
+  },
+  "confirm": {
+    "deleteTitle": "Supprimer la tâche « {{name}} » ?",
+    "deleteMsg": "Cette action est irréversible. Veuillez confirmer pour continuer.",
+    "delete": "Supprimer",
+    "cancel": "Annuler"
+  },
+  "drawer": {},
+  "history": {
+    "title": "Historique d'exécution",
+    "refresh": "Actualiser",
+    "empty": "Aucun enregistrement d'exécution",
+    "status": {
+      "success": "Réussi",
+      "failed": "Échec",
+      "running": "En cours",
+      "aborted": "Interrompu",
+      "skipped": "Ignoré",
+      "missed": "Manqué"
+    },
+    "reason": {
+      "previous-running": "L'exécution précédente était encore en cours",
+      "app-not-running": "L'application n'était pas lancée",
+      "system-sleep": "L'ordinateur était en veille"
+    },
+    "missedMany": "Manqué {{times}} fois, jusqu'à {{until}} · {{reason}}",
+    "notifyFailed": "Échec de la notification : {{error}}"
+  },
+  "suspended": {
+    "session-deleted": "La session liée a été supprimée. Choisissez à nouveau une session, puis activez-la.",
+    "project-removed": "Le projet cible a été retiré de la barre latérale. Choisissez à nouveau un projet, puis activez-le."
+  },
+  "notify": {
+    "status": {
+      "success": "réussie",
+      "failed": "échouée",
+      "aborted": "interrompue"
+    },
+    "noEndpoint": "Tous les webhooks sélectionnés sont désactivés ou supprimés"
+  },
+  "detail": {
+    "status": {
+      "active": "Activée",
+      "running": "En cours",
+      "paused": "En pause",
+      "suspended": "En pause · cible indisponible",
+      "done": "Terminée",
+      "draft": "Nouvelle automatisation"
+    },
+    "close": "Fermer",
+    "runNow": "Exécuter maintenant",
+    "pause": "Suspendre",
+    "enable": "Activer",
+    "more": "Plus",
+    "delete": "Supprimer",
+    "openChat": "Ouvrir la conversation",
+    "discard": "Abandonner",
+    "save": "Enregistrer",
+    "create": "Créer"
+  }
+}

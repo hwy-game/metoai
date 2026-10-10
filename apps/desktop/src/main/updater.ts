@@ -3,10 +3,11 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { getVettaHomePath } from "@vetta/action-rpc";
+import { DEFAULT_CONFIG_DIR_NAME, getVettaHomePath } from "@vetta/action-rpc";
 import { app, autoUpdater as nativeAutoUpdater, powerMonitor } from "electron";
 import electronUpdater from "electron-updater";
 
+import { createForegroundGate } from "./app-foreground.js";
 import { mainT } from "./i18n/index.js";
 import {
 	InnoWindowsUpdateController,
@@ -15,6 +16,9 @@ import {
 } from "./inno-windows-update.js";
 import { handOffToInstaller, MACOS_SHIPIT_JOB_LABEL } from "./mac-installer-handoff.js";
 import { runQuitCleanup } from "./quit-cleanup.js";
+import { downloadUpdatePackage } from "./update-download.js";
+import { fetchUpdatePolicy, resolveUpdatePlatform } from "./update-policy.js";
+import { readE2eUpdatePolicy } from "./update-policy-e2e.js";
 import { markPendingUpdateRelaunch } from "./update-relaunch-marker.js";
 import { ElectronUpdaterEngine } from "./updater-engine.js";
 import { type UpdaterPhase, UpdaterService, type UpdaterState } from "./updater-service.js";
@@ -27,6 +31,24 @@ export function getAppVersion(): string {
 	return app.isPackaged
 		? app.getVersion()
 		: (JSON.parse(readFileSync(join(__dirname, "../../package.json"), "utf-8")).version as string);
+}
+
+/**
+ * 服务端登记的安装包落点：userData 下的固定子目录。安装准备完成后由
+ * `UpdaterService` 删除，失败路径刻意保留，便于排查「装不上」的原因。
+ */
+function resolveUpdateDownloadDir(): string {
+	return join(app.getPath("userData"), "update-downloads");
+}
+
+/**
+ * 服务端既没登记 `download_url`、feed 也交付不了时，覆盖层「前往下载页」的落地地址。
+ * 用构建期注入的产品官网（`VETTA_SITE_URL`，见 vite.main.config.ts 的 VETTA_* 内联），
+ * 这样「后台登记了新版本」时用户总有一条出路，而不是什么都不显示。
+ */
+function resolveFallbackDownloadUrl(): string | undefined {
+	const site = process.env.VETTA_SITE_URL?.trim();
+	return site && site.length > 0 ? site : undefined;
 }
 
 // electron-updater 是 CommonJS 包；主进程产物为 ESM 且将它 externalize，
@@ -120,14 +142,49 @@ const updaterEngine = new ElectronUpdaterEngine(autoUpdater, innoWindowsUpdate, 
 });
 // powerMonitor 只能在 app ready 之后订阅，因此这里只传订阅函数，
 // 由 UpdaterService.onAppReady() 在合适的时机调用。
+//
+// 「应用回到前台」用 Electron 的 browser-window-focus/blur 近似：这两个是 app 级事件，
+// 任何窗口获得或失去焦点都会触发，所以先过一个离开时长闸门再通知监听者。
+const FOREGROUND_MIN_AWAY_MS = 30_000;
+const foregroundGate = createForegroundGate({ minAwayMs: FOREGROUND_MIN_AWAY_MS });
+const foregroundListeners = new Set<() => void>();
+app.on("browser-window-blur", () => foregroundGate.noteBlur());
+app.on("browser-window-focus", () => {
+	if (!foregroundGate.shouldFireOnFocus()) return;
+	for (const listener of foregroundListeners) listener();
+});
+
 const systemEvents = {
 	onResume: (listener: () => void) => {
 		powerMonitor.on("resume", listener);
 		return () => powerMonitor.off("resume", listener);
 	},
+	onForeground: (listener: () => void) => {
+		foregroundListeners.add(listener);
+		return () => {
+			foregroundListeners.delete(listener);
+		};
+	},
 };
 export const updaterService = new UpdaterService(updaterEngine, currentVersion, app.isPackaged, mainT, {
 	systemEvents,
+	fallbackDownloadUrl: resolveFallbackDownloadUrl(),
+	policyProvider: () => {
+		// 开发态不打网络：直接当作「没有可交付的更新」，行为与改造前一致。
+		if (!app.isPackaged) return Promise.resolve(null);
+		// 打包 E2E 访问不到控制台，用环境变量提供策略替身；生产构建里这段读不到。
+		const e2ePolicy = readE2eUpdatePolicy(process.env, currentVersion);
+		if (e2ePolicy) return Promise.resolve(e2ePolicy);
+		return fetchUpdatePolicy({
+			version: currentVersion,
+			platform: resolveUpdatePlatform(process.platform),
+			arch: process.arch,
+		});
+	},
+	// 服务端登记了 download_url 时优先自己下载并校验；引擎接不了（macOS、MSI 安装）
+	// 或没登记时，UpdaterService 会回落 electron-updater 的 feed。
+	downloadPackage: (source, options) =>
+		downloadUpdatePackage(source, { ...options, destinationDir: resolveUpdateDownloadDir() }),
 });
 
 interface UpgradeE2eState {
@@ -145,8 +202,9 @@ function upgradeE2eStatePaths(): string[] {
 		process.env.VETTA_E2E_UPGRADE_STATE?.trim(),
 		join(getVettaHomePath(), "desktop-upgrade-e2e.json"),
 		// ShipIt can relaunch without the test environment. Keep one fallback marker
-		// under the runner user's normal Vetta home so the second process can find it.
-		join(homedir(), ".vetta", "desktop-upgrade-e2e.json"),
+		// under the runner user's default home (same directory name as getVettaHomePath)
+		// so the second process can find it even when VETTA_CONFIG_DIR isolates the run.
+		join(homedir(), DEFAULT_CONFIG_DIR_NAME, "desktop-upgrade-e2e.json"),
 	].filter((path, index, paths): path is string => Boolean(path) && paths.indexOf(path) === index);
 }
 

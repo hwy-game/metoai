@@ -1,0 +1,139 @@
+{
+  "page": {
+    "title": "バッチタスク",
+    "subtitle": "一度設定すれば、AI が複数のフォルダを自動で処理します",
+    "newProject": "新規プロジェクト"
+  },
+  "stats": {
+    "total": "合計",
+    "running": "実行中",
+    "completed": "完了",
+    "failed": "失敗"
+  },
+  "empty": {
+    "title": "バッチタスクはまだありません",
+    "desc": "バッチタスクを作成すると、AI が複数のフォルダを自動で処理します",
+    "action": "最初のプロジェクトを作成"
+  },
+  "time": {
+    "justNow": "たった今",
+    "minutes": "{{n}} 分",
+    "hours": "{{n}} 時間",
+    "days": "{{n}} 日",
+    "weeks": "{{n}} 週"
+  },
+  "group": {
+    "badge": "バッチ"
+  },
+  "dialog": {
+    "editTitle": "プロジェクトを編集",
+    "newTitle": "新しいバッチプロジェクト",
+    "namePlaceholderEdit": "プロジェクト名",
+    "namePlaceholderNew": "新しいバッチプロジェクト",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "create": "作成"
+  },
+  "form": {
+    "namePlaceholder": "プロジェクト名",
+    "promptPlaceholder": "プロンプトを入力... / でスキル/シーンを呼び出せます",
+    "model": "モデル",
+    "modelEmpty": "利用可能なモデルがありません",
+    "modelSelect": "モデルを選択",
+    "defaultTag": "既定",
+    "concurrency": "同時実行数",
+    "timeout": "タイムアウト（分）",
+    "timeoutHint": "サブタスク1回の実行に対する強制タイムアウト。一時停止後に再開するとタイマーが再スタートします。",
+    "sandbox": "サンドボックスの状態",
+    "sandboxInherit": "グローバル既定に従う（{{mode}}）",
+    "fullAccess": "フルアクセス",
+    "useSandbox": "サンドボックスを使用",
+    "sandboxUnavailable": "{{platform}} サンドボックスは利用できません：{{reason}}",
+    "notifyTitle": "通知を有効化",
+    "notifyDesc": "各サブタスクの完了後に設定済みの Webhook へ1回プッシュし、プロジェクト全体の完了時にサマリーをプッシュします（Webhook は設定 → 通知で管理）。",
+    "artifact": "成果物チェック",
+    "optional": "任意",
+    "artifactPlaceholder": "1行に1つのファイル名またはワイルドカード。空欄にするとチェックをスキップします",
+    "artifactHint": "すべてのパターンがサブタスクディレクトリの最上位で一致した場合に成功とみなされます。Glob 対応：* は任意の文字、? は1文字に一致します。",
+    "folderLabel": "フォルダ一覧",
+    "folderEmpty": "フォルダなし",
+    "folderModePicker": "選択",
+    "folderModeText": "テキスト",
+    "selectFolder": "フォルダを選択",
+    "folderTextHint": "Linux で複数フォルダの選択が不安定な場合は、パスを1行に1つずつ直接貼り付けてください。"
+  },
+  "status": {
+    "waiting": "待機中",
+    "notRun": "未実行",
+    "running": "実行中",
+    "completed": "完了",
+    "failed": "失敗",
+    "paused": "一時停止"
+  },
+  "list": {
+    "matchCount": "{{filtered}}/{{total}} 件一致",
+    "taskCount": "{{n}} 件のタスク",
+    "completedOf": "{{completed}}/{{total}} 完了",
+    "runningSuffix": " · {{n}} 実行中",
+    "pausedSuffix": " · {{n}} 一時停止",
+    "failedReset": "{{n}} 件失敗 · リセット",
+    "resetFailedHint": "クリックして失敗した {{n}} 件のタスクをリセット",
+    "searchPlaceholder": "タスク名を検索…",
+    "clear": "クリア",
+    "noMatch": "「{{query}}」に一致するタスクはありません",
+    "noTasks": "タスクがありません",
+    "expandMore": "さらに表示 ({{n}})",
+    "collapse": "折りたたむ"
+  },
+  "actions": {
+    "stop": "停止",
+    "start": "開始",
+    "reset": "リセット",
+    "editProject": "プロジェクトを編集",
+    "deleteProject": "プロジェクトを削除",
+    "goToSession": "セッションへ移動",
+    "cancelWait": "待機をキャンセル",
+    "run": "実行",
+    "resume": "再開",
+    "retry": "再試行",
+    "rerun": "再実行",
+    "delete": "削除",
+    "allDoneOrFailed": "すべてのタスクが完了または失敗しました。「{{n}} 件失敗 · リセット」バッジをクリックしてリセットし再試行してください",
+    "allDone": "すべてのタスクが完了しました"
+  },
+  "confirm": {
+    "cannotDeleteTitle": "プロジェクトを削除できません",
+    "cannotDeleteMsg": "先に停止してください。",
+    "ok": "OK",
+    "cancel": "キャンセル",
+    "delete": "削除",
+    "deleteProjectTitle": "プロジェクト「{{name}}」を削除しますか？",
+    "deleteProjectMsg": "この操作は元に戻せません。続行するには確認してください。",
+    "startTitle": "実行を開始しますか？",
+    "startMsg": "{{parts}} 件のタスクを同時実行数に従って順に実行します（他の状態には影響しません）。続行しますか？",
+    "start": "開始",
+    "partNeverExecuted": "{{n}} 件「未実行」",
+    "partPaused": "{{n}} 件「一時停止」",
+    "partJoin": " と ",
+    "stopTitle": "停止しますか？",
+    "stopMsg": "実行中のすべてのタスク（{{running}}）を中止し、「完了」以外のすべてのタスク（{{target}}）のセッション、成果物、状態をクリアして「未実行」に戻します。\n\n保持: 完了したタスクのセッション、成果物、状態。\n完了したタスクは保持されます。この操作は元に戻せません。",
+    "stop": "停止",
+    "resetFailedTitle": "失敗したタスクをリセットしますか？",
+    "resetFailedQueueActive": "失敗した {{n}} 件のタスクのセッション、成果物、状態をクリアし、キューに追加して続行します。この操作は元に戻せません。続行しますか？",
+    "resetFailedIdle": "失敗した {{n}} 件のタスクのセッション、成果物、状態をクリアし、「未実行」に戻します。その後「開始」をクリックして続行できます。この操作は元に戻せません。続行しますか？",
+    "reset": "リセット",
+    "resetTitle": "リセットしますか？",
+    "resetMsg": "すべてのタスク（完了を含む）のセッションとファイルを削除し、{{n}} 件のタスクをすべて再実行します。この操作は元に戻せません。続行しますか？",
+    "rerunTitle": "タスク「{{name}}」を再実行しますか？",
+    "retryTitle": "タスク「{{name}}」を再試行しますか？",
+    "rerunMsg": "このタスクの既存のセッションと成果物を削除して再実行します。この操作は元に戻せません。続行しますか？",
+    "retryMsg": "このタスクのセッションとファイルを削除して再実行します。この操作は元に戻せません。続行しますか？",
+    "rerun": "再実行",
+    "retry": "再試行",
+    "deleteTaskTitle": "タスクを削除しますか？",
+    "deleteTaskMsg": "この操作は元に戻せません。続行するには確認してください。"
+  },
+  "error": {
+    "stopFirst": "先に停止してください"
+  }
+}

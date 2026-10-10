@@ -1,7 +1,7 @@
 // 主进程 i18next 实例：用于原生菜单（tray / pet 右键）与系统通知文案。
 // 与 renderer 共享同一套 catalog（src/shared/i18n），但这里不接 react，defaultNS=main。
 // 语言偏好真相源是 ~/.vetta/desktop-config.json 的 language 字段（见 ADR-0031），
-// 取值 system | zh | en；initAppLanguage() 在 app.whenReady 内、建任何菜单之前同步调用。
+// 取值 system + SUPPORTED_LANGUAGES；initAppLanguage() 在 app.whenReady 内、建任何菜单之前同步调用。
 
 import { app } from "electron";
 import i18next from "i18next";
@@ -9,7 +9,7 @@ import {
 	type AppLanguage,
 	DEFAULT_LANGUAGE,
 	DEFAULT_LANGUAGE_PREFERENCE,
-	FALLBACK_LANGUAGE,
+	FALLBACK_LANGUAGES,
 	isLanguagePreference,
 	type LanguagePreference,
 	type LanguageState,
@@ -46,7 +46,7 @@ function readStoredPreference(): LanguagePreference {
 /**
  * 同步初始化主进程语言：
  * - desktop-config.language = system | 缺省 → 跟随系统 locale
- * - zh / en → 固定语言
+ * - 固定语言码（zh / en / es / fr / id / vi / ru / ja）→ 直接用该语言
  */
 export function initAppLanguage(): void {
 	currentPreference = readStoredPreference();
@@ -57,7 +57,7 @@ export function initAppLanguage(): void {
 	void mainI18n.init({
 		resources,
 		lng: currentLanguage,
-		fallbackLng: FALLBACK_LANGUAGE,
+		fallbackLng: [...FALLBACK_LANGUAGES],
 		ns: NAMESPACES,
 		defaultNS: "main",
 		initAsync: false,

@@ -195,6 +195,7 @@ export type {
 	PluginOfficialShortcutBinding,
 	PluginOfficialQuickPanelSettings,
 	PluginOfficialImStatus,
+	PluginOfficialAppLanguage,
 	PluginOfficialImLog,
 	PluginOfficialMcpServerSummary,
 	PluginOfficialMcpServerDetail,

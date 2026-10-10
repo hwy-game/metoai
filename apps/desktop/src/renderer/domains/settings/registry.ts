@@ -6,6 +6,7 @@ export type SettingsTabLabelKey =
 	| "tabAppearance"
 	| "tabContext"
 	| "tabModels"
+	| "tabMetoAi"
 	| "tabIm"
 	| "tabWebhook"
 	| "tabArchive"
@@ -51,6 +52,8 @@ export const SETTINGS_TABS: readonly SettingsTabRegistration[] = [
 	{ key: "appearance", label: "外观", labelKey: "tabAppearance", icon: "icon-[mdi--palette-outline]" },
 	{ key: "context", label: "Agent配置", labelKey: "tabContext", icon: "icon-[mdi--robot-outline]" },
 	{ key: "models", label: "模型配置", labelKey: "tabModels", icon: "icon-[mdi--brain]" },
+	// MetoAI 中转站的个人中心：登录、余额、Key 与充值。
+	{ key: "metoai", label: "MetoAI", labelKey: "tabMetoAi", icon: "icon-[mdi--wallet-outline]" },
 	{
 		key: "sshHosts",
 		label: "SSH 主机",
@@ -77,7 +80,7 @@ export const SETTINGS_TABS: readonly SettingsTabRegistration[] = [
 		labelKey: "tabKnowledge",
 		icon: "icon-[mdi--database-outline]",
 	},
-	{ key: "pet", label: "Vetta Vivi", labelKey: "tabPet", icon: "icon-[mdi--paw-outline]" },
+	{ key: "pet", label: "MetoAI Vivi", labelKey: "tabPet", icon: "icon-[mdi--paw-outline]" },
 	{
 		key: "permissions",
 		label: "权限管理",
@@ -114,6 +117,10 @@ export const SETTINGS_SECTIONS = [
 	{ tab: "models", id: "models-thinking", title: "思考模式", titleKey: "section_models-thinking" },
 	{ tab: "models", id: "models-preset-providers", title: "预设服务商", titleKey: "section_models-preset-providers" },
 	{ tab: "models", id: "models-providers", title: "服务商", titleKey: "section_models-providers" },
+	{ tab: "metoai", id: "metoai-account", title: "账号与余额", titleKey: "section_metoai-account" },
+	{ tab: "metoai", id: "metoai-keys", title: "API Key", titleKey: "section_metoai-keys" },
+	{ tab: "metoai", id: "metoai-subscription", title: "订阅", titleKey: "section_metoai-subscription" },
+	{ tab: "metoai", id: "metoai-web-actions", title: "官网入口", titleKey: "section_metoai-web-actions" },
 	{ tab: "mcp", id: "mcp-remote-list", title: "远程 MCP", titleKey: "section_mcp-remote-list" },
 	{ tab: "mcp", id: "mcp-remote-available", title: "可添加的远程 MCP", titleKey: "section_mcp-remote-available" },
 	{ tab: "mcp", id: "mcp-builtin-list", title: "推荐 MCP", titleKey: "section_mcp-builtin-list" },

@@ -14,12 +14,12 @@ test("compares semantic desktop versions", () => {
 });
 
 test("uses stable release artifact names for baseline installation", () => {
-	const stableArtifactPattern = /^Vetta-0\.5\.46(?:-win-x64\.exe|-mac\.zip|-arm64-mac\.zip|\.AppImage)$/;
+	const stableArtifactPattern = /^MetoAI-0\.5\.46(?:-win-x64\.exe|-mac\.zip|-arm64-mac\.zip|\.AppImage)$/;
 	for (const artifactName of [
-		"Vetta-0.5.46-win-x64.exe",
-		"Vetta-0.5.46-mac.zip",
-		"Vetta-0.5.46-arm64-mac.zip",
-		"Vetta-0.5.46.AppImage",
+		"MetoAI-0.5.46-win-x64.exe",
+		"MetoAI-0.5.46-mac.zip",
+		"MetoAI-0.5.46-arm64-mac.zip",
+		"MetoAI-0.5.46.AppImage",
 	]) {
 		assert.match(artifactName, stableArtifactPattern);
 	}

@@ -25,7 +25,7 @@ describe("引擎模板的传输", () => {
 		// 而 Linux 桌面端与所有远程项目（还要多过一层 shell 命令串）都会失败。
 		const { ctx, values } = recordEnvValues();
 
-		await materializeEngineForTest(ctx, "/home/dev/.vetta/design-engine/9.9.9", "/home/dev/design.vetd");
+		await materializeEngineForTest(ctx, "/home/dev/.metoai/plugin-data/vetta-ui-design/design-engine/9.9.9", "/home/dev/design.vetd");
 
 		expect(values.length).toBeGreaterThan(1);
 		const longest = Math.max(...values.map((value) => value.length));

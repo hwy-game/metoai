@@ -42,7 +42,7 @@ describe("UI verification profiles", () => {
     const environment = createProfileEnvironment(layout, { VETTA_UI_VERIFICATION: "stale" });
 
     expect(layout.statePath).toBeNull();
-    expect(layout.vettaHome).toBe(join(root, ".vetta-dev"));
+    expect(layout.vettaHome).toBe(join(root, ".metoai-dev"));
     expect(environment.VETTA_UI_VERIFICATION).toBeUndefined();
   });
 });

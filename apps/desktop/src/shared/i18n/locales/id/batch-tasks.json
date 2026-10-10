@@ -1,0 +1,139 @@
+{
+  "page": {
+    "title": "Tugas Batch",
+    "subtitle": "Konfigurasikan sekali dan biarkan AI memproses banyak folder secara otomatis",
+    "newProject": "Proyek Baru"
+  },
+  "stats": {
+    "total": "Total",
+    "running": "Berjalan",
+    "completed": "Selesai",
+    "failed": "Gagal"
+  },
+  "empty": {
+    "title": "Belum ada tugas batch",
+    "desc": "Buat tugas batch dan biarkan AI memproses banyak folder secara otomatis",
+    "action": "Buat proyek pertama Anda"
+  },
+  "time": {
+    "justNow": "baru saja",
+    "minutes": "{{n}} mnt",
+    "hours": "{{n}} jam",
+    "days": "{{n}} hr",
+    "weeks": "{{n}} mgg"
+  },
+  "group": {
+    "badge": "Batch"
+  },
+  "dialog": {
+    "editTitle": "Edit Proyek",
+    "newTitle": "Proyek Batch Baru",
+    "namePlaceholderEdit": "Nama proyek",
+    "namePlaceholderNew": "Proyek batch baru",
+    "cancel": "Batal",
+    "save": "Simpan",
+    "create": "Buat"
+  },
+  "form": {
+    "namePlaceholder": "Nama proyek",
+    "promptPlaceholder": "Masukkan prompt... ketik / untuk memanggil keterampilan/scene",
+    "model": "Model",
+    "modelEmpty": "Tidak ada model yang tersedia",
+    "modelSelect": "Pilih model",
+    "defaultTag": "Default",
+    "concurrency": "Konkurensi",
+    "timeout": "Timeout (menit)",
+    "timeoutHint": "Batas waktu tegas untuk satu kali jalan subtugas. Melanjutkan setelah jeda akan memulai ulang penghitung waktu.",
+    "sandbox": "Status sandbox",
+    "sandboxInherit": "Ikuti default global ({{mode}})",
+    "fullAccess": "Akses penuh",
+    "useSandbox": "Gunakan sandbox",
+    "sandboxUnavailable": "Sandbox {{platform}} tidak tersedia: {{reason}}",
+    "notifyTitle": "Aktifkan notifikasi",
+    "notifyDesc": "Kirim sekali ke webhook yang dikonfigurasikan setelah setiap subtugas selesai, dan kirim ringkasan saat seluruh proyek selesai (kelola webhook di Pengaturan → Notifikasi).",
+    "artifact": "Pemeriksaan artefak",
+    "optional": "Opsional",
+    "artifactPlaceholder": "Satu nama file atau wildcard per baris; biarkan kosong untuk melewati pemeriksaan",
+    "artifactHint": "Semua pola harus cocok di tingkat teratas direktori subtugas agar dianggap berhasil. Mendukung Glob: * cocok dengan karakter apa pun, ? cocok dengan satu karakter.",
+    "folderLabel": "Daftar folder",
+    "folderEmpty": "Tidak ada folder",
+    "folderModePicker": "Pilih",
+    "folderModeText": "Teks",
+    "selectFolder": "Pilih folder",
+    "folderTextHint": "Jika pemilihan banyak folder tidak stabil di Linux, tempelkan path secara langsung, satu folder per baris."
+  },
+  "status": {
+    "waiting": "Menunggu",
+    "notRun": "Belum dijalankan",
+    "running": "Berjalan",
+    "completed": "Selesai",
+    "failed": "Gagal",
+    "paused": "Dijeda"
+  },
+  "list": {
+    "matchCount": "{{filtered}}/{{total}} cocok",
+    "taskCount": "{{n}} tugas",
+    "completedOf": "{{completed}}/{{total}} selesai",
+    "runningSuffix": " · {{n}} berjalan",
+    "pausedSuffix": " · {{n}} dijeda",
+    "failedReset": "{{n}} gagal · setel ulang",
+    "resetFailedHint": "Klik untuk menyetel ulang {{n}} tugas yang gagal",
+    "searchPlaceholder": "Cari judul tugas…",
+    "clear": "Bersihkan",
+    "noMatch": "Tidak ada tugas yang cocok dengan \"{{query}}\"",
+    "noTasks": "Tidak ada tugas",
+    "expandMore": "Tampilkan lainnya ({{n}})",
+    "collapse": "Ciutkan"
+  },
+  "actions": {
+    "stop": "Hentikan",
+    "start": "Mulai",
+    "reset": "Setel ulang",
+    "editProject": "Edit proyek",
+    "deleteProject": "Hapus proyek",
+    "goToSession": "Buka sesi",
+    "cancelWait": "Batalkan penantian",
+    "run": "Jalankan",
+    "resume": "Lanjutkan",
+    "retry": "Coba lagi",
+    "rerun": "Jalankan ulang",
+    "delete": "Hapus",
+    "allDoneOrFailed": "Semua tugas sudah selesai atau gagal. Klik lencana \"{{n}} gagal · setel ulang\" untuk menyetel ulang dan mencoba lagi",
+    "allDone": "Semua tugas selesai"
+  },
+  "confirm": {
+    "cannotDeleteTitle": "Tidak dapat menghapus proyek",
+    "cannotDeleteMsg": "Hentikan dulu proyek ini.",
+    "ok": "OK",
+    "cancel": "Batal",
+    "delete": "Hapus",
+    "deleteProjectTitle": "Hapus proyek \"{{name}}\"?",
+    "deleteProjectMsg": "Tindakan ini tidak dapat dibatalkan. Konfirmasikan untuk melanjutkan.",
+    "startTitle": "Mulai eksekusi?",
+    "startMsg": "Akan menjalankan {{parts}} tugas secara berurutan sesuai konkurensi (status lain tidak terpengaruh). Lanjutkan?",
+    "start": "Mulai",
+    "partNeverExecuted": "{{n}} \"belum dijalankan\"",
+    "partPaused": "{{n}} \"dijeda\"",
+    "partJoin": " dan ",
+    "stopTitle": "Hentikan?",
+    "stopMsg": "Akan membatalkan semua tugas yang berjalan ({{running}}), serta menghapus sesi, artefak, dan status semua tugas kecuali yang \"selesai\" ({{target}}), sehingga statusnya kembali menjadi \"belum dijalankan\".\n\nYang dipertahankan: sesi, artefak, dan status tugas yang selesai.\nTugas yang selesai tetap disimpan. Tindakan ini tidak dapat dibatalkan.",
+    "stop": "Hentikan",
+    "resetFailedTitle": "Setel ulang tugas yang gagal?",
+    "resetFailedQueueActive": "Akan menghapus sesi, artefak, dan status {{n}} tugas yang gagal lalu menambahkannya ke antrean untuk dilanjutkan. Tindakan ini tidak dapat dibatalkan. Lanjutkan?",
+    "resetFailedIdle": "Akan menghapus sesi, artefak, dan status {{n}} tugas yang gagal serta menyetelnya kembali ke \"belum dijalankan\". Setelah itu Anda dapat mengklik \"Mulai\" untuk melanjutkan. Tindakan ini tidak dapat dibatalkan. Lanjutkan?",
+    "reset": "Setel ulang",
+    "resetTitle": "Setel ulang?",
+    "resetMsg": "Akan menghapus sesi dan berkas semua tugas (termasuk yang selesai) lalu menjalankan ulang seluruh {{n}} tugas. Tindakan ini tidak dapat dibatalkan. Lanjutkan?",
+    "rerunTitle": "Jalankan ulang tugas \"{{name}}\"?",
+    "retryTitle": "Coba lagi tugas \"{{name}}\"?",
+    "rerunMsg": "Akan menghapus sesi dan artefak tugas ini yang sudah ada lalu menjalankannya ulang. Tindakan ini tidak dapat dibatalkan. Lanjutkan?",
+    "retryMsg": "Akan menghapus sesi dan berkas tugas ini lalu menjalankannya ulang. Tindakan ini tidak dapat dibatalkan. Lanjutkan?",
+    "rerun": "Jalankan ulang",
+    "retry": "Coba lagi",
+    "deleteTaskTitle": "Hapus tugas?",
+    "deleteTaskMsg": "Tindakan ini tidak dapat dibatalkan. Konfirmasikan untuk melanjutkan."
+  },
+  "error": {
+    "stopFirst": "Hentikan dulu"
+  }
+}

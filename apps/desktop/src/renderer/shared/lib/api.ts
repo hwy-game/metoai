@@ -1,6 +1,7 @@
 import type { McpServerConfigData, RefreshOutcome } from "@preload/api";
 import { i18n } from "@shared/i18n";
 import type { SkillPresentation } from "@vetta-org/capability-sdk";
+import { METOAI_API_BASE } from "@/shared/metoai";
 
 let cachedBaseUrl: string | undefined;
 const hostFetch = globalThis.fetch.bind(globalThis);
@@ -292,9 +293,10 @@ export async function fetchUsageSeries(token: string, days: 7 | 30 | 90 | 365 = 
 	});
 }
 
-// ─── Market Abilities（ADR-0049：Skill / Scene / MCP / Plugin / Bundle 统一为 Ability） ───
+// ─── Market Abilities（ADR-0049：Skill / Scene / MCP / Plugin / Bundle / Expert 统一为 Ability） ───
 
 export type AbilityType = "skill" | "scene" | "mcp" | "plugin" | "bundle";
+export type MarketAbilityType = AbilityType | "expert";
 /** bundle 不允许嵌套，成员集合恒为一层。 */
 export type AbilityMemberType = Exclude<AbilityType, "bundle">;
 
@@ -457,6 +459,7 @@ export interface AbilityDetailLocale {
  * MarketAbility 顶层的 name/description 等由服务端从这里投影而来，读哪个都一致。
  */
 export interface AbilityDetail {
+	subcategory?: string;
 	name?: string;
 	description?: string;
 	license?: string;
@@ -477,7 +480,7 @@ export interface AbilityDetail {
 export interface MarketAbility {
 	/** 机器标识，与 type 联合唯一。 */
 	slug: string;
-	type: AbilityType;
+	type: MarketAbilityType;
 	name: string;
 	description: string;
 	license: string;
@@ -509,37 +512,59 @@ function normalizeAbility(item: MarketAbility, icon: string | undefined): Market
 }
 
 /**
- * 市场浏览与安装（market / info / download）服务端已开放匿名访问，
- * token 因此可选：有就带上（便于服务端识别调用者），没有也照常返回。
+ * 市场浏览与安装（market / info / download）服务端已开放匿名访问。
+ * 保留 token 参数只是为了兼容已有调用方；市场请求本身始终不携带凭据。
  */
-function optionalAuthHeaders(token: string | null | undefined): HeadersInit | undefined {
-	return token ? authHeaders(token) : undefined;
+const metoaiApiBase = METOAI_API_BASE.replace(/\/+$/, "");
+
+function marketUrl(path: string): string {
+	return `${metoaiApiBase}${path.startsWith("/") ? path : `/${path}`}`;
+}
+
+/**
+ * MetoToken 的能力市场是独立的公开 API，不应走 Vetta server 的地址或 401 refresh 流程。
+ * 只复用相同的 `{ code, message, data }` envelope，避免影响其它 Vetta API。
+ */
+async function marketRequest<T>(path: string): Promise<T> {
+	// The market is public.  Keep this request deliberately credential-free so a
+	// legacy Vetta `serverToken` can never cross into the MetoToken API.
+	const response = await hostFetch(marketUrl(path));
+	let body: ApiResponse<T> | undefined;
+	try {
+		body = (await response.json()) as ApiResponse<T>;
+	} catch {
+		throw new Error(`MetoToken market request failed (${response.status})`);
+	}
+	if (!response.ok) {
+		throw new Error(body?.message || `MetoToken market request failed (${response.status})`);
+	}
+	if (!body || body.code !== 0) {
+		throw new Error(body?.message || "MetoToken market request failed");
+	}
+	return body.data as T;
 }
 
 /** 一次返回五种 type 的已上架能力。 */
-export async function fetchMarketAbilities(token?: string | null): Promise<MarketAbility[]> {
-	const items = await request<MarketAbility[]>("/abilities/market", {
-		headers: optionalAuthHeaders(token),
-	});
+export async function fetchMarketAbilities(_token?: string | null): Promise<MarketAbility[]> {
+	const items = await marketRequest<MarketAbility[]>("/abilities/market");
 	return Promise.all((items ?? []).map(async (item) => normalizeAbility(item, await resolveMarketIconUrl(item.icon))));
 }
 
-export async function fetchAbilityInfo(type: AbilityType, slug: string, token?: string | null): Promise<MarketAbility> {
-	const item = await request<MarketAbility>(
+export async function fetchAbilityInfo(
+	type: AbilityType,
+	slug: string,
+	_token?: string | null,
+): Promise<MarketAbility> {
+	const item = await marketRequest<MarketAbility>(
 		`/abilities/${encodeURIComponent(type)}/${encodeURIComponent(slug)}/info`,
-		{ headers: optionalAuthHeaders(token) },
 	);
 	return normalizeAbility(item, await resolveMarketIconUrl(item.icon));
 }
 
 /** mcp / bundle 没有业务服务端归档；GitHub MCP 的受管运行时由 Desktop Ability 安装器处理。 */
-export async function downloadAbility(type: AbilityType, slug: string, token?: string | null): Promise<ArrayBuffer> {
-	const serverUrl = await window.vetta.settings.getServerUrl();
+export async function downloadAbility(type: AbilityType, slug: string, _token?: string | null): Promise<ArrayBuffer> {
 	const resp = await hostFetch(
-		`${serverUrl}/abilities/${encodeURIComponent(type)}/${encodeURIComponent(slug)}/download`,
-		{
-			headers: optionalAuthHeaders(token),
-		},
+		marketUrl(`/abilities/${encodeURIComponent(type)}/${encodeURIComponent(slug)}/download`),
 	);
 	if (!resp.ok) throw new Error(i18n.t("abilities:error.downloadFailed", { status: resp.status }));
 	return resp.arrayBuffer();
@@ -592,7 +617,7 @@ export async function resolveMarketIconUrl(icon: string | undefined | null): Pro
 	) {
 		return trimmed;
 	}
-	const base = (await getApiBase()).replace(/\/$/, "");
+	const base = metoaiApiBase;
 	if (trimmed.startsWith("/")) {
 		// base 通常是 https://host/api/v1；相对路径可能是 /api/v1/...
 		try {
@@ -664,4 +689,70 @@ export async function clearReadNotifications(token: string): Promise<void> {
 		method: "POST",
 		headers: authHeaders(token),
 	});
+}
+
+// ─── MetoToken 官方消息（桌面端公告） ───
+
+/** 服务端只发这三种级别；未知值在边界归一为 normal。 */
+export type MetoaiDesktopMessageLevel = "normal" | "important" | "urgent";
+
+export interface MetoaiDesktopMessageTranslation {
+	title: string;
+	body: string;
+}
+
+export interface MetoaiDesktopMessageVO {
+	id: number;
+	title: string;
+	body: string;
+	translations?: Record<string, MetoaiDesktopMessageTranslation>;
+	level: MetoaiDesktopMessageLevel;
+	published_at: string | null;
+}
+
+export interface MetoaiDesktopMessagePage {
+	list: MetoaiDesktopMessageVO[];
+	total: number;
+	page: number;
+	page_size: number;
+}
+
+function normalizeMetoaiDesktopMessageLevel(level: unknown): MetoaiDesktopMessageLevel {
+	return level === "important" || level === "urgent" ? level : "normal";
+}
+
+function normalizeMetoaiDesktopMessage(raw: unknown): MetoaiDesktopMessageVO {
+	const source = (raw ?? {}) as Partial<MetoaiDesktopMessageVO>;
+	const translations =
+		source.translations && typeof source.translations === "object" ? source.translations : undefined;
+	return {
+		id: typeof source.id === "number" ? source.id : 0,
+		title: typeof source.title === "string" ? source.title : "",
+		body: typeof source.body === "string" ? source.body : "",
+		translations,
+		level: normalizeMetoaiDesktopMessageLevel(source.level),
+		published_at: typeof source.published_at === "string" ? source.published_at : null,
+	};
+}
+
+/**
+ * 官方消息是 metotoken 维护的公开公告：与能力市场同源同 envelope，**同样刻意不带凭据**，
+ * 因此未登录、未接 MetoAI 的用户也能在消息中心看到它。
+ */
+export async function fetchMetoaiDesktopMessages(params?: {
+	p?: number;
+	page_size?: number;
+	lang?: string;
+}): Promise<MetoaiDesktopMessagePage> {
+	const qs = new URLSearchParams();
+	qs.set("p", String(params?.p ?? 1));
+	qs.set("page_size", String(params?.page_size ?? 20));
+	if (params?.lang) qs.set("lang", params.lang);
+	const data = await marketRequest<Partial<MetoaiDesktopMessagePage> | null>(`/desktop/messages?${qs.toString()}`);
+	return {
+		list: (Array.isArray(data?.list) ? data.list : []).map(normalizeMetoaiDesktopMessage),
+		total: typeof data?.total === "number" ? data.total : 0,
+		page: typeof data?.page === "number" ? data.page : (params?.p ?? 1),
+		page_size: typeof data?.page_size === "number" ? data.page_size : (params?.page_size ?? 20),
+	};
 }

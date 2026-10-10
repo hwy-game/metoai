@@ -1,0 +1,25 @@
+{
+  "title": "Centre de messages",
+  "triggerTitle": "Centre de messages",
+  "tabs": {
+    "all": "Tout",
+    "notifications": "Notifications",
+    "official": "Officiel"
+  },
+  "empty": {
+    "all": "Aucun message",
+    "notifications": "Aucune notification",
+    "official": "Aucun message officiel"
+  },
+  "notification": {
+    "markAllRead": "Tout marquer comme lu",
+    "clearRead": "Effacer les messages lus",
+    "delete": "Supprimer"
+  },
+  "time": {
+    "justNow": "À l'instant",
+    "minutesAgo": "il y a {{n}} min",
+    "hoursAgo": "il y a {{n}} h",
+    "daysAgo": "il y a {{n}} j"
+  }
+}

@@ -1,4 +1,4 @@
-import { copyFileSync, existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { copyFileSync, existsSync, mkdtempSync, readdirSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { basename, join } from "node:path";
 
@@ -22,17 +22,22 @@ function resolveWindowsVersionedBinary(unpackedRoot) {
 	) {
 		throw new Error(`Windows packaged E2E has an invalid version pointer: ${String(version)}`);
 	}
-	return join(unpackedRoot, "versions", version, "Vetta.exe");
+	return join(unpackedRoot, "versions", version, "MetoAI.exe");
 }
 
 export function resolvePackagedE2eAppImagePath(packageRoot, version) {
 	if (typeof version !== "string" || !PACKAGE_VERSION_PATTERN.test(version)) {
 		throw new Error(`Linux packaged E2E has an invalid application version: ${String(version)}`);
 	}
-	const appImagePath = join(packageRoot, "release", `Vetta-${version}.AppImage`);
-	if (existsSync(appImagePath)) return appImagePath;
+	const releaseRoot = join(packageRoot, "release");
+	// AppImage 的产物名由构建配置的产品名推导（默认 `${productName}-${version}.AppImage`），
+	// 因此按扩展名 + 版本号定位，不写死品牌名。
+	const candidates = existsSync(releaseRoot)
+		? readdirSync(releaseRoot).filter((fileName) => fileName.endsWith(".AppImage") && fileName.includes(version))
+		: [];
+	if (candidates.length === 1) return join(releaseRoot, candidates[0]);
 	throw new Error(
-		`Linux packaged E2E AppImage not found: ${appImagePath}. Run bun run dist:linux:test first.`,
+		`Linux packaged E2E AppImage not found for ${version} in ${releaseRoot} (found ${candidates.length}). Run bun run dist:linux:test first.`,
 	);
 }
 
@@ -50,9 +55,9 @@ export function stagePackagedE2eAppImage(packageRoot, version, temporaryRoot = t
 }
 
 /**
- * electron-builder writes resources/package-type into the shared linux-unpacked
- * directory while building deb/rpm. electron-updater then picks the deb/rpm
- * updater instead of the AppImage one, so the AppImage-backed E2E must drop it.
+ * electron-builder 打 deb/rpm 时会往共用的 linux-unpacked 写 resources/package-type，
+ * electron-updater 读到它会改用 deb/rpm 更新器，AppImage 更新流程就卡在下载阶段。
+ * 模拟 AppImage 的打包 E2E 必须清掉这个标记。
  */
 export function clearLinuxUnpackedPackageType(packageRoot) {
 	rmSync(join(packageRoot, "release", "linux-unpacked", "resources", "package-type"), { force: true });
@@ -65,12 +70,12 @@ export function resolvePackagedE2eBinaryPath(packageRoot, platform = process.pla
 			? [resolveWindowsVersionedBinary(join(releaseRoot, "win-unpacked"))]
 			: platform === "darwin"
 				? [
-						join(releaseRoot, "mac-arm64", "Vetta.app", "Contents", "MacOS", "Vetta"),
-						join(releaseRoot, "mac", "Vetta.app", "Contents", "MacOS", "Vetta"),
-						join(releaseRoot, "mac-x64", "Vetta.app", "Contents", "MacOS", "Vetta"),
+						join(releaseRoot, "mac-arm64", "MetoAI.app", "Contents", "MacOS", "MetoAI"),
+						join(releaseRoot, "mac", "MetoAI.app", "Contents", "MacOS", "MetoAI"),
+						join(releaseRoot, "mac-x64", "MetoAI.app", "Contents", "MacOS", "MetoAI"),
 					]
 				: platform === "linux"
-					? [join(releaseRoot, "linux-unpacked", "Vetta")]
+					? [join(releaseRoot, "linux-unpacked", "MetoAI")]
 					: [];
 
 	const found = candidates.find((candidate) => existsSync(candidate));

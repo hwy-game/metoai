@@ -31,11 +31,11 @@ export function createInvokeSkillTool(options: InvokeSkillToolOptions): RuntimeT
 		async execute(request) {
 			const { name, args } = request.input;
 			const skills = options.getSkills();
-			const skill = skills.find((candidate) => candidate.name === name);
+			const skill = skills.find((candidate) => candidate.name === name || candidate.alias === name);
 			if (!skill) {
 				const availableNames = skills
 					.filter((candidate) => !candidate.disableModelInvocation && candidate.type !== "scene")
-					.map((candidate) => candidate.name);
+					.map((candidate) => candidate.alias ?? candidate.name);
 				console.info("[skills] invoke miss", { name, available: availableNames.length });
 				return {
 					content: [

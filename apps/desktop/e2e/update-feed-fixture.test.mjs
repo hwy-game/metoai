@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { afterEach, test } from "node:test";
 
-import { startUpdateFeedFixture } from "./update-feed-fixture.mjs";
+import { incrementPatch, startUpdateFeedFixture, updatePolicyFixture } from "./update-feed-fixture.mjs";
 
 const runningServers = new Set();
 
@@ -41,7 +41,7 @@ test("packaged E2E update feed serves a checksum-bearing downloadable fixture", 
 	runningServers.add(fixture.server);
 
 	const metadata = await (await fetch(`${fixture.url}latest-linux.yml`)).text();
-	const artifact = await (await fetch(`${fixture.url}Vetta-e2e-update.AppImage`)).arrayBuffer();
+	const artifact = await (await fetch(`${fixture.url}MetoAI-e2e-update.AppImage`)).arrayBuffer();
 
 	assert.match(metadata, /version: 0\.5\.47/);
 	assert.equal(Buffer.from(artifact).toString("utf8"), "vetta-packaged-e2e-update\n");
@@ -52,4 +52,19 @@ test("packaged E2E update feed rejects an invalid metadata delay", async () => {
 		startUpdateFeedFixture({ version: "0.5.46", metadataDelayMs: -1 }),
 		/Invalid E2E fixture metadata delay/,
 	);
+});
+
+test("packaged E2E policy fixture registers one patch above the running version", () => {
+	assert.equal(incrementPatch("0.5.61"), "0.5.62");
+	assert.throws(() => incrementPatch("0.5"), /Invalid E2E fixture version/);
+});
+
+test("packaged E2E policy fixture registers a version without a download url", () => {
+	assert.deepEqual(updatePolicyFixture("0.5.62"), {
+		has_update: true,
+		forced: false,
+		reason: "",
+		check_interval_seconds: 3_600,
+		latest: { version: "0.5.62" },
+	});
 });

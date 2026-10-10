@@ -3,10 +3,12 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { URL } from "node:url";
-import { getVettaHomePath, VETTA_HOME_ENV } from "@vetta/action-rpc";
+import { getVettaHomePath, setVettaHomeMigrationWarningHandler, VETTA_HOME_ENV } from "@vetta/action-rpc";
+import { CONFIG_DIR_NAME } from "@vetta/coding-agent/config";
 import { app, type BrowserWindow, dialog, ipcMain, nativeImage, nativeTheme, protocol, session, shell } from "electron";
 import { APP_RUNTIME_NAME } from "../shared/app-identity.js";
 import { isCloudBuildEnabled } from "../shared/feature-flags.js";
+import { DEFAULT_THEME_MODE, WINDOW_SURFACE_COLORS } from "../shared/theme-defaults.js";
 import { stopAllOpenMarketplaceMcpRuntimes } from "./abilities/open-marketplace/open-marketplace-mcp-runtime-host.js";
 import { ActionApprovalBroker } from "./app-actions/approval-broker.js";
 import { createAppActionSystem } from "./app-actions/index.js";
@@ -55,7 +57,10 @@ import { reloadKnowledgePoller, shutdownKnowledgePoller } from "./knowledge/poll
 import { getLocalRpcServerEndpointFilePath } from "./local-rpc/endpoint-file.js";
 import { type DesktopLocalRpcServerHandle, startDesktopLocalRpcServer } from "./local-rpc/server.js";
 import { getAppLogger } from "./logger.js";
+import { registerLoopbackHandler, toDeepLinkUrl } from "./loopback-callback.js";
 import { MEDIA_PROTOCOL_PRIVILEGE, registerMediaProtocolHandler } from "./media-protocol.js";
+import { METOAI_CALLBACK_URL, METOAI_LOOPBACK_PATH } from "./metoai/authorize.js";
+import { handleProtocolUrl as handleMetoAiProtocolUrl } from "./metoai/index.js";
 import { openExternalUrl } from "./open-external.js";
 import { startPetIdleGuard } from "./pet/pet-idle-guard.js";
 import { initializePetWindow } from "./pet-window.js";
@@ -111,6 +116,11 @@ import {
 fixPath();
 
 const PROTOCOL = "vetta";
+// MetoAI 授权回调用自己的 scheme（`metoai://metotoken/callback`）；云服务登录
+// （`vetta://oauth/callback`）与远程配对（`vetta://pair`）仍在用 `vetta`——云端
+// 回调白名单在服务端，客户端不能单方面改。安装包同时注册两个 scheme。
+const METOAI_PROTOCOL = "metoai";
+const CALLBACK_PROTOCOLS = [PROTOCOL, METOAI_PROTOCOL];
 // registerSchemesAsPrivileged 整个进程只能调用一次且须在 ready 前：
 // 所有自定义 scheme（插件、主题、应用资源、媒体流）的特权声明在此合并注册。
 protocol.registerSchemesAsPrivileged([
@@ -204,6 +214,8 @@ const rendererCdp = configureRendererCdp({
 	devServerUrl: process.env.VETTA_DESKTOP_DEV_URL,
 	portValue: process.env.VETTA_DEBUG_CDP_PORT,
 });
+// 主目录迁移失败的告警走主进程日志，避免只落在 stdout 上没人看见。
+setVettaHomeMigrationWarningHandler((message, error) => mainLog.warn(message, error));
 process.env[VETTA_HOME_ENV] = getVettaHomePath();
 
 if (isCliMode) {
@@ -305,10 +317,12 @@ function attachMainWindowLifecycle(mainWindow: BrowserWindow): void {
 // Windows dev mode: must pass electron.exe path and app entry as args,
 // otherwise the URL gets interpreted as a module path.
 if (!isCliMode) {
-	if (!app.isPackaged && process.platform === "win32") {
-		app.setAsDefaultProtocolClient(PROTOCOL, process.execPath, [devMainEntryPath]);
-	} else {
-		app.setAsDefaultProtocolClient(PROTOCOL);
+	for (const scheme of CALLBACK_PROTOCOLS) {
+		if (!app.isPackaged && process.platform === "win32") {
+			app.setAsDefaultProtocolClient(scheme, process.execPath, [devMainEntryPath]);
+		} else {
+			app.setAsDefaultProtocolClient(scheme);
+		}
 	}
 }
 
@@ -318,9 +332,10 @@ let cloudMain: CloudMainHandle | null = null;
 function handleProtocolUrl(rawUrl: string): void {
 	try {
 		const parsed = new URL(rawUrl);
-		// OAuth 回调（vetta://oauth/callback）由 cloud 模块处理；
-		// lite 构建没有 cloud 模块，深链直接忽略。
+		// OAuth 回调（vetta://oauth/callback）由 cloud 模块处理；lite 构建没有 cloud 模块。
+		// MetoAI 授权回调（metoai://metotoken/callback）与构建开关无关，必须始终转交。
 		cloudMain?.handleProtocolUrl(parsed);
+		handleMetoAiProtocolUrl(parsed);
 	} catch {
 		// Ignore malformed URLs
 	}
@@ -359,7 +374,7 @@ if (!gotSingleLock) {
 	app.exit(0);
 } else {
 	app.on("second-instance", (_event, argv) => {
-		const protocolUrl = argv.find((arg) => arg.startsWith(`${PROTOCOL}://`));
+		const protocolUrl = argv.find((arg) => CALLBACK_PROTOCOLS.some((scheme) => arg.startsWith(`${scheme}://`)));
 		if (protocolUrl) {
 			handleProtocolUrl(protocolUrl);
 		}
@@ -418,6 +433,10 @@ if (!gotSingleLock) {
 			execPath: process.execPath,
 			argv: process.argv,
 		});
+
+		// 首启的默认明暗与渲染层取同一份（浅色）：原生控件、菜单与窗口底色先按默认值绘制，
+		// 渲染层挂载后通过 vetta:theme:set 校正为用户存过的模式。
+		nativeTheme.themeSource = DEFAULT_THEME_MODE;
 
 		// 在创建任何窗口/托盘菜单之前同步定语言：读 desktop-config.language
 		//（system | zh | en；缺省 = system）。托盘菜单与系统通知据此取文案（ADR-0031）。
@@ -514,7 +533,7 @@ if (!gotSingleLock) {
 		if (!app.isPackaged) {
 			const appVersion = getAppVersion();
 			app.setAboutPanelOptions({
-				applicationName: "Vetta",
+				applicationName: "MetoAI",
 				applicationVersion: appVersion,
 				version: "",
 			});
@@ -541,7 +560,7 @@ if (!gotSingleLock) {
 			const mainWindow = getMainWindow();
 			if (mainWindow) {
 				if (!isMac) {
-					mainWindow.setBackgroundColor(nativeTheme.shouldUseDarkColors ? "#161616" : "#f5f5f7");
+					mainWindow.setBackgroundColor(WINDOW_SURFACE_COLORS[nativeTheme.shouldUseDarkColors ? "dark" : "light"]);
 				}
 				mainWindow.webContents.send("vetta:theme:native-changed", {
 					shouldUseDarkColors: nativeTheme.shouldUseDarkColors,
@@ -647,22 +666,29 @@ if (!gotSingleLock) {
 			cloudMain = startCloudMain({ receiveProtocolUrl });
 		}
 
+		// MetoAI 授权在开发模式没有可用的自定义 scheme，回调从本机 loopback 进来：
+		// 归一化成 `metoai://metotoken/callback?…` 后走与打包版相同的深链入口。
+		// 不放在 cloud 模块里——lite 构建同样需要这条回调。
+		registerLoopbackHandler(METOAI_LOOPBACK_PATH, (search) =>
+			receiveProtocolUrl(toDeepLinkUrl(METOAI_CALLBACK_URL, search)),
+		);
+
 		if (process.platform === "darwin") {
 			app.dock.setIcon(nativeImage.createFromPath(join(buildDir, "icon-dock.png")));
 		}
 
 		// 默认「对话」项目目录：保证一直存在。
-		// 顺带把 in-tree session 目录（<cwd>/.vetta/sessions）也建好，
+		// 顺带把 in-tree session 目录（<cwd>/.metoai/sessions）也建好，
 		// 让默认项目走与批量项目一致的会话布局，避免设备相关的编码路径。
 		try {
-			await mkdir(join(getVettaHomePath(), "conversation", ".vetta", "sessions"), { recursive: true });
+			await mkdir(join(getVettaHomePath(), "conversation", CONFIG_DIR_NAME, "sessions"), { recursive: true });
 		} catch (err) {
 			mainLog.error("failed to ensure default conversation dir", err);
 		}
 		// im-gateway 独立 cwd（ADR-0005）：跟桌面「对话」物理分家。先把空目录建好，
 		// 这样 sidecar 启动前 desktop 的 Claw tab 也能正常 listSessions（拿到空列表）。
 		try {
-			await mkdir(join(getVettaHomePath(), "im-gateway", "conversation", ".vetta", "sessions"), {
+			await mkdir(join(getVettaHomePath(), "im-gateway", "conversation", CONFIG_DIR_NAME, "sessions"), {
 				recursive: true,
 			});
 		} catch (err) {

@@ -39,12 +39,12 @@ describe("Node Vetta Desktop command port", () => {
 			platform: "darwin",
 			environment: {},
 			vettaHomePath: "/home/test/.vetta",
-			fileExists: async (filePath) => filePath === "/Applications/Vetta.app/Contents/MacOS/Vetta",
+			fileExists: async (filePath) => filePath === "/Applications/Metoai.app/Contents/MacOS/Metoai",
 			readTextFile: async () => JSON.stringify({ vettaAppPath: "/old/Vetta" }),
 		});
 
 		await expect(port.locate()).resolves.toEqual({
-			path: "/Applications/Vetta.app/Contents/MacOS/Vetta",
+			path: "/Applications/Metoai.app/Contents/MacOS/Metoai",
 			staleConfiguredPath: "/old/Vetta",
 		});
 	});

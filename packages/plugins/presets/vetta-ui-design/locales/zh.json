@@ -1,5 +1,5 @@
 {
-	"plugin.name": "Vetta 设计",
+	"plugin.name": "Metoai 设计",
 	"plugin.description": "在无限画布上用 Vetta 做 UI 设计稿：frame 即真实 React 代码，选中元素即可让 Vetta 定向修改，保存即热更新。",
 	"tab.label": "设计",
 	"fileExplorer.openCanvas": "在设计画布中打开",
@@ -332,7 +332,7 @@
 	"history.peek.alreadyCurrent": "这已经是当前版本了",
 	"history.loading": "读取中…",
 	"agent.designer.name": "设计师",
-	"agent.designer.description": "在 Vetta 设计画布上产出界面：App 页面、落地页、幻灯片与海报",
+	"agent.designer.description": "在 Metoai 设计画布上产出界面：App 页面、落地页、幻灯片与海报",
 	"newSession.styles.title": "设计资源",
 	"newSession.styles.pick": "用「{{name}}」风格"
 }

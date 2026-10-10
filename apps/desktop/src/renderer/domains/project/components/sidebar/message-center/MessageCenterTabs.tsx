@@ -7,12 +7,14 @@ export function MessageCenterTabs({
 	activeTab,
 	chatUnread,
 	notifUnread,
+	officialUnread,
 	pendingCount,
 	onSelect,
 }: {
 	activeTab: MessageCenterTab;
 	chatUnread: number;
 	notifUnread: number;
+	officialUnread: number;
 	pendingCount: number;
 	onSelect: (tab: MessageCenterTab) => void;
 }): JSX.Element {
@@ -27,6 +29,7 @@ export function MessageCenterTabs({
 			activeTab={activeTab as MessageCenterTabId}
 			chatUnread={chatUnread}
 			notifUnread={notifUnread}
+			officialUnread={officialUnread}
 			pendingCount={pendingCount}
 			onSelect={(tab) => onSelect(tab as MessageCenterTab)}
 			spring={MESSAGE_CENTER_SPRING}

@@ -131,7 +131,60 @@ test("rejects partial macOS signing credentials and supports signed local iterat
 			APPLE_TEAM_ID: "TEAM123",
 			VETTA_SKIP_NOTARIZE: "1",
 		}),
-		{ enabled: true, notarize: false, teamId: "TEAM123" },
+		{ mode: "signed", notarize: false, teamId: "TEAM123" },
+	);
+	assert.deepEqual(
+		resolveMacSigningConfig({
+			CSC_NAME: "Developer ID",
+			APPLE_TEAM_ID: "TEAM123",
+			APPLE_API_KEY: "/tmp/AuthKey.p8",
+			APPLE_API_KEY_ID: "KEYID12345",
+			APPLE_API_ISSUER: "00000000-0000-0000-0000-000000000000",
+		}),
+		{ mode: "signed", notarize: true, teamId: "TEAM123" },
+	);
+});
+
+// 没有凭据不再报错：默认产出 ad-hoc 签名包（用户看到「未知开发者」而不是「已损坏」），
+// 只有显式 VETTA_MAC_ADHOC_SIGN=0 才退回完全未签名。
+test("falls back to ad-hoc signing without Apple credentials", () => {
+	assert.deepEqual(resolveMacSigningConfig({}), { mode: "adhoc" });
+	assert.deepEqual(resolveMacSigningConfig({ VETTA_MAC_ADHOC_SIGN: "1" }), { mode: "adhoc" });
+	assert.deepEqual(resolveMacSigningConfig({ VETTA_MAC_ADHOC_SIGN: "0" }), { mode: "unsigned" });
+	assert.deepEqual(resolveMacSigningConfig({ VETTA_SKIP_NOTARIZE: "0" }), { mode: "adhoc" });
+	assert.throws(
+		() => resolveMacSigningConfig({ VETTA_MAC_ADHOC_SIGN: "2" }),
+		/VETTA_MAC_ADHOC_SIGN must be "0" or "1"/,
+	);
+	assert.throws(
+		() => resolveMacSigningConfig({ VETTA_SKIP_NOTARIZE: "1" }),
+		/VETTA_SKIP_NOTARIZE=1 requires macOS signing credentials/,
+	);
+});
+
+// ad-hoc 不是生产级签名：默认放行，但 VETTA_REQUIRE_MAC_SIGNATURE=1 时仍然拒绝。
+test("treats ad-hoc macOS builds as not satisfying VETTA_REQUIRE_MAC_SIGNATURE", () => {
+	const adhocEnv = { ...openSourceEnv, VETTA_VENDOR_PLATFORM: "darwin-arm64" };
+	const config = validateDesktopBuildEnvironment({ env: adhocEnv, platform: "darwin", arch: "arm64" });
+	assert.equal(config.macSigning.mode, "adhoc");
+
+	assert.throws(
+		() =>
+			validateDesktopBuildEnvironment({
+				env: { ...adhocEnv, VETTA_REQUIRE_MAC_SIGNATURE: "1" },
+				platform: "darwin",
+				arch: "arm64",
+			}),
+		/requires macOS signing and notarization/,
+	);
+	assert.throws(
+		() =>
+			validateDesktopBuildEnvironment({
+				env: { ...adhocEnv, VETTA_MAC_ADHOC_SIGN: "2" },
+				platform: "darwin",
+				arch: "arm64",
+			}),
+		/VETTA_MAC_ADHOC_SIGN/,
 	);
 });
 

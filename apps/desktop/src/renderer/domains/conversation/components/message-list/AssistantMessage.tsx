@@ -54,5 +54,6 @@ export const AssistantMessage = memo(function AssistantMessage({
 		>
 			<AgentMessageBody />
 		</AgentMessageProvider>
+
 	);
 });

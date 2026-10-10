@@ -19,6 +19,8 @@ const PROVIDER_SYMBOLS = [
 	"xiaomi",
 	"zai",
 	"zhipu",
+	"metaai",
+	"metoai",
 	"opencode",
 ] as const;
 

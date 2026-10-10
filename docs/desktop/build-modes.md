@@ -185,11 +185,11 @@ VETTA_UPDATE_URL=https://releases.openvetta.com/desktop/test
 - **Cloudflare R2 上传凭据**：`VETTA_R2_ACCOUNT_ID`、`VETTA_R2_ACCESS_KEY_ID`、`VETTA_R2_SECRET_ACCESS_KEY`
 - **macOS 签名与公证**：`CSC_LINK`、`CSC_KEY_PASSWORD`、`APPLE_ID`、`APPLE_TEAM_ID`、`APPLE_API_*`
   CI 变体：`MACOS_CERTIFICATE_P12_BASE64`、`MACOS_CERTIFICATE_PASSWORD`、`APPLE_API_KEY_P8_BASE64`、`APPLE_API_KEY_ID`、`APPLE_API_ISSUER`
-  一个都不设则产出未签名包；要签名则必须全部齐全。流程见 [apple-code-signing.md](../deploy/apple-code-signing.md)
+  GitHub Actions 的常规桌面打包不会读取这些变量，固定产出 ad-hoc 包并跳过签名检测；独立正式流程需要完整配置。流程见 [apple-code-signing.md](../deploy/apple-code-signing.md)
 - **Sentry Source Map 上传**：`VETTA_SENTRY_AUTH_TOKEN`
 - **Langfuse**：`LANGFUSE_SECRET_KEY`
 
-`VETTA_REQUIRE_MAC_SIGNATURE=1` 仅供 macOS CI 产物校验步骤使用，不是客户端配置。
+`VETTA_REQUIRE_MAC_SIGNATURE=0` 是 GitHub macOS 打包的固定设置，仅用于跳过签名验收，不是客户端配置。
 
 ---
 

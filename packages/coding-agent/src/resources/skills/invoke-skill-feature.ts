@@ -8,6 +8,7 @@ import type {
 import type { CodingAgentPromptResourceSource } from "../../runtime-contracts/prompt-runtime.js";
 import { CODING_AGENT_MODEL_TOOL_ORDER } from "../../tool-policy/model-tool-order.js";
 import type { Skill } from "./index.js";
+import { createModelVisibleSkillNames } from "./model-visible-skill-names.js";
 import { createSkillHookContribution, readSkillInvocationDocument } from "./skill-document.js";
 import { createInvokeSkillToolRegistration } from "./tool/index.js";
 
@@ -29,10 +30,11 @@ export function createCodingAgentInvokeSkillFeature(
 	options: CodingAgentInvokeSkillFeatureOptions,
 ): CodingAgentInvokeSkillFeature {
 	const readVisibleSkills = (): Skill[] => {
-		// 可见集合与顺序不随工作模式变化（ADR-0071）：模式偏移由 mode 提示词承担，不在候选列表施力。
-		return options.resourceSource
+		const skills = options.resourceSource
 			.getSkills()
 			.skills.filter((skill) => !skill.disableModelInvocation && skill.type !== "scene");
+		const modelNames = createModelVisibleSkillNames(skills);
+		return skills.map((skill) => ({ ...skill, alias: modelNames.get(skill.name) }));
 	};
 	const pendingActivations = new Map<string, EcosystemHookContributionSource>();
 	const createRegistration = (getSkills: () => Skill[]) =>

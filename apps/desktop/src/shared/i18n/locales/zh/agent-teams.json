@@ -62,7 +62,11 @@
     "saving": "保存中…",
     "providedBy": "来自 {{name}}",
     "providedByHint": "这份资源由扩展提供并维护，不能修改或删除",
-    "providedReadOnly": "由扩展提供并维护：随插件升级整体更新，不能在这里修改"
+    "providedReadOnly": "由扩展提供并维护：随插件升级整体更新，不能在这里修改",
+    "cloudExperts": "云端专家",
+    "cloudExpertsHint": "来自 MetoToken 的已发布专家目录",
+    "cloudExpertCategory": "{{category}} / {{subcategory}}",
+    "cloudExpertReadOnly": "云端专家只读展示，下载后可导入本地智能体库"
   },
   "profile": {
     "fixedPrompt": "角色：{{role}}",

@@ -1,3 +1,4 @@
+import { type AppLanguage, FIXED_LANGUAGE_OPTIONS } from "@/shared/i18n/config";
 import { type ActiveActionApproval, useActionApproval } from "../../useActionApproval";
 import {
 	ApprovalImpactCard,
@@ -6,7 +7,12 @@ import {
 } from "../ApprovalParts";
 import { useManageApprovalFrame } from "../useManageApprovalShell";
 
-interface Input { type: "set-language"; language: "zh" | "en"; }
+interface Input { type: "set-language"; language: AppLanguage; }
+
+/** 语言码 → 语种自称（中文 / English / 日本語 …）；表里没有的码原样返回，不编造译名。 */
+export function resolveLanguageNativeLabel(language: string): string {
+	return FIXED_LANGUAGE_OPTIONS.find((option) => option.value === language)?.native ?? language;
+}
 
 function parseInput(input: unknown): Input | null {
 	if (typeof input !== "object" || input === null || Array.isArray(input)) return null;
@@ -21,7 +27,8 @@ export function AppearanceSetLanguageApproval(): JSX.Element | null {
 	return <AppearanceSetLanguageApprovalContent key={approval.request.approvalId} approval={approval} />;
 }
 
-function AppearanceSetLanguageApprovalContent({ approval }: { approval: ActiveActionApproval }): JSX.Element {
+/** 导出给组件测试：审批输入到展示文案的整条渲染路径在这里，测试直接渲染它。 */
+export function AppearanceSetLanguageApprovalContent({ approval }: { approval: ActiveActionApproval }): JSX.Element {
 	const { Frame, t, frameLabels } = useManageApprovalFrame();
 	const { request, responding, error, approve, reject } = approval;
 	const input = parseInput(request.input);
@@ -44,7 +51,7 @@ function AppearanceSetLanguageApprovalContent({ approval }: { approval: ActiveAc
 		>
 			{input ? (
 				<>
-					<ApprovalTargetCard icon="icon-[mdi--translate]" title={input.language === "zh" ? t("manageApproval.appearance.languageZh") : t("manageApproval.appearance.languageEn")} subtitle={input.language} />
+					<ApprovalTargetCard icon="icon-[mdi--translate]" title={resolveLanguageNativeLabel(input.language)} subtitle={input.language} />
 					<ApprovalImpactCard
 						icon={icon}
 						title={t("manageApproval.afterActionTitle")}

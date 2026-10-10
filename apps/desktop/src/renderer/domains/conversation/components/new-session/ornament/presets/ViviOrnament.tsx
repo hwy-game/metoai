@@ -17,9 +17,15 @@ const CRAWL_START_PAUSE_SECONDS = 3;
 const CENTER_POSITION = "calc(50% - 4.5rem)";
 const RIGHT_POSITION = "calc(100% - 9rem)";
 const VIVI_VISIBLE_STORAGE_KEY = "vetta-new-session-mascot-visible";
-const HOUR_IN_MILLISECONDS = 60 * 60 * 1_000;
-const MINIMUM_ACTION_INTERVAL = HOUR_IN_MILLISECONDS;
-const MAXIMUM_ACTION_INTERVAL = HOUR_IN_MILLISECONDS * 3;
+const SECOND_IN_MILLISECONDS = 1_000;
+/**
+ * 空闲间隔：动作之间静息几秒，然后 Vivi 自己再动一下（眨眼 / 挥手 / 爬一趟，三个素材各 4.8s）。
+ * 这里原先是 1～3 小时随机动一次，用户在页面上看到的就只是一张静止图。
+ */
+const MINIMUM_ACTION_INTERVAL = SECOND_IN_MILLISECONDS * 4;
+const MAXIMUM_ACTION_INTERVAL = SECOND_IN_MILLISECONDS * 10;
+/** 第一下不用等一轮间隔：hero 入场淡入（0.5s + 0.2s 延迟）跑完就动。 */
+const FIRST_ACTION_DELAY = SECOND_IN_MILLISECONDS;
 
 type ViviAction = (typeof VIVI_ACTIONS)[number];
 
@@ -37,20 +43,28 @@ export function ViviOrnament({ autoplay, mounted }: ViviOrnamentProps): JSX.Elem
 	// 页面被压窄（窗口小、活动面板/侧边栏展开）时插槽放不下素材，整块 Vivi连同显隐按钮一起不渲染。
 	const slot = useOrnamentSlot();
 
+	// 第一下走 FIRST_ACTION_DELAY，之后的每一次才用随机空闲间隔。
+	const playedOnceRef = useRef(false);
+
 	const handleComplete = useCallback(() => {
 		setAction((current) => pickRandomAction(current));
 		setPlaying(false);
 	}, []);
 	const handlePlayOnce = useCallback(() => {
+		playedOnceRef.current = true;
 		setPlaying(true);
 	}, []);
 
 	useEffect(() => {
 		if (!slot.visible || !viviVisible || !autoplay || reduceMotion || playing) return;
 
-		const timer = window.setTimeout(() => {
-			setPlaying(true);
-		}, randomActionInterval());
+		const timer = window.setTimeout(
+			() => {
+				playedOnceRef.current = true;
+				setPlaying(true);
+			},
+			playedOnceRef.current ? randomActionInterval() : FIRST_ACTION_DELAY,
+		);
 
 		return () => window.clearTimeout(timer);
 	}, [autoplay, viviVisible, playing, reduceMotion, slot.visible]);

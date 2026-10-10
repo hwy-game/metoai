@@ -1,0 +1,221 @@
+{
+  "page": {
+    "title": "Automatización",
+    "subtitle": "Deja que la IA ejecute tareas según un horario y librérate del trabajo manual",
+    "create": "Crear",
+    "searchPlaceholder": "Buscar automatizaciones"
+  },
+  "recommend": {
+    "title": "Recomendado",
+    "items": {
+      "morningBrief": {
+        "name": "Resumen matutino",
+        "desc": "Resumen matutino de días laborables con cambios del repositorio, trabajo sin confirmar y puntos de atención",
+        "schedule": "Días laborables 09:00",
+        "prompt": "Actúa como mi asistente de resumen matutino en el espacio de trabajo actual:\n1. Revisa el estado de git y los commits recientes si git está disponible\n2. Enumera los cambios sin confirmar, las ramas sin subir o los posibles bloqueos\n3. Sugiere 3 puntos de atención claros para hoy\nResponde en español con una estructura concisa. No modifiques ningún archivo."
+      },
+      "dailySummary": {
+        "name": "Resumen diario",
+        "desc": "Revisión vespertina de los cambios de hoy convertida en un breve registro de trabajo",
+        "schedule": "Diario 18:00",
+        "prompt": "Genera el resumen del trabajo de hoy para este espacio de trabajo:\n1. Resume lo que se hizo a partir del git log o de los cambios en los archivos\n2. Señala los elementos sin terminar o de seguimiento\n3. Propón hasta 3 próximos pasos accionables para mañana\nUsa viñetas concisas. No modifiques el código."
+      },
+      "weeklyReview": {
+        "name": "Revisión semanal",
+        "desc": "Informe semanal de los commits de esta semana los viernes por la tarde",
+        "schedule": "Viernes 17:00",
+        "prompt": "Genera una revisión semanal del repositorio actual:\n1. Resume los commits importantes y el avance de funciones de esta semana\n2. Recoge riesgos, deuda técnica o problemas recurrentes\n3. Recomienda prioridades para la próxima semana (hasta 5 elementos)\nEscríbelo listo para pegar en un informe semanal. No modifiques los archivos del repositorio."
+      }
+    }
+  },
+  "dialog": {},
+  "form": {
+    "namePlaceholder": "Nombre de la tarea",
+    "promptPlaceholder": "Escribe un prompt... escribe / para invocar habilidades o escenas",
+    "name": "Título de la tarea",
+    "runTarget": "Ejecutar en",
+    "runMode": {
+      "new-session": "Una sesión nueva cada vez",
+      "same-session": "La misma sesión"
+    },
+    "project": "Proyecto",
+    "projectNone": "Ninguno (conversación)",
+    "session": "Sesión",
+    "sessionHint": "Cada ejecución continúa en esta sesión, así que su contexto se irá acumulando",
+    "sessionNew": "Iniciar una sesión nueva",
+    "sessionMissing": "La sesión vinculada ya no existe",
+    "model": "Modelo",
+    "modelFollowDefault": "Seguir el modelo predeterminado",
+    "repeat": "Repetir",
+    "time": "Hora",
+    "atMinutePrefix": "En el minuto",
+    "atMinuteSuffix": "de cada hora",
+    "monthlyShortMonthHint": "Los meses que no tienen el día elegido (p. ej. el 30 de febrero) se omiten; elige \"Último día\" para ejecutar a fin de mes",
+    "cronExpression": "Expresión cron",
+    "cronHint": "minuto hora día mes día de la semana, en hora local; edita la expresión directamente y se mantendrá sincronizada con los selectores",
+    "cronAny": "Cualquiera",
+    "cronTextOnly": "Esta parte usa una sintaxis que los selectores no pueden mostrar; edita la expresión directamente",
+    "cronField": {
+      "minute": "Min",
+      "hour": "Hora",
+      "day": "Día",
+      "month": "Mes",
+      "weekday": "Día sem."
+    },
+    "notify": "Notificación por webhook",
+    "notifyEndpoints": "Notificar a",
+    "notifyGoSettings": "Aún no hay webhooks: añade uno en Ajustes",
+    "notifyEndpointDisabled": "Este webhook está deshabilitado y no enviará nada",
+    "notifyWhen": "Enviar cuando",
+    "notifyWhenOption": {
+      "always": "Siempre",
+      "success": "Solo si tiene éxito",
+      "failure": "Solo si falla"
+    },
+    "notifyTemplate": "Mensaje",
+    "notifyTemplateDefault": "{{name}} {{status}} ({{duration}})\n\n{{reply}}",
+    "variables": {
+      "name": "Tarea",
+      "status": "Estado",
+      "startedAt": "Inicio",
+      "duration": "Duración",
+      "reply": "Respuesta",
+      "error": "Error"
+    },
+    "enabledLabel": "Habilitado",
+    "intervalPrefix": "Cada",
+    "intervalSuffix": "minutos",
+    "intervalHint": "Se cuenta desde que guardas; cambiar el intervalo reinicia la cuenta",
+    "sectionDetails": "Detalles",
+    "sectionFrequency": "Frecuencia",
+    "sectionNotify": "Notificación",
+    "intervalLabel": "Intervalo",
+    "minuteLabel": "Minuto",
+    "weekdays": "Días de la semana",
+    "monthDays": "Días"
+  },
+  "scheduleMode": {
+    "once": "Una vez",
+    "daily": "Diario",
+    "interval": "Intervalo",
+    "hourly": "Cada hora",
+    "weekly": "Semanal",
+    "monthly": "Mensual",
+    "custom": "Personalizado"
+  },
+  "schedule": {
+    "once": "Una vez el {{date}} a las {{time}}",
+    "daily": "Diario a las {{time}}",
+    "weekly": "Semanal los {{days}} a las {{time}}",
+    "weekdayJoin": ", ",
+    "weekdayNames": [
+      "Dom",
+      "Lun",
+      "Mar",
+      "Mié",
+      "Jue",
+      "Vie",
+      "Sáb"
+    ],
+    "hourly": "Cada hora en el minuto :{{minute}}",
+    "monthly": "Mensual los {{days}} a las {{time}}",
+    "monthDay": "día {{day}}",
+    "lastDay": "Último día",
+    "custom": "Personalizado",
+    "intervalMinutes": "Cada {{minutes}} min",
+    "intervalHours": "Cada {{hours}} h"
+  },
+  "list": {
+    "running": "En ejecución",
+    "pending": "Pendiente",
+    "disabled": "Deshabilitada",
+    "runNow": "Ejecutar ahora",
+    "run": "Ejecutar",
+    "sectionTitle": "Tareas de automatización",
+    "pause": "Pausar",
+    "enable": "Habilitar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "success": "Correcto",
+    "failed": "Fallido",
+    "neverRun": "Nunca se ejecutó",
+    "justNow": "ahora mismo",
+    "minutesAgo": "hace {{n}} min",
+    "hoursAgo": "hace {{n}} h",
+    "daysAgo": "hace {{n}} d",
+    "suspended": "En pausa",
+    "target": "{{mode}} · {{project}}",
+    "filter": {
+      "all": "Todo",
+      "enabled": "Activas",
+      "paused": "En pausa",
+      "done": "Completadas"
+    },
+    "emptySearch": "No hay automatizaciones coincidentes",
+    "emptyFilter": "Aquí todavía no hay nada",
+    "done": "Completada",
+    "nextRun": "próxima ejecución {{when}}",
+    "inMinutes": "en {{n}} min",
+    "inHours": "en {{n}} h",
+    "inDays": "en {{n}} días"
+  },
+  "confirm": {
+    "deleteTitle": "¿Eliminar la tarea \"{{name}}\"?",
+    "deleteMsg": "Esta acción no se puede deshacer. Confirma para continuar.",
+    "delete": "Eliminar",
+    "cancel": "Cancelar"
+  },
+  "drawer": {},
+  "history": {
+    "title": "Historial de ejecuciones",
+    "refresh": "Actualizar",
+    "empty": "No hay registros de ejecución",
+    "status": {
+      "success": "Correcto",
+      "failed": "Fallido",
+      "running": "En ejecución",
+      "aborted": "Interrumpido",
+      "skipped": "Omitido",
+      "missed": "Perdido"
+    },
+    "reason": {
+      "previous-running": "La ejecución anterior seguía en curso",
+      "app-not-running": "La aplicación no estaba en ejecución",
+      "system-sleep": "El equipo estaba suspendido"
+    },
+    "missedMany": "Se perdió {{times}} veces, hasta {{until}} · {{reason}}",
+    "notifyFailed": "No se pudo enviar la notificación: {{error}}"
+  },
+  "suspended": {
+    "session-deleted": "La sesión vinculada se eliminó. Elige una sesión de nuevo y habilita la automatización.",
+    "project-removed": "El proyecto de destino se quitó de la barra lateral. Elige un proyecto de nuevo y habilita la automatización."
+  },
+  "notify": {
+    "status": {
+      "success": "correcto",
+      "failed": "fallido",
+      "aborted": "interrumpido"
+    },
+    "noEndpoint": "Todos los webhooks seleccionados están deshabilitados o se eliminaron"
+  },
+  "detail": {
+    "status": {
+      "active": "Activa",
+      "running": "En ejecución",
+      "paused": "En pausa",
+      "suspended": "En pausa · destino no disponible",
+      "done": "Completada",
+      "draft": "Nueva automatización"
+    },
+    "close": "Cerrar",
+    "runNow": "Ejecutar ahora",
+    "pause": "Pausar",
+    "enable": "Habilitar",
+    "more": "Más",
+    "delete": "Eliminar",
+    "openChat": "Abrir chat",
+    "discard": "Descartar",
+    "save": "Guardar",
+    "create": "Crear"
+  }
+}

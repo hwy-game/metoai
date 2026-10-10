@@ -5,8 +5,9 @@ import { useTranslation } from "react-i18next";
 import type { AgentCenterModel } from "../hooks/useAgentCenterModel";
 import { AgentCard } from "./AgentCard";
 import { AgentCenterHero } from "./agent-center/AgentCenterHero";
+import { CloudExpertCard } from "./CloudExpertCard";
 import { TeamAssemblyBar } from "./agent-center/TeamAssemblyBar";
-import { TeamCard } from "./agent-center/TeamCard";
+import { TeamCard } from "./agent-center/TeamCard"
 
 const COLLAPSED_TEAM_COUNT = 4;
 
@@ -228,6 +229,28 @@ export function AgentCenterView({
 							</div>
 						)}
 					</section>
+
+					{model.cloudExperts.length > 0 && (
+						<section className="mt-9 flex flex-col gap-3.5">
+							<div>
+								<h2 className="text-[15px] font-semibold text-foreground">{t("center.cloudExperts")}</h2>
+								<p className="mt-1 text-[12px] text-muted-foreground">{t("center.cloudExpertsHint")}</p>
+							</div>
+							{Object.entries(groupCloudExperts(model.cloudExperts)).map(([category, subcategories]) => (
+								<div key={category} className="flex flex-col gap-2">
+									<h3 className="text-[12px] font-semibold text-muted-foreground">{category}</h3>
+									{Object.entries(subcategories).map(([subcategory, experts]) => (
+										<div key={subcategory} className="flex flex-col gap-2">
+											{subcategory && <h4 className="text-[11px] font-medium text-muted-foreground/70">{subcategory}</h4>}
+											<div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-3">
+												{experts.map((expert) => <CloudExpertCard key={expert.slug} expert={expert} />)}
+											</div>
+										</div>
+									))}
+								</div>
+							))}
+						</section>
+					)}
 			</div>
 
 		</div>
@@ -236,4 +259,17 @@ export function AgentCenterView({
 
 function resolveAgents(ids: readonly string[], agentsById: ReadonlyMap<string, AgentProfile>): readonly AgentProfile[] {
 	return ids.map((id) => agentsById.get(id)).filter((agent): agent is AgentProfile => Boolean(agent));
+}
+
+function groupCloudExperts(experts: readonly import("@shared/lib/api").MarketAbility[]) {
+	return experts.reduce<Record<string, Record<string, import("@shared/lib/api").MarketAbility[]>>>(
+		(groups, expert) => {
+			const category = expert.category || "Uncategorized";
+			const subcategory = typeof expert.detail.subcategory === "string" ? expert.detail.subcategory : "";
+			(groups[category] ??= {})[subcategory] ??= [];
+			(groups[category][subcategory] ??= []).push(expert);
+			return groups;
+		},
+		{},
+	);
 }

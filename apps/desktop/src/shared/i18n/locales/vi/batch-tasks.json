@@ -1,0 +1,139 @@
+{
+  "page": {
+    "title": "Tác vụ hàng loạt",
+    "subtitle": "Cấu hình một lần và để AI xử lý nhiều thư mục tự động",
+    "newProject": "Dự án mới"
+  },
+  "stats": {
+    "total": "Tổng",
+    "running": "Đang chạy",
+    "completed": "Xong",
+    "failed": "Thất bại"
+  },
+  "empty": {
+    "title": "Chưa có tác vụ hàng loạt nào",
+    "desc": "Tạo tác vụ hàng loạt và để AI xử lý nhiều thư mục tự động",
+    "action": "Tạo dự án đầu tiên của bạn"
+  },
+  "time": {
+    "justNow": "vừa xong",
+    "minutes": "{{n}} phút",
+    "hours": "{{n}} giờ",
+    "days": "{{n}} ngày",
+    "weeks": "{{n}} tuần"
+  },
+  "group": {
+    "badge": "Hàng loạt"
+  },
+  "dialog": {
+    "editTitle": "Sửa dự án",
+    "newTitle": "Dự án hàng loạt mới",
+    "namePlaceholderEdit": "Tên dự án",
+    "namePlaceholderNew": "Dự án hàng loạt mới",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "create": "Tạo"
+  },
+  "form": {
+    "namePlaceholder": "Tên dự án",
+    "promptPlaceholder": "Nhập câu lệnh... gõ / để gọi kỹ năng/cảnh",
+    "model": "Mô hình",
+    "modelEmpty": "Không có mô hình khả dụng",
+    "modelSelect": "Chọn mô hình",
+    "defaultTag": "Mặc định",
+    "concurrency": "Số luồng chạy song song",
+    "timeout": "Thời gian chờ (phút)",
+    "timeoutHint": "Giới hạn cứng cho một lần chạy tác vụ con. Tiếp tục sau khi tạm dừng sẽ tính lại thời gian.",
+    "sandbox": "Trạng thái sandbox",
+    "sandboxInherit": "Theo mặc định chung ({{mode}})",
+    "fullAccess": "Toàn quyền truy cập",
+    "useSandbox": "Dùng sandbox",
+    "sandboxUnavailable": "Sandbox trên {{platform}} không khả dụng: {{reason}}",
+    "notifyTitle": "Bật thông báo",
+    "notifyDesc": "Gửi một lần tới webhook đã cấu hình sau khi mỗi tác vụ con hoàn tất, và gửi bản tóm tắt khi cả dự án xong (quản lý webhook trong Cài đặt → Thông báo).",
+    "artifact": "Kiểm tra tệp kết quả",
+    "optional": "Không bắt buộc",
+    "artifactPlaceholder": "Mỗi dòng một tên tệp hoặc ký tự đại diện; để trống nếu bỏ qua kiểm tra",
+    "artifactHint": "Mọi mẫu phải khớp ở cấp cao nhất của thư mục tác vụ con thì mới tính là thành công. Hỗ trợ Glob: * khớp mọi ký tự, ? khớp một ký tự.",
+    "folderLabel": "Danh sách thư mục",
+    "folderEmpty": "Không có thư mục",
+    "folderModePicker": "Chọn",
+    "folderModeText": "Văn bản",
+    "selectFolder": "Chọn thư mục",
+    "folderTextHint": "Khi chọn nhiều thư mục không ổn định trên Linux, hãy dán đường dẫn trực tiếp, mỗi dòng một thư mục."
+  },
+  "status": {
+    "waiting": "Đang chờ",
+    "notRun": "Chưa chạy",
+    "running": "Đang chạy",
+    "completed": "Xong",
+    "failed": "Thất bại",
+    "paused": "Tạm dừng"
+  },
+  "list": {
+    "matchCount": "Khớp {{filtered}}/{{total}}",
+    "taskCount": "{{n}} tác vụ",
+    "completedOf": "Xong {{completed}}/{{total}}",
+    "runningSuffix": " · {{n}} đang chạy",
+    "pausedSuffix": " · {{n}} tạm dừng",
+    "failedReset": "{{n}} thất bại · đặt lại",
+    "resetFailedHint": "Nhấp để đặt lại {{n}} tác vụ thất bại",
+    "searchPlaceholder": "Tìm tên tác vụ…",
+    "clear": "Xóa",
+    "noMatch": "Không có tác vụ khớp \"{{query}}\"",
+    "noTasks": "Không có tác vụ",
+    "expandMore": "Hiện thêm ({{n}})",
+    "collapse": "Thu gọn"
+  },
+  "actions": {
+    "stop": "Dừng",
+    "start": "Bắt đầu",
+    "reset": "Đặt lại",
+    "editProject": "Sửa dự án",
+    "deleteProject": "Xóa dự án",
+    "goToSession": "Đến phiên",
+    "cancelWait": "Hủy chờ",
+    "run": "Chạy",
+    "resume": "Tiếp tục",
+    "retry": "Thử lại",
+    "rerun": "Chạy lại",
+    "delete": "Xóa",
+    "allDoneOrFailed": "Tất cả tác vụ đã xong hoặc thất bại. Nhấp vào nhãn \"{{n}} thất bại · đặt lại\" để đặt lại và thử lại",
+    "allDone": "Tất cả tác vụ đã xong"
+  },
+  "confirm": {
+    "cannotDeleteTitle": "Không thể xóa dự án",
+    "cannotDeleteMsg": "Vui lòng dừng nó trước.",
+    "ok": "OK",
+    "cancel": "Hủy",
+    "delete": "Xóa",
+    "deleteProjectTitle": "Xóa dự án \"{{name}}\"?",
+    "deleteProjectMsg": "Không thể hoàn tác. Vui lòng xác nhận để tiếp tục.",
+    "startTitle": "Bắt đầu chạy?",
+    "startMsg": "Sẽ chạy {{parts}} tác vụ theo thứ tự và mức đồng thời (các trạng thái khác không bị ảnh hưởng). Tiếp tục?",
+    "start": "Bắt đầu",
+    "partNeverExecuted": "{{n}} \"chưa chạy\"",
+    "partPaused": "{{n}} \"tạm dừng\"",
+    "partJoin": " và ",
+    "stopTitle": "Dừng?",
+    "stopMsg": "Sẽ hủy mọi tác vụ đang chạy ({{running}}) và xóa phiên, tệp kết quả cùng trạng thái của mọi tác vụ trừ \"đã xong\" ({{target}}), đặt chúng về \"chưa chạy\".\n\nGiữ lại: phiên, tệp kết quả và trạng thái của các tác vụ đã hoàn thành.\nTác vụ đã hoàn thành được giữ lại. Không thể hoàn tác.",
+    "stop": "Dừng",
+    "resetFailedTitle": "Đặt lại các tác vụ thất bại?",
+    "resetFailedQueueActive": "Sẽ xóa phiên, tệp kết quả và trạng thái của {{n}} tác vụ thất bại rồi thêm chúng vào hàng đợi để tiếp tục. Không thể hoàn tác. Tiếp tục?",
+    "resetFailedIdle": "Sẽ xóa phiên, tệp kết quả và trạng thái của {{n}} tác vụ thất bại và đặt chúng về \"chưa chạy\". Sau đó bạn có thể nhấp \"Bắt đầu\" để tiếp tục. Không thể hoàn tác. Tiếp tục?",
+    "reset": "Đặt lại",
+    "resetTitle": "Đặt lại?",
+    "resetMsg": "Sẽ xóa phiên và tệp của mọi tác vụ (kể cả đã xong) và chạy lại tất cả {{n}} tác vụ. Không thể hoàn tác. Tiếp tục?",
+    "rerunTitle": "Chạy lại tác vụ \"{{name}}\"?",
+    "retryTitle": "Thử lại tác vụ \"{{name}}\"?",
+    "rerunMsg": "Sẽ xóa phiên và tệp kết quả hiện có của tác vụ này rồi chạy lại. Không thể hoàn tác. Tiếp tục?",
+    "retryMsg": "Sẽ xóa phiên và tệp của tác vụ này rồi chạy lại. Không thể hoàn tác. Tiếp tục?",
+    "rerun": "Chạy lại",
+    "retry": "Thử lại",
+    "deleteTaskTitle": "Xóa tác vụ?",
+    "deleteTaskMsg": "Không thể hoàn tác. Vui lòng xác nhận để tiếp tục."
+  },
+  "error": {
+    "stopFirst": "Vui lòng dừng nó trước"
+  }
+}

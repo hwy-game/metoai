@@ -65,11 +65,11 @@ describe("buildDefaultHookConfigLayers", () => {
 
 		const paths = layers.flatMap((layer) => (layer.sources ?? []).map((s) => s.path.replace(/\\/g, "/")));
 		expect(paths).toEqual([
-			"C:/fake-home/.vetta/.codex/hooks.json",
-			"C:/fake-home/.vetta/.claude/settings.json",
-			"C:/projects/demo/.vetta/.codex/hooks.json",
-			"C:/projects/demo/.vetta/.claude/settings.json",
-			"C:/projects/demo/.vetta/.claude/settings.local.json",
+			"C:/fake-home/.metoai/.codex/hooks.json",
+			"C:/fake-home/.metoai/.claude/settings.json",
+			"C:/projects/demo/.metoai/.codex/hooks.json",
+			"C:/projects/demo/.metoai/.claude/settings.json",
+			"C:/projects/demo/.metoai/.claude/settings.local.json",
 		]);
 
 		const byProfile = layers.flatMap((layer) =>
@@ -87,10 +87,10 @@ describe("buildDefaultHookConfigLayers", () => {
 		).toBe(true);
 
 		// Never top-level official homes
-		expect(paths.some((p) => p.includes("/fake-home/.codex/") && !p.includes("/.vetta/"))).toBe(false);
-		expect(paths.some((p) => p.includes("/fake-home/.claude/") && !p.includes("/.vetta/"))).toBe(false);
-		expect(paths.some((p) => p.includes("/demo/.codex/") && !p.includes("/.vetta/"))).toBe(false);
-		expect(paths.some((p) => p.includes("/demo/.claude/") && !p.includes("/.vetta/"))).toBe(false);
+		expect(paths.some((p) => p.includes("/fake-home/.codex/") && !p.includes("/.metoai/"))).toBe(false);
+		expect(paths.some((p) => p.includes("/fake-home/.claude/") && !p.includes("/.metoai/"))).toBe(false);
+		expect(paths.some((p) => p.includes("/demo/.codex/") && !p.includes("/.metoai/"))).toBe(false);
+		expect(paths.some((p) => p.includes("/demo/.claude/") && !p.includes("/.metoai/"))).toBe(false);
 	});
 
 	it("honors explicit vettaHome", () => {
@@ -102,7 +102,7 @@ describe("buildDefaultHookConfigLayers", () => {
 		const paths = layers.flatMap((l) => (l.sources ?? []).map((s) => s.path.replace(/\\/g, "/")));
 		expect(paths).toContain("/custom/vetta/.codex/hooks.json");
 		expect(paths).toContain("/custom/vetta/.claude/settings.json");
-		expect(paths).not.toContain("/home/u/.vetta/.codex/hooks.json");
+		expect(paths).not.toContain("/home/u/.metoai/.codex/hooks.json");
 	});
 });
 
@@ -126,10 +126,11 @@ describe("source ownership filters", () => {
 });
 
 describe("vetta-nested path discovery", () => {
-	it("loads Codex handlers from .vetta/.codex and ignores top-level official + Claude", async () => {
+	it("loads Codex handlers from the vetta home and the legacy project dir, ignores top-level official + Claude", async () => {
 		const home = await makeTempDir("vetta-codex-home-");
 		const project = await makeTempDir("vetta-codex-proj-");
-		const vettaHome = join(home, ".vetta");
+		// 用户层是品牌改名后的主目录；项目层故意只用旧目录，覆盖读取回退。
+		const vettaHome = join(home, ".metoai");
 
 		await mkdir(join(vettaHome, ".codex"), { recursive: true });
 		await mkdir(join(project, ".vetta", ".codex"), { recursive: true });
@@ -158,10 +159,10 @@ describe("vetta-nested path discovery", () => {
 		expect(result.handlers.map((h) => h.command)).toEqual(["echo codex-user", "echo codex-project"]);
 	});
 
-	it("loads Claude handlers from .vetta/.claude settings including extra keys", async () => {
+	it("loads Claude handlers from the legacy project dir including extra keys", async () => {
 		const home = await makeTempDir("vetta-claude-home-");
 		const project = await makeTempDir("vetta-claude-proj-");
-		const vettaHome = join(home, ".vetta");
+		const vettaHome = join(home, ".metoai");
 
 		await mkdir(join(vettaHome, ".claude"), { recursive: true });
 		await mkdir(join(project, ".vetta", ".claude"), { recursive: true });
@@ -200,5 +201,34 @@ describe("vetta-nested path discovery", () => {
 			"echo claude-project",
 			"echo claude-local",
 		]);
+	});
+
+	it("项目 hooks 首选新目录，只有旧目录时仍然读得到且不会跑两遍", async () => {
+		const home = await makeTempDir("metoai-hooks-home-");
+		const project = await makeTempDir("metoai-hooks-proj-");
+		await mkdir(join(home, ".metoai", ".codex"), { recursive: true });
+		await mkdir(join(project, ".vetta", ".codex"), { recursive: true });
+		await writeFile(join(home, ".metoai", ".codex", "hooks.json"), sessionStartHooks("echo codex-user"), "utf8");
+		await writeFile(
+			join(project, ".vetta", ".codex", "hooks.json"),
+			sessionStartHooks("echo legacy-project"),
+			"utf8",
+		);
+
+		// 品牌改名不该让用户已有的项目 hooks 静默失效。
+		const legacyOnly = await discoverCodexHookHandlers(
+			buildDefaultHookConfigLayers({ cwd: project, homeDir: home, env: {} }),
+		);
+		expect(legacyOnly.diagnostics).toEqual([]);
+		expect(legacyOnly.handlers.map((h) => h.command)).toEqual(["echo codex-user", "echo legacy-project"]);
+
+		await mkdir(join(project, ".metoai", ".codex"), { recursive: true });
+		await writeFile(join(project, ".metoai", ".codex", "hooks.json"), sessionStartHooks("echo new-project"), "utf8");
+
+		// 新文件出现后旧目录必须让位：两处都读会让同一个 hook 跑两遍。
+		const bothPresent = await discoverCodexHookHandlers(
+			buildDefaultHookConfigLayers({ cwd: project, homeDir: home, env: {} }),
+		);
+		expect(bothPresent.handlers.map((h) => h.command)).toEqual(["echo codex-user", "echo new-project"]);
 	});
 });

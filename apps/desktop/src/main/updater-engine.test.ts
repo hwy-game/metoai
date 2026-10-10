@@ -81,8 +81,8 @@ describe("ElectronUpdaterEngine", () => {
 		const order: string[] = [];
 		const updateInfo: UpdateInfo = {
 			version: "1.2.3",
-			files: [{ url: "Vetta-1.2.3-win-x64.exe", sha512: "hash", size: 42 }],
-			path: "Vetta-1.2.3-win-x64.exe",
+			files: [{ url: "MetoAI-1.2.3-win-x64.exe", sha512: "hash", size: 42 }],
+			path: "MetoAI-1.2.3-win-x64.exe",
 			sha512: "installer",
 			releaseDate: new Date().toISOString(),
 		};
@@ -94,7 +94,7 @@ describe("ElectronUpdaterEngine", () => {
 			downloadedUpdateHelper: null,
 		} as unknown as AppUpdater;
 		const innoUpdate = {
-			select: vi.fn().mockReturnValue({ assetFileName: "Vetta-1.2.3-win-x64.exe", totalBytes: 42 }),
+			select: vi.fn().mockReturnValue({ assetFileName: "MetoAI-1.2.3-win-x64.exe", totalBytes: 42 }),
 			prepareDownloadedInstaller: vi.fn(),
 			activate: vi.fn(() => {
 				order.push("activate");
@@ -134,7 +134,7 @@ describe("ElectronUpdaterEngine", () => {
 		const updater = {
 			on: vi.fn(),
 			off: vi.fn(),
-			downloadUpdate: vi.fn().mockResolvedValue(["/tmp/Vetta.zip"]),
+			downloadUpdate: vi.fn().mockResolvedValue(["/tmp/MetoAI.zip"]),
 		} as unknown as AppUpdater;
 		const engine = new ElectronUpdaterEngine(updater, undefined, nativeMacUpdateEvents);
 		const onStaging = vi.fn();
@@ -155,7 +155,7 @@ describe("ElectronUpdaterEngine", () => {
 		expect(completed).toBe(false);
 		updateDownloadedListener?.();
 
-		await expect(download.promise).resolves.toEqual(["/tmp/Vetta.zip"]);
+		await expect(download.promise).resolves.toEqual(["/tmp/MetoAI.zip"]);
 		expect(completed).toBe(true);
 	});
 
@@ -173,7 +173,7 @@ describe("ElectronUpdaterEngine", () => {
 		const updater = {
 			on: vi.fn(),
 			off: vi.fn(),
-			downloadUpdate: vi.fn().mockResolvedValue(["/tmp/Vetta.zip"]),
+			downloadUpdate: vi.fn().mockResolvedValue(["/tmp/MetoAI.zip"]),
 		} as unknown as AppUpdater;
 		const engine = new ElectronUpdaterEngine(updater, undefined, nativeMacUpdateEvents);
 		const download = engine.downloadUpdate(vi.fn());
@@ -186,22 +186,22 @@ describe("ElectronUpdaterEngine", () => {
 	it("passes provider-resolved asset URLs to the Inno updater", async () => {
 		const updateInfo: UpdateInfo = {
 			version: "1.2.3",
-			files: [{ url: "Vetta-1.2.3-win-x64.exe", sha512: "hash", size: 42 }],
-			path: "Vetta-1.2.3-win-x64.exe",
+			files: [{ url: "MetoAI-1.2.3-win-x64.exe", sha512: "hash", size: 42 }],
+			path: "MetoAI-1.2.3-win-x64.exe",
 			sha512: "installer",
 			releaseDate: new Date().toISOString(),
 		};
 		const resolvedFiles: Array<ResolvedUpdateFileInfo> = [
 			{
-				url: new URL("https://releases.example.com/Vetta-1.2.3-win-x64.exe"),
+				url: new URL("https://releases.example.com/MetoAI-1.2.3-win-x64.exe"),
 				info: updateInfo.files[0],
 			},
 		];
 		const select = vi.fn().mockReturnValue({
-			assetFileName: "Vetta-1.2.3-win-x64.exe",
+			assetFileName: "MetoAI-1.2.3-win-x64.exe",
 			totalBytes: 42,
 		});
-		const prepareDownloadedInstaller = vi.fn().mockResolvedValue(["C:\\staged\\Vetta.exe"]);
+		const prepareDownloadedInstaller = vi.fn().mockResolvedValue(["C:\\staged\\MetoAI.exe"]);
 		const activate = vi.fn();
 		const updater = {
 			on: vi.fn(),
@@ -210,7 +210,7 @@ describe("ElectronUpdaterEngine", () => {
 				isUpdateAvailable: true,
 				updateInfo,
 			}),
-			downloadUpdate: vi.fn().mockResolvedValue(["C:\\pending\\Vetta-1.2.3-win-x64.exe"]),
+			downloadUpdate: vi.fn().mockResolvedValue(["C:\\pending\\MetoAI-1.2.3-win-x64.exe"]),
 			updateInfoAndProvider: {
 				provider: {
 					resolveFiles: vi.fn().mockReturnValue(resolvedFiles),
@@ -230,15 +230,15 @@ describe("ElectronUpdaterEngine", () => {
 			info: {
 				version: "1.2.3",
 				releaseNote: undefined,
-				assetFileName: "Vetta-1.2.3-win-x64.exe",
+				assetFileName: "MetoAI-1.2.3-win-x64.exe",
 				totalBytes: 42,
 			},
 		});
 		expect(select).toHaveBeenCalledWith(updateInfo, resolvedFiles);
 
-		await expect(engine.downloadUpdate(vi.fn()).promise).resolves.toEqual(["C:\\staged\\Vetta.exe"]);
+		await expect(engine.downloadUpdate(vi.fn()).promise).resolves.toEqual(["C:\\staged\\MetoAI.exe"]);
 		expect(prepareDownloadedInstaller).toHaveBeenCalledWith(
-			"C:\\pending\\Vetta-1.2.3-win-x64.exe",
+			"C:\\pending\\MetoAI-1.2.3-win-x64.exe",
 			expect.any(Function),
 			expect.any(AbortSignal),
 		);
@@ -249,8 +249,8 @@ describe("ElectronUpdaterEngine", () => {
 	it("reports Inno preparation failures instead of launching the installer UI", async () => {
 		const updateInfo: UpdateInfo = {
 			version: "1.2.3",
-			files: [{ url: "Vetta-1.2.3-win-x64.exe", sha512: "hash", size: 42 }],
-			path: "Vetta-1.2.3-win-x64.exe",
+			files: [{ url: "MetoAI-1.2.3-win-x64.exe", sha512: "hash", size: 42 }],
+			path: "MetoAI-1.2.3-win-x64.exe",
 			sha512: "installer",
 			releaseDate: new Date().toISOString(),
 		};
@@ -263,12 +263,12 @@ describe("ElectronUpdaterEngine", () => {
 				isUpdateAvailable: true,
 				updateInfo,
 			}),
-			downloadUpdate: vi.fn().mockResolvedValue(["C:\\pending\\Vetta-1.2.3-win-x64.exe"]),
+			downloadUpdate: vi.fn().mockResolvedValue(["C:\\pending\\MetoAI-1.2.3-win-x64.exe"]),
 			updateInfoAndProvider: {
 				provider: {
 					resolveFiles: vi.fn().mockReturnValue([
 						{
-							url: new URL("https://releases.example.com/Vetta-1.2.3-win-x64.exe"),
+							url: new URL("https://releases.example.com/MetoAI-1.2.3-win-x64.exe"),
 							info: updateInfo.files[0],
 						},
 					]),
@@ -278,7 +278,7 @@ describe("ElectronUpdaterEngine", () => {
 		} as unknown as AppUpdater;
 		const innoUpdate = {
 			select: vi.fn().mockReturnValue({
-				assetFileName: "Vetta-1.2.3-win-x64.exe",
+				assetFileName: "MetoAI-1.2.3-win-x64.exe",
 				totalBytes: 42,
 			}),
 			prepareDownloadedInstaller: vi.fn().mockRejectedValue(new Error("incomplete Inno version")),
@@ -295,14 +295,14 @@ describe("ElectronUpdaterEngine", () => {
 		const root = await mkdtemp(join(tmpdir(), "vetta-updater-engine-"));
 		temporaryRoots.push(root);
 		const cacheDir = join(root, "cache");
-		const installerPath = join(cacheDir, "pending", "Vetta-1.2.3-win-x64.exe");
+		const installerPath = join(cacheDir, "pending", "MetoAI-1.2.3-win-x64.exe");
 		await mkdir(join(cacheDir, "pending"), { recursive: true });
 		await writeFile(installerPath, "new installer");
 		await writeFile(join(cacheDir, CURRENT_APP_INSTALLER_FILE_NAME), "old installer");
 		const updateInfo: UpdateInfo = {
 			version: "1.2.3",
-			files: [{ url: "Vetta-1.2.3-win-x64.exe", sha512: "hash", size: 42 }],
-			path: "Vetta-1.2.3-win-x64.exe",
+			files: [{ url: "MetoAI-1.2.3-win-x64.exe", sha512: "hash", size: 42 }],
+			path: "MetoAI-1.2.3-win-x64.exe",
 			sha512: "installer",
 			releaseDate: new Date().toISOString(),
 		};
@@ -322,7 +322,7 @@ describe("ElectronUpdaterEngine", () => {
 				provider: {
 					resolveFiles: vi.fn().mockReturnValue([
 						{
-							url: new URL("https://releases.example.com/Vetta-1.2.3-win-x64.exe"),
+							url: new URL("https://releases.example.com/MetoAI-1.2.3-win-x64.exe"),
 							info: updateInfo.files[0],
 						},
 					]),
@@ -332,7 +332,7 @@ describe("ElectronUpdaterEngine", () => {
 		} as unknown as AppUpdater;
 		const innoUpdate = {
 			select: vi.fn().mockReturnValue({
-				assetFileName: "Vetta-1.2.3-win-x64.exe",
+				assetFileName: "MetoAI-1.2.3-win-x64.exe",
 				totalBytes: 42,
 			}),
 			prepareDownloadedInstaller,
@@ -343,5 +343,95 @@ describe("ElectronUpdaterEngine", () => {
 		await engine.checkForUpdates();
 		await expect(engine.downloadUpdate(vi.fn()).promise).rejects.toThrow("Inno Setup interrupted");
 		expect(prepareDownloadedInstaller).toHaveBeenCalledOnce();
+	});
+	// Windows 的 Inno 版本化布局可以直接展开服务端登记的 exe；macOS 的 Squirrel.Mac 只认
+	// 自己 appcast 里带 sha512 的 ZIP，因此没有 Inno 控制器时必须如实回答「不能接管」，
+	// 否则调用方会以为宿主下载好的包能装进一个根本不存在的安装路径。
+	it("只在 Inno 版本化布局下声明能接管服务端下载的安装包", async () => {
+		const updater = { on: vi.fn() } as unknown as AppUpdater;
+		const innoUpdate = { selectDownloadedPackage: vi.fn() } as unknown as InnoWindowsUpdateController;
+		const pkg = {
+			version: "1.2.3",
+			path: "C:\\downloads\\MetoAI-1.2.3-win-x64.exe",
+			fileName: "MetoAI-1.2.3-win-x64.exe",
+			sizeBytes: 42,
+		};
+
+		expect(new ElectronUpdaterEngine(updater).canInstallDownloadedPackage()).toBe(false);
+		expect(new ElectronUpdaterEngine(updater, innoUpdate).canInstallDownloadedPackage()).toBe(true);
+
+		await expect(
+			new ElectronUpdaterEngine(updater).adoptDownloadedPackage(pkg, vi.fn(), new AbortController().signal),
+		).rejects.toThrow("this build cannot install an externally downloaded package");
+	});
+
+	it("把服务端下载好的安装包登记给 Inno 并转发安装准备的进度", async () => {
+		const updater = { on: vi.fn(), off: vi.fn() } as unknown as AppUpdater;
+		const preparedPaths = ["C:\\MetoAI\\versions\\1.2.3\\MetoAI.exe"];
+		const selectDownloadedPackage = vi.fn().mockReturnValue({
+			assetFileName: "MetoAI-1.2.3-win-x64.exe",
+			totalBytes: 42,
+		});
+		const prepareDownloadedInstaller = vi.fn(
+			async (_installerPath: string, onProgress: (progress: ProgressInfo) => void): Promise<string[]> => {
+				onProgress({ bytesPerSecond: 0, delta: 0, percent: 50, total: 42, transferred: 21 });
+				return preparedPaths;
+			},
+		);
+		const innoUpdate = {
+			selectDownloadedPackage,
+			prepareDownloadedInstaller,
+			activate: vi.fn(),
+		} as unknown as InnoWindowsUpdateController;
+		const engine = new ElectronUpdaterEngine(updater, innoUpdate);
+		const pkg = {
+			version: "1.2.3",
+			path: "C:\\downloads\\MetoAI-1.2.3-win-x64.exe",
+			fileName: "MetoAI-1.2.3-win-x64.exe",
+			sizeBytes: 42,
+		};
+		const onProgress = vi.fn();
+		const signal = new AbortController().signal;
+
+		await expect(engine.adoptDownloadedPackage(pkg, onProgress, signal)).resolves.toEqual(preparedPaths);
+
+		expect(selectDownloadedPackage).toHaveBeenCalledWith(pkg);
+		expect(prepareDownloadedInstaller).toHaveBeenCalledWith(pkg.path, onProgress, signal);
+		expect(onProgress).toHaveBeenCalledWith(expect.objectContaining({ percent: 50 }));
+	});
+
+	it("接管之后的重启安装走 Inno，不再回落 electron-updater", async () => {
+		const quitAndInstall = vi.fn();
+		const updater = { on: vi.fn(), off: vi.fn(), quitAndInstall } as unknown as AppUpdater;
+		const activate = vi.fn();
+		const innoUpdate = {
+			selectDownloadedPackage: vi.fn().mockReturnValue({
+				assetFileName: "MetoAI-1.2.3-win-x64.exe",
+				totalBytes: 42,
+			}),
+			prepareDownloadedInstaller: vi.fn().mockResolvedValue(["C:\\MetoAI\\versions\\1.2.3\\MetoAI.exe"]),
+			activate,
+		} as unknown as InnoWindowsUpdateController;
+		const engine = new ElectronUpdaterEngine(updater, innoUpdate);
+
+		// 接管前：没有选中过任何 Inno 版本，交棒仍由 electron-updater 负责。
+		await engine.quitAndInstall();
+		expect(quitAndInstall).toHaveBeenCalledWith(true, true);
+		expect(activate).not.toHaveBeenCalled();
+
+		await engine.adoptDownloadedPackage(
+			{
+				version: "1.2.3",
+				path: "C:\\downloads\\MetoAI-1.2.3-win-x64.exe",
+				fileName: "MetoAI-1.2.3-win-x64.exe",
+				sizeBytes: 42,
+			},
+			vi.fn(),
+			new AbortController().signal,
+		);
+		await engine.quitAndInstall();
+
+		expect(activate).toHaveBeenCalledOnce();
+		expect(quitAndInstall).toHaveBeenCalledOnce();
 	});
 });

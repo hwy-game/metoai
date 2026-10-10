@@ -32,6 +32,21 @@ export interface UpdateEngine {
 	 */
 	downloadUpdate(onProgress: (progress: ProgressInfo) => void, onStaging?: () => void): UpdateEngineDownload;
 	quitAndInstall(): Promise<void>;
+	/**
+	 * 引擎能否接管宿主自行下载好的安装包（服务端 `download_url`）。
+	 * Windows 的 Inno 版本化布局可以：直接把 exe 交给 Inno Setup 展开新版本目录；
+	 * macOS 的 Squirrel.Mac 只安装自己 appcast 里带 sha512 的 ZIP，因此不支持。
+	 */
+	canInstallDownloadedPackage?(): boolean;
+	/**
+	 * 用宿主已下载并校验过的安装包走同一套安装准备流程，返回可安装的产物路径。
+	 * 只有 `canInstallDownloadedPackage()` 为真时才可调用。
+	 */
+	adoptDownloadedPackage?(
+		pkg: { path: string; version: string; fileName: string; sizeBytes: number },
+		onProgress: (progress: ProgressInfo) => void,
+		signal: AbortSignal,
+	): Promise<string[]>;
 }
 
 /**
@@ -184,6 +199,30 @@ export class ElectronUpdaterEngine implements UpdateEngine {
 			hasUpdate: result.isUpdateAvailable,
 			info: innoAsset ? { ...info, ...innoAsset } : info,
 		};
+	}
+
+	canInstallDownloadedPackage(): boolean {
+		return this.innoWindowsUpdate !== undefined;
+	}
+
+	async adoptDownloadedPackage(
+		pkg: { path: string; version: string; fileName: string; sizeBytes: number },
+		onProgress: (progress: ProgressInfo) => void,
+		signal: AbortSignal,
+	): Promise<string[]> {
+		const innoWindowsUpdate = this.innoWindowsUpdate;
+		if (!innoWindowsUpdate) throw new Error("this build cannot install an externally downloaded package");
+		this.useInnoUpdate = true;
+		innoWindowsUpdate.selectDownloadedPackage(pkg);
+		// 差分下载的基线缓存只有 electron-updater 自己下过包时才存在：有就顺手同步过去，
+		// 没有也不影响本次安装（activate() 不读这个缓存）。
+		await promoteDownloadedInstaller(this.updater, pkg.path)
+			.then(() => console.info("[updater] differential cache baseline promoted"))
+			.catch((error) => console.warn("[updater] unable to promote differential cache baseline", error));
+		console.info("[updater] preparing a server-provided Windows version with Inno Setup", pkg.path);
+		const preparedPaths = await innoWindowsUpdate.prepareDownloadedInstaller(pkg.path, onProgress, signal);
+		console.info("[updater] server-provided Windows version is ready", preparedPaths[0]);
+		return preparedPaths;
 	}
 
 	downloadUpdate(onProgress: (progress: ProgressInfo) => void, onStaging?: () => void): UpdateEngineDownload {

@@ -1,3 +1,4 @@
+import { DEFAULT_RESOLVED_MODE, DEFAULT_THEME_MODE, MODE_STORAGE_KEY } from "@shared/theme/apply";
 import { DEFAULT_THEME_ID, resolveThemeId } from "@shared/theme/themes";
 import { atom } from "jotai";
 import type { ReactNode } from "react";
@@ -53,6 +54,7 @@ export type SettingsTab =
 	| "appearance"
 	| "account"
 	| "models"
+	| "metoai"
 	| "mcp"
 	| "environment"
 	| "extensions"
@@ -72,8 +74,10 @@ export type SettingsTab =
 // ─── Theme ───
 
 export type ThemeMode = "light" | "dark" | "auto";
-export const themeModeAtom = atom<ThemeMode>((localStorage.getItem("vetta-theme") as ThemeMode) || "dark");
-export const resolvedThemeAtom = atom<"light" | "dark">("dark");
+export const themeModeAtom = atom<ThemeMode>(
+	(localStorage.getItem(MODE_STORAGE_KEY) as ThemeMode | null) ?? DEFAULT_THEME_MODE,
+);
+export const resolvedThemeAtom = atom<"light" | "dark">(DEFAULT_RESOLVED_MODE);
 export const themeNameAtom = atom<string>(
 	resolveThemeId(localStorage.getItem("vetta-color-theme") || DEFAULT_THEME_ID),
 );
@@ -126,3 +130,9 @@ export const sandboxPermissionDrawerAtom = atom<SandboxPermissionDrawerState | n
  * ——全局快捷键与侧栏顶部的入口按钮，而面板本身挂在 RootGlobalOverlays 下。
  */
 export const commandMenuOpenAtom = atom<boolean>(false);
+
+/**
+ * 消息中心（侧栏底栏铃铛）的开合。放 atom 而非组件内部 state：唤起点有两个
+ * ——铃铛按钮与 urgent 官方消息的启动自动打开，后者由 useMetoaiMessageInit 触发。
+ */
+export const messageCenterOpenAtom = atom<boolean>(false);

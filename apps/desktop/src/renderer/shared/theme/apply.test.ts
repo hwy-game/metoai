@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { withThemeTransition } from "./apply.js";
+import { applyStoredTheme, DEFAULT_THEME_MODE, MODE_STORAGE_KEY, withThemeTransition } from "./apply.js";
 
 interface Deferred {
 	promise: Promise<void>;
@@ -121,5 +121,29 @@ describe("withThemeTransition", () => {
 		await secondFinished.promise;
 		await Promise.resolve();
 		expect(document.documentElement.hasAttribute("data-theme-transition")).toBe(false);
+	});
+});
+
+describe("默认主题模式", () => {
+	beforeEach(() => {
+		installMatchMedia();
+		localStorage.clear();
+		document.documentElement.removeAttribute("data-mode");
+	});
+
+	it("首次启动（本地没存过模式）默认浅色", () => {
+		expect(DEFAULT_THEME_MODE).toBe("light");
+
+		applyStoredTheme();
+
+		expect(document.documentElement.getAttribute("data-mode")).toBe("light");
+	});
+
+	it("用户存过深色时仍按用户选择", () => {
+		localStorage.setItem(MODE_STORAGE_KEY, "dark");
+
+		applyStoredTheme();
+
+		expect(document.documentElement.getAttribute("data-mode")).toBe("dark");
 	});
 });

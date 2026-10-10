@@ -3,11 +3,13 @@
 	"triggerTitle": "消息中心",
 	"tabs": {
 		"all": "全部",
-		"notifications": "通知"
+		"notifications": "通知",
+		"official": "官方消息"
 	},
 	"empty": {
 		"all": "暂无消息",
-		"notifications": "暂无通知"
+		"notifications": "暂无通知",
+		"official": "暂无官方消息"
 	},
 	"notification": {
 		"markAllRead": "全部已读",

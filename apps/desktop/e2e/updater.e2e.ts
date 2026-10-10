@@ -1,3 +1,10 @@
+/**
+ * Packaged updater E2E against a fully test-controlled update source: `wdio.conf.ts` serves a
+ * local feed and registers a policy one patch above the running version through
+ * `VETTA_E2E_UPDATE_POLICY`. Version detection only trusts the server registry (docs/adr/0120),
+ * so what each platform asserts below is "the feed can/cannot deliver the registered version".
+ */
+
 const packaged = process.env.VETTA_E2E_PACKAGED === "1";
 const UPDATE_TIMEOUT_MS = 60_000;
 
@@ -31,7 +38,7 @@ async function activateRendererControl(element: WebdriverIO.Element): Promise<vo
 	await browser.execute((control) => control.click(), element);
 }
 
-describe("Vetta Desktop packaged updater", () => {
+describe("MetoAI Desktop packaged updater", () => {
 	(packaged ? it : it.skip)("checks the configured update feed through the settings UI", async () => {
 		await browser.waitUntil(
 			async () => {
@@ -54,6 +61,8 @@ describe("Vetta Desktop packaged updater", () => {
 		await waitForUpdaterPhase(checkButton, "checking");
 
 		if (process.platform === "linux") {
+			// The Linux fixture serves the registered version, so the AppImage provider really
+			// downloads it and stages the replacement.
 			await waitForUpdaterPhase(checkButton, "available");
 			const detail = await $('[data-testid="updater-detail"]');
 			await detail.waitForDisplayed({ timeout: UPDATE_TIMEOUT_MS });
@@ -63,6 +72,9 @@ describe("Vetta Desktop packaged updater", () => {
 			await activateRendererControl(downloadButton);
 			await waitForUpdaterPhase(checkButton, "ready");
 		} else {
+			// Windows/macOS only publish the running version, so the registered update has no
+			// deliverable package: the check must collapse to "no update" instead of prompting
+			// for a version that cannot be installed (ADR-0120 fail-open).
 			await waitForUpdaterPhase(checkButton, "idle");
 		}
 

@@ -1,4 +1,4 @@
-import { CONFIG_DIR_NAME } from "../../identity.js";
+import { CONFIG_DIR_NAME, LEGACY_CONFIG_DIR_NAME } from "../../identity.js";
 import type { ResourcePathPort } from "../contracts/resource-access.js";
 import type { ResolvedResourcePath, ResourcePathMetadata } from "../contracts/resource-source.js";
 
@@ -79,6 +79,8 @@ export class ResourceMetadataIndex {
 		for (const [scope, base] of [
 			["user", this.agentDir],
 			["project", this.paths.join(this.cwd, CONFIG_DIR_NAME)],
+			// 品牌改名前的项目目录仍按项目资源归类，否则旧目录里的资源会被当成外部路径。
+			["project", this.paths.join(this.cwd, LEGACY_CONFIG_DIR_NAME)],
 		] as const) {
 			for (const kind of ["skills", "prompts", "themes", "extensions"]) {
 				const root = this.paths.resolve(base, kind);

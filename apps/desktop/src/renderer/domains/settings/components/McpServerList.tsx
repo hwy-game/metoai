@@ -1,4 +1,3 @@
-import { cloudEnabled } from "@shared/components/cloud-slots";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { SETTINGS_SECTION } from "../registry";
@@ -78,19 +77,17 @@ function McpDiscoverBody({
 
 	return (
 		<div>
-			{/* MCP 广场来自 Vetta 官方市场；lite 构建无云服务，因此整段隐藏。 */}
-			{cloudEnabled && (
-				<section>
-					<div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-						<div className="min-w-0">
-							<div className="text-[13px] font-semibold text-foreground">{t("mcpStore.sectionMarketplace")}</div>
-							<p className="mt-0.5 text-[11px] text-muted-foreground">{t("mcpStore.sectionMarketplaceHint")}</p>
-						</div>
-						<RemoteMcpRefreshButton model={remoteModel} />
+			{/* MCP 广场来自公开的 MetoToken 能力市场。 */}
+			<section>
+				<div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+					<div className="min-w-0">
+						<div className="text-[13px] font-semibold text-foreground">{t("mcpStore.sectionMarketplace")}</div>
+						<p className="mt-0.5 text-[11px] text-muted-foreground">{t("mcpStore.sectionMarketplaceHint")}</p>
 					</div>
-					<RemoteMcpDiscoverList model={remoteModel} addedNames={model.addedServerNames} />
-				</section>
-			)}
+					<RemoteMcpRefreshButton model={remoteModel} />
+				</div>
+				<RemoteMcpDiscoverList model={remoteModel} addedNames={model.addedServerNames} />
+			</section>
 		</div>
 	);
 }

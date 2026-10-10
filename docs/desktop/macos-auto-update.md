@@ -1,6 +1,6 @@
 # macOS 自动更新、R2 发版与排障
 
-本文是 Vetta Desktop macOS 更新链路的维护手册，与 [`windows-auto-update.md`](./windows-auto-update.md) 平行。两端共用同一套更新源配置、发布脚本、状态机和 CI 编排；差异集中在安装机制与产物形态，本文只展开 macOS 侧。
+本文是 MetoAI Desktop macOS 更新链路的维护手册，与 [`windows-auto-update.md`](./windows-auto-update.md) 平行。两端共用同一套更新源配置、发布脚本、状态机和 CI 编排；差异集中在安装机制与产物形态，本文只展开 macOS 侧。
 
 ## 1. 当前结论
 
@@ -44,12 +44,12 @@ macOS 需要发布两种产物：**ZIP 供自动更新**（Squirrel.Mac 只认 Z
 desktop/
   stable/
     latest-mac.yml
-    Vetta-<version>-mac.zip              # x64 更新包
-    Vetta-<version>-mac.zip.blockmap
-    Vetta-<version>.dmg                  # x64 首装包
-    Vetta-<version>-arm64-mac.zip        # arm64 更新包
-    Vetta-<version>-arm64-mac.zip.blockmap
-    Vetta-<version>-arm64.dmg            # arm64 首装包
+    MetoAI-<version>-mac.zip              # x64 更新包
+    MetoAI-<version>-mac.zip.blockmap
+    MetoAI-<version>.dmg                  # x64 首装包
+    MetoAI-<version>-arm64-mac.zip        # arm64 更新包
+    MetoAI-<version>-arm64-mac.zip.blockmap
+    MetoAI-<version>-arm64.dmg            # arm64 首装包
 ```
 
 `latest.yml`（Windows）与 `latest-mac.yml`（macOS）是同一前缀下两份独立清单，互不影响，两个平台可以独立发版。
@@ -130,10 +130,10 @@ desktop/
 | **旧版** blockmap | 把新版 URL 里的版本号替换成旧版号推出来（`Provider.getBlockMapFiles`），因此**旧版本的 blockmap 不能从 R2 删掉** |
 | 本地基线 `update.zip` | electron-updater 每次下载完成后复制一份 |
 
-缓存目录由 `app-update.yml` 的 `updaterCacheDirName` 决定，当前是 `vetta-updater`，与 Windows 的 `%LOCALAPPDATA%\vetta-updater\` 同名：
+缓存目录由 `app-update.yml` 的 `updaterCacheDirName` 决定，当前是 `metoai-updater`，与 Windows 的 `%LOCALAPPDATA%\metoai-updater\` 同名：
 
 ```text
-~/Library/Caches/vetta-updater/
+~/Library/Caches/metoai-updater/
   update.zip                                  # 差分基线
   pending/                                    # 下载中的新版本
 ~/Library/Caches/com.vetta.desktop.ShipIt/    # Squirrel 暂存区
@@ -144,10 +144,10 @@ desktop/
 测试时可以手工播种，跳过那一轮全量（ZIP 必须正是当前已安装版本的那一份）：
 
 ```bash
-mkdir -p ~/Library/Caches/vetta-updater
-cp release/Vetta-<installed-version>-arm64-mac.zip ~/Library/Caches/vetta-updater/update.zip
+mkdir -p ~/Library/Caches/metoai-updater
+cp release/MetoAI-<installed-version>-arm64-mac.zip ~/Library/Caches/metoai-updater/update.zip
 # 核对与线上清单一致
-shasum -a 512 -b ~/Library/Caches/vetta-updater/update.zip | awk '{print $1}' | xxd -r -p | base64
+shasum -a 512 -b ~/Library/Caches/metoai-updater/update.zip | awk '{print $1}' | xxd -r -p | base64
 ```
 
 反过来要复现全量下载，删掉 `update.zip` 即可。
@@ -204,13 +204,13 @@ scripts/release-mac.sh local --version 0.5.62
 bun run --cwd apps/desktop serve:updates:local
 
 # 3. 播种差分基线（第一次需要，之后 electron-updater 会自动维护）
-cp apps/desktop/release/Vetta-0.5.62-arm64-mac.zip ~/Library/Caches/vetta-updater/update.zip
+cp apps/desktop/release/MetoAI-0.5.62-arm64-mac.zip ~/Library/Caches/metoai-updater/update.zip
 
 # 4. 改点东西，出下一版
 scripts/release-mac.sh local --version 0.5.63
 
 # 5. 从终端启动 0.5.62 验证
-/Applications/Vetta.app/Contents/MacOS/Vetta
+/Applications/MetoAI.app/Contents/MacOS/MetoAI
 ```
 
 两个细节决定这个通道能不能测差分：
@@ -222,7 +222,7 @@ scripts/release-mac.sh local --version 0.5.63
 
 ### 7.1 前提：签名凭据
 
-macOS 的本地闭环**必须有 Developer ID 证书**，未签名包走不到暂存阶段（原生 `autoUpdater` 报 `Could not get code signature for running application`）。
+macOS 的正式自动更新闭环需要 Developer ID 签名；GitHub Actions 产出的 ad-hoc 包只适合验证安装包布局，不能用于正式自动更新。
 
 ```bash
 source ~/.config/vetta/mac-signing.env
@@ -248,7 +248,7 @@ export VETTA_R2_SECRET_ACCESS_KEY=<secret-access-key>
 export VETTA_R2_BUCKET=vetta-releases
 export VETTA_R2_PREFIX=desktop/test
 export VETTA_UPDATE_URL=https://releases.openvetta.com/desktop/test
-export VETTA_REQUIRE_MAC_SIGNATURE=1
+export VETTA_REQUIRE_MAC_SIGNATURE=0
 ```
 
 ### 7.3 构建测试版本
@@ -259,7 +259,7 @@ export VETTA_REQUIRE_MAC_SIGNATURE=1
 cd apps/desktop
 rm -rf release                                  # 残留清单会让发布脚本判定版本不唯一
 VETTA_DESKTOP_BUILD_VERSION=0.5.60 bun run dist:mac:arm64
-VETTA_REQUIRE_MAC_SIGNATURE=1 bun run verify:updates:mac
+VETTA_REQUIRE_MAC_SIGNATURE=0 bun run verify:updates:mac
 ```
 
 只测本机架构时到此为止。要同时发双架构，复现 CI 的重命名与合并：
@@ -267,14 +267,14 @@ VETTA_REQUIRE_MAC_SIGNATURE=1 bun run verify:updates:mac
 ```bash
 mv release/latest-mac.yml release/latest-mac-arm64.yml
 VETTA_DESKTOP_BUILD_VERSION=0.5.60 bun run dist:mac:x64
-VETTA_REQUIRE_MAC_SIGNATURE=1 bun run verify:updates:mac
+VETTA_REQUIRE_MAC_SIGNATURE=0 bun run verify:updates:mac
 mv release/latest-mac.yml release/latest-mac-x64.yml
 bun run merge:updates:mac
 ```
 
 在 arm64 机器上交叉构建 x64 包可以完成，但**无法在本机验证其可运行性**（`uiohook-napi`、`electron-liquid-glass` 的 x64 prebuild 是否齐全只有 Intel 机器能确认）。
 
-签名 + 公证会让构建明显变慢：产物内置 node / python 运行时与多个 sidecar 二进制，逐个签名再上传公证，整体多出 10～30 分钟属正常。
+GitHub Actions 的 ad-hoc 构建不会执行签名与公证，因此不会增加这 10～30 分钟；独立正式签名流程仍会因逐个签名并上传公证而变慢。
 
 ### 7.4 `verify:updates:mac` 检查什么
 
@@ -284,7 +284,7 @@ bun run merge:updates:mac
 2. 每个产物存在，且大小与 SHA-512 与清单一致。
 3. 顶层 `path` / `sha512` 与对应产物一致。
 4. 每个 ZIP 都有非空 `.blockmap`。
-5. `VETTA_REQUIRE_MAC_SIGNATURE=1` 时，用 `ditto` 解包每个 ZIP，校验：
+5. 默认只校验元数据、文件大小、SHA-512、blockmap 和产物布局；正式签名流程显式设置 `VETTA_REQUIRE_MAC_SIGNATURE=1` 时，才用 `ditto` 解包每个 ZIP，校验：
    - 顶层有且只有一个 `.app`
    - `CFBundleShortVersionString` 与清单版本一致
    - `CFBundleIdentifier` 是 `com.vetta.desktop`
@@ -307,7 +307,7 @@ bun run publish:updates:r2
 ### 7.6 客户端验证
 
 1. 安装一个更低版本的 test 构建到 `/Applications`（必须是 `/Applications`，Squirrel 需要能写 app bundle 所在目录）。
-2. 从终端启动以便看日志：`/Applications/Vetta.app/Contents/MacOS/Vetta`
+2. 从终端启动以便看日志：`/Applications/MetoAI.app/Contents/MacOS/MetoAI`
 3. 上传更高版本后，等待启动检查或手动点检查更新。
 4. 观察三行日志的时间间隔：
 
@@ -340,7 +340,7 @@ bun run publish:updates:r2
 
 ### 9.1 runner 选择
 
-两个架构各自使用匹配的托管 runner：`macos-15`（arm64）与 `macos-15-intel`（x64）。发布构建与非发布演练走同一个 runner，区别只在于是否要求签名。
+两个架构各自使用匹配的托管 runner：`macos-15`（arm64）与 `macos-15-intel`（x64）。GitHub Actions 的发布构建和非发布演练都跳过签名检测；需要正式签名的独立流程另行配置。
 
 公证不需要本地环境：`xcrun notarytool` 只是把签好名的产物传给 Apple 换回票据，托管 runner 有网络即可；`.p12` 由 electron-builder 导入临时钥匙串，不碰登录钥匙串。
 
@@ -363,16 +363,16 @@ APPLE_TEAM_ID
 
 **证书必须走 `CSC_LINK`（`.p12` 路径）而不是 `CSC_NAME`**：走 `.p12` 时 electron-builder 会建临时钥匙串导入证书；用 `CSC_NAME` 要读登录钥匙串，非交互环境下它是锁着的，报 `The specified item could not be found in the keychain` 或 `User interaction is not allowed`。
 
-签名步骤仍会优先使用 runner 环境已提供的凭据，只有在 runner 没提供时才回退到上述 Secret——这条分支留给本地或自持签名机，托管 runner 上永远走 Secret 路径。两者都没有时，tag 发版直接失败，`workflow_dispatch` 允许产出未签名测试包。
+GitHub Actions 不读取上述签名凭据，macOS job 固定产出 ad-hoc 包并将 `VETTA_REQUIRE_MAC_SIGNATURE` 设为 `0`；独立正式签名流程才会还原 `.p12` / `.p8` 并执行签名与公证。
 
-注意：只要 Secret 配齐，**非发布的 `workflow_dispatch` 演练也会签名并公证**，因为开关只看凭据是否完整。想快速验证构建可以设 `VETTA_SKIP_NOTARIZE=1` 只签名不公证。
+正式签名流程如需快速验证构建，可以设置 `VETTA_SKIP_NOTARIZE=1` 只签名不公证；这不适用于 GitHub Actions 的常规 ad-hoc 打包。
 
 ### 9.3 CI 上的 macOS 流程
 
 ```text
 tag v<version>
   -> 校验 tag 名与 apps/desktop/package.json 版本一致
-  -> 读取签名凭据，打开 VETTA_REQUIRE_MAC_SIGNATURE=1
+  -> 将 `VETTA_REQUIRE_MAC_SIGNATURE` 设为 0，跳过签名检测
   -> 清理上一轮的 release/（复用工作目录的 runner 才会有残留）
   -> dist:mac:<arch>
   -> latest-mac.yml 改名为 latest-mac-<arch>.yml
@@ -383,7 +383,7 @@ tag v<version>
   -> 发布到 desktop/stable
 ```
 
-两个 macOS job 并行，墙钟时间约等于单架构。签名+公证会让每个 job 比未签名构建多出 10～30 分钟（产物里内置 Node/Python 运行时与多个 sidecar 二进制，逐个签名再上传公证），build job 的 `timeout-minutes` 因此设为 120。
+GitHub Actions 的 macOS job 并行生成 ad-hoc 包；独立正式签名流程每个 job 可能因签名和公证比未签名构建多出 10～30 分钟（产物里内置 Node/Python 运行时与多个 sidecar 二进制）。
 
 必须先在 `test` 通道完成真实的「旧安装版 → CDN → 新版本 → 重启」闭环，再发布 stable。
 
@@ -429,7 +429,7 @@ launchctl print "gui/$(id -u)/com.vetta.desktop.ShipIt"
 | 报错「Could not find service」 | Squirrel 还没提交作业。应用退得太早（交棒后立刻 `app.exit(0)` 实测只需 41ms）。 |
 | `runs = 0` + `port = 0x0` + `active = 0` | 作业提交了但从没被启动。它是按需 mach service，需要有人连上去或 `launchctl kickstart`。 |
 | `runs = 1` + `last exit code = 0` | ShipIt 跑过了，去看它的日志。 |
-| `state = running` 但版本没变 | ShipIt 在等目标进程退出——检查是不是还有 Vetta 进程活着。 |
+| `state = running` 但版本没变 | ShipIt 在等目标进程退出——检查是不是还有 MetoAI 进程活着。 |
 
 **② ShipIt 自己的日志**——Squirrel 只在作业真正 spawn 后才创建这两个文件，**文件不存在本身就是结论**：
 
@@ -442,9 +442,9 @@ cat ~/Library/Caches/com.vetta.desktop.ShipIt/ShipIt_stderr.log
 ```text
 Detected this as an install request
 Beginning installation
-Moved bundle contents from ... to file:///Applications/Vetta.app/
+Moved bundle contents from ... to file:///Applications/MetoAI.app/
 Installation completed successfully
-Successfully launched application at file:///Applications/Vetta.app/
+Successfully launched application at file:///Applications/MetoAI.app/
 ```
 
 **③ 待安装状态**（安装完成后会被清掉）：
@@ -459,10 +459,10 @@ plutil -p ~/Library/Caches/com.vetta.desktop.ShipIt/ShipItState.plist
 
 ```bash
 launchctl kickstart "gui/$(id -u)/com.vetta.desktop.ShipIt"
-pkill -f "Vetta.app/Contents/MacOS/Vetta"   # ShipIt 必须等目标退出才替换
+pkill -f "MetoAI.app/Contents/MacOS/MetoAI"   # ShipIt 必须等目标退出才替换
 ```
 
-**别用应用窗口判断应用是否还在跑。** 单实例锁会让新启动的实例退出并把老进程的窗口调出来，看着像「重启了但版本没变」，实际是同一个老进程。用 `pgrep -f "Vetta.app/Contents/MacOS/Vetta"` 看 pid，并和 `launchctl print` 里的 `submitted by Vetta[pid]` 对照。
+**别用应用窗口判断应用是否还在跑。** 单实例锁会让新启动的实例退出并把老进程的窗口调出来，看着像「重启了但版本没变」，实际是同一个老进程。用 `pgrep -f "MetoAI.app/Contents/MacOS/MetoAI"` 看 pid，并和 `launchctl print` 里的 `submitted by MetoAI[pid]` 对照。
 
 ### 10.3 提示重启过早出现（暂存尚未完成）
 
@@ -479,7 +479,7 @@ pkill -f "Vetta.app/Contents/MacOS/Vetta"   # ShipIt 必须等目标退出才替
 ### 10.5 用户报「已损坏」
 
 - 先确认下载的是**新版本**——已发布的旧 DMG 不会追溯获得公证票据。
-- 让用户跑 `xattr -l /Applications/Vetta.app`，若只有 `com.apple.quarantine` 而 app 是公证过的，通常是下载过程被网络中间设备改写导致签名失效，换直链或换网络重下。
+- 让用户跑 `xattr -l /Applications/MetoAI.app`，若只有 `com.apple.quarantine` 而 app 是公证过的，通常是下载过程被网络中间设备改写导致签名失效，换直链或换网络重下。
 - 其余排查见 `../deploy/apple-code-signing.md` 第 6 节。
 
 ### 10.6 公证报 vendor 运行时未签名
@@ -487,7 +487,7 @@ pkill -f "Vetta.app/Contents/MacOS/Vetta"   # ShipIt 必须等目标退出才替
 **现象**：`notarytool` 返回 `Invalid`，issues 里全是这种路径：
 
 ```
-Vetta.app/Contents/Resources/vendor/python/cpython-...tar.gz/cpython-...tar/python/bin/python3.13
+MetoAI.app/Contents/Resources/vendor/python/cpython-...tar.gz/cpython-...tar/python/bin/python3.13
   The binary is not signed with a valid Developer ID certificate.
   The signature does not include a secure timestamp.
   The executable does not have the hardened runtime enabled.
@@ -527,7 +527,7 @@ download failed
 install failed
 ```
 
-打包应用的 stdout 只有从终端启动才看得到：`/Applications/Vetta.app/Contents/MacOS/Vetta`。
+打包应用的 stdout 只有从终端启动才看得到：`/Applications/MetoAI.app/Contents/MacOS/MetoAI`。
 
 不要记录 R2 Secret、Access Key、Authorization 或 Cookie。
 
@@ -571,10 +571,10 @@ install failed
 
 - [ ] 版本号高于已发布版本。
 - [ ] stable 使用 `package.json` 正式版本；test 才使用 `VETTA_DESKTOP_BUILD_VERSION` 覆盖。
-- [ ] 签名凭据齐全，`security find-identity` 有 1 valid identity。
+- [ ] GitHub Actions 不要求签名凭据；`VETTA_REQUIRE_MAC_SIGNATURE=0 bun run verify:updates:mac` 通过。
 - [ ] arm64 与 x64 都已构建，且属于同一版本。
 - [ ] `merge:updates:mac` 已执行，`latest-mac.yml` 同时引用两套 ZIP 与 DMG。
-- [ ] `VETTA_REQUIRE_MAC_SIGNATURE=1 bun run verify:updates:mac` 通过。
+- [ ] 独立正式签名流程如启用 `VETTA_REQUIRE_MAC_SIGNATURE=1`，签名与公证校验通过。
 
 ### R2/Cloudflare
 
@@ -599,7 +599,8 @@ install failed
 | `apps/desktop/src/main/updater.ts` | 按平台装配引擎；macOS 注入原生 `autoUpdater` 事件源 |
 | `apps/desktop/src/main/updater-service.ts` | 平台无关的状态机、自动下载、重试、停滞与暂存超时 |
 | `apps/desktop/src/main/updater-engine.ts` | electron-updater 适配、进度压缩、Squirrel.Mac 暂存等待 |
-| `apps/desktop/scripts/prepare-pack.js` | `resolveMacSigning()` 决定签名开关；生成 electron-builder 配置 |
+| `apps/desktop/scripts/mac-signing-config.mjs` | `resolveMacSigningConfig()` 解析签名模式（签名+公证 / ad-hoc / 未签名） |
+| `apps/desktop/scripts/prepare-pack.js` | 按签名模式生成 electron-builder 配置 |
 | `apps/desktop/scripts/verify-mac-update.mjs` | 发布前清单、哈希、签名、公证票据校验 |
 | `apps/desktop/scripts/merge-mac-update-metadata.mjs` | 合并双架构 `latest-mac-<arch>.yml` |
 | `scripts/release-mac.sh` | 构建 + 校验 + 合并 + 发布的一键入口，含全部前置校验 |

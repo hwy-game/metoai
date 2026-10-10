@@ -1,9 +1,27 @@
 import type { ThemeMode } from "@shared/store/atoms";
+import type { MetoAiUser } from "@/shared/metoai-types";
 
 export interface SettingsMenuThemeOption {
 	icon: string;
 	label: string;
 	value: ThemeMode;
+}
+
+export interface SettingsMenuMetoAiModel {
+	/** 已登录的用户；null 表示未登录，界面改显示登录入口。 */
+	user: MetoAiUser | null;
+	/** 已按站点币种规则格式化的余额与已用；还没拉到站点配置时为 null。 */
+	balance: string | null;
+	used: string | null;
+	busy: boolean;
+	error: string | null;
+	phase: "idle" | "waiting";
+	actions: {
+		login(): void;
+		reopen(): void;
+		cancel(): void;
+		logout(): void;
+	};
 }
 
 export interface SettingsMenuModel {
@@ -27,6 +45,7 @@ export interface SettingsMenuModel {
 		nickname?: string | null;
 		username?: string | null;
 	} | null;
+	metoai: SettingsMenuMetoAiModel;
 	actions: {
 		login(): void;
 		logout(): void;

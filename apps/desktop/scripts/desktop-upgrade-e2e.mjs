@@ -1,3 +1,4 @@
+import { updatePolicyFixture } from "../e2e/update-feed-fixture.mjs";
 import { createWriteStream } from "node:fs";
 import { chmod, mkdir, readFile, rename, rm, writeFile } from "node:fs/promises";
 import { spawn } from "node:child_process";
@@ -88,9 +89,9 @@ async function resolveCandidate(baseUrl, expectedVersion) {
 }
 
 function baselineArtifactName(buildVersion) {
-	if (platform === "win32") return `Vetta-${buildVersion}-win-x64.exe`;
-	if (platform === "linux") return `Vetta-${buildVersion}.AppImage`;
-	return architecture === "arm64" ? `Vetta-${buildVersion}-arm64-mac.zip` : `Vetta-${buildVersion}-mac.zip`;
+	if (platform === "win32") return `MetoAI-${buildVersion}-win-x64.exe`;
+	if (platform === "linux") return `MetoAI-${buildVersion}.AppImage`;
+	return architecture === "arm64" ? `MetoAI-${buildVersion}-arm64-mac.zip` : `MetoAI-${buildVersion}-mac.zip`;
 }
 
 async function installBaseline(installerPath, installRoot) {
@@ -107,7 +108,7 @@ async function installBaseline(installerPath, installRoot) {
 			child.once("error", reject);
 			child.once("exit", (code) => (code === 0 ? resolve() : reject(new Error(`Inno exited with ${code}`))));
 		});
-		return join(installRoot, "Vetta.exe");
+		return join(installRoot, "MetoAI.exe");
 	}
 	if (platform === "linux") {
 		await chmod(installerPath, 0o755);
@@ -120,11 +121,11 @@ async function installBaseline(installerPath, installRoot) {
 		child.once("error", reject);
 		child.once("exit", (code) => (code === 0 ? resolve() : reject(new Error(`ditto exited with ${code}`))));
 	});
-	const appPath = join(extractedRoot, "Vetta.app");
-	const installedApp = join(installRoot, "Vetta.app");
+	const appPath = join(extractedRoot, "MetoAI.app");
+	const installedApp = join(installRoot, "MetoAI.app");
 	await rm(installedApp, { recursive: true, force: true });
 	await rename(appPath, installedApp);
-	return join(installedApp, "Contents", "MacOS", "Vetta");
+	return join(installedApp, "Contents", "MacOS", "MetoAI");
 }
 
 function statePath(home) {
@@ -194,9 +195,12 @@ async function main() {
 		VETTA_E2E: "1",
 		VETTA_E2E_UPGRADE: "1",
 		VETTA_E2E_UPDATE_URL: baseUrl,
+		// 版本检测只认服务端登记（docs/adr/0120）：这次升级在真实控制台上没有登记记录，用策略
+		// 替身把「候选版本已登记」告诉客户端，否则检查只会收敛成「没有更新」而永远装不上。
+		VETTA_E2E_UPDATE_POLICY: JSON.stringify(updatePolicyFixture(candidateVersion)),
 		VETTA_E2E_UPGRADE_STATE: state,
 		VETTA_HOME: home,
-		VETTA_CONFIG_DIR: ".vetta-upgrade-e2e",
+		VETTA_CONFIG_DIR: ".metoai-upgrade-e2e",
 		VETTA_SPEECH_INPUT_ENABLED: "false",
 	};
 	if (platform === "linux") {
@@ -208,7 +212,7 @@ async function main() {
 		const result = await waitForVerification(state, child, 15 * 60 * 1000);
 		console.log(`[desktop-upgrade-e2e] verified ${result.currentVersion}; log=${logPath}`);
 	}
-	await rm(join(homedir(), ".vetta", "desktop-upgrade-e2e.json"), { force: true });
+	await rm(join(homedir(), ".metoai", "desktop-upgrade-e2e.json"), { force: true });
 	await rm(root, { recursive: true, force: true });
 }
 

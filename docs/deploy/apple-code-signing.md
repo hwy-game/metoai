@@ -1,8 +1,8 @@
 # Apple 证书申请与 macOS 签名/公证手册
 
-面向 Vetta 桌面端 macOS 发版：从零申请公司主体的 Apple 开发者账号，拿到 **Developer ID Application** 证书与公证凭据，注入构建，直到用户双击 DMG 不再看到「已损坏」。
+面向 MetoAI 桌面端 macOS 的签名与公证说明。GitHub Actions 的常规打包不要求也不检测 Apple 签名，统一产出 ad-hoc 包；本手册描述需要正式 Developer ID 签名与公证时的独立流程。
 
-构建侧改动见 `apps/desktop/scripts/prepare-pack.js` 的 `resolveMacSigning()`。**只要环境变量齐全就自动开启签名+公证，一个都不设就是现在的未签名产物**，不需要改代码。
+GitHub 打包会清空 runner 上的签名环境变量，设置 `VETTA_MAC_ADHOC_SIGN=1` 与 `VETTA_REQUIRE_MAC_SIGNATURE=0`。正式签名凭据不会被读取，macOS 产物仍会执行版本、hash、blockmap 和文件布局校验。
 
 ---
 
@@ -13,7 +13,7 @@
 | 产物 | 用途 | 来源 |
 |---|---|---|
 | Apple Developer Program 会员资格（Organization） | 前提，$99/年 | developer.apple.com |
-| **Developer ID Application** 证书 + 私钥（`.p12`） | 给 `Vetta.app` 签名 | 开发者后台创建，本机钥匙串导出 |
+| **Developer ID Application** 证书 + 私钥（`.p12`） | 给 `MetoAI.app` 签名 | 开发者后台创建，本机钥匙串导出 |
 | **Team ID**（10 位，如 `A1B2C3D4E5`） | 公证时指定团队 | 开发者后台 Membership 页 |
 | App Store Connect **API Key**（`.p8`）或 **App 专用密码** | 提交公证 | App Store Connect / appleid.apple.com |
 
@@ -71,7 +71,7 @@ Apple 用邓白氏（D-U-N-S）编号核验公司法人存在，个人账号不�
 2. 菜单 → 证书助理 → **从证书颁发机构请求证书**
 3. 填写：
    - 用户电子邮件地址：注册用的公司邮箱
-   - 常用名称：随便写，如 `Vetta Developer ID`
+   - 常用名称：随便写，如 `MetoAI Developer ID`
    - CA 电子邮件地址：**留空**
    - 请求方式：勾选 **存储到磁盘**，并勾选 **让我指定密钥对信息**
 4. 下一步，密钥大小 **2048 位**，算法 **RSA**
@@ -152,11 +152,12 @@ VETTA_REQUIRE_MAC_SIGNATURE=1 bun run verify:updates:mac
 
 CI 上 `CSC_LINK` 可以直接放 base64：`export CSC_LINK="$(base64 -i developer-id.p12)"`。
 
-构建脚本的行为：
+构建脚本按环境变量解析出三种签名模式（`resolveMacSigningConfig()` 的 `mode`），行为分别是：
 
-- **一个相关变量都没设** → 走原来的未签名路径（`identity: null` / `notarize: false`），DMG 里带「修复已损坏.app」
-- **设了一部分** → 直接报错并列出缺哪些，不会产出「签了名但没公证」这种半成品
-- **全齐** → 开启 hardened runtime + entitlements + 公证，DMG 变回两图标常规版式，不再带修复助手
+- **凭据全齐**（`mode: signed`）→ Developer ID 签名 + hardened runtime + entitlements + 公证，DMG 变回两图标常规版式，不再带修复助手；用户双击直接启动，自动更新可用
+- **一个相关变量都没设**（`mode: adhoc`，默认）→ ad-hoc 签名（`identity: "-"`，并强制关闭 hardened runtime），详见 4.3
+- **一个都没设且 `VETTA_MAC_ADHOC_SIGN=0`**（`mode: unsigned`）→ 完全不签名（`identity: null`），只能靠 DMG 里的「修复已损坏.app」摘掉隔离属性
+- **只设了一部分** → 直接报错并列出缺哪些，不会产出「签了名但没公证」这种半成品
 
 签名+公证会让 `dist:mac` 明显变慢：产物里内置了 Node / Python 运行时与多个 sidecar 二进制，逐个签名再上传公证，整体多出 10～30 分钟属正常。
 
@@ -197,20 +198,32 @@ xcrun notarytool history --key "$APPLE_API_KEY" --key-id "$APPLE_API_KEY_ID" --i
 | `APPLE_API_ISSUER` | App Store Connect Issuer ID |
 | `APPLE_TEAM_ID` | Developer Program Team ID |
 
-macOS 在 matrix 里是 `dist:mac:arm64` 与 `dist:mac:x64` 两个任务（内置的 node/python 运行时按 `VETTA_VENDOR_PLATFORM` 单架构落盘，一次构建出不了两套），分别跑在 `macos-15` 与 `macos-15-intel` 托管 runner 上，两者各自签名公证并校验，产物元数据以 `latest-mac-<arch>.yml` 上传，由发布任务的 `merge:updates:mac` 合并回单一 `latest-mac.yml`。
+macOS 在 matrix 里是 `dist:mac:arm64` 与 `dist:mac:x64` 两个任务，分别在匹配架构的 GitHub runner 上生成 ad-hoc 包。GitHub Actions 不要求完整 Apple 凭据，也不会执行签名、公证或 Gatekeeper 检测；`verify:updates:mac` 只校验元数据、文件大小、SHA-512、blockmap 和产物布局。
 
-公证不需要专用签名机：`notarytool` 只是把签好名的产物传给 Apple 换票据，托管 runner 有网络即可。工作流会在 runner 的临时目录还原 `.p12` 和 `.p8`（`chmod 600`），仅通过环境变量传给 electron-builder，构建结束随 runner 销毁。完全没有这些 Secrets 时，tag 和手动构建都允许生成未签名包；只配置一部分仍会直接失败，避免产出「签了名但没公证」的半成品。反过来，**只要 Secrets 配齐，非发布的 `workflow_dispatch` 演练也会签名并公证**，因为开关只看凭据完整性；想快速验证构建可以设 `VETTA_SKIP_NOTARIZE=1` 只签名不公证。凭据齐全时会设置 `VETTA_REQUIRE_MAC_SIGNATURE=1`，构建后自动校验 ZIP 内应用的签名、Gatekeeper 接受状态和公证票据。正式启用签名后，发布负责人还应把“macOS 必须签名”设为发布策略，不能继续把未签名包当成最终交付物。
+正式签名流程仍可在独立环境中使用下列凭据：
 
+- `MACOS_CERTIFICATE_P12_BASE64`
+- `MACOS_CERTIFICATE_PASSWORD`
+- `APPLE_API_KEY_P8_BASE64`
+- `APPLE_API_KEY_ID`
+- `APPLE_API_ISSUER`
+- `APPLE_TEAM_ID`
+
+### 4.3 本地/独立流程：ad-hoc 或正式签名
+
+GitHub 打包固定使用 electron-builder 的 `identity: "-"`。本地或独立正式流程可按需配置 Developer ID 签名与公证；未配置凭据时 ad-hoc 包首次打开可能需要右键「打开」或在「系统设置 → 隐私与安全性 → 仍要打开」放行，且不适合作为正式公证分发包。
+
+完全未签名仅用于本地排查：设置 `VETTA_MAC_ADHOC_SIGN=0`。
 ## 5. 验证
 
-拿到 `apps/desktop/release/Vetta-<version>.dmg` 后逐条跑：
+拿到 `apps/desktop/release/MetoAI-<version>.dmg` 后逐条跑：
 
 ```bash
 # 1. 挂载 DMG
-hdiutil attach release/Vetta-*.dmg
+hdiutil attach release/MetoAI-*.dmg
 
 # 2. 公证票据已钉进 app
-xcrun stapler validate /Volumes/Vetta*/Vetta.app
+xcrun stapler validate /Volumes/MetoAI*/MetoAI.app
 # 期望：The validate action worked!
 #
 # 注意校验对象是 app 不是 DMG：electron-builder 的顺序是「签 app → 公证 app →
@@ -220,21 +233,23 @@ xcrun stapler validate /Volumes/Vetta*/Vetta.app
 # app 已钉票据，装好后离线启动不受影响。
 
 # 3. 检查 app 签名
-codesign -dv --verbose=4 /Volumes/Vetta*/Vetta.app
+codesign -dv --verbose=4 /Volumes/MetoAI*/MetoAI.app
 # 期望：Authority=Developer ID Application: <公司名> (<TeamID>)
 #       flags 里含 runtime（= hardened runtime 生效）
 #       TeamIdentifier=<TeamID>，不是 not set
 
 # 4. 深度校验所有嵌套二进制
-codesign --verify --deep --strict --verbose=2 /Volumes/Vetta*/Vetta.app
+codesign --verify --deep --strict --verbose=2 /Volumes/MetoAI*/MetoAI.app
 # 期望：valid on disk / satisfies its Designated Requirement
 
 # 5. Gatekeeper 放行
-spctl -a -vvv -t install /Volumes/Vetta*/Vetta.app
+spctl -a -vvv -t install /Volumes/MetoAI*/MetoAI.app
 # 期望：accepted，source=Notarized Developer ID
 
-hdiutil detach /Volumes/Vetta*
+hdiutil detach /Volumes/MetoAI*
 ```
+
+ad-hoc 或未签名产物**不要**照第 2、5 条期望通过：没有公证票据，`spctl` 不会给出 `accepted`，`codesign -dv` 显示的是 `Signature=adhoc` / `TeamIdentifier=not set`。这类产物只需确认能启动（右键 → 打开）且功能正常。
 
 最后必须做一次**真机端到端验证**：把 DMG 上传到 CDN，从**另一台没装过开发者证书的 Mac** 用浏览器下载（一定要走浏览器，`scp`/AirDrop 不会打 quarantine 标记，测不出问题），拖入 `/Applications` 双击——应该直接启动，不出现任何「已损坏」「无法验证开发者」弹窗。
 
@@ -250,7 +265,7 @@ hdiutil detach /Volumes/Vetta*
 
 **公证返回 `Invalid`，`xcrun notarytool log <submissionId>` 显示 `The binary is not signed with a valid Developer ID certificate`**
 
-产物里有没签到的嵌套 Mach-O 二进制。Vetta 在 `Contents/Resources/` 下带了 `im-gateway`、`cli-host`、`vendor/node`、`vendor/python`、`appshot` 等一堆可执行文件，日志会指出具体是哪个路径。查看完整日志：
+产物里有没签到的嵌套 Mach-O 二进制。MetoAI 在 `Contents/Resources/` 下带了 `im-gateway`、`cli-host`、`vendor/node`、`vendor/python`、`appshot` 等一堆可执行文件，日志会指出具体是哪个路径。查看完整日志：
 
 ```bash
 xcrun notarytool log <submissionId> \
@@ -270,7 +285,7 @@ xcrun notarytool log <submissionId> \
 **公证通过但用户仍报「已损坏」**
 
 - 先确认用户下载的是**新版本**——已发布的旧 DMG 不会追溯获得票据
-- 让用户跑 `xattr -l /Applications/Vetta.app`，若只有 `com.apple.quarantine` 而 app 是公证过的，通常是下载过程被网络中间设备改写导致签名失效，换直链或换网络重下
+- 让用户跑 `xattr -l /Applications/MetoAI.app`，若只有 `com.apple.quarantine` 而 app 是公证过的，通常是下载过程被网络中间设备改写导致签名失效，换直链或换网络重下
 
 **`Team ID` 填错**
 
@@ -280,14 +295,27 @@ xcrun notarytool log <submissionId> \
 
 Developer ID Application 证书有效期 5 年。**已公证的历史产物不受影响**（票据不随证书过期失效），但过期后无法签新版本。到期前重新走一遍第 2 节即可，`.p12` 与相关 Secret 一并更新。
 
+**用户报「未知开发者」而不是「已损坏」**
+
+这是 ad-hoc 签名（未配置 Apple 凭据）的预期表现。让用户右键 → 打开，或到「系统设置 → 隐私与安全性 → 仍要打开」；DMG 里的「修复已损坏.app」也能摘掉隔离属性。要彻底消除该提示必须配齐签名与公证凭据。
+
+**ad-hoc 包点「仍要打开」后仍然打不开**
+
+ad-hoc 签名不含 Team ID，也没有公证票据，Gatekeeper 可能直接拒绝。先让用户执行 `xattr -dr com.apple.quarantine /Applications/MetoAI.app`（或跑 DMG 里的修复助手）再试；仍然失败说明产物本身有问题，回到构建日志确认签名步骤。
+
+**ad-hoc 包的自动更新一直失败**
+
+预期行为，不是 bug。ad-hoc 签名每次构建都不同，Squirrel.Mac 会拒绝身份不一致的更新，只能由用户手动下载安装包。需要 mac 自动更新就必须配置 Developer ID 凭据。
+
 ---
 
 ## 7. 相关文件
 
 | 路径 | 作用 |
 |---|---|
-| `apps/desktop/scripts/prepare-pack.js` | `resolveMacSigning()` 决定开不开签名；生成 electron-builder 配置 |
+| `apps/desktop/scripts/mac-signing-config.mjs` | `resolveMacSigningConfig()` 解析三态签名模式（signed / adhoc / unsigned） |
+| `apps/desktop/scripts/prepare-pack.js` | 按签名模式生成 electron-builder 配置与 DMG 版式 |
 | `apps/desktop/build/entitlements.mac.plist` | 主 app 的 hardened runtime entitlements |
 | `apps/desktop/build/entitlements.mac.inherit.plist` | 子进程继承用 entitlements |
-| `apps/desktop/scripts/build-mac-repair-helper.js` | 「修复已损坏.app」，仅未签名构建使用 |
+| `apps/desktop/scripts/build-mac-repair-helper.js` | 「修复已损坏.app」，未签名与 ad-hoc 构建使用 |
 | `docs/adr/0003-dmg-repair-helper.md` | 未签名时期修复助手的决策背景 |

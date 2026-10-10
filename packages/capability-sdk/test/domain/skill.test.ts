@@ -145,7 +145,7 @@ describe("skill domain capabilities", () => {
 				presentation: {
 					defaultVisibility: "hidden",
 					surfaces: { agentConfiguration: "visible", skillPicker: "hidden" },
-					displayName: "Vetta 设计",
+					displayName: "Metoai 设计",
 					displayDescription: "设计产品界面",
 				},
 			},
@@ -157,7 +157,7 @@ describe("skill domain capabilities", () => {
 		expect(isSkillVisibleOnSurface(skill, "skillPicker")).toBe(false);
 		expect(isSkillVisibleOnSurface(skill, "commandPalette")).toBe(false);
 		expect(isSkillVisibleOnSurface(skill, "pluginDetail")).toBe(false);
-		expect(getSkillDisplayName(skill)).toBe("Vetta 设计");
+		expect(getSkillDisplayName(skill)).toBe("Metoai 设计");
 		expect(getSkillDisplayDescription(skill)).toBe("设计产品界面");
 	});
 

@@ -12,6 +12,7 @@ import { join } from "node:path";
 import { promisify } from "node:util";
 import type { PluginContext } from "@vetta-org/plugin-sdk";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { HOST_CONFIG_DIR_NAME } from "../src/shared/host-data-root";
 
 const execFileAsync = promisify(execFile);
 
@@ -27,9 +28,10 @@ function fakeContext(): PluginContext {
 	const command = {
 		async run(file: string, args: string[] = [], options: { env?: Record<string, string> } = {}) {
 			runCount++;
-			// 真实宿主会解析到托管 node；测试里指向当前进程的 node 即可。
-			if (args[0] === "-p" && args[1]?.includes("homedir")) {
-				return { stdout: `${home}\n`, stderr: "", exitCode: 0 };
+			// 真实宿主会解析到托管 node；测试里指向当前进程的 node 即可。数据根这里按
+			// 「宿主已经迁移完」模拟，临时 home 下并不会真的建出 `.metoai`。
+			if (args[0] === "-e" && args[1]?.includes("homedir")) {
+				return { stdout: `${join(home, HOST_CONFIG_DIR_NAME)}\n`, stderr: "", exitCode: 0 };
 			}
 			try {
 				const { stdout, stderr } = await execFileAsync(process.execPath, args, {
@@ -62,7 +64,9 @@ describe("runner 物化", () => {
 		const ctx = fakeContext();
 		const runner = await ensureRunner(ctx, home);
 
-		expect(runner.startsWith(`${home}/.vetta/plugin-data/vetta-ui-design/history-runner/`)).toBe(true);
+		// 路径分隔符在 Windows 上是反斜杠，统一成正斜杠再比前缀。
+		const expectedDir = `${home.replace(/\\/g, "/")}/${HOST_CONFIG_DIR_NAME}/plugin-data/vetta-ui-design/history-runner/`;
+		expect(runner.replace(/\\/g, "/").startsWith(expectedDir)).toBe(true);
 		expect(existsSync(runner)).toBe(true);
 		// 分块写入必须原样还原：截断或错序都会让下面这次执行报语法错误。
 		const design = await mkdtemp(join(tmpdir(), "vetd-runner-design-"));
@@ -82,7 +86,7 @@ describe("runner 物化", () => {
 		const second = await reloaded.ensureRunner(fakeContext(), home);
 
 		expect(second).toBe(first);
-		// 第二次只有 homedir + 存在性探测两次调用，没有任何分块写。
+		// 第二次只有数据根 + 存在性探测两次调用，没有任何分块写。
 		expect(runCount - callsAfterFirst).toBe(2);
 	});
 

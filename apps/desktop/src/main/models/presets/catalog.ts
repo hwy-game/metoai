@@ -1,4 +1,6 @@
 /** 拉取模型列表的适配器种类——各家 /models 接口形状不同,按此分派。 */
+import { METOAI_BASE_URL, METOAI_DISPLAY_NAME, METOAI_ICON, METOAI_PRESET_ID } from "../../../shared/metoai.js";
+
 export type PresetFetcher = "anthropic" | "openai-compatible" | "gemini";
 
 export interface PresetProviderDef {
@@ -21,6 +23,19 @@ const NON_CHAT =
 	/embedding|embed|whisper|tts|audio|realtime|-live-|moderation|dall-e|image|transcribe|rerank|vision-ocr|veo-|lyria|imagen|deep-research|computer-use|-character|livetranslate/i;
 
 export const PRESET_PROVIDERS: readonly PresetProviderDef[] = [
+	// MetaToken 是本产品的官方服务商，固定排在第一，方便用户开箱即用。
+	{
+		id: METOAI_PRESET_ID,
+		displayName: METOAI_DISPLAY_NAME,
+		icon: METOAI_ICON,
+		// 聚合中转站同样走 Responses API：部分模型（如带 function tools + reasoning_effort 的
+		// gpt-6-luna）在 /v1/chat/completions 上会被上游直接拒绝，要求改用 /v1/responses。
+		api: "openai-responses",
+		baseUrl: METOAI_BASE_URL,
+		fetcher: "openai-compatible",
+		// 聚合中转站:模型全量透传,不做过滤,保留用户可用的全部模型。
+		isChatModel: () => true,
+	},
 	{
 		id: "claude",
 		displayName: "Claude",

@@ -1,8 +1,16 @@
 import type { AbilityType } from "@shared/lib/api";
-import type { AbilityItem, AbilityProvenanceFilter, AbilityScope } from "../types";
+import {
+	ABILITY_MODULES,
+	type AbilityItem,
+	type AbilityModule,
+	type AbilityModuleCount,
+	type AbilityProvenanceFilter,
+	type AbilityScope,
+} from "../types";
 import { isMarketAbilityListed } from "./merge-ability-catalogs";
 
-export interface AbilityCatalogQuery {
+/** 除分页外的全部筛选条件；模块 tab 的计数复用同一套口径。 */
+export interface AbilityCatalogFilter {
 	scope: AbilityScope;
 	keyword?: string;
 	category?: string;
@@ -10,11 +18,12 @@ export interface AbilityCatalogQuery {
 	sourceIds?: string[];
 	/** 来源维度：`market` 只留市场条目，`builtin` 只留随 App 分发的内置能力；缺省不限。 */
 	provenance?: AbilityProvenanceFilter;
+}
+
+export interface AbilityCatalogQuery extends AbilityCatalogFilter {
 	page: number;
 	pageSize: number;
 }
-
-export type AbilityCatalogFilter = Omit<AbilityCatalogQuery, "page" | "pageSize">;
 
 export interface AbilityCatalogPage {
 	items: AbilityItem[];
@@ -70,7 +79,7 @@ export function isAbilityListedInPersonal(item: AbilityItem): boolean {
 	return isUniversalSkill(item) || isManuallyInstalledAbility(item);
 }
 
-/** 按分区、关键词与各筛选维度过滤并排序，不分页。 */
+/** 按分区、关键词与各筛选维度过滤并排序，不分页。模块计数也走这里，避免两处口径漂移。 */
 export function filterAbilityCatalog(items: AbilityItem[], filter: AbilityCatalogFilter): AbilityItem[] {
 	const keyword = filter.keyword?.trim().toLowerCase() ?? "";
 	const types = filter.types?.length ? new Set(filter.types) : null;
@@ -110,4 +119,28 @@ export function queryAbilityCatalog(items: AbilityItem[], query: AbilityCatalogQ
 		pageSize,
 		pageCount: Math.ceil(paged.length / pageSize),
 	};
+}
+
+/**
+ * 模块 tab 计数：忽略模块与分类筛选，只保留 scope + 搜索词。
+ *
+ * 每个模块都要出现（含 0），否则 tab 会随数据增删而移位，用户找不到刚才那个模块。
+ */
+export function countAbilitiesByModule(
+	items: AbilityItem[],
+	filter: Omit<AbilityCatalogFilter, "types" | "category">,
+): AbilityModuleCount[] {
+	const filtered = filterAbilityCatalog(items, filter);
+	return ABILITY_MODULES.map((module) => ({
+		module,
+		total: filtered.filter((item) => item.type === module).length,
+	}));
+}
+
+/**
+ * 默认模块：数据到达前先落在「技能」，一旦有内容就落在**第一个有条目的模块**，
+ * 免得只装了插件的用户打开页面看到一个空模块。用户点过模块 tab 后不再自动改选。
+ */
+export function pickDefaultModule(counts: AbilityModuleCount[]): AbilityModule {
+	return counts.find((entry) => entry.total > 0)?.module ?? ABILITY_MODULES[0];
 }

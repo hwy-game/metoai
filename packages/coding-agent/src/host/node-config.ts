@@ -3,7 +3,15 @@ import { homedir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { getVettaHomePath } from "@vetta/action-rpc";
-import { APP_NAME, ENV_AGENT_DIR, ENV_PACKAGE_DIR, ENV_SHARE_VIEWER_URL, PACKAGE_NAME } from "../identity.js";
+import {
+	APP_NAME,
+	CONFIG_DIR_NAME,
+	ENV_AGENT_DIR,
+	ENV_PACKAGE_DIR,
+	ENV_SHARE_VIEWER_URL,
+	LEGACY_CONFIG_DIR_NAME,
+	PACKAGE_NAME,
+} from "../identity.js";
 
 export { getVettaHomePath } from "@vetta/action-rpc";
 
@@ -200,6 +208,23 @@ export function getUserSkillsDir(): string {
 
 export function getKnowledgeDir(): string {
 	return join(getVettaHomePath(), "knowledges");
+}
+
+export interface ProjectConfigDirectoryResolution {
+	/** 写入落点，也是读取首选。 */
+	readonly dir: string;
+	/** 品牌改名前的旧目录，只在读取时回退使用。 */
+	readonly legacyDir: string;
+}
+
+/** 项目内配置目录的单一解析入口。写入只用 dir；读取时 dir 不存在才回退 legacyDir。 */
+export function resolveProjectConfigDir(cwd: string): ProjectConfigDirectoryResolution {
+	return { dir: join(cwd, CONFIG_DIR_NAME), legacyDir: join(cwd, LEGACY_CONFIG_DIR_NAME) };
+}
+
+/** 按读取优先级排列的项目内配置路径候选：新目录在前，旧目录在后。 */
+export function projectConfigPathCandidates(cwd: string, ...segments: string[]): string[] {
+	return [join(cwd, CONFIG_DIR_NAME, ...segments), join(cwd, LEGACY_CONFIG_DIR_NAME, ...segments)];
 }
 
 function expandHomeDirectory(path: string): string {

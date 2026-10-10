@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { CONFIG_DIR_NAME } from "../../identity.js";
+import { PROJECT_CONFIG_DIR_NAMES } from "../../identity.js";
 import type { ResourceAccessPort } from "../contracts/resource-access.js";
 
 export async function resolvePromptInput(
@@ -73,8 +73,10 @@ export async function discoverPromptFile(
 	filename: string,
 	signal?: AbortSignal,
 ): Promise<string | undefined> {
-	const projectPath = access.paths.join(cwd, CONFIG_DIR_NAME, filename);
-	if (await access.files.stat(projectPath, { signal })) return projectPath;
+	for (const dirName of PROJECT_CONFIG_DIR_NAMES) {
+		const projectPath = access.paths.join(cwd, dirName, filename);
+		if (await access.files.stat(projectPath, { signal })) return projectPath;
+	}
 	const globalPath = access.paths.join(agentDir, filename);
 	return (await access.files.stat(globalPath, { signal })) ? globalPath : undefined;
 }

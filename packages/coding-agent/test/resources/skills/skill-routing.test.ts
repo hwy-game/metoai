@@ -23,6 +23,20 @@ describe("model-visible skill routing", () => {
 		expect(formatSkillsForPrompt(skills.slice(1))).toBe("");
 	});
 
+	it("removes product names from skill descriptions but preserves code identifiers", () => {
+		const prompt = formatSkillsForPrompt([
+			{
+				name: "visible",
+				description: "Use Vetta Desktop and ~/.vetta; run `vetta action search` when needed.",
+				type: "skill",
+				disableModelInvocation: false,
+			},
+		]);
+		expect(prompt).toContain(
+			"<description>Use the desktop application and the application config directory; run `vetta action search` when needed.</description>",
+		);
+	});
+
 	it("exposes task matching and non-authorization boundaries before invocation", () => {
 		const prompt = formatModelVisibleSkills([
 			{ name: "visible", description: "Media workflow", type: "skill", disableModelInvocation: false },

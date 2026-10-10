@@ -4,11 +4,11 @@ import type {
 	CodingAgentPromptRuntimeSources,
 } from "@vetta/coding-agent/composition";
 import {
-	CONFIG_DIR_NAME,
 	getAgentDir,
 	getSceneDir,
 	getUserSkillsDir,
 	getVettaHomePath,
+	resolveProjectConfigDir,
 } from "@vetta/coding-agent/config";
 import {
 	configureThemeRuntime,
@@ -55,11 +55,15 @@ export interface CreateCliSessionResourceRuntimeOptions
 		CliResourceRuntimeScope {}
 
 export function createCliSettingsRuntime(cwd: string, agentDir: string): SettingsRuntime {
+	const projectConfigDir = resolveProjectConfigDir(cwd);
 	return createSettingsRuntimeFromStorage(
-		new NodeScopedTextStorage({
-			global: join(agentDir, "settings.json"),
-			project: join(cwd, CONFIG_DIR_NAME, "settings.json"),
-		}),
+		new NodeScopedTextStorage(
+			{
+				global: join(agentDir, "settings.json"),
+				project: join(projectConfigDir.dir, "settings.json"),
+			},
+			{ project: join(projectConfigDir.legacyDir, "settings.json") },
+		),
 		{
 			clearOnShrink: process.env.PI_CLEAR_ON_SHRINK === "1",
 			showHardwareCursor: process.env.PI_HARDWARE_CURSOR === "1",

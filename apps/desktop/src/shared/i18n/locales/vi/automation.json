@@ -1,0 +1,221 @@
+{
+  "page": {
+    "title": "Tự động hóa",
+    "subtitle": "Để AI chạy tác vụ theo lịch và rảnh tay hơn",
+    "create": "Tạo",
+    "searchPlaceholder": "Tìm kiếm tự động hóa"
+  },
+  "recommend": {
+    "title": "Đề xuất",
+    "items": {
+      "morningBrief": {
+        "name": "Điểm tin buổi sáng",
+        "desc": "Tóm tắt buổi sáng ngày thường về thay đổi trong kho mã, việc chưa commit và các việc cần tập trung",
+        "schedule": "Ngày thường 09:00",
+        "prompt": "Hãy làm trợ lý điểm tin buổi sáng cho tôi trong không gian làm việc hiện tại:\n1. Kiểm tra git status và các commit gần đây nếu có git\n2. Liệt kê thay đổi chưa commit, nhánh chưa push hoặc trở ngại có thể gặp\n3. Đề xuất 3 việc cần tập trung rõ ràng cho hôm nay\nTrả lời bằng tiếng Anh với cấu trúc ngắn gọn. Không sửa tệp nào."
+      },
+      "dailySummary": {
+        "name": "Tổng kết cuối ngày",
+        "desc": "Điểm lại buổi tối các thay đổi hôm nay thành một nhật ký công việc ngắn",
+        "schedule": "Hàng ngày 18:00",
+        "prompt": "Tạo bản tóm tắt công việc hôm nay cho không gian làm việc này:\n1. Tóm tắt những gì đã làm dựa trên git log / thay đổi tệp\n2. Nêu rõ việc còn dang dở hoặc cần làm tiếp\n3. Đề xuất tối đa 3 bước tiếp theo cho ngày mai\nDùng gạch đầu dòng ngắn gọn. Không sửa mã."
+      },
+      "weeklyReview": {
+        "name": "Điểm lại tuần",
+        "desc": "Báo cáo tuần vào chiều thứ Sáu từ các commit trong tuần",
+        "schedule": "Thứ Sáu 17:00",
+        "prompt": "Tạo bản điểm lại tuần cho kho hiện tại:\n1. Tóm tắt các commit chính và tiến độ tính năng trong tuần\n2. Ghi lại rủi ro, nợ kỹ thuật hoặc vấn đề lặp lại\n3. Đề xuất ưu tiên cho tuần sau (tối đa 5 mục)\nViết sẵn để dán vào báo cáo tuần. Không sửa tệp trong kho."
+      }
+    }
+  },
+  "dialog": {},
+  "form": {
+    "namePlaceholder": "Tên tác vụ",
+    "promptPlaceholder": "Nhập câu lệnh... gõ / để gọi kỹ năng/cảnh",
+    "name": "Tên tác vụ",
+    "runTarget": "Chạy trong",
+    "runMode": {
+      "new-session": "Phiên mới mỗi lần",
+      "same-session": "Cùng phiên"
+    },
+    "project": "Dự án",
+    "projectNone": "Không (Hội thoại)",
+    "session": "Phiên",
+    "sessionHint": "Mỗi lần chạy đều tiếp tục trong phiên này, nên ngữ cảnh của nó không ngừng tích lũy",
+    "sessionNew": "Bắt đầu phiên mới",
+    "sessionMissing": "Phiên đã liên kết không còn tồn tại",
+    "model": "Mô hình",
+    "modelFollowDefault": "Theo mô hình mặc định",
+    "repeat": "Lặp lại",
+    "time": "Thời gian",
+    "atMinutePrefix": "Vào phút",
+    "atMinuteSuffix": "của mỗi giờ",
+    "monthlyShortMonthHint": "Những tháng không có ngày đã chọn (ví dụ 30 tháng 2) sẽ bị bỏ qua; chọn \"Ngày cuối\" để chạy vào cuối tháng",
+    "cronExpression": "Biểu thức cron",
+    "cronHint": "phút giờ ngày tháng thứ, theo giờ địa phương; sửa trực tiếp biểu thức và nó sẽ đồng bộ với các bộ chọn",
+    "cronAny": "Mọi",
+    "cronTextOnly": "Phần này dùng cú pháp mà bộ chọn không hiển thị được; hãy sửa trực tiếp biểu thức",
+    "cronField": {
+      "minute": "Phút",
+      "hour": "Giờ",
+      "day": "Ngày",
+      "month": "Tháng",
+      "weekday": "Thứ"
+    },
+    "notify": "Thông báo webhook",
+    "notifyEndpoints": "Thông báo",
+    "notifyGoSettings": "Chưa có webhook nào — hãy thêm trong Cài đặt",
+    "notifyEndpointDisabled": "Webhook này đã bị tắt và sẽ không gửi",
+    "notifyWhen": "Gửi khi",
+    "notifyWhenOption": {
+      "always": "Luôn luôn",
+      "success": "Chỉ khi thành công",
+      "failure": "Chỉ khi thất bại"
+    },
+    "notifyTemplate": "Tin nhắn",
+    "notifyTemplateDefault": "{{name}} {{status}} ({{duration}})\n\n{{reply}}",
+    "variables": {
+      "name": "Tác vụ",
+      "status": "Trạng thái",
+      "startedAt": "Bắt đầu",
+      "duration": "Thời lượng",
+      "reply": "Phản hồi",
+      "error": "Lỗi"
+    },
+    "enabledLabel": "Đã bật",
+    "intervalPrefix": "Mỗi",
+    "intervalSuffix": "phút",
+    "intervalHint": "Tính từ lúc bạn lưu; thay đổi khoảng thời gian sẽ đếm lại từ đầu",
+    "sectionDetails": "Chi tiết",
+    "sectionFrequency": "Tần suất",
+    "sectionNotify": "Thông báo",
+    "intervalLabel": "Khoảng thời gian",
+    "minuteLabel": "Phút",
+    "weekdays": "Các thứ trong tuần",
+    "monthDays": "Ngày"
+  },
+  "scheduleMode": {
+    "once": "Một lần",
+    "daily": "Hàng ngày",
+    "interval": "Khoảng thời gian",
+    "hourly": "Hàng giờ",
+    "weekly": "Hàng tuần",
+    "monthly": "Hàng tháng",
+    "custom": "Tùy chỉnh"
+  },
+  "schedule": {
+    "once": "Một lần vào {{date}} {{time}}",
+    "daily": "Hàng ngày lúc {{time}}",
+    "weekly": "Hàng tuần vào {{days}} lúc {{time}}",
+    "weekdayJoin": ", ",
+    "weekdayNames": [
+      "CN",
+      "T2",
+      "T3",
+      "T4",
+      "T5",
+      "T6",
+      "T7"
+    ],
+    "hourly": "Hàng giờ vào :{{minute}}",
+    "monthly": "Hàng tháng vào {{days}} lúc {{time}}",
+    "monthDay": "ngày {{day}}",
+    "lastDay": "Ngày cuối",
+    "custom": "Tùy chỉnh",
+    "intervalMinutes": "Mỗi {{minutes}} phút",
+    "intervalHours": "Mỗi {{hours}} giờ"
+  },
+  "list": {
+    "running": "Đang chạy",
+    "pending": "Đang chờ",
+    "disabled": "Đã tắt",
+    "runNow": "Chạy ngay",
+    "run": "Chạy",
+    "sectionTitle": "Tác vụ tự động hóa",
+    "pause": "Tạm dừng",
+    "enable": "Bật",
+    "edit": "Sửa",
+    "delete": "Xóa",
+    "success": "Thành công",
+    "failed": "Thất bại",
+    "neverRun": "Chưa chạy lần nào",
+    "justNow": "vừa xong",
+    "minutesAgo": "{{n}} phút trước",
+    "hoursAgo": "{{n}} giờ trước",
+    "daysAgo": "{{n}} ngày trước",
+    "suspended": "Tạm dừng",
+    "target": "{{mode}} · {{project}}",
+    "filter": {
+      "all": "Tất cả",
+      "enabled": "Đang hoạt động",
+      "paused": "Tạm dừng",
+      "done": "Đã xong"
+    },
+    "emptySearch": "Không có tự động hóa phù hợp",
+    "emptyFilter": "Chưa có gì ở đây",
+    "done": "Đã xong",
+    "nextRun": "lần chạy tới {{when}}",
+    "inMinutes": "sau {{n}} phút",
+    "inHours": "sau {{n}} giờ",
+    "inDays": "sau {{n}} ngày"
+  },
+  "confirm": {
+    "deleteTitle": "Xóa tác vụ \"{{name}}\"?",
+    "deleteMsg": "Không thể hoàn tác. Vui lòng xác nhận để tiếp tục.",
+    "delete": "Xóa",
+    "cancel": "Hủy"
+  },
+  "drawer": {},
+  "history": {
+    "title": "Lịch sử chạy",
+    "refresh": "Làm mới",
+    "empty": "Không có bản ghi chạy",
+    "status": {
+      "success": "Thành công",
+      "failed": "Thất bại",
+      "running": "Đang chạy",
+      "aborted": "Đã hủy bỏ",
+      "skipped": "Đã bỏ qua",
+      "missed": "Bị bỏ lỡ"
+    },
+    "reason": {
+      "previous-running": "Lần chạy trước vẫn đang tiếp diễn",
+      "app-not-running": "Ứng dụng không chạy",
+      "system-sleep": "Máy tính đang ở chế độ ngủ"
+    },
+    "missedMany": "Bị bỏ lỡ {{times}} lần, đến {{until}} · {{reason}}",
+    "notifyFailed": "Gửi thông báo thất bại: {{error}}"
+  },
+  "suspended": {
+    "session-deleted": "Phiên đã liên kết đã bị xóa. Hãy chọn lại phiên rồi bật lại.",
+    "project-removed": "Dự án đích đã bị xóa khỏi thanh bên. Hãy chọn lại dự án rồi bật lại."
+  },
+  "notify": {
+    "status": {
+      "success": "thành công",
+      "failed": "thất bại",
+      "aborted": "đã hủy bỏ"
+    },
+    "noEndpoint": "Tất cả webhook đã chọn đều bị tắt hoặc đã bị xóa"
+  },
+  "detail": {
+    "status": {
+      "active": "Đang hoạt động",
+      "running": "Đang chạy",
+      "paused": "Tạm dừng",
+      "suspended": "Tạm dừng · đích không khả dụng",
+      "done": "Đã xong",
+      "draft": "Tự động hóa mới"
+    },
+    "close": "Đóng",
+    "runNow": "Chạy ngay",
+    "pause": "Tạm dừng",
+    "enable": "Bật",
+    "more": "Thêm",
+    "delete": "Xóa",
+    "openChat": "Mở trò chuyện",
+    "discard": "Hủy bỏ",
+    "save": "Lưu",
+    "create": "Tạo"
+  }
+}

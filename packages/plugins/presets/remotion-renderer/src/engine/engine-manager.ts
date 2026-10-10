@@ -1,6 +1,6 @@
 import type { PluginCommandSpawnHandle, PluginContext } from "@vetta-org/plugin-sdk";
+import { RESOLVE_HOST_DATA_ROOT_SCRIPT } from "../config-dirs";
 import { ENGINE_FILES, engineFilesHash } from "./engine-files";
-
 export interface RemotionEngineServer {
 	port: number;
 	handle: PluginCommandSpawnHandle;
@@ -25,7 +25,7 @@ const READY_SCRIPT = [
 	"process.stdout.write(JSON.stringify({hash,server:fs.existsSync(p.join(root,'server.mjs'))}));",
 ].join("");
 
-let cachedHome: string | null = null;
+let cachedDataRoot: string | null = null;
 let ensurePromise: Promise<string> | null = null;
 let activeServer: RemotionEngineServer | null = null;
 let startPromise: Promise<RemotionEngineServer> | null = null;
@@ -39,17 +39,19 @@ function encodeBase64(text: string): string {
 	return btoa(binary);
 }
 
-async function resolveHome(ctx: PluginContext): Promise<string> {
-	if (cachedHome) return cachedHome;
-	const result = await ctx.command.run("node", ["-p", "require('os').homedir()"]);
-	const home = result.stdout.trim();
-	if (result.exitCode !== 0 || !home) throw new Error(`Unable to resolve the home directory: ${result.stderr}`);
-	cachedHome = home;
-	return home;
+async function resolveDataRoot(ctx: PluginContext): Promise<string> {
+	if (cachedDataRoot) return cachedDataRoot;
+	const result = await ctx.command.run("node", ["-e", RESOLVE_HOST_DATA_ROOT_SCRIPT]);
+	const dataRoot = result.stdout.trim();
+	if (result.exitCode !== 0 || !dataRoot) {
+		throw new Error(`Unable to resolve the home directory: ${result.stderr}`);
+	}
+	cachedDataRoot = dataRoot;
+	return dataRoot;
 }
 
 async function engineRoot(ctx: PluginContext): Promise<string> {
-	return `${await resolveHome(ctx)}/.vetta/plugin-data/remotion-renderer/engine/${ENGINE_VERSION}`;
+	return `${await resolveDataRoot(ctx)}/plugin-data/remotion-renderer/engine/${ENGINE_VERSION}`;
 }
 
 async function isReady(ctx: PluginContext, root: string): Promise<boolean> {

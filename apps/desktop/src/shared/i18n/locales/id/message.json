@@ -1,0 +1,25 @@
+{
+  "title": "Pusat Pesan",
+  "triggerTitle": "Pusat Pesan",
+  "tabs": {
+    "all": "Semua",
+    "notifications": "Notifikasi",
+    "official": "Resmi"
+  },
+  "empty": {
+    "all": "Tidak ada pesan",
+    "notifications": "Tidak ada notifikasi",
+    "official": "Tidak ada pesan resmi"
+  },
+  "notification": {
+    "markAllRead": "Tandai semua dibaca",
+    "clearRead": "Bersihkan yang dibaca",
+    "delete": "Hapus"
+  },
+  "time": {
+    "justNow": "Baru saja",
+    "minutesAgo": "{{n}} mnt lalu",
+    "hoursAgo": "{{n}} jam lalu",
+    "daysAgo": "{{n}} hr lalu"
+  }
+}

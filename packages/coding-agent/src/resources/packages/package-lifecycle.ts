@@ -22,7 +22,10 @@ export class ResourcePackageLifecycle {
 
 	async getInstalledPath(source: ParsedResourceSource, scope: ResourceScope): Promise<string | undefined> {
 		const resourcePath = this.sourcePath(source, scope);
-		return (await this.exists(resourcePath)) ? resourcePath : undefined;
+		if (await this.exists(resourcePath)) return resourcePath;
+		// 品牌改名前的项目目录：旧包里已经装好的资源继续可见，但不会因此改写项目里的 `.vetta/`。
+		const legacyPath = this.locations.legacyProjectPath(source, scope);
+		return legacyPath && legacyPath !== resourcePath && (await this.exists(legacyPath)) ? legacyPath : undefined;
 	}
 
 	async needsNpmInstall(source: NpmResourceSource, installedPath: string): Promise<boolean> {

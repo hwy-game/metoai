@@ -1,8 +1,8 @@
+import { PROJECT_CONFIG_DIR_NAMES } from "../../identity.js";
 import type { ResourceDiagnostic } from "../contracts/diagnostics.js";
 import type { ResourceAccessPort, ResourceFileInfo } from "../contracts/resource-access.js";
 import { loadSkills, type Skill } from "../skills/index.js";
 
-const PROJECT_CONFIG_DIRECTORY = ".vetta";
 const FINGERPRINT_READ_CONCURRENCY = 8;
 
 interface SkillPathInspection {
@@ -91,7 +91,10 @@ export async function computeSkillsFingerprint(
 	for (const path of paths) await walk(path);
 	if (options.includeDefaults) {
 		await walk(access.paths.join(options.agentDir, "skills"));
-		await walk(access.paths.join(options.cwd, PROJECT_CONFIG_DIRECTORY, "skills"));
+		// 品牌改名前后两个项目技能目录都要参与指纹，否则旧目录里的改动刷新不出来。
+		for (const dirName of PROJECT_CONFIG_DIR_NAMES) {
+			await walk(access.paths.join(options.cwd, dirName, "skills"));
+		}
 	}
 	if (options.includeAgentSkills) {
 		await walk(access.paths.join(access.paths.homeDirectory(), ".agents", "skills"));

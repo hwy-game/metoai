@@ -22,7 +22,7 @@ const iconMapCache = new Map<string, Promise<SkillIconMap>>();
 async function loadSkillIconMap(token: string | null): Promise<SkillIconMap> {
 	const map = new Map<string, string>();
 	const [server, open] = await Promise.allSettled([
-		token ? fetchMarketAbilities(token) : Promise.resolve([]),
+		fetchMarketAbilities(token),
 		window.vetta.abilities.listOpenMarketplaces(),
 	]);
 	const entries: Array<{ type: string; slug: string; icon: string }> = [];

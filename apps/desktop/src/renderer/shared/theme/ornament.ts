@@ -9,14 +9,16 @@
 
 export type OrnamentId = "mario" | "none" | "vivi";
 
-export const ORNAMENT_STORAGE_KEY = "vetta-hero-ornament";
+/** 存储键带版本：v2 起默认装饰件是 Vivi，换键让存量选择一次性回到新默认（用户可在设置里重选）。 */
+export const ORNAMENT_STORAGE_KEY = "vetta-hero-ornament-v2";
 
 /**
- * 默认不挂装饰件。目录里也只收「平时静止、被触发才动一下」的装饰件：常驻无限动画的
- * 那几枚（燃烧、火把、星轨、玩手、能源井）每帧都要重绘，窗口空闲时单燃烧一枚就占掉
- * 近三成 GPU，已整体移除。存过这些 id 的用户会被 isOrnamentId 判为无效，回落到「无」。
+ * 默认挂上 Vivi：它是产品的默认形象，首次打开时它最能说明这块位置是活的。
+ * 目录里也只收「平时静止、被触发才动一下」的装饰件：常驻无限动画的那几枚（燃烧、火把、
+ * 星轨、玩手、能源井）每帧都要重绘，窗口空闲时单燃烧一枚就占掉近三成 GPU，已整体移除。
+ * 存过这些 id 的用户会被 isOrnamentId 判为无效，回落到这里的默认值。
  */
-export const DEFAULT_ORNAMENT_ID: OrnamentId = "none";
+export const DEFAULT_ORNAMENT_ID: OrnamentId = "vivi";
 
 export interface OrnamentCatalogEntry {
 	/** i18n 描述文案（settings 命名空间）。 */

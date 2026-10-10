@@ -10,6 +10,36 @@ export const DESKTOP_UPDATE_METADATA_FILES = Object.freeze([
 	"latest-linux.yml",
 ]);
 
+// 平台 → 该平台的 electron-updater 元数据文件。
+const METADATA_FILE_BY_PLATFORM = Object.freeze({
+	windows: "latest.yml",
+	linux: "latest-linux.yml",
+	macos: "latest-mac.yml",
+});
+
+// mac 是尽力而为平台（见 docs/adr/0122-macos-adhoc-signed-release-builds.md）：缺凭据时
+// 它可能压根没有产物，所以缺失是合法状态，必须按「本次真正产出的平台」收口。注意这不是
+// 放宽校验——windows / linux 的元数据仍然逐个校验到位，只是清单由 release-gate 决定。
+export function resolveUpdateFeedMetadataFiles(env = process.env) {
+	const configured = env.VETTA_UPDATE_FEED_PLATFORMS?.trim();
+	if (!configured) return [...DESKTOP_UPDATE_METADATA_FILES];
+	const platforms = configured.split(",").map((value) => value.trim()).filter(Boolean);
+	if (platforms.length === 0) {
+		throw new Error("[verify-update-feed] VETTA_UPDATE_FEED_PLATFORMS must list at least one platform");
+	}
+	const files = [];
+	for (const platform of platforms) {
+		const file = METADATA_FILE_BY_PLATFORM[platform];
+		if (!file) {
+			throw new Error(
+				`[verify-update-feed] VETTA_UPDATE_FEED_PLATFORMS contains unsupported platform ${JSON.stringify(platform)}; supported: windows, linux, macos`,
+			);
+		}
+		if (!files.includes(file)) files.push(file);
+	}
+	return files;
+}
+
 function requireReleaseVersion(version) {
 	const value = version?.trim().replace(/^v/, "");
 	if (!value || !/^\d+\.\d+\.\d+$/.test(value)) {
@@ -85,7 +115,7 @@ async function verifyArtifactAvailability(url, options) {
 export async function verifyUpdateFeed({
 	env = process.env,
 	version,
-	metadataFiles = DESKTOP_UPDATE_METADATA_FILES,
+	metadataFiles,
 	fetchImpl = fetch,
 	attempts = 4,
 	retryDelayMs = 1000,
@@ -94,8 +124,10 @@ export async function verifyUpdateFeed({
 	const releaseVersion = requireReleaseVersion(version);
 	const baseUrl = resolveUpdateFeedBase({ env, version: releaseVersion });
 	const requestOptions = { fetchImpl, attempts, retryDelayMs, timeoutMs };
+	// 显式传入时（测试与定向校验）优先；否则按 VETTA_UPDATE_FEED_PLATFORMS 或全部三个平台。
+	const metadataFilesToVerify = metadataFiles ?? resolveUpdateFeedMetadataFiles(env);
 	const verifiedArtifacts = [];
-	for (const metadataName of metadataFiles) {
+	for (const metadataName of metadataFilesToVerify) {
 		const metadataUrl = new URL(metadataName, baseUrl).toString();
 		const metadataResponse = await requireResponse(metadataUrl, { method: "GET" }, requestOptions);
 		let document;
@@ -118,7 +150,7 @@ export async function verifyUpdateFeed({
 	return {
 		version: releaseVersion,
 		baseUrl,
-		metadataFiles: [...metadataFiles],
+		metadataFiles: [...metadataFilesToVerify],
 		artifacts: verifiedArtifacts,
 	};
 }

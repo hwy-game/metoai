@@ -8,7 +8,7 @@ import { CancellationError } from "builder-util-runtime";
 import type { ResolvedUpdateFileInfo } from "electron-updater";
 
 const VERSION_PATTERN = /^[0-9A-Za-z][0-9A-Za-z.+-]{0,63}$/;
-const WINDOWS_EXECUTABLE_NAME = "Vetta.exe";
+const WINDOWS_EXECUTABLE_NAME = "MetoAI.exe";
 const INSTALL_COMPLETE_FILE_NAME = ".install-complete";
 const PROGRESS_POLL_INTERVAL_MS = 250;
 const INSTALL_VISIBILITY_TIMEOUT_MS = 30_000;
@@ -277,7 +277,7 @@ export function isVersionedWindowsExecutable(executablePath: string, version: st
 
 export function resolveInnoUpdateStoreRoot(localAppData = process.env.LOCALAPPDATA): string {
 	if (!localAppData) throw new Error("LOCALAPPDATA is unavailable");
-	return win32.resolve(localAppData, "Vetta");
+	return win32.resolve(localAppData, "MetoAI");
 }
 
 export class InnoWindowsUpdateController {
@@ -298,6 +298,17 @@ export class InnoWindowsUpdateController {
 					totalBytes: this.selection.size,
 				}
 			: null;
+	}
+	/**
+	 * 宿主自行下载安装包（服务端 `download_url`）时登记安装目标：与 `select()` 得到的
+	 * 选择结构一致，之后的 `prepareDownloadedInstaller` / `activate` 流程完全相同。
+	 */
+	selectDownloadedPackage(input: { version: string; sizeBytes: number; fileName: string }): InnoUpdateAsset {
+		if (!isValidVersion(input.version)) throw new Error(`Invalid update version: ${input.version}`);
+		const size = Number.isSafeInteger(input.sizeBytes) && input.sizeBytes > 0 ? input.sizeBytes : 0;
+		this.selection = { version: input.version, size, fileName: input.fileName };
+		this.prepared = null;
+		return { assetFileName: input.fileName, totalBytes: size };
 	}
 
 	async prepareDownloadedInstaller(

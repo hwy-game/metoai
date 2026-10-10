@@ -7,6 +7,8 @@ export interface SidebarUpdateBannerModel {
 	label: string;
 	restartLabel: string;
 	dismissLabel: string;
+	/** forced 为 false 时才显示「忽略」按钮；强制更新期间横幅不可忽略。 */
+	dismissable: boolean;
 	onRestart: () => void;
 	onDismiss: () => void;
 }
@@ -32,6 +34,7 @@ export function useSidebarUpdateBannerModel(): SidebarUpdateBannerModel | null {
 	if (state.phase !== "ready") return null;
 
 	return {
+		dismissable: !state.forced,
 		label: t("update.bannerReady", { version: state.latestVersion ?? "" }),
 		restartLabel: t("update.bannerRestart"),
 		dismissLabel: t("update.bannerDismiss"),

@@ -1,9 +1,9 @@
 import type { ThemeColorOverrides } from "@vetta-org/theme-sdk/appearance";
+import { DEFAULT_RESOLVED_MODE, DEFAULT_THEME_MODE, type ResolvedMode, type ThemeMode } from "@/shared/theme-defaults";
 import { DEFAULT_THEME_ID, getTheme, resolveThemeId } from "./themes";
 import { TOKEN_CSS_VAR, type TokenSet } from "./tokens";
 
-export type ThemeMode = "light" | "dark" | "auto";
-export type ResolvedMode = "light" | "dark";
+export { DEFAULT_RESOLVED_MODE, DEFAULT_THEME_MODE, type ResolvedMode, type ThemeMode };
 
 export const MODE_STORAGE_KEY = "vetta-theme";
 export const THEME_STORAGE_KEY = "vetta-color-theme";
@@ -43,7 +43,7 @@ export function resolveThemeMode(mode: ThemeMode): ResolvedMode {
 }
 
 export function applyStoredTheme(): void {
-	const mode = (localStorage.getItem(MODE_STORAGE_KEY) as ThemeMode | null) ?? "dark";
+	const mode = (localStorage.getItem(MODE_STORAGE_KEY) as ThemeMode | null) ?? DEFAULT_THEME_MODE;
 	const rawThemeId = localStorage.getItem(THEME_STORAGE_KEY) ?? DEFAULT_THEME_ID;
 	const themeId = resolveThemeId(rawThemeId);
 	if (themeId !== rawThemeId) {

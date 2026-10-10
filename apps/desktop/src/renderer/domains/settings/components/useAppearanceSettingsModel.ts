@@ -1,7 +1,6 @@
 import { useCursorStyle } from "@shared/hooks/useCustomCursor";
 import { useHeroOrnament } from "@shared/hooks/useHeroOrnament";
 import { useLanguage } from "@shared/hooks/useLanguage";
-import { useNarrowScreen } from "@shared/hooks/useNarrowScreen";
 import { useNewSessionTexture } from "@shared/hooks/useNewSessionTexture";
 import { useSidebarStyle } from "@shared/hooks/useSidebarStyle";
 import { useTheme } from "@shared/hooks/useTheme";
@@ -16,7 +15,7 @@ import type { ThemeDef } from "@shared/theme/tokens";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { isAppearanceUiThemeEnabled } from "@/shared/feature-flags";
-import type { LanguagePreference } from "@/shared/i18n/config";
+import { FIXED_LANGUAGE_OPTIONS, type LanguagePreference } from "@/shared/i18n/config";
 import defaultThemePreview from "../assets/default.webp";
 import xianxiaThemePreview from "../assets/xianxia.webp";
 import { SETTINGS_SECTION } from "../registry";
@@ -121,7 +120,6 @@ export interface AppearanceSettingsModel {
 	languages: AppearanceLanguageOption[];
 	mode: ThemeMode;
 	modeOptions: AppearanceModeOption[];
-	narrow: boolean;
 	ornamentId: OrnamentId;
 	ornamentOptions: AppearanceOrnamentOption[];
 	/** 是否展示「界面主题」区段（`VETTA_SHOW_UI_THEME=true`） */
@@ -162,16 +160,6 @@ const MODE_OPTIONS = [
 	labelKey: "themeDark" | "themeLight" | "themeSystem";
 	value: ThemeMode;
 }>;
-
-/** 固定语言名（语种自称，非 UI chrome 文案）；system 项 label 由 i18n 注入。 */
-const FIXED_LANGUAGE_OPTIONS: ReadonlyArray<{
-	value: Exclude<LanguagePreference, "system">;
-	native: string;
-	alt: string;
-}> = [
-	{ value: "zh", native: "中文", alt: "Chinese" },
-	{ value: "en", native: "English", alt: "英文" },
-];
 
 const UI_THEME_OPTIONS = [
 	{
@@ -231,7 +219,6 @@ export function useAppearanceSettingsModel(): AppearanceSettingsModel {
 	const { ornamentId, setOrnament } = useHeroOrnament();
 	const { textureId, setTexture } = useNewSessionTexture();
 	const { t } = useTranslation("settings");
-	const narrow = useNarrowScreen();
 
 	const languages = useMemo<AppearanceLanguageOption[]>(
 		() => [
@@ -414,7 +401,6 @@ export function useAppearanceSettingsModel(): AppearanceSettingsModel {
 		languages,
 		mode,
 		modeOptions,
-		narrow,
 		ornamentId,
 		ornamentOptions,
 		showUiTheme: isAppearanceUiThemeEnabled(),
