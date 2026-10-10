@@ -225,7 +225,9 @@ describe("Desktop release workflow contracts", () => {
 		expect(workflow).toContain("environment: $" + "{{");
 		expect(workflow).toContain("'desktop-production' }}");
 		expect(workflow).toContain("OUTPUT_BUILD_VERSION");
-		expect(workflow).toContain("REQUIRE_RELEASE_SIGNATURE");
+		expect(workflow).toContain("VETTA_MAC_ADHOC_SIGN=1");
+		expect(workflow).toContain("VETTA_REQUIRE_MAC_SIGNATURE=0");
+		expect(workflow).not.toContain("A published macOS build requires signing and notarization credentials.");
 		expect(workflow).toContain("needs.prepare.outputs.should-publish == 'true'");
 		expect(workflow).toContain('--target "' + "$" + '{GITHUB_SHA}"');
 	});
